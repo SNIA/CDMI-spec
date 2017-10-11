@@ -1,13 +1,13 @@
 ## USAGE
 
-The SNIA hereby grants permission for individuals to use this document for personal use only, and for corporations and other business entities to use this document for internal use only (including internal
-copying, distribution, and display) provided that:
+Copyright © 2017 SNIA. All rights reserved. All other trademarks or registered trademarks are the property of their respective owners.
+
+The SNIA hereby grants permission for individuals to use this document for personal use only, and for corporations and other business entities to use this document for internal use only (including internal copying, distribution, and display) provided that:
 
 1. Any text, diagram, chart, table or definition reproduced shall be reproduced in its entirety with no alteration, and,
 2. Any document, printed or electronic, in which material from this document (or any portion hereof) is reproduced shall acknowledge the SNIA copyright on that material, and shall credit the SNIA for granting permission for its reuse.
 
-Other than as explicitly provided above, you may not make any commercial use of this document, sell any excerpt or this entire document, or distribute this document to third parties. All rights not explicitly granted
-are expressly reserved to SNIA.
+Other than as explicitly provided above, you may not make any commercial use of this document, sell any excerpt or this entire document, or distribute this document to third parties. All rights not explicitly granted are expressly reserved to SNIA.
 
 Permission to use this document for purposes other than those enumerated above may be requested by emailing tcmd@snia.org. Please include the identity of the requesting individual or company and a brief description of the purpose, nature, and scope of the requested use.
 
