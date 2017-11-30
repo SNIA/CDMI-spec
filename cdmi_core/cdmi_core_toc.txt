@@ -1,0 +1,9 @@
+*********
+CDMI Core
+*********
+
+.. toctree::
+
+  cdmi_data_object/cdmi_data_object_toc
+  cdmi_container_object/cdmi_container_object_toc
+  

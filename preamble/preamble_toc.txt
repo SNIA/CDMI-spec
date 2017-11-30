@@ -1,0 +1,16 @@
+.. _part_preamble:
+
+#############
+CDMI Preamble
+#############
+
+.. toctree::
+
+   usage
+   disclaimer
+   introduction
+   scope
+   normative_references
+   terms
+   conventions
+   overview

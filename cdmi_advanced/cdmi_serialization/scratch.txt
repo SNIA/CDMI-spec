@@ -1,0 +1,236 @@
+
+<DIV>
+.. _50532474__Toc127343516:
+.. _50532474__Ref120863640:
+Serialization/Deserialization
+========================================
+<DIV>
+
+Overview
+************************
+
+Occasionally, bulk data movement is needed between, into, or out of clouds. When moving bulk data, cloud serialization operations provide a means to normalize data to a canonical, self-describing format, which includes:
+
+
+* data migration between clouds,
+* data migration during upgrades (or replacements) of cloud implementations, and
+* robust backup.
+
+
+The canonical format of serialized data describes how the data is to be represented in a byte stream. As long as this byte stream is not changed during the transfer from source to destination, the data may be reconstituted on the destination system.
+</DIV>
+<DIV>
+
+Exporting Serialized Data
+************************
+
+A canonical encoding of the data is obtained by creating a new data object and specifying that the source for the creation is to serialize a given CDMI™ data object, container object, or queue object. On a successful serialization, the result shall be a data object that is created with the serialized data as its value. If a container object has an exported block protocol, the serialized data may contain the block-by-block contents of that container object along with its metadata.
+
+The resulting data object that is produced is the canonical representation of the selected data object, container object and children, or queue object. 
+
+
+* If the source specified is a data object, the canonical format shall contain all data object fields, including the value, valuetransferencoding, and metadata fields. 
+* If the source being specified is a queue object, the canonical format shall contain all queue object fields, including the value and valuetransferencoding fields of enqueued items, along with the metadata of the queue object itself. 
+* If the source being specified is a container object, the canonical format shall contain all container object fields, recursively, including all children of the container object. If a user attempts to serialize a container object that includes children that the user, who is performing the serialization operation, does not have permission to read, these objects shall not be included in the resulting serialized object.
+
+
+When performing a serialization operation, objects shall only be included if the principal initiating the serialization has sufficient permissions to read those objects.
+</DIV>
+<DIV>
+
+Importing Serialized Data
+************************
+
+Canonical data may be deserialized back into the cloud by creating a new data object, container object, or queue object and by specifying that the source for the creation is to deserialize a given CDMI data object or by specifying the serialized data in base 64 encoding in the deserializevalue field.
+
+The destination may or may not exist previously. If not, a create operation is performed. If a container object already exists, an update operation with serialized children shall update the container object and all children. If the serialized container object does not contain children, only the container object is updated. Data objects are recreated as specified in the canonical format, including all metadata and the data object ID.
+
+
+* If the user who is deserializing a serialized data object has the cross_domain privilege and has not specified a domainURI as part of the deserialize operation, the original domainURIs from the serialized object shall be used. If any of the specified domainURIs are not valid in the context of the storage system on which the deserialization operation is being performed, the entire deserialize operation shall fail.
+* If the user who is deserializing a serialized object specifies a domainURI as part of the deserialize operation, the domainURI of every object being deserialized shall be set to the specified domainURI. To specify a domainURI other than the domainURI of the parent, the user shall have the cross_domain privilege. If the user does not have the cross_domain privilege and specifies a domainURI other than the domainURI of the parent, an HTTP status code of ``400 Bad Request`` shall be returned.
+* If the user who is deserializing a serialized object does not specify a domainURI and does not have the cross_domain privilege, then the deserialization operation shall only be successful if all objects have the same domainURI as the parent object on which the deserialization operation is being performed.
+
+
+Deserialization operations shall restore all metadata from the specified source. If the original provider of the serialized data-supported vendor extensions is through custom metadata keys and values, then these customized requirements shall be restored when deserialized. However, the custom metadata keys and values may be treated as user metadata (preserved, but not interpreted) by the destination provider. Preservation allows custom data requirements to move between clouds without losing this information.
+<DIV>
+
+Canonical Format
+-----
+
+The canonical format shall represent specified data objects and container objects as they exist within the storage system. Each object shall be represented by the metadata for the object, identifiers, and the data stream contents of the data object. Because metadata is inherited from enclosing container objects, all parent metadata shall be represented in the canonical format (essentially flattening the hierarchy). To preserve the actual metadata values that apply to the data object that is being serialized, the non-overridden metadata is included from both the immediate parent container object of the specified object and from the parent of each higher-level container object. 
+
+The canonical format shall have the following characteristics:
+
+
+* recursive JSON for the data object, consistent with the rest of CDMI;
+* user and data system metadata for each data object/container object; 
+* data stream contents for each data object and queue object; 
+* binary data represented using escaped JSON strings; and 
+* typing of data values consistent with CDMI JSON representations. 
+
+</DIV>
+<DIV>
+
+Example JSON Canonical Serialized Format
+-----
+<DIV>
+<H6 CLASS="Example">
+In this example, a data object and a queue object in a container object have been selected for serialization:</H6>
+
+    {
+
+        "objectType": "application/cdmi-container",
+
+        "objectID": "00007E7F00102E230ED82694DAA975D2",
+
+        "objectName": "MyContainer/",
+
+        "parentURI": "/",
+
+        "parentID": "00007E7F0010128E42D87EE34F5A6560",
+
+        "domainURI": "/cdmi_domains/MyDomain/",
+
+        "capabilitiesURI": "/cdmi_capabilities/container/",
+
+        "completionStatus": "Complete",
+
+        "metadata": {
+
+    				...
+
+    		},
+
+        "exports": {
+
+            "OCCI/iSCSI": {
+
+                "identifier": "00007E7F00104BE66AB53A9572F9F51E",
+
+                "permissions": [
+
+                    "http://example.com/compute/0/",
+
+                    "http://example.com/compute/1/"
+
+                ]
+
+            },
+
+            "Network/NFSv4": {
+
+                "identifier": "/users",
+
+                "permissions": "domain"
+
+            }
+
+        },
+
+        "childrenrange": "0-1",
+
+        "children": [
+
+            {
+
+                "objectType": "application/cdmi-object",
+
+                "objectID": "00007ED900104F67307652BAC9A37C93",
+
+                "objectName": "MyDataObject.txt",
+
+                "parentURI": "/MyContainer/",
+
+                "parentID": "00007E7F00102E230ED82694DAA975D2",
+
+                "domainURI": "/cdmi_domains/MyDomain/",
+
+                "capabilitiesURI": "/cdmi_capabilities/dataobject/",
+
+                "completionStatus": "Complete",
+
+                "mimetype": "text/plain",
+
+                "metadata": {
+
+    								...
+
+    						},
+
+                "valuerange": "0-36",
+
+                "valuetransferencoding": "utf-8",
+
+                "value": "This is the Value of this Data Object"
+
+            },
+
+            {
+
+                "objectType": "application/cdmi-queue",
+
+                "objectID": "00007E7F00104BE66AB53A9572F9F51E",
+
+                "objectName": "MyQueue",
+
+                "parentURI": "/MyContainer/",
+
+                "parentID": "00007E7F00102E230ED82694DAA975D2",
+
+                "domainURI": "/cdmi_domains/MyDomain/",
+
+                "capabilitiesURI": "/cdmi_capabilities/queue/",
+
+                "completionStatus": "Complete",
+
+                "metadata": {
+
+    								...
+
+    						},
+
+                "queueValues": "0-1",
+
+                "mimetype": [
+
+                    "text/plain",
+
+                    "text/plain"
+
+                ],
+
+                "valuetransferencoding": [
+
+                    "utf-8",
+
+                    "utf-8"
+
+                ],
+
+                "valuerange": [
+
+                    "0-2",
+
+                    "0-3"
+
+                ],
+
+                "value": [
+
+                    "red",
+
+                    "blue"
+
+                ]
+
+            }
+
+        ]
+
+    }
+
+To allow efficient deserialization in stream mode when serializing container objects to JSON, the children array should be the last item in the canonical serialized JSON format.
+</DIV>
+</DIV>
+</DIV>
+</DIV>

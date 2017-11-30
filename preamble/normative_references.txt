@@ -1,0 +1,90 @@
+.. _chap_normative_references:
+
+Normative References
+====================
+
+The following documents, in whole or in part, are normatively referenced in this document and are indispensable for its application. For dated references, only the edition cited applies. For undated references, the latest edition of the referenced document (including any amendments) applies. 
+
+The provisions of the referenced specifications other than ISO/IEC, IEC, ISO, and ITU documents, as identified in this clause, are valid within the context of this international standard. The reference to such a specification within this international standard does not give it any further status within ISO/IEC. In particular, it does not give the referenced specifications the status of an international standard. 
+
+.. todo:: find a better way of keeping a bibliography.
+
+.. glossary::
+
+    ISO 3166
+         Codes for the representation of names of countries and their subdivisions (Parts 1, 2 and 3) 
+
+    ISO 4217:2008
+         Codes for the representation of currencies and funds
+
+    ISO 8601:2004
+         Data elements and interchange formats – Information interchange – Representation of dates and times
+
+    ISO/IEC 9594-8:2008
+         Information technology – Open Systems Interconnection – The Directory: Public-key and attribute certificate frameworks
+
+    ISO 14701:2012
+         Space data and information transfer systems – Open archival information system (OAIS) – Reference model
+
+    ISO/IEC 14776-414
+         SCSI Architecture Model - 4 (SAM-4)
+
+    ISO/IEC DIS 27040
+         Information technology – Security techniques – Storage security
+
+    IEEE Std 1003.1
+         2004, POSIX ERE, The Open Group, Base Specifications Issue 6 - http://www.unix.org/version3/ieee_std.html
+
+    RFC 1867
+         Form-based File Upload in HTML - see :rfc:`1867`
+
+    RFC 2045
+         Multipurpose Internet Mail Extensions (MIME) Part One: Format of Internet Message Bodies - see :rfc:`2045`
+
+    RFC 2046
+         Multipurpose Internet Mail Extensions (MIME) Part Two: Media Types - see :rfc:`2046`
+
+    RFC 2119
+         Key Words for Use in RFCs to Indicate Requirement Levels - see :rfc:`2119`
+
+    RFC 2578
+         Structure of Management Information Version 2 (SMIv2) - see :rfc:`2578`
+
+    RFC 2616
+         Hypertext Transfer Protocol – HTTP/1.1 - see :rfc:`2616`
+
+    RFC 2617
+         HTTP Authentication: Basic and Digest Access Authentication - see :rfc:`2617`
+
+    RFC 3280
+         Internet X.509 Public Key Infrastructure Certificate and Certificate Revocation List (CRL) Profile - see :rfc:`3280`
+
+    RFC 3530
+         Network File System (NFS) Version 4 Protocol - see :rfc:`3530`
+
+    RFC 3720
+         Internet Small Computer Systems Interface (iSCSI) - see :rfc:`3720`
+
+    RFC 3986
+         Uniform Resource Identifier (URI): Generic Syntax - see :rfc:`3986`
+
+    RFC 4627
+         The Application/JSON Media Type for JavaScript Object Notation (JSON) - see :rfc:`4627` 
+
+    RFC 4648
+         The Base16, Base32, and Base64 Data Encodings - see :rfc:`4648`
+
+    RFC 4918
+         HTTP Extensions for Web Distributed Authoring and Versioning (WebDAV) - see :rfc:`4918`
+
+    RFC 5246
+         The Transport Layer Security (TLS) Protocol Version 1.2 - see :rfc:`5246`
+
+    RFC 6208
+         Cloud Data Management Interface (CDMI) Media Types - see :rfc:`6208`
+
+    RFC 6839
+         Additional Media Type Structured Syntax Suffixes - see :rfc:`6839`
+
+    SNIA TLS
+         TLS Specification for Storage Systems, version 1.0 - https://snia.org/tech_activities/standards/curr_standards/tls

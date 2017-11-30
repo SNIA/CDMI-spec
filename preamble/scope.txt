@@ -1,0 +1,6 @@
+.. _chap_scope:
+
+Scope
+=====
+
+This CDMI™ international standard specifies the interface to access cloud storage and to manage the data stored therein. This international standard applies to developers who are implementing or using cloud storage. 

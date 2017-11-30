@@ -1,0 +1,107 @@
+Create a Container Object using HTTP
+************************************
+
+Synopsis
+--------
+
+To create a new container object, the following request shall be performed:
+
+    PUT <root URI>/<ContainerName>/<NewContainerName>/
+
+Where:
+
+
+* <root URI> is the path to the CDMI cloud.
+* <ContainerName> is zero or more intermediate container objects that already exist, with one slash (i.e., "/") between each pair of container object names.
+* <NewContainerName> is the name specified for the container object to be created.
+
+
+After it is created, the container object shall also be accessible at <root URI>/cdmi_objectid/<objectID>/.
+
+The presence of a trailing slash at the end of the HTTP PUT URI indicates that a container object is being created and distinguishes it from a request to create a data object.
+
+
+
+
+Capability
+----------
+
+The following capability describes the supported operations that may be performed when creating a new container object:
+
+
+* Support for the ability to create a new container object is indicated by the presence of the cdmi_create_container capability in the parent container object.
+
+
+
+
+Request Headers 
+---------------
+
+Request headers may be provided as per :rfc:`2616`.
+
+
+
+Request Message Body 
+--------------------
+
+A request body shall not be provided.
+
+
+
+Response Headers 
+----------------
+
+Response headers may be provided as per :rfc:`2616`.
+
+
+
+Response Message Body 
+---------------------
+
+A response body may be provided as per :rfc:`2616`.
+
+
+
+Response Status
+---------------
+
+:numref:`tbl_create_a_container_object_using_http_http_status_codes` describes the HTTP status codes that occur when creating a container object using HTTP. 
+
+.. _tbl_create_a_container_object_using_http_http_status_codes:
+
+.. list-table:: HTTP Status Codes - Create a Container Object using HTTP
+    :header-rows: 1
+    :widths: auto
+    :align: center 
+
+
+    * - HTTP Status
+      - Description
+    * - ``201 Created``
+      - The new container object was created.
+    * - ``400 Bad Request``
+      - The request contains invalid parameters or field names.
+    * - ``401 Unauthorized``
+      - The authentication credentials are missing or invalid.
+    * - ``403 Forbidden``
+      - The client lacks the proper authorization to perform this request.
+    * - ``404 Not Found``
+      - The resource was not found at the specified URI.
+    * - ``409 Conflict``
+      - The operation conflicts with a non-CDMI access protocol lock or may cause a state transition error on the server.
+
+Example
+-------
+
+#. PUT to the URI the container object name:
+
+   .. code-block:: http
+
+       PUT /MyContainer/ HTTP/1.1
+       Host: cloud.example.com
+
+   The following shows the response.
+
+   .. code-block:: http
+   
+       HTTP/1.1 201 Created

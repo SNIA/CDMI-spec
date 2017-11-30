@@ -1,0 +1,14 @@
+Welcome to CDMI specification!
+==============================================
+
+.. toctree::
+   :maxdepth: 3
+   :caption: Table of Contents:
+   :numbered:
+   
+   preamble/preamble_toc      
+   basic_cloud_storage/basic_cloud_storage_toc
+   cdmi_core/cdmi_core_toc
+   cdmi_advanced/cdmi_advanced_toc
+   cdmi_annexes/cdmi_annexes_toc
+   references/references

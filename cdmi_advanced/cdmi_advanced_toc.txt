@@ -1,0 +1,20 @@
+*************
+CDMI Advanced
+*************
+
+.. toctree::
+
+  cdmi_domain_object
+  cdmi_queue_object/cdmi_queue_object_toc
+  cdmi_capability_object/cdmi_capability_object_toc
+  cdmi_exports/cdmi_exports_toc
+  cdmi_snapshots/cdmi_snapshots_toc
+  cdmi_serialization/cdmi_serialization_toc
+  cdmi_metadata/cdmi_metadata_toc
+  cdmi_retention/cdmi_retention_toc
+  cdmi_scope/cdmi_scope_toc
+  cdmi_results/cdmi_results_toc
+  cdmi_logging/cdmi_logging_toc
+  cdmi_notifications/cdmi_notifications_toc
+  cdmi_query_queues/cdmi_query_queues_toc
+  

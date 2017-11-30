@@ -1,0 +1,23 @@
+Container Object Resource Operations using HTTP
+===============================================
+
+.. toctree::
+
+  overview
+  create
+  read
+  update
+  delete
+  create_post
+
+
+
+
+
+
+
+
+
+
+
+

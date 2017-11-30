@@ -1,0 +1,17 @@
+
+Data Object Resource Operations using CDMI
+==========================================
+
+.. toctree::
+
+  overview
+  create
+  read
+  update
+  delete
+
+
+
+
+
+

@@ -1,0 +1,106 @@
+Delete a Container Object using HTTP
+************************************
+
+
+Synopsis
+--------
+
+To delete an existing container object, including all contained children and snapshots, the following request shall be performed:
+
+    DELETE <root URI>/<ContainerName>/<TheContainerName>/ 
+
+Where:
+
+
+* <root URI> is the path to the CDMI cloud.
+* <ContainerName> is zero or more intermediate container objects.
+* <TheContainerName> is the name of the container object to be deleted.
+
+
+The object shall also be accessible at <root URI>/cdmi_objectid/<objectID>/.
+
+
+
+
+Capability 
+----------
+
+The following capability describes the supported operations that may be performed when deleting an existing container object:
+
+
+* Support for the ability to delete an existing container object is indicated by the presence of the cdmi_delete_container capability in the specified container object.
+
+
+
+
+Request Headers 
+---------------
+
+Request headers may be provided as per :rfc:`2616`.
+
+
+
+Request Message Body 
+--------------------
+
+A request body may be provided as per :rfc:`2616`.
+
+
+
+Response Headers 
+----------------
+
+Response headers may be provided as per :rfc:`2616`.
+
+
+
+Response Message Body 
+---------------------
+
+A response body may be provided as per :rfc:`2616`.
+
+
+
+Response Status
+---------------
+
+:ref:`tbl_delete_a_container_object_using_http_http_status_codes` describes the HTTP status codes that occur when deleting a container object using HTTP.
+
+.. _tbl_delete_a_container_object_using_http_http_status_codes:
+
+.. list-table:: HTTP Status Codes - Delete a Container Object using HTTP
+    :header-rows: 1
+    :widths: auto
+    :align: center 
+
+    * - HTTP Status
+      - Description
+    * - ``204 No Content``
+      - The container object was successfully deleted.
+    * - ``400 Bad Request``
+      - The request contains invalid parameters or field names.
+    * - ``401 Unauthorized``
+      - The authentication credentials are missing or invalid.
+    * - ``403 Forbidden``
+      - The client lacks the proper authorization to perform this request.
+    * - ``404 Not Found``
+      - The resource was not found at the specified URI.
+    * - ``409 Conflict``
+      - The operation conflicts with a non-CDMI access protocol lock or may cause a state transition error on the server.
+
+
+Example
+-------
+
+#. DELETE to the container object URI:
+
+   .. code-block:: http
+
+       DELETE /MyContainer/ HTTP/1.1
+       Host: cloud.example.com
+
+   The following shows the response.
+
+   .. code-block:: http
+
+       HTTP/1.1 204 No Content

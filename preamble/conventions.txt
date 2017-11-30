@@ -1,0 +1,111 @@
+.. _chap_conventions:
+
+Conventions
+===========
+
+.. _sect_interface_format
+
+****************
+Interface Format
+****************
+
+Each interface description has nine components, as described in :numref:`tbl_interface_format`.
+
+.. _tbl_interface_format:
+
+.. table:: Interface Format
+    :align: center
+
+    ======================  =====
+    Component               Description
+    ======================  =====
+    Synopsis                The GET, PUT, POST, and DELETE semantics
+    Delayed Completion      For long-running operations, a description of behavior when the operation does not immediately complete
+    Capabilities            A description of the supported operations
+    Request Headers         The request headers, such as Accept, Authorization, Content-Length, Content-Type, X-CDMI-Specification-Version
+    Request Message Body    A description of the message body contents
+    Response Headers        The response headers, such as Content-Length, Content-Type
+    Response Message Body   A description of the message body contents
+    Response Status         A list of HTTP status codes
+    Example                 An example of the operation
+    ======================  =====
+
+
+
+.. _sect_typographical_conventions:
+
+*************************
+Typographical Conventions
+*************************
+
+All code text and HTTP status codes are shown in a fixed-width font, as follows:
+
+.. code-block:: http
+
+    PUT /MyContainer/MyDataObject.txt HTTP/1.1
+    Host: cloud.example.com
+    Accept: application/cdmi-object
+    Content-Type: application/cdmi-object
+    X-CDMI-Specification-Version: 1.1
+
+    {
+      "mimetype" : "text/plain",
+      "metadata" : {
+          
+      },
+      "value" : "This is the Value of this Data Object"
+    }
+
+Requesting an optional field that is not present shall result in an HTTP status code of ``404 Not Found``.
+
+
+.. _sect_request_and_response_body_requirements:
+
+**************************************
+Request and Response Body Requirements
+**************************************
+
+In request and response body tables, the Requirement column contains one of the following three values: 
+
+* Mandatory. The value specified in this row shall be provided.
+* Conditional. If the condition(s) specified in the Description cell of this row (to the left of the Requirement) is met, the value specified in this row shall be provided. Otherwise, it may be provided unless the Description specifically prohibits it, in which case it shall not be provided.
+* Optional. The value specified in this row may be provided.
+
+
+.. _sect_key_word_requirements:
+
+*********************
+Key Word Requirements
+*********************
+
+In this international standard, the key words in :numref:`tbl_key_word_requirements` shall be interpreted as described in :rfc:`2119`.
+
+.. _tbl_key_word_requirements:
+.. table:: Key Word Requirements
+    :align: center
+
+    +--------------------+--------------------------------------------------------------------------------------------------------------------------------+
+    | Key Words          | Description                                                                                                                    |
+    +====================+================================================================================================================================+
+    | | shall            | An action described with any of these key words is unconditionally required.                                                   |
+    | | must             |                                                                                                                                |
+    | | required         |                                                                                                                                |
+    +--------------------+--------------------------------------------------------------------------------------------------------------------------------+
+    | | shall not        | An action described with either of these key word phrases is unconditionally prohibited.                                       |
+    | | must not         |                                                                                                                                |
+    +--------------------+--------------------------------------------------------------------------------------------------------------------------------+
+    | | should           | Valid reasons may exist in specific circumstances to ignore a particular action described with either of these key words,      |
+    | | recommended      | but the full implications must be understood and carefully weighed before choosing a different course.                         |
+    +--------------------+--------------------------------------------------------------------------------------------------------------------------------+
+    | | should not       | Valid reasons may exist in specific circumstances to accept a particular action described by either of these key word phrases, |
+    | | not recommended  | but the full implications should be understood and the case carefully weighed before implementing any action described with    |
+    |                    | these key words.                                                                                                               |
+    +--------------------+--------------------------------------------------------------------------------------------------------------------------------+
+    | | may              | An action described with either of these key words is truly optional. One vendor may choose to include the option because      |
+    | | optional         | a particular marketplace requires it or because the vendor feels that it enhances the product, while another vendor may omit   |
+    |                    | the same option. An implementation which does not include a particular option must be prepared to interoperate with another    |
+    |                    | implementation which does include the option, though perhaps with reduced functionality. Likewise, an implementation which     |
+    |                    | does include a particular option must be prepared to interoperate with another implementation which does not include the       |
+    |                    | option (except, of course, for the feature the option provides).                                                               |
+    +--------------------+--------------------------------------------------------------------------------------------------------------------------------+
+    

@@ -1,0 +1,190 @@
+.. _chap_terms:
+
+Terms
+=====
+
+For the purposes of this document, the following terms and definitions apply.
+
+.. glossary::
+
+    Access Control List
+    ACL
+         a persistent list, commonly composed of Access Control Entries (ACEs), that enumerates the rights of principals (users and groups) to access resources
+
+
+    API
+         Application Programming Interface
+
+
+    CDMI™
+         Cloud Data Management Interface
+
+
+    CDMI capabilities
+         an object that describes what operations are supported for a given cloud or cloud object
+
+         the mimetype for this object is application/cdmi-capability.
+
+
+
+    CDMI container
+         an object that stores zero or more children objects and associated metadata
+
+         The mimetype for this object is application/cdmi-container.
+
+
+
+    CDMI data object
+         an object that stores an array of bytes (value) and associated metadata
+
+         The mimetype for this object is application/cdmi-object.
+
+
+
+    CDMI domain
+         an object that stores zero or more children domains and associated metadata describing object administrative ownership
+
+         The mimetype for this object is application/cdmi-domain.
+
+
+
+    CDMI object
+         one of CDMI capabilities, CDMI container, CDMI data object, CDMI domain, or CDMI queue
+
+    CDMI queue
+         an object that stores a first-in, first-out set of values and associated metadata
+
+         The mimetype for this object is application/cdmi-queue.
+
+
+    CIFS
+         Common Internet File System
+
+    cloud storage
+         See Data storage as a Service
+
+    CRC
+         cyclic redundancy check
+
+    CRUD
+         create, retrieve, update, delete
+
+    Data storage as a Service
+    DaaS
+         delivery of virtualized storage and data services on demand over a network, based on a request for a given service level that hides limits to scalability, is either self-provisioned or provisionless, and is billed based on consumption
+
+    domain
+         a shared user authorization database that contains users, groups, and their security policies and associated accounting information
+
+         Each CDMI object belongs to a single domain, and each domain provides user mapping and accounting information.
+
+
+    eventual consistency
+         a behavior of transactional systems that does not provide immediate consistency guarantees to provide enhanced system availability and tolerance to network partitioning 
+
+    FC
+         Fibre Channel
+
+    FCoE
+         Fibre Channel over Ethernet
+
+    HTTP
+         HyperText Transfer Protocol
+
+    Infrastructure as a Service
+    IaaS
+         delivery over a network of an appropriately configured virtual computing environment, based on a request for a given service level
+
+         Typically, IaaS is either self-provisioned or provisionless and is billed based on consumption.
+
+
+    iSCSI
+         Internet Small Computer Systems Interface (see :rfc:`3720`)
+
+    JSON
+         JavaScript Object Notation
+
+    LDAP
+         Lightweight Directory Access Protocol
+
+    LUN
+         Logical Unit Number (see :ref:`ISO/IEC 14776-414`)
+
+    metadata
+         data about other data (see :ref:`ISO 14701:2012`)
+
+    MIME
+         Multipurpose Internet Mail Extensions (see :rfc:`2045`)
+
+    NFS
+         Network File System (see :rfc:`3530`)
+
+    object
+         an entity that has an object ID, has a unique URI, and contains state
+
+         Types of CDMI objects include data objects, container objects, capability objects, domain objects, and queue objects. 
+
+
+    object identifier
+         a globally-unique value assigned at creation time to identify an object
+
+    OCCI
+         Open Cloud Computing Interface (see [OCCI]_)
+
+    Platform as a Service
+    PaaS
+         delivery over a network of a virtualized programming environment, consisting of an application deployment stack based on a virtual computing environment
+
+         Typically, PaaS is based on IaaS, is either self-provisioned or provisionless, and is billed based on consumption.
+
+
+    POSIX
+         Portable Operating System Interface (see :ref:`IEEE Std 1003.1`)
+
+
+    private cloud
+         delivery of SaaS, PaaS, IaaS, and/or DaaS to a restricted set of customers, usually within a single organization
+
+         Private clouds are created due to issues of trust.
+
+
+    public cloud
+         delivery of SaaS, PaaS, IaaS, and/or DaaS to, in principle, a relatively unrestricted set of customers
+
+    Representational State Transfer
+    REST
+         a specific set of principles for defining, addressing, and interacting with resources addressable by URIs (see [REST]_)
+
+    RPO
+         recovery point objective
+
+    RTO
+         recovery time objective
+
+    service level
+         performance targets for a service
+
+    SNMP
+         Simple Network Management Protocol
+
+    Software as a Service
+    SaaS
+         delivery over a network, on demand, of the use of an application
+
+         technology that allocates the physical capacity of a volume or file system as applications write data, rather than pre-allocating all the physical capacity at the time of provisioning
+
+    Uniform Resource Identifier
+    URI
+         compact sequence of characters that identifies an abstract or physical resource (see :rfc:`3986`)
+
+    VIM
+         Vendor Interface Module
+
+    virtualization
+         presentation of resources as if they are physical, when in fact, they are decoupled from the underlying physical resources
+
+    WebDAV
+         Web Distributed Authoring and Versioning (see :rfc:`4918`)
+
+    XAM
+         eXtensible Access Method (see [INCITS 464-2010]_)

@@ -1,0 +1,4 @@
+Read a Container Object using HTTP
+**********************************
+
+Reading a container object using HTTP is not defined by this version of this international standard. Clause :ref:`Read a Container Object using CDMI` describes how to read a container object using CDMI.

@@ -1,0 +1,7 @@
+************
+CDMI Annexes
+************
+
+.. toctree::
+
+  extensions/extensions_toc

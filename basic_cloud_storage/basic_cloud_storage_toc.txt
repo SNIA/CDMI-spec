@@ -1,0 +1,8 @@
+###################
+Basic Cloud Storage
+###################
+
+.. toctree::
+  
+  http_data_object/http_data_object_toc
+  http_container_object/http_container_object_toc

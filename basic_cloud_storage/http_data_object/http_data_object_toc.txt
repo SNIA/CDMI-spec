@@ -1,0 +1,17 @@
+Data Object Resource Operations using HTTP
+==========================================
+
+.. toctree::
+
+  overview
+  create
+  read
+  update
+  delete
+
+
+
+
+
+
+

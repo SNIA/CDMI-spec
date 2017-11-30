@@ -1,0 +1,18 @@
+﻿References
+==========
+
+.. rubric:: References
+
+.. [CRC] Williams, Ross, "A Painless Guide to CRC Error Detection Algorithms", Chapter 16, August 1993, http://www.repairfaq.org/filipg/LINK/F_crc_v3.html
+
+.. [OCCI] "Open Cloud Computing Interface", Version 1.1, June 2011. Specification - http://occi-wg.org/about/specification/
+
+.. [PKS12] RSA Laboratories, PKCS #12: Personal Information Exchange Syntax, Version 1.0, June 1999. Specification and Technical Corrigendum - http://www.rsa.com/rsalabs/node.asp?id=2138
+
+.. [REST] "Representational State Transfer" - http://www.ics.uci.edu/~fielding/pubs/dissertation/rest_arch_style.htm
+
+.. [RESTful Web] Richardson, Leonard and Sam Ruby, RESTful Web Services, O'Reilly, 2007.
+
+.. [INCITS 464-2010] Information Technology - Information Management - Extensible Access Method (XAM™)
+
+.. todo:: find a better way to include these references.

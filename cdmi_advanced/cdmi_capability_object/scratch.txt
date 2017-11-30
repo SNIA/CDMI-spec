@@ -1,0 +1,994 @@
+
+<DIV>
+.. _50532471_76604:
+Capability Object Resource Operations using CDMI
+========================================
+<DIV>
+
+Overview
+************************
+
+Capability objects allow a CDMI™ client to discover what subset of this international standard is implemented by a CDMI provider.
+
+For each URI in a cloud storage system, the set of interactions that the system is capable of performing for that URI are described by the presence of named capabilities. Each capability present for a given URI indicates what functionality the cloud storage system will allow against that URI. Capabilities are always static.
+
+Capabilities may differ from the operations permitted by an Access Control List (ACL) (see :ref:`Access Control`) associated with a given URI‚ e.g., a read-only cloud may not permit write access to a container or object, despite the presence of an ACL allowing write access.
+
+Cloud clients may use capabilities to discover what operations are supported. If an operation is attempted on a CDMI object that does not have a corresponding capability, an HTTP status code of ``400 Bad Request`` shall be returned to the client. All CDMI-compliant cloud storage systems shall implement the ability to read capabilities, but support for the functionality indicated by each capability is optional.
+
+Every CDMI data object, container object, domain object, and queue object shall have a capabilitiesURI field that contains a valid URI of a capabilities object. Within the capabilities object, the name of each capability confers a specific meaning that has been agreed to between the cloud storage provider and the cloud storage consumer. 
+
+The capabilities defined as part of this international standard are described starting in :ref:`Cloud Storage System-Wide Capabilities`. Vendor-defined capabilities not specified in this international standard shall not start with "cdmi_". 
+
+:ref:`Hierarchy of Capabilities` shows the hierarchy of capabilities and shows how the capabilitiesURI links data objects and container objects into the capabilities tree. 
+
+
+<H6 CLASS="Figure-Caption">
+.. _50532471_71322:
+Hierarchy of Capabilities</H6>
+</CAPTION>
+    * - <H6 CLASS="NoSpace">
+&nbsp;</H6>
+<DIV>
+<IMG SRC="CDMI_Spec-6.gif" ALT="">
+</DIV>
+</TABLE>
+
+The capabilities container within the capabilities tree to which an object is linked is based on the type of the object and the data system metadata fields present in the object. 
+<DIV>
+<H6 CLASS="Example">
+A container with no data system metadata fields specified may map to the "container" capabilities entry.</H6>
+
+As an option, a CDMI implementation may map a container to a "gold_container" capabilities entry, if a data system metadata field is present and set to a given value, such as if the cdmi_data_redundancy field was set to the value of "4". This permits a cloud provider to create profiles of data system metadata fields and values.
+
+Capabilities do not have a CDMI metadata field.
+</DIV>
+<DIV>
+
+Cloud Storage System-Wide Capabilities
+-----
+
+:ref:`System-Wide Capabilities` defines the system-wide capabilities in a cloud storage system. These capabilities, which are found in the capabilities object, are referred to by the root URI (root capabilities).
+
+
+.. list-table:: <A NAME="50532471_51124"></A>System-Wide Capabilities (Sheet 1 of 4)
+    :header-rows: 1
+    :widths: auto
+    :align: center 
+
+
+    * - Capability Name
+      - Type
+      - Definition
+    * - cdmi_domains
+      - JSON String
+      - If present and "true", indicates that the cloud storage system supports domains. If not present, the domainURI field shall not be present in response bodies and the "cdmi_domains" URI shall not be present.
+    * - cdmi_export_cifs
+      - JSON String
+      - If present and "true", this capability indicates that the cloud storage system supports CIFS exports.
+    * - cdmi_dataobjects
+      - JSON String
+      - If present and "true", this capability indicates that the cloud storage system supports data objects.
+    * - cdmi_export_iscsi
+      - JSON String
+      - If present and "true", this capability indicates that the cloud storage system supports iSCSI exports.
+    * - cdmi_export_nfs
+      - JSON String
+      - If present and "true", this capability indicates that the cloud storage system supports NFS protocol exports.
+    * - cdmi_export_occi_iscsi
+      - JSON String
+      - If present and "true", this capability indicates that the cloud storage system supports OCCI/iSCSI exports.
+    * - cdmi_export_webdav
+      - JSON String
+      - If present and "true", this capability indicates that the cloud storage system supports WebDAV exports.
+    * - cdmi_metadata_maxitems
+      - JSON String
+      - If present, this capability indicates the maximum number of user-defined metadata items supported per object. If absent, there is no limit placed on the number of user-defined metadata items.
+    * - cdmi_metadata_maxsize
+      - JSON String
+      - If present, this capability indicates the maximum size, in bytes, of each user-defined metadata item supported per object. If absent, there is no limit placed on the size of user- defined metadata items.
+    * - cdmi_metadata_maxtotalsize
+      - JSON String
+      - If present, this capability indicates the maximum size, in bytes, of user-defined metadata supported by the cloud storage system. If absent, there is no limit placed on the size of user-defined metadata.
+    * - cdmi_notification
+      - JSON String
+      - If present and "true", this capability indicates that the cloud storage system supports notification queues.
+    * - cdmi_logging
+      - JSON String
+      - If present and "true", this capability indicates that the cloud storage system supports logging queues.
+    * - cdmi_query
+      - JSON String
+      - If present and "true", this capability indicates that the cloud storage system supports query queues.
+    * - cdmi_query_regex
+      - JSON String
+      - If present and "true", this capability indicates that the cloud storage system supports query with regular expressions.
+    * - cdmi_query_contains
+      - JSON String
+      - If present and "true", this capability indicates that the cloud storage system supports query with "contains" expressions.
+    * - cdmi_query_tags
+      - JSON String
+      - If present and "true", this capability indicates that the cloud storage system supports query with tag-matching expressions.
+    * - cdmi_query_value
+      - JSON String
+      - If present and "true", this capability indicates that the cloud storage system supports query of value fields.
+    * - cdmi_queues
+      - JSON String
+      - If present and "true", this capability indicates that the cloud storage system supports queue objects.
+    * - cdmi_security_access_control
+      - JSON String
+      - If present and "true", this capability indicates that the cloud storage system supports ACLs. See :ref:`Data System Metadata Capabilities` for additional information.
+    * - cdmi_security_audit
+      - JSON String
+      - If present and "true", this capability indicates that the cloud storage system supports audit logging. See :ref:`Security Logging` for additional information.
+    * - cdmi_security_data_integrity
+      - JSON String
+      - If present and "true", this capability indicates that the cloud storage system supports data integrity/authenticity. See :ref:`Data System Metadata Capabilities` for additional information.
+    * - cdmi_security_encryption
+      - JSON String
+      - If present and "true", this capability indicates that the cloud storage system supports data at-rest encryption. See :ref:`Data System Metadata Capabilities` for additional information.
+    * - cdmi_security_immutability
+      - JSON String
+      - If present and "true", this capability indicates that the cloud storage system supports data immutability/retentions. See :ref:`Data System Metadata Capabilities` for additional information.
+    * - cdmi_security_sanitization
+      - JSON String
+      - If present and "true", this capability indicates that the cloud storage system supports data/media sanitization. See :ref:`Data System Metadata Capabilities` for additional information.
+    * - cdmi_serialization_json
+      - JSON String
+      - If present and "true", this capability indicates that the cloud storage system supports JSON as a serialization format.
+    * - cdmi_snapshots
+      - JSON String
+      - If present and "true", this capability indicates that the cloud storage system supports snapshots.
+    * - cdmi_references
+      - JSON String
+      - If present and "true", this capability indicates that the cloud storage system supports references.
+    * - cdmi_object_move_from_local
+      - JSON String
+      - If present and "true", this capability indicates that the cloud storage system supports moving CDMI objects from URIs within the same storage system.
+    * - cdmi_object_move_from_remote
+      - JSON String
+      - If present and "true", this capability indicates that the cloud storage system supports moving CDMI objects from URIs within other CDMI storage systems. 
+    * - cdmi_object_move_from_ID
+      - JSON String
+      - If present and "true", this capability indicates that the cloud storage system supports moving CDMI objects without a path from a /cdmi_objectid/ URI within the same storage system. This effectively adds a path, allowing the object to be accessed by ID and by path.
+    * - cdmi_object_move_to_ID
+      - JSON String
+      - If present and "true", this capability indicates that the cloud storage system supports moving CDMI objects with a path to a /cdmi_objectid/ URI within the same storage system. This effectively removes the path, leaving the object only accessible by ID. 
+    * - cdmi_object_copy_from_local
+      - JSON String
+      - If present and "true", this capability indicates that the cloud storage system supports copying CDMI objects from URIs within the same storage system. 
+    * - cdmi_object_copy_from_remote
+      - JSON String
+      - If present and "true", this capability indicates that the cloud storage system supports copying CDMI objects from URIs within other CDMI storage systems. 
+    * - cdmi_object_access_by_ID
+      - JSON String
+      - If present and "true", this capability indicates that the cloud storage system supports accessing, updating, and deleting objects through /cdmi_objectid/. 
+    * - cdmi_post_dataobject_by_ID 
+      - JSON String 
+      - If present and "true", this capability indicates that the cloud storage system supports adding a new data object by ID via POST to "/cdmi_objectid/". 
+    * - cdmi_post_queue_by_ID 
+      - JSON String 
+      - If present and "true", this capability indicates that the cloud storage system supports adding a new queue object by ID via POST to "/cdmi_objectid/". 
+    * - cdmi_deserialize_dataobject_by_ID 
+      - JSON String 
+      - If present and "true", this capability indicates that the cloud storage system supports deserializating serialized data objects when creating a new data object by ID via POST to <BR>
+/cdmi_objectid/. 
+    * - cdmi_deserialize_queue_by_ID 
+      - JSON String 
+      - If present and "true", this capability indicates that the cloud storage system supports deserializating serialized queue objects when creating a new queue object by ID via POST to "/cdmi_objectid/". 
+    * - cdmi_serialize_dataobject_to_ID 
+      - JSON String 
+      - If present and "true", this capability indicates that the cloud storage system supports serializing data objects when creating a new data object by ID via POST to "/cdmi_objectid/". 
+    * - cdmi_serialize_domain_to_ID 
+      - JSON String 
+      - If present and "true", this capability indicates that the cloud storage system supports serializing domain objects when creating a new data object by ID via POST to "/cdmi_objectid/". 
+    * - cdmi_serialize_container_to_ID 
+      - JSON String 
+      - If present and "true", this capability indicates that the cloud storage system allows serializing container objects when creating a new data object by ID via POST to "/cdmi_objectid/". 
+    * - cdmi_serialize_queue_to_ID 
+      - JSON String 
+      - If present and "true", this capability indicates that the cloud storage system allows serializing queue objects when creating a new data object by ID via POST to "/cdmi_objectid/". 
+    * - cdmi_copy_dataobject_by_ID 
+      - JSON String 
+      - If present and "true", this capability indicates that the cloud storage system supports copying an existing data object when creating a new data object by ID via POST to "/cdmi_objectid/". 
+    * - cdmi_copy_queue_by_ID 
+      - JSON String 
+      - If present and "true", this capability indicates that the cloud storage system supports copying an existing queue object when creating a new queue object by ID via POST to "/cdmi_objectid/". 
+    * - cdmi_create_reference_by_ID 
+      - JSON String 
+      - If present and "true", this capability indicates that the cloud storage system supports creating a new reference via POST to "/cdmi_objectid/". 
+    * - cdmi_copy_dataobject_from_queue
+      - JSON String
+      - If present and "true", this capability indicates that the cloud storage system supports the ability to copy to a data object from a queue object.
+    * - cdmi_multipart_mime
+      - JSON String
+      - If present and "true", this capability indicates that the cloud storage system supports storing and retrieving the value of data and queue objects using multi-part MIME.
+    * - cdmi_create_value_range_by_ID
+      - JSON String
+      - If present and "true", this capability indicates that the system allows a new data object’s value to be created with byte ranges through "/cdmi_objectid/".
+
+</DIV>
+<DIV>
+
+Storage System Metadata Capabilities
+-----
+
+:ref:`Capabilities for Storage System Metadata` defines the capabilities for storage system metadata in a cloud storage system. These capabilities are found in the capabilities objects for domain objects, data objects, container objects, and queue objects. See:ref:`Support for Storage System Metadata` for a description of these storage system metadata items.
+
+
+.. list-table:: <A NAME="50532471_85679"></A>Capabilities for Storage System Metadata (Sheet 1 of 2)
+    :header-rows: 1
+    :widths: auto
+    :align: center 
+
+
+    * - Capability Name
+      - Type
+      - Definition
+    * - cdmi_acl
+      - JSON String
+      - If present and "true", this capability indicates that the cloud storage system supports ACLs. When a CDMI implementation supports ACLs for the purpose of access control, the system-wide capability of cdmi_security_access_control specified in :ref:`Capabilities for Storage System Metadata` of :ref:`Cloud Storage System-Wide Capabilities` shall be set to "true". Otherwise, it shall not be present, indicating that there is no support for access control.
+    * - cdmi_size 
+      - JSON String
+      - If present and "true", this capability indicates that the cloud storage system shall generate a cdmi_size storage system metadata for each stored object.
+    * - cdmi_ctime 
+      - JSON String
+      - If present and "true", this capability indicates that the cloud storage system shall generate a cdmi_ctime storage system metadata for each stored object.
+    * - cdmi_atime 
+      - JSON String
+      - If present and "true", this capability indicates that the cloud storage system shall generate a cdmi_atime storage system metadata for each stored object.
+    * - cdmi_mtime 
+      - JSON String
+      - If present and "true", this capability indicates that the cloud storage system shall generate a cdmi_mtime storage system metadata for each stored object.
+    * - cdmi_acount 
+      - JSON String
+      - If present and "true", this capability indicates that the cloud storage system shall generate a cdmi_acount storage system metadata for each stored object.
+    * - cdmi_mcount 
+      - JSON String
+      - If present and "true", this capability indicates that the cloud storage system shall generate a cdmi_mcount storage system metadata for each stored object.
+
+</DIV>
+<DIV>
+
+Data System Metadata Capabilities
+-----
+
+:ref:`Capabilities for Data System Metadata` defines the capabilities that indicate which data system metadata items are supported for objects stored in a cloud storage system. These capabilities are found in the capabilities objects for domains, data objects, containers, and queues. See :ref:`Support for Data System Metadata` (:ref:`Data System Metadata`) for a description of the meaning of the corresponding data system metadata items.
+
+
+.. list-table:: <A NAME="50532471_73032"></A>Capabilities for Data System Metadata (Sheet 1 of 4)
+    :header-rows: 1
+    :widths: auto
+    :align: center 
+
+
+    * - Capability Name
+      - Type
+      - Definition
+    * - cdmi_assignedsize
+      - JSON String
+      - When the cloud storage system supports the cdmi_assignedsize data system metadata as defined in :ref:`Support for Data System Metadata`
+, the cdmi_assignedsize capability shall be present and set to the string value "true". When this capability is absent, or present and set to the string value "false", cdmi_assignedsize data system metadata shall not be used.
+    * - cdmi_data_redundancy 
+      - JSON String
+      - When the cloud storage system supports the cdmi_data_redundancy data system metadata as defined in :ref:`Support for Data System Metadata`
+, the cdmi_data_redundancy capability shall be present and set to a positive numeric string representing the maximum value that the server supports. When this capability is absent, or present and set to an empty string value "", cdmi_data_redundancy data system metadata shall not be used. 
+    * - cdmi_data_dispersion 
+      - JSON String
+      - When the cloud storage system supports the cdmi_data_dispersion data system metadata as defined in :ref:`Support for Data System Metadata`
+, the cdmi_data_dispersion capability shall be present and set to the string value "true". When this capability is absent, or present and set to the string value "false", cdmi_data_dispersion data system metadata shall not be used. 
+    * - cdmi_data_retention 
+      - JSON String
+      - When the cloud storage system supports both the cdmi_retention_id and cdmi_retention_period data system metadata as defined in :ref:`Support for Data System Metadata`
+, the cdmi_data_retention capability shall be present and set to the string value "true". When this capability is absent, or present and set to the string value "false", cdmi_retention_id and cdmi_retention_period data system metadata shall not be used. 
+    * - cdmi_data_autodelete 
+      - JSON String
+      - When the cloud storage system supports the cdmi_data_autodelete data system metadata as defined in :ref:`Support for Data System Metadata`
+, the cdmi_data_autodelete capability shall be present and set to the string value "true". When this capability is absent, or present and set to the string value "false", cdmi_data_autodelete data system metadata shall not be used. 
+    * - cdmi_data_holds 
+      - JSON String
+      - When the cloud storage system supports the cdmi_hold_id data system metadata as defined in :ref:`Support for Data System Metadata`
+, the cdmi_data_holds capability shall be present and set to the string value "true". When this capability is absent, or present and set to the string value "false", cdmi_data_holds data system metadata shall not be used. 
+When a cloud storage system supports holds for the purpose of making data immutable, the system-wide capability of cdmi_security_immutability specified in :ref:`System-Wide Capabilities` of :ref:`Cloud Storage System-Wide Capabilities` shall be present and set to "true".
+    * - cdmi_encryption 
+      - JSON Array of JSON Strings
+      - When the cloud storage system supports the cdmi_encryption data system metadata as defined in :ref:`Support for Data System Metadata`
+, the cdmi_encryption capability shall be present and set to one or more values described in the cdmi_encryption data system metadata section in :ref:`Support for Data System Metadata`
+. When this capability is absent, or present and is an empty JSON array, cdmi_encryption data system metadata shall not be used. 
+When a cloud storage system supports at-rest encryption, the system-wide capability of cdmi_security_encryption specified in :ref:`System-Wide Capabilities` of :ref:`Cloud Storage System-Wide Capabilities` shall be present and set to "true".
+    * - cdmi_geographic_placement
+      - JSON String
+      - When the cloud storage system supports the cdmi_geographic_placement data system metadata as defined in :ref:`Support for Data System Metadata`
+, the cdmi_geographic_placement capability shall be present and set to the string value "true". When this capability is absent, or present and set to the string value "false", cdmi_geographic_placement data system metadata shall not be used. 
+    * - cdmi_immediate_redundancy
+      - JSON String
+      - When the cloud storage system supports the cdmi_immediate_redundancy data system metadata as defined in :ref:`Support for Data System Metadata`
+, the cdmi_immediate_redundancy capability shall be present and set to a positive numeric string representing the maximum value that the server supports. When this capability is absent, or present and set to an empty string value "", cdmi_immediate_redundancy data system metadata shall not be used. 
+    * - cdmi_infrastructure_redundancy
+      - JSON String
+      - When the cloud storage system supports the cdmi_infrastructure_redundancy data system metadata as defined in :ref:`Support for Data System Metadata`
+, the cdmi_infrastructure_redundancy capability shall be present and set to a positive numeric string representing the maximum value that the server supports. When this capability is absent, or present and set to an empty string value "", cdmi_infrastructure_redundancy data system metadata shall not be used. 
+    * - cdmi_latency 
+      - JSON String
+      - When the cloud storage system supports the cdmi_latency data system metadata as defined in :ref:`Support for Data System Metadata`
+, the cdmi_latency capability shall be present and set to the string value "true". When this capability is absent, or present and set to the string value "false", cdmi_latency data system metadata shall not be used.
+    * - cdmi_RPO 
+      - JSON String
+      - When the cloud storage system supports the cdmi_RPO data system metadata as defined in :ref:`Support for Data System Metadata`
+, the cdmi_RPO capability shall be present and set to the string value "true". When this capability is absent, or present and set to the string value "false", cdmi_RPO data system metadata shall not be used. 
+    * - cdmi_RTO 
+      - JSON String
+      - When the cloud storage system supports the cdmi_RTO data system metadata as defined in :ref:`Support for Data System Metadata`
+, the cdmi_RTO capability shall be present and set to the string value "true". When this capability is absent, or present and set to the string value "false", cdmi_RTO data system metadata shall not be used.
+    * - cdmi_sanitization_method 
+      - JSON Array of JSON Strings
+      - When the cloud storage system supports the cdmi_sanitization_method data system metadata as defined in :ref:`Support for Data System Metadata`
+, the cdmi_sanitization_method capability shall be present and set to one or more values described in the cdmi_sanitization_method data system metadata section in :ref:`Support for Data System Metadata`
+. When this capability is absent, or present and is an empty JSON array, cdmi_sanitization_method data system metadata shall not be used. 
+When a cloud storage system supports sanitization, the system-wide capability of cdmi_security_sanitization specified in :ref:`System-Wide Capabilities` of :ref:`Cloud Storage System-Wide Capabilities` shall be present and set to "true".
+    * - cdmi_throughput 
+      - JSON String
+      - When the cloud storage system supports the cdmi_throughput data system metadata as defined in :ref:`Support for Data System Metadata`
+, the cdmi_throughput capability shall be present and set to the string value "true". When this capability is absent, or present and set to the string value "false", cdmi_throughput data system metadata shall not be used. 
+    * - cdmi_value_hash 
+      - JSON Array of JSON Strings
+      - When the cloud storage system supports the cdmi_value_hash data system metadata as defined in :ref:`Support for Data System Metadata`
+, the cdmi_value_hash capability shall be present and set to one or more values described in the cdmi_value_hash data system metadata section in :ref:`Support for Data System Metadata`
+. When this capability is absent, or present and is an empty JSON array, cdmi_value_hash data system metadata shall not be used. 
+When a cloud storage system supports value hashing, the system-wide capability of cdmi_security_data_integrity specified in :ref:`System-Wide Capabilities` of :ref:`Cloud Storage System-Wide Capabilities` shall be present and set to "true". 
+    * - cdmi_authentication_methods
+      - JSON Array of JSON Strings
+      - If present, this capability contains a list of server-supported authentication methods that are supported by a domain. The following values for authentication method strings are defined: 
+
+
+        * "anonymous" - Absence of authentication supported 
+        * "basic" - HTTP basic authentication supported (RFC 2617) 
+        * "digest" - HTTP digest authentication supported (RFC 2617) 
+        * "krb5" - Kerberos authentication supported, using the Kerberos domain specified in the CDMI domain (RFC 4559) 
+        * "x509" - certificate-based authentication via TLS ( RFC 5246) 
+
+The following values are examples of other widely used authentication methods that may be supported by a CDMI server: 
+
+
+        * "s3" - S3 API signed header authentication supported 
+        * "openstack" - OpenStack Identity API header authentication supported
+
+Interoperability with these authentication methods are not defined by this international standard. 
+Servers may include other authentication methods not included in the above list. In these cases, it is up to the CDMI client and CDMI server to ensure interoperability. 
+When present, the cdmi_authentication_methods data system metadata shall be supported for all domains.
+
+</DIV>
+<DIV>
+
+Data Object Capabilities
+-----
+
+:ref:`Capabilities for Data Objects` defines the capabilities for data objects in a cloud storage system.<A NAME="50532471__Ref127341260"></A>
+
+
+.. list-table:: <A NAME="50532471_90914"></A>Capabilities for Data Objects (Sheet 1 of 2)
+    :header-rows: 1
+    :widths: auto
+    :align: center 
+
+
+    * - Capability Name
+      - Type
+      - Definition
+    * - cdmi_read_value 
+      - JSON String
+      - If present and "true", this capability indicates that the cloud storage system shall support the ability to read the object’s value.
+    * - cdmi_read_value_range 
+      - JSON String
+      - If present and "true", this capability indicates that the cloud storage system shall support the ability to read the object’s value with byte ranges.
+    * - cdmi_read_metadata 
+      - JSON String
+      - If present and "true", this capability indicates that the cloud storage system shall support the ability to read the object’s metadata.
+    * - cdmi_modify_value 
+      - JSON String
+      - If present and "true", this capability indicates that the cloud storage system shall support the ability to modify the object’s value.
+    * - cdmi_modify_value_range 
+      - JSON String
+      - If present and "true", this capability indicates that the cloud storage system shall support the ability to modify the object’s value with byte ranges.
+    * - cdmi_modify_metadata 
+      - JSON String
+      - If present and "true", this capability indicates that the cloud storage system shall support the ability to modify the object’s metadata.
+    * - cdmi_modify_deserialize_dataobject
+      - JSON String
+      - If present and "true", this capability indicates that the cloud storage system shall support the ability of the data object to deserialize a serialized data object into the data object as an update.
+    * - cdmi_delete_dataobject 
+      - JSON String
+      - If present and "true", this capability indicates that the cloud storage system shall support the ability to delete the object. 
+
+</DIV>
+<DIV>
+
+Container Capabilities
+-----
+
+:ref:`Capabilities for Containers` defines the capabilities for containers in a cloud storage system.
+
+
+.. list-table:: <A NAME="50532471_87821"></A>Capabilities for Containers (Sheet 1 of 3)
+    :header-rows: 1
+    :widths: auto
+    :align: center 
+
+
+    * - Capability Name
+      - Type
+      - Definition
+    * - cdmi_list_children 
+      - JSON String
+      - If present and "true", this capability indicates that the cloud storage system shall support the ability to list the container’s children.
+    * - cdmi_list_children_range 
+      - JSON String
+      - If present and "true", this capability indicates that the cloud storage system shall support the ability to list the container’s children with ranges.
+    * - cdmi_read_metadata 
+      - JSON String
+      - If present and "true", this capability indicates that the cloud storage system shall support the ability to read the container’s metadata.
+    * - cdmi_modify_metadata 
+      - JSON String
+      - If present and "true", this capability indicates that the cloud storage system shall support the ability to modify the container’s metadata.
+    * - cdmi_modify_deserialize_container
+      - JSON String
+      - If present and "true", this capability indicates that the cloud storage system shall support the ability of the container object to deserialize a serialized container object into the container object as an update.
+    * - cdmi_snapshot 
+      - JSON String
+      - If present and "true", this capability indicates that the cloud storage system shall support the ability of the container object to create a new snapshot.
+    * - cdmi_serialize_dataobject 
+      - JSON String
+      - If present and "true", this capability indicates that the cloud storage system shall support the ability to serialize a data object.
+    * - cdmi_serialize_container 
+      - JSON String
+      - If present and "true", this capability indicates that the cloud storage system shall support the ability to serialize the container and all children’s contents.
+    * - cdmi_serialize_queue 
+      - JSON String
+      - If present and "true", this capability indicates that the cloud storage system shall support the ability to serialize a queue object.
+    * - cdmi_serialize_domain
+      - JSON String
+      - If present and "true", this capability indicates that the cloud storage system shall support the ability to serialize the domain and all child domains. 
+    * - cdmi_deserialize_container
+      - JSON String
+      - If present and "true", this capability indicates that the cloud storage system shall support the ability of the container to deserialize the serialized containers and associated serialized children into the container.
+    * - cdmi_deserialize_queue 
+      - JSON String
+      - If present and "true", this capability indicates that the cloud storage system shall support the ability of the container to deserialize the serialized queue objects into the container.
+    * - cdmi_deserialize_dataobject 
+      - JSON String
+      - If present and "true", this capability indicates that the cloud storage system shall support the ability of the container to deserialize the serialized data objects into the container.
+    * - cdmi_create_dataobject 
+      - JSON String
+      - If present and "true", this capability indicates that the cloud storage system shall support the ability of the container to add a new data object.
+    * - cdmi_post_dataobject 
+      - JSON String
+      - If present and "true", this capability indicates that the cloud storage system shall support the ability of the container to add a new data object via POST.
+    * - cdmi_post_queue 
+      - JSON String
+      - If present and "true", this capability indicates that the cloud storage system shall support the ability of the container to add a new queue object via POST.
+    * - cdmi_create_container 
+      - JSON String
+      - If present and "true", this capability indicates that the cloud storage system shall support the ability to create a new container object via PUT.
+    * - cdmi_create_queue 
+      - JSON String
+      - If present and "true", this capability indicates that the cloud storage system shall support the ability to create new queue objects..
+    * - cdmi_create_reference 
+      - JSON String
+      - If present and "true", this capability indicates that the cloud storage system shall support the ability to create a new child reference via PUT.
+    * - cdmi_export_container_cifs
+      - JSON String
+      - If present and "true", this capability indicates that the cloud storage system shall support the ability to export a container as a file system via CIFS.
+    * - cdmi_export_container_nfs
+      - JSON String
+      - If present and "true", this capability indicates that the cloud storage system shall support the ability to export a container as a file system via NFS.
+    * - cdmi_export_container_iscsi
+      - JSON String
+      - If present and "true", this capability indicates that the cloud storage system shall support the ability to export a container as a file system via iSCSI.
+    * - cdmi_export_container_occi
+      - JSON String
+      - If present and "true", this capability indicates that the cloud storage system shall support the ability to export a container as a file system via OCCI.
+    * - cdmi_export_container_webdav
+      - JSON String
+      - If present and "true", this capability indicates that the cloud storage system shall support the ability to export a container as a file system via WebDAV.
+    * - cdmi_delete_container 
+      - JSON String
+      - If present and "true", this capability indicates that the cloud storage system shall support the ability to delete a container.
+    * - cdmi_move_container 
+      - JSON String
+      - If present and "true", this capability indicates that the cloud storage system shall support the ability to move a container object into a container.
+    * - cdmi_copy_container 
+      - JSON String
+      - If present and "true", this capability indicates that the cloud storage system shall support the ability to copy a container object into a container.
+    * - cdmi_move_dataobject
+      - JSON String
+      - If present and "true", this capability indicates that the cloud storage system shall support the ability to move a data object into a container.
+    * - cdmi_copy_dataobject
+      - JSON String
+      - If present and "true", this capability indicates that the cloud storage system shall support the ability to copy a data object into a container.
+    * - cdmi_create_value_range
+      - JSON String
+      - If present and "true", this capability indicates that the container allows a new data object’s value to be created with byte ranges.
+
+</DIV>
+<DIV>
+
+Domain Object Capabilities
+-----
+
+:ref:`Capabilities for Domain Objects` defines the capabilities for domains in a cloud storage system. (All capabilities refer to what may be done via CDMI content-type operations.  
+
+
+.. list-table:: <A NAME="50532471_71774"></A>Capabilities for Domain Objects (Sheet 1 of 2)
+    :header-rows: 1
+    :widths: auto
+    :align: center 
+
+
+    * - Capability Name
+      - Type
+      - Definition
+    * - cdmi_create_domain
+      - JSON String
+      - If present and "true", this capability indicates that the cloud storage system shall support the ability to add a new subdomain.
+    * - cdmi_delete_domain
+      - JSON String
+      - If present and "true", this capability indicates that the cloud storage system shall support the ability to delete a domain.
+    * - cdmi_move_domain
+      - JSON String
+      - If present and "true", this capability indicates that the cloud storage system shall support the ability to move a domain.
+    * - cdmi_domain_summary
+      - JSON String
+      - If present and "true", this capability indicates that the cloud storage system shall support the ability to support domain summaries.
+    * - cdmi_domain_members 
+      - JSON String
+      - If present and "true", this capability indicates that the cloud storage system shall support the ability to support domain user management.
+    * - cdmi_list_children 
+      - JSON String
+      - If present and "true", this capability indicates that the cloud storage system shall support the ability to list the domain's children.
+    * - cdmi_read_metadata 
+      - JSON String
+      - If present and "true", this capability indicates that the cloud storage system shall support the ability to read the domain's metadata.
+    * - cdmi_modify_metadata 
+      - JSON String
+      - If present and "true", this capability indicates that the cloud storage system shall support the ability to modify the domain's metadata.
+    * - cdmi_modify_deserialize_domain
+      - JSON String
+      - If present and "true", this capability indicates that the cloud storage system shall support the ability to deserialize a serialized domain object into the domain object as an update.
+    * - cdmi_copy_domain 
+      - JSON String
+      - If present and "true", this capability indicates that the cloud storage system shall support the ability to copy the domain (via PUT)  to another URI.
+    * - cdmi_deserialize_domain
+      - JSON String
+      - If present and "true", this capability indicates that the cloud storage system shall support the ability to deserialize serialized domains and associated serialized children into the domain.
+
+</DIV>
+<DIV>
+
+Queue Object Capabilities
+-----
+
+:ref:`Capabilities for Queue Objects` defines the capabilities for queue objects in a cloud storage system.
+
+
+.. list-table:: <A NAME="50532471_34151"></A>Capabilities for Queue Objects (Sheet 1 of 2)
+    :header-rows: 1
+    :widths: auto
+    :align: center 
+
+
+    * - Capability Name
+      - Type
+      - Definition
+    * - cdmi_read_value 
+      - JSON String
+      - If present and "true", this capability indicates that the cloud storage system shall support the ability to read a queue's value.
+    * - cdmi_read_metadata 
+      - JSON String
+      - If present and "true", this capability indicates that the cloud storage system shall support the ability to read the queue's metadata.
+    * - cdmi_modify_value 
+      - JSON String
+      - If present and "true", this capability indicates that the cloud storage system shall support the ability to modify the queue's value.
+    * - cdmi_modify_metadata 
+      - JSON String
+      - If present and "true", this capability indicates that the cloud storage system shall support the ability to modify the queue's metadata.
+    * - cdmi_modify_deserialize_queue
+      - JSON String
+      - If present and "true", this capability indicates that the cloud storage system shall support the ability to deserialize a serialized queue into the queue as an update.
+    * - cdmi_delete_queue 
+      - JSON String
+      - If present and "true", this capability indicates that the cloud storage system shall support the ability to delete a queue.
+    * - cdmi_move_queue 
+      - JSON String
+      - If present and "true", this capability indicates that the cloud storage system shall support the ability to move a queue to another URI.
+    * - cdmi_copy_queue 
+      - JSON String
+      - If present and "true", this capability indicates that the cloud storage system shall support the ability to copy a queue to another URI.
+    * - cdmi_reference_queue 
+      - JSON String
+      - If present and "true", this capability indicates that the cloud storage system shall support the ability to reference a queue  from another queue.
+
+</DIV>
+<DIV>
+
+Capability Object Representations
+-----
+
+The representations in this clause are shown using JSON notation. Both clients and servers shall support UTF-8 JSON representation. The request and response body JSON fields may be specified or returned in any order, with the exception that, if present, for capability objects, the childrenrange and children fields shall appear last and in that order. 
+</DIV>
+</DIV>
+<DIV>
+
+Read a Capabilities Object using CDMI
+************************
+<DIV>
+
+Synopsis 
+-----
+
+To read all fields from an existing capability object, the following request shall be performed:
+
+    GET &lt;root URI&gt;/cdmi_capabilities/&lt;Capability&gt;/&lt;TheCapability&gt;/
+
+To read one or more requested fields from an existing capability object, one of the following requests shall be performed:
+
+    GET &lt;root URI&gt;/cdmi_capabilities/&lt;Capability&gt;/&lt;TheCapability&gt;/?&lt;fieldname&gt;;&lt;fieldname&gt;
+
+    GET &lt;root URI&gt;/cdmi_capabilities/&lt;Capability&gt;/&lt;TheCapability&gt;/?children:&lt;range&gt; 
+<DIV>
+Where:
+
+
+* &lt;root URI&gt; is the path to the CDMI cloud.
+* &lt;Capability&gt; is zero or more intermediate capabilities containers.
+* &lt;TheCapability&gt; is the name specified for the capabilities to be read from.
+* &lt;fieldname&gt; is the name of a field.
+* &lt;range&gt; is a numeric range within the list of children.
+
+
+The object shall also be accessible at &lt;root URI&gt;/cdmi_objectid/&lt;objectID&gt;/.
+</DIV>
+</DIV>
+<DIV>
+
+Capability 
+-----
+
+The following capability describes the supported operations that may be performed when reading an existing capabilities object:
+
+
+* All CDMI implementations shall permit clients to read all fields of all capabilities objects.
+
+</DIV>
+<DIV>
+
+Request Headers
+-----
+
+The HTTP request headers for reading a CDMI capabilities object using CDMI are shown in :ref:`Request Headers - Read a Capabilities Object using CDMI`. 
+
+
+.. list-table:: Request Headers - Read a Capabilities Object using CDMI<A NAME="50532471_17973"></A>
+    :header-rows: 1
+    :widths: auto
+    :align: center 
+
+
+    * - Header
+      - Type
+      - Description
+      - Requirement
+    * - Accept
+      - Header String
+      - "application/cdmi-capability" or a consistent value as per clause :ref:`Content-Type Negotiation`
+      - Optional
+    * - X-CDMI-Specification-Version
+      - Header String
+      - A comma-separated list of versions that the client supports, e.g., "1.1, 1.5, 2.0"
+      - Mandatory
+
+</DIV>
+<DIV>
+
+Request Message Body 
+-----
+
+A request body shall not be provided.
+</DIV>
+<DIV>
+
+Response Headers
+-----
+
+The HTTP response headers for reading a CDMI capabilities object using CDMI are shown in :ref:`Response Headers - Read a Capabilities Object using CDMI`.
+
+
+.. list-table:: <A NAME="50532471_94894"></A>Response Headers - Read a Capabilities Object using CDMI
+    :header-rows: 1
+    :widths: auto
+    :align: center 
+
+
+    * - Header
+      - Type
+      - Description
+      - Requirement
+    * - X-CDMI-Specification-Version
+      - Header String
+      - The server shall respond with the highest version supported by both the client and the server, e.g., "1.1".
+If the server does not support any of the versions that the client supports, the server shall return an HTTP status code of ``400 Bad Request``
+.
+      - Mandatory
+    * - Content-Type
+      - Header String
+      - "application/cdmi-capability"
+      - Mandatory
+
+</DIV>
+<DIV>
+
+Response Message Body
+-----
+
+The response message body fields for reading a CDMI capabilities object using CDMI are shown in :ref:`Response Message Body - Read a Capabilities Object using CDMI`.
+
+
+.. list-table:: <A NAME="50532471_95518"></A>Response Message Body - Read a Capabilities Object using CDMI (Sheet 1 of 2)
+    :header-rows: 1
+    :widths: auto
+    :align: center 
+
+
+    * - Field Name
+      - Type
+      - Description
+      - Requirement
+    * - objectType
+      - JSON String
+      - "application/cdmi-capability"
+      - Mandatory
+    * - objectID
+      - JSON String
+      - Object ID of the object
+      - Mandatory
+    * - objectName
+      - JSON String
+      - Name of the object
+      - Mandatory
+    * - parentURI
+      - JSON String
+      - URI for the parent object
+      - Mandatory
+    * - parentID
+      - JSON String
+      - Object ID of the parent container object
+      - Mandatory
+    * - capabilities
+      - JSON Object
+      - The capabilities supported by the corresponding object. Capabilities in the "/cdmi_capabilities/" object are system-wide capabilities. Capabilities found in children objects under "/cdmi_capabilities/" correspond to the capabilities of a specific subset of objects. Each capability is expressed as a JSON string.
+      - Mandatory
+    * - childrenrange
+      - JSON String 
+      - The child capabilities of the capability expressed as a range. If a range of child capabilities is requested, this field indicates the children returned as a range.
+      - Mandatory
+    * - children
+      - JSON Array of JSON Strings
+      - Names of the children capabilities objects. For the root container capabilities, this includes "domain/", "container/", "dataobject/", and "queue/". Within each of these capabilities objects, further more specialized capabilities profiles may be specified by the cloud storage system.
+      - Mandatory
+
+
+If individual fields are specified in the GET request, only these fields are returned in the result body. Optional fields that are requested but do not exist are omitted from the result body.
+</DIV>
+<DIV>
+
+Response Status
+-----
+
+:ref:`HTTP Status Codes - Read a Capabilities Object using CDMI` describes the HTTP status codes that occur when reading a capabilities object using CDMI. 
+
+
+.. list-table:: <A NAME="50532471_65427"></A>HTTP Status Codes - Read a Capabilities Object using CDMI
+    :header-rows: 1
+    :widths: auto
+    :align: center 
+
+
+    * - HTTP Status
+      - Description
+    * - ``200 OK``
+
+      - The capabilities object content was returned in the response.
+    * - ``400 Bad Request``
+
+      - The request contains invalid parameters or field names.
+    * - ``401 Unauthorized``
+
+      - The authentication credentials are missing or invalid.
+    * - ``403 Forbidden``
+
+      - The client lacks the proper authorization to perform this request.
+    * - ``404 Not Found``
+
+      - The resource was not found at the specified URI.
+    * - ``406 Not Acceptable``
+
+      - The server is unable to provide the object in the content type specified in the Accept header.
+
+</DIV>
+<DIV>
+
+Examples
+-----
+<DIV>
+#. GET to the root container capabilities URI to read all fields of the container:
+
+    .. code-block:: http
+
+
+    GET /cdmi_capabilities/ HTTP/1.1
+
+    Host: cloud.example.com
+
+    Accept: application/cdmi-capability
+
+    X-CDMI-Specification-Version: 1.1
+
+   The following shows the response.
+
+    HTTP/1.1 200 OK
+
+    Content-Type: application/cdmi-capability
+
+    X-CDMI-Specification-Version: 1.1
+
+    &nbsp;
+
+    {
+
+        "objectType": "application/cdmi-capability",
+
+        "objectID": "00007E7F00104BE66AB53A9572F9F51E",
+
+        "objectName": "cdmi_capabilities/",
+
+        "parentURI": "/",
+
+        "parentID": "00007E7F0010128E42D87EE34F5A6560",
+
+        "capabilities": {
+
+            "cdmi_domains": "true",
+
+            "cdmi_export_nfs": "true",
+
+            "cdmi_export_iscsi": "true",
+
+            "cdmi_queues": "true",
+
+            "cdmi_notification": "true",
+
+            "cdmi_query": "true",
+
+            "cdmi_metadata_maxsize": "4096",
+
+            "cdmi_metadata_maxitems": "1024"
+
+        },
+
+        "childrenrange": "0-3",
+
+        "children": [
+
+            "domain/",
+
+            "container/",
+
+            "dataobject/",
+
+            "queue/"
+
+        ]
+
+    }
+</DIV>
+<DIV>
+#. GET to the root container capabilities URI to read the capabilities and children of the container:
+
+    .. code-block:: http
+
+
+    GET /cdmi_capabilities/?capabilities;children HTTP/1.1
+
+    Host: cloud.example.com
+
+    Accept: application/cdmi-capability
+
+    X-CDMI-Specification-Version: 1.1
+
+   The following shows the response.
+
+    HTTP/1.1 200 OK
+
+    Content-Type: application/cdmi-capability
+
+    X-CDMI-Specification-Version: 1.1
+
+    &nbsp;
+
+    {
+
+        "capabilities": {
+
+            "cdmi_domains": "true",
+
+            "cdmi_export_nfs": "true",
+
+            "cdmi_export_iscsi": "true",
+
+            "cdmi_queues": "true",
+
+            "cdmi_notification": "true",
+
+            "cdmi_query": "true",
+
+            "cdmi_metadata_maxsize": "4096",
+
+            "cdmi_metadata_maxitems": "1024"
+
+        },
+
+        "children": [
+
+            "domain/",
+
+            "container/",
+
+            "dataobject/",
+
+            "queue/"
+
+        ]
+
+    }
+</DIV>
+<DIV>
+#. GET to the root container capabilities URI to read the first two children of the container:
+
+    .. code-block:: http
+
+
+    GET /cdmi_capabilities/?childrenrange;children:0-1 HTTP/1.1
+
+    Host: cloud.example.com
+
+    Accept: application/cdmi-capability
+
+    X-CDMI-Specification-Version: 1.1
+
+   The following shows the response.
+
+    HTTP/1.1 200 OK
+
+    Content-Type: application/cdmi-capability
+
+    X-CDMI-Specification-Version: 1.1
+
+    &nbsp;
+
+    {
+
+        "childrenrange" : "0-1",
+
+        "children" : [
+
+            "domain/",
+
+            "container/" 
+
+        ]
+
+    }
+
+&nbsp;
+</DIV>
+</DIV>
+</DIV>
+</DIV>

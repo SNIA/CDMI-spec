@@ -1,0 +1,15 @@
+
+Overview
+********
+
+Container objects are the fundamental grouping mechanism of stored data within CDMITM and are analogous to directories in a file system. Each container object has zero or more child objects. 
+
+Following the URI conventions for hierarchical paths, container URIs shall consist of one or more container names that are separated by forward slashes ("/") and that end with a forward slash ("/"). 
+
+As basic HTTP operations do not use the CDMI MIME types that distinguish data object operations from container object operations, a CDMI implementation shall use the presence or absence of a forward slash at the end of a URI to distinguish between a container object create or a data object create, respectively. 
+
+If a basic HTTP read, update, or delete operation is performed against an existing container resource and the trailing slash at the end of the URI is omitted, the server shall respond with an HTTP status code of ``301 Moved Permanently``. In addition, a Location header containing the URI with the trailing slash added shall be returned. 
+
+A CDMI server differentiates between HTTP and CDMI operations using the standard Content-Type and Accept headers. When CDMI MIME types defined in :rfc:`6208` are used in these headers, this indicates that CDMI behaviors, as described in :ref:`Container Object Resource Operations using CDMI`, are used in addition to the standard HTTP behaviors. When CDMI MIME types are used, the X-CDMI-Specification-Version header is included to indicate which version of CDMI is being requested by the client and provided by the server. 
+
+A CDMI implementation that supports container objects shall include support for basic container object HTTP operations corresponding with the CDMI capabilities that are published by the implementation. Capabilities allow a client to discover which operations (such as create, update, delete, etc.) are supported and are described in :ref:`Capability Object Resource Operations using CDMI`.
