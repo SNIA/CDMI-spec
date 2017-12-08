@@ -96,12 +96,12 @@ The request message body fields for updating a data object using CDMI are shown 
     * - metadata
       - JSON Object
       - Metadata for the data object. If present, the new metadata specified replaces the existing object metadata. If individual metadata items are specified in the URI, only those items are replaced; other items are preserved.
-        See :ref:`Metadata` for a further description of metadata.
+        See `Metadata`_ for a further description of metadata.
       - Optional
     * - domainURI
       - JSON String
       - URI of the owning domain
-        * If different from the parent domain, the user shall have the "cross-domain" privilege (see cdmi_member_privileges in :ref:`Required Settings for Domain Member User Objects`).
+        * If different from the parent domain, the user shall have the "cross-domain" privilege (see cdmi_member_privileges in `Required Settings for Domain Member User Objects`_).
         * If not specified, the existing domain shall be preserved.
       - Optional
     * - deserialize

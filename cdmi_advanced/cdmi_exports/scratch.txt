@@ -1,19 +1,19 @@
 
 <DIV>
-.. _50532472__Toc127343509:
-.. _50532472__Ref120863606:
+
+
 Exported Protocols
 ========================================
 <DIV>
-.. _50532472_90582:
+
 Overview
 ************************
 
-CDMI™ containers are accessible not only via CDMI as a data path, but also via other protocols as well. This access is especially useful for using CDMI as the storage interface for a cloud computing environment, as :ref:`CDMI and OCCI in an Integrated Cloud Computing Environment` shows.
+CDMI™ containers are accessible not only via CDMI as a data path, but also via other protocols as well. This access is especially useful for using CDMI as the storage interface for a cloud computing environment, as `CDMI and OCCI in an Integrated Cloud Computing Environment`_ shows.
 
 
 <H6 CLASS="Figure-Caption">
-.. _50532472_36037:
+
 CDMI and OCCI in an Integrated Cloud Computing Environment</H6>
 </CAPTION>
     * - <H6 CLASS="NoSpace">
@@ -39,7 +39,7 @@ To support exported protocols and improve their interoperability with CDMI, CDMI
 Exported Protocol Structure
 ************************
 
-The export of a container, via data path protocols other than CDMI, is accomplished by creating or updating a container and supplying one or more export protocol structures, one for each such protocol. In this international standard, all such protocols are referred to as foreign protocols. The implementation of foreign protocols shall be indicated by "true" values for system-wide capabilities in :ref:`Cloud Storage System-Wide Capabilities` that shall always begin with "cdmi_export_".
+The export of a container, via data path protocols other than CDMI, is accomplished by creating or updating a container and supplying one or more export protocol structures, one for each such protocol. In this international standard, all such protocols are referred to as foreign protocols. The implementation of foreign protocols shall be indicated by "true" values for system-wide capabilities in `Cloud Storage System-Wide Capabilities`_ that shall always begin with "cdmi_export_".
 
 An export protocol structure includes
 
@@ -47,7 +47,7 @@ An export protocol structure includes
 * the protocol being used;
 * the identity of the container as standardized by the protocol;
 * the internet domain of the protocol name server for the clients being served; 
-* the list of who may mount that container via that protocol, identified as standardized by that protocol or optionally by leveraging the name mapping protocol (see :ref:`Mapping Names from CDMI to Another Protocol`) and specifying CDMI user or groupnames;
+* the list of who may mount that container via that protocol, identified as standardized by that protocol or optionally by leveraging the name mapping protocol (see `Mapping Names from CDMI to Another Protocol`_) and specifying CDMI user or groupnames;
 * required export parameters for the protocol;
 * optional export parameters for the protocol; and
 * export control parameters.
@@ -66,7 +66,7 @@ Implementations that support authenticated and authorized access to CDMI objects
 CDMI does not mandate which method shall be used. It does, however, specify how users and groups shall be mapped between protocols.
 <DIV>
 
-.. _50532472_14948:
+
 Mapping Names from CDMI to Another Protocol
 -----
 
@@ -74,7 +74,7 @@ Clients wishing to restrict exports via foreign protocols to mounting only by ce
 <OL>
 #. When a network share on a CDMI container is created, the server should use the appropriate mechanism, e.g., Powershell WmiClass.Create( ) on the Windows platform or /etc/exports on Unix, to limit permitted mounts of the share from other servers, as specified in the "hosts" line of the "exports" property. The syntax of the hosts line follows the syntax of /etc/exports in the Linux operating system, as encoded in a JSON string. If the CDMI server is unable to limit mounts as specified by the hosts line, an error shall result, but the success or failure of the operation depends on the implementation.
 #. When any request requiring the use of a CDMI principal name comes in via a foreign protocol, the foreign domain controller to which the foreign server belongs shall be queried for the principal name corresponding to the user id given in the request. Failure to procure the principal name shall cause the original request to fail.
-#. The usermap list for that protocol shall be searched, in order, for an entry matching the username gotten from the foreign domain controller (see :ref:`User and Groupname Mapping Syntax and Evaluation Rules`  for details on the search). If no match is found, the request shall be denied. The search results may be kept in the same cache entry as the information from the preceding step.
+#. The usermap list for that protocol shall be searched, in order, for an entry matching the username gotten from the foreign domain controller (see `User and Groupname Mapping Syntax and Evaluation Rules`_  for details on the search). If no match is found, the request shall be denied. The search results may be kept in the same cache entry as the information from the preceding step.
 #. The CDMI principal name gotten from the first matching usermap entry during this search is then used to authorize the user request via the security mechanism of the protocol whose security governs access to the object.
 </OL>
 <DIV>
@@ -303,10 +303,10 @@ Permissions Mapping</H6>
 
 The permissions sets of file-serving protocols, unfortunately, do not map on a one-to-one basis to each other. NFSv4 ACLs, Windows ACLs, POSIX ACLs, NFSv3 perms and object-based capabilities all are capable of representing security conditions that the others are not, except NFSv3, which is the least expressive. The primary area of concern is in representing the possibly rich set of permissions in a CDMI ACL in a more restricted perms-based system, such as NFSv3, for display to users. 
 
-As there are a number of possible ways to coordinate the permissions/ACLs and CDMI ACLs, this international specification does not mandate a particular method. However, all mappings of user and groupnames between domains shall use the name mapping mechanism specified in :ref:`User and Groupname Mapping Syntax and Evaluation Rules`.
+As there are a number of possible ways to coordinate the permissions/ACLs and CDMI ACLs, this international specification does not mandate a particular method. However, all mappings of user and groupnames between domains shall use the name mapping mechanism specified in `User and Groupname Mapping Syntax and Evaluation Rules`_.
 <DIV>
 
-.. _50532472_97905:
+
 User and Groupname Mapping Syntax and Evaluation Rules
 -----
 
@@ -370,13 +370,13 @@ Where:
 </DIV>
 </DIV>
 <DIV>
-.. _50532472_64565:
+
 NFS Exported Protocol
 ************************
 
 To export a container via NFS, the information required is exactly what the server implementation will use to do the export. Normally, this information is contained in the /etc/exports file on a server or the equivalent. Administrators should be aware that lines may be automatically added to that file for each CDMI container that is exported.
 
-Required members of the protocol structure for NFS are described in :ref:`Required Members of the NFS Protocol Structure`.
+Required members of the protocol structure for NFS are described in `Required Members of the NFS Protocol Structure`_.
 
 
 .. list-table:: <A NAME="50532472_31650"></A>Required Members of the NFS Protocol Structure  
@@ -399,7 +399,7 @@ Required members of the protocol structure for NFS are described in :ref:`Requir
       - Export control for the container. This value shall be "immediate", "off", "on", or &lt;n&gt; (a number). Servers may set the value to on, but clients shall not. A numeric value (&lt;n&gt;) indicates that the export should be shut down in &lt;n&gt; seconds, possibly after a message has been sent to clients mounting the export. If a client specifies a value for &lt;n&gt; but the server does not support delayed shutdown of exports, then &lt;n&gt; shall be interpreted to mean off.
 
 
-Optional export parameters for NFS are described in :ref:`Optional NFS Export Parameters`.
+Optional export parameters for NFS are described in `Optional NFS Export Parameters`_.
 
 
 .. list-table:: <A NAME="50532472_69455"></A>Optional NFS Export Parameters 
@@ -452,7 +452,7 @@ Other export parameters for NFS are not specified by the CDMI protocol but may b
 </DIV>
 <DIV>
 <H6 CLASS="Body-Text-Head">
-.. _50532472_69035:
+
 Export Control</H6>
 
 Export control is accomplished with the use of a single member, named "control":
@@ -479,7 +479,7 @@ CIFS Exported Protocol
 
 To export a container via CIFS, the information required is exactly what the server implementation will use to do the export. Where this information is contained on a server is implementation dependent. The server may add or delete lines automatically to and from that file for each CDMI container that is exported or unexported.
 
-Required members of the protocol structure for CIFS are described in :ref:`Required Members of the CIFS Protocol Structure`.
+Required members of the protocol structure for CIFS are described in `Required Members of the CIFS Protocol Structure`_.
 
 
 .. list-table:: <A NAME="50532472_85536"></A>Required Members of the CIFS Protocol Structure
@@ -497,7 +497,7 @@ Required members of the protocol structure for CIFS are described in :ref:`Requi
     * - mode
       - This value shall be either "ro" or "rw".
     * - control
-      - Export control for the container. This value shall be "immediate", "off", or &lt;n&gt; (a number). Servers may set the value to on, but clients shall not. The semantics and normative requirements are exactly the same as for NFS, as documented in the paragraph ":ref:`Export Control`" in the subclause on NFS Exports (see :ref:`NFS Exported Protocol`).
+      - Export control for the container. This value shall be "immediate", "off", or &lt;n&gt; (a number). Servers may set the value to on, but clients shall not. The semantics and normative requirements are exactly the same as for NFS, as documented in the paragraph "`Export Control`" in the subclause on NFS Exports (see :ref:`NFS Exported Protocol`_).
 
 
 There is no protocol specification; CDMI assumes that normal SMB protocol negotiation will take place. 
@@ -528,7 +528,7 @@ Other export parameters for CIFS are not specified by the CDMI protocol but may 
 
 Users wishing to manipulate vendor-specific settings are responsible for determining from the CDMI product vendor the legal settings and their format. Servers shall return an HTTP status code of ``400 Bad Request`` when an export setting does not conform to an allowable setting on the server.
 
-For more detail on the use of the OCCI export protocol structure attributes, see :ref:`Overview`. Because the actual networking and access control is under the control of a hidden, common infrastructure implementing both OCCI and CDMI, the normal permission structure shall not be provided.
+For more detail on the use of the OCCI export protocol structure attributes, see `Overview`_. Because the actual networking and access control is under the control of a hidden, common infrastructure implementing both OCCI and CDMI, the normal permission structure shall not be provided.
 </DIV>
 </DIV>
 <DIV>
@@ -536,7 +536,7 @@ For more detail on the use of the OCCI export protocol structure attributes, see
 OCCI Exported Protocol
 ************************
 
-CDMI defines an export protocol structure for the Open Cloud Computing Interface (:ref:`OCCI`) as follows:
+CDMI defines an export protocol structure for the Open Cloud Computing Interface (`OCCI`_) as follows:
 
 
 * The protocol is "OCCI/&lt;protocol standard&gt;" (e.g., "OCCI/NFSv4").
@@ -561,7 +561,7 @@ An example of an OCCI export protocol structure in JSON is as follows:</H6>
 
         }
 
-For more detail on using the OCCI export protocol structure attributes, see :ref:`Overview`. Because the actual networking and access control is under the control of a hidden, common infrastructure that implements both OCCI and CDMI, the normal permission structure shall not be provided.
+For more detail on using the OCCI export protocol structure attributes, see `Overview`_. Because the actual networking and access control is under the control of a hidden, common infrastructure that implements both OCCI and CDMI, the normal permission structure shall not be provided.
 </DIV>
 </DIV>
 <DIV>

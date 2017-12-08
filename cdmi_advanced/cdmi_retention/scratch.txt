@@ -1,7 +1,7 @@
 
 <DIV>
-.. _50532476__Toc127343546:
-.. _50532476__Ref126820889:
+
+
 <A NAME="50532476__Ref121058882"></A>Retention and Hold Management
 ========================================
 <DIV>
@@ -60,11 +60,11 @@ When a CDMI client attempts to delete an object, the cloud storage system shall 
 
 When copying objects with a retention policy, retention properties shall not be transferred from the source CDMI object to the destination object, and the destination object shall not have a retention policy.
 
-:ref:`Object Retention` shows how to establish time-based retention with a retention identifier. The value of the object data system metadata for the retention period shall not be reduced.
+`Object Retention`_ shows how to establish time-based retention with a retention identifier. The value of the object data system metadata for the retention period shall not be reduced.
 
 
 <H6 CLASS="Figure-Caption">
-.. _50532476_45053:
+
 Object Retention</H6>
 </CAPTION>
     * - <H6 CLASS="NoSpace">
@@ -193,11 +193,11 @@ Hold management uses a hold indicator to determine the time period(s) during whi
 
 A CDMI client may place an object on hold by adding a hold identifier to the cdmi_hold_id data system metadata item. When an object is on hold, CDMI clients shall be subject to failures or unexpected state changes on operations, which would otherwise be successful if the object was not on hold.
 
-:ref:`Object Hold` shows how placing a hold on an object affects its read-only and deletion capability.
+`Object Hold`_ shows how placing a hold on an object affects its read-only and deletion capability.
 
 
 <H6 CLASS="Figure-Caption">
-.. _50532476_63395:
+
 Object Hold</H6>
 </CAPTION>
     * - <H6 CLASS="NoSpace">
@@ -207,11 +207,11 @@ Object Hold</H6>
 </DIV>
 </TABLE>
 
-:ref:`Object Hold on Object with Retention` shows how to establish time-based retention with a retention identifier that has a hold placed on the object. The value of the object data system metadata for the retention period shall not be reduced, and the value of the object data system metadata for hold identifiers shall not permit holds to be removed. Removing holds is outside the scope of the CDMI international standard.
+`Object Hold on Object with Retention`_ shows how to establish time-based retention with a retention identifier that has a hold placed on the object. The value of the object data system metadata for the retention period shall not be reduced, and the value of the object data system metadata for hold identifiers shall not permit holds to be removed. Removing holds is outside the scope of the CDMI international standard.
 
 
 <H6 CLASS="Figure-Caption">
-.. _50532476_61581:
+
 Object Hold on Object with Retention</H6>
 </CAPTION>
     * - <H6 CLASS="NoSpace">
@@ -221,11 +221,11 @@ Object Hold on Object with Retention</H6>
 </DIV>
 </TABLE>
 
-:ref:`Object with Multiple Holds` shows how placing multiple holds on an object affects its read-only and deletion capability.
+`Object with Multiple Holds`_ shows how placing multiple holds on an object affects its read-only and deletion capability.
 
 
 <H6 CLASS="Figure-Caption">
-.. _50532476_88327:
+
 Object with Multiple Holds</H6>
 </CAPTION>
     * - <H6 CLASS="NoSpace">
@@ -359,7 +359,7 @@ CDMI Auto-deletion
 Overview
 -----
 
-CDMI deletion controls cloud storage system actions with respect to object deletion. A cloud storage system may automatically delete a CDMI object after the retention time and hold criteria have been met. (See :ref:`cdmi_retention_autodelete` in :ref:`Data System Metadata`.)
+CDMI deletion controls cloud storage system actions with respect to object deletion. A cloud storage system may automatically delete a CDMI object after the retention time and hold criteria have been met. (See `cdmi_retention_autodelete` in :ref:`Data System Metadata`_.)
 
 CDMI objects shall be automatically deleted by the system at the retention period expiration by setting the data system metadata flag cdmi_retention_autodelete. The cdmi_retention_autodelete flag indicates to the system that the object shall be made unavailable for access after the retention criteria have been satisfied. The system shall ensure that the object is no longer available through the CDMI interface. If the system has satisfied the retention requirement and a hold is established for the object, the object shall not be made unavailable or deleted. When a hold and retention have been applied to an object, both need to be satisfied (retention period expired and no holds existing) for objects to be automatically deleted from the system. 
 <DIV>

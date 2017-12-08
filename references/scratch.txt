@@ -4,41 +4,41 @@ Bibliography<A NAME="50532485_34420"></A>
 ************************
 <DIV>
 
-.. _50532485_62675:
+
 CRC
      Williams, Ross, "A Painless Guide to CRC Error Detection Algorithms", Chapter 16, August 1993, <A HREF="http://www.repairfaq.org/filipg/LINK/F_crc_v3.html" CLASS="URL">http://www.repairfaq.org/filipg/LINK/F_crc_v3.html</A>
 
 </DIV>
 <DIV>
 
-.. _50532485_56408:
+
 OCCI
 
 <A HREF="http://occi-wg.org/about/specification/" CLASS="URL">"Open Cloud Computing Interface", Version 1.1, June 2011. Specification - http://occi-wg.org/about/specification/</A>
 </DIV>
 <DIV>
 
-.. _50532485_91904:
+
 PKS12
      <A HREF="http://www.rsa.com/rsalabs/node.asp?id=2138" CLASS="URL">RSA Laboratories, PKCS #12: Personal Information Exchange Syntax, Version 1.0, June 1999. Specification and Technical Corrigendum - </A>http://www.rsa.com/rsalabs/node.asp?id=2138
 
 </DIV>
 <DIV>
 
-.. _50532485_79706:
+
 REST
      "Representational State Transfer" - <A HREF="http://www.ics.uci.edu/~fielding/pubs/dissertation/rest_arch_style.htm" CLASS="URL">http://www.ics.uci.edu/~fielding/pubs/dissertation/rest_arch_style.htm</A>
 
 </DIV>
 <DIV>
 
-.. _50532485_39610:
+
 RESTful Web
      Richardson, Leonard and Sam Ruby, RESTful Web Services, O'Reilly, 2007.
 </DIV>
 <DIV>
 
-.. _50532485_68532:
+
 INCITS 464-2010
 <P CLASS="SCSIParagraph">
 Information Technology - Information Management - Extensible Access Method (XAM™)</P>

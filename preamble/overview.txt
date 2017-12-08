@@ -1,5 +1,3 @@
-.. _chap_overview_of_cloud_storage:
-
 Overview of Cloud Storage
 =========================
 
@@ -15,7 +13,7 @@ Another important concept in this international standard is that of metadata. Wh
 
 The appeal of cloud storage is due to some of the same attributes that define other cloud services: pay as you go, the illusion of infinite capacity (elasticity), and the simplicity of use/management. It is therefore important that any interface for cloud storage support these attributes, while allowing for a multitude of business use cases.
 
-.. _sect_what_is_cloud_storage:
+
 
 **********************
 What is Cloud Storage?
@@ -27,7 +25,7 @@ The cloud abstraction of complexity produces a simple base on which other featur
 
 Thus, cloud storage is simply the delivery of virtualized storage on demand. The formal term that is used for this is Data storage as a Service (DaaS).
 
-.. _sect_data_storage_as_a_service:
+
 
 Data Storage as a Service
 *************************
@@ -61,7 +59,7 @@ Each data object is created, retrieved, updated, and deleted as a separate resou
     Storage Interfaces for Object Storage Client Data
 
 
-.. _sect_data_management_for_cloud_storage:
+
 
 Data Management for Cloud Storage
 *********************************
@@ -72,15 +70,15 @@ Cloud storage may lose its abstraction and simplicity benefits if new data servi
 
 By supporting metadata in a cloud storage interface and prescribing how the storage system and data system metadata is interpreted to meet the requirements of the data, the simplicity required by the cloud storage model may be maintained while still addressing the requirements of enterprise applications and their data.
 
-User metadata is retained by the cloud and may be used to find the data objects and containers by performing a query for specific metadata values. The schema for this metadata may be determined by each application, domain, or user. For more information on support for user metadata, see :ref:`Support for User Metadata`.
+User metadata is retained by the cloud and may be used to find the data objects and containers by performing a query for specific metadata values. The schema for this metadata may be determined by each application, domain, or user. For more information on support for user metadata, see `Support for User Metadata`_.
 
-Storage system metadata is produced/interpreted by the cloud service and basic storage functions (e.g., modification and access statistics, access control). For more information on support for storage system metadata, see :ref:`Support for Storage System Metadata`.
+Storage system metadata is produced/interpreted by the cloud service and basic storage functions (e.g., modification and access statistics, access control). For more information on support for storage system metadata, see `Support for Storage System Metadata`_.
 
-Data system metadata is interpreted by the cloud service as data requirements that control the operation of underlying data services for that data. It may apply to an aggregation of data objects in a container or to individual data objects, if the cloud service supports this level of granularity. For more information on support for data system metadata, see :ref:`Support for Data System Metadata`.
+Data system metadata is interpreted by the cloud service as data requirements that control the operation of underlying data services for that data. It may apply to an aggregation of data objects in a container or to individual data objects, if the cloud service supports this level of granularity. For more information on support for data system metadata, see `Support for Data System Metadata`_.
 
 
 
-.. _sect_data_and_container_management:
+
 
 Data and Container Management
 *****************************
@@ -89,7 +87,7 @@ There is no reason that managing data and managing containers should involve dif
 
 Even if the provided interface does not support setting metadata on individual objects, metadata may still be applied to the containers. In such a case, the interface does not provide a mechanism to override metadata that an individual object inherits from its parent container. For file-based interfaces that support extended attributes (e.g., CIFS, NFSv4), these extended attributes may be used to specify the data system metadata to override that specified for the container. 
 
-.. _sect_reference_model_for_cloud_storage_interfaces:
+
 
 Reference Model for Cloud Storage Interfaces
 ********************************************
@@ -108,7 +106,7 @@ The cloud storage reference model is shown in :numref:`fig_CloudStorageRefModelN
 This model shows multiple types of cloud data storage interfaces that are able to support both legacy and new applications. All of the interfaces allow storage to be provided on demand, drawn from a pool of resources. The storage capacity is drawn from a pool of storage capacity provided by storage services. The data services are applied to individual objects, as determined by the data system metadata. Metadata specifies the data requirements on the basis of individual objects or for groups of objects (containers). 
 
 
-.. _sect_cloud_data_management_interface:
+
 
 Cloud Data Management Interface
 *******************************
@@ -146,7 +144,7 @@ Finally, capabilities allow a client to discover the capabilities of a CDMI impl
 
 For example, in :numref:`Object ID`, this international standard states, "Every cloud storage system shall allow object ID-based access to stored objects." This requirement shall be understood in the context that access by object ID is predicated on the presence of the cdmi_object_access_by_ID capability.
 
-.. _sect_object_model_for_cdmi:
+
 
 Object Model for CDMI
 *********************
@@ -175,19 +173,19 @@ The five types of resources defined are shown in :numref:`tbl_types_of_resources
       - Reference
     * - Data objects
       - Data objects are used to store values and provide functionality similar to files in a file system.
-      - See :ref:`Data Object Resource Operations using CDMI`.
+      - See `Data Object Resource Operations using CDMI`_.
     * - Container objects
       - Container objects have zero or more children, but do not store values. They provide functionality similar to directories in a file system.
-      - See :ref:`Container Object Resource Operations using CDMI`.
+      - See `Container Object Resource Operations using CDMI`_.
     * - Domain objects
       - Domain objects represent administrative groupings for user authentication and accounting purposes.
-      - See :ref:`Domain Object Resource Operations using CDMI`.
+      - See `Domain Object Resource Operations using CDMI`_.
     * - Queue objects 
       - Queue objects store zero or move values and are accessed in a first-in-first-out manner.
-      - See :ref:`Queue Object Resource Operations using CDMI`.
+      - See `Queue Object Resource Operations using CDMI`_.
     * - Capability objects
       - Capability objects describe the functionality implemented by a CDMI server and are used by a client to discover supported functionality.
-      - See :ref:`Capability Object Resource Operations using CDMI`.
+      - See `Capability Object Resource Operations using CDMI`_.
 
 For data storage operations, the client of the interface only needs to know about container objects and data objects. All data path implementations are required to support at least one level of containers (see :numref:`Data and Container Management`). Using the CDMI object model (see :numref:`CDMI Object Model`), the client may send a PUT via CDMI (see :numref:`Reference Model for Cloud Storage Interfaces`) to the new container URI and create a new container with the specified name. Container metadata are optional and are expressed as a series of name-value pairs. After a container is created, a client may send a PUT to create a data object within the newly created container. A subsequent GET will fetch the data object, including the value field.
 
@@ -210,7 +208,7 @@ CDMI defines mechanisms so that objects having only an object ID can be assigned
     Object Transitions between Named and ID-only
 
 
-.. _sect_cdmi_metadata:
+
 
 CDMI Metadata
 *************
@@ -247,7 +245,7 @@ The matrix of the creation and consumption of storage system metadata is shown i
       - N/A
 
       
-.. _sect_object_id:
+
       
 Object ID
 *********
@@ -300,19 +298,19 @@ The fields shown in :numref:`tbl_objectid_format` are defined as follows:
     - XorOut 	: 0x0000, and
     - Check 	: 0xBB3D.
   
-  This function defines a 16-bit CRC with polynomial 0x8005, reflected input, and reflected output. This CRC-16 is specified in :ref:`CRC`.
+  This function defines a 16-bit CRC with polynomial 0x8005, reflected input, and reflected output. This CRC-16 is specified in `CRC`_.
 
 * Opaque data in each object ID shall be unique for a given Enterprise Number.
 
 The native format for an object ID is binary. When necessary, such as when included in URIs and JSON strings, the object ID textual representation shall be encoded using Base16 encoding rules described in :rfc:`4648` and shall be case insensitive. 
 
 
-.. _sect_security:
+
 
 Security
 ********
 
-.. _subsect_security_objectives:
+
 
 Security Objectives
 -------------------
@@ -343,10 +341,10 @@ Security measures within CDMI may be summarized as:
 
 With the exception of both the transport security and the security capabilities, which are mandatory to implement, the security measures may vary significantly from implementation to implementation.
 
-When security is a concern, the CDMI client should begin with a series of security capability lookups (see :ref:`Cloud Storage System-Wide Capabilities`) to determine the exact nature of the security features that are available. Based on the values of these capabilities, a risk-based decision should be made as to whether the CDMI server should be used. This is particularly true when the data to be stored in the cloud storage is sensitive or regulated in a way that requires stored data to be protected (e.g., encrypted) or handled in a particular manner (e.g., full accountability and traceability of management and access).
+When security is a concern, the CDMI client should begin with a series of security capability lookups (see `Cloud Storage System-Wide Capabilities`_) to determine the exact nature of the security features that are available. Based on the values of these capabilities, a risk-based decision should be made as to whether the CDMI server should be used. This is particularly true when the data to be stored in the cloud storage is sensitive or regulated in a way that requires stored data to be protected (e.g., encrypted) or handled in a particular manner (e.g., full accountability and traceability of management and access).
 
 
-.. _subsect_http_security:
+
 
 HTTP Security
 -------------
@@ -363,7 +361,7 @@ To ensure both security and interoperability, all CDMI implementations:
 When TLS is used to secure HTTP, the client and server typically perform some form of entity authentication. However, the specific nature of this entity authentication depends on the cipher suite negotiated; a cipher suite specifies the encryption algorithm and digest algorithm to use on a TLS connection. A very common scenario involves using server-side certificates, which the client trusts, as the basis for unidirectional entity authentication. It is possible that mutual authentication involving both client-side and server-side certificates may be required.
 
 
-.. _subsect_client_authentication:
+
 
 Client Authentication
 ---------------------
@@ -386,7 +384,7 @@ Once a user is authenticated, the provided principal name shall be mapped by the
 A CDMI server typically relies on an authentication service (local and/or external) to validate client credentials. Differing authentication schemes may be supported, including host-based authentication, Kerberos, PKI, or other; the authentication service is beyond the scope of this international standard.
 
 
-.. _subsect_use_of_tls:
+
 
 Use of TLS
 ----------
@@ -398,15 +396,15 @@ Recommendations for using HTTP and TLS include:
 * 	Servers may respond to HTTP requests on port 80 with an HTTP REDIRECT to the appropriate TLS URI (using port 443). Clients should honor such redirects in this situation.
 
 
-.. _subsect_further_information:
+
 
 Further Information
 -------------------
 
-For further information pertaining to storage security techniques, see :ref:`ISO/IEC DIS 27040`.
+For further information pertaining to storage security techniques, see `ISO/IEC DIS 27040`_.
 
 
-.. _sect_required_http_support:
+
 
 Required HTTP Support 
 ************************
@@ -416,7 +414,7 @@ RFC 2616 Support Requirements
 
 A conformant implementation of CDMI shall also be a conformant implementation of :rfc:`2616` (i.e., HTTP 1.1). The subclauses below list the sections of :rfc:`2616` that shall be supported; however, this list is not comprehensive.
 
-.. _subsect_contenttype_negotiation:
+
 
 Content-Type Negotiation
 ------------------------
@@ -523,14 +521,14 @@ Reserved Characters
 
 The name of CDMI data objects, container objects, queue objects, domain objects and capability objects shall not contain the "/" or "?" characters, as these characters are reserved for delimiters.
 
-.. _sect_time_representations:
+
 
 Time Representations
 ********************
 
-Unless otherwise specified, all date/time values are in the :ref:`ISO 8601:2004` extended representation (YYYY-MM-DDThh:mm:ss.ssssssZ). The full precision shall be specified, the sub-second separator shall be a ".", the Z UTC zone indicator shall be included, and all timestamps shall be in UTC time zone. The YYYY-MM-DDT24:00:00.000000Z hour shall not be used, and instead, it shall be represented as YYYY-MM-DDT00:00:00.000000Z. 
+Unless otherwise specified, all date/time values are in the `ISO 8601:2004`_ extended representation (YYYY-MM-DDThh:mm:ss.ssssssZ). The full precision shall be specified, the sub-second separator shall be a ".", the Z UTC zone indicator shall be included, and all timestamps shall be in UTC time zone. The YYYY-MM-DDT24:00:00.000000Z hour shall not be used, and instead, it shall be represented as YYYY-MM-DDT00:00:00.000000Z. 
 
-Unless otherwise specified, all date/time intervals are in the :ref:`ISO 8601:2004` start date/end date representation (YYYY-MM-DDThh:mm:ss.ssssssZ/YYYY-MM-DDThh:mm:ss.ssssssZ). The end date shall be equal to or later than the start date. The full precision shall be specified, the sub-second separator shall be a ".", the Z UTC zone indicator shall be included, and all timestamps shall be in UTC time zone. The YYYY-MM-DDT24:00:00.000000Z hour shall not be used, and instead, it shall be represented as YYYY-MM-DDT00:00:00.000000Z. 
+Unless otherwise specified, all date/time intervals are in the `ISO 8601:2004`_ start date/end date representation (YYYY-MM-DDThh:mm:ss.ssssssZ/YYYY-MM-DDThh:mm:ss.ssssssZ). The end date shall be equal to or later than the start date. The full precision shall be specified, the sub-second separator shall be a ".", the Z UTC zone indicator shall be included, and all timestamps shall be in UTC time zone. The YYYY-MM-DDT24:00:00.000000Z hour shall not be used, and instead, it shall be represented as YYYY-MM-DDT00:00:00.000000Z. 
 
 
 Backwards Compatibility

@@ -1,7 +1,7 @@
 
 <DIV>
-.. _50532475__Toc127343522:
-.. _50532475__Ref114042872:
+
+
 <A NAME="50532475__Ref114041211"></A><A NAME="50532475__Ref114028977"></A><A NAME="50532475__Ref113958744"></A><A NAME="50532475__Ref113958733"></A>Metadata
 ========================================
 <DIV>
@@ -17,14 +17,14 @@ ACL and ACE Structure
 
 An ACL is an ordered list of ACEs. The two types of ACEs in CDMI are ALLOW and DENY. An ALLOW ACE grants some form of access to a principal. Principals are either users or groups and are represented by identifiers. A DENY ACE denies access of some kind to a principal. For instance, a DENY ACE may deny the ability to write the metadata or ACL of an object but may remain silent on other forms of access. In that case, if another ACE ALLOWs write access to the object, the principal is allowed to write the object's data, but nothing else. 
 
-ACEs are composed of four fields: type, who, flags and access_mask, as per :rfc:`3530`. The type, flags, and access_mask shall be specified as either unsigned integers in hex string representation or as a comma-delimited list of bit mask string form values taken from :ref:`ACE Types`, :ref:`ACE Flags`, and :ref:`ACE Bit Masks`.
+ACEs are composed of four fields: type, who, flags and access_mask, as per :rfc:`3530`. The type, flags, and access_mask shall be specified as either unsigned integers in hex string representation or as a comma-delimited list of bit mask string form values taken from `ACE Types`, :ref:`ACE Flags`, and :ref:`ACE Bit Masks`_.
 </DIV>
 <DIV>
 
 ACE Types
 -----
 
-:ref:`ACE Types` defines the following ACE types, following NFSv4.
+`ACE Types`_ defines the following ACE types, following NFSv4.
 
 
 .. list-table:: <A NAME="50532475_48944"></A>ACE Types
@@ -62,7 +62,7 @@ The client is responsible for ordering the ACEs in an ACL. The server shall not 
 ACE Who
 -----
 
-The special "who" identifiers need to be understood universally, rather than in the context of a particular external security domain (see :ref:`Who Identifiers`). Some of these identifiers may not be understood when a CDMI client accesses the server, but they may have meaning when a local process accesses the file. The ability to display and modify these permissions is permitted over CDMI, even if none of the access methods on the server understands the identifiers.<A NAME="50532475__Ref121024292"></A>
+The special "who" identifiers need to be understood universally, rather than in the context of a particular external security domain (see `Who Identifiers`_). Some of these identifiers may not be understood when a CDMI client accesses the server, but they may have meaning when a local process accesses the file. The ability to display and modify these permissions is permitted over CDMI, even if none of the access methods on the server understands the identifiers.<A NAME="50532475__Ref121024292"></A>
 
 
 .. list-table:: <A NAME="50532475_69848"></A>Who Identifiers
@@ -96,7 +96,7 @@ To avoid name conflicts, these special identifiers are distinguished by an appen
 ACE Flags
 -----
 
-CDMI allows for nested containers and mandates that objects and subcontainers be able to inherit access permissions from their parent containers. However, it is not enough to simply inherit all permissions from the parent; it might be desirable, for example, to have different default permissions on child objects and subcontainers of a given container. The flags in :ref:`ACE Flags` govern this behavior. 
+CDMI allows for nested containers and mandates that objects and subcontainers be able to inherit access permissions from their parent containers. However, it is not enough to simply inherit all permissions from the parent; it might be desirable, for example, to have different default permissions on child objects and subcontainers of a given container. The flags in `ACE Flags`_ govern this behavior. 
 
 
 .. list-table:: <A NAME="50532475_83722"></A>ACE Flags 
@@ -314,7 +314,7 @@ Implementations shall use the correct string form to display permissions, if the
 </DIV>
 <DIV>
 
-.. _50532475__Ref120237580:
+
 ACL Evaluation
 -----
 
@@ -366,7 +366,7 @@ When a root container is created and no ACL is supplied, the server shall place 
 
     ]
 
-As ACLs are storage system metadata, they are stored and retrieved through the metadata field included in a PUT or GET request. The syntax is as follows, using the constant strings from :ref:`ACE Types`, :ref:`ACE Flags`, and :ref:`ACE Bit Masks`, above. 
+As ACLs are storage system metadata, they are stored and retrieved through the metadata field included in a PUT or GET request. The syntax is as follows, using the constant strings from `ACE Types`, :ref:`ACE Flags`, and :ref:`ACE Bit Masks`_, above. 
 
     ACL = { ACE [, ACE ...] }
 
@@ -699,8 +699,8 @@ An example of an ACL embedded in a response to a GET request is as follows:</H6>
 </DIV>
 </DIV>
 <DIV>
-.. _50532475__Ref126790916:
-.. _50532475__Ref126790869:
+
+
 <A NAME="50532475__Ref120976323"></A><A NAME="50532475__Ref120976253"></A>Support for User Metadata
 ************************
 
@@ -713,12 +713,12 @@ All CDMI objects that support metadata shall permit the inclusion of arbitrary u
 
 </DIV>
 <DIV>
-.. _50532475__Ref127335727:
-.. _50532475__Ref127335691:
+
+
 <A NAME="50532475__Ref120976450"></A><A NAME="50532475__Ref120976421"></A>Support for Storage System Metadata
 ************************
 
-After an object has been created, the storage system metadata, as described in :ref:`Storage System Metadata`, shall be generated by the cloud storage system and shall immediately be made available to a CDMI client in the metadata that is returned as a result of the create operation and any subsequent retrievals.
+After an object has been created, the storage system metadata, as described in `Storage System Metadata`_, shall be generated by the cloud storage system and shall immediately be made available to a CDMI client in the metadata that is returned as a result of the create operation and any subsequent retrievals.
 
 
 .. list-table:: <A NAME="50532475_57799"></A>Storage System Metadata (Sheet 1 of 3)
@@ -738,17 +738,17 @@ After an object has been created, the storage system metadata, as described in :
     * - cdmi_ctime
       - JSON String
       - The time when the object was created, in  ISO-8601
- point-in-time format, as described in :ref:`Time Representations`.
+ point-in-time format, as described in `Time Representations`_.
 This metadata value can only be updated by a client if it has the "backup_operator" privilege. If a client does not have the "backup operator privilege, updates of this metadata item shall be ignored.
       - Optional
     * - cdmi_atime
       - JSON String
-      - The time when the object was last accessed in ISO-8601 point-in-time format, as described in :ref:`Time Representations`. The access or modification of a child is not considered an access of a parent container (access/modify times do not propagate up the tree). For a newly created object, this value shall be set to the creation time.
+      - The time when the object was last accessed in ISO-8601 point-in-time format, as described in `Time Representations`_. The access or modification of a child is not considered an access of a parent container (access/modify times do not propagate up the tree). For a newly created object, this value shall be set to the creation time.
 This metadata value can only be updated by a client if it has the "backup_operator" privilege. If a client does not have the "backup operator privilege, updates of this metadata item shall be ignored.
       - Optional
     * - cdmi_mtime
       - JSON String
-      - The time when the object was last modified, in ISO-8601 point-in-time format, as described in :ref:`Time Representations`. The modification of a child is not considered a modification of a container object (modification times do not propagate up the tree). For a newly created object, this value shall be set to the creation time.
+      - The time when the object was last modified, in ISO-8601 point-in-time format, as described in `Time Representations`_. The modification of a child is not considered a modification of a container object (modification times do not propagate up the tree). For a newly created object, this value shall be set to the creation time.
 This metadata value can only be updated by a client if it has the "backup_operator" privilege. If a client does not have the "backup operator privilege, updates of this metadata item shall be ignored.
       - Optional
     * - cdmi_acount
@@ -776,14 +776,14 @@ This metadata value can only be updated by a client if it has the "backup_operat
 
 </DIV>
 <DIV>
-.. _50532475__Ref127340730:
-.. _50532475__Ref121028185:
+
+
 <A NAME="50532475__Ref121028139"></A><A NAME="50532475__Ref120976603"></A>Support for Data System Metadata
 ************************
 
 When specified, data system metadata provides guidelines to the cloud storage system on how to provide storage data services for data managed through the CDMI interface.
 
-Data system metadata (see :ref:`Data System Metadata`) is inherited from parent objects to any children. If a child explicitly contains data system metadata, the metadata value of the child data system metadata shall override the metadata value of the parent data system metadata. 
+Data system metadata (see `Data System Metadata`_) is inherited from parent objects to any children. If a child explicitly contains data system metadata, the metadata value of the child data system metadata shall override the metadata value of the parent data system metadata. 
 
 
 .. list-table:: <A NAME="50532475_81867"></A>Data System Metadata (Sheet 1 of 6)
@@ -807,7 +807,7 @@ If the requested number of copies cannot be created within the HTTP timeout peri
       - Optional
     * - cdmi_assignedsize
       - JSON String
-      - If this data system metadata item is present and set to a positive numeric string, it indicates that the client is specifying the size in bytes that is desired to be reported for a container object exported via other protocols (see :ref:`Container Metadata`
+      - If this data system metadata item is present and set to a positive numeric string, it indicates that the client is specifying the size in bytes that is desired to be reported for a container object exported via other protocols (see `Container Metadata`_
 ). The system is not required to reserve this space and may thin-provision the requested space. Thus, the requested value may be greater than the actual storage space consumed. When this data system metadata item is absent, or is present and is not set to a positive numeric string, this data system metadata item shall not be used. 
 This data system metadata item is only applied against container objects and is not inherited by child objects.
       - Optional
@@ -843,28 +843,28 @@ Optional
     * - cdmi_retention_period
       - JSON String
       - If this data system metadata item is present and contains a valid ISO 8601:2004 time interval (as described in <A HREF="../../CDMI 1.0.2/FM 1.0.2/5-Overview_of_Cloud_Storage.htm#47707" CLASS="XRef"></A>
-), it indicates that the client is requesting that an object be placed under retention (see :ref:`CDMI Retention`)
+), it indicates that the client is requesting that an object be placed under retention (see `CDMI Retention`_)
 . When this data system metadata item is absent, this data system metadata item shall not be used. When this data system metadata item is present but does not contain a valid ISO 8601:2004 time interval, the create, update, or deserialize operation shall fail with an HTTP status code of ``400 Bad Request``
 .
 If this data system metadata item is updated and the new end date is before the current end date, the update operation shall fail with an HTTP status code of ``403 Forbidden``
 . 
       - Optional
-    * - .. _50532475_90990:
+    * - 
 cdmi_retention_autodelete
       - JSON String
       - If this data system metadata item is present and set to "true", it indicates that the client is requesting that an object under retention be automatically deleted when retention expires. When this data system metadata item is absent, or is present and is not set to "true", this data system metadata item shall not be used.
       - Optional
     * - cdmi_hold_id
       - JSON Array of JSON Strings
-      - If this data system metadata item is present and not an empty array, it indicates that the client is requesting that an object be placed under hold (see :ref:`CDMI Hold`
+      - If this data system metadata item is present and not an empty array, it indicates that the client is requesting that an object be placed under hold (see `CDMI Hold`_
 ). Each string in the array shall contain a unique user-specified hold identifier. 
 When this data system metadata item is absent, or is present and is an empty JSON array, this data system metadata item shall not be used. 
 If this data system metadata item is updated, and a previously existing hold string has been removed or changed in the update, the update operation shall fail with an HTTP status code of ``403 Forbidden``
-. (See :ref:`CDMI Hold`
+. (See `CDMI Hold`_
  concerning releasing holds.)
       - Optional
     * <TD ROWSPAN="3" COLSPAN="1">
-.. _50532475_71042:
+
 cdmi_encryption
 <TD ROWSPAN="3" COLSPAN="1">
 JSON String
@@ -891,7 +891,7 @@ To improve interoperability between CDMI implementations, the following designat
 
 <TD ROWSPAN="3" COLSPAN="1">
 Optional
-    *     *     * - .. _50532475_67296:
+    *     *     * - 
 cdmi_value_hash 
       - JSON String
       - If this data system metadata item is present and not an empty string, it indicates that the client is requesting that the system hash the object value using the hashing algorithm and length requested. The result of the hash shall be provided in the cdmi_hash storage system metadata item. Supported algorithm/length values are provided by the cdmi_value_hash capability. 
@@ -918,7 +918,7 @@ To improve interoperability between CDMI implementations, the following designat
       - JSON String
       - If this data system metadata item is present and set to a positive numeric string, it indicates that the client is requesting a desired maximum data rate on retrieve, in bytes per second. This metadata is the desired bandwidth to the data, as measured from the edge of the cloud and factoring out any bandwidth capability between the client and the cloud. This metadata is used to stage the data in locations where there is sufficient bandwidth to accommodate a maximum usage. When this data system metadata item is absent, or is present and is not set to a positive numeric string, this data system metadata item shall not be used. 
       - Optional
-    * - .. _50532475_61667:
+    * - 
 cdmi_sanitization_method
       - JSON String
       - If this data system metadata item is present and not an empty string, it indicates that the client is requesting that the system use a specific sanitization method to delete data such that the data is unrecoverable after an update or delete operation. Supported sanitization method values are provided by the cdmi_sanitization_method capability. 
@@ -934,7 +934,7 @@ Supported sanitization methods are defined as system-specific strings.
       - JSON String
       - If this data system metadata item is present and set to a positive numeric string, it indicates that the client is requesting the largest acceptable duration in time to restore data, specified in seconds. This metadata is used to indicate the desired maximum acceptable duration to restore the primary copy or copies of the data from a secondary backup copy or copies. When this data system metadata item is absent, or is present and is not set to a positive numeric string, this data system metadata item shall not be used.
       - Optional
-    * - .. _50532475_87107:
+    * - 
 cdmi_authentication_methods
       - JSON Array of JSON Strings
       - The client shall set this metadata to a list of authentication methods requested to be enabled for the domain.
@@ -947,7 +947,7 @@ Supported authentication method values are indicated by the cdmi_authentication_
 Support for Provided Data System Metadata
 ************************
 
-For each metadata item in a data system, there is an actual value that the cloud service is able to achieve at this time, as shown in :ref:`Provided Values of Data Systems Metadata Items`. Data system-provided metadata items are read only. Updates of these metadata items shall be ignored.
+For each metadata item in a data system, there is an actual value that the cloud service is able to achieve at this time, as shown in `Provided Values of Data Systems Metadata Items`_. Data system-provided metadata items are read only. Updates of these metadata items shall be ignored.
 
 
 .. list-table:: <A NAME="50532475_18114"></A>Provided Values of Data Systems Metadata Items (Sheet 1 of 2)
@@ -982,7 +982,7 @@ For each metadata item in a data system, there is an actual value that the cloud
       - Optional
     * - cdmi_retention_period_provided
       - JSON String
-      - Contains an :ref:`ISO 8601:2004` time interval (as described in :ref:`Time Representations`) specifying the period the object is protected by retention
+      - Contains an `ISO 8601:2004` time interval (as described in :ref:`Time Representations`_) specifying the period the object is protected by retention
       - Optional
     * - cdmi_retention_autodelete_provided
       - JSON String
@@ -994,11 +994,11 @@ For each metadata item in a data system, there is an actual value that the cloud
       - Optional
     * - cdmi_encryption_provided
       - JSON String
-      - Contains the algorithm used for encryption, the mode of operation, and the key size. (See :ref:`cdmi_encryption` in :ref:`Data System Metadata` for the format.)
+      - Contains the algorithm used for encryption, the mode of operation, and the key size. (See `cdmi_encryption` in :ref:`Data System Metadata`_ for the format.)
       - Optional
     * - cdmi_value_hash_provided
       - JSON String
-      - Contains the algorithm and length being used to hash the object value. (See :ref:`cdmi_value_hash` in :ref:`Data System Metadata` for the format.)
+      - Contains the algorithm and length being used to hash the object value. (See `cdmi_value_hash` in :ref:`Data System Metadata`_ for the format.)
       - Optional
     * - cdmi_latency_provided
       - JSON String
@@ -1010,7 +1010,7 @@ For each metadata item in a data system, there is an actual value that the cloud
       - Optional
     * - cdmi_sanitization_method_provided
       - JSON String
-      - Contains the sanitization method used. (See :ref:`cdmi_sanitization_method` in :ref:`Data System Metadata` for the format.)
+      - Contains the sanitization method used. (See `cdmi_sanitization_method` in :ref:`Data System Metadata`_ for the format.)
       - Optional
     * - cdmi_RPO_provided
       - JSON String
@@ -1022,7 +1022,7 @@ For each metadata item in a data system, there is an actual value that the cloud
       - Optional
     * - cdmi_authentication_methods_provided
       - JSON Array of JSON Strings
-      - Contains a list of authentication methods enabled for the domain. (See :ref:`cdmi_authentication_methods` in :ref:`Data System Metadata` for the format.)
+      - Contains a list of authentication methods enabled for the domain. (See `cdmi_authentication_methods` in :ref:`Data System Metadata`_ for the format.)
       - Optional
 
 </DIV>

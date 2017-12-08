@@ -1,6 +1,6 @@
 
 <DIV>
-.. _50532481__Toc127343489:
+
 Query Queues
 ========================================
 <DIV>
@@ -14,7 +14,7 @@ Query queues allow CDMI clients to efficiently discover what content matches a g
 
 When a client wishes to perform queries, it may first check if the system is capable of providing query functionality by checking for the presence of the cdmi_query capability in the root container capabilities. If this capability is not present, creating a query queue shall be successful, but no query results shall be enqueued into the query queue.
 
-When creating a query queue, the metadata described in :ref:`Required Metadata for a Query Queue` shall be provided. Attempts to change metadata in th.. list-table shall result in an HTTP status code of ``    :header-rows: 1
+When creating a query queue, the metadata described in `Required Metadata for a Query Queue` shall be provided. Attempts to change metadata in th.. list-table shall result in an HTTP status code of ``_    :header-rows: 1
     :widths: auto
     :align: center 
 
@@ -43,12 +43,12 @@ When creating a query queue, the metadata described in :ref:`Required Metadata f
       - Mandatory
     * - cdmi_scope_specification
       - JSON Array of JSON Objects
-      - The scope specification determines which objects are included in the query results. This scope specification is similar to a "WHERE" clause in SQL-like languages. To query all objects, specify an empty JSON array. See :ref:`Scope Specification`
+      - The scope specification determines which objects are included in the query results. This scope specification is similar to a "WHERE" clause in SQL-like languages. To query all objects, specify an empty JSON array. See `Scope Specification`_
  for how to construct a scope specification.
       - Mandatory
     * - cdmi_results_specification
       - JSON Object
-      - The results specification contains the JSON fields to be returned for each object that matches the query. This results specification is similar to a "SELECT" clause in SQL-like languages. See :ref:`Results Specification`
+      - The results specification contains the JSON fields to be returned for each object that matches the query. This results specification is similar to a "SELECT" clause in SQL-like languages. See `Results Specification`_
  for how to construct a results specification.
       - Mandatory
 
@@ -118,7 +118,7 @@ When results are stored in a query queue, each enqueued value shall consist of a
 
     } 
 
-:ref:`Query Status Metadata` describes the system-created metadata that provides details on the status of the query queue.
+`Query Status Metadata`_ describes the system-created metadata that provides details on the status of the query queue.
 
 
 .. list-table:: <A NAME="50532481_34298"></A>Query Status Metadata
@@ -154,7 +154,7 @@ Objects shall only be included in the query results if the user who created the 
 </DIV>
 </DIV>
 <DIV>
-.. _50532481_33287:
+
 Extending CDMI Query
 ************************
 

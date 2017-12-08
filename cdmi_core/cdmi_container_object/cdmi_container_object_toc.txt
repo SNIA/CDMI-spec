@@ -1,0 +1,17 @@
+Container Object Resource Operations using CDMI
+===============================================
+
+.. toctree::
+
+  overview
+  create
+  read
+  update
+  delete
+  create_post
+
+
+
+
+
+

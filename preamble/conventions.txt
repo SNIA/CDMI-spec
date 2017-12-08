@@ -1,9 +1,9 @@
-.. _chap_conventions:
+
 
 Conventions
 ===========
 
-.. _sect_interface_format
+
 
 ****************
 Interface Format
@@ -32,7 +32,7 @@ Each interface description has nine components, as described in :numref:`tbl_int
 
 
 
-.. _sect_typographical_conventions:
+
 
 *************************
 Typographical Conventions
@@ -59,7 +59,7 @@ All code text and HTTP status codes are shown in a fixed-width font, as follows:
 Requesting an optional field that is not present shall result in an HTTP status code of ``404 Not Found``.
 
 
-.. _sect_request_and_response_body_requirements:
+
 
 **************************************
 Request and Response Body Requirements
@@ -72,7 +72,7 @@ In request and response body tables, the Requirement column contains one of the 
 * Optional. The value specified in this row may be provided.
 
 
-.. _sect_key_word_requirements:
+
 
 *********************
 Key Word Requirements

@@ -19,7 +19,7 @@ The data object shall be accessible as a child of the container with a server-as
 
 HTTP POST to a container is used to enable CDMI servers to support :rfc:`1867` form-based file uploading. When implementing :rfc:`1867`, the CDMI server-assigned name may be the user-provided file name.
 
-.. _50532463_20183:
+
 
 Capabilities
 ------------
@@ -31,7 +31,7 @@ The following capabilities describe the supported operations that may be perform
 * If the new data object is being created in a container object, support for the ability to create the value of the new data object in specified byte ranges is indicated by the presence of the "cdmi_create_value_range" capability in the parent container.
 * Support for the ability to create a new data object by ID using multi-part MIME is indicated by the presence of the "cdmi_multipart_mime" system-wide capability.
 
-.. _50532463_30303:
+
 
 Request Header 
 --------------

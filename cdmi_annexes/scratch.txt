@@ -14,7 +14,7 @@ Changes to CDMI 1.1</H6>
 
 The changes proposed are a set of additional, optional contents for domain summary objects.
 <OL>
-#. Insert into :ref:`Terms`.
+#. Insert into `Terms`_.
 </OL>
 3.x
 private network segment
@@ -23,7 +23,7 @@ private network segment
 public network segment
      a single IP address or range of IP addresses that are considered external (e.g., WAN)
 <OL>
-#. A.. list-table entries to the end of :ref:`Contents of Domain Summary Objects` in :ref:`Domain Object Summaries` as follows:
+#. A.. list-table entries to the end of `Contents of Domain Summary Objects` in :ref:`Domain Object Summaries`_ as follows:
     :header-rows: 1
     :widths: auto
     :align: center 
@@ -127,7 +127,7 @@ A common trait of cloud storage services is the ability to share an object with 
 <H6 CLASS="A3">
 Changes to CDMI 1.1</H6>
 <OL>
-#. Insert into :ref:`ACL Evaluation`:
+#. Insert into `ACL Evaluation`_:
 </OL>
 <P CLASS="Body-Indent">
 After the bullet item:</P>
@@ -140,7 +140,7 @@ Insert bullet:</P>
 
 
 * ACEs that have an expiration value less than the current time are ignored.
-#. Change :ref:`ACL Evaluation`:
+#. Change `ACL Evaluation`_:
 
 <P CLASS="Body-Indent">
 Original text:</P>
@@ -151,20 +151,20 @@ Revised text:</P>
 
     ACE = { acetype , identifier , aceflags , acemask , acetime, expiration }
 <OL>
-#. Insert into :ref:`ACL Evaluation` after "``acemask = uint_t | acemaskstring``":
+#. Insert into `ACL Evaluation` after "``acemask = uint_t | acemaskstring``_":
 </OL>
 
     expiration = uint_t
 <OL>
-#. Insert into :ref:`ACL Evaluation` after "When ACE masks...":
+#. Insert into `ACL Evaluation`_ after "When ACE masks...":
 </OL>
 
-   When ACE expiration is presented in string format, it shall be specified in ISO-8601 point-in-time format as described in :ref:`Time Representations`.
+   When ACE expiration is presented in string format, it shall be specified in ISO-8601 point-in-time format as described in `Time Representations`_.
 <OL>
 #. Insert a new subclause 16.1.x - ACE Expiration.
 </OL>
 
-   An ACE may have an optional expiration associated with it. The expiration is a point-in-time value, in ISO-8601 point-in-time format, as described in :ref:`Time Representations`, which specifies that the ACE is no longer valid and shall be ignored after the time specified. 
+   An ACE may have an optional expiration associated with it. The expiration is a point-in-time value, in ISO-8601 point-in-time format, as described in `Time Representations`_, which specifies that the ACE is no longer valid and shall be ignored after the time specified. 
 </DIV>
 </DIV>
 <DIV>
@@ -182,7 +182,7 @@ This extension defines a new storage system metadata item, cdmi_group, that allo
 <H6 CLASS="A3">
 Changes to CDMI 1.1</H6>
 <OL>
-#. Add.. list-table enty to the end of :ref:`Capabilities for Data System Metadata` in :ref:`Data System Metadata Capabilities`.
+#. Add.. list-table enty to the end of `Capabilities for Data System Metadata` in :ref:`Data System Metadata Capabilities`_.
     :header-rows: 1
     :widths: auto
     :align: center 
@@ -196,7 +196,7 @@ Changes to CDMI 1.1</H6>
       - JSON String
       - If present and "true", this capability indicates that the cloud storage system supports group storage system metadata to indicate a group associated with the object.
 </TABLE>
-#. Add.. list-table entry below "cdmi_owner" in :ref:`Storage System Metadata` of :ref:`Support for Storage System Metadata`.
+#. Add.. list-table entry below "cdmi_owner" in `Storage System Metadata` of :ref:`Support for Storage System Metadata`_.
     :header-rows: 1
     :widths: auto
     :align: center 
@@ -224,17 +224,17 @@ Overview</H6>
 
 This CDMI extension adds the ability to request that data objects be versioned and defines how versions are accessed and managed. Version-enabled data objects provide access to and retention of historical versions of a data object and can provide compliance functionality and revision history. Version-enabled data objects also help applications handle multiple concurrent writers in disconnected distributed environments.
 
-Versioning is based on the snapshot concept introduced in CDMI 1.0 (see :ref:`CDMI Snapshots`) and follows the same architectural pattern. It should be reviewed in this context.
+Versioning is based on the snapshot concept introduced in CDMI 1.0 (see `CDMI Snapshots`_) and follows the same architectural pattern. It should be reviewed in this context.
 <DIV>
 <H6 CLASS="Note">
-Reviewers: Please start reading at :ref:`23 Data Object Versions` on :ref:`23 Data Object Versions`.</H6>
+Reviewers: Please start reading at `23 Data Object Versions` on :ref:`23 Data Object Versions`_.</H6>
 </DIV>
 </DIV>
 <DIV>
 <H6 CLASS="A3">
 Changes to  CDMI 1.1</H6>
 <OL>
-#. Insert into :ref:`Terms`.
+#. Insert into `Terms`_.
 </OL>
 3.x
 current data object version
@@ -249,7 +249,7 @@ historical data object version
 version-enabled data object
      a CDMI data object with versioning enabled
 <OL>
-#. Insert into :ref:`Examples` at the end of the clause.
+#. Insert into `Examples`_ at the end of the clause.
 </OL>
 <DIV>
 #.  GET to the URI to read a newly-created data object with a current version:
@@ -475,7 +475,7 @@ version-enabled data object
 
     &nbsp;
 <OL>
-#. Insert into :ref:`Data System Metadata Capabilities`, :ref:`Capabilities for Data System Metadata`.
+#. Insert into `Data System Metadata Capabilities`, :ref:`Capabilities for Data System Metadata`_.
 
     * - Capability Name
       - Type
@@ -500,7 +500,7 @@ When present, the system shall support the following storage system metadata: cd
       - JSON String
       - If present, this capability specifies the maximum total size of historical versions that may be specified. If absent, restrictions on the size of historical versions specified shall be ignored.
 </TABLE>
-#. Insert into :ref:`Support for Storage System Metadata`, :ref:`Storage System Metadata`.
+#. Insert into `Support for Storage System Metadata`, :ref:`Storage System Metadata`_.
 
     * - Metadata Name
       - Type
@@ -527,7 +527,7 @@ When present, the system shall support the following storage system metadata: cd
       - If present and "true", this capability indicates that the cloud storage system shall generate a cdmi_version_children storage system metadata for each data object version.
       - Conditional
 </TABLE>
-#. Insert into :ref:`Support for Data System Metadata`, :ref:`Data System Metadata`.
+#. Insert into `Support for Data System Metadata`, :ref:`Data System Metadata`_.
 
     * - Metadata Name
       - Type
@@ -576,7 +576,7 @@ This data system metadata item shall not be present in data object versions.
 
       - Optional
 </TABLE>
-#. Insert into :ref:`Support for Provided Data System Metadata`, :ref:`Provided Values of Data Systems Metadata Items`.
+#. Insert into `Support for Provided Data System Metadata`, :ref:`Provided Values of Data Systems Metadata Items`_.
 
     * - Metadata Name
       - Type
@@ -599,7 +599,7 @@ This data system metadata item shall not be present in data object versions.
       - Contains the maximum amount of space that can be used to retain historical versions, in bytes.
       - Optional
 </TABLE>
-#. Insert new clause after :ref:`Query Queues`.
+#. Insert new clause after `Query Queues`_.
 </OL>
 </DIV>
 </DIV>
@@ -611,11 +611,11 @@ This data system metadata item shall not be present in data object versions.
 <H6 CLASS="Body-Text-Head">
 23.1	Overview</H6>
 
-Version-enabled data objects allow the previous state of a data object to be retained when an update is performed. In a non-version-enabled data object, each update changes the state of the object, and the previous state is lost. This state change is shown in :ref:`Updates to a Non-Version-Enabled Data Object`.
+Version-enabled data objects allow the previous state of a data object to be retained when an update is performed. In a non-version-enabled data object, each update changes the state of the object, and the previous state is lost. This state change is shown in `Updates to a Non-Version-Enabled Data Object`_.
 
 
 <H6 CLASS="Figure-Caption">
-.. _50532484_54517:
+
 Updates to a Non-Version-Enabled Data Object</H6>
 </CAPTION>
     * - <H6 CLASS="NoSpace">
@@ -625,11 +625,11 @@ Updates to a Non-Version-Enabled Data Object</H6>
 </DIV>
 </TABLE>
 
-When a data object has versioning enabled, each update creates a new "current version" with the same contents of the version-enabled data object, and the previous current version becomes a historical version. All versions can be accessed via separate URIs and are immutable. The version-enabled data object continues to be mutable and has the same behaviors to clients as a non-version-enabled data object. This behavior is shown in :ref:`Updates to a Version-Enabled Data Object` from the perspective of a client.
+When a data object has versioning enabled, each update creates a new "current version" with the same contents of the version-enabled data object, and the previous current version becomes a historical version. All versions can be accessed via separate URIs and are immutable. The version-enabled data object continues to be mutable and has the same behaviors to clients as a non-version-enabled data object. This behavior is shown in `Updates to a Version-Enabled Data Object`_ from the perspective of a client.
 
 
 <H6 CLASS="Figure-Caption">
-.. _50532484_93771:
+
 Updates to a Version-Enabled Data Object</H6>
 </CAPTION>
     * - <H6 CLASS="NoSpace">
@@ -670,7 +670,7 @@ When a client enables versioning for a data object, the following metadata items
 
 * a cdmi_version_object metadata item that contains the URI to the corresponding version-enabled data object. This metadata item allows a client to detect that a given object is a version-enabled data object and not a data object version.
 * a cdmi_version_current field that contains the URI to the current version of the version-enabled data object.
-* a cdmi_version_oldest field that contains the URI of one or more of the oldest versions. More than one version can exist in this metadata item as explained in :ref:`23.3 Concurrent Updates and Version-Enabled Data Objects`.
+* a cdmi_version_oldest field that contains the URI of one or more of the oldest versions. More than one version can exist in this metadata item as explained in `23.3 Concurrent Updates and Version-Enabled Data Objects`_.
 
 
 Each data object version shall contain the above three fields, with the same values as found in the version-enabled data object. Each data object version shall also contain the following two fields:
@@ -681,11 +681,11 @@ Each data object version shall contain the above three fields, with the same val
 * s of the versions created by modifying this version. If the data object version does not have any children, this metadata item shall be empty.
 
 
-To visualize how these fields allow a client to traverse data object versions, the linkages between the version-enabled data object and data object versions in the final state of :ref:`Updates to a Version-Enabled Data Object` is shown in :ref:`Linkages Between a Version-Enabled Data Object and Data Object Versions`.
+To visualize how these fields allow a client to traverse data object versions, the linkages between the version-enabled data object and data object versions in the final state of `Updates to a Version-Enabled Data Object` is shown in :ref:`Linkages Between a Version-Enabled Data Object and Data Object Versions`_.
 
 
 <H6 CLASS="Figure-Caption">
-.. _50532484_65512:
+
 Linkages Between a Version-Enabled Data Object and Data Object Versions</H6>
 </CAPTION>
     * - <H6 CLASS="NoSpace">
@@ -701,16 +701,16 @@ A client accessing a data object version can traverse to the version-enabled dat
 </DIV>
 <DIV>
 <H6 CLASS="Body-Text-Head">
-.. _50532484_86917:
+
 23.3	Concurrent Updates and Version-Enabled Data Objects</H6>
 
 When multiple concurrent updates are performed against a version-enabled data object, each update is performed against the state of the object at the time the update starts. The change to the state resulting from the update to the object becomes visible to clients at the time the update completes.
 
-Two different types of concurrent updates can occur: overlapping updates and nested updates. :ref:`Overlapping Concurrent Updates` and :ref:`Linkages for Overlapping Updates` show the update sequence and resulting version linkages for overlapping updates:
+Two different types of concurrent updates can occur: overlapping updates and nested updates. `Overlapping Concurrent Updates` and :ref:`Linkages for Overlapping Updates`_ show the update sequence and resulting version linkages for overlapping updates:
 
 
 <H6 CLASS="Figure-Caption">
-.. _50532484_81844:
+
 Overlapping Concurrent Updates</H6>
 </CAPTION>
     * - <H6 CLASS="NoSpace">
@@ -722,7 +722,7 @@ Overlapping Concurrent Updates</H6>
 
 
 <H6 CLASS="Figure-Caption">
-.. _50532484_62039:
+
 Linkages for Overlapping Updates</H6>
 </CAPTION>
     * - <H6 CLASS="NoSpace">
@@ -732,13 +732,13 @@ Linkages for Overlapping Updates</H6>
 </DIV>
 </TABLE>
 
-In the sequence shown in :ref:`Overlapping Concurrent Updates`, both the "Second" and "Third" updates are performed against the "First" state. As the "Third" update completes last, it becomes the current version. In this example, historical version 501 would have two children, versions 502 and 503. Both versions 502 and 503 would have the same parent 501.
+In the sequence shown in `Overlapping Concurrent Updates`_, both the "Second" and "Third" updates are performed against the "First" state. As the "Third" update completes last, it becomes the current version. In this example, historical version 501 would have two children, versions 502 and 503. Both versions 502 and 503 would have the same parent 501.
 
-:ref:`Nested Concurrent Updates` and :ref:`Linkages for Nested Updates` show the update sequence and resulting version linkages for nested updates:
+`Nested Concurrent Updates` and :ref:`Linkages for Nested Updates`_ show the update sequence and resulting version linkages for nested updates:
 
 
 <H6 CLASS="Figure-Caption">
-.. _50532484_86134:
+
 Nested Concurrent Updates</H6>
 </CAPTION>
     * - <H6 CLASS="NoSpace">
@@ -750,7 +750,7 @@ v</H6>
 
 
 <H6 CLASS="Figure-Caption">
-.. _50532484_13363:
+
 Linkages for Nested Updates</H6>
 </CAPTION>
     * - <H6 CLASS="NoSpace">
@@ -768,11 +768,11 @@ Both of these data structures are equivalent, with the only difference being whi
 <H6 CLASS="Body-Text-Head">
 23.4	Capabilities for Version-Enabled Data Objects</H6>
 
-The relationship between version-enabled data objects, data object versions, and capabilities is shown in :ref:`Version to capabilityURI Relationships`.
+The relationship between version-enabled data objects, data object versions, and capabilities is shown in `Version to capabilityURI Relationships`_.
 
 
 <H6 CLASS="Figure-Caption">
-.. _50532484_31064:
+
 Version to capabilityURI Relationships</H6>
 </CAPTION>
     * - <H6 CLASS="NoSpace">

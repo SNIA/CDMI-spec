@@ -1,4 +1,4 @@
-.. _chap_normative_references:
+
 
 Normative References
 ====================

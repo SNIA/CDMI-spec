@@ -1,4 +1,4 @@
-.. _chap_terms:
+
 
 Terms
 =====
@@ -108,10 +108,10 @@ For the purposes of this document, the following terms and definitions apply.
          Lightweight Directory Access Protocol
 
     LUN
-         Logical Unit Number (see :ref:`ISO/IEC 14776-414`)
+         Logical Unit Number (see `ISO/IEC 14776-414`_)
 
     metadata
-         data about other data (see :ref:`ISO 14701:2012`)
+         data about other data (see `ISO 14701:2012`_)
 
     MIME
          Multipurpose Internet Mail Extensions (see :rfc:`2045`)
@@ -139,7 +139,7 @@ For the purposes of this document, the following terms and definitions apply.
 
 
     POSIX
-         Portable Operating System Interface (see :ref:`IEEE Std 1003.1`)
+         Portable Operating System Interface (see `IEEE Std 1003.1`_)
 
 
     private cloud

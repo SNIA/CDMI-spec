@@ -1,4 +1,4 @@
-.. _sect_create_a_data_object_using_http:
+
 
 Create a Data Object using HTTP
 *******************************
@@ -21,7 +21,7 @@ Where:
 
 After it is created, the data object shall also be accessible at <root URI>/cdmi_objectid/<objectID>.
 
-.. _sect_create_a_data_object_using_http_capabilities:
+
 
 Capabilities
 ------------
@@ -35,7 +35,7 @@ The following capabilities describe the supported operations that may be perform
 
 
 
-.. _sect_create_a_data_object_using_http_request_headers:
+
 
 Request Headers
 ---------------

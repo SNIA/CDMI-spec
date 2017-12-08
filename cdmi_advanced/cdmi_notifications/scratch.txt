@@ -1,6 +1,6 @@
 
 <DIV>
-.. _50532480__Toc127343486:
+
 Notification Queues
 ========================================
 
@@ -14,7 +14,7 @@ To create a notification queue, the client creates a regular CDMI queue and adds
 
 After the notification queue is created, all subsequent matching events after the queue creation time shall result in notification results being enqueued into the queue. CDMI does not mandate any specific ordering of events, and clients must be able to handle events that arrive out of order.
 
-When creating a notification queue, the metadata described in :ref:`Required Metadata for a Notification Queue` shall be provided. Attempts to change metadata in th.. list-table shall result in an HTTP status code of ``    :header-rows: 1
+When creating a notification queue, the metadata described in `Required Metadata for a Notification Queue` shall be provided. Attempts to change metadata in th.. list-table shall result in an HTTP status code of ``_    :header-rows: 1
     :widths: auto
     :align: center 
 
@@ -70,19 +70,19 @@ Clients may include the desired notification event types in the cdmi_notificatio
     * - cdmi_scope_specification
       - JSON Array of JSON Objects
       - The scope specification determines the set of objects on which operations trigger the generation of notifications. If notifications are desired for all objects, include an empty JSON array.
-See :ref:`Scope Specification` for how to construct a scope specification.
+See `Scope Specification`_ for how to construct a scope specification.
       - Mandatory
     * - cdmi_results_specification
       - JSON Object
-      - The results specification contains the JSON fields to be returned for each object that matches the notification scope specification. See :ref:`Results Specification` for how to construct a results specification.
-In addition to the fields defined in :ref:`Results Specification`, for notifications, four additional fields are defined:
+      - The results specification contains the JSON fields to be returned for each object that matches the notification scope specification. See `Results Specification`_ for how to construct a results specification.
+In addition to the fields defined in `Results Specification`_, for notifications, four additional fields are defined:
 
 
         * cdmi_event - Indicates the event as specified in the cdmi_notification_events field that triggered the notification;
         * cdmi_event_result - Indicates the status result of the event that triggered the notification. The status is the same as the status that was returned over the HTTP request, i.e., ``200 OK``
 , ``404 Not Found``
 , etc.;
-        * cdmi_event_time - Indicates the time of the event that triggered the notification. The time will be formatted in ISO-8601 time (see :ref:`Time Representations` and :ref:`ISO 8601:2004`); and
+        * cdmi_event_time - Indicates the time of the event that triggered the notification. The time will be formatted in ISO-8601 time (see `Time Representations` and :ref:`ISO 8601:2004`_); and
         * cdmi_event_user - Indicates the principal (ACL name) of the user that caused the event that triggered the notification. If the system triggered the event, the name will be left as an empty string. 
 
       - Mandatory
@@ -181,7 +181,7 @@ Objects shall only be included in the notification results if the user who creat
 
 If the administrator created the notification queue, then all matching objects that the administrator is allowed to read are included in the results. If user "jdoe" created the notification queue, then only matching objects that "jdoe" is allowed to read are included in the results.
 
-:ref:`Notification Status Metadata` describes the system-created metadata that provides details on the status of the notification queue.
+`Notification Status Metadata`_ describes the system-created metadata that provides details on the status of the notification queue.
 
 
 .. list-table:: <A NAME="50532480_20063"></A>Notification Status Metadata

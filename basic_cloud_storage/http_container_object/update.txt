@@ -2,4 +2,4 @@
 Update a Container Object using HTTP
 ************************************
 
-Updating a container object using HTTP is not defined by this version of this international standard. Clause :ref:`Update a Container Object using CDMI` describes how to update a container object using CDMI.
+Updating a container object using HTTP is not defined by this version of this international standard. Clause `Update a Container Object using CDMI`_ describes how to update a container object using CDMI.

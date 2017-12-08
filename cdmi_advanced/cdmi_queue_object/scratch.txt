@@ -1,14 +1,14 @@
 
 <DIV>
-.. _50532470_73442:
+
 Queue Object Resource Operations using CDMI
 ========================================
 <DIV>
-.. _50532470_61458:
+
 Overview
 ************************
 
-Queue objects provide first-in, first-out access when storing and retrieving data. A queue object writer POSTs data into a queue object, and a queue object reader GETs value(s) from the queue object and subsequently deletes the value(s) to acknowledge receipt of the value(s) that it received. Queuing provides a simple mechanism for one or more writers to send data to a single reader in a reliable way. If supported by the cloud storage system, cloud clients create the queue objects by using the mechanism described in :ref:`Create (POST) a New Queue Object using CDMI` and this clause.
+Queue objects provide first-in, first-out access when storing and retrieving data. A queue object writer POSTs data into a queue object, and a queue object reader GETs value(s) from the queue object and subsequently deletes the value(s) to acknowledge receipt of the value(s) that it received. Queuing provides a simple mechanism for one or more writers to send data to a single reader in a reliable way. If supported by the cloud storage system, cloud clients create the queue objects by using the mechanism described in `Create (POST) a New Queue Object using CDMI`_ and this clause.
 
 Queue objects are addressed in CDMI™ in two ways:
 
@@ -72,7 +72,7 @@ The value of a queue object may also be specified and retrieved using multi-part
 Queue Object Metadata
 -----
 
-Queue object metadata may also include arbitrary user-supplied metadata, storage system metadata, and data system metadata, as specified in :ref:`Metadata`
+Queue object metadata may also include arbitrary user-supplied metadata, storage system metadata, and data system metadata, as specified in `Metadata`_
 .
 </DIV>
 <DIV>
@@ -103,7 +103,7 @@ To create a new queue object, the following request shall be performed:
 
     PUT &lt;root URI&gt;/&lt;ContainerName&gt;/&lt;QueueName&gt;
 
-To create a new queue object by ID, see :ref:`Create (POST) a New Queue Object using CDMI`.
+To create a new queue object by ID, see `Create (POST) a New Queue Object using CDMI`_.
 <DIV>
 Where:
 
@@ -148,7 +148,7 @@ GET does not return any value for the object when completionStatus is not "Compl
 </DIV>
 <DIV>
 
-.. _50532470_53313:
+
 Capabilities 
 -----
 
@@ -164,11 +164,11 @@ The following capabilities describe the supported operations that may be perform
 </DIV>
 <DIV>
 
-.. _50532470_47855:
+
 Request Headers
 -----
 
-The HTTP request headers for creating a CDMI queue object using CDMI are shown in :ref:`Request Headers - Create a Queue Object using CDMI`. 
+The HTTP request headers for creating a CDMI queue object using CDMI are shown in `Request Headers - Create a Queue Object using CDMI`_. 
 
 
 .. list-table:: Request Headers - Create a Queue Object using CDMI<A NAME="50532470_17973"></A>
@@ -183,7 +183,7 @@ The HTTP request headers for creating a CDMI queue object using CDMI are shown i
       - Requirement
     * - Accept
       - Header String
-      - "application/cdmi-queue" or a consistent value as per  per clause :ref:`Content-Type Negotiation`
+      - "application/cdmi-queue" or a consistent value as per  per clause `Content-Type Negotiation`_
       - Mandatory
     * - Content-Type
       - Header String
@@ -197,11 +197,11 @@ The HTTP request headers for creating a CDMI queue object using CDMI are shown i
 </DIV>
 <DIV>
 
-.. _50532470_46417:
+
 Request Message Body
 -----
 
-The request message body fields for creating a queue object using CDMI are shown in :ref:`Request Message Body - Create a Queue Object using CDMI`.
+The request message body fields for creating a queue object using CDMI are shown in `Request Message Body - Create a Queue Object using CDMI`_.
 
 
 .. list-table:: <A NAME="50532470_16565"></A>Request Message Body - Create a Queue Object using CDMI  (Sheet 1 of 2)
@@ -231,7 +231,7 @@ The request message body fields for creating a queue object using CDMI are shown
       - URI of the owning domain
 
 
-        * If different from the parent domain, the user shall have the "cross_domain" privilege (see cdmi_member_privileges in :ref:`Required Settings for Domain Member User Objects`).
+        * If different from the parent domain, the user shall have the "cross_domain" privilege (see cdmi_member_privileges in `Required Settings for Domain Member User Objects`_).
         * If not specified, the parent domain shall be used.
 
       - Optional
@@ -277,7 +277,7 @@ aOnly one of these fields shall be specified in any given operation. Except for 
 Response Headers
 -----
 
-The HTTP response headers for creating a CDMI queue object using CDMI are shown in :ref:`Response Headers - Create a Queue Object using CDMI`. 
+The HTTP response headers for creating a CDMI queue object using CDMI are shown in `Response Headers - Create a Queue Object using CDMI`_. 
 
 
 .. list-table:: <A NAME="50532470_24226"></A>Response Headers - Create a Queue Object using CDMI
@@ -312,7 +312,7 @@ is returned, the server shall respond with the absolute URL of the object that i
 Response Message Body
 -----
 
-The response message body fields for creating a CDMI queue object using CDMI are shown in :ref:`Response Message Body - Create a Queue Object using CDMI`. 
+The response message body fields for creating a CDMI queue object using CDMI are shown in `Response Message Body - Create a Queue Object using CDMI`_. 
 
 
 .. list-table:: <A NAME="50532470_92285"></A>Response Message Body - Create a Queue Object using CDMI (Sheet 1 of 2)
@@ -370,7 +370,7 @@ The value shall be the string "Processing", the string "Complete", or an error s
       - Optional
     * - metadata
       - JSON Object
-      - Metadata for the queue object. This field includes any user and data system metadata specified in the request body metadata field, along with storage system metadata generated by the cloud storage system. See :ref:`Metadata` for a further description of metadata.
+      - Metadata for the queue object. This field includes any user and data system metadata specified in the request body metadata field, along with storage system metadata generated by the cloud storage system. See `Metadata`_ for a further description of metadata.
       - Mandatory
     * - queueValues
       - JSON String
@@ -383,7 +383,7 @@ The value shall be the string "Processing", the string "Complete", or an error s
 Response Status
 -----
 
-:ref:`HTTP Status Codes - Create a Queue Object using CDMI` describes the HTTP status codes that occur when creating a queue object using CDMI. 
+`HTTP Status Codes - Create a Queue Object using CDMI`_ describes the HTTP status codes that occur when creating a queue object using CDMI. 
 
 
 .. list-table:: <A NAME="50532470_39760"></A>HTTP Status Codes - Create a Queue Object using CDMI
@@ -419,7 +419,7 @@ Response Status
 </DIV>
 <DIV>
 
-.. _50532470_55203:
+
 Examples
 -----
 <DIV>
@@ -594,7 +594,7 @@ Reading a queue object shall, by default, return the complete value of the oldes
 </DIV>
 <DIV>
 
-.. _50532470_33611:
+
 Capabilities
 -----
 
@@ -608,11 +608,11 @@ The following capabilities describe the supported operations that may be perform
 </DIV>
 <DIV>
 
-.. _50532470_88305:
+
 Request Headers
 -----
 
-The HTTP request headers for reading a CDMI queue object using CDMI are shown in :ref:`Request Headers - Read a Queue Object using CDMI`. 
+The HTTP request headers for reading a CDMI queue object using CDMI are shown in `Request Headers - Read a Queue Object using CDMI`_. 
 
 
 .. list-table:: <A NAME="50532470_21022"></A>Request Headers - Read a Queue Object using CDMI
@@ -627,8 +627,8 @@ The HTTP request headers for reading a CDMI queue object using CDMI are shown in
       - Requirement
     * - Accept
       - Header String
-      - "application/cdmi-queue", "multipart/mixed", or a consistent value as per clause :ref:`Content-Type Negotiation`
-If "multipart/mixed", the body shall consist of one or more MIME parts, where the first part shall contain a body of content-type "application/cdmi-queue", and the second and subsequent parts shall each contain a queue value as described in :ref:`Update a Data Object using CDMI`.
+      - "application/cdmi-queue", "multipart/mixed", or a consistent value as per clause `Content-Type Negotiation`_
+If "multipart/mixed", the body shall consist of one or more MIME parts, where the first part shall contain a body of content-type "application/cdmi-queue", and the second and subsequent parts shall each contain a queue value as described in `Update a Data Object using CDMI`_.
       - Optional
     * - X-CDMI-Specification-Version
       - Header String
@@ -645,11 +645,11 @@ A request body shall not be provided.
 </DIV>
 <DIV>
 
-.. _50532470_61680:
+
 Response Headers
 -----
 
-The HTTP response headers for reading a CDMI queue object using CDMI are shown in :ref:`Response Headers - Read a Queue Object using CDMI`. 
+The HTTP response headers for reading a CDMI queue object using CDMI are shown in `Response Headers - Read a Queue Object using CDMI`_. 
 
 
 .. list-table:: <A NAME="50532470_44353"></A>Response Headers - Read a Queue Object using CDMI
@@ -680,11 +680,11 @@ If the server does not support any of the versions that the client supports, the
 </DIV>
 <DIV>
 
-.. _50532470_74477:
+
 Response Message Body
 -----
 
-The response message body fields for reading a CDMI queue object using CDMI are shown in :ref:`Response Message Body - Read a Queue Object using CDMI`. 
+The response message body fields for reading a CDMI queue object using CDMI are shown in `Response Message Body - Read a Queue Object using CDMI`_. 
 
 
 .. list-table:: <A NAME="50532470_12528"></A>Response Message Body - Read a Queue Object using CDMI (Sheet 1 of 4)
@@ -757,7 +757,7 @@ The value shall be the string "Processing", the string "Complete", or an error s
       - Optional
     * - metadata
       - JSON Object
-      - Metadata for the queue object. This field includes any user and data system metadata specified in the request body metadata field, along with storage system metadata generated by the cloud storage system. See :ref:`Metadata` for a further description of metadata.
+      - Metadata for the queue object. This field includes any user and data system metadata specified in the request body metadata field, along with storage system metadata generated by the cloud storage system. See `Metadata`_ for a further description of metadata.
       - Mandatory
     * - queueValues
       - JSON String
@@ -814,7 +814,7 @@ If individual fields are specified in the GET request, only these fields are ret
 Response Status
 -----
 
-:ref:`HTTP Status Codes - Read a Queue Object using CDMI` describes the HTTP status codes that occur when reading a queue object using CDMI. 
+`HTTP Status Codes - Read a Queue Object using CDMI`_ describes the HTTP status codes that occur when reading a queue object using CDMI. 
 
 
 .. list-table:: <A NAME="50532470_93312"></A>HTTP Status Codes - Read a Queue Object using CDMI
@@ -850,7 +850,7 @@ Response Status
 </DIV>
 <DIV>
 
-.. _50532470_93508:
+
 Examples
 -----
 <DIV>
@@ -1191,7 +1191,7 @@ The object shall also be accessible at &lt;root URI&gt;/cdmi_objectid/&lt;object
 </DIV>
 <DIV>
 
-.. _50532470_54424:
+
 Capability 
 -----
 
@@ -1203,11 +1203,11 @@ The following capability describes the supported operations that may be performe
 </DIV>
 <DIV>
 
-.. _50532470_66818:
+
 Request Headers
 -----
 
-The HTTP request headers for updating a CDMI queue object using CDMI are shown in :ref:`Request Headers - Update a Queue Object using CDMI`. 
+The HTTP request headers for updating a CDMI queue object using CDMI are shown in `Request Headers - Update a Queue Object using CDMI`_. 
 
 
 .. list-table:: <A NAME="50532470_81371"></A>Request Headers - Update a Queue Object using CDMI
@@ -1232,11 +1232,11 @@ The HTTP request headers for updating a CDMI queue object using CDMI are shown i
 </DIV>
 <DIV>
 
-.. _50532470_69974:
+
 Request Message Body
 -----
 
-The request message body fields for updating a queue object using CDMI are shown in :ref:`Request Message Body - Update a Queue Object using CDMI`.
+The request message body fields for updating a queue object using CDMI are shown in `Request Message Body - Update a Queue Object using CDMI`_.
 
 
 .. list-table:: <A NAME="50532470_52028"></A>Request Message Body - Update a Queue Object using CDMI 
@@ -1252,14 +1252,14 @@ The request message body fields for updating a queue object using CDMI are shown
     * - metadata
       - JSON Object
       - Metadata for the queue object. If present, the new metadata specified replaces the existing object metadata. If individual metadata items are specified in the URI, only those items are replaced; other items are preserved. 
-See :ref:`Metadata` for a further description of metadata.
+See `Metadata`_ for a further description of metadata.
       - Optional
     * - domainURI
       - JSON String
       - URI of the owning domain. 
 
 
-        * If different from the parent domain, the user shall have the "cross_domain" privilege (see cdmi_member_privileges in :ref:`Required Settings for Domain Member User Objects`). 
+        * If different from the parent domain, the user shall have the "cross_domain" privilege (see cdmi_member_privileges in `Required Settings for Domain Member User Objects`_). 
         * If not specified, the existing domain shall be preserved.
 
       - Optional
@@ -1273,7 +1273,7 @@ All enqueued items in the serialized queue object shall be added to the destinat
       - URI of a source CDMI queue object that shall be copied into the existing destination queue object. 
 
 
-        * If the destination queue object URI and the copy source queue object URI both do not specify individual fields, the destination queue object shall be replaced with the source queue object, with the exception that the destination queue values shall be preserved. See :ref:`Enqueue a New Queue Value using CDMI` to copy enqueued items. 
+        * If the destination queue object URI and the copy source queue object URI both do not specify individual fields, the destination queue object shall be replaced with the source queue object, with the exception that the destination queue values shall be preserved. See `Enqueue a New Queue Value using CDMI`_ to copy enqueued items. 
         * If the destination queue object URI or the copy source queue object URI specifies individual fields, only the fields specified shall be used to update the destination queue object. If specified fields are not present in the source, these fields shall be ignored. If the value field is specified, it shall be ignored.  
         * If the destination queue object URI and the copy source queue object URI both specify fields, an HTTP status code of ``400 Bad Request``
  shall be returned to the client. 
@@ -1295,7 +1295,7 @@ aOnly one of these fields shall be specified in any given operation. Except for 
 Response Header
 -----
 
-The HTTP response header for updating a CDMI queue object using CDMI is shown in :ref:`Response Header - Update a Queue Object using CDMI`. 
+The HTTP response header for updating a CDMI queue object using CDMI is shown in `Response Header - Update a Queue Object using CDMI`_. 
 
 
 .. list-table:: <A NAME="50532470_89460"></A>Response Header - Update a Queue Object using CDMI
@@ -1326,7 +1326,7 @@ A response body may be provided as per :rfc:`2616`.
 Response Status
 -----
 
-:ref:`HTTP Status Codes - Update a Queue Object using CDMI` describes the HTTP status codes that occur when updating a queue object using CDMI. 
+`HTTP Status Codes - Update a Queue Object using CDMI`_ describes the HTTP status codes that occur when updating a queue object using CDMI. 
 
 
 .. list-table:: <A NAME="50532470_35504"></A>HTTP Status Codes - Update a Queue Object using CDMI
@@ -1362,7 +1362,7 @@ Response Status
 </DIV>
 <DIV>
 
-.. _50532470_94909:
+
 Examples
 -----
 <DIV>
@@ -1463,7 +1463,7 @@ The following capability describes the supported operations that may be performe
 Request Header
 -----
 
-The HTTP request header for deleting a CDMI queue object using CDMI is shown in :ref:`Request Header - Delete a Queue Object using CDMI`. 
+The HTTP request header for deleting a CDMI queue object using CDMI is shown in `Request Header - Delete a Queue Object using CDMI`_. 
 
 
 .. list-table:: <A NAME="50532470_73443"></A>Request Header - Delete a Queue Object using CDMI
@@ -1508,7 +1508,7 @@ A response body may be provided as per :rfc:`2616`.
 Response Status
 -----
 
-:ref:`HTTP Status Codes - Delete a Queue Object using CDMI` describes the HTTP status codes that occur when deleting a queue object using CDMI. 
+`HTTP Status Codes - Delete a Queue Object using CDMI`_ describes the HTTP status codes that occur when deleting a queue object using CDMI. 
 
 
 .. list-table:: <A NAME="50532470_95652"></A>HTTP Status Codes - Delete a Queue Object using CDMI
@@ -1585,7 +1585,7 @@ The object shall also be accessible at &lt;root URI&gt;/cdmi_objectid/&lt;object
 </DIV>
 <DIV>
 
-.. _50532470_90993:
+
 Capabilities
 -----
 
@@ -1598,11 +1598,11 @@ The following capabilities describe the supported operations that may be perform
 </DIV>
 <DIV>
 
-.. _50532470_54054:
+
 Request Headers
 -----
 
-The HTTP request headers for enqueuing a new CDMI queue object value using CDMI are shown in :ref:`Request Headers - Enqueue a New Queue Object Value using CDMI`. 
+The HTTP request headers for enqueuing a new CDMI queue object value using CDMI are shown in `Request Headers - Enqueue a New Queue Object Value using CDMI`_. 
 
 
 .. list-table:: <A NAME="50532470_84690"></A>Request Headers - Enqueue a New Queue Object Value using CDMI
@@ -1618,7 +1618,7 @@ The HTTP request headers for enqueuing a new CDMI queue object value using CDMI 
     * - Content-Type
       - Header String
       - "application/cdmi-queue" or "multipart/mixed"
-If "multipart/mixed", the first part shall contain a body of content-type "application/cdmi-queue", and the subsequent parts shall contain the queue values as described in :ref:`Read a Data Object using CDMI`.
+If "multipart/mixed", the first part shall contain a body of content-type "application/cdmi-queue", and the subsequent parts shall contain the queue values as described in `Read a Data Object using CDMI`_.
       - Mandatory
     * - X-CDMI-Specification-Version
       - Header String
@@ -1628,11 +1628,11 @@ If "multipart/mixed", the first part shall contain a body of content-type "appli
 </DIV>
 <DIV>
 
-.. _50532470_35369:
+
 Request Message Body
 -----
 
-The request message body fields for enqueuing a new queue object value using CDMI are shown in :ref:`Request Message Body - Enqueue a New Queue Object Value using CDMI`.
+The request message body fields for enqueuing a new queue object value using CDMI are shown in `Request Message Body - Enqueue a New Queue Object Value using CDMI`_.
 
 
 .. list-table:: <A NAME="50532470_57043"></A>Request Message Body - Enqueue a New Queue Object Value using CDMI  (Sheet 1 of 3)
@@ -1722,7 +1722,7 @@ A response body may be provided as per :rfc:`2616`.
 Response Status
 -----
 
-:ref:`HTTP Status Codes - Enqueue a New Queue Object Value using CDMI` describes the HTTP status codes that occur when enqueuing a new queue object using CDMI. 
+`HTTP Status Codes - Enqueue a New Queue Object Value using CDMI`_ describes the HTTP status codes that occur when enqueuing a new queue object using CDMI. 
 
 
 .. list-table:: <A NAME="50532470_86025"></A>HTTP Status Codes - Enqueue a New Queue Object Value using CDMI
@@ -1755,7 +1755,7 @@ Response Status
 </DIV>
 <DIV>
 
-.. _50532470_63553:
+
 Examples
 -----
 <DIV>
@@ -2087,7 +2087,7 @@ Where:
 
 The object shall also be accessible at &lt;root URI&gt;/cdmi_objectid/&lt;objectID&gt;.
 
-The "?value" suffix at the end of the queue resource URI shall be included to distinguish the deletion of the oldest value from the deletion of the queue object itself, as described in :ref:`Delete a Queue Object using CDMI` (which deletes all enqueued values).
+The "?value" suffix at the end of the queue resource URI shall be included to distinguish the deletion of the oldest value from the deletion of the queue object itself, as described in `Delete a Queue Object using CDMI`_ (which deletes all enqueued values).
 </DIV>
 </DIV>
 <DIV>
@@ -2106,7 +2106,7 @@ The following capability describes the supported operations that may be performe
 Request Header
 -----
 
-The HTTP request header for deleting a CDMI queue object value using CDMI is shown in :ref:`Request Header - Delete a Queue Object Value using CDMI`. 
+The HTTP request header for deleting a CDMI queue object value using CDMI is shown in `Request Header - Delete a Queue Object Value using CDMI`_. 
 
 
 .. list-table:: <A NAME="50532470_39443"></A>Request Header - Delete a Queue Object Value using CDMI
@@ -2151,7 +2151,7 @@ A response body may be provided as per :rfc:`2616`.
 Response Status
 -----
 
-:ref:`HTTP Status Codes - Delete a Queue Object Value using CDMI` describes the HTTP status codes that occur when deleting a queue object value using CDMI. 
+`HTTP Status Codes - Delete a Queue Object Value using CDMI`_ describes the HTTP status codes that occur when deleting a queue object value using CDMI. 
 
 
 .. list-table:: <A NAME="50532470_18647"></A>HTTP Status Codes - Delete a Queue Object Value using CDMI

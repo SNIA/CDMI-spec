@@ -1,6 +1,6 @@
 
 <DIV>
-.. _50532477_33287:
+
 Scope Specification
 ========================================
 <DIV>
@@ -228,7 +228,7 @@ Query against the value of objects is optional and is indicated by the presence 
 Query Matching Expressions
 ************************
 
-:ref:`Query Matching Expressions` defines the query matching expressions.
+`Query Matching Expressions`_ defines the query matching expressions.
 
 
 .. list-table:: <A NAME="50532477_81512"></A>Query Matching Expressions (Sheet 1 of 4)
@@ -318,12 +318,12 @@ Tag matching expressions are only supported if the cdmi_query_tags capability is
     * - "field" : "=~ constant"
       - The regular expression matching expression tests if the field value matches a specified constant regular expression value. 
 The leading space character after the "=~" and before the constant value is not included in the comparison. If the regular expression evaluates to true against the value, the condition shall be considered to be met. 
-Regular expression strings shall be processed according to the POSIX Extended Regular Expression (ERE) standard, as specified in :ref:`IEEE Std 1003.1`. 
+Regular expression strings shall be processed according to the POSIX Extended Regular Expression (ERE) standard, as specified in `IEEE Std 1003.1`_. 
 Regex matching expressions are only supported if the cdmi_query_regex capability is present.
     * - "field" : "!~ constant"
       - The not regular expression matching expression tests if the field value does not match a specified constant regular expression value. 
 The leading space character after the "!~" and before the constant value is not included in the comparison. If the regular expression evaluates to false against the value, the condition shall be considered to be met. 
-Regular expression strings shall be processed according to the POSIX Extended Regular Expression (ERE) standard, as specified in :ref:`IEEE Std 1003.1`. 
+Regular expression strings shall be processed according to the POSIX Extended Regular Expression (ERE) standard, as specified in `IEEE Std 1003.1`_. 
 Regex matching expressions are only supported if the cdmi_query_regex capability is present. 
 
 
@@ -388,7 +388,7 @@ When a URI is used as the constant for the equals and not equals operators again
 
 If an object ID is used in a query scope in the objectID field or the parentID field, all object IDs shall be processed such that they are case insensitive.
 
-.. _50532477_76496:
+
 &nbsp;
 </DIV>
 </DIV>
