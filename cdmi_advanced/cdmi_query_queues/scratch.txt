@@ -27,7 +27,7 @@ When creating a query queue, the metadata described in `Required Metadata for a 
 
 
 
-.. list-table:: <A NAME="50532481_78662"></A>Required Metadata for a Query Queue 
+.. list-table::  tbl_<A NAME="50532481_78662"></A>Required Metadata for a Query Queue 
     :header-rows: 1
     :widths: auto
     :align: center 
@@ -74,7 +74,7 @@ When creating a query queue, the metadata described in `Required Metadata for a 
 
                     "metadata" : {
 
-                        "cdmi_size" : "#&gt; 100000" 
+                        "cdmi_size" : "#> 100000" 
 
                     } 
 
@@ -121,7 +121,7 @@ When results are stored in a query queue, each enqueued value shall consist of a
 `Query Status Metadata`_ describes the system-created metadata that provides details on the status of the query queue.
 
 
-.. list-table:: <A NAME="50532481_34298"></A>Query Status Metadata
+.. list-table::  tbl_<A NAME="50532481_34298"></A>Query Status Metadata
     :header-rows: 1
     :widths: auto
     :align: center 

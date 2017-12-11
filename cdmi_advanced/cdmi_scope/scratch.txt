@@ -110,9 +110,9 @@ Each field inside a scope specification JSON object represents a condition that 
 
                 "cdmi_ctime": [
 
-                    "&gt;=2012-01-01T00:00:00",
+                    ">=2012-01-01T00:00:00",
 
-                    "&lt;=2013-01-01T00:00:00"
+                    "<=2013-01-01T00:00:00"
 
                 ]
 
@@ -231,7 +231,7 @@ Query Matching Expressions
 `Query Matching Expressions`_ defines the query matching expressions.
 
 
-.. list-table:: <A NAME="50532477_81512"></A>Query Matching Expressions (Sheet 1 of 4)
+.. list-table::  tbl_<A NAME="50532477_81512"></A>Query Matching Expressions (Sheet 1 of 4)
     :header-rows: 1
     :widths: auto
     :align: center 
@@ -253,32 +253,32 @@ Numeric constant strings shall be processed according to the JSON number represe
       - The not equals matching expression tests for the non-equality of the value of the field and a specified constant value. The not-equals test is case sensitive. 
 The leading space character after the "!=" and before the constant value is not included in the comparison. If the constant value does not match the value of the field, the condition shall be considered to be met.
 If the matching expression starts with a "#" character (e.g., "#!="), the value of the field is considered to be numeric for the purposes of comparison. Numeric constant strings shall be processed according to the JSON number representation described in :rfc:`4627`. A numeric matching expression shall be considered to be non-matching against a non-numeric field value.
-    * - "field" : "&gt; constant"
+    * - "field" : "> constant"
       - The greater than matching expression tests if the value of the field is lexicographically greater than a specified constant value. The greater than test is case sensitive. 
-The leading space character after the "&gt;" and before the constant value is not included in the comparison. 
+The leading space character after the ">" and before the constant value is not included in the comparison. 
 If the constant value is greater than the value of the field, the condition shall be considered to be met. 
-    * - "field" : "#&gt; constant"
+    * - "field" : "#> constant"
       - The numeric greater than matching expression tests if the numeric value of the field is greater than a specified constant value. 
 Numeric constant strings shall be processed according to the JSON number representation described in :rfc:`4627`. A numeric matching expression shall be considered to be non-matching against a non-numeric field value.
-    * - "field" : "&gt;= constant"
+    * - "field" : ">= constant"
       - The greater than or equals to matching expression tests if the value of the field is lexicographically greater than or equal to a specified constant value. The greater than or equals to test is case sensitive. 
-The leading space character after the "&gt;=" and before the constant value is not included in the comparison. 
+The leading space character after the ">=" and before the constant value is not included in the comparison. 
 If the constant value is greater than or equal to the value of the field, the condition shall be considered to be met.
-    * - "field" : "#&gt;= constant"
+    * - "field" : "#>= constant"
       - The numeric greater than or equals to matching expression tests if the numeric value of the field is greater than or equal to a specified constant value. 
 Numeric constant strings shall be processed according to the JSON number representation described in :rfc:`4627`. A numeric matching expression shall be considered to be non-matching against a non-numeric field value.
-    * - "field" : "&lt; constant"
+    * - "field" : "< constant"
       - The less than operator tests if the value of the field is lexicographically less than a specified constant value. The less than test is case sensitive. 
-The leading space character after the "&lt;" and before the constant value is not included in the comparison. 
+The leading space character after the "<" and before the constant value is not included in the comparison. 
 If the constant value is less than the value of the field, the condition shall be considered to be met.
-    * - "field" : "#&lt; constant"
+    * - "field" : "#< constant"
       - The numeric less than operator tests if the numeric value of the field is less than a specified constant value.
 Numeric constant strings shall be processed according to the JSON number representation described in :rfc:`4627`. A numeric matching expression shall be considered to be non-matching against a non-numeric field value.
-    * - "field" : "&lt;= constant"
+    * - "field" : "<= constant"
       - The less than or equals to matching expression tests if the value of the field is lexicographically less than or equal to a specified constant value. The less than or equal test is case sensitive. 
-The leading space character after the "&lt;=" and before the constant value is not included in the comparison. 
+The leading space character after the "<=" and before the constant value is not included in the comparison. 
 If the constant value is less than or equal to the value of the field, the condition shall be considered to be met.
-    * - "field" : "#&lt;= constant"
+    * - "field" : "#<= constant"
       - The numeric less than or equals to matching expression tests if the numeric value of the field is less than or equal to a specified constant value.
 Numeric constant strings shall be processed according to the JSON number representation described in :rfc:`4627`. A numeric matching expression shall be considered to be non-matching against a non-numeric field value.
     * - "field" : "starts constant"

@@ -27,7 +27,7 @@ When creating a notification queue, the metadata described in `Required Metadata
 
 
 
-.. list-table:: <A NAME="50532480_80229"></A>Required Metadata for a Notification Queue (Sheet 1 of 3)
+.. list-table::  tbl_<A NAME="50532480_80229"></A>Required Metadata for a Notification Queue (Sheet 1 of 3)
     :header-rows: 1
     :widths: auto
     :align: center 
@@ -63,7 +63,7 @@ When creating a notification queue, the metadata described in `Required Metadata
         * cdmi_delete - Notifications are generated when an object is deleted.
         * cdmi_export - Notifications are generated when a container is exported.
         * cdmi_snapshot - Notifications are generated when a container snapshot is created.
-        * &lt;implementor-specific events&gt;
+        * <implementor-specific events>
 
 Clients may include the desired notification event types in the cdmi_notification_events JSON array. If all notifications events are desired, an empty JSON array shall be used.
       - &nbsp;
@@ -121,7 +121,7 @@ In addition to the fields defined in `Results Specification`_, for notifications
 
                     "metadata" : {
 
-                        "cdmi_size" : "&gt;+100000" 
+                        "cdmi_size" : ">+100000" 
 
                     } 
 
@@ -184,7 +184,7 @@ If the administrator created the notification queue, then all matching objects t
 `Notification Status Metadata`_ describes the system-created metadata that provides details on the status of the notification queue.
 
 
-.. list-table:: <A NAME="50532480_20063"></A>Notification Status Metadata
+.. list-table::  tbl_<A NAME="50532480_20063"></A>Notification Status Metadata
     :header-rows: 1
     :widths: auto
     :align: center 

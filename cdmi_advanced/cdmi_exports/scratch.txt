@@ -84,8 +84,8 @@ Capabilities</H6>
 The following capabilities describe the supported operations that can be performed on an existing container:
 
 
-* The system-wide capability to export via a given protocol is indicated by the cdmi_&lt;protocol&gt;_export capability in the system-level metadata (e.g., "cdmi_nfs_export", when set to "true", indicates the ability of the system to export containers via NFS). If false or not set, attempts to export containers via the given protocol shall fail.
-* Support for the ability to export an existing container object via a given foreign protocol is indicated by the cdmi_&lt;protocol&gt;_export capability in the specified container. The default shall be "true" if this capability is unset.
+* The system-wide capability to export via a given protocol is indicated by the cdmi_<protocol>_export capability in the system-level metadata (e.g., "cdmi_nfs_export", when set to "true", indicates the ability of the system to export containers via NFS). If false or not set, attempts to export containers via the given protocol shall fail.
+* Support for the ability to export an existing container object via a given foreign protocol is indicated by the cdmi_<protocol>_export capability in the specified container. The default shall be "true" if this capability is unset.
 
 </DIV>
 <DIV>
@@ -139,21 +139,21 @@ Synopsis</H6>
 
                 "usermap" : {
 
-                    { &lt;cdminame&gt;, &lt;map&gt;, &lt;nfsname&gt; },
+                    { <cdminame>, <map>, <nfsname> },
 
-                    { "jimsmith", "&lt;--&gt;", "jims" },
+                    { "jimsmith", "<-->", "jims" },
 
                     { [ordered list of CDMIname/operator/NFSname triples] },
 
-                    { "*", "&lt;--&gt;", "*" }
+                    { "*", "<-->", "*" }
 
                 }
 
                 "groupmap" : {
 
-                    { "admins", "&lt;-", "wheel" },
+                    { "admins", "<-", "wheel" },
 
-                    { "everyone", "&lt;-", "*" }
+                    { "everyone", "<-", "*" }
 
                 }
 
@@ -167,19 +167,19 @@ Synopsis</H6>
 
                 "usermap" : {
 
-                    { "jimsmith", "&lt;--&gt;", "james.smith" }
+                    { "jimsmith", "<-->", "james.smith" }
 
                     { [ordered list of CDMIname/operator/NFSname triples] },
 
-                    { "*", "&lt;--&gt;", "*" }
+                    { "*", "<-->", "*" }
 
                 }
 
                 "groupmap" : {
 
-                    { "admins", "&lt;-", "Administrators" },
+                    { "admins", "<-", "Administrators" },
 
-                    { "everyone", "&lt;-", "*" }
+                    { "everyone", "<-", "*" }
 
                 }
 
@@ -223,7 +223,7 @@ Synopsis</H6>
 
     		},
 
-        "exports" : { &lt;exports as listed in request&gt; }
+        "exports" : { <exports as listed in request> }
 
     }
 </DIV>
@@ -272,7 +272,7 @@ In the following example, root gets mapped to nobody, and everyone else is mappe
 
                         "nobody",
 
-                        "&lt;-",
+                        "<-",
 
                         "root"
 
@@ -282,7 +282,7 @@ In the following example, root gets mapped to nobody, and everyone else is mappe
 
                         "*",
 
-                        "&lt;--&gt;",
+                        "<-->",
 
                         "*"
 
@@ -322,13 +322,13 @@ A BNF-style grammar for name mapping is as follows:
 
    quoted_utf8_name = " utf8_name "
 
-   utf8_name = &lt;any legal utf8 character sequence not including the characters ",',\,/,:,*,?&gt;
+   utf8_name = <any legal utf8 character sequence not including the characters ",',\,/,:,*,?>
 
-   pattern =  &lt;utf8_name&gt; * | *
+   pattern =  <utf8_name> * | *
 
-   mapping_operator = "&lt;--" | "&lt;--&gt;" | "--&gt;"
+   mapping_operator = "<--" | "<-->" | "-->"
 
-To restate this in English, a mapping entry consists of two names separated by a directional indicator. As most environments use the same usernames and groupnames across administrative domains, the most common mapping is " * &lt;--&gt; * ", which maps any name to the same name in the foreign protocol domain, and vice versa. It is highly recommended that this be both the default map and the last entry on all more complex maps.
+To restate this in English, a mapping entry consists of two names separated by a directional indicator. As most environments use the same usernames and groupnames across administrative domains, the most common mapping is " * <--> * ", which maps any name to the same name in the foreign protocol domain, and vice versa. It is highly recommended that this be both the default map and the last entry on all more complex maps.
 
 CDMI specifies pattern matching on names in the name map, but only prefix matching is required. The symbol " * " at the end of a character string shall match zero or more occurrences of any non-whitespace character.
 
@@ -350,21 +350,21 @@ Synopsis: </H6>
 
 To read all exports for an existing container object, the following request shall be performed:
 
-    GET &lt;root URI&gt;/&lt;ContainerName&gt;/&lt;TheContainerName&gt;/?exports
+    GET <root URI>/<ContainerName>/<TheContainerName>/?exports
 
 To read selected exports for an existing container object, the following request shall be performed:
 
-    GET &lt;root URI&gt;/&lt;ContainerName&gt;/&lt;TheContainerName&gt;/?exports:protocol=&lt;protocol&gt;,user=&lt;user&gt;,verbose="false"
+    GET <root URI>/<ContainerName>/<TheContainerName>/?exports:protocol=<protocol>,user=<user>,verbose="false"
 <DIV>
 Where:
 
 
-* &lt;root URI&gt; is the path to the CDMI cloud.
-* &lt;ContainerName&gt; is zero or more intermediate containers.
-* &lt;TheContainerName&gt; is the name specified for the topmost container for which exports are available.
-* &lt;protocol&gt; is the name of a protocol to which query results should be restricted. This parameter is optional; if it is omitted or a value of "all" is given, information about all protocols shall be returned, subject to additional filtering.
-* &lt;user&gt; is the login name of a CDMI user who wishes to mount the share. This parameter is optional and defaults to the owner of the container. When non-empty, servers shall filter the returned export list to include only exports which may be mounted given the restrictions in the protocol export structures.
-* &lt;verbose&gt; is an optional parameter indicating a desire for maximum information about the exports. When present, it shall have the values "true" or "false". The default is "false". When true, the server should return additional information about the container, as contained in its "exports" member. The amount of said information that is returned is implementation dependent, as server implementors need to be able to balance the needs of their clients against various security considerations.
+* <root URI> is the path to the CDMI cloud.
+* <ContainerName> is zero or more intermediate containers.
+* <TheContainerName> is the name specified for the topmost container for which exports are available.
+* <protocol> is the name of a protocol to which query results should be restricted. This parameter is optional; if it is omitted or a value of "all" is given, information about all protocols shall be returned, subject to additional filtering.
+* <user> is the login name of a CDMI user who wishes to mount the share. This parameter is optional and defaults to the owner of the container. When non-empty, servers shall filter the returned export list to include only exports which may be mounted given the restrictions in the protocol export structures.
+* <verbose> is an optional parameter indicating a desire for maximum information about the exports. When present, it shall have the values "true" or "false". The default is "false". When true, the server should return additional information about the container, as contained in its "exports" member. The amount of said information that is returned is implementation dependent, as server implementors need to be able to balance the needs of their clients against various security considerations.
 
 </DIV>
 </DIV>
@@ -379,7 +379,7 @@ To export a container via NFS, the information required is exactly what the serv
 Required members of the protocol structure for NFS are described in `Required Members of the NFS Protocol Structure`_.
 
 
-.. list-table:: <A NAME="50532472_31650"></A>Required Members of the NFS Protocol Structure  
+.. list-table::  tbl_<A NAME="50532472_31650"></A>Required Members of the NFS Protocol Structure  
     :header-rows: 1
     :widths: auto
     :align: center 
@@ -390,19 +390,19 @@ Required members of the protocol structure for NFS are described in `Required Me
     * - protocol
       - The protocol being requested. This value shall be "NFSv3", "NFSv4", "NFSv4.1", or any subsequent NFS version enshrined in a major IETF RFC. Version 2 of NFS is not supported by CDMI.
     * - exportpath
-      - The pathname to which the export should be surfaced. This value shall be a UTF8 string of the form [&lt;server&gt;]:/&lt;path&gt;, where the &lt;server&gt; component is optional, (e.g., "eeserver:/lessons/number1"). The &lt;server&gt; component of the path must be obtained from an administrator of the service running the CDMI implementation.
+      - The pathname to which the export should be surfaced. This value shall be a UTF8 string of the form [<server>]:/<path>, where the <server> component is optional, (e.g., "eeserver:/lessons/number1"). The <server> component of the path must be obtained from an administrator of the service running the CDMI implementation.
     * - exportdomain
       - The internet domain of the protocol name server for the clients being served. This value is normally the name of the LDAP domain for the organization, e.g., "iti.edu". A value of "." shall be interpreted to be the DNS name of the domain occupied by the CDMI server.
     * - mode
       - This value shall be "ro", "rw", "root" or "rpc_gsssec" and becomes the default export mode. Hosts requiring different access shall be specified in the optional "rw_mode", "ro_mode", and "root_mode" structure members. However, the "rpc_gsssec" mode overrides all other modes, and all other mode members and their contents shall be ignored if it is specified.
     * - control
-      - Export control for the container. This value shall be "immediate", "off", "on", or &lt;n&gt; (a number). Servers may set the value to on, but clients shall not. A numeric value (&lt;n&gt;) indicates that the export should be shut down in &lt;n&gt; seconds, possibly after a message has been sent to clients mounting the export. If a client specifies a value for &lt;n&gt; but the server does not support delayed shutdown of exports, then &lt;n&gt; shall be interpreted to mean off.
+      - Export control for the container. This value shall be "immediate", "off", "on", or <n> (a number). Servers may set the value to on, but clients shall not. A numeric value (<n>) indicates that the export should be shut down in <n> seconds, possibly after a message has been sent to clients mounting the export. If a client specifies a value for <n> but the server does not support delayed shutdown of exports, then <n> shall be interpreted to mean off.
 
 
 Optional export parameters for NFS are described in `Optional NFS Export Parameters`_.
 
 
-.. list-table:: <A NAME="50532472_69455"></A>Optional NFS Export Parameters 
+.. list-table::  tbl_<A NAME="50532472_69455"></A>Optional NFS Export Parameters 
     :header-rows: 1
     :widths: auto
     :align: center 
@@ -460,7 +460,7 @@ Export control is accomplished with the use of a single member, named "control":
 
 * The value "immediate" shall indicate to the server that the export shall be made successfully before the PUT operation returns. Servers shall reset the value to "on" and place that in the reply.
 * The value "off" shall indicate to the server that the export, if new, shall not be enabled, and if existing, shall be shut down and all client connections forcibly broken.
-* A numeric value &lt;n&gt; shall indicate that the server shall wait &lt;n&gt; seconds before forcibly shutting down the export and breaking client connections. Whether the server sends a warning message to clients, giving them a chance to exit from the connection gracefully, is recommended but implementation dependent. Once the export has been shut down, the server shall also change the value of  "control" to "off" in the export structure.
+* A numeric value <n> shall indicate that the server shall wait <n> seconds before forcibly shutting down the export and breaking client connections. Whether the server sends a warning message to clients, giving them a chance to exit from the connection gracefully, is recommended but implementation dependent. Once the export has been shut down, the server shall also change the value of  "control" to "off" in the export structure.
 
 
 Servers shall support wildcard matching on the " * " and " ? " characters in the hosts lists (this is standard practice), so that **.cs.uscs.edu" matches all servers in the cs.ucsc.edu department.
@@ -482,7 +482,7 @@ To export a container via CIFS, the information required is exactly what the ser
 Required members of the protocol structure for CIFS are described in `Required Members of the CIFS Protocol Structure`_.
 
 
-.. list-table:: <A NAME="50532472_85536"></A>Required Members of the CIFS Protocol Structure
+.. list-table::  tbl_<A NAME="50532472_85536"></A>Required Members of the CIFS Protocol Structure
     :header-rows: 1
     :widths: auto
     :align: center 
@@ -497,7 +497,7 @@ Required members of the protocol structure for CIFS are described in `Required M
     * - mode
       - This value shall be either "ro" or "rw".
     * - control
-      - Export control for the container. This value shall be "immediate", "off", or &lt;n&gt; (a number). Servers may set the value to on, but clients shall not. The semantics and normative requirements are exactly the same as for NFS, as documented in the paragraph "`Export Control`" in the subclause on NFS Exports (see :ref:`NFS Exported Protocol`_).
+      - Export control for the container. This value shall be "immediate", "off", or <n> (a number). Servers may set the value to on, but clients shall not. The semantics and normative requirements are exactly the same as for NFS, as documented in the paragraph "`Export Control`" in the subclause on NFS Exports (see :ref:`NFS Exported Protocol`_).
 
 
 There is no protocol specification; CDMI assumes that normal SMB protocol negotiation will take place. 
@@ -539,7 +539,7 @@ OCCI Exported Protocol
 CDMI defines an export protocol structure for the Open Cloud Computing Interface (`OCCI`_) as follows:
 
 
-* The protocol is "OCCI/&lt;protocol standard&gt;" (e.g., "OCCI/NFSv4").
+* The protocol is "OCCI/<protocol standard>" (e.g., "OCCI/NFSv4").
 * The identifier is the CDMI object ID.
 * A JSON array of URIs to OCCI compute resources shall have access (permissions) to the exported container.
 

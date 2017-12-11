@@ -51,7 +51,7 @@ Cloud Storage System-Wide Capabilities
 `System-Wide Capabilities`_ defines the system-wide capabilities in a cloud storage system. These capabilities, which are found in the capabilities object, are referred to by the root URI (root capabilities).
 
 
-.. list-table:: <A NAME="50532471_51124"></A>System-Wide Capabilities (Sheet 1 of 4)
+.. list-table::  tbl_<A NAME="50532471_51124"></A>System-Wide Capabilities (Sheet 1 of 4)
     :header-rows: 1
     :widths: auto
     :align: center 
@@ -215,7 +215,7 @@ Storage System Metadata Capabilities
 `Capabilities for Storage System Metadata` defines the capabilities for storage system metadata in a cloud storage system. These capabilities are found in the capabilities objects for domain objects, data objects, container objects, and queue objects. See:ref:`Support for Storage System Metadata`_ for a description of these storage system metadata items.
 
 
-.. list-table:: <A NAME="50532471_85679"></A>Capabilities for Storage System Metadata (Sheet 1 of 2)
+.. list-table::  tbl_<A NAME="50532471_85679"></A>Capabilities for Storage System Metadata (Sheet 1 of 2)
     :header-rows: 1
     :widths: auto
     :align: center 
@@ -255,7 +255,7 @@ Data System Metadata Capabilities
 `Capabilities for Data System Metadata` defines the capabilities that indicate which data system metadata items are supported for objects stored in a cloud storage system. These capabilities are found in the capabilities objects for domains, data objects, containers, and queues. See :ref:`Support for Data System Metadata` (:ref:`Data System Metadata`_) for a description of the meaning of the corresponding data system metadata items.
 
 
-.. list-table:: <A NAME="50532471_73032"></A>Capabilities for Data System Metadata (Sheet 1 of 4)
+.. list-table::  tbl_<A NAME="50532471_73032"></A>Capabilities for Data System Metadata (Sheet 1 of 4)
     :header-rows: 1
     :widths: auto
     :align: center 
@@ -365,7 +365,7 @@ Data Object Capabilities
 `Capabilities for Data Objects`_ defines the capabilities for data objects in a cloud storage system.<A NAME="50532471__Ref127341260"></A>
 
 
-.. list-table:: <A NAME="50532471_90914"></A>Capabilities for Data Objects (Sheet 1 of 2)
+.. list-table::  tbl_<A NAME="50532471_90914"></A>Capabilities for Data Objects (Sheet 1 of 2)
     :header-rows: 1
     :widths: auto
     :align: center 
@@ -408,7 +408,7 @@ Container Capabilities
 `Capabilities for Containers`_ defines the capabilities for containers in a cloud storage system.
 
 
-.. list-table:: <A NAME="50532471_87821"></A>Capabilities for Containers (Sheet 1 of 3)
+.. list-table::  tbl_<A NAME="50532471_87821"></A>Capabilities for Containers (Sheet 1 of 3)
     :header-rows: 1
     :widths: auto
     :align: center 
@@ -517,7 +517,7 @@ Domain Object Capabilities
 `Capabilities for Domain Objects`_ defines the capabilities for domains in a cloud storage system. (All capabilities refer to what may be done via CDMI content-type operations.  
 
 
-.. list-table:: <A NAME="50532471_71774"></A>Capabilities for Domain Objects (Sheet 1 of 2)
+.. list-table::  tbl_<A NAME="50532471_71774"></A>Capabilities for Domain Objects (Sheet 1 of 2)
     :header-rows: 1
     :widths: auto
     :align: center 
@@ -569,7 +569,7 @@ Queue Object Capabilities
 `Capabilities for Queue Objects`_ defines the capabilities for queue objects in a cloud storage system.
 
 
-.. list-table:: <A NAME="50532471_34151"></A>Capabilities for Queue Objects (Sheet 1 of 2)
+.. list-table::  tbl_<A NAME="50532471_34151"></A>Capabilities for Queue Objects (Sheet 1 of 2)
     :header-rows: 1
     :widths: auto
     :align: center 
@@ -626,25 +626,25 @@ Synopsis
 
 To read all fields from an existing capability object, the following request shall be performed:
 
-    GET &lt;root URI&gt;/cdmi_capabilities/&lt;Capability&gt;/&lt;TheCapability&gt;/
+    GET <root URI>/cdmi_capabilities/<Capability>/<TheCapability>/
 
 To read one or more requested fields from an existing capability object, one of the following requests shall be performed:
 
-    GET &lt;root URI&gt;/cdmi_capabilities/&lt;Capability&gt;/&lt;TheCapability&gt;/?&lt;fieldname&gt;;&lt;fieldname&gt;
+    GET <root URI>/cdmi_capabilities/<Capability>/<TheCapability>/?<fieldname>;<fieldname>
 
-    GET &lt;root URI&gt;/cdmi_capabilities/&lt;Capability&gt;/&lt;TheCapability&gt;/?children:&lt;range&gt; 
+    GET <root URI>/cdmi_capabilities/<Capability>/<TheCapability>/?children:<range> 
 <DIV>
 Where:
 
 
-* &lt;root URI&gt; is the path to the CDMI cloud.
-* &lt;Capability&gt; is zero or more intermediate capabilities containers.
-* &lt;TheCapability&gt; is the name specified for the capabilities to be read from.
-* &lt;fieldname&gt; is the name of a field.
-* &lt;range&gt; is a numeric range within the list of children.
+* <root URI> is the path to the CDMI cloud.
+* <Capability> is zero or more intermediate capabilities containers.
+* <TheCapability> is the name specified for the capabilities to be read from.
+* <fieldname> is the name of a field.
+* <range> is a numeric range within the list of children.
 
 
-The object shall also be accessible at &lt;root URI&gt;/cdmi_objectid/&lt;objectID&gt;/.
+The object shall also be accessible at <root URI>/cdmi_objectid/<objectID>/.
 </DIV>
 </DIV>
 <DIV>
@@ -666,7 +666,7 @@ Request Headers
 The HTTP request headers for reading a CDMI capabilities object using CDMI are shown in `Request Headers - Read a Capabilities Object using CDMI`_. 
 
 
-.. list-table:: Request Headers - Read a Capabilities Object using CDMI<A NAME="50532471_17973"></A>
+.. list-table::  tbl_Request Headers - Read a Capabilities Object using CDMI<A NAME="50532471_17973"></A>
     :header-rows: 1
     :widths: auto
     :align: center 
@@ -701,7 +701,7 @@ Response Headers
 The HTTP response headers for reading a CDMI capabilities object using CDMI are shown in `Response Headers - Read a Capabilities Object using CDMI`_.
 
 
-.. list-table:: <A NAME="50532471_94894"></A>Response Headers - Read a Capabilities Object using CDMI
+.. list-table::  tbl_<A NAME="50532471_94894"></A>Response Headers - Read a Capabilities Object using CDMI
     :header-rows: 1
     :widths: auto
     :align: center 
@@ -731,7 +731,7 @@ Response Message Body
 The response message body fields for reading a CDMI capabilities object using CDMI are shown in `Response Message Body - Read a Capabilities Object using CDMI`_.
 
 
-.. list-table:: <A NAME="50532471_95518"></A>Response Message Body - Read a Capabilities Object using CDMI (Sheet 1 of 2)
+.. list-table::  tbl_<A NAME="50532471_95518"></A>Response Message Body - Read a Capabilities Object using CDMI (Sheet 1 of 2)
     :header-rows: 1
     :widths: auto
     :align: center 
@@ -785,7 +785,7 @@ Response Status
 `HTTP Status Codes - Read a Capabilities Object using CDMI`_ describes the HTTP status codes that occur when reading a capabilities object using CDMI. 
 
 
-.. list-table:: <A NAME="50532471_65427"></A>HTTP Status Codes - Read a Capabilities Object using CDMI
+.. list-table::  tbl_<A NAME="50532471_65427"></A>HTTP Status Codes - Read a Capabilities Object using CDMI
     :header-rows: 1
     :widths: auto
     :align: center 

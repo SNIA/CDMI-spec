@@ -848,7 +848,7 @@ Deleting the current version of a version-enabled data object shall revert the c
 When an intermediate historical version is deleted, the parent and children metadata items of the parent and all child data object versions of the data object version being deleted must be updated. 
 <DIV>
 <H6 CLASS="Example">
-In a version chain "C" -&gt; "B" -&gt; "A", where "C" is the newest and "A" is the oldest, deleting version "B" shall produce the following results:</H6>
+In a version chain "C" -> "B" -> "A", where "C" is the newest and "A" is the oldest, deleting version "B" shall produce the following results:</H6>
 
 
 * The cdmi_version_parent metadata item of "C" is set to the URI contained in the cdmi_version_parent metadata item of "B".
@@ -857,9 +857,9 @@ In a version chain "C" -&gt; "B" -&gt; "A", where "C" is the newest and "A" is t
 
 In pseudocode, the above translates to:
 
-   C-&gt;cdmi_version_parent = B-&gt;cdmi_version_parent
+   C->cdmi_version_parent = B->cdmi_version_parent
 
-   A-&gt;cdmi_version_children[B] = B-&gt;cdmi_version_children
+   A->cdmi_version_children[B] = B->cdmi_version_children
 
    Delete B
 

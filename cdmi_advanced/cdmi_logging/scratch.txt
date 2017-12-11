@@ -84,7 +84,7 @@ When creating a logging queue, the metadata described in `Required Metadata for 
 
 
 
-.. list-table:: <A NAME="50532479_75529"></A>Required Metadata for a Logging Queue (Sheet 1 of 2)
+.. list-table::  tbl_<A NAME="50532479_75529"></A>Required Metadata for a Logging Queue (Sheet 1 of 2)
     :header-rows: 1
     :widths: auto
     :align: center 
@@ -161,7 +161,7 @@ Log messages are only included in a logging queue if the user who created the lo
 `Logging Status Metadata`_ describes the system-created metadata that provides details on the status of the logging queue.
 
 
-.. list-table:: <A NAME="50532479_11459"></A>Logging Status Metadata 
+.. list-table::  tbl_<A NAME="50532479_11459"></A>Logging Status Metadata 
     :header-rows: 1
     :widths: auto
     :align: center 
