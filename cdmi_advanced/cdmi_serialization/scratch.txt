@@ -1,10 +1,10 @@
 
-<DIV>
+
 
 
 Serialization/Deserialization
 ========================================
-<DIV>
+
 
 Overview
 ************************
@@ -18,8 +18,8 @@ Occasionally, bulk data movement is needed between, into, or out of clouds. When
 
 
 The canonical format of serialized data describes how the data is to be represented in a byte stream. As long as this byte stream is not changed during the transfer from source to destination, the data may be reconstituted on the destination system.
-</DIV>
-<DIV>
+
+
 
 Exporting Serialized Data
 ************************
@@ -35,8 +35,8 @@ The resulting data object that is produced is the canonical representation of th
 
 
 When performing a serialization operation, objects shall only be included if the principal initiating the serialization has sufficient permissions to read those objects.
-</DIV>
-<DIV>
+
+
 
 Importing Serialized Data
 ************************
@@ -52,7 +52,7 @@ The destination may or may not exist previously. If not, a create operation is p
 
 
 Deserialization operations shall restore all metadata from the specified source. If the original provider of the serialized data-supported vendor extensions is through custom metadata keys and values, then these customized requirements shall be restored when deserialized. However, the custom metadata keys and values may be treated as user metadata (preserved, but not interpreted) by the destination provider. Preservation allows custom data requirements to move between clouds without losing this information.
-<DIV>
+
 
 Canonical Format
 -----
@@ -68,14 +68,13 @@ The canonical format shall have the following characteristics:
 * binary data represented using escaped JSON strings; and 
 * typing of data values consistent with CDMI JSON representations. 
 
-</DIV>
-<DIV>
+
+
 
 Example JSON Canonical Serialized Format
 -----
-<DIV>
-<H6 CLASS="Example">
-In this example, a data object and a queue object in a container object have been selected for serialization:</H6>
+
+#.  In this example, a data object and a queue object in a container object have been selected for serialization:
 
     {
 
@@ -230,7 +229,6 @@ In this example, a data object and a queue object in a container object have bee
     }
 
 To allow efficient deserialization in stream mode when serializing container objects to JSON, the children array should be the last item in the canonical serialized JSON format.
-</DIV>
-</DIV>
-</DIV>
-</DIV>
+
+
+

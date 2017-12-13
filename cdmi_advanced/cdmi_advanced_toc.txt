@@ -6,7 +6,7 @@ CDMI Advanced
 
   cdmi_domain_object
   cdmi_queue_object/cdmi_queue_object_toc
-  cdmi_capability_object/cdmi_capability_object_toc
+  cdmi_capability_object/cdmi_capability_object
   cdmi_exports/cdmi_exports_toc
   cdmi_snapshots/cdmi_snapshots_toc
   cdmi_serialization/cdmi_serialization_toc

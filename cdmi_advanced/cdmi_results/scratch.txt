@@ -1,9 +1,9 @@
 
-<DIV>
+
 
 Results Specification
 ========================================
-<DIV>
+
 
 Introduction
 ************************
@@ -55,14 +55,14 @@ The results JSON object shall be constructed using the same structure as is used
     	"value" : "..."
 
     }
-</DIV>
-<DIV>
+
+
 
 Examples
 ************************
 
 Each field inside a results specification JSON object indicates that the field shall be included in the results. 
-<DIV>
+
 #. The following results specification requests that the objectID and cdmi_size metadata fields be returned in the results:
 
     .. code-block:: http
@@ -83,8 +83,8 @@ Each field inside a results specification JSON object indicates that the field s
         } 
 
     } 
-</DIV>
-<DIV>
+
+
 #. If an object is matched, the result JSON is enqueued as follows:
 
     .. code-block:: http
@@ -103,8 +103,8 @@ Each field inside a results specification JSON object indicates that the field s
     } 
 
 For most common use cases, clients request either the objectID, the objectName and parentURI, or all three fields in the cdmi_results_specification. If the parentURI or objectName is requested, the field shall only be returned for objects existing in a container object.
-</DIV>
-<DIV>
+
+
 #. To request all metadata items be returned for each matching object, the following cdmi_results_specification shall be used: 
 
     .. code-block:: http
@@ -119,8 +119,8 @@ For most common use cases, clients request either the objectID, the objectName a
         } 
 
     }
-</DIV>
-<DIV>
+
+
 #. To request all fields and all metadata items be returned for each matching object, the following cdmi_results_specification shall be used:
 
     .. code-block:: http
@@ -135,6 +135,5 @@ For most common use cases, clients request either the objectID, the objectName a
 The value field is always returned in base 64 encoding when included in a query result, where the valuetransferencoding field indicates the encoding that should be expected if a GET to read the object is performed.
 
 &nbsp;
-</DIV>
-</DIV>
-</DIV>
+
+

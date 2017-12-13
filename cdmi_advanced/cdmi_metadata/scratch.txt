@@ -1,33 +1,31 @@
+Metadata
+========
 
-<DIV>
-
-
-<A NAME="50532475__Ref114041211"></A><A NAME="50532475__Ref114028977"></A><A NAME="50532475__Ref113958744"></A><A NAME="50532475__Ref113958733"></A>Metadata
-========================================
-<DIV>
 
 Access Control
-************************
+**************
 
 Access control comprises the mechanisms by which various types of access to objects are authorized and permitted or denied. CDMI™ uses the well-known mechanism of an Access Control List (ACL) as defined in the NFSv4 standard (see :rfc:`3530`). ACLs are lists of permissions-granting or permissions-denying entries called access control entries (ACEs). 
-<DIV>
+
 
 ACL and ACE Structure
------
+---------------------
 
 An ACL is an ordered list of ACEs. The two types of ACEs in CDMI are ALLOW and DENY. An ALLOW ACE grants some form of access to a principal. Principals are either users or groups and are represented by identifiers. A DENY ACE denies access of some kind to a principal. For instance, a DENY ACE may deny the ability to write the metadata or ACL of an object but may remain silent on other forms of access. In that case, if another ACE ALLOWs write access to the object, the principal is allowed to write the object's data, but nothing else. 
 
 ACEs are composed of four fields: type, who, flags and access_mask, as per :rfc:`3530`. The type, flags, and access_mask shall be specified as either unsigned integers in hex string representation or as a comma-delimited list of bit mask string form values taken from `ACE Types`, :ref:`ACE Flags`, and :ref:`ACE Bit Masks`_.
-</DIV>
-<DIV>
+
+
 
 ACE Types
------
+---------
 
-`ACE Types`_ defines the following ACE types, following NFSv4.
+:ref:`tbl_ace_types` defines the following ACE types, following NFSv4.
 
 
-.. list-table::  tbl_<A NAME="50532475_48944"></A>ACE Types
+.. _tbl_ace_types:
+
+.. list-table:: ACE Types
     :header-rows: 1
     :widths: auto
     :align: center 
@@ -50,22 +48,23 @@ ACE Types
       - CDMI_ACE_SYSTEM_AUDIT
       - 0x00000002
 
-<DIV>
-<H6 CLASS="Note">
-The reason that the string forms may be safely abbreviated is that they are local to the ACE structure type, as opposed to constants, which are relatively global in scope.</H6>
+
+The reason that the string forms may be safely abbreviated is that they are local to the ACE structure type, as opposed to constants, which are relatively global in scope.
 
 The client is responsible for ordering the ACEs in an ACL. The server shall not enforce any ordering and shall store and evaluate the ACEs in the order given by the client.
-</DIV>
-</DIV>
-<DIV>
+
+
+
 
 ACE Who
------
+-------
 
-The special "who" identifiers need to be understood universally, rather than in the context of a particular external security domain (see `Who Identifiers`_). Some of these identifiers may not be understood when a CDMI client accesses the server, but they may have meaning when a local process accesses the file. The ability to display and modify these permissions is permitted over CDMI, even if none of the access methods on the server understands the identifiers.<A NAME="50532475__Ref121024292"></A>
+The special "who" identifiers need to be understood universally, rather than in the context of a particular external security domain (see :ref`tbl_who_identifiers`). Some of these identifiers may not be understood when a CDMI client accesses the server, but they may have meaning when a local process accesses the file. The ability to display and modify these permissions is permitted over CDMI, even if none of the access methods on the server understands the identifiers.
 
 
-.. list-table::  tbl_<A NAME="50532475_69848"></A>Who Identifiers
+.. _tbl_who_identifiers:
+
+.. list-table:: Who Identifiers
     :header-rows: 1
     :widths: auto
     :align: center 
@@ -90,16 +89,18 @@ The special "who" identifiers need to be understood universally, rather than in 
 
 
 To avoid name conflicts, these special identifiers are distinguished by an appended "@" (with no domain name).
-</DIV>
-<DIV>
+
+
 
 ACE Flags
------
+---------
 
-CDMI allows for nested containers and mandates that objects and subcontainers be able to inherit access permissions from their parent containers. However, it is not enough to simply inherit all permissions from the parent; it might be desirable, for example, to have different default permissions on child objects and subcontainers of a given container. The flags in `ACE Flags`_ govern this behavior. 
+CDMI allows for nested containers and mandates that objects and subcontainers be able to inherit access permissions from their parent containers. However, it is not enough to simply inherit all permissions from the parent; it might be desirable, for example, to have different default permissions on child objects and subcontainers of a given container. The flags in :ref:`tbl_ace_flags` govern this behavior. 
 
 
-.. list-table::  tbl_<A NAME="50532475_83722"></A>ACE Flags 
+.. _tbl_ace_flags:
+
+.. list-table:: ACE Flags 
     :header-rows: 1
     :widths: auto
     :align: center 
@@ -138,16 +139,17 @@ CDMI allows for nested containers and mandates that objects and subcontainers be
       - CDMI_ACE_FLAGS_INHERITED_ACE
       - 0x00000080
 
-</DIV>
-<DIV>
+
+
 
 ACE Mask Bits
------
+-------------
 
 The mask field of an ACE contains 32 bits. :rfc:`3530`.  
 
+.. _tbl_ace_bit_masks:
 
-.. list-table::  tbl_<A NAME="50532475_18610"></A>ACE Bit Masks (Sheet 1 of 3)
+.. list-table:: ACE Bit Masks 
     :header-rows: 1
     :widths: auto
     :align: center 
@@ -159,9 +161,8 @@ The mask field of an ACE contains 32 bits. :rfc:`3530`.
       - Bit Mask
     * - "READ_OBJECT"
       - Permission to read the value of an object. 
-If "READ_OBJECT" is not permitted: 
-
-
+        
+        If "READ_OBJECT" is not permitted: 
         * A CDMI GET that requests all fields shall return all fields with the exception of the value field. 
         * A CDMI GET that requests specific fields shall return the requested fields with the exception of the value field. 
         * A CDMI GET for only the value field shall return an HTTP status code of 403 Forbidden. 
@@ -171,9 +172,8 @@ If "READ_OBJECT" is not permitted:
       - 0x00000001
     * - "LIST_CONTAINER"
       - Permission to list the children of an object. 
-If "LIST_CONTAINER" is not permitted: 
-
-
+        
+        If "LIST_CONTAINER" is not permitted: 
         * A CDMI GET that requests all fields shall return all fields with the exception of the children field and childrenrange field. 
         * A CDMI GET that requests specific fields shall return the requested fields with the exception of the children field and childrenrange field. 
         * A CDMI GET for only the children field and/or childrenrange field shall return an HTTP status code of 403 Forbidden.
@@ -182,29 +182,32 @@ If "LIST_CONTAINER" is not permitted:
       - 0x00000001
     * - "WRITE_OBJECT"
       - Permission to modify the value of an object 
-If "WRITE_OBJECT" is not permitted, a PUT that requests modification of the value of an object shall return an HTTP status code of 403 Forbidden.
+        
+        If "WRITE_OBJECT" is not permitted, a PUT that requests modification of the value of an object shall return an HTTP status code of 403 Forbidden.
       - CDMI_ACE_WRITE_OBJECT
       - 0x00000002
     * - "ADD_OBJECT"
       - Permission to add a new child data object or queue object. 
-If "ADD_OBJECT" is not permitted, a PUT or POST that requests creation of a new child data object or new queue object shall return an HTTP status code of 403 Forbidden.
+        
+        If "ADD_OBJECT" is not permitted, a PUT or POST that requests creation of a new child data object or new queue object shall return an HTTP status code of 403 Forbidden.
       - CDMI_ACE_ADD_OBJECT
       - 0x00000002
     * - "APPEND_DATA"
       - Permission to append data to the value of a data object. 
-If "APPEND_DATA" is permitted and "WRITE_OBJECT" is not permitted, a PUT that requests modification of any existing part of the value of an object shall return an HTTP status code of 403 Forbidden.
+        
+        If "APPEND_DATA" is permitted and "WRITE_OBJECT" is not permitted, a PUT that requests modification of any existing part of the value of an object shall return an HTTP status code of 403 Forbidden.
       - CDMI_ACE_APPEND_DATA
       - 0x00000004
     * - "ADD_SUBCONTAINER"
       - Permission to create a child container object or domain object. 
-If "ADD_SUBCONTAINER" is not permitted, a PUT that requests creation of a new child container object or new domain object shall return an HTTP status code of 403 Forbidden.
+        
+        If "ADD_SUBCONTAINER" is not permitted, a PUT that requests creation of a new child container object or new domain object shall return an HTTP status code of 403 Forbidden.
       - CDMI_ACE_ADD_SUBCONTAINER
       - 0x00000004
     * - "READ_METADATA"
       - Permission to read the metadata of an object. 
-If "READ_METADATA" is not permitted: 
-
-
+        
+        If "READ_METADATA" is not permitted: 
         * A CDMI GET that requests all fields shall return all fields with the exception of the metadata field. 
         * A CDMI GET that requests specific fields shall return the requested fields with the exception of the metadata field. 
         * A CDMI GET for only the metadata field shall return an HTTP status code of 403 Forbidden.
@@ -213,7 +216,8 @@ If "READ_METADATA" is not permitted:
       - 0x00000008
     * - "WRITE_METADATA"
       - Permission to modify the metadata of an object.
-If "WRITE_METADATA" is not permitted, a CDMI PUT that requests modification of the metadata field of an object shall return an HTTP status code of 403 Forbidden.
+        
+        If "WRITE_METADATA" is not permitted, a CDMI PUT that requests modification of the metadata field of an object shall return an HTTP status code of 403 Forbidden.
       - CDMI_ACE_WRITE_METADATA
       - 0x00000010
     * - "EXECUTE"
@@ -222,26 +226,25 @@ If "WRITE_METADATA" is not permitted, a CDMI PUT that requests modification of t
       - 0x00000020
     * - "TRAVERSE_CONTAINER"
       - Permission to traverse a container object or domain object.
-If "TRAVERSE_CONTAINER" is not permitted for a parent container, all operations against all children below that container shall return an HTTP status code of 403 Forbidden.
+        
+        If "TRAVERSE_CONTAINER" is not permitted for a parent container, all operations against all children below that container shall return an HTTP status code of 403 Forbidden.
       - CDMI_ACE_TRAVERSE_CONTAINER
       - 0x00000020
     * - "DELETE_OBJECT"
       - Permission to delete a child data object or child queue object from a container object. 
-If "DELETE_OBJECT" is not permitted, all DELETE operations shall return an HTTP status code of 403 Forbidden.
+        
+        If "DELETE_OBJECT" is not permitted, all DELETE operations shall return an HTTP status code of 403 Forbidden.
       - CDMI_ACE_DELETE_OBJECT
       - 0x00000040
     * - "DELETE_SUBCONTAINER"
       - Permission to delete a child container object from a container object or to delete a child domain object from a domain object. 
-If "DELETE_SUBCONTAINER" is not permitted, all DELETE operations shall return an HTTP status code of 403 Forbidden.
+    
+        If "DELETE_SUBCONTAINER" is not permitted, all DELETE operations shall return an HTTP status code of 403 Forbidden.
       - CDMI_ACE_DELETE_SUBCONTAINER
       - 0x00000040
     * - "READ_ATTRIBUTES"
-      - Permission to read the attribute fields<EM CLASS="Superscript">
-[1]</EM>
- of an object. 
+      - Permission to read the attribute fields[#a]_ of an object. 
 If "READ_ATTRIBUTES" is not permitted: 
-
-
         * A CDMI GET that requests all fields shall return all non-attribute fields and shall not return any attribute fields. 
         * A CDMI GET that requests at least one non-attribute field shall only return the requested non-attribute fields. 
         * A CDMI GET that requests only non-attribute fields shall return an HTTP status code of 403 Forbidden. 
@@ -249,9 +252,7 @@ If "READ_ATTRIBUTES" is not permitted:
       - CDMI_ACE_READ_ATTRIBUTES
       - 0x00000080
     * - "WRITE_ATTRIBUTES"
-      - Permission to change attribute fields<EM CLASS="Superscript">
-[1]</EM>
- of an object. 
+      - Permission to change attribute fields[#a]_ of an object. 
 If "WRITE_ATTRIBUTES" is not permitted, a CDMI PUT that requests modification of any non-attribute field shall return an HTTP status code of 403 Forbidden.
       - CDMI_ACE_WRITE_ATTRIBUTES
       - 0x00000100
@@ -273,8 +274,6 @@ If "DELETE" is not permitted, all DELETE operations shall return an HTTP status 
     * - "READ_ACL"
       - Permission to read the ACL of an object. 
 If "READ_ACL" is not permitted: 
-
-
         * A CDMI GET that requests all metadata items shall return all metadata items with the exception of the cdmi_acl metadata item. 
         * A CDMI GET that requests specific metadata items shall return the requested metadata items with the exception of the cdmi_acl metadata item. 
         * A CDMI GET for only the cdmi_acl metadata item shall return an HTTP status code of 403 Forbidden.
@@ -284,8 +283,6 @@ If "READ_ACL" is permitted and "READ_METADATA" is not permitted, then to read th
       - 0x00020000
     * - "WRITE_ACL"
       - Permission to write the ACL of an object. 
-
-
         * If "WRITE_ACL" is not permitted, a CDMI PUT that requests modification of the cdmi_acl metadata item shall return an HTTP status code of 403 Forbidden. 
         * If "WRITE_ACL" is permitted and "WRITE_METADATA" is not permitted, then to write the ACL, a client CDMI PUT for only the cdmi_acl metadata item shall be permitted. 
 
@@ -293,8 +290,6 @@ If "READ_ACL" is permitted and "READ_METADATA" is not permitted, then to read th
       - 0x00040000
     * - "WRITE_OWNER"
       - Permission to change the owner of an object. 
-
-
         * If "WRITE_OWNER" is not permitted, a CDMI PUT that requests modification of the cdmi_owner metadata item shall return an HTTP status code of 403 Forbidden. 
         * If "WRITE_OWNER" is permitted and "WRITE_METADATA" is not permitted, then to write the owner, a client CDMI PUT for only the cdmi_owner metadata item shall be permitted. 
 
@@ -305,14 +300,12 @@ If "READ_ACL" is permitted and "READ_METADATA" is not permitted, then to read th
       - CDMI_ACE_SYNCHRONIZE
       - 0x00100000
     * <TH ROWSPAN="1" COLSPAN="4">
-<EM CLASS="Superscript">
-[1]</EM>
-The value fields, children fields, and metadata field are considered to be non-attribute fields. All other fields are considered to be attribute fields. 
+[#a]_The value fields, children fields, and metadata field are considered to be non-attribute fields. All other fields are considered to be attribute fields. 
 
 
 Implementations shall use the correct string form to display permissions, if the object type is known. If the object type is unknown, the "object" version of the string shall be used.
-</DIV>
-<DIV>
+
+
 
 
 ACL Evaluation
@@ -326,10 +319,8 @@ When evaluating whether access to a particular object O by a principal P is to b
 * If an ACE is encountered that denies access to P for any of the requested mask bits, access is denied and the algorithm terminates.
 * If an ACE is encountered that allows access to P, the permissions mask m for the operation is XORed with the permissions mask from the ACE. If m is sufficient for the operation, access is granted and the algorithm terminates.
 * If the end of the ACL list is reached and permission has neither been granted nor explicitly denied, access is denied and the algorithm terminates, unless the object is a container root. In this case, the server shall:
-<LI CLASS="Bullet-Indent">
-allow access to the container owner, ADMINISTRATOR@, and any member of ADMINUSERS@; and </LI>
-<LI CLASS="Bullet-Indent">
-log an event indicating what has happened.</LI>
+   - allow access to the container owner, ADMINISTRATOR@, and any member of ADMINUSERS@; and 
+   - log an event indicating what has happened.
 
 
 When permission for the desired access is not explicitly given, even ADMINISTRATOR@ and equivalents are denied for objects that aren't container roots. When an admin needs to access an object in such an instance, the root container shall be accessed and its inheritable ACEs changed in a way as to allow access to the original object. The resulting log entry then provides an audit trail for the access.
@@ -380,7 +371,7 @@ As ACLs are storage system metadata, they are stored and retrieved through the m
 
     acemask     = uint_t | acemaskstring
 
-    &nbsp;
+     
 
     acetypeitem = aceallowedtype |
 
@@ -394,7 +385,7 @@ As ACLs are storage system metadata, they are stored and retrieved through the m
 
     aceaudittype   = "CDMI_ACE_SYSTEM_AUDIT_TYPE" | 0x02
 
-    &nbsp;
+     
 
     aceflagsstring = aceflagsitem [| aceflagsitem ...]
 
@@ -406,7 +397,7 @@ As ACLs are storage system metadata, they are stored and retrieved through the m
 
                      aceinheritonlyitem
 
-    &nbsp;
+     
 
     aceobinherititem   = "CDMI_ACE_OBJECT_INHERIT_ACE" | 0x01
 
@@ -416,7 +407,7 @@ As ACLs are storage system metadata, they are stored and retrieved through the m
 
     aceinheritonlyitem = "CDMI_ACE_INHERIT_ONLY_ACE" | 0x08
 
-    &nbsp;
+     
 
     acemaskstring  =   acemaskitem [| acemaskitem ...]
 
@@ -483,13 +474,13 @@ When an object is created, no ACL is supplied, and an ACL is not inherited from 
         }
 
     ]
-</DIV>
-<DIV>
+
+
 
 Example ACE Mask Expressions
 -----
-<DIV>
-#. &nbsp;
+
+#.  
 
     .. code-block:: http
 
@@ -497,9 +488,9 @@ Example ACE Mask Expressions
     "READ_ALL" | 0x02
 
    evaluates to 0x09 | 0x02 == 0x0
-</DIV>
-<DIV>
-#. &nbsp;
+
+
+#.  
 
     .. code-block:: http
 
@@ -507,9 +498,9 @@ Example ACE Mask Expressions
     0x001F07FF
 
    evaluates to 0x001F07FF == "ALL_PERMS"
-</DIV>
-<DIV>
-#. &nbsp;
+
+
+#.  
 
     .. code-block:: http
 
@@ -517,9 +508,9 @@ Example ACE Mask Expressions
     "RW_ALL" | DELETE
 
    evaluates to 0x000601DF | 0x00100000 == 0x000701DF
-</DIV>
-</DIV>
-<DIV>
+
+
+
 
 Canonical Format for ACE Hexadecimal Quantities
 -----
@@ -552,11 +543,11 @@ The following technique should be used to decompose masks into strings... list-t
       - ``"RW"``
 
     * - ````
-&nbsp;
+ 
       - ``...``
 
       - ````
-&nbsp;
+ 
     * - ``0x00000002``
 
       - ``"WRITE_OBJECT"``
@@ -593,8 +584,8 @@ This algorithm, properly coded, requires only one (often partial) pass through t
     :align: center 
 
 
-</DIV>
-<DIV>
+
+
 
 JSON Format for ACLs
 -----
@@ -636,9 +627,8 @@ ACLs containing one or more ACEs shall be represented in JSON as follows:
     }
 
 ACEs in such an ACL shall be evaluated in order as they appear. 
-<DIV>
-<H6 CLASS="Example">
-An example of an ACL embedded in a response to a GET request is as follows:</H6>
+
+#.  An example of an ACL embedded in a response to a GET request is as follows:
 
     HTTP/1.1 200 OK
 
@@ -646,7 +636,7 @@ An example of an ACL embedded in a response to a GET request is as follows:</H6>
 
     X-CDMI-Specification-Version: 1.1
 
-    &nbsp;
+     
 
     {
 
@@ -695,13 +685,13 @@ An example of an ACL embedded in a response to a GET request is as follows:</H6>
         "value" : "Hello CDMI World!" 
 
     }
-</DIV>
-</DIV>
-</DIV>
-<DIV>
 
 
-<A NAME="50532475__Ref120976323"></A><A NAME="50532475__Ref120976253"></A>Support for User Metadata
+
+
+
+
+Support for User Metadata
 ************************
 
 All CDMI objects that support metadata shall permit the inclusion of arbitrary user-defined metadata items, with the restriction that the name of a user-defined metadata item shall not start with the prefix "cdmi_".
@@ -711,17 +701,22 @@ All CDMI objects that support metadata shall permit the inclusion of arbitrary u
 * The maximum size of each user-defined metadata item is specified by the capability cdmi_metadata_maxsize.
 * The maximum total size of user-defined metadata items for an object is specified by the capability cdmi_metadata_maxtotalsize.
 
-</DIV>
-<DIV>
 
 
-<A NAME="50532475__Ref120976450"></A><A NAME="50532475__Ref120976421"></A>Support for Storage System Metadata
+
+
+Support for Storage System Metadata
 ************************
 
 After an object has been created, the storage system metadata, as described in `Storage System Metadata`_, shall be generated by the cloud storage system and shall immediately be made available to a CDMI client in the metadata that is returned as a result of the create operation and any subsequent retrievals.
 
 
-.. list-table::  tbl_<A NAME="50532475_57799"></A>Storage System Metadata (Sheet 1 of 3)
+.. _tbl_storage_system_metadata:
+
+.. list-table:: tbl_Storage System Metadata 
+.. _tbl_storage_system_metadata:
+
+.. list-table:: tbl_Storage System Metadata 
     :header-rows: 1
     :widths: auto
     :align: center 
@@ -774,11 +769,11 @@ This metadata value can only be updated by a client if it has the "backup_operat
       - Standard ACL metadata. If not specified when the object is created, this metadata shall be filled in by the system.
       - Optional
 
-</DIV>
-<DIV>
 
 
-<A NAME="50532475__Ref121028139"></A><A NAME="50532475__Ref120976603"></A>Support for Data System Metadata
+
+
+Support for Data System Metadata
 ************************
 
 When specified, data system metadata provides guidelines to the cloud storage system on how to provide storage data services for data managed through the CDMI interface.
@@ -786,7 +781,12 @@ When specified, data system metadata provides guidelines to the cloud storage sy
 Data system metadata (see `Data System Metadata`_) is inherited from parent objects to any children. If a child explicitly contains data system metadata, the metadata value of the child data system metadata shall override the metadata value of the parent data system metadata. 
 
 
-.. list-table::  tbl_<A NAME="50532475_81867"></A>Data System Metadata (Sheet 1 of 6)
+.. _tbl_data_system_metadata:
+
+.. list-table:: tbl_Data System Metadata 
+.. _tbl_data_system_metadata:
+
+.. list-table:: tbl_Data System Metadata 
     :header-rows: 1
     :widths: auto
     :align: center 
@@ -826,8 +826,6 @@ JSON Array of JSON Strings
 <TD ROWSPAN="2" COLSPAN="1">
 If this data system metadata item is present and set to zero or more geopolitical identifiers, it indicates that the client is requesting restrictions on the geographic regions where the object is permitted to be stored. Each geopolitical identifier shall be in the form of either a string containing a valid ISO 3166 country/country-subdivision code, which indicates that storage is permitted within that geopolitical region, or in the form of a string starting with the "!" character in front of a valid ISO 3166 country/country-subdivision code, which excludes that country/country-subdivision from the previous list of geopolitical regions. 
 The list is evaluated, in order, from left to right, with evaluation of each candidate storage location stopping when the candidate location is a permitted or prohibited region or is contained within a permitted or prohibited region. In addition to the ISO 3166 codes, "*" shall indicate all regions. If a candidate location does not match any of the entries in the list, the candidate location shall be considered to be prohibited. 
-
-
         * When this data system metadata item is absent, this data system metadata item shall not be used. 
         * When this data system metadata item is present and does not contain valid geopolitical identifiers, the create, update, or deserialize operation shall fail with an HTTP status code of ``400 Bad Request.``
  
@@ -873,15 +871,11 @@ If this data system metadata item is present and not an empty string, it indicat
 When this data system metadata item is absent, this data system metadata item shall not be used. 
 If this data system metadata item is present but does not contain a valid encryption algorithm/mode/length string, the system is free to choose to ignore the data system metadata, to fail with an HTTP status code of ``400 Bad Request``, or to select an encryption algorithm/mode/length of the system's choice. 
 Supported encryption algorithms are expressed as a string in the form of ALGORITHM_MODE_KEYLENGTH, where: 
-
-
         * "ALGORITHM" is the encryption algorithm (e.g., "AES" or "3DES"). 
         * "MODE" is the mode of operation (e.g., "XTS", "CBC", or "CTR"). 
         * "KEYLENGTH" is the key size in bytes (e.g., "128", "192", "256"). 
 
 To improve interoperability between CDMI implementations, the following designators should be used for the more common encryption combinations: 
-
-
         * "3DES_ECB_168" for the three-key TripleDES algorithm, the Electronic Code Book (ECB) mode of operation, and a key size of 168 bits; 
         * "3DES_CBC_168" for the three-key TripleDES algorithm, the Cipher Block Chaining (CBC) mode of operation, and a key size of 168 bits; 
         * "AES_CBC_128" for the AES algorithm, the CBC mode of operation, and a key size of 128 bits; 
@@ -898,14 +892,10 @@ cdmi_value_hash
 When this data system metadata item is absent, this data system metadata item shall not be used. 
 If this data system metadata item is present but does not contain a valid hash algorithm/length string, the system is free to choose to ignore the data system metadata, to fail with an HTTP status code of ``400 Bad Request``, or to select a hash algorithm/length of the system's choice. 
 Supported hash algorithms are expressed as a string in the form of ALGORITHM LENGTH, where: 
-
-
         * "ALGORITHM" is the hash algorithm (e.g., "SHA"). 
         * "LENGTH" is the hash size in bytes (e.g., "160", "256"). 
 
 To improve interoperability between CDMI implementations, the following designators should be used for the more common encryption combinations: 
-
-
         * "SHA160" for SHA-1, and 
         * "SHA256" for SHA-2.
 
@@ -939,10 +929,10 @@ cdmi_authentication_methods
       - JSON Array of JSON Strings
       - The client shall set this metadata to a list of authentication methods requested to be enabled for the domain.
 Supported authentication method values are indicated by the cdmi_authentication_methods capability.
-      - &nbsp;
+      -  
 
-</DIV>
-<DIV>
+
+
 
 Support for Provided Data System Metadata
 ************************
@@ -950,7 +940,12 @@ Support for Provided Data System Metadata
 For each metadata item in a data system, there is an actual value that the cloud service is able to achieve at this time, as shown in `Provided Values of Data Systems Metadata Items`_. Data system-provided metadata items are read only. Updates of these metadata items shall be ignored.
 
 
-.. list-table::  tbl_<A NAME="50532475_18114"></A>Provided Values of Data Systems Metadata Items (Sheet 1 of 2)
+.. _tbl_provided_values_of_data_systems_metadata_items:
+
+.. list-table:: tbl_Provided Values of Data Systems Metadata Items 
+.. _tbl_provided_values_of_data_systems_metadata_items:
+
+.. list-table:: tbl_Provided Values of Data Systems Metadata Items 
     :header-rows: 1
     :widths: auto
     :align: center 
@@ -1025,8 +1020,8 @@ For each metadata item in a data system, there is an actual value that the cloud
       - Contains a list of authentication methods enabled for the domain. (See `cdmi_authentication_methods` in :ref:`Data System Metadata`_ for the format.)
       - Optional
 
-</DIV>
-<DIV>
+
+
 
 Metadata Update Operations
 ************************
@@ -1045,6 +1040,5 @@ Adding, updating, and removing specific metadata items is accomplished by specif
 
 When individual metadata items are specified in the update URI, metadata items included in the metadata field in the request body JSON that are not referred to in the update URI shall be ignored.
 
-&nbsp;
-</DIV>
-</DIV>
+ 
+

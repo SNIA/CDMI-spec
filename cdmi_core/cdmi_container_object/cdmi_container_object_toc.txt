@@ -8,7 +8,8 @@ Container Object Resource Operations using CDMI
   read
   update
   delete
-  create_post
+  create_post_object
+  create_post_queue
 
 
 

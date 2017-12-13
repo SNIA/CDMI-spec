@@ -134,7 +134,11 @@ latex_elements = {
 
     # Additional stuff for the LaTeX preamble.
     #
-    # 'preamble': '',
+    # 'preamble': ''
+    'preamble': r'''
+\usepackage{lineno} 
+\linenumbers
+''',   
 
     # Latex figure (float) alignment
     #

@@ -1,0 +1,350 @@
+Create (POST) a New Queue Object using CDMI
+*******************************************
+
+
+Synopsis
+--------
+
+To create a new queue object (see `Queue Object Resource Operations using CDMI`_) in a specified container where the name of the queue object is a server-assigned object identifier, the following request shall be performed:
+
+    POST <root URI>/<ContainerName>/
+
+To create a new queue object where the queue object does not belong to a container and is only accessible by ID (see `Object Model for CDMI`_), the following request shall be performed:
+
+    POST <root URI>/cdmi_objectid/
+
+Where:
+
+
+* <root URI> is the path to the CDMI cloud.
+* <ContainerName> is zero or more intermediate container objects that already exist, with one slash (i.e., "/") between each pair of container object names.
+
+
+If created in "/cdmi_objectid/", the queue object shall be accessible at <root URI>/cdmi_objectid/<objectID>. 
+
+If created in a container, the queue object shall be accessible as a child of the container with a server-assigned name, and shall also be accessible at <root URI>/cdmi_objectid/<objectID>.
+
+
+Delayed Completion of Create
+----------------------------
+
+On a create operation for a queue object, the server may return an HTTP status code of ``202 Accepted``. In this case, the object is in the process of being created. This response is particularly useful for long-running operations, e.g., copying a large number of queue values from a source URI. Such a response has the following implications:
+
+
+* The server shall return a Location header with an absolute URI to the object to be created along with an HTTP status code of ``202 Accepted``.
+* With an HTTP status code of ``202 Accepted``, the server implies that the following checks have passed:
+   - user authorization for creating the object;
+   - user authorization for read access to any source object for move, copy, serialize, or deserialize; and
+   - availability of space to create the object or at least enough space to create a URI to report an error.
+* A client might not be able to immediately access the created object, e.g., due to delays resulting from the implementation’s use of eventual consistency.
+
+
+The client performs GET operations to the URI to track the progress of the operation. In response, the server returns two fields in its response body to indicate progress.
+
+
+* A mandatory completionStatus text field contains either "Processing", "Complete", or an error string starting with the value "Error".
+* An optional percentComplete field contains the percentage that the accepted POST has completed (0 to 100).
+
+
+GET does not return any value for the object when completionStatus is not "Complete". When the final result of the create operation is an error, the URI is created with the completionStatus field set to the error message. It is the client's responsibility to delete the URI after the error has been noted.
+
+
+Capabilities
+------------
+
+The following capabilities describe the supported operations that may be performed when creating a new queue object by ID in "/cdmi_objectid/": 
+
+
+* Support for the ability to create queue objects through this operation is indicated by the presence of the cdmi_post_queue_by_ID system capability. 
+* If the object being created in "/cdmi_objectid/" is a reference, support for that ability is indicated by the presence of the cdmi_create_reference_by_ID system capability. 
+* If the new queue object being created in "/cdmi_objectid/" is a copy of an existing queue object, support for the ability to copy is indicated by the presence of the cdmi_copy_queue_by_ID system capability. 
+* If the new queue object being created in "/cdmi_objectid/" is the destination of a move, support for the ability to move the data object to "/cdmi_objectid/" is indicated by the presence of the cdmi_object_move_to_ID system capability. 
+* If the new queue object being created in "/cdmi_objectid/" is the destination of a deserialization operation, support for the ability to deserialize the data object is indicated by the presence of the cdmi_deserialize_queue_by_ID system capability. 
+* If the new data object is being created in "/cdmi_objectid/", support for the ability to create the value of the new data object in specified byte ranges is indicated by the presence of the "cdmi_create_value_range_by_ID" system capability.
+* If the new data object is being created in a container object, support for the ability to create the value of the new data object in specified byte ranges is indicated by the presence of the "cdmi_create_value_range" capability in the parent container.
+
+
+The following capabilities describe the supported operations that may be performed when creating a new queue object by ID in a container:
+
+
+* Support for the ability to create queue objects through this operation is indicated by the presence of both the cdmi_post_queue and cdmi_create_queue capabilities in the specified container object.
+* If the object being created in the parent container object is a reference, support for that ability is indicated by the presence of the cdmi_create_reference capability in the parent container object.
+* If the new queue object is a copy of an existing queue object, support for the ability to copy is indicated by the presence of the cdmi_copy_queue capability in the parent container object.
+* If the new queue object is the destination of a move, support for the ability to move the queue object is indicated by the presence of the cdmi_move_queue capability in the parent container object.
+* If the new queue object is the destination of a deserialize operation, support for the ability to deserialize the the queue object is indicated by the presence of the cdmi_deserialize_queue capability in the parent container object.
+
+
+
+Request Headers
+---------------
+
+The HTTP request headers for creating a new CDMI queue object using CDMI are shown in :ref:`tbl_request_headers_create_a_new_queue_object_using_cdmi`.
+
+
+.. _tbl_request_headers_create_a_new_queue_object_using_cdmi:
+
+.. list-table:: Request Headers - Create a New Queue Object Using CDMI
+    :header-rows: 1
+    :widths: auto
+    :align: center 
+
+
+    * - Header
+      - Type
+      - Description
+      - Requirement
+    * - Accept
+      - Header String
+      - "application/cdmi-queue" or a consistent value as per clause `Content-Type Negotiation`_
+      - Optional
+    * - Content-Type
+      - Header String
+      - "application/cdmi-queue"
+      - Mandatory
+    * - X-CDMI- Specification- Version
+      - Header String
+      - A comma-separated list of versions that the client supports, e.g., "1.1, 1.5, 2.0"
+      - Mandatory
+    * - Content-Range
+      - Header String
+      - A valid ranges-specifier (see :rfc:`2616` Section 14.35.1)
+      - Optional
+
+
+
+Request Message Body
+--------------------
+
+The request message body fields for creating a new queue object using CDMI are shown in :ref:`tbl_request_message_body_create_a_new_queue_object_using_cdmi`.
+
+.. _tbl_request_message_body_create_a_new_queue_object_using_cdmi:
+
+.. list-table:: Request Message Body - Create a New Queue Object Using CDMI
+    :header-rows: 1
+    :widths: auto
+    :align: center 
+
+
+    * - Field Name
+      - Type
+      - Description
+      - Requirement
+    * - metadata
+      - JSON Object
+      - Metadata for the queue object
+        * If this field is included when deserializing, serializing, copying, or moving a queue object, the value provided in this field shall replace the metadata from the source URI.
+        * If this field is not included when deserializing, serializing, copying, or moving a queue object, the metadata from the source URI shall be used.
+        * If this field is included when creating a new queue object by specifying a value, the value provided in this field shall be used as the metadata.
+        * If this field is not included when creating a new queue object by specifying a value, an empty JSON object (i.e., "{}") will be assigned as the field value.
+        * This field shall not be included when referencing a queue object.
+      - Optional
+    * - domainURI
+      - JSON String
+      - URI of the owning domain
+        * Any domain may be specified, and the "cross_domain" privilege is not required (see `cdmi_member_privileges` in `Required Settings for Domain Member User Objects`_).
+        * If not specified, the root domain "/cdmi_domains/" shall be used.
+      - Optional
+    * - deserialize
+      - JSON String
+      - URI of a CDMI data object that will be deserialized to create the new queue object
+      - Optional [#a]_
+    * - copy
+      - JSON String
+      - URI of a CDMI queue object that will be copied into the new queue object
+      - Optional [#a]_
+    * - move
+      - JSON String
+      - URI of a CDMI queue object that will be copied into the new queue object. When the copy is successfully completed, the queue object at the source URI is removed.
+      - Optional [#a]_
+    * - reference
+      - JSON String
+      - URI of a CDMI queue object that shall be redirected to by a reference. If other fields are supplied when creating a reference, the server shall respond with an HTTP status code of ``400 Bad Request``.
+      - Optional [#a]_
+    * - deserializevalue
+      - JSON String
+      - A queue object serialized as specified in :rfc:`4648`      
+      - Optional [#a]_
+
+.. [#a] Only one of these fields shall be specified in any given operation. Except for value, these fields shall not be stored. If more than one of these fields is supplied, the server shall respond with an HTTP status code of ``400 Bad Request``.
+
+
+Response Headers
+----------------
+
+The response headers for creating a new CDMI queue object using CDMI are shown in :ref:`tbl_response_headers_create_a_new_cdmi_queue_object_using_cdmi`. 
+
+.. _tbl_response_headers_create_a_new_cdmi_queue_object_using_cdmi:
+
+.. list-table:: Response Headers - Create a New Queue Object Using CDMI
+    :header-rows: 1
+    :widths: auto
+    :align: center 
+
+
+    * - Header
+      - Type
+      - Description
+      - Requirement
+    * - Content-Type
+      - Header String
+      - "application/cdmi-queue"
+      - Mandatory
+    * - X-CDMI- Specification- Version
+      - Header String
+      - The server shall respond with the highest version supported by both the client and the server, e.g., "1.1".
+        If the server does not support any of the versions that the client supports, the server shall return an HTTP status code of ``400 Bad Request``.
+      - Mandatory
+    * - Location
+      - Header String
+      - The unique absolute URI for the new data object as assigned by the system. In the absence of file name information from the client, the system shall assign the URI in the form: http://host:port/<root URI>/<ContainerName>/<ObjectID> or https://host:port/<root URI>/<ContainerName>/<ObjectID>.
+      - Mandatory
+
+
+Response Message Body
+---------------------
+
+The response message body fields for creating a new CDMI queue object using CDMI are shown in :ref:`tbl_response_message_body_create_a_new_queue_object_using_cdmi`.
+
+.. _tbl_response_message_body_create_a_new_queue_object_using_cdmi:
+
+.. list-table:: Response Message Body - Create a New Queue Object Using CDMI
+    :header-rows: 1
+    :widths: auto
+    :align: center 
+
+
+    * - Field Name
+      - Type
+      - Description
+      - Requirement
+    * - objectType
+      - JSON String
+      - "application/cdmi-queue"
+      - Mandatory
+    * - objectID
+      - JSON String
+      - Object ID of the object
+      - Mandatory
+    * - objectName
+      - JSON String
+      - Name of the object
+        * For objects in a container, the objectName field shall be returned. 
+        * For objects not in a container (objects that are only accessible by ID), the objectName field does not exist and shall not be returned. 
+      - Conditional
+    * - parentURI
+      - JSON String
+      - URI for the parent object
+        * For objects in a container, the parentURI field shall be returned. 
+        * For objects not in a container (objects that are only accessible by ID), the parentURI field does not exist and shall not be returned. 
+        Appending the objectName to the parentURI shall always produce a valid URI for the object. 
+      - Conditional
+    * - parentID
+      - JSON String
+      - Object ID of the parent container object
+        * For objects in a container, the parentID field shall be returned. 
+        * For objects not in a container (objects that are only accessible by ID), the parentID field does not exist and shall not be returned.
+      - Conditional
+    * - domainURI
+      - JSON String
+      - URI of the owning domain
+      - Mandatory
+    * - capabilitiesURI
+      - JSON String
+      - URI to the capabilities for the object
+      - Mandatory
+    * - completionStatus
+      - JSON String
+      - A string indicating if the object is still in the process of being created or updated by another operation, and after that operation is complete, indicates if it was successfully created or updated or if an error occurred.
+        The value shall be the string "Processing", the string "Complete", or an error string starting with the value "Error".
+      - Mandatory
+    * - percentComplete
+      - JSON String
+      - * When the value of completionStatus is "Processing", this field, if provided, shall indicate the percentage of completion as a numeric integer value from 0 through 100. 
+        * When the value of completionStatus is "Complete", this field, if provided, shall contain the value "100". 
+        * When the value of completionStatus is "Error", this field, if provided, may contain any integer value from 0 through 100.
+      - Optional
+    * - metadata
+      - JSON Object
+      - Metadata for the queue object. This field includes any user and data system metadata specified in the request body metadata field, along with storage system metadata generated by the cloud storage system. See `Metadata`_ for a further description of metadata.
+      - Mandatory
+    * - queueValues
+      - JSON String
+      - The range of designators for enqueued values. Every enqueued value shall be assigned a unique, monotonically-incrementing positive integer designator, starting from 0. If no values are enqueued, an empty string shall be returned. If values are enqueued, the lowest designator, followed by a hyphen ("-"), followed by the highest designator shall be returned.
+      - Mandatory
+
+
+Response Status
+---------------
+
+:ref:`tbl_http_status_codes_create_a_new_cdmi_queue_object_using_cdmi` describes the HTTP status codes that occur when creating a new queue object using CDMI.
+
+.. _tbl_http_status_codes_create_a_new_cdmi_queue_object_using_cdmi:
+
+.. list-table:: HTTP Status Codes - Create a New Queue Object Using CDMI
+    :header-rows: 1
+    :widths: auto
+    :align: center 
+
+
+    * - HTTP Status
+      - Description
+    * - ``201 Created``
+      - The new queue object was created.
+    * - ``202 Accepted``
+      - The queue object is in the process of being created. The CDMI client should monitor the completionStatus and percentComplete fields to determine the current status of the operation.
+    * - ``400 Bad Request``
+      - The request contains invalid parameters or field names.
+    * - ``401 Unauthorized``
+      - The authentication credentials are missing or invalid.
+    * - ``403 Forbidden``
+      - The client lacks the proper authorization to perform this request.
+    * - ``404 Not Found``
+      - The resource was not found at the specified URI.
+    * - ``409 Conflict``
+      - The operation conflicts with a non-CDMI access protocol lock or could cause a state transition error on the server.
+
+
+
+Example
+-------
+
+#.  POST to the container object URI the queue object contents:
+
+    .. code-block:: http
+
+        POST /MyContainer/ HTTP/1.1
+        Host: cloud.example.com
+        ``Content-Type: application/cdmi-queue``
+        Accept: application/cdmi-queue
+        X-CDMI-Specification-Version: 1.1
+         
+        {
+        }
+
+    The following shows the response.
+
+    .. code-block:: http
+
+        HTTP/1.1 201 Created
+        Content-Type: application/cdmi-queue 
+        X-CDMI-Specification-Version: 1.1 
+        Location: http://cloud.example.com/MyContainer/00007ED900104E1D14771DC67C27BF8B
+         
+        {
+            "objectType" : "application/cdmi-queue",
+            "objectID" : "00007ED900104E1D14771DC67C27BF8B",
+            "objectName" : "00007ED900104E1D14771DC67C27BF8B",
+            "parentURI" : "/MyContainer/",
+            "parentID" : "00007ED900104E1D14771DC67C27BF8B",
+            "domainURI" : "/cdmi_domains/MyDomain/",
+            "capabilitiesURI" : "/cdmi_capabilities/queue/",
+            "completionStatus" : "Complete",
+            "metadata" : {
+                        ...
+            },
+            "queueValues" : ""
+        }
+     
+
+
+

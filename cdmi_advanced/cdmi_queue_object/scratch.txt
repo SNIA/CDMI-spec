@@ -1,9 +1,9 @@
 
-<DIV>
+
 
 Queue Object Resource Operations using CDMI
 ========================================
-<DIV>
+
 
 Overview
 ************************
@@ -20,7 +20,7 @@ Queue objects are addressed in CDMI™ in two ways:
 Every queue object has a single, globally-unique object identifier (ID) that remains constant for the life of the object. Each queue object shall have one or more URI addresses that allow the object to be accessed.  
 
 A queue object may have a parent object. In this case, the queue object inherits data system metadata that is not explicitly specified in the queue object itself. 
-<DIV>
+
 #. The "receipts.queue" queue object stored at the following URI would inherit data system metadata from its parent container, "finance":
 
     .. code-block:: http
@@ -29,8 +29,8 @@ A queue object may have a parent object. In this case, the queue object inherits
    http://cloud.example.com/finance/receipts.queue
 
 Individual fields within a queue object may be accessed by specifying the field name after a question mark "?" that is appended to the end of the data object URI. 
-</DIV>
-<DIV>
+
+
 #. The following URI returns the value field containing the oldest queue object value in the response body:
 
     .. code-block:: http
@@ -46,8 +46,8 @@ The encoding of the data transported in the queue object value field depends on 
 
 
 Specific ranges of the value of a queue object may be accessed by specifying a byte range after the value field name. 
-</DIV>
-<DIV>
+
+
 #. The following URI returns the first thousand bytes of the oldest value enqueued:
 
     .. code-block:: http
@@ -66,35 +66,35 @@ If write access to any of the requested fields is not permitted by the object AC
 When a client provides or includes deserialization fields that are not defined in this international standard, these fields shall be stored as part of the object.
 
 The value of a queue object may also be specified and retrieved using multi-part MIME, where the CDMI JSON is transferred in the first MIME part and the raw queue values are transferred in the subsequent MIME parts. Each MIME part, including any header fields, shall conform to :rfc:`2045`, :rfc:`2046`, and :rfc:`2616`, and the length of each part may optionally be specified by a Content-Length header in addition to the MIME boundary delimiter.
-</DIV>
-<DIV>
+
+
 
 Queue Object Metadata
 -----
 
 Queue object metadata may also include arbitrary user-supplied metadata, storage system metadata, and data system metadata, as specified in `Metadata`_
 .
-</DIV>
-<DIV>
+
+
 
 Queue Object Addressing
 -----
 
 Each queue object is addressed via one or more unique URIs, and all operations may be performed through any of these URIs. 
-</DIV>
-<DIV>
+
+
 
 Queue Object Representations
 -----
 
 The representations in this clause are shown using JSON notation. Both clients and servers shall support UTF-8 JSON representation. The request and response body JSON fields may be specified or returned in any order, with the exception that, if present, for queue objects, the valuerange and value fields shall appear last and in that order. 
-</DIV>
-</DIV>
-<DIV>
+
+
+
 
 Create a Queue Object using CDMI
 ************************
-<DIV>
+
 
 Synopsis
 -----
@@ -104,7 +104,7 @@ To create a new queue object, the following request shall be performed:
     PUT <root URI>/<ContainerName>/<QueueName>
 
 To create a new queue object by ID, see `Create (POST) a New Queue Object using CDMI`_.
-<DIV>
+
 Where:
 
 
@@ -116,9 +116,9 @@ Where:
 After it is created, the object shall also be accessible at <root URI>/cdmi_objectid/<objectID>. 
 
 The newly created queue shall have no values unless the queue is created as a result of copying or moving a source queue that has values or as a result of deserializing a serialized queue that has values.
-</DIV>
-</DIV>
-<DIV>
+
+
+
 
 Delayed Completion of Create 
 -----
@@ -128,12 +128,9 @@ In response to a create operation for a queue object, the server may return an H
 
 * The server shall return a Location header with an absolute URI to the object to be created along with an HTTP status code of ``202 Accepted``.
 * With an HTTP status code of ``202 Accepted``, the server implies that the following checks have passed:
-<LI CLASS="Bullet-Indent">
-user authorization for creating the queue object;</LI>
-<LI CLASS="Bullet-Indent">
-user authorization for read access to any source object for move, copy, serialize, or deserialize; and</LI>
-<LI CLASS="Bullet-Indent">
-availability of space to create the queue object or at least enough space to create a URI to report an error.</LI>
+   - user authorization for creating the queue object;
+   - user authorization for read access to any source object for move, copy, serialize, or deserialize; and
+   - availability of space to create the queue object or at least enough space to create a URI to report an error.
 * A client might not be able to immediately access the created object, e.g., due to delays resulting from the implementation’s use of eventual consistency. 
 
 
@@ -145,8 +142,8 @@ The client performs GET operations to the URI to track the progress of the opera
 
 
 GET does not return any value for the object when completionStatus is not "Complete". When the final result of the create operation is an error, the URI is created with the completionStatus field set to the error message. It is the client's responsibility to delete the URI after the error has been noted. 
-</DIV>
-<DIV>
+
+
 
 
 Capabilities 
@@ -161,8 +158,8 @@ The following capabilities describe the supported operations that may be perform
 * If the new queue object is the destination of a move, support for the ability to move the queue object is indicated by the presence of the cdmi_move_queue capability in the parent container.
 * If the new queue object is the destination of a deserialize operation, support for the ability to deserialize the source data object is indicated by the presence of the cdmi_deserialize_queue capability in the parent container.
 
-</DIV>
-<DIV>
+
+
 
 
 Request Headers
@@ -171,7 +168,8 @@ Request Headers
 The HTTP request headers for creating a CDMI queue object using CDMI are shown in `Request Headers - Create a Queue Object using CDMI`_. 
 
 
-.. list-table::  tbl_Request Headers - Create a Queue Object using CDMI<A NAME="50532470_17973"></A>
+.. _tbl_request_headers_create_a_queue_object_using_cdmi_:____.._list-table:: tbl_request_headers_create_a_queue_object_using_cdmi
+.. _tbl_request_headers_create_a_queue_object_using_cdmi_:____.._list-table:: tbl_request_headers_create_a_queue_object_using_cdmi
     :header-rows: 1
     :widths: auto
     :align: center 
@@ -194,8 +192,8 @@ The HTTP request headers for creating a CDMI queue object using CDMI are shown i
       - A comma-separated list of versions that the client supports, e.g., "1.1, 1.5, 2.0"
       - Mandatory
 
-</DIV>
-<DIV>
+
+
 
 
 Request Message Body
@@ -204,7 +202,12 @@ Request Message Body
 The request message body fields for creating a queue object using CDMI are shown in `Request Message Body - Create a Queue Object using CDMI`_.
 
 
-.. list-table::  tbl_<A NAME="50532470_16565"></A>Request Message Body - Create a Queue Object using CDMI  (Sheet 1 of 2)
+.. _tbl_Request_Message_Body_Create_a_Queue_Object using CDMI  :
+
+.. list-table:: tbl_Request Message Body Create a Queue Object using CDMI  
+.. _tbl_Request_Message_Body_Create_a_Queue_Object using CDMI  :
+
+.. list-table:: tbl_Request Message Body Create a Queue Object using CDMI  
     :header-rows: 1
     :widths: auto
     :align: center 
@@ -217,8 +220,6 @@ The request message body fields for creating a queue object using CDMI are shown
     * - metadata
       - JSON Object
       - Metadata for the queue object
-
-
         * If this field is included when deserializing, serializing, copying, or moving a queue object, the value provided in this field shall replace the metadata from the source URI. 
         * If this field is not included when deserializing, serializing, copying, or moving a queue object, the metadata from the source URI shall be used. 
         * If this field is included when creating a new queue object by specifying a value, the value provided in this field shall be used as the metadata. 
@@ -229,8 +230,6 @@ The request message body fields for creating a queue object using CDMI are shown
     * - domainURI
       - JSON String
       - URI of the owning domain
-
-
         * If different from the parent domain, the user shall have the "cross_domain" privilege (see cdmi_member_privileges in `Required Settings for Domain Member User Objects`_).
         * If not specified, the parent domain shall be used.
 
@@ -242,8 +241,6 @@ The request message body fields for creating a queue object using CDMI are shown
     * - copy
       - JSON String
       - URI of a source CDMI queue object that shall be copied into the new destination queue object. 
-
-
         * If the destination queue object URI and the copy source queue object URI both do not specify individual fields, the destination queue object shall be a complete copy of the source queue object, including all enqueued values. 
         * If the destination queue object URI or the copy source queue object URI specifies individual fields, only the fields specified shall be used to create the destination queue object. If specified fields are not present in the source, default field values shall be used. 
         * If the destination queue object URI and the copy source queue object URI both specify fields, an HTTP status code of ``400 Bad Request``
@@ -267,12 +264,12 @@ If there are insufficient permissions to read the queue object at the source URI
       - JSON String
       - A queue object serialized as specified in :rfc:`4648`.
       - Optional [#a]_
-    * <TH ROWSPAN="1" COLSPAN="4">
-aOnly one of these fields shall be specified in any given operation. Except for value, these fields shall not be stored. If more than one of these fields is supplied, the server shall respond with an HTTP status code of ``400 Bad Request``
+
+.. [#a] Only one of these fields shall be specified in any given operation. Except for value, these fields shall not be stored. If more than one of these fields is supplied, the server shall respond with an HTTP status code of ``400 Bad Request``
 .
 
-</DIV>
-<DIV>
+
+
 
 Response Headers
 -----
@@ -280,7 +277,12 @@ Response Headers
 The HTTP response headers for creating a CDMI queue object using CDMI are shown in `Response Headers - Create a Queue Object using CDMI`_. 
 
 
-.. list-table::  tbl_<A NAME="50532470_24226"></A>Response Headers - Create a Queue Object using CDMI
+.. _tbl_Response_Headers_Create_a_Queue_Object_using CDMI:
+
+.. list-table:: tbl_Response Headers Create a Queue Object using CDMI
+.. _tbl_Response_Headers_Create_a_Queue_Object_using CDMI:
+
+.. list-table:: tbl_Response Headers Create a Queue Object using CDMI
     :header-rows: 1
     :widths: auto
     :align: center 
@@ -306,8 +308,8 @@ If the server does not support any of the versions that the client supports, the
 is returned, the server shall respond with the absolute URL of the object that is in the process of being created.
       - Conditional
 
-</DIV>
-<DIV>
+
+
 
 Response Message Body
 -----
@@ -315,7 +317,12 @@ Response Message Body
 The response message body fields for creating a CDMI queue object using CDMI are shown in `Response Message Body - Create a Queue Object using CDMI`_. 
 
 
-.. list-table::  tbl_<A NAME="50532470_92285"></A>Response Message Body - Create a Queue Object using CDMI (Sheet 1 of 2)
+.. _tbl_Response_Message_Body_Create_a_Queue_Object using CDMI :
+
+.. list-table:: tbl_Response Message Body Create a Queue Object using CDMI 
+.. _tbl_Response_Message_Body_Create_a_Queue_Object using CDMI :
+
+.. list-table:: tbl_Response Message Body Create a Queue Object using CDMI 
     :header-rows: 1
     :widths: auto
     :align: center 
@@ -361,9 +368,7 @@ The value shall be the string "Processing", the string "Complete", or an error s
       - Mandatory
     * - percentComplete
       - JSON String
-      - 
-
-        * When the value of completionStatus is "Processing", this field, if provided, shall indicate the percentage of completion as a numeric integer value from 0 through 100. 
+      -         * When the value of completionStatus is "Processing", this field, if provided, shall indicate the percentage of completion as a numeric integer value from 0 through 100. 
         * When the value of completionStatus is "Complete", this field, if provided, shall contain the value "100". 
         * When the value of completionStatus is "Error", this field, if provided, may contain any integer value from 0 through 100. 
 
@@ -377,8 +382,8 @@ The value shall be the string "Processing", the string "Complete", or an error s
       - The range of designators for enqueued values. Every enqueued value shall be assigned a unique, monotonically-incrementing positive integer designator, starting from 0. If no values are enqueued, an empty string shall be returned. If values are enqueued, the lowest designator, followed by a hyphen ("-"), followed by the highest designator shall be returned.
       - Mandatory
 
-</DIV>
-<DIV>
+
+
 
 Response Status
 -----
@@ -386,7 +391,12 @@ Response Status
 `HTTP Status Codes - Create a Queue Object using CDMI`_ describes the HTTP status codes that occur when creating a queue object using CDMI. 
 
 
-.. list-table::  tbl_<A NAME="50532470_39760"></A>HTTP Status Codes - Create a Queue Object using CDMI
+.. _tbl_HTTP_Status_Codes_Create_a_Queue_Object using CDMI:
+
+.. list-table:: tbl_HTTP Status Codes Create a Queue Object using CDMI
+.. _tbl_HTTP_Status_Codes_Create_a_Queue_Object using CDMI:
+
+.. list-table:: tbl_HTTP Status Codes Create a Queue Object using CDMI
     :header-rows: 1
     :widths: auto
     :align: center 
@@ -416,13 +426,13 @@ Response Status
 
       - The operation conflicts with a non-CDMI access protocol lock or may cause a state transition error on the server.
 
-</DIV>
-<DIV>
+
+
 
 
 Examples
 -----
-<DIV>
+
 #. PUT to the queue URI the queue object name and contents:
 
     .. code-block:: http
@@ -438,7 +448,7 @@ Examples
 
     X-CDMI-Specification-Version: 1.1
 
-    &nbsp;
+     
 
     {
 
@@ -452,13 +462,15 @@ Examples
 
    The following shows the response.
 
+   .. code-block:: http
+
     HTTP/1.1 201 Created
 
     Content-Type: application/cdmi-queue
 
     X-CDMI-Specification-Version: 1.1
 
-    &nbsp;
+     
 
     {
 
@@ -487,8 +499,8 @@ Examples
         "queueValues" : ""
 
     }
-</DIV>
-<DIV>
+
+
 #. PUT to the queue object URI to create a new queue, copying from another queue:
 
     .. code-block:: http
@@ -502,7 +514,7 @@ Examples
 
     X-CDMI-Specification-Version: 1.1
 
-    &nbsp;
+     
 
     {
 
@@ -512,13 +524,15 @@ Examples
 
    The following shows the response.
 
+   .. code-block:: http
+
     HTTP/1.1 201 Created
 
     Content-Type: application/cdmi-queue
 
     X-CDMI-Specification-Version: 1.1
 
-    &nbsp;
+     
 
     {
 
@@ -547,14 +561,14 @@ Examples
         "queueValues": "0-9"
 
     }
-</DIV>
-</DIV>
-</DIV>
-<DIV>
+
+
+
+
 
 Read a Queue Object using CDMI
 ************************
-<DIV>
+
 
 Synopsis 
 -----
@@ -574,7 +588,7 @@ To read one or more requested fields from an existing queue object, one of the f
 To read one or more queue values from an existing queue object, the following request shall be performed:
 
     GET <root URI>/<ContainerName>/<QueueName>?values:<count>
-<DIV>
+
 Where:
 
 
@@ -590,9 +604,9 @@ Where:
 The object shall also be accessible at <root URI>/cdmi_objectid/<objectID>. 
 
 Reading a queue object shall, by default, return the complete value of the oldest item in the queue, unless the queueValues range is empty.
-</DIV>
-</DIV>
-<DIV>
+
+
+
 
 
 Capabilities
@@ -605,8 +619,8 @@ The following capabilities describe the supported operations that may be perform
 * Support for the ability to read the value of an existing queue object is indicated by the presence of the cdmi_read_value capability in the specified queue object.
 * Support for the ability to read a queue object using multi-part MIME is indicated by the presence of the "cdmi_multipart_mime" system-wide capability.
 
-</DIV>
-<DIV>
+
+
 
 
 Request Headers
@@ -615,7 +629,12 @@ Request Headers
 The HTTP request headers for reading a CDMI queue object using CDMI are shown in `Request Headers - Read a Queue Object using CDMI`_. 
 
 
-.. list-table::  tbl_<A NAME="50532470_21022"></A>Request Headers - Read a Queue Object using CDMI
+.. _tbl_Request_Headers_Read_a_Queue_Object_using CDMI:
+
+.. list-table:: tbl_Request Headers Read a Queue Object using CDMI
+.. _tbl_Request_Headers_Read_a_Queue_Object_using CDMI:
+
+.. list-table:: tbl_Request Headers Read a Queue Object using CDMI
     :header-rows: 1
     :widths: auto
     :align: center 
@@ -635,15 +654,15 @@ If "multipart/mixed", the body shall consist of one or more MIME parts, where th
       - A comma-separated list of versions that the client supports, e.g., "1.1, 1.5, 2.0"
       - Mandatory
 
-</DIV>
-<DIV>
+
+
 
 Request Message Body 
 -----
 
 A request body shall not be provided.
-</DIV>
-<DIV>
+
+
 
 
 Response Headers
@@ -652,7 +671,12 @@ Response Headers
 The HTTP response headers for reading a CDMI queue object using CDMI are shown in `Response Headers - Read a Queue Object using CDMI`_. 
 
 
-.. list-table::  tbl_<A NAME="50532470_44353"></A>Response Headers - Read a Queue Object using CDMI
+.. _tbl_Response_Headers_Read_a_Queue_Object_using CDMI:
+
+.. list-table:: tbl_Response Headers Read a Queue Object using CDMI
+.. _tbl_Response_Headers_Read_a_Queue_Object_using CDMI:
+
+.. list-table:: tbl_Response Headers Read a Queue Object using CDMI
     :header-rows: 1
     :widths: auto
     :align: center 
@@ -677,8 +701,8 @@ If the server does not support any of the versions that the client supports, the
       - The server shall respond with an absolute URI to which the reference redirects if the object is a reference.
       - Conditional
 
-</DIV>
-<DIV>
+
+
 
 
 Response Message Body
@@ -687,7 +711,12 @@ Response Message Body
 The response message body fields for reading a CDMI queue object using CDMI are shown in `Response Message Body - Read a Queue Object using CDMI`_. 
 
 
-.. list-table::  tbl_<A NAME="50532470_12528"></A>Response Message Body - Read a Queue Object using CDMI (Sheet 1 of 4)
+.. _tbl_Response_Message_Body_Read_a_Queue_Object using CDMI :
+
+.. list-table:: tbl_Response Message Body Read a Queue Object using CDMI 
+.. _tbl_Response_Message_Body_Read_a_Queue_Object using CDMI :
+
+.. list-table:: tbl_Response Message Body Read a Queue Object using CDMI 
     :header-rows: 1
     :widths: auto
     :align: center 
@@ -708,8 +737,6 @@ The response message body fields for reading a CDMI queue object using CDMI are 
     * - objectName
       - JSON String
       - Name of the object
-
-
         * For objects in a container, the objectName field shall be returned. 
         * For objects not in a container (objects that are only accessible by ID), the objectName field does not exist and shall not be returned. 
 
@@ -717,8 +744,6 @@ The response message body fields for reading a CDMI queue object using CDMI are 
     * - parentURI
       - JSON String
       - URI for the parent object
-
-
         * For objects in a container, the parentURI field shall be returned. 
         * For objects not in a container (objects that are only accessible by ID), the parentURI field does not exist and shall not be returned. 
 
@@ -727,8 +752,6 @@ Appending the objectName to the parentURI shall always produce a valid URI for t
     * - parentID
       - JSON String
       - Object ID of the parent container object
-
-
         * For objects in a container, the parentID field shall be returned. 
         * For objects not in a container (objects that are only accessible by ID), the parentID field does not exist and shall not be returned.
 
@@ -748,9 +771,7 @@ The value shall be the string "Processing", the string "Complete", or an error s
       - Mandatory
     * - percentComplete
       - JSON String
-      - 
-
-        * When the value of completionStatus is "Processing", this field, if provided, shall indicate the percentage of completion as a numeric integer value from 0 through 100. 
+      -         * When the value of completionStatus is "Processing", this field, if provided, shall indicate the percentage of completion as a numeric integer value from 0 through 100. 
         * When the value of completionStatus is "Complete", this field, if provided, shall contain the value "100". 
         * When the value of completionStatus is "Error", this field, if provided, may contain any integer value from 0 through 100. 
 
@@ -766,8 +787,6 @@ The value shall be the string "Processing", the string "Complete", or an error s
     * - mimetype
       - JSON Array of JSON Strings
       - MIME types for each queue object value
-
-
         * The MIME types of the values are returned, each corresponding to the value in the same position in the JSON array.
         * This field shall only be provided when completionStatus is "Complete" and when one or more values are enqueued.
 
@@ -775,8 +794,6 @@ The value shall be the string "Processing", the string "Complete", or an error s
     * - valuerange
       - JSON Array of JSON Strings
       - The range of bytes of the queue object values to be returned in the value field
-
-
         * The value ranges of the values are returned, each corresponding to the value in the same position in the JSON array.
         * If a specific value range has been requested, the entry in the valuerange field shall correspond to the bytes requested. If the request extends beyond the end of the value, the valuerange field shall indicate the smaller byte range returned.
         * The valuerange field shall only be provided when the completionStatus field contains "Complete".
@@ -785,8 +802,6 @@ The value shall be the string "Processing", the string "Complete", or an error s
     * - valuetransferencoding
       - JSON Array of JSON Strings
       - The value transfer encoding used for each queue object value. Two value transfer encodings are defined:
-
-
         * "utf-8" indicates that the queue object value contains a valid UTF-8 string, and it shall be transported as a UTF-8 string in the value field.
         * "base64" indicates that the queue object value may contain arbitrary binary sequences, and it shall be transported as a base 64-encoded string in the value field.
 
@@ -796,8 +811,6 @@ The valuetransferencoding field shall only be provided when the completionStatus
     * - value
       - JSON Array of JSON Strings
       - The oldest enqueued queue object values
-
-
         * The values in the JSON array are returned in order from oldest to newest.
         * If the valuetransferencoding field indicates UTF-8 encoding, the corresponding value field shall contain a UTF-8 string using JSON escaping rules described in :rfc:`4627`.
         * If the valuetransferencoding field indicates base 64 encoding, the corresponding value field shall contain a base 64-encoded string as described in RFC :rfc:`4648`.
@@ -808,8 +821,8 @@ The valuetransferencoding field shall only be provided when the completionStatus
 
 
 If individual fields are specified in the GET request, only these fields are returned in the result body. Optional fields that are requested but do not exist are omitted from the result body.
-</DIV>
-<DIV>
+
+
 
 Response Status
 -----
@@ -817,7 +830,12 @@ Response Status
 `HTTP Status Codes - Read a Queue Object using CDMI`_ describes the HTTP status codes that occur when reading a queue object using CDMI. 
 
 
-.. list-table::  tbl_<A NAME="50532470_93312"></A>HTTP Status Codes - Read a Queue Object using CDMI
+.. _tbl_HTTP_Status_Codes_Read_a_Queue_Object using CDMI:
+
+.. list-table:: tbl_HTTP Status Codes Read a Queue Object using CDMI
+.. _tbl_HTTP_Status_Codes_Read_a_Queue_Object using CDMI:
+
+.. list-table:: tbl_HTTP Status Codes Read a Queue Object using CDMI
     :header-rows: 1
     :widths: auto
     :align: center 
@@ -847,13 +865,13 @@ Response Status
 
       - The server is unable to provide the object in the content type specified in the Accept header.
 
-</DIV>
-<DIV>
+
+
 
 
 Examples
 -----
-<DIV>
+
 #. GET to the queue object URI to read all fields of the queue object:
 
     .. code-block:: http
@@ -869,13 +887,15 @@ Examples
 
    The following shows the response.
 
+   .. code-block:: http
+
     HTTP/1.1 200 OK 
 
     Content-Type: application/cdmi-queue
 
     X-CDMI-Specification-Version: 1.1 
 
-    &nbsp;
+     
 
     {
 
@@ -924,8 +944,8 @@ Examples
         ]
 
     }
-</DIV>
-<DIV>
+
+
 #. GET to the queue object URI to read the value and queue items of the queue object:
 
     .. code-block:: http
@@ -941,13 +961,15 @@ Examples
 
    The following shows the response.
 
+   .. code-block:: http
+
     HTTP/1.1 200 OK 
 
     Content-Type: application/cdmi-queue
 
     X-CDMI-Specification-Version: 1.1 
 
-    &nbsp;
+     
 
     {
 
@@ -960,8 +982,8 @@ Examples
         ] 
 
     }
-</DIV>
-<DIV>
+
+
 #. GET to the queue object URI to read the first five bytes of the value of the queue object:
 
     .. code-block:: http
@@ -983,7 +1005,7 @@ Examples
 
     X-CDMI-Specification-Version: 1.1 
 
-    &nbsp;
+     
 
     {
 
@@ -994,8 +1016,8 @@ Examples
         ] 
 
     } 
-</DIV>
-<DIV>
+
+
 #. GET to the queue object URI to read two values of the queue object:
 
     .. code-block:: http
@@ -1011,13 +1033,15 @@ Examples
 
    The following shows the response.
 
+   .. code-block:: http
+
     HTTP/1.1 200 OK 
 
     Content-Type: application/cdmi-queue
 
     X-CDMI-Specification-Version: 1.1 
 
-    &nbsp;
+     
 
     {
 
@@ -1046,8 +1070,8 @@ Examples
         ] 
 
     }
-</DIV>
-<DIV>
+
+
 #.  GET to the queue object URI to read the queue object using multi-part MIME:
 
     .. code-block:: http
@@ -1062,6 +1086,8 @@ Examples
     X-CDMI-Specification-Version: 1.1
 
    The following shows the response.
+
+   .. code-block:: http
 
     HTTP/1.1 200 OK 
 
@@ -1158,14 +1184,14 @@ Examples
     
 
     --gc0p4Jq0M2Yt08j34c0p--
-</DIV>
-</DIV>
-</DIV>
-<DIV>
+
+
+
+
 
 Update a Queue Object using CDMI
 ************************
-<DIV>
+
 
 Synopsis 
 -----
@@ -1177,7 +1203,7 @@ To update some or all fields in an existing queue object (excluding the enqueuei
 To add, update, and remove specific metadata items of an existing queue object, the following request shall be performed:
 
     PUT <root URI>/<ContainerName>/<QueueName>?metadata:<metadataname>;...
-<DIV>
+
 Where:
 
 
@@ -1187,9 +1213,9 @@ Where:
 
 
 The object shall also be accessible at <root URI>/cdmi_objectid/<objectID>. An update shall not result in a change to the object ID.
-</DIV>
-</DIV>
-<DIV>
+
+
+
 
 
 Capability 
@@ -1200,8 +1226,8 @@ The following capability describes the supported operations that may be performe
 
 * Support for the ability to modify the metadata of an existing queue object is indicated by the presence of the cdmi_modify_metadata capability in the specified queue object.
 
-</DIV>
-<DIV>
+
+
 
 
 Request Headers
@@ -1210,7 +1236,12 @@ Request Headers
 The HTTP request headers for updating a CDMI queue object using CDMI are shown in `Request Headers - Update a Queue Object using CDMI`_. 
 
 
-.. list-table::  tbl_<A NAME="50532470_81371"></A>Request Headers - Update a Queue Object using CDMI
+.. _tbl_Request_Headers_Update_a_Queue_Object_using CDMI:
+
+.. list-table:: tbl_Request Headers Update a Queue Object using CDMI
+.. _tbl_Request_Headers_Update_a_Queue_Object_using CDMI:
+
+.. list-table:: tbl_Request Headers Update a Queue Object using CDMI
     :header-rows: 1
     :widths: auto
     :align: center 
@@ -1229,8 +1260,8 @@ The HTTP request headers for updating a CDMI queue object using CDMI are shown i
       - A comma-separated list of versions that the client supports, e.g., "1.1, 1.5, 2.0"
       - Mandatory
 
-</DIV>
-<DIV>
+
+
 
 
 Request Message Body
@@ -1239,7 +1270,12 @@ Request Message Body
 The request message body fields for updating a queue object using CDMI are shown in `Request Message Body - Update a Queue Object using CDMI`_.
 
 
-.. list-table::  tbl_<A NAME="50532470_52028"></A>Request Message Body - Update a Queue Object using CDMI 
+.. _tbl_Request_Message_Body_Update_a_Queue_Object using CDMI :
+
+.. list-table:: tbl_Request Message Body Update a Queue Object using CDMI 
+.. _tbl_Request_Message_Body_Update_a_Queue_Object using CDMI :
+
+.. list-table:: tbl_Request Message Body Update a Queue Object using CDMI 
     :header-rows: 1
     :widths: auto
     :align: center 
@@ -1257,8 +1293,6 @@ See `Metadata`_ for a further description of metadata.
     * - domainURI
       - JSON String
       - URI of the owning domain. 
-
-
         * If different from the parent domain, the user shall have the "cross_domain" privilege (see cdmi_member_privileges in `Required Settings for Domain Member User Objects`_). 
         * If not specified, the existing domain shall be preserved.
 
@@ -1271,8 +1305,6 @@ All enqueued items in the serialized queue object shall be added to the destinat
     * - copy
       - JSON String
       - URI of a source CDMI queue object that shall be copied into the existing destination queue object. 
-
-
         * If the destination queue object URI and the copy source queue object URI both do not specify individual fields, the destination queue object shall be replaced with the source queue object, with the exception that the destination queue values shall be preserved. See `Enqueue a New Queue Value using CDMI`_ to copy enqueued items. 
         * If the destination queue object URI or the copy source queue object URI specifies individual fields, only the fields specified shall be used to update the destination queue object. If specified fields are not present in the source, these fields shall be ignored. If the value field is specified, it shall be ignored.  
         * If the destination queue object URI and the copy source queue object URI both specify fields, an HTTP status code of ``400 Bad Request``
@@ -1286,11 +1318,11 @@ If there are insufficient permissions to read the queue object at the source URI
       - A queue object serialized as specified in :rfc:`4648`. The object ID of the serialized queue object shall match the object ID of the destination queue object.
 All enqueued items in the serialized queue object shall be added to the destination queue object. 
       - Optional [#a]_
-    * <TH ROWSPAN="1" COLSPAN="4">
-aOnly one of these fields shall be specified in any given operation. Except for value, these fields shall not be stored.
 
-</DIV>
-<DIV>
+.. [#a] Only one of these fields shall be specified in any given operation. Except for value, these fields shall not be stored.
+
+
+
 
 Response Header
 -----
@@ -1298,7 +1330,12 @@ Response Header
 The HTTP response header for updating a CDMI queue object using CDMI is shown in `Response Header - Update a Queue Object using CDMI`_. 
 
 
-.. list-table::  tbl_<A NAME="50532470_89460"></A>Response Header - Update a Queue Object using CDMI
+.. _tbl_Response_Header_Update_a_Queue_Object_using CDMI:
+
+.. list-table:: tbl_Response Header Update a Queue Object using CDMI
+.. _tbl_Response_Header_Update_a_Queue_Object_using CDMI:
+
+.. list-table:: tbl_Response Header Update a Queue Object using CDMI
     :header-rows: 1
     :widths: auto
     :align: center 
@@ -1313,15 +1350,15 @@ The HTTP response header for updating a CDMI queue object using CDMI is shown in
       - The server shall respond with an absolute URI to which the reference redirects if the object is a reference.
       - Conditional
 
-</DIV>
-<DIV>
+
+
 
 Response Message Body 
 -----
 
 A response body may be provided as per :rfc:`2616`.
-</DIV>
-<DIV>
+
+
 
 Response Status
 -----
@@ -1329,7 +1366,12 @@ Response Status
 `HTTP Status Codes - Update a Queue Object using CDMI`_ describes the HTTP status codes that occur when updating a queue object using CDMI. 
 
 
-.. list-table::  tbl_<A NAME="50532470_35504"></A>HTTP Status Codes - Update a Queue Object using CDMI
+.. _tbl_HTTP_Status_Codes_Update_a_Queue_Object using CDMI:
+
+.. list-table:: tbl_HTTP Status Codes Update a Queue Object using CDMI
+.. _tbl_HTTP_Status_Codes_Update_a_Queue_Object using CDMI:
+
+.. list-table:: tbl_HTTP Status Codes Update a Queue Object using CDMI
     :header-rows: 1
     :widths: auto
     :align: center 
@@ -1359,13 +1401,13 @@ Response Status
 
       - The operation conflicts with a non-CDMI access protocol lock or may cause a state transition error on the server.
 
-</DIV>
-<DIV>
+
+
 
 
 Examples
 -----
-<DIV>
+
 #. PUT to the queue object URI to set new metadata:
 
     .. code-block:: http
@@ -1379,7 +1421,7 @@ Examples
 
     X-CDMI-Specification-Version: 1.1
 
-    &nbsp;
+     
 
     {
 
@@ -1393,9 +1435,11 @@ Examples
 
    The following shows the response.
 
+   .. code-block:: http
+
     HTTP/1.1 204 No Content
-</DIV>
-<DIV>
+
+
 #. PUT to the queue object URI to move six queue values from another queue: 
 
     .. code-block:: http
@@ -1409,7 +1453,7 @@ Examples
 
     X-CDMI-Specification-Version: 1.1
 
-    &nbsp;
+     
 
     {
 
@@ -1419,15 +1463,17 @@ Examples
 
    The following shows the response.
 
+   .. code-block:: http
+
     HTTP/1.1 204 No Content
-</DIV>
-</DIV>
-</DIV>
-<DIV>
+
+
+
+
 
 Delete a Queue Object using CDMI
 ************************
-<DIV>
+
 
 Synopsis 
 -----
@@ -1435,7 +1481,7 @@ Synopsis
 To delete an existing queue object, along with all enqueued values, the following request shall be performed:
 
     DELETE <root URI>/<ContainerName>/<QueueName>
-<DIV>
+
 Where:
 
 
@@ -1445,9 +1491,9 @@ Where:
 
 
 The object shall also be accessible at <root URI>/cdmi_objectid/<objectID>.
-</DIV>
-</DIV>
-<DIV>
+
+
+
 
 Capability 
 -----
@@ -1457,8 +1503,8 @@ The following capability describes the supported operations that may be performe
 
 * Support for the ability to delete an existing queue object is indicated by the presence of the cdmi_delete_queue capability in the specified queue object.
 
-</DIV>
-<DIV>
+
+
 
 Request Header
 -----
@@ -1466,7 +1512,12 @@ Request Header
 The HTTP request header for deleting a CDMI queue object using CDMI is shown in `Request Header - Delete a Queue Object using CDMI`_. 
 
 
-.. list-table::  tbl_<A NAME="50532470_73443"></A>Request Header - Delete a Queue Object using CDMI
+.. _tbl_Request_Header_Delete_a_Queue_Object_using CDMI:
+
+.. list-table:: tbl_Request Header Delete a Queue Object using CDMI
+.. _tbl_Request_Header_Delete_a_Queue_Object_using CDMI:
+
+.. list-table:: tbl_Request Header Delete a Queue Object using CDMI
     :header-rows: 1
     :widths: auto
     :align: center 
@@ -1481,29 +1532,29 @@ The HTTP request header for deleting a CDMI queue object using CDMI is shown in 
       - A comma-separated list of versions that the client supports, e.g., "1.1, 1.5, 2.0"
       - Mandatory
 
-</DIV>
-<DIV>
+
+
 
 Request Message Body 
 -----
 
 A request body may be provided as per :rfc:`2616`.
-</DIV>
-<DIV>
+
+
 
 Response Headers 
 -----
 
 Response headers may be provided as per :rfc:`2616`.
-</DIV>
-<DIV>
+
+
 
 Response Message Body 
 -----
 
 A response body may be provided as per :rfc:`2616`.
-</DIV>
-<DIV>
+
+
 
 Response Status
 -----
@@ -1511,7 +1562,12 @@ Response Status
 `HTTP Status Codes - Delete a Queue Object using CDMI`_ describes the HTTP status codes that occur when deleting a queue object using CDMI. 
 
 
-.. list-table::  tbl_<A NAME="50532470_95652"></A>HTTP Status Codes - Delete a Queue Object using CDMI
+.. _tbl_HTTP_Status_Codes_Delete_a_Queue_Object using CDMI:
+
+.. list-table:: tbl_HTTP Status Codes Delete a Queue Object using CDMI
+.. _tbl_HTTP_Status_Codes_Delete_a_Queue_Object using CDMI:
+
+.. list-table:: tbl_HTTP Status Codes Delete a Queue Object using CDMI
     :header-rows: 1
     :widths: auto
     :align: center 
@@ -1538,14 +1594,13 @@ Response Status
 
       - The operation conflicts with a non-CDMI access protocol lock or may cause a state transition error on the server.
 
-</DIV>
-<DIV>
+
+
 
 Example
 -----
-<DIV>
-<H6 CLASS="Example">
-DELETE to the queue object URI:</H6>
+
+#.  DELETE to the queue object URI:
 
     DELETE /MyContainer/MyQueue HTTP/1.1
 
@@ -1555,15 +1610,17 @@ DELETE to the queue object URI:</H6>
 
    The following shows the response.
 
+   .. code-block:: http
+
     HTTP/1.1 204 No Content
-</DIV>
-</DIV>
-</DIV>
-<DIV>
+
+
+
+
 
 Enqueue a New Queue Value using CDMI
 ************************
-<DIV>
+
 
 Synopsis 
 -----
@@ -1571,7 +1628,7 @@ Synopsis
 To enqueue one or more values into an existing queue object, the following request shall be performed:
 
     POST <root URI>/<ContainerName>/<QueueName>
-<DIV>
+
 Where:
 
 
@@ -1581,9 +1638,9 @@ Where:
 
 
 The object shall also be accessible at <root URI>/cdmi_objectid/<objectID>.
-</DIV>
-</DIV>
-<DIV>
+
+
+
 
 
 Capabilities
@@ -1595,8 +1652,8 @@ The following capabilities describe the supported operations that may be perform
 * Support for the ability to modify the value of an existing queue object is indicated by the presence of the cdmi_modify_value capability in the specified queue object.
 * Support for the ability to modify the value of an existing queue object using multi-part MIME is indicated by the presence of the "cdmi_multipart_mime" system-wide capability.
 
-</DIV>
-<DIV>
+
+
 
 
 Request Headers
@@ -1605,7 +1662,12 @@ Request Headers
 The HTTP request headers for enqueuing a new CDMI queue object value using CDMI are shown in `Request Headers - Enqueue a New Queue Object Value using CDMI`_. 
 
 
-.. list-table::  tbl_<A NAME="50532470_84690"></A>Request Headers - Enqueue a New Queue Object Value using CDMI
+.. _tbl_Request_Headers_Enqueue_a_New_Queue_Object Value using CDMI:
+
+.. list-table:: tbl_Request Headers Enqueue a New Queue Object Value using CDMI
+.. _tbl_Request_Headers_Enqueue_a_New_Queue_Object Value using CDMI:
+
+.. list-table:: tbl_Request Headers Enqueue a New Queue Object Value using CDMI
     :header-rows: 1
     :widths: auto
     :align: center 
@@ -1625,8 +1687,8 @@ If "multipart/mixed", the first part shall contain a body of content-type "appli
       - A comma-separated list of versions that the client supports, e.g., "1.1, 1.5, 2.0"
       - Mandatory
 
-</DIV>
-<DIV>
+
+
 
 
 Request Message Body
@@ -1635,7 +1697,12 @@ Request Message Body
 The request message body fields for enqueuing a new queue object value using CDMI are shown in `Request Message Body - Enqueue a New Queue Object Value using CDMI`_.
 
 
-.. list-table::  tbl_<A NAME="50532470_57043"></A>Request Message Body - Enqueue a New Queue Object Value using CDMI  (Sheet 1 of 3)
+.. _tbl_Request_Message_Body_Enqueue_a_New_Queue Object Value using CDMI  :
+
+.. list-table:: tbl_Request Message Body Enqueue a New Queue Object Value using CDMI  
+.. _tbl_Request_Message_Body_Enqueue_a_New_Queue Object Value using CDMI  :
+
+.. list-table:: tbl_Request Message Body Enqueue a New Queue Object Value using CDMI  
     :header-rows: 1
     :widths: auto
     :align: center 
@@ -1648,8 +1715,6 @@ The request message body fields for enqueuing a new queue object value using CDM
     * - mimetype
       - JSON Array of JSON Strings
       - MIME type(s) of the data value(s) to be enqueued into the queue object. 
-
-
         * This field shall be stored as part of the queue object.
         * If this field is not included and multi-part MIME is not being used, the value of "text/plain" shall be assigned as the field value.
         * If this field is not included and multi-part MIME is being used, the value of the "Content-Type" header of the corresponding MIME part shall be assigned as the field value.
@@ -1660,8 +1725,6 @@ The request message body fields for enqueuing a new queue object value using CDM
     * - copy
       - JSON String
       - URI of a source CDMI data object or queue object from which the value shall be copied and enqueued 
-
-
         * If a copy source object URI to a data object is provided, the value, mimetype, and valuetransferencoding field values from the source data object are used to enqueue the new item into the destination queue object. 
         * If a copy source object URI to a queue object is provided, the corresponding value, mimetype, and valuetransferencoding field values of the specified number of enqueued items in the source queue object are copied to the destination queue object.
 
@@ -1669,8 +1732,6 @@ The request message body fields for enqueuing a new queue object value using CDM
     * - move
       - JSON String
       - URI of a source CDMI data object or queue object from which the value shall be moved and enqueued
-
-
         * If a move source object URI to a data object is provided, the value, mimetype, and valuetransferencoding field values from the source data object are used to enqueue the new item into the destination queue object, and the source data object is atomically deleted. 
         * If a move source object URI to a queue object is provided, the corresponding value, mimetype, and valuetransferencoding field values of the specified number of enqueued items in the source queue object are transferred to the destination queue object and atomically removed from the source queue object.
 
@@ -1678,8 +1739,6 @@ The request message body fields for enqueuing a new queue object value using CDM
     * - valuetransferencoding
       - JSON Array of JSON Strings
       - The value transfer encoding used for the queue object value. Two value transfer encodings are defined:
-
-
         * "utf-8" indicates that the queue object value contains a valid UTF-8 string, and shall be transported as a UTF-8 string in the value field.
         * "base64" indicates that the queue object value may contain arbitrary binary sequences, and shall be transported as a base 64 encoded string in the value field. Setting the contents of the queue object value field to any value other than a valid base 64 string shall result in an HTTP status code of ``400 Bad Request``
  being returned to the client.
@@ -1691,33 +1750,31 @@ The request message body fields for enqueuing a new queue object value using CDM
     * - value
       - JSON Array of JSON Strings
       - Data to be enqueued into the queue object.
-
-
         * If this field is not included and multi-part MIME is being used, the contents of the MIME parts shall be assigned as the field value.
         * If the corresponding valuetransferencoding field indicates UTF-8 encoding, the value shall be a UTF-8 string escaped using the JSON escaping rules described in :rfc:`4627`.
         * If the corresponding valuetransferencoding field indicates base 64 encoding, the value shall be first encoded using the base 64 encoding rules as described in :rfc:`4648`.
 
       - Optional [#a]_
-    * <TH ROWSPAN="1" COLSPAN="4">
-aOnly one of these fields shall be specified in any given operation. Except for value, these fields shall not be stored. If more than one of these fields is supplied, the server shall respond with an HTTP status code of ``400 Bad Request``
+
+.. [#a] Only one of these fields shall be specified in any given operation. Except for value, these fields shall not be stored. If more than one of these fields is supplied, the server shall respond with an HTTP status code of ``400 Bad Request``
 .
 
-</DIV>
-<DIV>
+
+
 
 Response Headers 
 -----
 
 Response headers may be provided as per :rfc:`2616`.
-</DIV>
-<DIV>
+
+
 
 Response Message Body 
 -----
 
 A response body may be provided as per :rfc:`2616`.
-</DIV>
-<DIV>
+
+
 
 Response Status
 -----
@@ -1725,7 +1782,12 @@ Response Status
 `HTTP Status Codes - Enqueue a New Queue Object Value using CDMI`_ describes the HTTP status codes that occur when enqueuing a new queue object using CDMI. 
 
 
-.. list-table::  tbl_<A NAME="50532470_86025"></A>HTTP Status Codes - Enqueue a New Queue Object Value using CDMI
+.. _tbl_HTTP_Status_Codes_Enqueue_a_New_Queue Object Value using CDMI:
+
+.. list-table:: tbl_HTTP Status Codes Enqueue a New Queue Object Value using CDMI
+.. _tbl_HTTP_Status_Codes_Enqueue_a_New_Queue Object Value using CDMI:
+
+.. list-table:: tbl_HTTP Status Codes Enqueue a New Queue Object Value using CDMI
     :header-rows: 1
     :widths: auto
     :align: center 
@@ -1752,13 +1814,13 @@ Response Status
 
       - The operation conflicts with a non-CDMI access protocol lock or may cause a state transition error on the server.
 
-</DIV>
-<DIV>
+
+
 
 
 Examples
 -----
-<DIV>
+
 #. POST to the queue object URI a new value:
 
     .. code-block:: http
@@ -1772,7 +1834,7 @@ Examples
 
     X-CDMI-Specification-Version: 1.1 
 
-    &nbsp;
+     
 
     {
 
@@ -1792,9 +1854,11 @@ Examples
 
    The following shows the response.
 
+   .. code-block:: http
+
     HTTP/1.1 204 No Content 
-</DIV>
-<DIV>
+
+
 #. POST to the queue object URI to copy an existing value:
 
     .. code-block:: http
@@ -1808,7 +1872,7 @@ Examples
 
     X-CDMI-Specification-Version: 1.1 
 
-    &nbsp;
+     
 
     {
 
@@ -1818,9 +1882,11 @@ Examples
 
    The following shows the response.
 
+   .. code-block:: http
+
     HTTP/1.1 204 No Content
-</DIV>
-<DIV>
+
+
 #. POST to the queue object URI to transfer 20 values from another queue object:
 
     .. code-block:: http
@@ -1834,7 +1900,7 @@ Examples
 
     X-CDMI-Specification-Version: 1.1 
 
-    &nbsp;
+     
 
     {
 
@@ -1844,9 +1910,11 @@ Examples
 
    The following shows the response.
 
+   .. code-block:: http
+
     HTTP/1.1 204 No Content 
-</DIV>
-<DIV>
+
+
 #. POST to the queue object URI two new values:
 
     .. code-block:: http
@@ -1860,7 +1928,7 @@ Examples
 
     X-CDMI-Specification-Version: 1.1 
 
-    &nbsp;
+     
 
     {
 
@@ -1884,9 +1952,11 @@ Examples
 
    The following shows the response.
 
+   .. code-block:: http
+
     HTTP/1.1 204 No Content 
-</DIV>
-<DIV>
+
+
 #. POST to the queue object URI two new values, one with base 64 transfer encoding and one with utf-8 transfer encoding:
 
     .. code-block:: http
@@ -1932,9 +2002,11 @@ Examples
 
    The following shows the response.
 
+   .. code-block:: http
+
     HTTP/1.1 204 No Content
-</DIV>
-<DIV>
+
+
 #. POST to the queue object URI the binary contents of two new values using multi-part MIME:
 
     .. code-block:: http
@@ -1988,9 +2060,11 @@ Examples
 
    The following shows the response.
 
+   .. code-block:: http
+
     HTTP/1.1 204 No content
-</DIV>
-<DIV>
+
+
 #. POST to the queue object URI the mime types and binary contents of two new values using multi-part MIME:
 
     .. code-block:: http
@@ -2054,15 +2128,17 @@ Examples
 
    The following shows the response.
 
+   .. code-block:: http
+
     HTTP/1.1 204 No content
-</DIV>
-</DIV>
-</DIV>
-<DIV>
+
+
+
+
 
 Delete a Queue Object Value using CDMI
 ************************
-<DIV>
+
 
 Synopsis 
 -----
@@ -2074,7 +2150,7 @@ To delete one or more of the oldest enqueued values in an existing queue, the fo
     DELETE <root URI>/<ContainerName>/<QueueName>?values:<count>
 
     DELETE <root URI>/<ContainerName>/<QueueName>?values:<range>
-<DIV>
+
 Where:
 
 
@@ -2088,9 +2164,9 @@ Where:
 The object shall also be accessible at <root URI>/cdmi_objectid/<objectID>.
 
 The "?value" suffix at the end of the queue resource URI shall be included to distinguish the deletion of the oldest value from the deletion of the queue object itself, as described in `Delete a Queue Object using CDMI`_ (which deletes all enqueued values).
-</DIV>
-</DIV>
-<DIV>
+
+
+
 
 Capability 
 -----
@@ -2100,8 +2176,8 @@ The following capability describes the supported operations that may be performe
 
 * Support for the ability to modify the value of an existing queue object is indicated by the presence of the cdmi_modify_value capability in the specified queue object.
 
-</DIV>
-<DIV>
+
+
 
 Request Header
 -----
@@ -2109,7 +2185,12 @@ Request Header
 The HTTP request header for deleting a CDMI queue object value using CDMI is shown in `Request Header - Delete a Queue Object Value using CDMI`_. 
 
 
-.. list-table::  tbl_<A NAME="50532470_39443"></A>Request Header - Delete a Queue Object Value using CDMI
+.. _tbl_Request_Header_Delete_a_Queue_Object_Value using CDMI:
+
+.. list-table:: tbl_Request Header Delete a Queue Object Value using CDMI
+.. _tbl_Request_Header_Delete_a_Queue_Object_Value using CDMI:
+
+.. list-table:: tbl_Request Header Delete a Queue Object Value using CDMI
     :header-rows: 1
     :widths: auto
     :align: center 
@@ -2124,29 +2205,29 @@ The HTTP request header for deleting a CDMI queue object value using CDMI is sho
       - A comma-separated list of versions that the client supports, e.g., "1.1, 1.5, 2.0"
       - Mandatory
 
-</DIV>
-<DIV>
+
+
 
 Request Message Body 
 -----
 
 A request body may be provided as per :rfc:`2616`.
-</DIV>
-<DIV>
+
+
 
 Response Headers 
 -----
 
 Response headers may be provided as per :rfc:`2616`.
-</DIV>
-<DIV>
+
+
 
 Response Message Body 
 -----
 
 A response body may be provided as per :rfc:`2616`.
-</DIV>
-<DIV>
+
+
 
 Response Status
 -----
@@ -2154,7 +2235,12 @@ Response Status
 `HTTP Status Codes - Delete a Queue Object Value using CDMI`_ describes the HTTP status codes that occur when deleting a queue object value using CDMI. 
 
 
-.. list-table::  tbl_<A NAME="50532470_18647"></A>HTTP Status Codes - Delete a Queue Object Value using CDMI
+.. _tbl_HTTP_Status_Codes_Delete_a_Queue_Object Value using CDMI:
+
+.. list-table:: tbl_HTTP Status Codes Delete a Queue Object Value using CDMI
+.. _tbl_HTTP_Status_Codes_Delete_a_Queue_Object Value using CDMI:
+
+.. list-table:: tbl_HTTP Status Codes Delete a Queue Object Value using CDMI
     :header-rows: 1
     :widths: auto
     :align: center 
@@ -2181,12 +2267,12 @@ Response Status
 
       - The operation conflicts with a non-CDMI access protocol lock or may cause a state transition error on the server.
 
-</DIV>
-<DIV>
+
+
 
 Example 
 -----
-<DIV>
+
 #. DELETE to the queue object URI value to delete the oldest enqueued value:
 
     .. code-block:: http
@@ -2200,9 +2286,11 @@ Example
 
    The following shows the response.
 
+   .. code-block:: http
+
     HTTP/1.1 204 No Content
-</DIV>
-<DIV>
+
+
 #. DELETE to the queue object URI value to remove the ten oldest values: 
 
     .. code-block:: http
@@ -2214,11 +2302,13 @@ Example
 
     X-CDMI-Specification-Version: 1.1 
 
-   The following shows the response. 
+   The following shows the response.
+
+   .. code-block:: http 
 
     HTTP/1.1 204 No Content
-</DIV>
-<DIV>
+
+
 #. DELETE to the queue object URI value to remove queue values 10 through 19: 
 
     .. code-block:: http
@@ -2230,10 +2320,11 @@ Example
 
     X-CDMI-Specification-Version: 1.1 
 
-   The following shows the response. 
+   The following shows the response.
+
+   .. code-block:: http 
 
     HTTP/1.1 204 No Content
-</DIV>
-</DIV>
-</DIV>
-</DIV>
+
+
+

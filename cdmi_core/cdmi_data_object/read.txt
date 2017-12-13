@@ -78,13 +78,12 @@ Response Headers
 
 The HTTP response headers for reading a data object using CDMI are shown in :ref:`tbl_read_a_cdmi_data_object_using_cdmi_response_headers`. 
 
-.._tbl_read_a_cdmi_data_object_using_cdmi_response_headers:
+.. _tbl_read_a_cdmi_data_object_using_cdmi_response_headers:
 
 .. list-table:: Response Headers - Read a CDMI Data Object using CDMI 
     :header-rows: 1
     :widths: auto
     :align: center 
-
 
     * - Header
       - Type

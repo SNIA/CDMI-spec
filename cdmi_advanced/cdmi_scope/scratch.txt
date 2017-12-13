@@ -1,9 +1,9 @@
 
-<DIV>
+
 
 Scope Specification
 ========================================
-<DIV>
+
 
 Introduction
 ************************
@@ -55,14 +55,14 @@ Each JSON object is constructed using the same structure that CDMI objects use. 
     	"value" : "..."
 
     }
-</DIV>
-<DIV>
+
+
 
 Examples
 ************************
 
 Each field inside a scope specification JSON object represents a condition that shall be met for a field. 
-<DIV>
+
 #. A query to find all objects belonging to the domain /cdmi_domains/MyDomain/ is structured as follows: 
 
     .. code-block:: http
@@ -77,8 +77,8 @@ Each field inside a scope specification JSON object represents a condition that 
         }
 
     ]
-</DIV>
-<DIV>
+
+
 #. To query for all objects belonging to the domain /cdmi_domains/MyDomain/ AND are also located within the container MyContainer, the scope specification is structured as follows: 
 
     .. code-block:: http
@@ -95,8 +95,8 @@ Each field inside a scope specification JSON object represents a condition that 
         }
 
     ]
-</DIV>
-<DIV>
+
+
 #. To query for all objects created within a certain time range, the scope specification is structured as follows:
 
     .. code-block:: http
@@ -123,8 +123,8 @@ Each field inside a scope specification JSON object represents a condition that 
     ]
 
 When multiple matching expressions are specified for a given field or metadata item, all matching expression must evaluate true for an object to be considered a query result.
-</DIV>
-<DIV>
+
+
 #. To query for all objects that belong to the domain MyDomain OR are located within the container MyContainer, the query is structured as follows: 
 
     .. code-block:: http
@@ -147,8 +147,8 @@ When multiple matching expressions are specified for a given field or metadata i
     ]
 
 Queries may match on any field within an object that a cloud storage system is capable of returning as a result of an object GET.
-</DIV>
-<DIV>
+
+
 #. To query metadata items, the metadata object is included as an object within the query request. This query is shown as follows:
 
     .. code-block:: http
@@ -169,8 +169,8 @@ Queries may match on any field within an object that a cloud storage system is c
     ]
 
 This approach allows matching against arbitrarily nested metadata structures. When a JSON object is included in the scope specification, matches are performed within that object, and when a JSON array is included in the scope specification, matches are performed within that array. Matching against the contents of arrays of objects is indicated by having an object within the array, as illustrated in Example 5. 
-</DIV>
-<DIV>
+
+
 #. To query all objects with an ACE associated with the user "jdoe": 
 
     .. code-block:: http
@@ -199,8 +199,8 @@ This approach allows matching against arbitrarily nested metadata structures. Wh
 ]</P>
 
 To query the value of objects, the value field is included within the query request. Values are always represented using base 64 encoding in queries. 
-</DIV>
-<DIV>
+
+
 #. This query is shown as follows:
 
     .. code-block:: http
@@ -221,9 +221,9 @@ To query the value of objects, the value field is included within the query requ
     }
 
 Query against the value of objects is optional and is indicated by the presence of the cdmi_query_value capability.
-</DIV>
-</DIV>
-<DIV>
+
+
+
 
 Query Matching Expressions
 ************************
@@ -231,7 +231,12 @@ Query Matching Expressions
 `Query Matching Expressions`_ defines the query matching expressions.
 
 
-.. list-table::  tbl_<A NAME="50532477_81512"></A>Query Matching Expressions (Sheet 1 of 4)
+.. _tbl_<A NAME="50532477_81512"></A>Query Matching Expressions (Sheet 1 of 4):
+
+.. list-table:: tbl_<A NAME="50532477_81512"></A>Query Matching Expressions (Sheet 1 of 4)
+.. _tbl_<A NAME="50532477_81512"></A>Query Matching Expressions (Sheet 1 of 4):
+
+.. list-table:: tbl_<A NAME="50532477_81512"></A>Query Matching Expressions (Sheet 1 of 4)
     :header-rows: 1
     :widths: auto
     :align: center 
@@ -330,7 +335,7 @@ Regex matching expressions are only supported if the cdmi_query_regex capability
 All fields in objects that are not included in the scope specification shall be ignored for the purpose of matching objects.
 
 When a URI is used as the constant for the equals and not equals operators against the parentURI, domainURI, and capabilitiesURI, either a URI by path or URI by object ID can be specified and are considered interchangeable. 
-<DIV>
+
 #. In a query to find all objects belonging to a specific domain, the following two query scopes are considered identical: 
 
     .. code-block:: http
@@ -357,8 +362,8 @@ When a URI is used as the constant for the equals and not equals operators again
         } 
 
     ] 
-</DIV>
-<DIV>
+
+
 #. Likewise, a query to find all objects with a given parent container would have two equivalent forms: 
 
     .. code-block:: http
@@ -390,6 +395,5 @@ If an object ID is used in a query scope in the objectID field or the parentID f
 
 
 &nbsp;
-</DIV>
-</DIV>
-</DIV>
+
+

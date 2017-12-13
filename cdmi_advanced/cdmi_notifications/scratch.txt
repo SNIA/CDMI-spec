@@ -1,5 +1,5 @@
 
-<DIV>
+
 
 Notification Queues
 ========================================
@@ -19,7 +19,7 @@ When creating a notification queue, the metadata described in `Required Metadata
     :align: center 
 
 
-403 Forbidden``. After a notification queue has been created, with the exception of cdmi_queue_type, the metadata items in th.. list-table cannot be changed. cdmi_queue_type can only be removed, indicating to the system that the notification queue shall no longer receive notifications and shall be treated as a regular CDMI queue object. 
+403 Forbidden``. After a notification queue has been created, with the exception of cdmi_queue_type, the metadata items in th.. list-table cannot be changed. cdmi_queue_type_can_only_be_removed, indicating to the system that the notification queue shall no longer receive notifications and shall be treated as a regular CDMI queue object. 
     :header-rows: 1
     :widths: auto
     :align: center 
@@ -27,7 +27,12 @@ When creating a notification queue, the metadata described in `Required Metadata
 
 
 
-.. list-table::  tbl_<A NAME="50532480_80229"></A>Required Metadata for a Notification Queue (Sheet 1 of 3)
+.. _tbl_<A NAME="50532480_80229"></A>Required Metadata for a Notification Queue (Sheet 1 of 3):
+
+.. list-table:: tbl_<A NAME="50532480_80229"></A>Required Metadata for a Notification Queue (Sheet 1 of 3)
+.. _tbl_<A NAME="50532480_80229"></A>Required Metadata for a Notification Queue (Sheet 1 of 3):
+
+.. list-table:: tbl_<A NAME="50532480_80229"></A>Required Metadata for a Notification Queue (Sheet 1 of 3)
     :header-rows: 1
     :widths: auto
     :align: center 
@@ -87,7 +92,7 @@ In addition to the fields defined in `Results Specification`_, for notifications
 
       - Mandatory
 
-<DIV>
+
 #. The metadata associated with a notification queue is as follows:
 
     .. code-block:: http
@@ -152,8 +157,8 @@ In addition to the fields defined in `Results Specification`_, for notifications
     }
 
 When notification results are stored in a notification queue, each enqueued value shall consist of a JSON object of MIME type "application/json". This JSON object contains the specified values requested in the cdmi_results_specification of the notification queue metadata.
-</DIV>
-<DIV>
+
+
 #. A notification result JSON object is as follows:
 
     .. code-block:: http
@@ -184,7 +189,12 @@ If the administrator created the notification queue, then all matching objects t
 `Notification Status Metadata`_ describes the system-created metadata that provides details on the status of the notification queue.
 
 
-.. list-table::  tbl_<A NAME="50532480_20063"></A>Notification Status Metadata
+.. _tbl_<A NAME="50532480_20063"></A>Notification Status Metadata:
+
+.. list-table:: tbl_<A NAME="50532480_20063"></A>Notification Status Metadata
+.. _tbl_<A NAME="50532480_20063"></A>Notification Status Metadata:
+
+.. list-table:: tbl_<A NAME="50532480_20063"></A>Notification Status Metadata
     :header-rows: 1
     :widths: auto
     :align: center 
@@ -207,5 +217,4 @@ If the administrator created the notification queue, then all matching objects t
 If this metadata item does not exist, then notifications have not yet started being enqueued.
       - Mandatory
 
-</DIV>
-</DIV>
+

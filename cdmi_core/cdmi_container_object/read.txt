@@ -324,7 +324,7 @@ Examples
         HTTP/1.1 200 OK
         Content-Type: application/cdmi-container
         X-CDMI-Specification-Version: 1.1
-        &nbsp;
+        
         {
             "childrenrange" : "0-2",
             "children" : [
@@ -350,7 +350,7 @@ Examples
         HTTP/1.1 200 OK 
         Content-Type: application/cdmi-container
         X-CDMI-Specification-Version: 1.1
-        &nbsp;
+        
         {
             "childrenrange": "0-2",
             "children": [

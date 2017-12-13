@@ -89,7 +89,7 @@ The request message body fields for creating a container object using CDMI are s
 
 .. _tbl_request_message_body_create_container_object_using_cdmi:
 
-.. list-table:: Request Message Body - Create a Container Object using CDMI<BR>
+.. list-table:: Request Message Body - Create a Container Object using CDMI
     :header-rows: 1
     :widths: auto
     :align: center 
@@ -129,7 +129,9 @@ The request message body fields for creating a container object using CDMI are s
            * If the destination container object URI and the copy source object URI both do not specify individual fields, the destination container object shall be a complete copy of the source container object, including all child objects under the source container object. 
            * If the destination container object URI or the copy source object URI specifies individual fields, only the fields specified shall be used to create the destination container object. If specified fields are not present in the source, default field values shall be used. 
            * If the destination container object URI and the copy source object URI both specify fields, an HTTP status code of ``400 Bad Request`` shall be returned to the client. 
+        
         When copying a container object, exported protocols are not preserved across the copy. 
+        
         If there are insufficient permissions to read the container object at the source URI or create the container object at the destination URI, or if the read operation fails, the copy shall return an HTTP status code of ``400 Bad Request,`` and the destination container object shall not be created.
       - Optional [#a]_
     * - move
@@ -188,7 +190,6 @@ The response message body fields for creating a CDMI container object using CDMI
 .. _tbl_response_message_body_create_container_object_using_cdmi:
 
 .. list-table:: Response Message Body - Create a Container Object using CDMI 
-
     :header-rows: 1
     :widths: auto
     :align: center 
@@ -245,11 +246,11 @@ The response message body fields for creating a CDMI container object using CDMI
     * - exports
       - JSON Object
       - A structure for each protocol that is enabled for this container object. See `Exported Protocols`_.
-      - Optional [#a]_
+      - Optional [#b]_
     * - snapshots
       - JSON Array of JSON Strings
       - URI(s) of the snapshot container objects. See `CDMI Snapshots`_.
-      - Optional [#a]_
+      - Optional [#b]_
     * - childrenrange
       - JSON String 
       - The children of the container expressed as a range. If a range of children is requested, this field indicates the children returned as a range.
@@ -259,7 +260,7 @@ The response message body fields for creating a CDMI container object using CDMI
       - Names of the children objects in the container object. Child container objects end with "/".
       - Optional
 
-.. [#a] Returned only if present.
+.. [#b] Returned only if present.
 
 Response Status
 ---------------
@@ -276,7 +277,8 @@ Response Status
 
     * - HTTP Status
       - Description
-    * - ``201 Created``      - The new container object was created.
+    * - ``201 Created``      
+      - The new container object was created.
     * - ``202 Accepted``
       - The container is in the process of being created. The CDMI client should monitor the completionStatus and percentComplete fields to determine the current status of the operation.
     * - ``400 Bad Request``

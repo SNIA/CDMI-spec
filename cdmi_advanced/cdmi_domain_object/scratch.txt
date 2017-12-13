@@ -1,10 +1,10 @@
 
-<DIV>
+
 
 
 Domain Object Resource Operations using CDMI
 ========================================
-<DIV>
+
 
 Overview
 ************************
@@ -27,7 +27,7 @@ If a request is performed against an existing domain resource and the trailing s
 If a CDMI request is performed to create a new domain resource and the trailing slash at the end of the URI is omitted, the server shall respond with an HTTP status code of ``400 Bad Request``. 
 
 Individual fields within a domain object may be accessed by specifying the field name after a question mark "?" appended to the end of the domain object URI. 
-<DIV>
+
 #. The following URI returns just the children field in the response message body: 
 
     .. code-block:: http
@@ -36,8 +36,8 @@ Individual fields within a domain object may be accessed by specifying the field
    http://cloud.example.com/cdmi_domains/myDomain/?children 
 
 By specifying a range after the children field name, specific ranges of the children field may be accessed. 
-</DIV>
-<DIV>
+
+
 #. The following URI returns the first three children from the children field: 
 
     .. code-block:: http
@@ -48,8 +48,8 @@ By specifying a range after the children field name, specific ranges of the chil
 Children ranges are specified in a way that is similar to byte ranges as per Section 14.35.1 of RFC 2616. A client can determine the number of children present by requesting the childrenrange field without requesting a range of children. 
 
 A list of fields separated by a semicolon ";" may be specified, allowing multiple fields to be accessed in a single request. 
-</DIV>
-<DIV>
+
+
 #. The following URI would return the children and metadata fields in the response message body: 
 
     .. code-block:: http
@@ -62,8 +62,8 @@ If read access to any of the requested fields is not permitted by the object ACL
 If write access to any of the requested fields is not permitted by the object ACL, no updates shall be performed, and an HTTP status code of ``403 Forbidden`` shall be returned to the client.
 
 When a client provides or includes deserialization fields that are not defined in this international standard, these fields shall be stored as part of the object.
-</DIV>
-<DIV>
+
+
 
 Domain Object Metadata
 -----
@@ -71,7 +71,12 @@ Domain Object Metadata
 The following domain-specific field shall be present for each domain (see `Required Metadata for a Domain Object`_).
 
 
-.. list-table::  tbl_<A NAME="50532468_44917"></A>Required Metadata for a Domain Object
+.. _tbl_Required_Metadata_for_a_Domain_Object_:
+
+.. list-table:: tbl_Required Metadata for a Domain Object
+.. _tbl_Required_Metadata_for_a_Domain_Object_:
+
+.. list-table:: tbl_Required Metadata for a Domain Object
     :header-rows: 1
     :widths: auto
     :align: center 
@@ -84,8 +89,6 @@ The following domain-specific field shall be present for each domain (see `Requi
     * - cdmi_domain_enabled
       - JSON String
       - Indicates if the domain is enabled and specified at the time of creation. Values shall be "true" or "false".
-
-
         * If a domain is disabled, the cloud storage system shall not permit any operations to be performed against any URI managed by that domain.
         * If this metadata item is not present at the time of domain creation, the value is set to "false".
 
@@ -93,8 +96,6 @@ The following domain-specific field shall be present for each domain (see `Requi
     * - cdmi_domain_delete_reassign
       - JSON String
       - If the domain is deleted, indicates to which domain the objects that belong to the domain shall be reassigned. 
-
-
         * To delete a domain that contains objects, this metadata item shall be present. 
         * If this metadata item is not present or does not contain the URI of a valid domain that is different from the URI of the domain being deleted, an attempt to delete a domain that has objects shall result in an HTTP status code of ``400 Bad Request``
 .
@@ -103,8 +104,8 @@ The following domain-specific field shall be present for each domain (see `Requi
 
 
 Domains may also contain domain-specific data system metadata items as defined in `Support for Data System Metadata` and :ref:`Support for Provided Data System Metadata`_ Domain data system metadata shall be inherited to child domain objects.
-</DIV>
-<DIV>
+
+
 
 Domain Object Summaries
 -----
@@ -144,23 +145,23 @@ Within each domain summary container are a series of domain summary data objects
 The "cumulative" summary data object covers the entire time period, from the time the domain is created to the time it is accessed. Each data object at the daily, monthly, and yearly level contains domain summary information for the time period specified, bounded by domain creation time and access time.
 
 If a time period extends earlier than the domain creation time, the summary information includes the time from when the domain was created until the end of the time period. 
-<DIV>
+
 #. If a domain were created on July 4, 2009, at noon, the daily summary "2009-07-04" would contain information from noon until midnight, the monthly summary "2009-07" would contain information from noon on July 4 until midnight on July 31, and the yearly summary "2009" would contain information from noon on July 4 until midnight on December 31.
 
     .. code-block:: http
 
 
 If a time period starts after the time when the domain was created and ends earlier than the time of access, the summary data object contains complete information for that time period. 
-</DIV>
-<DIV>
+
+
 #. If a domain were created on July 4, 2009, and on July 10, the "2009-07-06" daily summary data object was accessed, it would contain information for the complete day.
 
     .. code-block:: http
 
 
 If a time period ends after the current access time, the domain summary data object contains partial information from the start of the time period (or the time the domain was created) until the time of access.
-</DIV>
-<DIV>
+
+
 #. If a domain were created on July 4, 2009, and at noon on July 10, the "2009-07-10" daily summary data object was accessed, it would contain information from the beginning of the day until noon.
 
     .. code-block:: http
@@ -169,7 +170,12 @@ If a time period ends after the current access time, the domain summary data obj
 The information in `Contents of Domain Summary Objects`_ shall be present within the contents of each domain summary object, which are in JSON representation.
 
 
-.. list-table::  tbl_<A NAME="50532468_43689"></A>Contents of Domain Summary Objects (Sheet 1 of 2)
+.. _tbl_Contents_of_Domain_Summary_Objects__:
+
+.. list-table:: tbl_Contents of Domain Summary Objects 
+.. _tbl_Contents_of_Domain_Summary_Objects__:
+
+.. list-table:: tbl_Contents of Domain Summary Objects 
     :header-rows: 1
     :widths: auto
     :align: center 
@@ -260,10 +266,9 @@ The information in `Contents of Domain Summary Objects`_ shall be present within
       - The average rate at which energy is consumed (in kilowatt hours per hour) by the domain during the summary time period
       - Optional
 
-</DIV>
-<DIV>
-<H6 CLASS="Example">
-An example of a daily domain summary object is as follows:</H6>
+
+
+#.  An example of a daily domain summary object is as follows:
 
     {
 
@@ -292,9 +297,9 @@ An example of a daily domain summary object is as follows:</H6>
 If the charge value is provided, the value is for the operational cost (excluding fixed fees) of service already performed and storage and bandwidth already consumed. Pricing of services is handled separately.
 
 Domain summary information may be extended by vendors to include additional metadata or domain reports beyond the metadata items specified by this international standard, as long as the field names for those metadata items do not begin with "cdmi_".
-</DIV>
-</DIV>
-<DIV>
+
+
+
 
 Domain Object Membership
 -----
@@ -320,7 +325,12 @@ The domain membership container may also contain subcontainers with data objects
 `Required Settings for Domain Member User Objects`_ lists the domain settings that shall be present within each domain member user object.
 
 
-.. list-table::  tbl_<A NAME="50532468_39457"></A>Required Settings for Domain Member User Objects 
+.. _tbl_required_settings_for_domain_member_user_objects:
+
+.. list-table:: tbl_Required Settings for Domain Member User Objects 
+.. _tbl_required_settings_for_domain_member_user_objects:
+
+.. list-table:: tbl_Required Settings for Domain Member User Objects 
     :header-rows: 1
     :widths: auto
     :align: center 
@@ -356,8 +366,6 @@ cdmi_member_privileges
       - JSON Array of JSON Strings
       - This field contains a JSON list of special privileges associated with the user or "group".
 The following privileges are defined:
-
-
         * "administrator". Allows the principal to take ownership of any object/container.
         * "backup_operator". Bypass regular ACL checks to allow backup and restore of objects and containers, including all associated attributes, metadata, ACLs and ownership.
         * "cross_domain". Operations specifying a domain other than the domain of the parent object are permitted. Unless this privilege is conferred by the user record or a group (possibly nested) to which the user or group belongs, all attempts to change the domain of objects to a domain other than the parent domain shall fail.
@@ -372,7 +380,12 @@ The following privileges are defined:
 `Required Settings for Domain Member Delegation Objects`_ lists the domain settings that shall be present within each domain member delegation object.
 
 
-.. list-table::  tbl_<A NAME="50532468_51226"></A>Required Settings for Domain Member Delegation Objects 
+.. _tbl_required_settings_for_domain_member_delegation_objects:
+
+.. list-table:: tbl_Required Settings for Domain Member Delegation Objects 
+.. _tbl_required_settings_for_domain_member_delegation_objects:
+
+.. list-table:: tbl_Required Settings for Domain Member Delegation Objects 
     :header-rows: 1
     :widths: auto
     :align: center 
@@ -397,7 +410,7 @@ The following privileges are defined:
 External delegations are expressed in the form of ldap:// or ad://.
       - Mandatory
 
-<DIV>
+
 #. An example of a domain membership object for a user is as follows:
 
     .. code-block:: http
@@ -430,8 +443,8 @@ External delegations are expressed in the form of ldap:// or ad://.
         ]
 
     }
-</DIV>
-<DIV>
+
+
 #. An example of a domain membership object for a delegation is as follows:
 
     .. code-block:: http
@@ -448,9 +461,9 @@ External delegations are expressed in the form of ldap:// or ad://.
         
 
     }
-</DIV>
-</DIV>
-<DIV>
+
+
+
 
 
 Domain Usage in Access Control
@@ -461,20 +474,20 @@ When a transaction is performed against a CDMI object, the associated domain obj
 When evaluating members within a domain, delegations are evaluated first, in any order, followed by user records, in any order. If there is at least one matching record and none of the matching records indicate that the user is disabled, the user is considered to be a member of the domain.
 
 When a sub-domain is initially created, the membership container contains one member record that is a delegation in which the delegation URI is set to the URI of the parent domain.
-</DIV>
-<DIV>
+
+
 
 Domain Object Representations
 -----
 
 The representations in this clause are shown using JSON notation. Both clients and servers shall support UTF-8 JSON representation. The request and response body JSON fields may be specified or returned in any order, with the exception that, if present, for domain objects, the childrenrange and children fields shall appear last and in that order.
-</DIV>
-</DIV>
-<DIV>
+
+
+
 
 Create a Domain Object using CDMI
 ************************
-<DIV>
+
 
 Synopsis
 -----
@@ -482,7 +495,7 @@ Synopsis
 To create a new domain object, the following request shall be performed:
 
     PUT <root URI>/cdmi_domains/<DomainName>/<NewDomainName>/
-<DIV>
+
 Where:
 
 
@@ -492,9 +505,9 @@ Where:
 
 
 After it is created, the domain shall also be accessible at <root URI>/cdmi_objectid/<objectID>/.
-</DIV>
-</DIV>
-<DIV>
+
+
+
 
 Capabilities 
 -----
@@ -506,8 +519,8 @@ The following capabilities describe the supported operations that may be perform
 * If the new domain object is a copy of an existing domain object, support for the ability to copy is indicated by the presence of the cdmi_copy_domain capability in the source domain.
 * If the new domain is the destination of a deserialize operation, support for the ability to deserialize the source data object serialization of a domain is indicated by the presence of the cdmi_deserialize_domain capability in the parent domain. 
 
-</DIV>
-<DIV>
+
+
 
 Request Headers
 -----
@@ -515,7 +528,12 @@ Request Headers
 The HTTP request headers for creating a CDMI domain object using CDMI are shown in `Request Headers - Create a Domain Object using CDMI`_. 
 
 
-.. list-table::  tbl_<A NAME="50532468_58792"></A>Request Headers - Create a Domain Object using CDMI
+.. _tbl_Request_Headers_Create_a_Domain_Object_using CDMI:
+
+.. list-table:: tbl_Request Headers Create a Domain Object using CDMI
+.. _tbl_Request_Headers_Create_a_Domain_Object_using CDMI:
+
+.. list-table:: tbl_Request Headers Create a Domain Object using CDMI
     :header-rows: 1
     :widths: auto
     :align: center 
@@ -538,8 +556,8 @@ The HTTP request headers for creating a CDMI domain object using CDMI are shown 
       - A comma-separated list of versions that the client supports, for example, "1.1, 1.5, 2.0"
       - Mandatory
 
-</DIV>
-<DIV>
+
+
 
 Request Message Body
 -----
@@ -547,7 +565,12 @@ Request Message Body
 The request message body fields for creating a domain object using CDMI are shown in `Request Message Body - Create a Domain Object using CDMI`_. 
 
 
-.. list-table::  tbl_<A NAME="50532468_43857"></A>Request Message Body - Create a Domain Object using CDMI
+.. _tbl_Request_Message_Body_Create_a_Domain_Object using CDMI:
+
+.. list-table:: tbl_Request Message Body Create a Domain Object using CDMI
+.. _tbl_Request_Message_Body_Create_a_Domain_Object using CDMI:
+
+.. list-table:: tbl_Request Message Body Create a Domain Object using CDMI
     :header-rows: 1
     :widths: auto
     :align: center 
@@ -560,8 +583,6 @@ The request message body fields for creating a domain object using CDMI are show
     * - metadata
       - JSON Object
       - Metadata for the domain object
-
-
         * If this field is included when deserializing, serializing, copying, or moving a domain object, the value provided in this field shall replace the metadata from the source URI. 
         * If this field is not included when deserializing, serializing, copying, or moving a domain object, the metadata from the source URI shall be used. 
         * If this field is included when creating a new domain object by specifying a value, the value provided in this field shall be used as the metadata. 
@@ -586,12 +607,12 @@ If there are insufficient permissions to read the objects at the source URI, wri
       - JSON String
       - A domain object serialized as specified in :rfc:`4648`.
       - Optional [#a]_
-    * <TH ROWSPAN="1" COLSPAN="4">
-aOnly one of these fields shall be specified in any given operation. Except for value, these fields shall not be stored. If more than one of these fields is supplied, the server shall respond with an HTTP status code of ``400 Bad Request``
+
+.. [#a] Only one of these fields shall be specified in any given operation. Except for value, these fields shall not be stored. If more than one of these fields is supplied, the server shall respond with an HTTP status code of ``400 Bad Request``
 .
 
-</DIV>
-<DIV>
+
+
 
 Response Headers
 -----
@@ -599,7 +620,12 @@ Response Headers
 The HTTP response headers for creating a domain object using CDMI are shown in `Response Headers - Create a Domain Object using CDMI`_. 
 
 
-.. list-table::  tbl_<A NAME="50532468_88174"></A>Response Headers - Create a Domain Object using CDMI
+.. _tbl_Response_Headers_Create_a_Domain_Object_using CDMI:
+
+.. list-table:: tbl_Response Headers Create a Domain Object using CDMI
+.. _tbl_Response_Headers_Create_a_Domain_Object_using CDMI:
+
+.. list-table:: tbl_Response Headers Create a Domain Object using CDMI
     :header-rows: 1
     :widths: auto
     :align: center 
@@ -620,8 +646,8 @@ If the server does not support any of the versions that the client supports, the
 .
       - Mandatory
 
-</DIV>
-<DIV>
+
+
 
 Response Message Body
 -----
@@ -629,7 +655,12 @@ Response Message Body
 The response message body fields for creating a domain object using CDMI are shown in `Response Message Body - Create a Domain Object using CDMI`_. 
 
 
-.. list-table::  tbl_<A NAME="50532468_26771"></A>Response Message Body - Create a Domain Object using CDMI 
+.. _tbl_Response_Message_Body_Create_a_Domain_Object using CDMI :
+
+.. list-table:: tbl_Response Message Body Create a Domain Object using CDMI 
+.. _tbl_Response_Message_Body_Create_a_Domain_Object using CDMI :
+
+.. list-table:: tbl_Response Message Body Create a Domain Object using CDMI 
     :header-rows: 1
     :widths: auto
     :align: center 
@@ -680,8 +711,8 @@ The response message body fields for creating a domain object using CDMI are sho
       - Names of the children domains in the domain. Child containers end with "/".
       - Mandatory
 
-</DIV>
-<DIV>
+
+
 
 Response Status
 -----
@@ -689,7 +720,12 @@ Response Status
 `HTTP Status Codes - Create a Domain Object using CDMI`_ describes the HTTP status codes that occur when creating a domain object using CDMI. 
 
 
-.. list-table::  tbl_<A NAME="50532468_21744"></A>HTTP Status Codes - Create a Domain Object using CDMI
+.. _tbl_HTTP_Status_Codes_Create_a_Domain_Object using CDMI:
+
+.. list-table:: tbl_HTTP Status Codes Create a Domain Object using CDMI
+.. _tbl_HTTP_Status_Codes_Create_a_Domain_Object using CDMI:
+
+.. list-table:: tbl_HTTP Status Codes Create a Domain Object using CDMI
     :header-rows: 1
     :widths: auto
     :align: center 
@@ -716,14 +752,13 @@ Response Status
 
       - The operation conflicts with a non-CDMI access protocol lock or may cause a state transition error on the server.
 
-</DIV>
-<DIV>
+
+
 
 Example
 -----
-<DIV>
-<H6 CLASS="Example">
-PUT to the domain URI the domain name and metadata:</H6>
+
+#.  PUT to the domain URI the domain name and metadata:
 
     PUT /cdmi_domains/MyDomain/ HTTP/1.1
 
@@ -735,7 +770,7 @@ PUT to the domain URI the domain name and metadata:</H6>
 
     X-CDMI-Specification-Version: 1.1
 
-    &nbsp;
+     
 
     ``"metadata": ``
 
@@ -747,13 +782,15 @@ PUT to the domain URI the domain name and metadata:</H6>
 
    The following shows the response.
 
+   .. code-block:: http
+
     HTTP/1.1 201 Created
 
     Content-Type: application/cdmi-domain
 
     X-CDMI-Specification-Version: 1.1
 
-    &nbsp;
+     
 
     {
 
@@ -781,7 +818,7 @@ PUT to the domain URI the domain name and metadata:</H6>
 
         },
 
-    &nbsp;
+     
 
         "childrenrange" : "0-1",
 
@@ -794,14 +831,14 @@ PUT to the domain URI the domain name and metadata:</H6>
         ] 
 
     }
-</DIV>
-</DIV>
-</DIV>
-<DIV>
+
+
+
+
 
 Read a Domain Object using CDMI
 ************************
-<DIV>
+
 
 Synopsis
 -----
@@ -817,7 +854,7 @@ To read one or more requested fields from an existing domain object, one of the 
     GET <root URI>/cdmi_domains/<DomainName>/<TheDomainName>/?children:<range>;...
 
     GET <root URI>/cdmi_domains/<DomainName>/<TheDomainName>/?metadata:<prefix>;...
-<DIV>
+
 Where:
 
 
@@ -830,9 +867,9 @@ Where:
 
 
 The object shall also be accessible at <root URI>/cdmi_objectid/<objectID>/.
-</DIV>
-</DIV>
-<DIV>
+
+
+
 
 Capabilities 
 -----
@@ -843,8 +880,8 @@ The following capabilities describe the supported operations that may be perform
 * Support for the ability to read the metadata of an existing domain object is indicated by the presence of the cdmi_read_metadata capability in the specified domain.
 * Support for the ability to list the children of an existing domain object is indicated by the presence of the cdmi_list_children capability in the specified domain.
 
-</DIV>
-<DIV>
+
+
 
 Request Headers
 -----
@@ -852,7 +889,8 @@ Request Headers
 The HTTP request headers for reading a CDMI domain object using CDMI are shown in `Request Headers - Read a Domain Object using CDMI`_. 
 
 
-.. list-table::  tbl_Request Headers - Read a Domain Object using CDMI<A NAME="50532468_17973"></A>
+.. _tbl_request_headers_read_a_domain_object_using_cdmi_:____.._list-table:: tbl_request_headers_read_a_domain_object_using_cdmi
+.. _tbl_request_headers_read_a_domain_object_using_cdmi_:____.._list-table:: tbl_request_headers_read_a_domain_object_using_cdmi
     :header-rows: 1
     :widths: auto
     :align: center 
@@ -871,15 +909,15 @@ The HTTP request headers for reading a CDMI domain object using CDMI are shown i
       - A comma-separated list of versions that the client supports, e.g., "1.1, 1.5, 2.0"
       - Mandatory
 
-</DIV>
-<DIV>
+
+
 
 Request Message Body 
 -----
 
 A request body shall not be provided.
-</DIV>
-<DIV>
+
+
 
 Response Headers
 -----
@@ -887,7 +925,12 @@ Response Headers
 The HTTP response headers for reading a CDMI domain object using CDMI are shown in `Response Headers - Read a Domain Object using CDMI`_. 
 
 
-.. list-table::  tbl_<A NAME="50532468_81363"></A>Response Headers - Read a Domain Object using CDMI
+.. _tbl_Response_Headers_Read_a_Domain_Object_using CDMI:
+
+.. list-table:: tbl_Response Headers Read a Domain Object using CDMI
+.. _tbl_Response_Headers_Read_a_Domain_Object_using CDMI:
+
+.. list-table:: tbl_Response Headers Read a Domain Object using CDMI
     :header-rows: 1
     :widths: auto
     :align: center 
@@ -912,8 +955,8 @@ If the server does not support any of the versions that the client supports, the
       - The server shall respond with an absolute URI to which the reference redirects if the object is a reference.
       - Conditional
 
-</DIV>
-<DIV>
+
+
 
 Response Message Body
 -----
@@ -921,7 +964,12 @@ Response Message Body
 The response message body fields for reading a CDMI domain object using CDMI are shown in `Response Message Body - Read a Domain Object using CDMI`_.
 
 
-.. list-table::  tbl_<A NAME="50532468_68196"></A>Response Message Body - Read a Domain Object using CDMI  
+.. _tbl_Response_Message_Body_Read_a_Domain_Object using CDMI  :
+
+.. list-table:: tbl_Response Message Body Read a Domain Object using CDMI  
+.. _tbl_Response_Message_Body_Read_a_Domain_Object using CDMI  :
+
+.. list-table:: tbl_Response Message Body Read a Domain Object using CDMI  
     :header-rows: 1
     :widths: auto
     :align: center 
@@ -974,8 +1022,8 @@ The response message body fields for reading a CDMI domain object using CDMI are
 
 
 If individual fields are specified in the GET request, only these fields are returned in the result body. Optional fields that are requested but do not exist are omitted from the result body.
-</DIV>
-<DIV>
+
+
 
 Response Status
 -----
@@ -983,7 +1031,12 @@ Response Status
 `HTTP Status Codes - Read a Domain Object using CDMI`_ describes the HTTP status codes that occur when reading a domain object using CDMI. 
 
 
-.. list-table::  tbl_<A NAME="50532468_61725"></A>HTTP Status Codes - Read a Domain Object using CDMI
+.. _tbl_HTTP_Status_Codes_Read_a_Domain_Object using CDMI:
+
+.. list-table:: tbl_HTTP Status Codes Read a Domain Object using CDMI
+.. _tbl_HTTP_Status_Codes_Read_a_Domain_Object using CDMI:
+
+.. list-table:: tbl_HTTP Status Codes Read a Domain Object using CDMI
     :header-rows: 1
     :widths: auto
     :align: center 
@@ -1013,12 +1066,12 @@ Response Status
 
       - The server is unable to provide the object in the content type specified in the Accept header.
 
-</DIV>
-<DIV>
+
+
 
 Examples
 -----
-<DIV>
+
 #. GET to the domain URI to read all the fields of the domain:
 
     .. code-block:: http
@@ -1034,13 +1087,15 @@ Examples
 
    The following shows the response.
 
+   .. code-block:: http
+
     HTTP/1.1 200 OK
 
     Content-Type: application/cdmi-domain
 
     X-CDMI-Specification-Version: 1.1
 
-    &nbsp;
+     
 
     {
 
@@ -1079,8 +1134,8 @@ Examples
         ]
 
     }
-</DIV>
-<DIV>
+
+
 #. GET to the domain URI to read the parentURI and children of the domain:
 
     .. code-block:: http
@@ -1096,13 +1151,15 @@ Examples
 
    The following shows the response.
 
+   .. code-block:: http
+
     HTTP/1.1 200 OK
 
     Content-Type: application/cdmi-domain
 
     X-CDMI-Specification-Version: 1.1
 
-    &nbsp;
+     
 
     {
 
@@ -1117,8 +1174,8 @@ Examples
         ]
 
     }
-</DIV>
-<DIV>
+
+
 #. GET to the domain URI to read the first two children of the domain:
 
     .. code-block:: http
@@ -1134,13 +1191,15 @@ Examples
 
    The following shows the response.
 
+   .. code-block:: http
+
     HTTP/1.1 200 OK
 
     Content-Type: application/cdmi-domain
 
     X-CDMI-Specification-Version: 1.1
 
-    &nbsp;
+     
 
     {
 
@@ -1155,14 +1214,14 @@ Examples
         ]
 
     }
-</DIV>
-</DIV>
-</DIV>
-<DIV>
+
+
+
+
 
 Update a Domain Object using CDMI
 ************************
-<DIV>
+
 
 Synopsis
 -----
@@ -1174,7 +1233,7 @@ To update some or all fields in an existing domain object, the following request
 To add, update, and remove specific metadata items of an existing domain object, the following request shall be performed:
 
     PUT <root URI>/cdmi_domains/<DomainName>/<TheDomainName>/?metadata:<metadataname>;...
-<DIV>
+
 Where:
 
 
@@ -1184,9 +1243,9 @@ Where:
 
 
 The object shall also be accessible at <root URI>/cdmi_objectid/<objectID>/. An update shall not result in a change to the object ID.
-</DIV>
-</DIV>
-<DIV>
+
+
+
 
 Capability 
 -----
@@ -1196,8 +1255,8 @@ The following capability describes the supported operations that may be performe
 
 * Support for the ability to modify the metadata of an existing domain object is indicated by the presence of the cdmi_modify_metadata capability in the specified domain.
 
-</DIV>
-<DIV>
+
+
 
 Request Headers
 -----
@@ -1205,7 +1264,12 @@ Request Headers
 The HTTP request headers for updating a CDMI domain object using CDMI are shown in `Request Headers - Update a Domain Object using CDMI`_.
 
 
-.. list-table::  tbl_<A NAME="50532468_36059"></A>Request Headers - Update a Domain Object using CDMI
+.. _tbl_Request_Headers_Update_a_Domain_Object_using CDMI:
+
+.. list-table:: tbl_Request Headers Update a Domain Object using CDMI
+.. _tbl_Request_Headers_Update_a_Domain_Object_using CDMI:
+
+.. list-table:: tbl_Request Headers Update a Domain Object using CDMI
     :header-rows: 1
     :widths: auto
     :align: center 
@@ -1224,8 +1288,8 @@ The HTTP request headers for updating a CDMI domain object using CDMI are shown 
       - A comma-separated list of versions that the client supports, e.g., "1.1, 1.5, 2.0"
       - Mandatory
 
-</DIV>
-<DIV>
+
+
 
 Request Message Body
 -----
@@ -1233,7 +1297,12 @@ Request Message Body
 The request message body fields for updating a domain object using CDMI are shown in `Request Message Body - Update a Domain Object using CDMI`_.
 
 
-.. list-table::  tbl_<A NAME="50532468_26480"></A>Request Message Body - Update a Domain Object using CDMI (Sheet 1 of 2)
+.. _tbl_Request_Message_Body_Update_a_Domain_Object using CDMI :
+
+.. list-table:: tbl_Request Message Body Update a Domain Object using CDMI 
+.. _tbl_Request_Message_Body_Update_a_Domain_Object using CDMI :
+
+.. list-table:: tbl_Request Message Body Update a Domain Object using CDMI 
     :header-rows: 1
     :widths: auto
     :align: center 
@@ -1262,11 +1331,11 @@ If the serialized domain does not contain children, the update is applied only t
       - A domain object serialized as specified in :rfc:`4648`. The object ID of the serialized domain object shall match the object ID of the destination domain object.
 If the serialized domain does not contain children, the update is applied only to the domain object, and any existing children are left as is. If the serialized domain object does contain children, then creates, updates, and deletes are recursively applied for each child, depending on the differences between the provided serialized state and the current state of the children.
       - Optional [#a]_
-    * <TH ROWSPAN="1" COLSPAN="4">
-aOnly one of these fields shall be specified in any given operation. Except for value, these fields shall not be stored.
 
-</DIV>
-<DIV>
+.. [#a] Only one of these fields shall be specified in any given operation. Except for value, these fields shall not be stored.
+
+
+
 
 Response Header
 -----
@@ -1274,7 +1343,12 @@ Response Header
 The HTTP response header for updating a CDMI domain object using CDMI is shown in `Response Header - Update a Domain Object using CDMI`_. 
 
 
-.. list-table::  tbl_<A NAME="50532468_82841"></A>Response Header - Update a Domain Object using CDMI
+.. _tbl_Response_Header_Update_a_Domain_Object_using CDMI:
+
+.. list-table:: tbl_Response Header Update a Domain Object using CDMI
+.. _tbl_Response_Header_Update_a_Domain_Object_using CDMI:
+
+.. list-table:: tbl_Response Header Update a Domain Object using CDMI
     :header-rows: 1
     :widths: auto
     :align: center 
@@ -1289,15 +1363,15 @@ The HTTP response header for updating a CDMI domain object using CDMI is shown i
       - The server shall respond with an absolute URI to which the reference redirects if the object is a reference.
       - Conditional
 
-</DIV>
-<DIV>
+
+
 
 Response Message Body 
 -----
 
 A response body may be provided as per :rfc:`2616`.
-</DIV>
-<DIV>
+
+
 
 Response Status
 -----
@@ -1305,7 +1379,12 @@ Response Status
 `HTTP Status Codes - Update a Domain Object using CDMI`_ describes the HTTP status codes that occur when updating a domain object using CDMI. 
 
 
-.. list-table::  tbl_<A NAME="50532468_57209"></A>HTTP Status Codes - Update a Domain Object using CDMI
+.. _tbl_HTTP_Status_Codes_Update_a_Domain_Object using CDMI:
+
+.. list-table:: tbl_HTTP Status Codes Update a Domain Object using CDMI
+.. _tbl_HTTP_Status_Codes_Update_a_Domain_Object using CDMI:
+
+.. list-table:: tbl_HTTP Status Codes Update a Domain Object using CDMI
     :header-rows: 1
     :widths: auto
     :align: center 
@@ -1335,14 +1414,13 @@ Response Status
 
       - The operation conflicts with a non-CDMI access protocol lock or may cause a state transition error on the server.
 
-</DIV>
-<DIV>
+
+
 
 Example
 -----
-<DIV>
-<H6 CLASS="Example">
-PUT to the domain URI to set new field values:</H6>
+
+#.  PUT to the domain URI to set new field values:
 
     PUT /cdmi_domains/MyDomain/ HTTP/1.1
 
@@ -1352,7 +1430,7 @@ PUT to the domain URI to set new field values:</H6>
 
     X-CDMI-Specification-Version: 1.1
 
-    &nbsp;
+     
 
     {
 
@@ -1366,15 +1444,17 @@ PUT to the domain URI to set new field values:</H6>
 
    The following shows the response.
 
+   .. code-block:: http
+
     HTTP/1.1 204 No Content
-</DIV>
-</DIV>
-</DIV>
-<DIV>
+
+
+
+
 
 Delete a Domain Object using CDMI
 ************************
-<DIV>
+
 
 Synopsis
 -----
@@ -1382,7 +1462,7 @@ Synopsis
 To delete an existing domain object and transfer all objects associated with that domain to another domain (to preserve access), the following request shall be performed:
 
     DELETE <root URI>/cdmi_domains/<DomainName>/<TheDomainName>/ 
-<DIV>
+
 Where:
 
 
@@ -1392,9 +1472,9 @@ Where:
 
 
 The object shall also be accessible at <root URI>/cdmi_objectid/<objectID>/.
-</DIV>
-</DIV>
-<DIV>
+
+
+
 
 Capability
 -----
@@ -1404,8 +1484,8 @@ The following capability describes the supported operations that may be performe
 
 * Support for the ability to delete an existing domain object is indicated by the presence of the cdmi_delete_domain  capability in the specified domain.
 
-</DIV>
-<DIV>
+
+
 
 Request Headers
 -----
@@ -1413,7 +1493,12 @@ Request Headers
 The HTTP request header for deleting a CDMI domain object using CDMI is shown in `Request Headers - Delete a Domain Object using CDMI`_.
 
 
-.. list-table::  tbl_<A NAME="50532468_76015"></A>Request Headers - Delete a Domain Object using CDMI
+.. _tbl_Request_Headers_Delete_a_Domain_Object_using CDMI:
+
+.. list-table:: tbl_Request Headers Delete a Domain Object using CDMI
+.. _tbl_Request_Headers_Delete_a_Domain_Object_using CDMI:
+
+.. list-table:: tbl_Request Headers Delete a Domain Object using CDMI
     :header-rows: 1
     :widths: auto
     :align: center 
@@ -1428,29 +1513,29 @@ The HTTP request header for deleting a CDMI domain object using CDMI is shown in
       - A comma-separated list of versions that the client supports, e.g., "1.1, 1.5, 2.0"
       - Mandatory
 
-</DIV>
-<DIV>
+
+
 
 Request Message Body
 -----
 
 A request body may be provided as per :rfc:`2616`.
-</DIV>
-<DIV>
+
+
 
 Response Headers 
 -----
 
 Response headers may be provided as per :rfc:`2616`.
-</DIV>
-<DIV>
+
+
 
 Response Message Body 
 -----
 
 A response body may be provided as per :rfc:`2616`.
-</DIV>
-<DIV>
+
+
 
 Response Status
 -----
@@ -1458,7 +1543,12 @@ Response Status
 `HTTP Status Codes - Delete a Domain Object using CDMI`_ describes the HTTP status codes that occur when deleting a domain object using CDMI. 
 
 
-.. list-table::  tbl_<A NAME="50532468_65751"></A>HTTP Status Codes - Delete a Domain Object using CDMI
+.. _tbl_HTTP_Status_Codes_Delete_a_Domain_Object using CDMI:
+
+.. list-table:: tbl_HTTP Status Codes Delete a Domain Object using CDMI
+.. _tbl_HTTP_Status_Codes_Delete_a_Domain_Object using CDMI:
+
+.. list-table:: tbl_HTTP Status Codes Delete a Domain Object using CDMI
     :header-rows: 1
     :widths: auto
     :align: center 
@@ -1485,14 +1575,13 @@ Response Status
 
       - The operation conflicts with a non-CDMI access protocol lock or may cause a state transition error on the server.
 
-</DIV>
-<DIV>
+
+
 
 Example
 -----
-<DIV>
-<H6 CLASS="Example">
-DELETE to the domain URI:</H6>
+
+#.  DELETE to the domain URI:
 
     DELETE /cdmi_domains/MyDomain/ HTTP/1.1
 
@@ -1502,8 +1591,9 @@ DELETE to the domain URI:</H6>
 
    The following shows the response.
 
+   .. code-block:: http
+
     HTTP/1.1 204 No Content
-</DIV>
-</DIV>
-</DIV>
-</DIV>
+
+
+

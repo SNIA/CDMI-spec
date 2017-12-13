@@ -1,0 +1,279 @@
+Update a Container Object using CDMI
+************************************
+
+Synopsis
+--------
+
+To update some or all fields in an existing container object, the following request shall be performed:
+
+    PUT <root URI>/<ContainerName>/<TheContainerName>/
+
+To add, update, and remove specific metadata items of an existing container object, the following request shall be performed:
+
+    PUT <root URI>/<ContainerName>/<TheContainerName>/?metadata:<metadataname>;...
+
+Where:
+
+
+* <root URI> is the path to the CDMI cloud.
+* <ContainerName> is zero or more intermediate container objects.
+* <TheContainerName> is the name of the container object to be updated.
+
+
+The container object shall also be accessible at <root URI>/cdmi_objectid/<objectID>/. An update shall not result in a change to the object ID.
+
+
+Delayed Completion of Snapshot
+------------------------------
+
+If the creation of a snapshot (see `CDMI Snapshots`) is requested by including a snapshot field in the request message body, the server may return an HTTP status code of ``202 Accepted``. Such a response has the following implications:
+
+
+* With an HTTP status code of ``202 Accepted``, the server implies that the following checks have passed:
+   - user authorization for creating the snapshot, 
+   - user authorization for read access to the container object, and
+   - availability of space to create the snapshot or at least enough space to create a URI to report an error.
+* A client might not be able to immediately access the snapshot, e.g., due to delays resulting from the implementation’s use of eventual consistency.
+
+
+The client performs GET operations to the snapshot URI to track the progress of the operation. In particular, the server returns two fields in its response body to indicate progress: 
+
+
+* A completionStatus field contains either "Processing", "Complete", or an error string starting with the value "Error".
+* An optional percentComplete field contains the percentage that the accepted PUT has completed (0 to 100). GET does not return any value for the object when completionStatus is not "Complete".
+
+
+When the final result of the snapshot operation is an error, the snapshot URI is created with the completionStatus field set to the error message. It is the client's responsibility to delete the URI after the error has been noted.
+
+Capabilities 
+------------
+
+The following capabilities describe the supported operations that may be performed when updating an existing container object:
+
+
+* Support for the ability to modify the metadata of an existing container object is indicated by the presence of the cdmi_modify_metadata capability in the specified container object.
+* Support for the ability to snapshot the contents of an existing container object is indicated by the presence of the cdmi_snapshot capability in the specified container object.
+* Support for the ability to add an exported protocol to an existing container object is indicated by the presence of the cdmi_export_<protocol> capabilities for the specified container object.
+
+
+Request Headers
+---------------
+
+The HTTP request headers for updating a CDMI container object using CDMI are shown in :ref:`tbl_request_headers_update_a_container_object_using_cdmi`. 
+
+.. _tbl_request_headers_update_a_container_object_using_cdmi:
+
+.. list-table:: Request Headers - Update a Container Object using CDMI
+    :header-rows: 1
+    :widths: auto
+    :align: center 
+
+
+    * - Header
+      - Type
+      - Description
+      - Requirement
+    * - Content-Type
+      - Header String
+      - "application/cdmi-container"
+      - Mandatory
+    * - X-CDMI-Specification-Version
+      - Header String
+      - A comma-separated list of versions that the client supports, e.g., "1.1, 1.5, 2.0"
+      - Mandatory
+
+
+Request Message Body
+--------------------
+
+The request message body fields for updating a container object using CDMI are shown in :ref:`tbl_request_message_body_update_a_container_object_using_cdmi`.
+
+.. _tbl_request_message_body_update_a_container_object_using_cdmi:
+
+.. list-table:: Request Message Body - Update a Container Object using CDMI
+    :header-rows: 1
+    :widths: auto
+    :align: center 
+
+ 
+    * - Field Name
+      - Type
+      - Description
+      - Requirement
+    * - metadata
+      - JSON Object
+      - Metadata for the container object. If present, the new metadata specified replaces the existing object metadata. If individual metadata items are specified in the URI, only those items are replaced; other items are preserved. 
+        See `Metadata`_ for a further description of metadata.
+      - Optional
+    * - domainURI
+      - JSON String
+      - URI of the owning domain
+        * If different from the parent domain, the user shall have the "cross-domain" privilege (see cdmi_member_privileges in `Required Settings for Domain Member User Objects`_).
+        * If not specified, the parent domain shall be used.
+      - Optional
+    * - snapshot
+      - JSON String
+      - Name of the snapshot to be taken. This is not a URL, but rather, the final component of the absolute URL where the snapshot will exist when the snapshot operation successfully completes. 
+        * If a snapshot is added or changed, the PUT operation only returns after the snapshot is added to the snapshot list. 
+        * After they are created, snapshots may be accessed as children container objects under the cdmi_snapshots child container object of the container object receiving a snapshot.
+        * When creating a snapshot with the same name as an existing snapshot, the new snapshot will replace the existing snapshot.
+      - Optional
+    * - deserialize
+      - JSON String
+      - URI of a CDMI container object that shall be deserialized to update an existing container object. The object ID of the serialized container object shall match the object ID of the destination container object. 
+        * If the serialized container object does not contain children, the update is applied only to the container object, and any existing children are left as is. 
+        * If the serialized container object does contain children, then creates, updates, and deletes are recursively applied for each child, depending on the differences between the provided serialized state and the current state of the child.
+      - Optional [#a]_
+    * - copy
+      - JSON String
+      - URI of a CDMI container object that shall be copied into the existing container object. Only the contents of the container object itself shall be copied, not any children of the container object. 
+        * If the destination container object URI and the copy source object URI both do not specify individual fields, the destination container object shall be replaced with the source container object, including all child objects under the source container object. 
+        * If the destination container object URI or the copy source object URI specifies individual fields, only the fields specified shall be used to update the destination container object. If specified fields are not present in the source, these fields shall be ignored. 
+        * If the destination container object URI and the copy source object URI both specify fields, an HTTP status code of ``400 Bad Request`` shall be returned to the client. 
+
+        When copying a container object, exported protocols are not preserved across the copy. 
+        If there are insufficient permissions to read the container object at the source URI or create the container object at the destination URI, or if the read operation fails, the copy shall return an HTTP status code of ``400 Bad Request``, and the destination container object shall not be updated. 
+      - Optional [#a]_
+    * - deserializevalue
+      - JSON Sting
+      - A container object serialized as specified in :rfc:`4648`. 
+        The object ID of the serialized container object shall match the object ID of the destination container object. Otherwise, the server shall return an HTTP status code of ``400 Bad Request``.
+        * If the serialized container object does not contain children, the update is applied only to the container object, and any existing children are left as is. 
+        * If the serialized container object does contain children, then creates, updates, and deletes are recursively applied for each child, depending on the differences between the provided serialized state and the current state of the children.
+      - Optional [#a]_
+    * - exports
+      - JSON Object
+      - A structure for each protocol that is enabled for this container object (see `Exported Protocols`_). If an exported protocol is added or changed, the PUT operation only returns after the export operation has completed.
+      - Optional
+
+.. [#a] Only one of these fields shall be specified in any given operation. Except for value, these fields shall not be stored.
+
+
+Response Header
+---------------
+
+The HTTP response header for updating a CDMI container object using CDMI is shown in :ref:`tbl_response_header_update_a_container_object_using_cdmi`. 
+
+.. _tbl_response_header_update_a_container_object_using_cdmi:
+
+.. list-table:: Response Header - Update a Container Object using CDMI
+    :header-rows: 1
+    :widths: auto
+    :align: center 
+
+
+    * - Header
+      - Type
+      - Description
+      - Requirement
+    * - Location
+      - Header String
+      - The server shall respond with an absolute URI to which the reference redirects if the object is a reference.
+      - Conditional
+
+
+Response Message Body 
+---------------------
+
+A response body may be provided as per :rfc:`2616`.
+
+Response Status
+---------------
+
+:ref:`tbl_http_status_codes_update_a_container_object_using_cdmi` describes the HTTP status codes that occur when updating a container object using CDMI. 
+
+.. _tbl_http_status_codes_update_a_container_object_using_cdmi:
+
+.. list-table:: HTTP Status Codes - Update a Container Object using CDMI
+    :header-rows: 1
+    :widths: auto
+    :align: center 
+
+
+    * - HTTP Status
+      - Description
+    * - ``204 No Content``
+      - The data object content was returned in the response.
+    * - ``202 Accepted``
+      - The container or  snapshot (subcontainer object) is in the process of being created. The CDMI client should montitor the completionStatus and percentComplete fields to determine the current status of the operation.
+    * - ``302 Found``
+      - The resource is a reference to another resource.
+    * - ``400 Bad Request``
+      - The request contains invalid parameters or field names.
+    * - ``401 Unauthorized``
+      - The authentication credentials are missing or invalid.
+    * - ``403 Forbidden``
+      - The client lacks the proper authorization to perform this request.
+    * - ``404 Not Found``
+      - The resource was not found at the specified URI.
+    * - ``409 Conflict``
+      - The operation conflicts with a non-CDMI access protocol lock or may cause a state transition error on the server.
+
+
+Examples
+--------
+
+#. PUT to the container object URI to set new field values:
+
+   .. code-block:: http
+
+        PUT /MyContainer/ HTTP/1.1
+        Host: cloud.example.com
+        Content-Type: application/cdmi-container
+        X-CDMI-Specification-Version: 1.1
+         
+        {
+            "metadata" : {
+                
+            } ,
+            "exports" : {
+                "OCCI/iSCSI": {
+                "identifier": "00007E7F00104BE66AB53A9572F9F51E",
+                "permissions": [
+                    "http://example.com/compute/0/",
+                    "http://example.com/compute/1/"
+                ]
+            },
+                "Network/NFSv4" : {
+                    "identifier" : "/users",
+                    "permissions" : "domain" 
+                } 
+            }
+        }
+
+   The following shows the response.
+
+   .. code-block:: http
+   
+   .. code-block:: http
+
+        HTTP/1.1 204 No Content
+
+        
+#. PUT to the container object URI to set a new exported protocol value:
+
+   .. code-block:: http
+
+        PUT /MyContainer/?exports HTTP/1.1
+        Host: cloud.example.com
+        Content-Type: application/cdmi-container
+        X-CDMI-Specification-Version: 1.1
+         
+        {
+            "exports" : {
+                "OCCI/iSCSI" : {
+                    "identifier" : "00007ED900104E1D14771DC67C27BF8B",
+                    "permissions" : "00007E7F00104EB781F900791C70106C" 
+                } ,
+                "Network/NFSv4" : {
+                    "identifier" : "/users",
+                    "permissions" : "domain" 
+                } 
+            }
+        }
+
+   The following shows the response.
+
+   .. code-block:: http
+
+        HTTP/1.1 204 No Content

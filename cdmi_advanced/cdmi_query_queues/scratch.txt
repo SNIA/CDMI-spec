@@ -1,9 +1,9 @@
 
-<DIV>
+
 
 Query Queues
 ========================================
-<DIV>
+
 
 Overview
 ************************
@@ -19,7 +19,7 @@ When creating a query queue, the metadata described in `Required Metadata for a 
     :align: center 
 
 
-403 Forbidden``. After a query queue has been created, with the exception of cdmi_queue_type, the metadata items in th.. list-table cannot be changed. If the value of cdmi_queue_type is changed from "cdmi_query_queue", this change indicates to the system that an in-process query shall be stopped, the query queue shall no longer receive query results, and the query queue shall be treated as a regular CDMI queue object. To start a new query with an existing queue, the value of the cdmi_queue_type shall be changed back to "cdmi_query_queue". This international standard does not define a mechanism to pause a running query or resume a stopped query. 
+403 Forbidden``. After a query queue has been created, with the exception of cdmi_queue_type, the metadata items in th.. list-table cannot be changed. If the value of cdmi_queue_type_is_changed_from_"cdmi_query_queue", this change indicates to the system that an in-process query shall be stopped, the query queue shall no longer receive query results, and the query queue shall be treated as a regular CDMI queue object. To start a new query with an existing queue, the value of the cdmi_queue_type_shall_be_changed_back_to_"cdmi_query_queue". This international standard does not define a mechanism to pause a running query or resume a stopped query. 
     :header-rows: 1
     :widths: auto
     :align: center 
@@ -27,7 +27,12 @@ When creating a query queue, the metadata described in `Required Metadata for a 
 
 
 
-.. list-table::  tbl_<A NAME="50532481_78662"></A>Required Metadata for a Query Queue 
+.. _tbl_required_metadata_for_a_query_queue:
+
+.. list-table:: tbl_Required Metadata for a Query Queue 
+.. _tbl_required_metadata_for_a_query_queue:
+
+.. list-table:: tbl_Required Metadata for a Query Queue 
     :header-rows: 1
     :widths: auto
     :align: center 
@@ -52,7 +57,7 @@ When creating a query queue, the metadata described in `Required Metadata for a 
  for how to construct a results specification.
       - Mandatory
 
-<DIV>
+
 #. An example of the metadata associated with a query queue is as follows:
 
     .. code-block:: http
@@ -99,8 +104,8 @@ When creating a query queue, the metadata described in `Required Metadata for a 
     }
 
 When results are stored in a query queue, each enqueued value shall consist of a JSON object of MIME type "application/json". This JSON object contains the specified values requested in the cdmi_results_specification of the query queue metadata. 
-</DIV>
-<DIV>
+
+
 #. An example of a query result JSON object is as follows:
 
     .. code-block:: http
@@ -121,7 +126,10 @@ When results are stored in a query queue, each enqueued value shall consist of a
 `Query Status Metadata`_ describes the system-created metadata that provides details on the status of the query queue.
 
 
-.. list-table::  tbl_<A NAME="50532481_34298"></A>Query Status Metadata
+.. _tbl_Query_Status_Metadata_:__
+.. list-table:: tbl_Query Status Metadata
+.. _tbl_Query_Status_Metadata_:__
+.. list-table:: tbl_Query Status Metadata
     :header-rows: 1
     :widths: auto
     :align: center 
@@ -134,8 +142,6 @@ When results are stored in a query queue, each enqueued value shall consist of a
     * - cdmi_query_status
       - JSON String
       - When present, this metadata item indicates the state of the query queue. Defined values are: 
-
-
         * Processing - Indicates that the query queue is scanning for results; 
         * Halted - Indicates that new query results will no longer be enqueued;
         * Current - Indicates that the query queue contained all query results that can be found at this time; and
@@ -145,15 +151,15 @@ When results are stored in a query queue, each enqueued value shall consist of a
 
 
 Objects shall only be included in the query results if the user who created the query queue is able to read the matching objects or metadata.
-</DIV>
-<DIV>
+
+
 #. If the administrator created the query queue, then all matching objects that the administrator is allowed to read are included in the results. If user "jdoe" created the query queue, then only matching objects that "jdoe" is allowed to read are included in the results.
 
     .. code-block:: http
 
-</DIV>
-</DIV>
-<DIV>
+
+
+
 
 Extending CDMI Query
 ************************
