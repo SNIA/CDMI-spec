@@ -142,16 +142,30 @@ latex_elements = {
     #
     # 'preamble': ''
     'preamble': r'''
-\usepackage{colortbl}
-\protected\def\sphinxstyletheadfamily {\cellcolor{lightgray}\sffamily}
-\addto\captionsenglish{\renewcommand{\partname}{Section}}
-\addto\captionsenglish{\renewcommand{\chaptername}{Clause}}
-\addto\captionsenglish{\renewcommand{\appendixname}{Annex}}
-%\makeatletter
-%\renewcommand{\@chapapp}{Clause}
-%\makeatother
-\usepackage{lineno} 
-\linenumbers
+
+    % Make table headers lightgray
+    \usepackage{colortbl}
+    \protected\def\sphinxstyletheadfamily {\cellcolor{lightgray}\sffamily}
+
+    % Change Latex's Part/Chapter/Appendix to ISO's Section/Clause/Annex
+    \addto\captionsenglish{\renewcommand{\partname}{Section}}
+    \addto\captionsenglish{\renewcommand{\chaptername}{Clause}}
+    \addto\captionsenglish{\renewcommand{\appendixname}{Annex}}
+
+    % Change the page headers
+    \makeatletter
+    \fancypagestyle{normal}{
+        \fancyhf{}
+        \fancyhead[LE,LO]{{\py@HeaderFamily Cloud Data Management Interface \version}}
+        \fancyfoot[LE,LO]{{\py@HeaderFamily © SNIA 2018 – All rights reserved}}
+        \fancyfoot[CE,CO]{{\py@HeaderFamily SNIA Technical Position}}
+        \fancyfoot[RE,RO]{{\py@HeaderFamily\thepage}}
+        }
+    \makeatother
+
+    % Create linenumers
+    \usepackage{lineno} 
+    \linenumbers
 ''',   
 
     # Latex figure (float) alignment
