@@ -50,7 +50,7 @@ master_doc = 'index'
 
 # General information about the project.
 project = 'CDMI specification'
-copyright = '2017, SNIA'
+copyright = '2018, SNIA'
 author = 'SNIA'
 
 # The version info for the project you're documenting, acts as replacement for
@@ -91,6 +91,8 @@ numfig = True
 # a list of builtin themes.
 #
 html_theme = 'classic'
+
+html_logo = 'images/SNIA_R_logo.png'
 
 # Theme options are theme-specific and customize the look and feel of a theme
 # further.  For a list of options available for each theme, see the
@@ -158,6 +160,7 @@ latex_elements = {
     
     'sphinxsetup': 'verbatimhintsturnover=true',
     'extraclassoptions': 'openright',
+    'releasename': 'Version',
     
 }
 
@@ -165,9 +168,11 @@ latex_elements = {
 # (source start file, target name, title,
 #  author, documentclass [howto, manual, or own class]).
 latex_documents = [
-    (master_doc, 'CDMIspecification.tex', 'CDMI specification Documentation',
-     'SNIA', 'manual'),
+    (master_doc, 'CDMIspecification.tex', 'Cloud Data Management Interface (CDMI™)',
+     'SNIA Technical Position', 'manual'),
 ]
+
+latex_logo = 'images/SNIA_R_logo.png'
 
 latex_toplevel_sectioning = 'part'
 
@@ -176,7 +181,7 @@ latex_toplevel_sectioning = 'part'
 # One entry per manual page. List of tuples
 # (source start file, name, description, authors, manual section).
 man_pages = [
-    (master_doc, 'cdmispecification', 'CDMI specification Documentation',
+    (master_doc, 'cdmispecification', 'Cloud Data Management Interface (CDMI)',
      [author], 1)
 ]
 
