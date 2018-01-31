@@ -1,4 +1,4 @@
-
+.. _clause_cdmi_snapshots:
 
 CDMI Snapshots
 ========================================

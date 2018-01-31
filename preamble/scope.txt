@@ -1,4 +1,4 @@
-
+.. _clause_scope:
 
 Scope
 =====

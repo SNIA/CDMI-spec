@@ -1,3 +1,5 @@
+.. _section_cdmi_annexes:
+
 ************
 CDMI Annexes
 ************

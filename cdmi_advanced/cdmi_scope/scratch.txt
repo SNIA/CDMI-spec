@@ -1,5 +1,5 @@
 
-
+.. _clause_cdmi_scope:
 
 Scope Specification
 ========================================

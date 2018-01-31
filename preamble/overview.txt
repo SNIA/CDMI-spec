@@ -1,3 +1,5 @@
+.. _clause_overview_of_cloud_storage:
+
 Overview of Cloud Storage
 =========================
 

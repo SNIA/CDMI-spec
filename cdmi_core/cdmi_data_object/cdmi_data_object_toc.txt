@@ -1,4 +1,4 @@
-.. _Data-Object-Resource-Operations-using-CDMI:
+.. _clause_cdmi_data_object:
 
 Data Object Resource Operations using CDMI
 ==========================================

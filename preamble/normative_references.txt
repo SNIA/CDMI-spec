@@ -1,4 +1,4 @@
-
+.. _clause_normative_references:
 
 Normative references
 ====================

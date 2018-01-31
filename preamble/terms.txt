@@ -1,7 +1,7 @@
+.. _clause_terms:
 
-
-Terms and definitions
-=====================
+Terms, acronyms and definitions
+===============================
 
 For the purposes of this document, the following terms and definitions apply.
 

@@ -1,4 +1,4 @@
-
+.. _section_cdmi_preamble:
 
 #############
 CDMI Preamble

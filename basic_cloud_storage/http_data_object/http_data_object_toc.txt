@@ -1,3 +1,5 @@
+.. clause_http_data_object:
+
 Data Object Resource Operations using HTTP
 ==========================================
 

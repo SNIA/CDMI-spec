@@ -1,6 +1,6 @@
 
 
-
+.. _clause_cdmi_retention:
 
 Retention and Hold Management
 ========================================

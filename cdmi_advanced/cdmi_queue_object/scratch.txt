@@ -1,5 +1,5 @@
 
-
+.. _clause_cdmi_queue_object:
 
 Queue Object Resource Operations using CDMI
 ========================================

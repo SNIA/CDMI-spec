@@ -1,3 +1,5 @@
+.. _clause_cdmi_container_object:
+
 Container Object Resource Operations using CDMI
 ===============================================
 

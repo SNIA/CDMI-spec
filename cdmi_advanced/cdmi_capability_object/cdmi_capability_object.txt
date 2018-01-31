@@ -1,4 +1,4 @@
-.. _Capability-Object-Resource-Operations-using-CDMI:
+.. _clause_cdmi_capability_object:
 
 Capability Object Resource Operations using CDMI
 ================================================
