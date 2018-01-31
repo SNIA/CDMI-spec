@@ -152,7 +152,8 @@ latex_elements = {
     #
     # 'figure_align': 'htbp',
     
-    'sphinxsetup': 'verbatimhintsturnover=true'
+    'sphinxsetup': 'verbatimhintsturnover=true',
+    'extraclassoptions': 'openany',
 }
 
 # Grouping the document tree into LaTeX files. List of tuples
