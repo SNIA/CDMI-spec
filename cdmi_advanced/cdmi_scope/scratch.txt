@@ -253,7 +253,7 @@ Query Matching Expressions
 The leading space after the "==" and before the constant value is not included in the comparison. If the constant value matches the value of the field, the condition shall be considered to be met.
     * - "field" : "#== constant"
       - The numeric equals matching expression tests for the numeric equality of the value of the field and a specified constant value.
-Numeric constant strings shall be processed according to the JSON number representation described in :rfc::numref:`ref_4627`. A numeric matching expression shall be considered to be non-matching against a non-numeric field value.
+Numeric constant strings shall be processed according to the JSON number representation described in :rfc:`4627`. A numeric matching expression shall be considered to be non-matching against a non-numeric field value.
     * - "field" : "!= constant"
       - The not equals matching expression tests for the non-equality of the value of the field and a specified constant value. The not-equals test is case sensitive. 
 The leading space character after the "!=" and before the constant value is not included in the comparison. If the constant value does not match the value of the field, the condition shall be considered to be met.

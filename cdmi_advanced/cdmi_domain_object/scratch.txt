@@ -1328,7 +1328,7 @@ If the serialized domain does not contain children, the update is applied only t
       - Optional [#a]_
     * - deserializevalue
       - JSON String
-      - A domain object serialized as specified in :rfc::numref:`ref_4648`. The object ID of the serialized domain object shall match the object ID of the destination domain object.
+      - A domain object serialized as specified in :rfc:`4648`. The object ID of the serialized domain object shall match the object ID of the destination domain object.
 If the serialized domain does not contain children, the update is applied only to the domain object, and any existing children are left as is. If the serialized domain object does contain children, then creates, updates, and deletes are recursively applied for each child, depending on the differences between the provided serialized state and the current state of the children.
       - Optional [#a]_
 
@@ -1369,7 +1369,7 @@ The HTTP response header for updating a CDMI domain object using CDMI is shown i
 Response Message Body 
 -----
 
-A response body may be provided as per :rfc::numref:`ref_2616`.
+A response body may be provided as per :rfc:`2616`.
 
 
 
@@ -1519,7 +1519,7 @@ The HTTP request header for deleting a CDMI domain object using CDMI is shown in
 Request Message Body
 -----
 
-A request body may be provided as per :rfc::numref:`ref_2616`.
+A request body may be provided as per :rfc:`2616`.
 
 
 

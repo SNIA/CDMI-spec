@@ -57,7 +57,7 @@ Specific ranges of the value of a queue object may be accessed by specifying a b
 
 Because a byte range of a UTF-8 string is often not a valid UTF-8 string, the response to a range request shall always be transported in the value field as a base 64-encoded string.
 
-Byte ranges are specified as single, inclusive byte ranges as per Section 14.35.1 of :rfc::numref:`ref_2616`.
+Byte ranges are specified as single, inclusive byte ranges as per Section 14.35.1 of :rfc:`2616`.
 
 If read access to any of the requested fields is not permitted by the object ACL, only the permitted fields shall be returned. If no requested fields are permitted to be read, an HTTP status code of ``403 Forbidden`` shall be returned to the client. 
 
@@ -812,7 +812,7 @@ The valuetransferencoding field shall only be provided when the completionStatus
       - JSON Array of JSON Strings
       - The oldest enqueued queue object values
         * The values in the JSON array are returned in order from oldest to newest.
-        * If the valuetransferencoding field indicates UTF-8 encoding, the corresponding value field shall contain a UTF-8 string using JSON escaping rules described in :rfc::numref:`ref_4627`.
+        * If the valuetransferencoding field indicates UTF-8 encoding, the corresponding value field shall contain a UTF-8 string using JSON escaping rules described in :rfc:`4627`.
         * If the valuetransferencoding field indicates base 64 encoding, the corresponding value field shall contain a base 64-encoded string as described in RFC :rfc:`4648`.
         * The value field shall not be provided when using multi-part MIME.
         * The value field shall only be provided when the completionStatus field contains "Complete".
@@ -1356,7 +1356,7 @@ The HTTP response header for updating a CDMI queue object using CDMI is shown in
 Response Message Body 
 -----
 
-A response body may be provided as per :rfc::numref:`ref_2616`.
+A response body may be provided as per :rfc:`2616`.
 
 
 
@@ -1538,7 +1538,7 @@ The HTTP request header for deleting a CDMI queue object using CDMI is shown in 
 Request Message Body 
 -----
 
-A request body may be provided as per :rfc::numref:`ref_2616`.
+A request body may be provided as per :rfc:`2616`.
 
 
 
@@ -2211,7 +2211,7 @@ The HTTP request header for deleting a CDMI queue object value using CDMI is sho
 Request Message Body 
 -----
 
-A request body may be provided as per :rfc::numref:`ref_2616`.
+A request body may be provided as per :rfc:`2616`.
 
 
 

@@ -99,7 +99,7 @@ For the purposes of this document, the following terms and definitions apply.
 
 
     iSCSI
-         Internet Small Computer Systems Interface (see :rfc::numref:`ref_3720`)
+         Internet Small Computer Systems Interface (see :rfc:`3720`)
 
     JSON
          JavaScript Object Notation
@@ -114,7 +114,7 @@ For the purposes of this document, the following terms and definitions apply.
          data about other data (see :numref:`ref_iso_14701:2012`)
 
     MIME
-         Multipurpose Internet Mail Extensions (see :rfc::numref:`ref_2045`)
+         Multipurpose Internet Mail Extensions (see :rfc:`2045`)
 
     NFS
          Network File System (see :rfc:`3530`)

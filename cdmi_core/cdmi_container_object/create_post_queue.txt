@@ -109,7 +109,7 @@ The HTTP request headers for creating a new CDMI queue object using CDMI are sho
       - Mandatory
     * - Content-Range
       - Header String
-      - A valid ranges-specifier (see :rfc::numref:`ref_2616` Section 14.35.1)
+      - A valid ranges-specifier (see :rfc:`2616` Section 14.35.1)
       - Optional
 
 

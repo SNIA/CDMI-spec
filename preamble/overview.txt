@@ -306,7 +306,7 @@ The fields shown in :numref:`tbl_objectid_format` are defined as follows:
 
 * Opaque data in each object ID shall be unique for a given Enterprise Number.
 
-The native format for an object ID is binary. When necessary, such as when included in URIs and JSON strings, the object ID textual representation shall be encoded using Base16 encoding rules described in :rfc::numref:`ref_4648` and shall be case insensitive. 
+The native format for an object ID is binary. When necessary, such as when included in URIs and JSON strings, the object ID textual representation shall be encoded using Base16 encoding rules described in :rfc:`4648` and shall be case insensitive. 
 
 
 
@@ -374,7 +374,7 @@ A CDMI client shall comply with all security requirements for HTTP that apply to
 
 CDMI clients may be responsible for initiating user authentication for each CDMI operation that is performed. The CDMI server functions as the authenticator and receives and validates authentication credentials from the client.
 
-:rfc::numref:`ref_2616` and :rfc:`2617` define requirements for HTTP authentication, which generally starts with an HTTP client request. If the client request does not include an "Authorization" header and authentication is required, the server responds with an HTTP status code of ``401 Unauthorized``
+:rfc:`2616` and :rfc:`2617` define requirements for HTTP authentication, which generally starts with an HTTP client request. If the client request does not include an "Authorization" header and authentication is required, the server responds with an HTTP status code of ``401 Unauthorized``
  and a WWW-Authenticate response header. The HTTP client shall then respond with the appropriate Authorization header in a subsequent request. The format of the WWW-Authenticate and Authorization headers varies depending on the type of authentication required.
 
 * 	HTTP basic authentication involves sending the user name and password in the clear, and it should only be used on a secure network or in conjunction with TLS.
@@ -416,7 +416,7 @@ Required HTTP Support
 RFC 2616 Support Requirements
 -----------------------------
 
-A conformant implementation of CDMI shall also be a conformant implementation of :rfc::numref:`ref_2616` (i.e., HTTP 1.1). The subclauses below list the sections of :rfc:`2616` that shall be supported; however, this list is not comprehensive.
+A conformant implementation of CDMI shall also be a conformant implementation of :rfc:`2616` (i.e., HTTP 1.1). The subclauses below list the sections of :rfc:`2616` that shall be supported; however, this list is not comprehensive.
 
 
 

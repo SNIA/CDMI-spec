@@ -7,7 +7,7 @@ Metadata
 Access Control
 **************
 
-Access control comprises the mechanisms by which various types of access to objects are authorized and permitted or denied. CDMI™ uses the well-known mechanism of an Access Control List (ACL) as defined in the NFSv4 standard (see :rfc::numref:`ref_3530`). ACLs are lists of permissions-granting or permissions-denying entries called access control entries (ACEs). 
+Access control comprises the mechanisms by which various types of access to objects are authorized and permitted or denied. CDMI™ uses the well-known mechanism of an Access Control List (ACL) as defined in the NFSv4 standard (see :rfc:`3530`). ACLs are lists of permissions-granting or permissions-denying entries called access control entries (ACEs). 
 
 
 ACL and ACE Structure
@@ -760,7 +760,7 @@ This metadata value can only be updated by a client if it has the "backup_operat
       - Optional
     * - cdmi_hash
       - JSON String
-      - The hash of the value of the object, encoded using Base16 encoding rules described in :rfc::numref:`ref_4648`. This metadata field shall be present when the cdmi_value_hash data system metadata for the object or a parent object indicates that the value of the object should be hashed.
+      - The hash of the value of the object, encoded using Base16 encoding rules described in :rfc:`4648`. This metadata field shall be present when the cdmi_value_hash data system metadata for the object or a parent object indicates that the value of the object should be hashed.
       - Optional
     * - cdmi_owner
       - JSON String
