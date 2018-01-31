@@ -1,3 +1,7 @@
+.. raw:: latex
+
+    \clearpage
+
 Delete a Data Object using HTTP
 *******************************
 
@@ -7,17 +11,15 @@ Synopsis
 
 The following HTTP DELETE deletes an existing data object at the specified URI:
 
-    DELETE <root URI>/<ContainerName>/<DataObjectName>
+    ``DELETE <root URI>/<ContainerName>/<DataObjectName>``
 
 Where:
 
+* ``<root URI>`` is the path to the CDMI cloud.
+* ``<ContainerName>`` is zero or more intermediate containers.
+* ``<DataObjectName>`` is the name of the data object to be deleted.
 
-* <root URI> is the path to the CDMI cloud.
-* <ContainerName> is zero or more intermediate containers.
-* <DataObjectName> is the name of the data object to be deleted.
-
-
-The object shall also be accessible at <root URI>/cdmi_objectid/<objectID>.
+The object shall also be accessible at ``<root URI>/cdmi_objectid/<objectID>``.
 
 
 Capability 
@@ -25,8 +27,7 @@ Capability
 
 The following capability describes the supported operations that may be performed when deleting an existing data object:
 
-
-* Support for the ability to delete an existing data object is indicated by the presence of the cdmi_delete_dataobject capability in the specified object.
+* Support for the ability to delete an existing data object is indicated by the presence of the ``cdmi_delete_dataobject`` capability in the specified object.
 
 
 Request Headers 
@@ -35,12 +36,10 @@ Request Headers
 Request headers may be provided as per :rfc:`2616`.
 
 
-
 Request Message Body 
 --------------------
 
 A request body may be provided as per :rfc:`2616`.
-
 
 
 Response Headers 
@@ -49,12 +48,10 @@ Response Headers
 Response headers may be provided as per :rfc:`2616`.
 
 
-
 Response Message Body 
 ---------------------
 
 A response body may be provided as per :rfc:`2616`.
-
 
 
 Response Status
@@ -66,9 +63,8 @@ Response Status
 
 .. list-table:: HTTP Status Codes - Delete a CDMI Data Object using HTTP
     :header-rows: 1
-    :widths: auto
+    :widths: 30 70
     :align: center 
-
 
     * - HTTP Status
       - Description
@@ -89,7 +85,7 @@ Response Status
 Example
 -------
 
-#. DELETE to the data object URI:
+EXAMPLE 1: DELETE to the data object URI:
 
    .. code-block:: http
    

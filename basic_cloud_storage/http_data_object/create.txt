@@ -1,4 +1,6 @@
+.. raw:: latex
 
+    \clearpage
 
 Create a Data Object using HTTP
 *******************************
@@ -13,7 +15,6 @@ The following HTTP PUT creates a new data object at the specified URI:
 
 Where:
 
-
 * ``<root URI>`` is the path to the CDMI cloud.
 * ``<ContainerName>`` is zero or more intermediate containers that already exist, with one slash (i.e., ``"/"``) between each pair of container names.
 * ``<DataObjectName>`` is the name specified for the data object to be created.
@@ -22,12 +23,10 @@ Where:
 After it is created, the data object shall also be accessible at ``<root URI>/cdmi_objectid/<objectID>``.
 
 
-
 Capabilities
 ------------
 
 The following capabilities describe the supported operations that may be performed when creating a new data object:
-
 
 * Support for the ability to create a new data object is indicated by the presence of the ``"cdmi_create_dataobject"`` capability in the parent container.
 * Support for the ability to create the value of a new data object in specified byte ranges is indicated by the presence of the ``"cdmi_create_value_range"`` capability in the parent container.
@@ -37,7 +36,6 @@ Request Headers
 ---------------
 
 The HTTP request headers for creating a CDMI data object using HTTP are shown in :numref:`tbl_Create_a_CDMI_Data_Object_using_HTTP_Request_Headers`.
-
 
 .. _tbl_Create_a_CDMI_Data_Object_using_HTTP_Request_Headers:
 
@@ -77,12 +75,10 @@ Response Headers
 No response headers are specified.
 
 
-
 Response Message Body 
 ---------------------
 
 No response message body fields are specified.
-
 
 
 Response Status
@@ -94,7 +90,7 @@ The HTTP status codes that occur when creating a data object using HTTP are desc
 
 .. list-table:: HTTP Status Codes - Create a Data Object using HTTP
     :header-rows: 1
-    :widths: 25 75
+    :widths: 30 70
     :align: center
 
     * - HTTP Status
@@ -111,6 +107,7 @@ The HTTP status codes that occur when creating a data object using HTTP are desc
       - The resource was not found at the specified URI.
     * - ``409 Conflict``
       - The operation conflicts with a non-CDMI access protocol lock or may cause a state transition error on the server.
+
 
 Example
 -------

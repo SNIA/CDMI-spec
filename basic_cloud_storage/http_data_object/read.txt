@@ -1,3 +1,7 @@
+.. raw:: latex
+
+    \clearpage
+
 Read a Data Object using HTTP
 *****************************
 
@@ -11,11 +15,9 @@ The following HTTP GET reads from an existing data object at the specified URI:
 
 Where:
 
-
-* <root URI> is the path to the CDMI cloud.
-* <ContainerName> is zero or more intermediate containers.
-* <DataObjectName> is the name of the data object to be read from.
-
+* ``<root URI>`` is the path to the CDMI cloud.
+* ``<ContainerName>`` is zero or more intermediate containers.
+* ``<DataObjectName>`` is the name of the data object to be read from.
 
 The object shall also be accessible at ``<root URI>/cdmi_objectid/<objectID>``.
 
@@ -25,11 +27,8 @@ Capabilities
 
 The following capabilities describe the supported operations that may be performed when reading an existing data object:
 
-
-* Support for the ability to read the value of an existing data object is indicated by the presence of the cdmi_read_value capability in the specified object. Any read from a specific byte location not previously written to by a create or update operation shall return zero for the byte value.
-* Support for the ability to read the value of an existing data object in specific byte ranges is indicated by the presence of the cdmi_read_value_range capability in the specified object. Any read from a specific byte location within the value range specified not previously written to by a create or update operation shall return zero for the byte value.
-
-
+* Support for the ability to read the value of an existing data object is indicated by the presence of the ``cdmi_read_value capability`` in the specified object. Any read from a specific byte location not previously written to by a create or update operation shall return zero for the byte value.
+* Support for the ability to read the value of an existing data object in specific byte ranges is indicated by the presence of the ``cdmi_read_value_range`` capability in the specified object. Any read from a specific byte location within the value range specified not previously written to by a create or update operation shall return zero for the byte value.
 
 
 Request Header
@@ -41,7 +40,7 @@ The HTTP request header for reading a CDMI data object using HTTP is shown in :n
 
 .. list-table:: Request Header - Read a CDMI Data Object using HTTP
     :header-rows: 1
-    :widths: auto
+    :widths: 20 10 55 15
     :align: center
     
     * - Header
@@ -54,13 +53,10 @@ The HTTP request header for reading a CDMI data object using HTTP is shown in :n
       - Optional
 
 
-
-
 Request Message Body
 --------------------
 
 A request body shall not be provided.
-
 
 
 Response Headers
@@ -72,7 +68,7 @@ The HTTP response headers for reading a data object using HTTP are shown in :num
 
 .. list-table:: Response Headers - Read a CDMI Data Object using HTTP
     :header-rows: 1
-    :widths: auto
+    :widths: 20 10 55 15
     :align: center
     
     * - Header
@@ -107,9 +103,8 @@ The HTTP status codes that occur when reading a data object using HTTP are descr
 
 .. list-table:: HTTP Status Codes - Read a CDMI Data Object using HTTP
     :header-rows: 1
-    :widths: auto
+    :widths: 30 70
     :align: center 
-
 
     * - HTTP Status
       - Description
@@ -128,10 +123,11 @@ The HTTP status codes that occur when reading a data object using HTTP are descr
     * - ``404 Not Found``
       - The resource was not found at the specified URI, or a requested field within the resource was not found.
 
+
 Examples
 --------
 
-#. GET to the data object URI to read the value of the data object:
+EXAMPLE 1: GET to the data object URI to read the value of the data object:
 
    .. code-block:: http
 
@@ -148,7 +144,7 @@ Examples
        
        This is the Value of this Data Object
 
-#. GET to the data object URI to read the first 11 bytes of the value of the data object:
+EXAMPLE 2: GET to the data object URI to read the first 11 bytes of the value of the data object:
 
    .. code-block:: http
 

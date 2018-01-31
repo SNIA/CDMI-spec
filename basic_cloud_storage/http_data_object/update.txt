@@ -1,3 +1,7 @@
+.. raw:: latex
+
+    \clearpage
+
 Update a Data Object using HTTP
 *******************************
 
@@ -7,17 +11,15 @@ Synopsis
 
 The following HTTP PUT updates an existing data object at the specified URI:
 
-    PUT <root URI>/<ContainerName>/<DataObjectName>.
+    ``PUT <root URI>/<ContainerName>/<DataObjectName>``
 
 Where:
 
+* ``<root URI>`` is the path to the CDMI cloud.
+* ``<ContainerName>`` is zero or more intermediate containers.
+* ``<DataObjectName>`` is the name of the data object to be updated.
 
-* <root URI> is the path to the CDMI cloud.
-* <ContainerName> is zero or more intermediate containers.
-* <DataObjectName> is the name of the data object to be updated.
-
-
-The object shall also be accessible at <root URI>/cdmi_objectid/<objectID>. An update shall not result in a change to the object ID.
+The object shall also be accessible at ``<root URI>/cdmi_objectid/<objectID>``. An update shall not result in a change to the object ID.
 
 
 
@@ -26,11 +28,8 @@ Capabilities
 
 The following capabilities describe the supported operations that may be performed when updating an existing data object:
 
-
-* Support for the ability to modify the value of an existing data object and/or MIME type is indicated by the presence of the cdmi_modify_value capability in the specified object.
-* Support for the ability to modify the value of an existing data object in specified byte ranges is indicated by the presence of the cdmi_modify_value_range capability in the specified object.
-
-
+* Support for the ability to modify the value of an existing data object and/or MIME type is indicated by the presence of the ``cdmi_modify_value capability`` in the specified object.
+* Support for the ability to modify the value of an existing data object in specified byte ranges is indicated by the presence of the ``cdmi_modify_value_range`` capability in the specified object.
 
 
 Request Headers
@@ -42,7 +41,7 @@ The HTTP request headers for updating a CDMI data object using HTTP are shown in
 
 .. list-table:: Request Headers - Update a CDMI Data Object using HTTP
     :header-rows: 1
-    :widths: auto
+    :widths: 20 10 55 15
     :align: center 
 
     * - Header
@@ -65,13 +64,10 @@ The HTTP request headers for updating a CDMI data object using HTTP are shown in
       - Optional
 
 
-
-
 Request Message Body
 --------------------
 
 The request message body contains the data to be stored in the value of the data object.
-
 
 
 Response Header
@@ -79,12 +75,11 @@ Response Header
 
 The HTTP response header for updating a data object using HTTP is shown in :numref:`tbl_update_a_cdmi_data_object_using_http_response_header`. 
 
-
 .. _tbl_update_a_cdmi_data_object_using_http_response_header:
 
 .. list-table:: Response Header - Update a CDMI Data Object using HTTP
     :header-rows: 1
-    :widths: auto
+    :widths: 20 10 55 15
     :align: center 
 
 
@@ -103,20 +98,17 @@ Response Message Body
 A response body may be provided as per :rfc:`2616`.
 
 
-
 Response Status
 ---------------
 
 The HTTP status codes that occur when updating a data object using HTTP are described in :numref:`tbl_update_a_cdmi_data_object_using_http_http_status_codes`. 
 
-
 .. _tbl_update_a_cdmi_data_object_using_http_http_status_codes:
 
 .. list-table:: HTTP Status Codes - Update a CDMI Data Object using HTTP
     :header-rows: 1
-    :widths: auto
+    :widths: 30 70
     :align: center 
-
 
     * - HTTP Status
       - Description
@@ -139,7 +131,7 @@ The HTTP status codes that occur when updating a data object using HTTP are desc
 Examples
 --------
 
-#. PUT to the data object URI to update the value of the data object:
+EXAMPLE 1: PUT to the data object URI to update the value of the data object:
 
    .. code-block:: http
 
@@ -157,7 +149,7 @@ Examples
        HTTP/1.1 204 No Content
 
 
-#. PUT to the data object URI to update four bytes within the value of the data object:
+EXAMPLE 2: PUT to the data object URI to update four bytes within the value of the data object:
 
    .. code-block:: http
 
