@@ -157,7 +157,7 @@ latex_elements = {
     \fancypagestyle{normal}{
         \fancyhf{}
         \fancyhead[LE,LO]{{\py@HeaderFamily Cloud Data Management Interface \version}}
-        \fancyfoot[LE,LO]{{\py@HeaderFamily © SNIA 2018 – All rights reserved}}
+        \fancyfoot[LE,LO]{{\py@HeaderFamily \copyright \  SNIA 2018 - All rights reserved}}
         \fancyfoot[CE,CO]{{\py@HeaderFamily SNIA Technical Position}}
         \fancyfoot[RE,RO]{{\py@HeaderFamily\thepage}}
         }
@@ -173,7 +173,7 @@ latex_elements = {
     # 'figure_align': 'htbp',
     
     'sphinxsetup': 'verbatimhintsturnover=true',
-    'extraclassoptions': 'openright',
+    'extraclassoptions': 'openany',
     'releasename': 'Version',
     
 }
@@ -182,7 +182,7 @@ latex_elements = {
 # (source start file, target name, title,
 #  author, documentclass [howto, manual, or own class]).
 latex_documents = [
-    (master_doc, 'CDMIspecification.tex', 'Cloud Data Management Interface (CDMI™)',
+    (master_doc, 'CDMIspecification.tex', 'Cloud Data Management Interface (CDMI)',
      'SNIA Technical Position', 'manual'),
 ]
 
