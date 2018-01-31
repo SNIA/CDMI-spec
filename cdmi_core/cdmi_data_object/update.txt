@@ -1,3 +1,5 @@
+.. _ref_update_a_data_object_using_cdmi:
+
 Update a Data Object using CDMI
 *******************************
 
@@ -39,7 +41,7 @@ The following capabilities describe the supported operations that may be perform
 Request Headers
 ---------------
 
-The HTTP request headers for updating a CDMI data object using CDMI are shown in :ref:`tbl_update_a_cdmi_data_object_using_cdmi_request_headers`. 
+The HTTP request headers for updating a CDMI data object using CDMI are shown in :numref::numref:`tbl_update_a_cdmi_data_object_using_cdmi_request_headers`. 
 
 .. _tbl_update_a_cdmi_data_object_using_cdmi_request_headers:
 
@@ -72,7 +74,7 @@ The HTTP request headers for updating a CDMI data object using CDMI are shown in
 Request Message Body
 --------------------
 
-The request message body fields for updating a data object using CDMI are shown in :ref:`tbl_update_a_cdmi_data_object_using_cdmi_request_message_body`.
+The request message body fields for updating a data object using CDMI are shown in :numref:`tbl_update_a_cdmi_data_object_using_cdmi_request_message_body`.
 
 .. _tbl_update_a_cdmi_data_object_using_cdmi_request_message_body:
 
@@ -96,12 +98,12 @@ The request message body fields for updating a data object using CDMI are shown 
     * - metadata
       - JSON Object
       - Metadata for the data object. If present, the new metadata specified replaces the existing object metadata. If individual metadata items are specified in the URI, only those items are replaced; other items are preserved.
-        See `Metadata`_ for a further description of metadata.
+        See `Metadata` for a further description of metadata.
       - Optional
     * - domainURI
       - JSON String
       - URI of the owning domain
-        * If different from the parent domain, the user shall have the "cross-domain" privilege (see cdmi_member_privileges in `Required Settings for Domain Member User Objects`_).
+        * If different from the parent domain, the user shall have the "cross-domain" privilege (see cdmi_member_privileges in :numref:`ref_required_settings_for_domain_member_user_objects`).
         * If not specified, the existing domain shall be preserved.
       - Optional
     * - deserialize
@@ -147,7 +149,7 @@ The request message body fields for updating a data object using CDMI are shown 
 Response Header
 ---------------
 
-The HTTP response header for updating a data object using CDMI is shown in :ref:`tbl_update_a_cdmi_data_object_using_cdmi_response_header`.
+The HTTP response header for updating a data object using CDMI is shown in :numref:`tbl_update_a_cdmi_data_object_using_cdmi_response_header`.
 
 
 .. _tbl_update_a_cdmi_data_object_using_cdmi_response_header:
@@ -178,7 +180,7 @@ A response body may be provided as per :rfc:`2616`.
 Response Status
 ---------------
 
-The HTTP status codes that occur when updating a data object using CDMI are described in :ref:`tbl_update_a_cdmi_data_object_using_cdmi_http_status_codes`. 
+The HTTP status codes that occur when updating a data object using CDMI are described in :numref:`tbl_update_a_cdmi_data_object_using_cdmi_http_status_codes`. 
 
 .. _tbl_update_a_cdmi_data_object_using_cdmi_http_status_codes:
 

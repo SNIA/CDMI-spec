@@ -14,12 +14,12 @@ Query queues allow CDMI clients to efficiently discover what content matches a g
 
 When a client wishes to perform queries, it may first check if the system is capable of providing query functionality by checking for the presence of the cdmi_query capability in the root container capabilities. If this capability is not present, creating a query queue shall be successful, but no query results shall be enqueued into the query queue.
 
-When creating a query queue, the metadata described in `Required Metadata for a Query Queue` shall be provided. Attempts to change metadata in th.. list-table shall result in an HTTP status code of ``_    :header-rows: 1
+When creating a query queue, the metadata described in :numref:`ref_required_metadata_for_a_query_queue` shall be provided. Attempts to change metadata in th.. list-table shall result in an HTTP status code of ``    :header-rows: 1
     :widths: auto
     :align: center 
 
 
-403 Forbidden``. After a query queue has been created, with the exception of cdmi_queue_type, the metadata items in th.. list-table cannot be changed. If the value of cdmi_queue_type_is_changed_from_"cdmi_query_queue", this change indicates to the system that an in-process query shall be stopped, the query queue shall no longer receive query results, and the query queue shall be treated as a regular CDMI queue object. To start a new query with an existing queue, the value of the cdmi_queue_type_shall_be_changed_back_to_"cdmi_query_queue". This international standard does not define a mechanism to pause a running query or resume a stopped query. 
+403 Forbidden:numref:`ref_`. After a query queue has been created, with the exception of cdmi_queue_type, the metadata items in th.. list-table cannot be changed. If the value of cdmi_queue_type_is_changed_from_"cdmi_query_queue", this change indicates to the system that an in-process query shall be stopped, the query queue shall no longer receive query results, and the query queue shall be treated as a regular CDMI queue object. To start a new query with an existing queue, the value of the cdmi_queue_type_shall_be_changed_back_to_"cdmi_query_queue". This international standard does not define a mechanism to pause a running query or resume a stopped query. 
     :header-rows: 1
     :widths: auto
     :align: center 
@@ -48,12 +48,12 @@ When creating a query queue, the metadata described in `Required Metadata for a 
       - Mandatory
     * - cdmi_scope_specification
       - JSON Array of JSON Objects
-      - The scope specification determines which objects are included in the query results. This scope specification is similar to a "WHERE" clause in SQL-like languages. To query all objects, specify an empty JSON array. See `Scope Specification`_
+      - The scope specification determines which objects are included in the query results. This scope specification is similar to a "WHERE" clause in SQL-like languages. To query all objects, specify an empty JSON array. See `Scope Specification`
  for how to construct a scope specification.
       - Mandatory
     * - cdmi_results_specification
       - JSON Object
-      - The results specification contains the JSON fields to be returned for each object that matches the query. This results specification is similar to a "SELECT" clause in SQL-like languages. See `Results Specification`_
+      - The results specification contains the JSON fields to be returned for each object that matches the query. This results specification is similar to a "SELECT" clause in SQL-like languages. See :numref:`ref_results_specification`
  for how to construct a results specification.
       - Mandatory
 
@@ -123,7 +123,7 @@ When results are stored in a query queue, each enqueued value shall consist of a
 
     } 
 
-`Query Status Metadata`_ describes the system-created metadata that provides details on the status of the query queue.
+:numref:`ref_query_status_metadata` describes the system-created metadata that provides details on the status of the query queue.
 
 
 .. _tbl_Query_Status_Metadata_:__

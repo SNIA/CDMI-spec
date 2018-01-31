@@ -1,3 +1,5 @@
+.. _ref_create_(post)_a_new_data_object_using_cdmi:
+
 Create (POST) a New Data Object using CDMI
 ******************************************
 
@@ -9,7 +11,7 @@ To create a new data object in a specified container where the name of the data 
 
     POST <root URI>/<ContainerName>/
 
-To create a new data object where the data object does not belong to a container and is only accessible by ID (see `Object Model for CDMI`_), the following request shall be performed:
+To create a new data object where the data object does not belong to a container and is only accessible by ID (see :numref:`ref_object_model_for_cdmi`), the following request shall be performed:
 
     POST <root URI>/cdmi_objectid/
 
@@ -28,7 +30,7 @@ If created in a container, the data object shall be accessible as a child of the
 Delayed Completion of Create
 ----------------------------
 
-In response to a create operation for a data object, the server may return an HTTP status code of ``202 Accepted`` to indicate that the object is in the process of being created. This response is useful for long-running operations (e.g., copying a large data object from a source URI). Such a response has the following implications.
+In response to a create operation for a data object, the server may return an HTTP status code of :numref:`ref_`202 Accepted`` to indicate that the object is in the process of being created. This response is useful for long-running operations (e.g., copying a large data object from a source URI). Such a response has the following implications.
 
 
 * The server shall return a Location header with an absolute URI to the object to be created along with an HTTP status code of ``202 Accepted``.
@@ -78,7 +80,7 @@ The following capabilities describe the supported operations that may be perform
 Request Headers
 ---------------
 
-The HTTP request headers for creating a new CDMI data object using CDMI are shown in :ref:`tbl_request_headers_create_a_new_data_object_using_cdmi`. 
+The HTTP request headers for creating a new CDMI data object using CDMI are shown in :numref:`tbl_request_headers_create_a_new_data_object_using_cdmi`. 
 
 .. _tbl_request_headers_create_a_new_data_object_using_cdmi:
 
@@ -94,12 +96,12 @@ The HTTP request headers for creating a new CDMI data object using CDMI are show
       - Requirement
     * - Accept
       - Header String
-      - "application/cdmi-object" or a consistent value as per clause `Content-Type Negotiation`_
+      - "application/cdmi-object" or a consistent value as per clause `Content-Type Negotiation`
       - Optional
     * - Content-Type
       - Header String
       - "application/cdmi-object" or "multipart/mixed"
-        * If multipart/mixed is specified, the body shall consist of at least two MIME parts, where the first part shall contain a body of content-type "application/cdmi-object" and the second and subsequent parts shall contain one or more byte ranges of the value as described in `Read a Data Object using CDMI`_. 
+        * If multipart/mixed is specified, the body shall consist of at least two MIME parts, where the first part shall contain a body of content-type "application/cdmi-object" and the second and subsequent parts shall contain one or more byte ranges of the value as described in :numref:`ref_read_a_data_object_using_cdmi`. 
         * If multiple byte ranges are included and the "Content-Range" header is omitted for a part, the data in the part shall be appended to the data in the preceding part, with the first part having a byte offset of zero.
       - Mandatory
     * - X-CDMI-Specification-Version
@@ -116,7 +118,7 @@ The HTTP request headers for creating a new CDMI data object using CDMI are show
 Request Message Body
 --------------------
 
-The request message body fields for creating a new data object using CDMI are shown in :ref:`tbl_request_message_body_create_a_new_data_object_using_cdmi`.
+The request message body fields for creating a new data object using CDMI are shown in :numref::numref:`tbl_request_message_body_create_a_new_data_object_using_cdmi`.
 
 
 .. _tbl_request_message_body_create_a_new_data_object_using_cdmi:
@@ -154,7 +156,7 @@ The request message body fields for creating a new data object using CDMI are sh
     * - domainURI
       - JSON String
       - URI of the owning domain
-        * Any domain may be specified, and the "cross_domain" privilege is not required (see `cdmi_member_privileges` in `Required Settings for Domain Member User Objects`_).
+        * Any domain may be specified, and the "cross_domain" privilege is not required (see `cdmi_member_privileges` in `Required Settings for Domain Member User Objects`).
         * If not specified, the root domain "/cdmi_domains/" shall be used.
       - Optional
     * - deserialize
@@ -175,7 +177,7 @@ The request message body fields for creating a new data object using CDMI are sh
       - Optional [#a]_
     * - reference
       - JSON String
-      - URI of a CDMI data object that shall be redirected to by a reference. If other fields are supplied when creating a reference, the server shall respond with an HTTP status code of ``400 Bad Request``.
+      - URI of a CDMI data object that shall be redirected to by a reference. If other fields are supplied when creating a reference, the server shall respond with an HTTP status code of :numref:`ref_`400 Bad Request``.
       - Optional [#a]_
     * - deserializevalue
       - JSON String
@@ -208,7 +210,7 @@ The request message body fields for creating a new data object using CDMI are sh
 Response Headers
 ----------------
 
-The HTTP response headers for creating a new CDMI data object using CDMI are shown in :ref:`tbl_response_headers_create_a_new_data_object_using_cdmi`. 
+The HTTP response headers for creating a new CDMI data object using CDMI are shown in :numref:`tbl_response_headers_create_a_new_data_object_using_cdmi`. 
 
 .. _tbl_response_headers_create_a_new_data_object_using_cdmi:
 
@@ -240,7 +242,7 @@ The HTTP response headers for creating a new CDMI data object using CDMI are sho
 Response Message Body
 ---------------------
 
-The response message body fields for creating a new CDMI data object using CDMI are shown in :ref:`tbl_response_message_body_create_a_new_data_object_using_cdmi`.
+The response message body fields for creating a new CDMI data object using CDMI are shown in :numref:`tbl_response_message_body_create_a_new_data_object_using_cdmi`.
 
 .. _tbl_response_message_body_create_a_new_data_object_using_cdmi:
 
@@ -307,14 +309,14 @@ The response message body fields for creating a new CDMI data object using CDMI 
     * - metadata
       - JSON Object
       - Metadata for the data object. This field includes any user and data system metadata specified in the request body metadata field, along with storage system metadata generated by the cloud storage system.
-        See `Metadata`_ for a further description of metadata.
+        See `Metadata` for a further description of metadata.
       - Mandatory
 
 
 Response Status
 ---------------
 
-:ref:`tbl_http_status_codes_create_a_new_data_object_using_cdmi` describes the HTTP status codes that occur when creating a new data object using CDMI. 
+:numref:`tbl_http_status_codes_create_a_new_data_object_using_cdmi` describes the HTTP status codes that occur when creating a new data object using CDMI. 
 
 .. _tbl_http_status_codes_create_a_new_data_object_using_cdmi:
 

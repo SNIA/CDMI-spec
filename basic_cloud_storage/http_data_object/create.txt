@@ -35,7 +35,7 @@ The following capabilities describe the supported operations that may be perform
 Request Headers
 ---------------
 
-The HTTP request headers for creating a CDMI data object using HTTP are shown in :numref:`tbl_Create_a_CDMI_Data_Object_using_HTTP_Request_Headers`.
+The HTTP request headers for creating a CDMI data object using HTTP are shown in :numref:`tbl_create_a_cdmi_data_object_using_http_request_headers`.
 
 .. _tbl_Create_a_CDMI_Data_Object_using_HTTP_Request_Headers:
 

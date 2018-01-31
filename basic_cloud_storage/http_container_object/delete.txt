@@ -1,3 +1,5 @@
+.. _ref_delete_a_container_object_using_http:
+
 Delete a Container Object using HTTP
 ************************************
 
@@ -64,7 +66,7 @@ A response body may be provided as per :rfc:`2616`.
 Response Status
 ---------------
 
-:ref:`tbl_delete_a_container_object_using_http_http_status_codes` describes the HTTP status codes that occur when deleting a container object using HTTP.
+:numref:`tbl_delete_a_container_object_using_http_http_status_codes` describes the HTTP status codes that occur when deleting a container object using HTTP.
 
 .. _tbl_delete_a_container_object_using_http_http_status_codes:
 

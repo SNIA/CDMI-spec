@@ -13,73 +13,73 @@ This document is organized as follows:
     :widths: auto
     :align: center
     
-    * - 1
+    * - :numref:`Clause %s <clause_scope>`
       - Scope
       - Defines the scope of this document
-    * - 2
-      - References
+    * - :numref:`Clause %s <clause_normative_references>`
+      - Normative references
       - Lists the normative references for this document
-    * - 3
+    * - :numref:`Clause %s <clause_terms>`
       - Terms
       - Provides terminology used in this document
-    * - 4
+    * - :numref:`Clause %s <clause_conventions>`
       - Conventions
       - Describes the conventions used in presenting the interfaces and the typographical conventions used in this document
-    * - 5
+    * - :numref:`Clause %s <clause_overview_of_cloud_storage>`
       - Overview of Cloud Storage
       - Provides a brief overview of cloud storage and details the philosophy behind this international standard as a model for the operations
-    * - 6
+    * - :numref:`Clause %s <clause_http_data_object>`
       - Data Object Resource Operations using HTTP
       - Provides the normative standard of data object resource operations using HTTP
-    * - 7
+    * - :numref:`Clause %s <clause_http_container_object>`
       - Container Object Resource Operations using HTTP
       - Provides the normative standard of container object resource operations using HTTP
-    * - 8
+    * - :numref:`Clause %s <clause_cdmi_data_object>`
       - Data Object Resource Operations  using CDMI
       - Provides the normative standard of data object resource operations using CDMI
-    * - 9
+    * - :numref:`Clause %s <clause_cdmi_container_object>`
       - Container Object Resource Operations using CDMI
       - Provides the normative standard of container object resource operations using CDMI
-    * - 10
+    * - :numref:`Clause %s <clause_cdmi_domain_object>`
       - Domain Object Resource Operations using CDMI
       - Provides the normative standard of domain object resource operations using CDMI
-    * - 11
+    * - :numref:`Clause %s <clause_cdmi_queue_object>`
       - Queue Object Resource Operations using CDMI
       - Provides the normative standard of queue object resource operations using CDMI
-    * - 12
+    * - :numref:`Clause %s <clause_cdmi_capability_object>`
       - Capability Object Resource Operations using CDMI
       - Provides the normative standard of capability object resource operations using CDMI
-    * - 13
+    * - :numref:`Clause %s <clause_cdmi_exports>`
       - Exported Protocols
       - Discusses how virtual machines in the cloud computing environment may use the exported protocols from CDMI containers
-    * - 14
+    * - :numref:`Clause %s <clause_cdmi_snapshots>`
       - Snapshots
       - Discusses how snapshots are accessed under CDMI containers
-    * - 15
+    * - :numref:`Clause %s <clause_cdmi_serialization>`
       - Serialization/Deserialization
       - Discusses serialization and deserialization, including import and export of serialized data under CDMI
-    * - 16
+    * - :numref:`Clause %s <clause_cdmi_metadata>`
       - Metadata
       - Provides the normative standard of the metadata used in the interface
-    * - 17
+    * - :numref:`Clause %s <clause_cdmi_retention>`
       - Retention and Hold Management
       - Describes the optional retention management disciplines to be implemented into the system management functions
-    * - 18
+    * - :numref:`Clause %s <clause_cdmi_scope>`
       - Scope Specification
       - Describes the structure of the scope specification for JSON objects
-    * - 19
+    * - :numref:`Clause %s <clause_cdmi_results>`
       - Results Specification
       - Provides a standardized mechanism to define subsets of CDMI object contents
-    * - 20
+    * - :numref:`Clause %s <clause_cdmi_logging>`
       - Logging
       - Describes CDMI functional logging for object functions, security events, data management events, and queues
-    * - 21
+    * - :numref:`Clause %s <clause_cdmi_notifications>`
       - Notification Queues
       - Describes how CDMI clients may efficiently discover what changes have occurred to the system
-    * - 22
+    * - :numref:`Clause %s <clause_cdmi_query_queues>`
       - Query Queues
       - Describes how CDMI clients may efficiently discover what content matches a given set of metadata query criteria or full-content search criteria
-    * - Annex A
+    * - Annex :numref:`section_cdmi_annexes`
       - (informative) Extensions
       - Provides informative vendor extensions. Each extension is added to the standard when at least two vendors implement the extension.
     * - \ 

@@ -1,3 +1,5 @@
+.. _ref_delete_a_data_object_using_cdmi:
+
 Delete a Data Object using CDMI
 *******************************
 
@@ -33,7 +35,7 @@ The following capability describes the supported operations that may be performe
 Request Header
 --------------
 
-The HTTP request header for deleting a CDMI data object using CDMI is shown in :ref:`tbl_delete_a_cdmi_data_object_using_cdmi_request_header`.
+The HTTP request header for deleting a CDMI data object using CDMI is shown in :numref:`tbl_delete_a_cdmi_data_object_using_cdmi_request_header`.
 
 .. _tbl_delete_a_cdmi_data_object_using_cdmi_request_header:
 
@@ -75,7 +77,7 @@ A response body may be provided as per :rfc:`2616`.
 Response Status
 ---------------
 
-:ref:`tbl_delete_a_cdmi_data_object_using_cdmi_http_status_codes` describes the HTTP status codes that occur when deleting a data object using CDMI. 
+:numref:`tbl_delete_a_cdmi_data_object_using_cdmi_http_status_codes` describes the HTTP status codes that occur when deleting a data object using CDMI. 
 
 .. _tbl_delete_a_cdmi_data_object_using_cdmi_http_status_codes:
 

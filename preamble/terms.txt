@@ -99,7 +99,7 @@ For the purposes of this document, the following terms and definitions apply.
 
 
     iSCSI
-         Internet Small Computer Systems Interface (see :rfc:`3720`)
+         Internet Small Computer Systems Interface (see :rfc::numref:`ref_3720`)
 
     JSON
          JavaScript Object Notation
@@ -108,13 +108,13 @@ For the purposes of this document, the following terms and definitions apply.
          Lightweight Directory Access Protocol
 
     LUN
-         Logical Unit Number (see `ISO/IEC 14776-414`_)
+         Logical Unit Number (see `ISO/IEC 14776-414`)
 
     metadata
-         data about other data (see `ISO 14701:2012`_)
+         data about other data (see :numref:`ref_iso_14701:2012`)
 
     MIME
-         Multipurpose Internet Mail Extensions (see :rfc:`2045`)
+         Multipurpose Internet Mail Extensions (see :rfc::numref:`ref_2045`)
 
     NFS
          Network File System (see :rfc:`3530`)
@@ -139,7 +139,7 @@ For the purposes of this document, the following terms and definitions apply.
 
 
     POSIX
-         Portable Operating System Interface (see `IEEE Std 1003.1`_)
+         Portable Operating System Interface (see `IEEE Std 1003.1`)
 
 
     private cloud

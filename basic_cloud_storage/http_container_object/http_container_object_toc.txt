@@ -1,4 +1,4 @@
-.. _http_container_object:
+.. _clause_http_container_object:
 
 Container Object Resource Operations using HTTP
 ===============================================

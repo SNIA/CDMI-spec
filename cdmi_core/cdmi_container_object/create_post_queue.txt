@@ -1,3 +1,5 @@
+.. _ref_create_(post)_a_new_queue_object_using_cdmi:
+
 Create (POST) a New Queue Object using CDMI
 *******************************************
 
@@ -5,11 +7,11 @@ Create (POST) a New Queue Object using CDMI
 Synopsis
 --------
 
-To create a new queue object (see `Queue Object Resource Operations using CDMI`_) in a specified container where the name of the queue object is a server-assigned object identifier, the following request shall be performed:
+To create a new queue object (see :numref:`ref_queue_object_resource_operations_using_cdmi`) in a specified container where the name of the queue object is a server-assigned object identifier, the following request shall be performed:
 
     POST <root URI>/<ContainerName>/
 
-To create a new queue object where the queue object does not belong to a container and is only accessible by ID (see `Object Model for CDMI`_), the following request shall be performed:
+To create a new queue object where the queue object does not belong to a container and is only accessible by ID (see :numref:`ref_object_model_for_cdmi`), the following request shall be performed:
 
     POST <root URI>/cdmi_objectid/
 
@@ -28,7 +30,7 @@ If created in a container, the queue object shall be accessible as a child of th
 Delayed Completion of Create
 ----------------------------
 
-On a create operation for a queue object, the server may return an HTTP status code of ``202 Accepted``. In this case, the object is in the process of being created. This response is particularly useful for long-running operations, e.g., copying a large number of queue values from a source URI. Such a response has the following implications:
+On a create operation for a queue object, the server may return an HTTP status code of :numref:`ref_`202 Accepted``. In this case, the object is in the process of being created. This response is particularly useful for long-running operations, e.g., copying a large number of queue values from a source URI. Such a response has the following implications:
 
 
 * The server shall return a Location header with an absolute URI to the object to be created along with an HTTP status code of ``202 Accepted``.
@@ -78,7 +80,7 @@ The following capabilities describe the supported operations that may be perform
 Request Headers
 ---------------
 
-The HTTP request headers for creating a new CDMI queue object using CDMI are shown in :ref:`tbl_request_headers_create_a_new_queue_object_using_cdmi`.
+The HTTP request headers for creating a new CDMI queue object using CDMI are shown in :numref:`tbl_request_headers_create_a_new_queue_object_using_cdmi`.
 
 
 .. _tbl_request_headers_create_a_new_queue_object_using_cdmi:
@@ -95,7 +97,7 @@ The HTTP request headers for creating a new CDMI queue object using CDMI are sho
       - Requirement
     * - Accept
       - Header String
-      - "application/cdmi-queue" or a consistent value as per clause `Content-Type Negotiation`_
+      - "application/cdmi-queue" or a consistent value as per clause `Content-Type Negotiation`
       - Optional
     * - Content-Type
       - Header String
@@ -107,7 +109,7 @@ The HTTP request headers for creating a new CDMI queue object using CDMI are sho
       - Mandatory
     * - Content-Range
       - Header String
-      - A valid ranges-specifier (see :rfc:`2616` Section 14.35.1)
+      - A valid ranges-specifier (see :rfc::numref:`ref_2616` Section 14.35.1)
       - Optional
 
 
@@ -115,7 +117,7 @@ The HTTP request headers for creating a new CDMI queue object using CDMI are sho
 Request Message Body
 --------------------
 
-The request message body fields for creating a new queue object using CDMI are shown in :ref:`tbl_request_message_body_create_a_new_queue_object_using_cdmi`.
+The request message body fields for creating a new queue object using CDMI are shown in :numref:`tbl_request_message_body_create_a_new_queue_object_using_cdmi`.
 
 .. _tbl_request_message_body_create_a_new_queue_object_using_cdmi:
 
@@ -141,7 +143,7 @@ The request message body fields for creating a new queue object using CDMI are s
     * - domainURI
       - JSON String
       - URI of the owning domain
-        * Any domain may be specified, and the "cross_domain" privilege is not required (see `cdmi_member_privileges` in `Required Settings for Domain Member User Objects`_).
+        * Any domain may be specified, and the "cross_domain" privilege is not required (see `cdmi_member_privileges` in `Required Settings for Domain Member User Objects`).
         * If not specified, the root domain "/cdmi_domains/" shall be used.
       - Optional
     * - deserialize
@@ -158,7 +160,7 @@ The request message body fields for creating a new queue object using CDMI are s
       - Optional [#a]_
     * - reference
       - JSON String
-      - URI of a CDMI queue object that shall be redirected to by a reference. If other fields are supplied when creating a reference, the server shall respond with an HTTP status code of ``400 Bad Request``.
+      - URI of a CDMI queue object that shall be redirected to by a reference. If other fields are supplied when creating a reference, the server shall respond with an HTTP status code of :numref:`ref_`400 Bad Request``.
       - Optional [#a]_
     * - deserializevalue
       - JSON String
@@ -171,7 +173,7 @@ The request message body fields for creating a new queue object using CDMI are s
 Response Headers
 ----------------
 
-The response headers for creating a new CDMI queue object using CDMI are shown in :ref:`tbl_response_headers_create_a_new_cdmi_queue_object_using_cdmi`. 
+The response headers for creating a new CDMI queue object using CDMI are shown in :numref:`tbl_response_headers_create_a_new_cdmi_queue_object_using_cdmi`. 
 
 .. _tbl_response_headers_create_a_new_cdmi_queue_object_using_cdmi:
 
@@ -203,7 +205,7 @@ The response headers for creating a new CDMI queue object using CDMI are shown i
 Response Message Body
 ---------------------
 
-The response message body fields for creating a new CDMI queue object using CDMI are shown in :ref:`tbl_response_message_body_create_a_new_queue_object_using_cdmi`.
+The response message body fields for creating a new CDMI queue object using CDMI are shown in :numref:`tbl_response_message_body_create_a_new_queue_object_using_cdmi`.
 
 .. _tbl_response_message_body_create_a_new_queue_object_using_cdmi:
 
@@ -265,7 +267,7 @@ The response message body fields for creating a new CDMI queue object using CDMI
       - Optional
     * - metadata
       - JSON Object
-      - Metadata for the queue object. This field includes any user and data system metadata specified in the request body metadata field, along with storage system metadata generated by the cloud storage system. See `Metadata`_ for a further description of metadata.
+      - Metadata for the queue object. This field includes any user and data system metadata specified in the request body metadata field, along with storage system metadata generated by the cloud storage system. See `Metadata` for a further description of metadata.
       - Mandatory
     * - queueValues
       - JSON String
@@ -276,7 +278,7 @@ The response message body fields for creating a new CDMI queue object using CDMI
 Response Status
 ---------------
 
-:ref:`tbl_http_status_codes_create_a_new_cdmi_queue_object_using_cdmi` describes the HTTP status codes that occur when creating a new queue object using CDMI.
+:numref:`tbl_http_status_codes_create_a_new_cdmi_queue_object_using_cdmi` describes the HTTP status codes that occur when creating a new queue object using CDMI.
 
 .. _tbl_http_status_codes_create_a_new_cdmi_queue_object_using_cdmi:
 

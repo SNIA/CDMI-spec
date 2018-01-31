@@ -7,7 +7,7 @@ Metadata
 Access Control
 **************
 
-Access control comprises the mechanisms by which various types of access to objects are authorized and permitted or denied. CDMI™ uses the well-known mechanism of an Access Control List (ACL) as defined in the NFSv4 standard (see :rfc:`3530`). ACLs are lists of permissions-granting or permissions-denying entries called access control entries (ACEs). 
+Access control comprises the mechanisms by which various types of access to objects are authorized and permitted or denied. CDMI™ uses the well-known mechanism of an Access Control List (ACL) as defined in the NFSv4 standard (see :rfc::numref:`ref_3530`). ACLs are lists of permissions-granting or permissions-denying entries called access control entries (ACEs). 
 
 
 ACL and ACE Structure
@@ -15,14 +15,14 @@ ACL and ACE Structure
 
 An ACL is an ordered list of ACEs. The two types of ACEs in CDMI are ALLOW and DENY. An ALLOW ACE grants some form of access to a principal. Principals are either users or groups and are represented by identifiers. A DENY ACE denies access of some kind to a principal. For instance, a DENY ACE may deny the ability to write the metadata or ACL of an object but may remain silent on other forms of access. In that case, if another ACE ALLOWs write access to the object, the principal is allowed to write the object's data, but nothing else. 
 
-ACEs are composed of four fields: type, who, flags and access_mask, as per :rfc:`3530`. The type, flags, and access_mask shall be specified as either unsigned integers in hex string representation or as a comma-delimited list of bit mask string form values taken from `ACE Types`, :ref:`ACE Flags`, and :ref:`ACE Bit Masks`_.
+ACEs are composed of four fields: type, who, flags and access_mask, as per :rfc:`3530`. The type, flags, and access_mask shall be specified as either unsigned integers in hex string representation or as a comma-delimited list of bit mask string form values taken from `ACE Types`, :numref:`ref_ace_flags`, and :numref:`ref_ace_bit_masks`.
 
 
 
 ACE Types
 ---------
 
-:ref:`tbl_ace_types` defines the following ACE types, following NFSv4.
+:numref::numref:`tbl_ace_types` defines the following ACE types, following NFSv4.
 
 
 .. _tbl_ace_types:
@@ -97,7 +97,7 @@ To avoid name conflicts, these special identifiers are distinguished by an appen
 ACE Flags
 ---------
 
-CDMI allows for nested containers and mandates that objects and subcontainers be able to inherit access permissions from their parent containers. However, it is not enough to simply inherit all permissions from the parent; it might be desirable, for example, to have different default permissions on child objects and subcontainers of a given container. The flags in :ref:`tbl_ace_flags` govern this behavior. 
+CDMI allows for nested containers and mandates that objects and subcontainers be able to inherit access permissions from their parent containers. However, it is not enough to simply inherit all permissions from the parent; it might be desirable, for example, to have different default permissions on child objects and subcontainers of a given container. The flags in :numref:`tbl_ace_flags` govern this behavior. 
 
 
 .. _tbl_ace_flags:
@@ -359,7 +359,7 @@ When a root container is created and no ACL is supplied, the server shall place 
 
     ]
 
-As ACLs are storage system metadata, they are stored and retrieved through the metadata field included in a PUT or GET request. The syntax is as follows, using the constant strings from `ACE Types`, :ref:`ACE Flags`, and :ref:`ACE Bit Masks`_, above. 
+As ACLs are storage system metadata, they are stored and retrieved through the metadata field included in a PUT or GET request. The syntax is as follows, using the constant strings from `ACE Types`, :numref:`ref_ace_flags`, and :numref:`ref_ace_bit_masks`, above. 
 
     ACL = { ACE [, ACE ...] }
 
@@ -519,7 +519,7 @@ Canonical Format for ACE Hexadecimal Quantities
 
 ACE mask expressions may be evaluated and converted to a string hexadecimal value before transmission in a CDMI JSON body. Applications or utilities that display them to users should convert them into a text expression before display and accept user input in text format as well. 
 
-The following technique should be used to decompose masks into strings... list-table of masks and string equivalents should be maintained and ordered from greatest to least:``    :header-rows: 1
+The following technique should be used to decompose masks into strings... list-table of masks and string equivalents should be maintained and ordered from greatest to least::numref:`ref_`    :header-rows: 1
     :widths: auto
     :align: center 
 
@@ -710,7 +710,7 @@ All CDMI objects that support metadata shall permit the inclusion of arbitrary u
 Support for Storage System Metadata
 ************************
 
-After an object has been created, the storage system metadata, as described in `Storage System Metadata`_, shall be generated by the cloud storage system and shall immediately be made available to a CDMI client in the metadata that is returned as a result of the create operation and any subsequent retrievals.
+After an object has been created, the storage system metadata, as described in `Storage System Metadata`, shall be generated by the cloud storage system and shall immediately be made available to a CDMI client in the metadata that is returned as a result of the create operation and any subsequent retrievals.
 
 
 .. _tbl_storage_system_metadata:
@@ -735,17 +735,17 @@ After an object has been created, the storage system metadata, as described in `
     * - cdmi_ctime
       - JSON String
       - The time when the object was created, in  ISO-8601
- point-in-time format, as described in `Time Representations`_.
+ point-in-time format, as described in :numref:`ref_time_representations`.
 This metadata value can only be updated by a client if it has the "backup_operator" privilege. If a client does not have the "backup operator privilege, updates of this metadata item shall be ignored.
       - Optional
     * - cdmi_atime
       - JSON String
-      - The time when the object was last accessed in ISO-8601 point-in-time format, as described in `Time Representations`_. The access or modification of a child is not considered an access of a parent container (access/modify times do not propagate up the tree). For a newly created object, this value shall be set to the creation time.
+      - The time when the object was last accessed in ISO-8601 point-in-time format, as described in :numref:`ref_time_representations`. The access or modification of a child is not considered an access of a parent container (access/modify times do not propagate up the tree). For a newly created object, this value shall be set to the creation time.
 This metadata value can only be updated by a client if it has the "backup_operator" privilege. If a client does not have the "backup operator privilege, updates of this metadata item shall be ignored.
       - Optional
     * - cdmi_mtime
       - JSON String
-      - The time when the object was last modified, in ISO-8601 point-in-time format, as described in `Time Representations`_. The modification of a child is not considered a modification of a container object (modification times do not propagate up the tree). For a newly created object, this value shall be set to the creation time.
+      - The time when the object was last modified, in ISO-8601 point-in-time format, as described in :numref:`ref_time_representations`. The modification of a child is not considered a modification of a container object (modification times do not propagate up the tree). For a newly created object, this value shall be set to the creation time.
 This metadata value can only be updated by a client if it has the "backup_operator" privilege. If a client does not have the "backup operator privilege, updates of this metadata item shall be ignored.
       - Optional
     * - cdmi_acount
@@ -760,7 +760,7 @@ This metadata value can only be updated by a client if it has the "backup_operat
       - Optional
     * - cdmi_hash
       - JSON String
-      - The hash of the value of the object, encoded using Base16 encoding rules described in :rfc:`4648`. This metadata field shall be present when the cdmi_value_hash data system metadata for the object or a parent object indicates that the value of the object should be hashed.
+      - The hash of the value of the object, encoded using Base16 encoding rules described in :rfc::numref:`ref_4648`. This metadata field shall be present when the cdmi_value_hash data system metadata for the object or a parent object indicates that the value of the object should be hashed.
       - Optional
     * - cdmi_owner
       - JSON String
@@ -780,7 +780,7 @@ Support for Data System Metadata
 
 When specified, data system metadata provides guidelines to the cloud storage system on how to provide storage data services for data managed through the CDMI interface.
 
-Data system metadata (see `Data System Metadata`_) is inherited from parent objects to any children. If a child explicitly contains data system metadata, the metadata value of the child data system metadata shall override the metadata value of the parent data system metadata. 
+Data system metadata (see `Data System Metadata`) is inherited from parent objects to any children. If a child explicitly contains data system metadata, the metadata value of the child data system metadata shall override the metadata value of the parent data system metadata. 
 
 
 .. _tbl_data_system_metadata:
@@ -809,7 +809,7 @@ If the requested number of copies cannot be created within the HTTP timeout peri
       - Optional
     * - cdmi_assignedsize
       - JSON String
-      - If this data system metadata item is present and set to a positive numeric string, it indicates that the client is specifying the size in bytes that is desired to be reported for a container object exported via other protocols (see `Container Metadata`_
+      - If this data system metadata item is present and set to a positive numeric string, it indicates that the client is specifying the size in bytes that is desired to be reported for a container object exported via other protocols (see :numref:`ref_container_metadata`
 ). The system is not required to reserve this space and may thin-provision the requested space. Thus, the requested value may be greater than the actual storage space consumed. When this data system metadata item is absent, or is present and is not set to a positive numeric string, this data system metadata item shall not be used. 
 This data system metadata item is only applied against container objects and is not inherited by child objects.
       - Optional
@@ -829,7 +829,7 @@ JSON Array of JSON Strings
 If this data system metadata item is present and set to zero or more geopolitical identifiers, it indicates that the client is requesting restrictions on the geographic regions where the object is permitted to be stored. Each geopolitical identifier shall be in the form of either a string containing a valid ISO 3166 country/country-subdivision code, which indicates that storage is permitted within that geopolitical region, or in the form of a string starting with the "!" character in front of a valid ISO 3166 country/country-subdivision code, which excludes that country/country-subdivision from the previous list of geopolitical regions. 
 The list is evaluated, in order, from left to right, with evaluation of each candidate storage location stopping when the candidate location is a permitted or prohibited region or is contained within a permitted or prohibited region. In addition to the ISO 3166 codes, "*" shall indicate all regions. If a candidate location does not match any of the entries in the list, the candidate location shall be considered to be prohibited. 
         * When this data system metadata item is absent, this data system metadata item shall not be used. 
-        * When this data system metadata item is present and does not contain valid geopolitical identifiers, the create, update, or deserialize operation shall fail with an HTTP status code of ``400 Bad Request.``
+        * When this data system metadata item is present and does not contain valid geopolitical identifiers, the create, update, or deserialize operation shall fail with an HTTP status code of :numref:`ref_`400 Bad Request.``
  
         * When this data system metadata item is present and valid, but no available storage locations are permitted, the create, update, or deserialize operation shall fail with an HTTP status code of ``403 Forbidden.``
 
@@ -843,8 +843,8 @@ Optional
     * - cdmi_retention_period
       - JSON String
       - If this data system metadata item is present and contains a valid ISO 8601:2004 time interval (as described in <A HREF="../../CDMI 1.0.2/FM 1.0.2/5-Overview_of_Cloud_Storage.htm#47707" CLASS="XRef"></A>
-), it indicates that the client is requesting that an object be placed under retention (see `CDMI Retention`_)
-. When this data system metadata item is absent, this data system metadata item shall not be used. When this data system metadata item is present but does not contain a valid ISO 8601:2004 time interval, the create, update, or deserialize operation shall fail with an HTTP status code of ``400 Bad Request``
+), it indicates that the client is requesting that an object be placed under retention (see `CDMI Retention`)
+. When this data system metadata item is absent, this data system metadata item shall not be used. When this data system metadata item is present but does not contain a valid ISO 8601:2004 time interval, the create, update, or deserialize operation shall fail with an HTTP status code of :numref:`ref_`400 Bad Request``
 .
 If this data system metadata item is updated and the new end date is before the current end date, the update operation shall fail with an HTTP status code of ``403 Forbidden``
 . 
@@ -856,11 +856,11 @@ cdmi_retention_autodelete
       - Optional
     * - cdmi_hold_id
       - JSON Array of JSON Strings
-      - If this data system metadata item is present and not an empty array, it indicates that the client is requesting that an object be placed under hold (see `CDMI Hold`_
+      - If this data system metadata item is present and not an empty array, it indicates that the client is requesting that an object be placed under hold (see `CDMI Hold`
 ). Each string in the array shall contain a unique user-specified hold identifier. 
 When this data system metadata item is absent, or is present and is an empty JSON array, this data system metadata item shall not be used. 
-If this data system metadata item is updated, and a previously existing hold string has been removed or changed in the update, the update operation shall fail with an HTTP status code of ``403 Forbidden``
-. (See `CDMI Hold`_
+If this data system metadata item is updated, and a previously existing hold string has been removed or changed in the update, the update operation shall fail with an HTTP status code of :numref:`ref_`403 Forbidden``
+. (See `CDMI Hold`
  concerning releasing holds.)
       - Optional
     * <TD ROWSPAN="3" COLSPAN="1">
@@ -871,7 +871,7 @@ JSON String
 <TD ROWSPAN="3" COLSPAN="1">
 If this data system metadata item is present and not an empty string, it indicates that the client is requesting that the object be encrypted while at rest. If encrypted, all data and metadata related to the object shall be encrypted. Supported algorithm/mode/length values are provided by the cdmi_encryption capability. 
 When this data system metadata item is absent, this data system metadata item shall not be used. 
-If this data system metadata item is present but does not contain a valid encryption algorithm/mode/length string, the system is free to choose to ignore the data system metadata, to fail with an HTTP status code of ``400 Bad Request``, or to select an encryption algorithm/mode/length of the system's choice. 
+If this data system metadata item is present but does not contain a valid encryption algorithm/mode/length string, the system is free to choose to ignore the data system metadata, to fail with an HTTP status code of :numref:`ref_`400 Bad Request``, or to select an encryption algorithm/mode/length of the system's choice. 
 Supported encryption algorithms are expressed as a string in the form of ALGORITHM_MODE_KEYLENGTH, where: 
         * "ALGORITHM" is the encryption algorithm (e.g., "AES" or "3DES"). 
         * "MODE" is the mode of operation (e.g., "XTS", "CBC", or "CTR"). 
@@ -939,7 +939,7 @@ Supported authentication method values are indicated by the cdmi_authentication_
 Support for Provided Data System Metadata
 ************************
 
-For each metadata item in a data system, there is an actual value that the cloud service is able to achieve at this time, as shown in `Provided Values of Data Systems Metadata Items`_. Data system-provided metadata items are read only. Updates of these metadata items shall be ignored.
+For each metadata item in a data system, there is an actual value that the cloud service is able to achieve at this time, as shown in `Provided Values of Data Systems Metadata Items`. Data system-provided metadata items are read only. Updates of these metadata items shall be ignored.
 
 
 .. _tbl_provided_values_of_data_systems_metadata_items:
@@ -979,7 +979,7 @@ For each metadata item in a data system, there is an actual value that the cloud
       - Optional
     * - cdmi_retention_period_provided
       - JSON String
-      - Contains an `ISO 8601:2004` time interval (as described in :ref:`Time Representations`_) specifying the period the object is protected by retention
+      - Contains an :numref:`ref_iso_8601:2004` time interval (as described in :numref:`ref_time_representations`) specifying the period the object is protected by retention
       - Optional
     * - cdmi_retention_autodelete_provided
       - JSON String
@@ -991,11 +991,11 @@ For each metadata item in a data system, there is an actual value that the cloud
       - Optional
     * - cdmi_encryption_provided
       - JSON String
-      - Contains the algorithm used for encryption, the mode of operation, and the key size. (See `cdmi_encryption` in :ref:`Data System Metadata`_ for the format.)
+      - Contains the algorithm used for encryption, the mode of operation, and the key size. (See :numref:`ref_cdmi_encryption` in :numref:`ref_data_system_metadata` for the format.)
       - Optional
     * - cdmi_value_hash_provided
       - JSON String
-      - Contains the algorithm and length being used to hash the object value. (See `cdmi_value_hash` in :ref:`Data System Metadata`_ for the format.)
+      - Contains the algorithm and length being used to hash the object value. (See :numref:`ref_cdmi_value_hash` in :numref:`ref_data_system_metadata` for the format.)
       - Optional
     * - cdmi_latency_provided
       - JSON String
@@ -1007,7 +1007,7 @@ For each metadata item in a data system, there is an actual value that the cloud
       - Optional
     * - cdmi_sanitization_method_provided
       - JSON String
-      - Contains the sanitization method used. (See `cdmi_sanitization_method` in :ref:`Data System Metadata`_ for the format.)
+      - Contains the sanitization method used. (See :numref:`ref_cdmi_sanitization_method` in :numref:`ref_data_system_metadata` for the format.)
       - Optional
     * - cdmi_RPO_provided
       - JSON String
@@ -1019,7 +1019,7 @@ For each metadata item in a data system, there is an actual value that the cloud
       - Optional
     * - cdmi_authentication_methods_provided
       - JSON Array of JSON Strings
-      - Contains a list of authentication methods enabled for the domain. (See `cdmi_authentication_methods` in :ref:`Data System Metadata`_ for the format.)
+      - Contains a list of authentication methods enabled for the domain. (See :numref:`ref_cdmi_authentication_methods` in :numref:`ref_data_system_metadata` for the format.)
       - Optional
 
 

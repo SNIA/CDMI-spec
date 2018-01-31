@@ -4,6 +4,10 @@
 CDMI Annexes
 ************
 
+.. raw:: latex
+
+\appendix
+
 .. toctree::
 
   extensions/extensions_toc

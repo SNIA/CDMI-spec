@@ -1,3 +1,5 @@
+.. _ref_delete_a_container_object_using_cdmi:
+
 Delete a Container Object using CDMI
 ************************************
 
@@ -32,7 +34,7 @@ The following capability describes the supported operations that may be performe
 Request Header
 --------------
 
-The HTTP request header for deleting a CDMI container object using CDMI is shown in :ref:`tbl_request_header_delete_a_container_object_using_cdmi`. 
+The HTTP request header for deleting a CDMI container object using CDMI is shown in :numref:`tbl_request_header_delete_a_container_object_using_cdmi`. 
 
 .. _tbl_request_header_delete_a_container_object_using_cdmi:
 .. list-table:: Request Header - Delete a Container Object Using CDMI
@@ -69,7 +71,7 @@ A response body may be provided as per :rfc:`2616`.
 Response Status
 ---------------
 
-:ref:`tbl_http_status_codes_delete_a_container_object_using_cdmi` describes the HTTP status codes that occur when deleting a container object using CDMI. 
+:numref:`tbl_http_status_codes_delete_a_container_object_using_cdmi` describes the HTTP status codes that occur when deleting a container object using CDMI. 
 
 .. _tbl_http_status_codes_delete_a_container_object_using_cdmi:
 

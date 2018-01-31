@@ -1,3 +1,5 @@
+.. _ref_overview:
+
 Overview
 ********
 
@@ -40,7 +42,7 @@ Specific ranges of the value of a data object may be accessed by specifying a by
 
 Because a byte range of a UTF-8 string is often not a valid UTF-8 string, the response to a range request shall always be transported in the value field as a base 64-encoded string. Likewise, when updating a range of bytes within the value of a data object, the contents of the value field shall be transported as a base 64-encoded string.
 
-Byte ranges are specified as single inclusive byte ranges as per Section 14.35.1 of :rfc:`2616`.
+Byte ranges are specified as single inclusive byte ranges as per Section 14.35.1 of :rfc::numref:`ref_2616`.
 
 A list of unique fields, separated by a semicolon ";" may be specified, allowing multiple fields to be accessed in a single request. 
 
@@ -66,7 +68,7 @@ Multi-part MIME enables the efficient transfer of binary data alongside CDMI obj
 Data Object Metadata
 --------------------
 
-Data object metadata may also include arbitrary user-supplied metadata, storage system metadata, and data system metadata, as specified in `Metadata`_. Metadata shall be stored as a valid UTF-8 string. Binary data stored in user metadata shall be first encoded such that it can be contained in a UTF-8 string, with the use of base 64 encoding recommended.
+Data object metadata may also include arbitrary user-supplied metadata, storage system metadata, and data system metadata, as specified in `Metadata`. Metadata shall be stored as a valid UTF-8 string. Binary data stored in user metadata shall be first encoded such that it can be contained in a UTF-8 string, with the use of base 64 encoding recommended.
 
 Data Object Consistency
 -----------------------

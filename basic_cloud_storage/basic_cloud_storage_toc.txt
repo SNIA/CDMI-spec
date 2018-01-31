@@ -1,4 +1,4 @@
-.. _section_basic_cloud_storage
+.. _section_basic_cloud_storage:
 
 ###################
 Basic Cloud Storage

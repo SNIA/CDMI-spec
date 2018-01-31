@@ -1,3 +1,5 @@
+.. _ref_create_a_container_object_using_cdmi:
+
 Create a Container Object using CDMI
 ************************************
 
@@ -20,7 +22,7 @@ After it is created, the container object shall also be accessible at <root URI>
 Delayed Completion of Create
 ----------------------------
 
-In response to a create operation for a container object, the server may return an HTTP status code of ``202 Accepted`` to indicate that the object is in the process of being created. This response is useful for long-running operations (e.g., deserializing a source data object to create a large container object hierarchy). Such a response has the following implications.
+In response to a create operation for a container object, the server may return an HTTP status code of :numref:`ref_`202 Accepted`` to indicate that the object is in the process of being created. This response is useful for long-running operations (e.g., deserializing a source data object to create a large container object hierarchy). Such a response has the following implications.
 
 
 * The server shall return a Location header with an absolute URI to the object to be created along with an HTTP status code of ``202 Accepted``. 
@@ -55,7 +57,7 @@ The following capabilities describe the supported operations that may be perform
 Request Headers
 ---------------
 
-The HTTP request headers for creating a CDMI container object using CDMI are shown in :ref:`tbl_request_headers_create_container_object_using_cdmi`. 
+The HTTP request headers for creating a CDMI container object using CDMI are shown in :numref:`tbl_request_headers_create_container_object_using_cdmi`. 
 
 .. _tbl_request_headers_create_container_object_using_cdmi:
 
@@ -71,7 +73,7 @@ The HTTP request headers for creating a CDMI container object using CDMI are sho
       - Requirement
     * - Accept
       - Header String
-      - "application/cdmi-container" or a consistent value as per clause `Content-Type Negotiation`_
+      - "application/cdmi-container" or a consistent value as per clause `Content-Type Negotiation`
       - Optional
     * - Content-Type
       - Header String
@@ -85,7 +87,7 @@ The HTTP request headers for creating a CDMI container object using CDMI are sho
 Request Message Body
 --------------------
 
-The request message body fields for creating a container object using CDMI are shown in :ref:`tbl_request_message_body_create_container_object_using_cdmi`. 
+The request message body fields for creating a container object using CDMI are shown in :numref::numref:`tbl_request_message_body_create_container_object_using_cdmi`. 
 
 .. _tbl_request_message_body_create_container_object_using_cdmi:
 
@@ -110,16 +112,16 @@ The request message body fields for creating a container object using CDMI are s
     * - domainURI
       - JSON String
       - URI of the owning domain
-           * If different from the parent domain, the user shall have the "cross-domain" privilege (see cdmi_member_privileges in `Required Settings for Domain Member User Objects`_).
+           * If different from the parent domain, the user shall have the "cross-domain" privilege (see cdmi_member_privileges in `Required Settings for Domain Member User Objects`).
            * If not specified, the existing domain shall be preserved.
       - Optional
     * - exports
       - JSON Object
-      - A structure for each protocol enabled for this container object (see `Exported Protocols`_). This field shall not be included when referencing a container object. 
+      - A structure for each protocol enabled for this container object (see :numref:`ref_exported_protocols`). This field shall not be included when referencing a container object. 
       - Optional
     * - deserialize
       - JSON String
-      - URI of a CDMI data object that shall be deserialized to create the new container object, including all child objects inside the source serialized data object (see `Serialization/Deserialization`_).
+      - URI of a CDMI data object that shall be deserialized to create the new container object, including all child objects inside the source serialized data object (see :numref:`ref_serialization/deserialization`).
 
         When deserializing a container object, any exported protocols from the original serialized container object are not applied to the newly created container object(s).
       - Optional [#a]_
@@ -128,7 +130,7 @@ The request message body fields for creating a container object using CDMI are s
       - URI of a source CDMI container object that shall be copied into the new destination container object.
            * If the destination container object URI and the copy source object URI both do not specify individual fields, the destination container object shall be a complete copy of the source container object, including all child objects under the source container object. 
            * If the destination container object URI or the copy source object URI specifies individual fields, only the fields specified shall be used to create the destination container object. If specified fields are not present in the source, default field values shall be used. 
-           * If the destination container object URI and the copy source object URI both specify fields, an HTTP status code of ``400 Bad Request`` shall be returned to the client. 
+           * If the destination container object URI and the copy source object URI both specify fields, an HTTP status code of :numref:`ref_`400 Bad Request`` shall be returned to the client. 
         
         When copying a container object, exported protocols are not preserved across the copy. 
         
@@ -153,7 +155,7 @@ The request message body fields for creating a container object using CDMI are s
 Response Headers
 ----------------
 
-The HTTP response headers for creating a CDMI container object using CDMI are shown in :ref:`tbl_response_headers_create_container_object_using_cdmi`. 
+The HTTP response headers for creating a CDMI container object using CDMI are shown in :numref:`tbl_response_headers_create_container_object_using_cdmi`. 
 
 .. _tbl_response_headers_create_container_object_using_cdmi:
 
@@ -185,7 +187,7 @@ The HTTP response headers for creating a CDMI container object using CDMI are sh
 Response Message Body
 ---------------------
 
-The response message body fields for creating a CDMI container object using CDMI are shown in :ref:`tbl_response_message_body_create_container_object_using_cdmi`. 
+The response message body fields for creating a CDMI container object using CDMI are shown in :numref:`tbl_response_message_body_create_container_object_using_cdmi`. 
 
 .. _tbl_response_message_body_create_container_object_using_cdmi:
 
@@ -241,15 +243,15 @@ The response message body fields for creating a CDMI container object using CDMI
       - Optional
     * - metadata
       - JSON Object
-      - Metadata for the container object. This field includes any user and data system metadata specified in the request body metadata field, along with storage system metadata generated by the cloud storage system. See `Metadata`_ for a further description of metadata.
+      - Metadata for the container object. This field includes any user and data system metadata specified in the request body metadata field, along with storage system metadata generated by the cloud storage system. See `Metadata` for a further description of metadata.
       - Mandatory
     * - exports
       - JSON Object
-      - A structure for each protocol that is enabled for this container object. See `Exported Protocols`_.
+      - A structure for each protocol that is enabled for this container object. See :numref:`ref_exported_protocols`.
       - Optional [#b]_
     * - snapshots
       - JSON Array of JSON Strings
-      - URI(s) of the snapshot container objects. See `CDMI Snapshots`_.
+      - URI(s) of the snapshot container objects. See :numref:`ref_cdmi_snapshots`.
       - Optional [#b]_
     * - childrenrange
       - JSON String 
@@ -265,7 +267,7 @@ The response message body fields for creating a CDMI container object using CDMI
 Response Status
 ---------------
 
-:ref:`tbl_http_status_codes_create_cdmi_container_object_using_cdmi` describes the HTTP status codes that occur when creating a container object using CDMI. 
+:numref:`tbl_http_status_codes_create_cdmi_container_object_using_cdmi` describes the HTTP status codes that occur when creating a container object using CDMI. 
 
 .. _tbl_http_status_codes_create_cdmi_container_object_using_cdmi:
 
