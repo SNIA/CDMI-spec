@@ -33,7 +33,8 @@
 # ones.
 extensions = ['sphinx.ext.autodoc',
     'sphinx.ext.todo',
-    'sphinx.ext.coverage']
+    'sphinx.ext.coverage',
+    'sphinx.ext.autosectionlabel']
 
 # Add any paths that contain templates here, relative to this directory.
 templates_path = ['_templates']
@@ -66,7 +67,7 @@ release = '2.0.0'
 #
 # This is also used if you do content translation via gettext catalogs.
 # Usually you set "language" from the command line for these cases.
-language = None
+language = 'en'
 
 # List of patterns, relative to source directory, that match files and
 # directories to ignore when looking for source files.
@@ -129,7 +130,7 @@ latex_elements = {
     #
     # 'papersize': 'letterpaper',
 
-'fncychap': '\\usepackage[Sonny]{fncychap}',
+    'fncychap': '',
 
     # The font size ('10pt', '11pt' or '12pt').
     #
@@ -141,9 +142,12 @@ latex_elements = {
     'preamble': r'''
 \usepackage{colortbl}
 \protected\def\sphinxstyletheadfamily {\cellcolor{lightgray}\sffamily}
-\makeatletter
-\renewcommand{\@chapapp}{Clause}
-\makeatother
+\addto\captionsenglish{\renewcommand{\partname}{Section}}
+\addto\captionsenglish{\renewcommand{\chaptername}{Clause}}
+\addto\captionsenglish{\renewcommand{\appendixname}{Annex}}
+%\makeatletter
+%\renewcommand{\@chapapp}{Clause}
+%\makeatother
 \usepackage{lineno} 
 \linenumbers
 ''',   
@@ -153,7 +157,8 @@ latex_elements = {
     # 'figure_align': 'htbp',
     
     'sphinxsetup': 'verbatimhintsturnover=true',
-    'extraclassoptions': 'openany',
+    'extraclassoptions': 'openright',
+    
 }
 
 # Grouping the document tree into LaTeX files. List of tuples
