@@ -1,3 +1,5 @@
+.. _Capability-Object-Resource-Operations-using-CDMI:
+
 Capability Object Resource Operations using CDMI
 ================================================
 
@@ -45,7 +47,8 @@ Cloud Storage System-Wide Capabilities
 
 :ref:`tbl_system_wide_capabilities` defines the system-wide capabilities in a cloud storage system. These capabilities, which are found in the capabilities object, are referred to by the root URI (root capabilities).
 
-.. _tbl_system_wide_capabilities:
+.. _tbl_system_wide_capabilities:
+
 .. list-table:: System-Wide Capabilities
     :header-rows: 1
     :widths: auto
