@@ -1,7 +1,9 @@
+.. raw:: latex
+
+    \clearpage
 
 
 Introduction
-============
 
 This Cloud Data Management Interface (CDMI™) international standard is intended for application developers who are implementing or using cloud storage. It documents how to access cloud storage and to manage the data stored there.
 
