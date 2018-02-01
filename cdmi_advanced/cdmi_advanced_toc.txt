@@ -17,6 +17,6 @@ CDMI Advanced
   cdmi_scope/cdmi_scope_toc
   cdmi_results/cdmi_results_toc
   cdmi_logging
-  cdmi_notifications/cdmi_notifications_toc
-  cdmi_query_queues/cdmi_query_queues_toc
+  cdmi_notifications
+  cdmi_query_queues
   
