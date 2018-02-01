@@ -7,7 +7,7 @@ CDMI Advanced
 .. toctree::
 
   cdmi_domain_object
-  cdmi_queue_object/cdmi_queue_object_toc
+  cdmi_queue_object
   cdmi_capability_object
   cdmi_exports
   cdmi_snapshots/cdmi_snapshots_toc
