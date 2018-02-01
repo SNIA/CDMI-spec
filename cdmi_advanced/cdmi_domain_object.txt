@@ -1097,19 +1097,19 @@ See :numref:`ref_metadata` for a further description of metadata.
     * - copy
       - JSON String
       - URI of a CDMI domain object that shall be copied into the existing domain object. Only the metadata and membership of the domain shall be copied, not any sub-domains of the domain. 
-      - Optional [#a]_
+      - Optional [#b]_
     * - deserialize
       - JSON String
       - URI of a serialized CDMI domain object that shall be deserialized to update an existing domain object. The object ID of the serialized domain object shall match the object ID of the destination domain object.
         If the serialized domain does not contain children, the update is applied only to the domain object, and any existing children are left as is. If the serialized domain object does contain children, then creates, updates, and deletes are recursively applied for each child, depending on the differences between the provided serialized state and the current state of the children. 
-      - Optional [#a]_
+      - Optional [#b]_
     * - deserializevalue
       - JSON String
       - A domain object serialized as specified in :rfc:`4648`. The object ID of the serialized domain object shall match the object ID of the destination domain object.
         If the serialized domain does not contain children, the update is applied only to the domain object, and any existing children are left as is. If the serialized domain object does contain children, then creates, updates, and deletes are recursively applied for each child, depending on the differences between the provided serialized state and the current state of the children.
-      - Optional [#a]_
+      - Optional [#b]_
 
-.. [#a] Only one of these fields shall be specified in any given operation. Except for value, these fields shall not be stored.
+.. [#b] Only one of these fields shall be specified in any given operation. Except for value, these fields shall not be stored.
 
 
 
