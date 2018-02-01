@@ -13,11 +13,11 @@ For each URI in a cloud storage system, the set of interactions that the system 
 
 Capabilities may differ from the operations permitted by an Access Control List (ACL) (see :numref:`ref_access_control`) associated with a given URI‚ e.g., a read-only cloud may not permit write access to a container or object, despite the presence of an ACL allowing write access.
 
-Cloud clients may use capabilities to discover what operations are supported. If an operation is attempted on a CDMI object that does not have a corresponding capability, an HTTP status code of :numref:`ref_`400 Bad Request`` shall be returned to the client. All CDMI-compliant cloud storage systems shall implement the ability to read capabilities, but support for the functionality indicated by each capability is optional.
+Cloud clients may use capabilities to discover what operations are supported. If an operation is attempted on a CDMI object that does not have a corresponding capability, an HTTP status code of ``400 Bad Request`` shall be returned to the client. All CDMI-compliant cloud storage systems shall implement the ability to read capabilities, but support for the functionality indicated by each capability is optional.
 
 Every CDMI data object, container object, domain object, and queue object shall have a capabilitiesURI field that contains a valid URI of a capabilities object. Within the capabilities object, the name of each capability confers a specific meaning that has been agreed to between the cloud storage provider and the cloud storage consumer. 
 
-The capabilities defined as part of this international standard are described starting in `Cloud Storage System-Wide Capabilities`. Vendor-defined capabilities not specified in this international standard shall not start with "cdmi_". 
+The capabilities defined as part of this international standard are described starting in :numref:`cloud_storage_system-wide_capabilities`  Vendor-defined capabilities not specified in this international standard shall not start with "cdmi_". 
 
 :numref::numref:`fig_hierarchyofcapabilities` shows the hierarchy of capabilities and shows how the capabilitiesURI links data objects and container objects into the capabilities tree. 
 
@@ -114,7 +114,7 @@ Cloud Storage System-Wide Capabilities
       - If present and "true", this capability indicates that the cloud storage system supports queue objects.
     * - cdmi_security_access_control    
       - JSON String    
-      - If present and "true", this capability indicates that the cloud storage system supports ACLs. See `Data System Metadata Capabilities` for additional information.
+      - If present and "true", this capability indicates that the cloud storage system supports ACLs. See :numref:`data_system_metadata_capabilities` for additional information.
     * - cdmi_security_audit    
       - JSON String    
       - If present and "true", this capability indicates that the cloud storage system supports audit logging. See :numref:`ref_security_logging` for additional information.
@@ -209,7 +209,7 @@ Cloud Storage System-Wide Capabilities
 Storage System Metadata Capabilities
 ------------------------------------
 
-:numref::numref:`tbl_capabilities_for_storage_system_metadata` defines the capabilities for storage system metadata in a cloud storage system. These capabilities are found in the capabilities objects for domain objects, data objects, container objects, and queue objects. See `Support for Storage System Metadata` for a description of these storage system metadata items.
+:numref::numref:`tbl_capabilities_for_storage_system_metadata` defines the capabilities for storage system metadata in a cloud storage system. These capabilities are found in the capabilities objects for domain objects, data objects, container objects, and queue objects. See :numref:`support_for_storage_system_metadata` for a description of these storage system metadata items.
 
 .. _tbl_capabilities_for_storage_system_metadata:
 
@@ -224,7 +224,7 @@ Storage System Metadata Capabilities
       - Definition
     * - cdmi_acl    
       - JSON String    
-      - If present and "true", this capability indicates that the cloud storage system supports ACLs. When a CDMI implementation supports ACLs for the purpose of access control, the system-wide capability of cdmi_security_access_control specified in :numref::numref:`tbl_capabilities_for_storage_system_metadata` of `Cloud Storage System-Wide Capabilities` shall be set to "true". Otherwise, it shall not be present, indicating that there is no support for access control.
+      - If present and "true", this capability indicates that the cloud storage system supports ACLs. When a CDMI implementation supports ACLs for the purpose of access control, the system-wide capability of cdmi_security_access_control specified in :numref::numref:`tbl_capabilities_for_storage_system_metadata` of :numref:`cloud_storage_system-wide_capabilities` shall be set to "true". Otherwise, it shall not be present, indicating that there is no support for access control.
     * - cdmi_size     
       - JSON String    
       - If present and "true", this capability indicates that the cloud storage system shall generate a cdmi_size storage system metadata for each stored object.
@@ -250,7 +250,7 @@ Storage System Metadata Capabilities
 Data System Metadata Capabilities
 ---------------------------------
 
-:numref::numref:`tbl_capabilities_for_data_system_metadata` defines the capabilities that indicate which data system metadata items are supported for objects stored in a cloud storage system. These capabilities are found in the capabilities objects for domains, data objects, containers, and queues. See `Support for Data System Metadata` for a description of the meaning of the corresponding data system metadata items.
+:numref::numref:`tbl_capabilities_for_data_system_metadata` defines the capabilities that indicate which data system metadata items are supported for objects stored in a cloud storage system. These capabilities are found in the capabilities objects for domains, data objects, containers, and queues. See :numref:`support_for_data_system_metadata` for a description of the meaning of the corresponding data system metadata items.
 
 .. _tbl_capabilities_for_data_system_metadata:
 
@@ -295,13 +295,13 @@ Data System Metadata Capabilities
         the cdmi_data_holds capability shall be present and set to the string value "true". When this capability is absent, or present 
         and set to the string value "false", cdmi_data_holds data system metadata shall not be used. 
         When a cloud storage system supports holds for the purpose of making data immutable, the system-wide capability of cdmi_security_immutability 
-        specified in :numref::numref:`tbl_system_wide_capabilities` of `Cloud Storage System-Wide Capabilities` shall be present and set to "true".
+        specified in :numref::numref:`tbl_system_wide_capabilities` of :numref:`cloud_storage_system-wide_capabilities` shall be present and set to "true".
     * - cdmi_encryption     
       - JSON Array of JSON Strings    
       - When the cloud storage system supports the cdmi_encryption data system metadata as defined in :numref:`ref_support_for_data_system_metadata`, 
         the cdmi_encryption capability shall be present and set to one or more values described in the cdmi_encryption data system metadata section in :numref:`ref_support_for_data_system_metadata`. When this capability is absent, or present and is an empty JSON array, cdmi_encryption data system metadata 
         shall not be used. 
-        When a cloud storage system supports at-rest encryption, the system-wide capability of cdmi_security_encryption specified in :numref::numref:`tbl_system_wide_capabilities` of `Cloud Storage System-Wide Capabilities` shall be present and set to "true".
+        When a cloud storage system supports at-rest encryption, the system-wide capability of cdmi_security_encryption specified in :numref::numref:`tbl_system_wide_capabilities` of :numref:`cloud_storage_system-wide_capabilities` shall be present and set to "true".
     * - cdmi_geographic_placement    
       - JSON String    
       - When the cloud storage system supports the cdmi_geographic_placement data system metadata as defined in :numref:`ref_support_for_data_system_metadata`, the
@@ -340,7 +340,7 @@ Data System Metadata Capabilities
         cdmi_sanitization_method data system metadata shall not be used. 
         
         When a cloud storage system supports sanitization, the system-wide capability of cdmi_security_sanitization specified in :numref::numref:`tbl_system_wide_capabilities` 
-        of `Cloud Storage System-Wide Capabilities` shall be present and set to "true".
+        of :numref:`cloud_storage_system-wide_capabilities` shall be present and set to "true".
     * - cdmi_throughput     
       - JSON String    
       - When the cloud storage system supports the cdmi_throughput data system metadata as defined in :numref:`ref_support_for_data_system_metadata`,
@@ -353,7 +353,7 @@ Data System Metadata Capabilities
         metadata section in :numref:`ref_support_for_data_system_metadata`. When this capability is absent, or present and is an empty 
         JSON array, cdmi_value_hash data system metadata shall not be used. 
         
-        When a cloud storage system supports value hashing, the system-wide capability of cdmi_security_data_integrity specified in :numref::numref:`tbl_system_wide_capabilities` of `Cloud Storage System-Wide Capabilities` shall be present and set to "true". 
+        When a cloud storage system supports value hashing, the system-wide capability of cdmi_security_data_integrity specified in :numref::numref:`tbl_system_wide_capabilities` of :numref:`cloud_storage_system-wide_capabilities` shall be present and set to "true". 
     * - cdmi_authentication_methods    
       - JSON Array of JSON Strings    
       - If present, this capability contains a list of server-supported authentication methods that are supported by a domain. 
@@ -699,7 +699,7 @@ The HTTP request headers for reading a CDMI capabilities object using CDMI are s
       - Requirement
     * - Accept    
       - Header String    
-      - "application/cdmi-capability" or a consistent value as per clause `Content-Type Negotiation`    
+      - "application/cdmi-capability" or a consistent value as per clause :numref:`content-type_negotiation`    
       - Optional
     * - X-CDMI-Specification-Version    
       - Header String    
