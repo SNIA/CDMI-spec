@@ -69,8 +69,8 @@ For the purposes of this document, the following terms and definitions apply.
     CRUD
          create, retrieve, update, delete
 
-    Data storage as a Service
-    DaaS
+    Data Storage as a Service
+    DSaaS
          delivery of virtualized storage and data services on demand over a network, based on a request for a given service level that hides limits to scalability, is either self-provisioned or provisionless, and is billed based on consumption
 
     domain

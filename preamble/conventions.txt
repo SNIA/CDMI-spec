@@ -13,25 +13,31 @@ Each interface description has nine components, as described in :numref:`tbl_int
 
 .. _tbl_interface_format:
 
-.. table:: Interface Format
+.. list-table:: Interface Format
+    :header-rows: 1
+    :widths: 30 70
     :align: center
 
-    ======================  =====
-    Component               Description
-    ======================  =====
-    Synopsis                The GET, PUT, POST, and DELETE semantics
-    Delayed Completion      For long-running operations, a description of behavior when the operation does not immediately complete
-    Capabilities            A description of the supported operations
-    Request Headers         The request headers, such as Accept, Authorization, Content-Length, Content-Type, X-CDMI-Specification-Version
-    Request Message Body    A description of the message body contents
-    Response Headers        The response headers, such as Content-Length, Content-Type
-    Response Message Body   A description of the message body contents
-    Response Status         A list of HTTP status codes
-    Example                 An example of the operation
-    ======================  =====
-
-
-
+    * - Component
+      - Description
+    * - Synopsis
+      - The GET, PUT, POST, and DELETE semantics
+    * - Delayed Completion
+      - For long-running operations, a description of behavior when the operation does not immediately complete
+    * - Capabilities
+      - A description of the supported operations
+    * - Request Headers
+      - The request headers, such as Accept, Authorization, Content-Length, Content-Type, X-CDMI-Specification-Version
+    * - Request Message Body
+      - A description of the message body contents
+    * - Response Headers
+      - The response headers, such as Content-Length, Content-Type
+    * - Response Message Body
+      - A description of the message body contents
+    * - Response Status
+      - A list of HTTP status codes
+    * - Example
+      - An example of the operation
 
 
 *************************
