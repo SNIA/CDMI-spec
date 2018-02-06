@@ -73,7 +73,7 @@ The following optional data system metadata may be provided (see :numref:`tbl_co
       - Optional
 
 
-Container metadata may also include arbitrary user-supplied metadata, storage system metadata, and data system metadata as described in :numref:`metadata` 
+Container metadata may also include arbitrary user-supplied metadata, storage system metadata, and data system metadata as described in :numref:`Clause %s <clause_cdmi_metadata>` 
 
 Reserved Container Names
 ------------------------

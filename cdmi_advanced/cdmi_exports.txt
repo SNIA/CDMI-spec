@@ -194,9 +194,9 @@ Servers shall automatically map these users to the root user of the target proto
 As an automatic mapping does not meet strict security standards, servers shall override these built-in entries with any usermap entries that apply to one or more root users. 
 
 
-#. In the following example, root gets mapped to nobody, and everyone else is mapped to a user of the same name in the NFS domain and the CDMI domain.</H6>
+#. In the following example, root gets mapped to nobody, and everyone else is mapped to a user of the same name in the NFS domain and the CDMI domain.
 
-   .. codeblock:: http
+   .. code-block:: http
 
         PUT /MyContainer HTTP/1.1
         Host: cloud.example.com
@@ -293,7 +293,7 @@ Where:
 
 
 NFS Exported Protocol
-************************
+*********************
 
 To export a container via NFS, the information required is exactly what the server implementation will use to do the export. Normally, this information is contained in the /etc/exports file on a server or the equivalent. Administrators should be aware that lines may be automatically added to that file for each CDMI container that is exported.
 
@@ -302,8 +302,7 @@ Required members of the protocol structure for NFS are described in :numref:`tbl
 
 .. _tbl_required_members_of_the_nfs_protocol_structure:
 
-.. list-table:: Required Members of the NFS Protocol Structure  
-
+.. list-table:: .*
     :header-rows: 1
     :widths: auto
     :align: center 
@@ -328,8 +327,7 @@ Optional export parameters for NFS are described in :numref:`tbl_optional_nfs_ex
 
 .. _tbl_optional_nfs_export_parameters:
 
-.. list-table:: Optional NFS Export Parameters 
-
+.. list-table:: .*
     :header-rows: 1
     :widths: auto
     :align: center 
@@ -404,8 +402,7 @@ Required members of the protocol structure for CIFS are described in :numref:`tb
 
 .. _tbl_required_members_of_the_cifs_protocol_structure:
 
-.. list-table:: Required Members of the CIFS Protocol Structure
-
+.. list-table:: Required Members of the CIFS protocol structure
     :header-rows: 1
     :widths: auto
     :align: center 
@@ -479,7 +476,7 @@ CDMI defines an export protocol structure for the Open Cloud Computing Interface
 For more detail on using the OCCI export protocol structure attributes, see :numref:`ref_overview`. Because the actual networking and access control is under the control of a hidden, common infrastructure that implements both OCCI and CDMI, the normal permission structure shall not be provided.
 
 iSCSI Export Modifications
-************************
+**************************
 
 CDMI defines the export of a container using the iSCSI protocol (see :rfc:`3720`). Each container is exported as a single SCSI Logical Unit as a Logical Unit Number (LUN). One or more iSCSI initiators import the LUN through an iSCSI target node and port using one or more iSCSI network portals (IP addresses). 
 

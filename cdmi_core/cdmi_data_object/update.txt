@@ -98,7 +98,7 @@ The request message body fields for updating a data object using CDMI are shown 
     * - metadata
       - JSON Object
       - Metadata for the data object. If present, the new metadata specified replaces the existing object metadata. If individual metadata items are specified in the URI, only those items are replaced; other items are preserved.
-        See :numref:`metadata` for a further description of metadata.
+        See :numref:`Clause %s <clause_cdmi_metadata>` for a further description of metadata.
       - Optional
     * - domainURI
       - JSON String

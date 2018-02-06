@@ -59,7 +59,7 @@ The value of a queue object may also be specified and retrieved using multi-part
 Queue Object Metadata
 ---------------------
 
-Queue object metadata may also include arbitrary user-supplied metadata, storage system metadata, and data system metadata, as specified in :numref:`metadata`.
+Queue object metadata may also include arbitrary user-supplied metadata, storage system metadata, and data system metadata, as specified in :numref:`Clause %s <clause_cdmi_metadata>`.
 
 Queue Object Addressing
 -----------------------

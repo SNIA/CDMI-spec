@@ -19,7 +19,7 @@ Every CDMI data object, container object, domain object, and queue object shall 
 
 The capabilities defined as part of this international standard are described starting in :numref:`cloud_storage_system-wide_capabilities`  Vendor-defined capabilities not specified in this international standard shall not start with "cdmi_". 
 
-:numref::numref:`fig_hierarchyofcapabilities` shows the hierarchy of capabilities and shows how the capabilitiesURI links data objects and container objects into the capabilities tree. 
+:numref:`fig_hierarchyofcapabilities` shows the hierarchy of capabilities and shows how the capabilitiesURI links data objects and container objects into the capabilities tree. 
 
 
 .. _fig_HierarchyofCapabilities:
@@ -209,7 +209,7 @@ Cloud Storage System-Wide Capabilities
 Storage System Metadata Capabilities
 ------------------------------------
 
-:numref::numref:`tbl_capabilities_for_storage_system_metadata` defines the capabilities for storage system metadata in a cloud storage system. These capabilities are found in the capabilities objects for domain objects, data objects, container objects, and queue objects. See :numref:`support_for_storage_system_metadata` for a description of these storage system metadata items.
+:numref:`tbl_capabilities_for_storage_system_metadata` defines the capabilities for storage system metadata in a cloud storage system. These capabilities are found in the capabilities objects for domain objects, data objects, container objects, and queue objects. See :numref:`support_for_storage_system_metadata` for a description of these storage system metadata items.
 
 .. _tbl_capabilities_for_storage_system_metadata:
 
@@ -224,7 +224,7 @@ Storage System Metadata Capabilities
       - Definition
     * - cdmi_acl    
       - JSON String    
-      - If present and "true", this capability indicates that the cloud storage system supports ACLs. When a CDMI implementation supports ACLs for the purpose of access control, the system-wide capability of cdmi_security_access_control specified in :numref::numref:`tbl_capabilities_for_storage_system_metadata` of :numref:`cloud_storage_system-wide_capabilities` shall be set to "true". Otherwise, it shall not be present, indicating that there is no support for access control.
+      - If present and "true", this capability indicates that the cloud storage system supports ACLs. When a CDMI implementation supports ACLs for the purpose of access control, the system-wide capability of cdmi_security_access_control specified in :numref:`tbl_capabilities_for_storage_system_metadata` of :numref:`cloud_storage_system-wide_capabilities` shall be set to "true". Otherwise, it shall not be present, indicating that there is no support for access control.
     * - cdmi_size     
       - JSON String    
       - If present and "true", this capability indicates that the cloud storage system shall generate a cdmi_size storage system metadata for each stored object.
@@ -250,7 +250,7 @@ Storage System Metadata Capabilities
 Data System Metadata Capabilities
 ---------------------------------
 
-:numref::numref:`tbl_capabilities_for_data_system_metadata` defines the capabilities that indicate which data system metadata items are supported for objects stored in a cloud storage system. These capabilities are found in the capabilities objects for domains, data objects, containers, and queues. See :numref:`support_for_data_system_metadata` for a description of the meaning of the corresponding data system metadata items.
+:numref:`tbl_capabilities_for_data_system_metadata` defines the capabilities that indicate which data system metadata items are supported for objects stored in a cloud storage system. These capabilities are found in the capabilities objects for domains, data objects, containers, and queues. See :numref:`support_for_data_system_metadata` for a description of the meaning of the corresponding data system metadata items.
 
 .. _tbl_capabilities_for_data_system_metadata:
 
@@ -295,13 +295,13 @@ Data System Metadata Capabilities
         the cdmi_data_holds capability shall be present and set to the string value "true". When this capability is absent, or present 
         and set to the string value "false", cdmi_data_holds data system metadata shall not be used. 
         When a cloud storage system supports holds for the purpose of making data immutable, the system-wide capability of cdmi_security_immutability 
-        specified in :numref::numref:`tbl_system_wide_capabilities` of :numref:`cloud_storage_system-wide_capabilities` shall be present and set to "true".
+        specified in :numref:`tbl_system_wide_capabilities` of :numref:`cloud_storage_system-wide_capabilities` shall be present and set to "true".
     * - cdmi_encryption     
       - JSON Array of JSON Strings    
       - When the cloud storage system supports the cdmi_encryption data system metadata as defined in :numref:`ref_support_for_data_system_metadata`, 
         the cdmi_encryption capability shall be present and set to one or more values described in the cdmi_encryption data system metadata section in :numref:`ref_support_for_data_system_metadata`. When this capability is absent, or present and is an empty JSON array, cdmi_encryption data system metadata 
         shall not be used. 
-        When a cloud storage system supports at-rest encryption, the system-wide capability of cdmi_security_encryption specified in :numref::numref:`tbl_system_wide_capabilities` of :numref:`cloud_storage_system-wide_capabilities` shall be present and set to "true".
+        When a cloud storage system supports at-rest encryption, the system-wide capability of cdmi_security_encryption specified in :numref:`tbl_system_wide_capabilities` of :numref:`cloud_storage_system-wide_capabilities` shall be present and set to "true".
     * - cdmi_geographic_placement    
       - JSON String    
       - When the cloud storage system supports the cdmi_geographic_placement data system metadata as defined in :numref:`ref_support_for_data_system_metadata`, the
@@ -339,7 +339,7 @@ Data System Metadata Capabilities
         metadata section in :numref:`ref_support_for_data_system_metadata`. When this capability is absent, or present and is an empty JSON array, 
         cdmi_sanitization_method data system metadata shall not be used. 
         
-        When a cloud storage system supports sanitization, the system-wide capability of cdmi_security_sanitization specified in :numref::numref:`tbl_system_wide_capabilities` 
+        When a cloud storage system supports sanitization, the system-wide capability of cdmi_security_sanitization specified in :numref:`tbl_system_wide_capabilities` 
         of :numref:`cloud_storage_system-wide_capabilities` shall be present and set to "true".
     * - cdmi_throughput     
       - JSON String    
@@ -353,7 +353,7 @@ Data System Metadata Capabilities
         metadata section in :numref:`ref_support_for_data_system_metadata`. When this capability is absent, or present and is an empty 
         JSON array, cdmi_value_hash data system metadata shall not be used. 
         
-        When a cloud storage system supports value hashing, the system-wide capability of cdmi_security_data_integrity specified in :numref::numref:`tbl_system_wide_capabilities` of :numref:`cloud_storage_system-wide_capabilities` shall be present and set to "true". 
+        When a cloud storage system supports value hashing, the system-wide capability of cdmi_security_data_integrity specified in :numref:`tbl_system_wide_capabilities` of :numref:`cloud_storage_system-wide_capabilities` shall be present and set to "true". 
     * - cdmi_authentication_methods    
       - JSON Array of JSON Strings    
       - If present, this capability contains a list of server-supported authentication methods that are supported by a domain. 
@@ -377,7 +377,7 @@ Data System Metadata Capabilities
 Data Object Capabilities
 ------------------------
 
-:numref::numref:`tbl_capabilities_for_data_objects` defines the capabilities for data objects in a cloud storage system.
+:numref:`tbl_capabilities_for_data_objects` defines the capabilities for data objects in a cloud storage system.
 
 .. _tbl_capabilities_for_data_objects:
 
