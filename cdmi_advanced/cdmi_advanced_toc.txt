@@ -15,7 +15,7 @@ CDMI Advanced
   cdmi_metadata
   cdmi_retention/cdmi_retention_toc
   cdmi_scope/cdmi_scope_toc
-  cdmi_results/cdmi_results_toc
+  cdmi_results
   cdmi_logging
   cdmi_notifications
   cdmi_query_queues
