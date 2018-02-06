@@ -381,7 +381,7 @@ Export control is accomplished with the use of a single member, named "control":
 * A numeric value <n> shall indicate that the server shall wait <n> seconds before forcibly shutting down the export and breaking client connections. Whether the server sends a warning message to clients, giving them a chance to exit from the connection gracefully, is recommended but implementation dependent. Once the export has been shut down, the server shall also change the value of  "control" to "off" in the export structure.
 
 
-Servers shall support wildcard matching on the " * " and " ? " characters in the hosts lists (this is standard practice), so that **.cs.uscs.edu" matches all servers in the cs.ucsc.edu department.
+Servers shall support wildcard matching on the " * " and " ? " characters in the hosts lists (this is standard practice), so that "**.cs.uscs.edu" matches all servers in the cs.ucsc.edu department.
 
 Servers may support netgroup names in the various hosts lists. When this functionality is supported, these names shall resolve to ordinary lists of hostnames via queries to the domain nameserver.
 

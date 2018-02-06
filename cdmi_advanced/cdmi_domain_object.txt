@@ -1171,7 +1171,7 @@ Response Status
 
 
 Example
------
+-------
 
 #.  PUT to the domain URI to set new field values:
 

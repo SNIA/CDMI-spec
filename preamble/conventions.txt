@@ -89,7 +89,6 @@ In this international standard, the key words in :numref:`tbl_key_word_requireme
 .. _tbl_key_word_requirements:
 
 .. table:: Key Word Requirements
-
     :align: center
 
     +--------------------+--------------------------------------------------------------------------------------------------------------------------------+

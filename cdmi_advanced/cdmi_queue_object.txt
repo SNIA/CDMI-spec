@@ -563,14 +563,14 @@ A request body shall not be provided.
 
 
 Response Status
---------------
+---------------
 
 The HTTP response headers for reading a CDMI queue object using CDMI are shown in :numref:`tbl_response_headers_read_a_queue_object_using_cdmi`. 
 
 
 .. _tbl_response_headers_read_a_queue_object_using_cdmi:
 
-.. list-table:: .*
+.. list-table:: Response Headers - Read a Queue Object Using CDMI
     :header-rows: 1
     :widths: auto
     :align: center 
@@ -821,6 +821,8 @@ Examples
 
     The following shows the response:
 
+    .. code-block:: http
+    
         HTTP/1.1 200 OK 
         Content-Type: application/cdmi-queue
         X-CDMI-Specification-Version: 1.1 
@@ -1019,7 +1021,7 @@ The request message body fields for updating a queue object using CDMI are shown
       - URI of a serialized CDMI queue object that shall be deserialized to update an existing queue object. The object ID of the serialized queue object shall match the object ID of the destination queue object. 
 
         All enqueued items in the serialized queue object shall be added to the destination queue object. 
-      - Optional [#a]_
+      - Optional [#b]_
     * - copy
       - JSON String
       - URI of a source CDMI queue object that shall be copied into the existing destination queue object. 
@@ -1028,15 +1030,15 @@ The request message body fields for updating a queue object using CDMI are shown
         * If the destination queue object URI and the copy source queue object URI both specify fields, an HTTP status code of ``400 Bad Request`` shall be returned to the client. 
 
         If there are insufficient permissions to read the queue object at the source URI or update the queue object at the destination URI, or if the read operation fails, the copy shall return an HTTP status code of ``400 Bad Request``, and the destination queue object shall not be updated.
-      - Optional [#a]_
+      - Optional [#b]_
     * - deserializevalue
       - JSON String
       - A queue object serialized as specified in :rfc:`4648`. The object ID of the serialized queue object shall match the object ID of the destination queue object.
 
         All enqueued items in the serialized queue object shall be added to the destination queue object. 
-      - Optional [#a]_
+      - Optional [#b]_
 
-.. [#a] Only one of these fields shall be specified in any given operation. Except for value, these fields shall not be stored.
+.. [#b] Only one of these fields shall be specified in any given operation. Except for value, these fields shall not be stored.
 
 Response Header
 ---------------
@@ -1360,14 +1362,14 @@ The request message body fields for enqueuing a new queue object value using CDM
         * If a copy source object URI to a data object is provided, the value, mimetype, and valuetransferencoding field values from the source data object are used to enqueue the new item into the destination queue object. 
         * If a copy source object URI to a queue object is provided, the corresponding value, mimetype, and valuetransferencoding field values of the specified number of enqueued items in the source queue object are copied to the destination queue object.
 
-      - Optional [#a]_
+      - Optional [#c]_
     * - move
       - JSON String
       - URI of a source CDMI data object or queue object from which the value shall be moved and enqueued
         * If a move source object URI to a data object is provided, the value, mimetype, and valuetransferencoding field values from the source data object are used to enqueue the new item into the destination queue object, and the source data object is atomically deleted. 
         * If a move source object URI to a queue object is provided, the corresponding value, mimetype, and valuetransferencoding field values of the specified number of enqueued items in the source queue object are transferred to the destination queue object and atomically removed from the source queue object.
 
-      - Optional [#a]_
+      - Optional [#c]_
     * - valuetransferencoding
       - JSON Array of JSON Strings
       - The value transfer encoding used for the queue object value. Two value transfer encodings are defined:
@@ -1384,9 +1386,9 @@ The request message body fields for enqueuing a new queue object value using CDM
         * If this field is not included and multi-part MIME is being used, the contents of the MIME parts shall be assigned as the field value.
         * If the corresponding valuetransferencoding field indicates UTF-8 encoding, the value shall be a UTF-8 string escaped using the JSON escaping rules described in :rfc:`4627`.
         * If the corresponding valuetransferencoding field indicates base 64 encoding, the value shall be first encoded using the base 64 encoding rules as described in :rfc:`4648`.
-      - Optional [#a]_
+      - Optional [#c]_
 
-.. [#a] Only one of these fields shall be specified in any given operation. Except for value, these fields shall not be stored. If more than one of these fields is supplied, the server shall respond with an HTTP status code of ``400 Bad Request``.
+.. [#c] Only one of these fields shall be specified in any given operation. Except for value, these fields shall not be stored. If more than one of these fields is supplied, the server shall respond with an HTTP status code of ``400 Bad Request``.
 
 
 

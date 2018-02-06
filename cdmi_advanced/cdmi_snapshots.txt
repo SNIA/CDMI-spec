@@ -1,21 +1,19 @@
 .. _clause_cdmi_snapshots:
 
 CDMI Snapshots
-========================================
+==============
 
-A snapshot is a point-in-time copy (image) of a container and all of its contents, including subcontainers and all data objects and queue objects. The client names a snapshot of a container at the time the snapshot is requested. A snapshot operation creates a new container to contain the point-in-time image. The first processing of a snapshot operation also adds a cdmi_snapshots child container to the source container. Each new snapshot container is added as a child of the cdmi_snapshots container. The snapshot does not include the cdmi_snapshots child container or its contents (see :numref:`ref_snapshot_container_structure`).
+A snapshot is a point-in-time copy (image) of a container and all of its contents, including subcontainers and all data objects and queue objects. The client names a snapshot of a container at the time the snapshot is requested. A snapshot operation creates a new container to contain the point-in-time image. The first processing of a snapshot operation also adds a cdmi_snapshots child container to the source container. Each new snapshot container is added as a child of the cdmi_snapshots container. The snapshot does not include the cdmi_snapshots child container or its contents (see :numref:`fig_snapshot_container_structure`).
 
 
-<H6 CLASS="Figure-Caption">
+.. _fig_snapshot_container_structure:
 
-Snapshot Container Structure</H6>
-</CAPTION>
-    * - <H6 CLASS="NoSpace">
- </H6>
+.. figure:: /images/missing.*
+    :align:  center
+    :figwidth: 100%
+   
+    Snapshot Container Structure
 
-<IMG SRC="CDMI_Spec-8.gif" ALT="">
-
-</TABLE>
 
 A snapshot operation is requested using the container update operation (see :numref:`ref_update_a_container_object_using_cdmi`), in which the snapshot field specifies the requested name of the snapshot.
 

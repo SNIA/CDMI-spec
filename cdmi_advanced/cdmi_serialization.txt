@@ -1,13 +1,11 @@
-
 .. _clause_cdmi_serialization:
 
-
 Serialization/Deserialization
-========================================
+=============================
 
 
 Overview
-************************
+********
 
 Occasionally, bulk data movement is needed between, into, or out of clouds. When moving bulk data, cloud serialization operations provide a means to normalize data to a canonical, self-describing format, which includes:
 
@@ -22,7 +20,7 @@ The canonical format of serialized data describes how the data is to be represen
 
 
 Exporting Serialized Data
-************************
+*************************
 
 A canonical encoding of the data is obtained by creating a new data object and specifying that the source for the creation is to serialize a given CDMI™ data object, container object, or queue object. On a successful serialization, the result shall be a data object that is created with the serialized data as its value. If a container object has an exported block protocol, the serialized data may contain the block-by-block contents of that container object along with its metadata.
 
@@ -37,9 +35,8 @@ The resulting data object that is produced is the canonical representation of th
 When performing a serialization operation, objects shall only be included if the principal initiating the serialization has sufficient permissions to read those objects.
 
 
-
 Importing Serialized Data
-************************
+*************************
 
 Canonical data may be deserialized back into the cloud by creating a new data object, container object, or queue object and by specifying that the source for the creation is to deserialize a given CDMI data object or by specifying the serialized data in base 64 encoding in the deserializevalue field.
 
@@ -55,7 +52,7 @@ Deserialization operations shall restore all metadata from the specified source.
 
 
 Canonical Format
------
+----------------
 
 The canonical format shall represent specified data objects and container objects as they exist within the storage system. Each object shall be represented by the metadata for the object, identifiers, and the data stream contents of the data object. Because metadata is inherited from enclosing container objects, all parent metadata shall be represented in the canonical format (essentially flattening the hierarchy). To preserve the actual metadata values that apply to the data object that is being serialized, the non-overridden metadata is included from both the immediate parent container object of the specified object and from the parent of each higher-level container object. 
 
@@ -72,161 +69,88 @@ The canonical format shall have the following characteristics:
 
 
 Example JSON Canonical Serialized Format
------
+----------------------------------------
 
 #.  In this example, a data object and a queue object in a container object have been selected for serialization:
 
-    {
+    .. code-block:: http
 
-        "objectType": "application/cdmi-container",
-
-        "objectID": "00007E7F00102E230ED82694DAA975D2",
-
-        "objectName": "MyContainer/",
-
-        "parentURI": "/",
-
-        "parentID": "00007E7F0010128E42D87EE34F5A6560",
-
-        "domainURI": "/cdmi_domains/MyDomain/",
-
-        "capabilitiesURI": "/cdmi_capabilities/container/",
-
-        "completionStatus": "Complete",
-
-        "metadata": {
-
-    				...
-
-    		},
-
-        "exports": {
-
-            "OCCI/iSCSI": {
-
-                "identifier": "00007E7F00104BE66AB53A9572F9F51E",
-
-                "permissions": [
-
-                    "http://example.com/compute/0/",
-
-                    "http://example.com/compute/1/"
-
-                ]
-
+        {
+            "objectType": "application/cdmi-container",
+            "objectID": "00007E7F00102E230ED82694DAA975D2",
+            "objectName": "MyContainer/",
+            "parentURI": "/",
+            "parentID": "00007E7F0010128E42D87EE34F5A6560",
+            "domainURI": "/cdmi_domains/MyDomain/",
+            "capabilitiesURI": "/cdmi_capabilities/container/",
+            "completionStatus": "Complete",
+            "metadata": {
+                        ...
+                },
+            "exports": {
+                "OCCI/iSCSI": {
+                    "identifier": "00007E7F00104BE66AB53A9572F9F51E",
+                    "permissions": [
+                        "http://example.com/compute/0/",
+                        "http://example.com/compute/1/"
+                    ]
+                },
+                "Network/NFSv4": {
+                    "identifier": "/users",
+                    "permissions": "domain"
+                }
             },
-
-            "Network/NFSv4": {
-
-                "identifier": "/users",
-
-                "permissions": "domain"
-
-            }
-
-        },
-
-        "childrenrange": "0-1",
-
-        "children": [
-
-            {
-
-                "objectType": "application/cdmi-object",
-
-                "objectID": "00007ED900104F67307652BAC9A37C93",
-
-                "objectName": "MyDataObject.txt",
-
-                "parentURI": "/MyContainer/",
-
-                "parentID": "00007E7F00102E230ED82694DAA975D2",
-
-                "domainURI": "/cdmi_domains/MyDomain/",
-
-                "capabilitiesURI": "/cdmi_capabilities/dataobject/",
-
-                "completionStatus": "Complete",
-
-                "mimetype": "text/plain",
-
-                "metadata": {
-
-    								...
-
-    						},
-
-                "valuerange": "0-36",
-
-                "valuetransferencoding": "utf-8",
-
-                "value": "This is the Value of this Data Object"
-
-            },
-
-            {
-
-                "objectType": "application/cdmi-queue",
-
-                "objectID": "00007E7F00104BE66AB53A9572F9F51E",
-
-                "objectName": "MyQueue",
-
-                "parentURI": "/MyContainer/",
-
-                "parentID": "00007E7F00102E230ED82694DAA975D2",
-
-                "domainURI": "/cdmi_domains/MyDomain/",
-
-                "capabilitiesURI": "/cdmi_capabilities/queue/",
-
-                "completionStatus": "Complete",
-
-                "metadata": {
-
-    								...
-
-    						},
-
-                "queueValues": "0-1",
-
-                "mimetype": [
-
-                    "text/plain",
-
-                    "text/plain"
-
-                ],
-
-                "valuetransferencoding": [
-
-                    "utf-8",
-
-                    "utf-8"
-
-                ],
-
-                "valuerange": [
-
-                    "0-2",
-
-                    "0-3"
-
-                ],
-
-                "value": [
-
-                    "red",
-
-                    "blue"
-
-                ]
-
-            }
-
-        ]
-
-    }
+            "childrenrange": "0-1",
+            "children": [
+                {
+                    "objectType": "application/cdmi-object",
+                    "objectID": "00007ED900104F67307652BAC9A37C93",
+                    "objectName": "MyDataObject.txt",
+                    "parentURI": "/MyContainer/",
+                    "parentID": "00007E7F00102E230ED82694DAA975D2",
+                    "domainURI": "/cdmi_domains/MyDomain/",
+                    "capabilitiesURI": "/cdmi_capabilities/dataobject/",
+                    "completionStatus": "Complete",
+                    "mimetype": "text/plain",
+                    "metadata": {
+                                        ...
+                                },
+                    "valuerange": "0-36",
+                    "valuetransferencoding": "utf-8",
+                    "value": "This is the Value of this Data Object"
+                },
+                {
+                    "objectType": "application/cdmi-queue",
+                    "objectID": "00007E7F00104BE66AB53A9572F9F51E",
+                    "objectName": "MyQueue",
+                    "parentURI": "/MyContainer/",
+                    "parentID": "00007E7F00102E230ED82694DAA975D2",
+                    "domainURI": "/cdmi_domains/MyDomain/",
+                    "capabilitiesURI": "/cdmi_capabilities/queue/",
+                    "completionStatus": "Complete",
+                    "metadata": {
+                                        ...
+                                },
+                    "queueValues": "0-1",
+                    "mimetype": [
+                        "text/plain",
+                        "text/plain"
+                    ],
+                    "valuetransferencoding": [
+                        "utf-8",
+                        "utf-8"
+                    ],
+                    "valuerange": [
+                        "0-2",
+                        "0-3"
+                    ],
+                    "value": [
+                        "red",
+                        "blue"
+                    ]
+                }
+            ]
+        }
 
 To allow efficient deserialization in stream mode when serializing container objects to JSON, the children array should be the last item in the canonical serialized JSON format.
 
