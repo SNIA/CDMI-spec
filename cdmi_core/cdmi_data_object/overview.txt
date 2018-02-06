@@ -68,7 +68,7 @@ Multi-part MIME enables the efficient transfer of binary data alongside CDMI obj
 Data Object Metadata
 --------------------
 
-Data object metadata may also include arbitrary user-supplied metadata, storage system metadata, and data system metadata, as specified in `Metadata`. Metadata shall be stored as a valid UTF-8 string. Binary data stored in user metadata shall be first encoded such that it can be contained in a UTF-8 string, with the use of base 64 encoding recommended.
+Data object metadata may also include arbitrary user-supplied metadata, storage system metadata, and data system metadata, as specified in :numref:`metadata`  Metadata shall be stored as a valid UTF-8 string. Binary data stored in user metadata shall be first encoded such that it can be contained in a UTF-8 string, with the use of base 64 encoding recommended.
 
 Data Object Consistency
 -----------------------

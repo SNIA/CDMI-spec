@@ -41,7 +41,7 @@ The following capabilities describe the supported operations that may be perform
 Request Headers
 ---------------
 
-The HTTP request headers for updating a CDMI data object using CDMI are shown in :numref::numref:`tbl_update_a_cdmi_data_object_using_cdmi_request_headers`. 
+The HTTP request headers for updating a CDMI data object using CDMI are shown in :numref:`tbl_update_a_cdmi_data_object_using_cdmi_request_headers`. 
 
 .. _tbl_update_a_cdmi_data_object_using_cdmi_request_headers:
 
@@ -98,7 +98,7 @@ The request message body fields for updating a data object using CDMI are shown 
     * - metadata
       - JSON Object
       - Metadata for the data object. If present, the new metadata specified replaces the existing object metadata. If individual metadata items are specified in the URI, only those items are replaced; other items are preserved.
-        See `Metadata` for a further description of metadata.
+        See :numref:`metadata` for a further description of metadata.
       - Optional
     * - domainURI
       - JSON String

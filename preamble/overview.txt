@@ -34,7 +34,7 @@ Data Storage as a Service
 
 By abstracting data storage behind a set of service interfaces and delivering it on demand, a wide range of actual cloud services and implementations are possible. The only type of storage that is excluded from this definition is that which is delivered in fixed-capacity increments instead of based on demand. 
 
-An important part of any DaaS system is the support of legacy clients. Support is accommodated with existing standard protocols such as iSCSI (and others) for block and CIFS/NFS or WebDAV for file network storage, as shown in :numref::numref:`fig_legacydsis`.
+An important part of any DaaS system is the support of legacy clients. Support is accommodated with existing standard protocols such as iSCSI (and others) for block and CIFS/NFS or WebDAV for file network storage, as shown in :numref:`fig_legacydsis`.
 
 .. _fig_LegacyDSIs:
 
@@ -94,7 +94,7 @@ Even if the provided interface does not support setting metadata on individual o
 Reference Model for Cloud Storage Interfaces
 ********************************************
 
-The cloud storage reference model is shown in :numref::numref:`fig_cloudstoragerefmodelnoshadow`.
+The cloud storage reference model is shown in :numref:`fig_cloudstoragerefmodelnoshadow`.
 
 
 .. _fig_CloudStorageRefModelNoShadow:
@@ -165,6 +165,7 @@ The model for CDMI is shown in :numref:`fig_cdmiumlentitiesdiagram`.
 The five types of resources defined are shown in :numref:`tbl_types_of_resources_in_model`. The content type in any given operation is specific to each type of resource.
 
 .. _tbl_types_of_resources_in_model:
+
 .. list-table:: Types of Resources in the Model
     :header-rows: 1
     :widths: auto
@@ -175,7 +176,7 @@ The five types of resources defined are shown in :numref:`tbl_types_of_resources
       - Reference
     * - Data objects
       - Data objects are used to store values and provide functionality similar to files in a file system.
-      - See `Data Object Resource Operations using CDMI`.
+      - See :numref:`data_object_resource_operations_using_cdmi` 
     * - Container objects
       - Container objects have zero or more children, but do not store values. They provide functionality similar to directories in a file system.
       - See :numref:`ref_container_object_resource_operations_using_cdmi`.
@@ -189,13 +190,13 @@ The five types of resources defined are shown in :numref:`tbl_types_of_resources
       - Capability objects describe the functionality implemented by a CDMI server and are used by a client to discover supported functionality.
       - See :numref:`ref_capability_object_resource_operations_using_cdmi`.
 
-For data storage operations, the client of the interface only needs to know about container objects and data objects. All data path implementations are required to support at least one level of containers (see :numref::numref:`ref_data_and_container_management`). Using the CDMI object model (see :numref:`ref_cdmi_object_model`), the client may send a PUT via CDMI (see :numref:`ref_reference_model_for_cloud_storage_interfaces`) to the new container URI and create a new container with the specified name. Container metadata are optional and are expressed as a series of name-value pairs. After a container is created, a client may send a PUT to create a data object within the newly created container. A subsequent GET will fetch the data object, including the value field.
+For data storage operations, the client of the interface only needs to know about container objects and data objects. All data path implementations are required to support at least one level of containers (see :numref:`ref_data_and_container_management`). Using the CDMI object model (see :numref:`ref_cdmi_object_model`), the client may send a PUT via CDMI (see :numref:`ref_reference_model_for_cloud_storage_interfaces`) to the new container URI and create a new container with the specified name. Container metadata are optional and are expressed as a series of name-value pairs. After a container is created, a client may send a PUT to create a data object within the newly created container. A subsequent GET will fetch the data object, including the value field.
 
 Queue objects are also defined (see :numref:`ref_cdmi_object_model`) and provide in-order-first in-first-out access to enqueued objects. More information on queues may be found in :numref:`ref_queue_object_resource_operations_using_cdmi`. 
 
 CDMI defines two namespaces that can be used to access stored objects, a flat object ID namespace and a hierarchical path-based namespace. Support for objects accessed by object ID is indicated by the system-wide capability cdmi_object_access_by_ID, and support for objects accessed by hierarchical path is indicated by the container capability cdmi_create_dataobject found on the root container (and any subcontainers).
 
-Objects are created by ID by performing an HTTP POST against a special URI, designated as ``/cdmi_objectid/`` (see :numref:`ref_see_create_(post)_a_new_data_object_using_cdmi`). Subsequent to creation, objects are modified by performing PUTs using the object ID assigned by the CDMI server, using the /cdmi_objectid/ URI (see :numref:`ref_update_a_data_object_using_cdmi`). The same URI is used to retrieve and delete objects by ID. 
+Objects are created by ID by performing an HTTP POST against a special URI, designated as ``/cdmi_objectid/`` (see :numref:`ref_see_create_post_a_new_data_object_using_cdmi`). Subsequent to creation, objects are modified by performing PUTs using the object ID assigned by the CDMI server, using the /cdmi_objectid/ URI (see :numref:`ref_update_a_data_object_using_cdmi`). The same URI is used to retrieve and delete objects by ID. 
 
 Objects are created by name by performing an HTTP PUT to the desired path URI (see :numref:`ref_create_a_data_object_using_cdmi`). Subsequent to creation, objects are modified by performing PUTs using the object path specified by the client (see :numref:`ref_update_a_data_object_using_cdmi`). The same URI is used to retrieve and delete objects by path. 
 
@@ -230,6 +231,7 @@ Storage system metadata is metadata that is generated by the storage services in
 The matrix of the creation and consumption of storage system metadata is shown in :numref:`tbl_create_consume_storage_system_metadata`.
 
 .. _tbl_create_consume_storage_system_metadata:
+
 .. list-table:: Creation/Consumption of Storage System Metadata
     :header-rows: 1
     :stub-columns: 1
@@ -280,6 +282,7 @@ The cloud service shall create the object ID, which identifies an object. The ob
 .. _tbl_objectid_format:
 
 .. table:: Object ID Format
+
    
     +-----------------+---+---+-----------+-----------------+--------+---+---+---+---+----+-----+----+----+
     | 0               | 1 | 2 | 3         | 4               | 5      | 6 | 7 | 8 | 9 | 10 | ... | 38 | 39 |
@@ -302,7 +305,7 @@ The fields shown in :numref:`tbl_objectid_format` are defined as follows:
     - XorOut 	: 0x0000, and
     - Check 	: 0xBB3D.
   
-  This function defines a 16-bit CRC with polynomial 0x8005, reflected input, and reflected output. This CRC-16 is specified in `CRC`.
+  This function defines a 16-bit CRC with polynomial 0x8005, reflected input, and reflected output. This CRC-16 is specified in :numref:`crc` 
 
 * Opaque data in each object ID shall be unique for a given Enterprise Number.
 
@@ -345,7 +348,7 @@ Security measures within CDMI may be summarized as:
 
 With the exception of both the transport security and the security capabilities, which are mandatory to implement, the security measures may vary significantly from implementation to implementation.
 
-When security is a concern, the CDMI client should begin with a series of security capability lookups (see `Cloud Storage System-Wide Capabilities`) to determine the exact nature of the security features that are available. Based on the values of these capabilities, a risk-based decision should be made as to whether the CDMI server should be used. This is particularly true when the data to be stored in the cloud storage is sensitive or regulated in a way that requires stored data to be protected (e.g., encrypted) or handled in a particular manner (e.g., full accountability and traceability of management and access).
+When security is a concern, the CDMI client should begin with a series of security capability lookups (see :numref:`cloud_storage_system-wide_capabilities`  to determine the exact nature of the security features that are available. Based on the values of these capabilities, a risk-based decision should be made as to whether the CDMI server should be used. This is particularly true when the data to be stored in the cloud storage is sensitive or regulated in a way that requires stored data to be protected (e.g., encrypted) or handled in a particular manner (e.g., full accountability and traceability of management and access).
 
 
 
@@ -405,7 +408,7 @@ Recommendations for using HTTP and TLS include:
 Further Information
 -------------------
 
-For further information pertaining to storage security techniques, see `ISO/IEC DIS 27040`.
+For further information pertaining to storage security techniques, see :numref:`iso/iec_dis_27040` 
 
 
 
@@ -530,7 +533,7 @@ The name of CDMI data objects, container objects, queue objects, domain objects 
 Time Representations
 ********************
 
-Unless otherwise specified, all date/time values are in the `ISO 8601:2004` extended representation (YYYY-MM-DDThh:mm:ss.ssssssZ). The full precision shall be specified, the sub-second separator shall be a ".", the Z UTC zone indicator shall be included, and all timestamps shall be in UTC time zone. The YYYY-MM-DDT24:00:00.000000Z hour shall not be used, and instead, it shall be represented as YYYY-MM-DDT00:00:00.000000Z. 
+Unless otherwise specified, all date/time values are in the :numref:`iso_8601:2004` extended representation (YYYY-MM-DDThh:mm:ss.ssssssZ). The full precision shall be specified, the sub-second separator shall be a ".", the Z UTC zone indicator shall be included, and all timestamps shall be in UTC time zone. The YYYY-MM-DDT24:00:00.000000Z hour shall not be used, and instead, it shall be represented as YYYY-MM-DDT00:00:00.000000Z. 
 
 Unless otherwise specified, all date/time intervals are in the :numref:`ref_iso_8601:2004` start date/end date representation (YYYY-MM-DDThh:mm:ss.ssssssZ/YYYY-MM-DDThh:mm:ss.ssssssZ). The end date shall be equal to or later than the start date. The full precision shall be specified, the sub-second separator shall be a ".", the Z UTC zone indicator shall be included, and all timestamps shall be in UTC time zone. The YYYY-MM-DDT24:00:00.000000Z hour shall not be used, and instead, it shall be represented as YYYY-MM-DDT00:00:00.000000Z. 
 
@@ -562,11 +565,9 @@ Object References
 
 Object references are URIs within the cloud storage namespace that redirect to another URI within the same or another cloud storage namespace. References are similar to soft links in a file system. The cloud does not guarantee that the referenced URI will be valid after the time of creation.
 
-References are visible as children in a container and are distinguished from non-references in container children listings by the presence of a trailing "?" character added to the reference name. Performing an operation (with the exception of create or delete) to a reference URI will result in an HTTP status code of ``302 Found``
-, with the HTTP Location header containing the absolute redirect destination URI that was specified at the time the reference was created. The reference’s destination URI shall not be changed after a reference has been created.
+References are visible as children in a container and are distinguished from non-references in container children listings by the presence of a trailing "?" character added to the reference name. Performing an operation (with the exception of create or delete) to a reference URI will result in an HTTP status code of ``302 Found``, with the HTTP Location header containing the absolute redirect destination URI that was specified at the time the reference was created. The reference’s destination URI shall not be changed after a reference has been created.
 
-To continue, when CDMI clients receive an HTTP status code of ``302 Found``
-, they should retry the operation using the URI contained within the Location header.
+To continue, when CDMI clients receive an HTTP status code of ``302 Found``, they should retry the operation using the URI contained within the Location header.
 
 A delete operation on a reference URI shall delete the reference. References cannot be updated. To update the destination of a redirect, the client shall first delete the reference and then create a new reference to the desired destination.
 
