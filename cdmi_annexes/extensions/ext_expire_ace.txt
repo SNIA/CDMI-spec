@@ -1,0 +1,44 @@
+Expiring Access Control Entries (ACEs)
+**************************************
+
+Overview
+--------
+
+A common trait of cloud storage services is the ability to share an object with other clients for a limited time. This extension adds an attribute of ACEs used in ACLs that imposes a time limit (expiration) on the ACE. Once the ACE expires, the ACE is no longer  valid or included in the authorization calculation for the object.
+
+
+Changes to CDMI 1.1
+-------------------
+#.  Insert into :numref:`ref_acl_evaluation`:
+
+    After the bullet item:
+    
+    * ACEs that do not refer to the principal P requesting the operation are ignored.
+
+    Insert bullet:</P>
+
+    * ACEs that have an expiration value less than the current time are ignored.
+
+#.  Change :numref:`ref_acl_evaluation`:
+
+    Original text:
+
+        ACE = { acetype , identifier , aceflags , acemask , acetime }
+
+    Revised text:
+
+        ACE = { acetype , identifier , aceflags , acemask , acetime, expiration }
+
+#.  Insert into :numref:`ref_acl_evaluation` after "``acemask = uint_t | acemaskstring``":
+
+    expiration = uint_t
+
+#.  Insert into :numref:`ref_acl_evaluation` after "When ACE masks...":
+
+
+    When ACE expiration is presented in string format, it shall be specified in ISO-8601 point-in-time format as described in :numref:`ref_time_representations`.
+
+#. Insert a new subclause 16.1.x - ACE Expiration.
+
+   An ACE may have an optional expiration associated with it. The expiration is a point-in-time value, in ISO-8601 point-in-time format, as described in :numref:`ref_time_representations`, which specifies that the ACE is no longer valid and shall be ignored after the time specified. 
+

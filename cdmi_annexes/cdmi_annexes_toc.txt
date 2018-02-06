@@ -10,4 +10,5 @@ CDMI Annexes
 
 .. toctree::
 
-  extensions/extensions_toc
+    extensions/extensions_toc
+    
