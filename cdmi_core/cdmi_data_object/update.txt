@@ -1,7 +1,5 @@
 .. _ref_cdmi_data_object_update:
 
-.. _ref_cdmi_data_object_update:
-
 Update a Data Object using CDMI
 *******************************
 

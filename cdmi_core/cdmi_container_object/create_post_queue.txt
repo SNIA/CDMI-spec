@@ -1,4 +1,4 @@
-.. _ref_cdmi_container_object_create_post_object:
+.. _ref_cdmi_container_object_create_post_queue:
 
 Create (POST) a New Queue Object using CDMI
 *******************************************

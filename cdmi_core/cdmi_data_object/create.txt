@@ -10,7 +10,7 @@ To create a new data object, the following request shall be performed:
 
     PUT <root URI>/<ContainerName>/<DataObjectName>
 
-To create a new data object by ID, see :numref:`ref_create_post_a_new_queue_object_using_cdmi`.
+To create a new data object by ID, see :numref:`ref_cdmi_container_object_create_post_queue`.
 
 Where:
 
