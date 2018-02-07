@@ -151,6 +151,10 @@ latex_elements = {
     \addto\captionsenglish{\renewcommand{\chaptername}{Clause}}
     \addto\captionsenglish{\renewcommand{\appendixname}{Annex}}
 
+    % Clear pages before new section
+    \usepackage{titlesec}
+    \newcommand{\sectionbreak}{\clearpage}
+    
     % Change the page headers
     \makeatletter
     \fancypagestyle{normal}{

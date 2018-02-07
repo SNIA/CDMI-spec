@@ -1,7 +1,3 @@
-.. raw:: latex
-
-    \clearpage
-
 .. _http_data_object_delete:
     
 Delete a Data Object using HTTP
