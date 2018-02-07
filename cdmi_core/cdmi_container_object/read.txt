@@ -44,9 +44,9 @@ The following capabilities describe the supported operations that may be perform
 Request Headers
 ---------------
 
-The HTTP request headers for reading a CDMI container object using CDMI are shown in :numref:`tbl_request_headers_read_a_container_object_using_cdmi`. 
+The HTTP request headers for reading a CDMI container object using CDMI are shown in :numref:`tbl_cdmi_container_object_read_request_headers`. 
 
-.. _tbl_request_headers_read_a_container_object_using_cdmi:
+.. _tbl_cdmi_container_object_read_request_headers:
 
 .. list-table:: Request Headers - Read a Container Object using CDMI  
     :header-rows: 1
@@ -76,9 +76,9 @@ A request body shall not be provided.
 Response Headers
 ----------------
 
-The HTTP response headers for reading a CDMI container object using CDMI are shown in :numref:ref:`tbl_response_headers_read_container_object_using_cdmi`.
+The HTTP response headers for reading a CDMI container object using CDMI are shown in :numref:ref:`tbl_cdmi_container_object_read_response_headers`.
 
-.. _tbl_response_headers_read_container_object_using_cdmi:
+.. _tbl_cdmi_container_object_read_response_headers:
 
 .. list-table:: Response Headers - Read a Container Object using CDMI
     :header-rows: 1
@@ -108,9 +108,9 @@ The HTTP response headers for reading a CDMI container object using CDMI are sho
 Response Message Body
 ---------------------
 
-The response message body fields for reading a CDMI container object using CDMI are shown in :numref:`tbl_response_message_body_read_a_container_object_using_cdmi` 
+The response message body fields for reading a CDMI container object using CDMI are shown in :numref:`tbl_cdmi_container_object_read_response_message_body` 
 
-.. _tbl_response_message_body_read_a_container_object_using_cdmi:
+.. _tbl_cdmi_container_object_read_response_message_body:
 
 .. list-table:: Response Message Body - Read a Container Object using CDMI 
     :header-rows: 1

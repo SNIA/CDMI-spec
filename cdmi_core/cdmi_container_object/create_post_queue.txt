@@ -80,10 +80,10 @@ The following capabilities describe the supported operations that may be perform
 Request Headers
 ---------------
 
-The HTTP request headers for creating a new CDMI queue object using CDMI are shown in :numref:`tbl_request_headers_create_a_new_queue_object_using_cdmi`.
+The HTTP request headers for creating a new CDMI queue object using CDMI are shown in :numref:`tbl_cdmi_queue_object_create_request_headers`.
 
 
-.. _tbl_request_headers_create_a_new_queue_object_using_cdmi:
+.. _tbl_cdmi_queue_object_create_request_headers:
 
 .. list-table:: Request Headers - Create a New Queue Object Using CDMI
     :header-rows: 1
@@ -117,9 +117,9 @@ The HTTP request headers for creating a new CDMI queue object using CDMI are sho
 Request Message Body
 --------------------
 
-The request message body fields for creating a new queue object using CDMI are shown in :numref:`tbl_request_message_body_create_a_new_queue_object_using_cdmi`.
+The request message body fields for creating a new queue object using CDMI are shown in :numref:`tbl_cdmi_queue_object_create_request_message_body`.
 
-.. _tbl_request_message_body_create_a_new_queue_object_using_cdmi:
+.. _tbl_cdmi_queue_object_create_request_message_body:
 
 .. list-table:: Request Message Body - Create a New Queue Object Using CDMI
     :header-rows: 1
@@ -173,9 +173,9 @@ The request message body fields for creating a new queue object using CDMI are s
 Response Headers
 ----------------
 
-The response headers for creating a new CDMI queue object using CDMI are shown in :numref:`tbl_response_headers_create_a_new_cdmi_queue_object_using_cdmi`. 
+The response headers for creating a new CDMI queue object using CDMI are shown in :numref:`tbl_cdmi_queue_object_create_response_headers`. 
 
-.. _tbl_response_headers_create_a_new_cdmi_queue_object_using_cdmi:
+.. _tbl_cdmi_queue_object_create_response_headers:
 
 .. list-table:: Response Headers - Create a New Queue Object Using CDMI
     :header-rows: 1
@@ -205,9 +205,9 @@ The response headers for creating a new CDMI queue object using CDMI are shown i
 Response Message Body
 ---------------------
 
-The response message body fields for creating a new CDMI queue object using CDMI are shown in :numref:`tbl_response_message_body_create_a_new_queue_object_using_cdmi`.
+The response message body fields for creating a new CDMI queue object using CDMI are shown in :numref:`tbl_cdmi_queue_object_create_response_message_body`.
 
-.. _tbl_response_message_body_create_a_new_queue_object_using_cdmi:
+.. _tbl_cdmi_queue_object_create_response_message_body:
 
 .. list-table:: Response Message Body - Create a New Queue Object Using CDMI
     :header-rows: 1
@@ -278,9 +278,9 @@ The response message body fields for creating a new CDMI queue object using CDMI
 Response Status
 ---------------
 
-:numref:`tbl_http_status_codes_create_a_new_cdmi_queue_object_using_cdmi` describes the HTTP status codes that occur when creating a new queue object using CDMI.
+:numref:`tbl_cdmi_queue_object_create_response_status` describes the HTTP status codes that occur when creating a new queue object using CDMI.
 
-.. _tbl_http_status_codes_create_a_new_cdmi_queue_object_using_cdmi:
+.. _tbl_cdmi_queue_object_create_response_status:
 
 .. list-table:: HTTP Status Codes - Create a New Queue Object Using CDMI
     :header-rows: 1

@@ -37,9 +37,9 @@ The following capabilities describe the supported operations that may be perform
 Request Header
 --------------
 
-The HTTP request header for reading a CDMI data object using HTTP is shown in :numref:`tbl_read_a_cdmi_data_object_using_http_request_header`. 
+The HTTP request header for reading a CDMI data object using HTTP is shown in :numref:`tbl_http_data_object_readrequest_header`. 
 
-.. _tbl_read_a_cdmi_data_object_using_http_request_header:
+.. _tbl_http_data_object_readrequest_header:
 
 .. list-table:: Request Header - Read a CDMI Data Object using HTTP
     :header-rows: 1
@@ -65,9 +65,9 @@ A request body shall not be provided.
 Response Headers
 ----------------
 
-The HTTP response headers for reading a data object using HTTP are shown in :numref:`tbl_read_a_cdmi_data_object_using_http_response_headers`.
+The HTTP response headers for reading a data object using HTTP are shown in :numref:`tbl_http_data_object_readresponse_headers`.
 
-.. _tbl_read_a_cdmi_data_object_using_http_response_headers:
+.. _tbl_http_data_object_readresponse_headers:
 
 .. list-table:: Response Headers - Read a CDMI Data Object using HTTP
     :header-rows: 1
@@ -100,9 +100,9 @@ When reading a data object using HTTP, the following applies:
 Response Status
 ---------------
 
-The HTTP status codes that occur when reading a data object using HTTP are described in :numref:`tbl_read_a_cdmi_data_object_using_http_http_status_codes`.
+The HTTP status codes that occur when reading a data object using HTTP are described in :numref:`tbl_http_data_object_readresponse_status`.
 
-.. _tbl_read_a_cdmi_data_object_using_http_http_status_codes:
+.. _tbl_http_data_object_readresponse_status:
 
 .. list-table:: HTTP Status Codes - Read a CDMI Data Object using HTTP
     :header-rows: 1

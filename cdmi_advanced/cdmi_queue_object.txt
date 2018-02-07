@@ -149,9 +149,9 @@ The following capabilities describe the supported operations that may be perform
 Request Headers
 ---------------
 
-The HTTP request headers for creating a CDMI queue object using CDMI are shown in :numref:`tbl_request_headers_create_a_queue_object_using_cdmi`
+The HTTP request headers for creating a CDMI queue object using CDMI are shown in :numref:`tbl_cdmi_queue_object_create_request_headers`
 
-.. _tbl_request_headers_create_a_queue_object_using_cdmi:
+.. _tbl_cdmi_queue_object_create_request_headers:
 
 .._list-table:: Request Headers - Create A Queue Object Using CDMI
     :header-rows: 1
@@ -180,10 +180,10 @@ The HTTP request headers for creating a CDMI queue object using CDMI are shown i
 Request Message Body
 --------------------
 
-The request message body fields for creating a queue object using CDMI are shown in :numref:`ref_request_message_body_create_a_queue_object_using_cdmi`.
+The request message body fields for creating a queue object using CDMI are shown in :numref:`tbl_cdmi_queue_object_create_request_message_body`.
 
 
-.. _tbl_request_message_body_create_a_queue_object_using_cdmi:
+.. tbl_cdmi_queue_object_create_request_message_body:
 
 .. list-table:: Request Message Body - Create A Queue Object Using CDMI
     :header-rows: 1
@@ -248,9 +248,9 @@ The request message body fields for creating a queue object using CDMI are shown
 Response Status
 ---------------
 
-The HTTP response headers for creating a CDMI queue object using CDMI are shown in :numref:`tbl_response_headers_create_a_queue_object_using_cdmi`
+The HTTP response headers for creating a CDMI queue object using CDMI are shown in :numref:`tbl_cdmi_queue_object_create_response_headers`
 
-.. _tbl_response_headers_create_a_queue_object_using_cdmi:
+.. _tbl_cdmi_queue_object_create_response_headers:
 
 .. list-table:: Response Headers - Create A Queue Object Using CDMI
     :header-rows: 1
@@ -282,9 +282,9 @@ The HTTP response headers for creating a CDMI queue object using CDMI are shown 
 Response Message Body
 ---------------------
 
-The response message body fields for creating a CDMI queue object using CDMI are shown in :numref:`tbl_response_message_body_create_a_queue_object_using_cdmi`
+The response message body fields for creating a CDMI queue object using CDMI are shown in :numref:`tbl_cdmi_queue_object_create_response_message_body`
 
-.. _tbl_response_message_body_create_a_queue_object_using_cdmi:
+.. _tbl_cdmi_queue_object_create_response_message_body:
 
 .. list-table:: Response Message Body - Create A Queue Object Using CDMI
     :header-rows: 1
@@ -354,10 +354,10 @@ The response message body fields for creating a CDMI queue object using CDMI are
 Response Status
 ---------------
 
-:numref:`tbl_http_status_codes_create_a_queue_object_using_cdmi` describes the HTTP status codes that occur when creating a queue object using CDMI. 
+:numref:`tbl_cdmi_queue_object_create_response_status` describes the HTTP status codes that occur when creating a queue object using CDMI. 
 
 
-.. _tbl_http_status_codes_create_a_queue_object_using_cdmi:
+.. _tbl_cdmi_queue_object_create_response_status:
 
 .. list-table:: HTTP Status Codes - Create A Queue Object Using CDMI
     :header-rows: 1
@@ -529,9 +529,9 @@ The following capabilities describe the supported operations that may be perform
 Request Headers
 ---------------
 
-The HTTP request headers for reading a CDMI queue object using CDMI are shown in :numref:`tbl_request_headers_read_a_queue_object_using_cdmi`
+The HTTP request headers for reading a CDMI queue object using CDMI are shown in :numref:`tbl_cdmi_queue_object_read_request_headers`
 
-.. _tbl_request_headers_read_a_queue_object_using_cdmi:
+.. _tbl_cdmi_queue_object_read_request_headers:
 
 .. list-table:: Request Headers - Read A Queue Object Using CDMI
     :header-rows: 1
@@ -565,10 +565,10 @@ A request body shall not be provided.
 Response Status
 ---------------
 
-The HTTP response headers for reading a CDMI queue object using CDMI are shown in :numref:`tbl_response_headers_read_a_queue_object_using_cdmi`. 
+The HTTP response headers for reading a CDMI queue object using CDMI are shown in :numref:`tbl_cdmi_queue_object_read_response_headers`. 
 
 
-.. _tbl_response_headers_read_a_queue_object_using_cdmi:
+.. _tbl_cdmi_queue_object_read_response_headers:
 
 .. list-table:: Response Headers - Read a Queue Object Using CDMI
     :header-rows: 1
@@ -599,9 +599,9 @@ The HTTP response headers for reading a CDMI queue object using CDMI are shown i
 Response Message Body
 ---------------------
 
-The response message body fields for reading a CDMI queue object using CDMI are shown in :numref:`tbl_response_message_body_read_a_queue_object_using_cdmi`
+The response message body fields for reading a CDMI queue object using CDMI are shown in :numref:`tbl_cdmi_queue_object_read_response_message_body`
 
-.. _tbl_response_message_body_read_a_queue_object_using_cdmi:
+.. _tbl_cdmi_queue_object_read_response_message_body:
 
 .. list-table:: .*
     :header-rows: 1
@@ -711,9 +711,9 @@ If individual fields are specified in the GET request, only these fields are ret
 
 Response Status
 ---------------
-:numref:`tbl_http_status_codes_read_a_queue_object_using_cdmi` describes the HTTP status codes that occur when reading a queue object using CDMI. 
+:numref:`tbl_cdmi_queue_object_read_response_status` describes the HTTP status codes that occur when reading a queue object using CDMI. 
 
-.. _tbl_http_status_codes_read_a_queue_object_using_cdmi:
+.. _tbl_cdmi_queue_object_read_response_status:
 
 .. list-table:: HTTP Status Codes - Read A Queue Object Using CDMI
     :header-rows: 1
@@ -963,9 +963,9 @@ The following capability describes the supported operations that may be performe
 Request Headers
 ---------------
 
-The HTTP request headers for updating a CDMI queue object using CDMI are shown in :numref:`tbl_request_headers_update_a_queue_object_using_cdmi`
+The HTTP request headers for updating a CDMI queue object using CDMI are shown in :numref:`tbl_cdmi_queue_object_update_request_headers`
 
-.. _tbl_request_headers_update_a_queue_object_using_cdmi:
+.. _tbl_cdmi_queue_object_update_request_headers:
 
 .. list-table:: Request Headers - Update A Queue Object Using CDMI
     :header-rows: 1
@@ -988,10 +988,10 @@ The HTTP request headers for updating a CDMI queue object using CDMI are shown i
 Request Message Body
 --------------------
 
-The request message body fields for updating a queue object using CDMI are shown in :numref:`tbl_request_message_body_update_a_queue_object_using_cdmi`.
+The request message body fields for updating a queue object using CDMI are shown in :numref:`tbl_cdmi_queue_object_create_request_message_body`.
 
 
-.. _tbl_request_message_body_update_a_queue_object_using_cdmi:
+.. _tbl_cdmi_queue_object_create_request_message_body:
 
 .. list-table:: Request Message Body - Update A Queue Object Using CDMI
     :header-rows: 1
@@ -1043,9 +1043,9 @@ The request message body fields for updating a queue object using CDMI are shown
 Response Header
 ---------------
 
-The HTTP response header for updating a CDMI queue object using CDMI is shown in :numref:`tbl_response_header_update_a_queue_object_using_cdmi`  
+The HTTP response header for updating a CDMI queue object using CDMI is shown in :numref:`tbl_cdmi_queue_object_update_response_headers`  
 
-.. _tbl_response_header_update_a_queue_object_using_cdmi:
+.. _tbl_cdmi_queue_object_update_response_headers:
 
 .. list-table:: Response Header - Update A Queue Object Using CDMI
     :header-rows: 1
@@ -1074,10 +1074,10 @@ A response body may be provided as per :rfc:`2616`.
 
 Response Status
 ---------------
- :numref:`tbl_http_status_codes_update_a_queue_object_using_cdmi` describes the HTTP status codes that occur when updating a queue object using CDMI. 
+ :numref:`tbl_cdmi_queue_object_update_response_status` describes the HTTP status codes that occur when updating a queue object using CDMI. 
 
 
-.. _tbl_http_status_codes_update_a_queue_object_using_cdmi:
+.. _tbl_cdmi_queue_object_update_response_status:
 
 .. list-table:: HTTP Status Codes - Update A Queue Object Using CDMI
     :header-rows: 1
@@ -1180,10 +1180,10 @@ The following capability describes the supported operations that may be performe
 Request Header
 --------------
 
-The HTTP request header for deleting a CDMI queue object using CDMI is shown in :numref:`tbl_request_header_delete_a_queue_object_using_cdmi`  
+The HTTP request header for deleting a CDMI queue object using CDMI is shown in :numref:`tbl_cdmi_queue_object_delete_request_headers`  
 
 
-.. _tbl_request_header_delete_a_queue_object_using_cdmi:
+.. _tbl_cdmi_queue_object_delete_request_headers:
 
 .. list-table:: Request Header - Delete A Queue Object Using CDMI
     :header-rows: 1
@@ -1227,9 +1227,9 @@ A response body may be provided as per :rfc:`2616`.
 Response Status
 ---------------
 
-:numref:`tbl_http_status_codes_delete_a_queue_object_using_cdmi` describes the HTTP status codes that occur when deleting a queue object using CDMI. 
+:numref:`tbl_cdmi_queue_object_delete_response_status` describes the HTTP status codes that occur when deleting a queue object using CDMI. 
 
-.. _tbl_http_status_codes_delete_a_queue_object_using_cdmi:
+.. _tbl_cdmi_queue_object_delete_response_status:
 
 .. list-table:: HTTP Status Codes - Delete A Queue Object Using CDMI
     :header-rows: 1
@@ -1304,9 +1304,9 @@ The following capabilities describe the supported operations that may be perform
 Request Headers
 ---------------
 
-The HTTP request headers for enqueuing a new CDMI queue object value using CDMI are shown in :numref:`tbl_request_headers_enqueue_a_new_queue_object_value_using_cdmi`
+The HTTP request headers for enqueuing a new CDMI queue object value using CDMI are shown in :numref:`tbl_a_new_queue_object_value_using_cdmi_enqueue_request_headers`
 
-.. _tbl_request_headers_enqueue_a_new_queue_object_value_using_cdmi:
+.. _tbl_a_new_queue_object_value_using_cdmi_enqueue_request_headers:
 
 .. list-table:: Request Headers - Enqueue A New Queue Object Value Using CDMI
     :header-rows: 1
@@ -1332,9 +1332,9 @@ The HTTP request headers for enqueuing a new CDMI queue object value using CDMI 
 Request Message Body
 --------------------
 
-The request message body fields for enqueuing a new queue object value using CDMI are shown in :numref:`tbl_request_message_body_enqueue_a_new_queue_object_value_using_cdmi`.
+The request message body fields for enqueuing a new queue object value using CDMI are shown in :numref:`tbl_cdmi_queue_object_enqueue_request_message_body`.
 
-.. _tbl_request_message_body_enqueue_a_new_queue_object_value_using_cdmi:
+.. _tbl_cdmi_queue_object_enqueue_request_message_body:
 
 .. list-table:: Request Message Body - Enqueue A New Queue Object Value Using CDMI
     :header-rows: 1
@@ -1408,10 +1408,10 @@ A response body may be provided as per :rfc:`2616`.
 
 Response Status
 ---------------
- :numref:`tbl_http_status_codes_enqueue_a_new_queue_object_value_using_cdmi` describes the HTTP status codes that occur when enqueuing a new queue object using CDMI. 
+ :numref:`tbl_cdmi_queue_object_enqueue_response_status` describes the HTTP status codes that occur when enqueuing a new queue object using CDMI. 
 
 
-.. _tbl_http_status_codes_enqueue_a_new_queue_object_value_using_cdmi:
+.. __tbl_cdmi_queue_object_enqueue_response_status:
 
 .. list-table:: HTTP Status Codes - Enqueue A New Queue Object Value Using CDMI
     :header-rows: 1
@@ -1674,10 +1674,10 @@ The following capability describes the supported operations that may be performe
 Request Header
 --------------
 
-The HTTP request header for deleting a CDMI queue object value using CDMI is shown in :numref:`tbl_request_header_delete_a_queue_object_value_using_cdmi`. 
+The HTTP request header for deleting a CDMI queue object value using CDMI is shown in :numref:`tbl_cdmi_queue_object_delete_request_headers`. 
 
 
-.. _tbl_request_header_delete_a_queue_object_value_using_cdmi:
+.. _tbl_cdmi_queue_object_delete_request_headers:
 
 .. list-table:: Request Header - Delete A Queue Object Value Using CDMI
     :header-rows: 1
@@ -1717,10 +1717,10 @@ A response body may be provided as per :rfc:`2616`.
 
 Response Status
 ---------------
-:numref:`tbl_http_status_codes_delete_a_queue_object_value_using_cdmi` describes the HTTP status codes that occur when deleting a queue object value using CDMI. 
+:numref:`tbl_a_queue_object_value_using_cdmi_delete_response_status` describes the HTTP status codes that occur when deleting a queue object value using CDMI. 
 
 
-.. _tbl_http_status_codes_delete_a_queue_object_value_using_cdmi:
+.. _tbl_a_queue_object_value_using_cdmi_delete_response_status:
 
 .. list-table:: HTTP Status Codes - Delete A Queue Object Value Using CDMI
     :header-rows: 1

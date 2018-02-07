@@ -61,9 +61,9 @@ The following capabilities describe the supported operations that may be perform
 Request Headers
 ---------------
 
-The HTTP request headers for updating a CDMI container object using CDMI are shown in :numref:`tbl_request_headers_update_a_container_object_using_cdmi`. 
+The HTTP request headers for updating a CDMI container object using CDMI are shown in :numref:`tbl_cdmi_container_object_update_request_headers`. 
 
-.. _tbl_request_headers_update_a_container_object_using_cdmi:
+.. _tbl_cdmi_container_object_update_request_headers:
 
 .. list-table:: Request Headers - Update a Container Object using CDMI
     :header-rows: 1
@@ -88,9 +88,9 @@ The HTTP request headers for updating a CDMI container object using CDMI are sho
 Request Message Body
 --------------------
 
-The request message body fields for updating a container object using CDMI are shown in :numref:`tbl_request_message_body_update_a_container_object_using_cdmi`.
+The request message body fields for updating a container object using CDMI are shown in :numref:`tbl_cdmi_container_object_update_request_message_body`.
 
-.. _tbl_request_message_body_update_a_container_object_using_cdmi:
+.. _tbl_cdmi_container_object_update_request_message_body:
 
 .. list-table:: Request Message Body - Update a Container Object using CDMI
     :header-rows: 1
@@ -154,9 +154,9 @@ The request message body fields for updating a container object using CDMI are s
 Response Header
 ---------------
 
-The HTTP response header for updating a CDMI container object using CDMI is shown in :numref:`tbl_response_header_update_a_container_object_using_cdmi`. 
+The HTTP response header for updating a CDMI container object using CDMI is shown in :numref:`tbl_cdmi_container_object_update_response_headers`. 
 
-.. _tbl_response_header_update_a_container_object_using_cdmi:
+.. _tbl_cdmi_container_object_update_response_headers:
 
 .. list-table:: Response Header - Update a Container Object using CDMI
     :header-rows: 1
@@ -182,9 +182,9 @@ A response body may be provided as per :rfc:`2616`.
 Response Status
 ---------------
 
-:numref:`tbl_http_status_codes_update_a_container_object_using_cdmi` describes the HTTP status codes that occur when updating a container object using CDMI. 
+:numref:`tbl_cdmi_container_object_update_response_status` describes the HTTP status codes that occur when updating a container object using CDMI. 
 
-.. _tbl_http_status_codes_update_a_container_object_using_cdmi:
+.. _tbl_cdmi_container_object_update_response_status:
 
 .. list-table:: HTTP Status Codes - Update a Container Object using CDMI
     :header-rows: 1

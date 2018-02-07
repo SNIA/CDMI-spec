@@ -152,7 +152,7 @@ Query Matching Expressions
 :numref:`tbl_query_matching_expressions` defines the query matching expressions.
 
 
-.. _tbl_query_matching_expressions_(sheet_1_of_4):
+.. _tbl_query_matching_expressions:
 
 .. list-table:: .*
     :header-rows: 1

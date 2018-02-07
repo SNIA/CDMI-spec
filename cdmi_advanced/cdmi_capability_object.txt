@@ -684,9 +684,9 @@ The following capability describes the supported operations that may be performe
 Request Headers
 ---------------
 
-The HTTP request headers for reading a CDMI capabilities object using CDMI are shown in :numref:`tbl_request_headers_read_a_capabilities_object_using_cdmi`. 
+The HTTP request headers for reading a CDMI capabilities object using CDMI are shown in :numref:`tbl_cdmi_capability_object_read_request_headers`. 
 
-.. _tbl_request_headers_read_a_capabilities_object_using_cdmi:
+.. _tbl_cdmi_capability_object_read_request_headers:
 
 .. list-table:: Request Headers - Read a Capabilities Object Using CDMI
     :header-rows: 1
@@ -720,9 +720,9 @@ A request body shall not be provided.
 Response Headers
 ----------------
 
-The HTTP response headers for reading a CDMI capabilities object using CDMI are shown in :numref:`tbl_response_headers_read_a_capabilities_object_using_cdmi`.
+The HTTP response headers for reading a CDMI capabilities object using CDMI are shown in :numref:`tbl_cdmi_capability_object_read_response_headers`.
 
-.. _tbl_response_headers_read_a_capabilities_object_using_cdmi:
+.. _tbl_cdmi_capability_object_read_response_headers:
 
 .. list-table:: Response Headers - Read a Capabilities Object Using CDMI
     :header-rows: 1
@@ -751,9 +751,9 @@ The HTTP response headers for reading a CDMI capabilities object using CDMI are 
 Response Message Body
 ---------------------
 
-The response message body fields for reading a CDMI capabilities object using CDMI are shown in :numref:`tbl_response_message_body_read_a_capabilities_object_using_cdmi`.
+The response message body fields for reading a CDMI capabilities object using CDMI are shown in :numref:`tbl_cdmi_capability_object_read_response_message_body`.
 
-.. _tbl_response_message_body_read_a_capabilities_object_using_cdmi:
+.. _tbl_cdmi_capability_object_read_response_message_body:
 
 .. list-table:: Response Message Body - Read a Capabilities Object using CDMI
     :header-rows: 1
@@ -806,10 +806,10 @@ If individual fields are specified in the GET request, only these fields are ret
 Response Status
 ---------------
 
-:numref:`tbl_http_status_codes_read_a_capabilities_object_using_cdmi` describes the HTTP status codes that occur when reading a capabilities object using CDMI. 
+:numref:`tbl_cdmi_capability_object_read_response_status` describes the HTTP status codes that occur when reading a capabilities object using CDMI. 
 
 
-.. _tbl_http_status_codes_read_a_capabilities_object_using_cdmi:
+.. _tbl_cdmi_capability_object_read_response_status:
 
 .. list-table:: HTTP Status Codes Read a Capabilities Object using CDMI
     :header-rows: 1

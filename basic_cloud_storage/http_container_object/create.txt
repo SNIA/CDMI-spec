@@ -67,9 +67,9 @@ A response body may be provided as per :rfc:`2616`.
 Response Status
 ---------------
 
-:numref:`tbl_create_a_container_object_using_http_http_status_codes` describes the HTTP status codes that occur when creating a container object using HTTP. 
+:numref:`tbl_http_container_object_create_response_status` describes the HTTP status codes that occur when creating a container object using HTTP. 
 
-.. _tbl_create_a_container_object_using_http_http_status_codes:
+.. _tbl_http_container_object_create_response_status:
 
 .. list-table:: HTTP Status Codes - Create a Container Object using HTTP
     :header-rows: 1
