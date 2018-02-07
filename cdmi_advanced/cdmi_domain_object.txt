@@ -252,7 +252,7 @@ The information in :numref:`tbl_contents_of_domain_summary_objects` shall be pre
 
 If the charge value is provided, the value is for the operational cost (excluding fixed fees) of service already performed and storage and bandwidth already consumed. Pricing of services is handled separately.
 
-Domain summary information may be extended by vendors to include additional metadata or domain reports beyond the metadata items specified by this international standard, as long as the field names for those metadata items do not begin with "cdmi_".
+Domain summary information may be extended by vendors to include additional metadata or domain reports beyond the metadata items specified by this international standard, as long as the field names for those metadata items do not begin with "cdmi\_".
 
 Domain Object Membership
 ------------------------
@@ -275,7 +275,7 @@ Within each domain membership container are a series of user objects that are sp
 
 The domain membership container may also contain subcontainers with data objects. Data objects in these subcontainers are treated the same as data objects in the domain membership container, and no meaning is inferred from the subcontainer name. This organization is used to create different access security relationships for groups of user objects and to allow delegation to a common set of members.
 
-:numref:`ref_required_settings_for_domain_member_user_objects` lists the domain settings that shall be present within each domain member user object.
+:numref:`tbl_required_settings_for_domain_member_user_objects` lists the domain settings that shall be present within each domain member user object.
 
 .. _tbl_required_settings_for_domain_member_user_objects:
 
@@ -381,7 +381,7 @@ The domain membership container may also contain subcontainers with data objects
 
 
 
-
+.. _ref_domain_usage_in_access_control:
 
 Domain Usage in Access Control
 ------------------------------
@@ -456,7 +456,7 @@ The HTTP request headers for creating a CDMI domain object using CDMI are shown 
       - Requirement
     * - Accept
       - Header String
-      - "application/cdmi-domain" or a consistent value as per clause :numref:`ref_contenttype_negotiation`
+      - "application/cdmi-domain" or a consistent value as per clause :numref:`ref_content-type_negotiation`
       - Optional
     * - Content-Type
       - Header String
@@ -757,7 +757,7 @@ The HTTP request headers for reading a CDMI domain object using CDMI are shown i
       - Requirement
     * - Accept
       - Header String
-      - "application/cdmi-domain" or a consistent value as per clause :numref:`ref_contenttype_negotiation`
+      - "application/cdmi-domain" or a consistent value as per clause :numref:`ref_content-type_negotiation`
       - Optional
     * - X-CDMI-Specification-Version
       - Header String

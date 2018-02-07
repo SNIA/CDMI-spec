@@ -1,4 +1,4 @@
-.. _ref_update_a_container_object_using_cdmi:
+.. _ref_cdmi_container_object_update:
 
 Update a Container Object using CDMI
 ************************************
@@ -110,7 +110,7 @@ The request message body fields for updating a container object using CDMI are s
     * - domainURI
       - JSON String
       - URI of the owning domain
-        * If different from the parent domain, the user shall have the "cross-domain" privilege (see cdmi_member_privileges in :numref:`ref_required_settings_for_domain_member_user_objects`).
+        * If different from the parent domain, the user shall have the "cross-domain" privilege (see cdmi_member_privileges in :numref:`tbl_required_settings_for_domain_member_user_objects`).
         * If not specified, the parent domain shall be used.
       - Optional
     * - snapshot

@@ -1,3 +1,5 @@
+.. _ref_cdmi_container_object_overview:
+
 
 Overview
 ********
@@ -89,7 +91,7 @@ The reserved container names include:
 * cdmi_versions. 
 
 
-As additional names may be added in future versions of this international standard, server implementations shall prevent the creation of user-defined containers if the container name starts with "cdmi_". 
+As additional names may be added in future versions of this international standard, server implementations shall prevent the creation of user-defined containers if the container name starts with "cdmi\_". 
 
 Container Object Addressing
 ---------------------------

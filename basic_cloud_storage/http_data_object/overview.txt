@@ -1,3 +1,5 @@
+.. _http_data_object_overview:
+
 
 Overview
 ********
@@ -15,4 +17,4 @@ client and provided by the server.
 In CDMI 1.0.2, basic HTTP operations were described as "Non-CDMI" operations to distinguish them from operations using CDMI MIME types.
 
 A CDMI implementation that supports data objects shall include support for basic data object HTTP operations corresponding with the CDMI capabilities that are 
-published by the implementation. Capabilities allow a client to discover which operations (such as create, update, delete, etc.) are supported and are described in :numref:`clause %s <clause_cdmi_capability_object>`.
+published by the implementation. Capabilities allow a client to discover which operations (such as create, update, delete, etc.) are supported and are described in :numref:`clause %s <clause_cdmi_container_object>`.

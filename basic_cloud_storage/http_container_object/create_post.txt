@@ -1,4 +1,4 @@
-.. _ref_create_(post)_a_new_data_object_using_http:
+.. _ref_http_container_object_create_post:
 
 Create (POST) a New Data Object using HTTP
 ******************************************

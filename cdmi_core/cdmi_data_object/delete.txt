@@ -1,4 +1,4 @@
-.. _ref_delete_a_data_object_using_cdmi:
+.. _ref_cdmi_data_object_delete:
 
 Delete a Data Object using CDMI
 *******************************

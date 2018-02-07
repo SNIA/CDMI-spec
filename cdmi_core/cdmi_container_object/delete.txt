@@ -1,4 +1,4 @@
-.. _ref_delete_a_container_object_using_cdmi:
+.. _ref_cdmi_container_object_delete:
 
 Delete a Container Object using CDMI
 ************************************

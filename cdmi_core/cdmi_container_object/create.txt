@@ -1,4 +1,4 @@
-.. _ref_create_a_container_object_using_cdmi:
+.. _ref_cdmi_container_object_create:
 
 Create a Container Object using CDMI
 ************************************
@@ -73,7 +73,7 @@ The HTTP request headers for creating a CDMI container object using CDMI are sho
       - Requirement
     * - Accept
       - Header String
-      - "application/cdmi-container" or a consistent value as per clause :numref:`content-type_negotiation` 
+      - "application/cdmi-container" or a consistent value as per clause :numref:`ref_content-type_negotiation` 
       - Optional
     * - Content-Type
       - Header String
@@ -112,7 +112,7 @@ The request message body fields for creating a container object using CDMI are s
     * - domainURI
       - JSON String
       - URI of the owning domain
-           * If different from the parent domain, the user shall have the "cross-domain" privilege (see cdmi_member_privileges in :numref:`required_settings_for_domain_member_user_objects` .
+           * If different from the parent domain, the user shall have the "cross-domain" privilege (see cdmi_member_privileges in :numref:`tbl_required_settings_for_domain_member_user_objects` .
            * If not specified, the existing domain shall be preserved.
       - Optional
     * - exports

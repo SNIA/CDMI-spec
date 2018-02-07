@@ -1,3 +1,5 @@
+.. _ref_http_container_object_overview:
+
 
 Overview
 ********
@@ -10,6 +12,6 @@ As basic HTTP operations do not use the CDMI MIME types that distinguish data ob
 
 If a basic HTTP read, update, or delete operation is performed against an existing container resource and the trailing slash at the end of the URI is omitted, the server shall respond with an HTTP status code of ``301 Moved Permanently``. In addition, a Location header containing the URI with the trailing slash added shall be returned. 
 
-A CDMI server differentiates between HTTP and CDMI operations using the standard Content-Type and Accept headers. When CDMI MIME types defined in :rfc:`6208` are used in these headers, this indicates that CDMI behaviors, as described in :numref:`container_object_resource_operations_using_cdmi`  are used in addition to the standard HTTP behaviors. When CDMI MIME types are used, the X-CDMI-Specification-Version header is included to indicate which version of CDMI is being requested by the client and provided by the server. 
+A CDMI server differentiates between HTTP and CDMI operations using the standard Content-Type and Accept headers. When CDMI MIME types defined in :rfc:`6208` are used in these headers, this indicates that CDMI behaviors, as described in :numref:`Clause %s <clause_cdmi_container_object>`  are used in addition to the standard HTTP behaviors. When CDMI MIME types are used, the X-CDMI-Specification-Version header is included to indicate which version of CDMI is being requested by the client and provided by the server. 
 
-A CDMI implementation that supports container objects shall include support for basic container object HTTP operations corresponding with the CDMI capabilities that are published by the implementation. Capabilities allow a client to discover which operations (such as create, update, delete, etc.) are supported and are described in :numref:`ref_capability_object_resource_operations_using_cdmi`.
+A CDMI implementation that supports container objects shall include support for basic container object HTTP operations corresponding with the CDMI capabilities that are published by the implementation. Capabilities allow a client to discover which operations (such as create, update, delete, etc.) are supported and are described in :numref:`Clause %s <clause_cdmi_capability_object>`.

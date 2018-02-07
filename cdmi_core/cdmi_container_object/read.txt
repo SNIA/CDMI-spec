@@ -1,4 +1,4 @@
-
+.. _ref_cdmi_container_object_read:
 
 Read a Container Object using CDMI
 **********************************
@@ -60,7 +60,7 @@ The HTTP request headers for reading a CDMI container object using CDMI are show
       - Requirement
     * - Accept
       - Header String
-      - "application/cdmi-container" or a consistent value as per clause :numref:`content-type_negotiation` 
+      - "application/cdmi-container" or a consistent value as per clause :numref:`ref_content-type_negotiation` 
       - Optional
     * - X-CDMI-Specification-Version
       - Header String

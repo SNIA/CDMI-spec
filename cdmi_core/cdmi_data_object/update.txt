@@ -1,4 +1,6 @@
-.. _ref_update_a_data_object_using_cdmi:
+.. _ref_cdmi_data_object_update:
+
+.. _ref_cdmi_data_object_update:
 
 Update a Data Object using CDMI
 *******************************
@@ -103,7 +105,7 @@ The request message body fields for updating a data object using CDMI are shown 
     * - domainURI
       - JSON String
       - URI of the owning domain
-        * If different from the parent domain, the user shall have the "cross-domain" privilege (see cdmi_member_privileges in :numref:`ref_required_settings_for_domain_member_user_objects`).
+        * If different from the parent domain, the user shall have the "cross-domain" privilege (see cdmi_member_privileges in :numref:`tbl_required_settings_for_domain_member_user_objects`).
         * If not specified, the existing domain shall be preserved.
       - Optional
     * - deserialize

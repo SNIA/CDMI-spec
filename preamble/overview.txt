@@ -179,7 +179,7 @@ The five types of resources defined are shown in :numref:`tbl_types_of_resources
       - See :numref:`data_object_resource_operations_using_cdmi` 
     * - Container objects
       - Container objects have zero or more children, but do not store values. They provide functionality similar to directories in a file system.
-      - See :numref:`ref_container_object_resource_operations_using_cdmi`.
+      - See :numref:`Clause %s <clause_container_object_resource_operations_using_cdmi>`.
     * - Domain objects
       - Domain objects represent administrative groupings for user authentication and accounting purposes.
       - See :numref:`ref_domain_object_resource_operations_using_cdmi`.
@@ -188,7 +188,7 @@ The five types of resources defined are shown in :numref:`tbl_types_of_resources
       - See :numref:`ref_queue_object_resource_operations_using_cdmi`.
     * - Capability objects
       - Capability objects describe the functionality implemented by a CDMI server and are used by a client to discover supported functionality.
-      - See :numref:`ref_capability_object_resource_operations_using_cdmi`.
+      - See :numref:`Clause %s <clause_cdmi_capability_object>`.
 
 For data storage operations, the client of the interface only needs to know about container objects and data objects. All data path implementations are required to support at least one level of containers (see :numref:`ref_data_and_container_management`). Using the CDMI object model (see :numref:`ref_cdmi_object_model`), the client may send a PUT via CDMI (see :numref:`ref_reference_model_for_cloud_storage_interfaces`) to the new container URI and create a new container with the specified name. Container metadata are optional and are expressed as a series of name-value pairs. After a container is created, a client may send a PUT to create a data object within the newly created container. A subsequent GET will fetch the data object, including the value field.
 
@@ -196,9 +196,9 @@ Queue objects are also defined (see :numref:`ref_cdmi_object_model`) and provide
 
 CDMI defines two namespaces that can be used to access stored objects, a flat object ID namespace and a hierarchical path-based namespace. Support for objects accessed by object ID is indicated by the system-wide capability cdmi_object_access_by_ID, and support for objects accessed by hierarchical path is indicated by the container capability cdmi_create_dataobject found on the root container (and any subcontainers).
 
-Objects are created by ID by performing an HTTP POST against a special URI, designated as ``/cdmi_objectid/`` (see :numref:`ref_see_create_post_a_new_data_object_using_cdmi`). Subsequent to creation, objects are modified by performing PUTs using the object ID assigned by the CDMI server, using the /cdmi_objectid/ URI (see :numref:`ref_update_a_data_object_using_cdmi`). The same URI is used to retrieve and delete objects by ID. 
+Objects are created by ID by performing an HTTP POST against a special URI, designated as ``/cdmi_objectid/`` (see :numref:`ref_see_create_post_a_new_data_object_using_cdmi`). Subsequent to creation, objects are modified by performing PUTs using the object ID assigned by the CDMI server, using the /cdmi_objectid/ URI (see :numref:`ref_cdmi_data_object_update`). The same URI is used to retrieve and delete objects by ID. 
 
-Objects are created by name by performing an HTTP PUT to the desired path URI (see :numref:`ref_create_a_data_object_using_cdmi`). Subsequent to creation, objects are modified by performing PUTs using the object path specified by the client (see :numref:`ref_update_a_data_object_using_cdmi`). The same URI is used to retrieve and delete objects by path. 
+Objects are created by name by performing an HTTP PUT to the desired path URI (see :numref:`ref_cdmi_data_object_create`). Subsequent to creation, objects are modified by performing PUTs using the object path specified by the client (see :numref:`ref_cdmi_data_object_update`). The same URI is used to retrieve and delete objects by path. 
 
 CDMI defines mechanisms so that objects having only an object ID can be assigned a path location within the hierarchical namespace, and so that objects having both an object ID and path can have their path dropped, such that the object only has an object ID. This function is accomplished by using a "move" modifier to a PUT or POST operation, as shown in :numref:`fig_cdmiobjectlifecycle`.
 
@@ -224,7 +224,7 @@ CDMI data system metadata, user metadata, and storage system metadata is defined
 
 Data system metadata is metadata that is specified by a CDMI client and is a component of objects. Data system metadata abstractly specifies the data requirements associated with data services that are deployed in the cloud storage system.
 
-User metadata consists of client-defined JSON strings, arrays, and objects that are stored in the metadata field. The namespace used for user metadata names is self-administered (e.g., using the reverse domain name), and user metadata names shall not begin with the prefix 'cdmi_.'
+User metadata consists of client-defined JSON strings, arrays, and objects that are stored in the metadata field. The namespace used for user metadata names is self-administered (e.g., using the reverse domain name), and user metadata names shall not begin with the prefix "cdmi\_".
 
 Storage system metadata is metadata that is generated by the storage services in the system (e.g., creation time, size) to provide useful information to a CDMI client. 
 
@@ -348,7 +348,7 @@ Security measures within CDMI may be summarized as:
 
 With the exception of both the transport security and the security capabilities, which are mandatory to implement, the security measures may vary significantly from implementation to implementation.
 
-When security is a concern, the CDMI client should begin with a series of security capability lookups (see :numref:`cloud_storage_system-wide_capabilities`  to determine the exact nature of the security features that are available. Based on the values of these capabilities, a risk-based decision should be made as to whether the CDMI server should be used. This is particularly true when the data to be stored in the cloud storage is sensitive or regulated in a way that requires stored data to be protected (e.g., encrypted) or handled in a particular manner (e.g., full accountability and traceability of management and access).
+When security is a concern, the CDMI client should begin with a series of security capability lookups (see :numref:`ref_cloud_storage_system-wide_capabilities`  to determine the exact nature of the security features that are available. Based on the values of these capabilities, a risk-based decision should be made as to whether the CDMI server should be used. This is particularly true when the data to be stored in the cloud storage is sensitive or regulated in a way that requires stored data to be protected (e.g., encrypted) or handled in a particular manner (e.g., full accountability and traceability of management and access).
 
 
 
@@ -422,6 +422,7 @@ RFC 2616 Support Requirements
 A conformant implementation of CDMI shall also be a conformant implementation of :rfc:`2616` (i.e., HTTP 1.1). The subclauses below list the sections of :rfc:`2616` that shall be supported; however, this list is not comprehensive.
 
 
+.. _ref_content-type_negotiation:
 
 Content-Type Negotiation
 ------------------------
@@ -434,7 +435,7 @@ If a request body is present, the client shall include a Content-Type header, as
 
 If a response body is present, the server shall provide a Content-Type header. 
 
-This international standard may further qualify content negotiation (e.g., in :numref:`ref_read_a_container_object_using_cdmi`, the absence of a Content-Type header has a specific meaning).
+This international standard may further qualify content negotiation (e.g., in :numref:`ref_cdmi_container_object_read`, the absence of a Content-Type header has a specific meaning).
 
 Range Support
 -------------

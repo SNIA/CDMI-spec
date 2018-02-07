@@ -41,6 +41,7 @@ Log messages shall contain a minimum of the following information, in a format s
 Operations logged should include operations performed to a CDMI-exported file system.
 
 
+.. _ref_security_logging:
 
 Security Logging
 ****************

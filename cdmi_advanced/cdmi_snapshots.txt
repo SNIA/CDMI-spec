@@ -15,7 +15,7 @@ A snapshot is a point-in-time copy (image) of a container and all of its content
     Snapshot Container Structure
 
 
-A snapshot operation is requested using the container update operation (see :numref:`ref_update_a_container_object_using_cdmi`), in which the snapshot field specifies the requested name of the snapshot.
+A snapshot operation is requested using the container update operation (see :numref:`ref_cdmi_container_object_update`), in which the snapshot field specifies the requested name of the snapshot.
 
 A snapshot may be accessed in the same way that any other CDMI™ object is accessed. An important use of a snapshot is to allow the contents of the source container to be restored to their values at a previous point in time using a CDMI copy operation. 
 

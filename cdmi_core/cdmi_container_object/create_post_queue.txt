@@ -1,4 +1,4 @@
-.. _ref_create_(post)_a_new_queue_object_using_cdmi:
+.. _ref_cdmi_container_object_create_post_object:
 
 Create (POST) a New Queue Object using CDMI
 *******************************************
@@ -97,7 +97,7 @@ The HTTP request headers for creating a new CDMI queue object using CDMI are sho
       - Requirement
     * - Accept
       - Header String
-      - "application/cdmi-queue" or a consistent value as per clause :numref:`content-type_negotiation` 
+      - "application/cdmi-queue" or a consistent value as per clause :numref:`ref_content-type_negotiation` 
       - Optional
     * - Content-Type
       - Header String

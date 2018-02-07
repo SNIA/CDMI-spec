@@ -3,6 +3,7 @@
 Metadata
 ========
 
+.. _ref_access_control:
 
 Access Control
 **************
@@ -543,11 +544,10 @@ ACLs containing one or more ACEs shall be represented in JSON as follows:
         }
 
 
-
 Support for User Metadata
 *************************
 
-All CDMI objects that support metadata shall permit the inclusion of arbitrary user-defined metadata items, with the restriction that the name of a user-defined metadata item shall not start with the prefix "cdmi_".
+All CDMI objects that support metadata shall permit the inclusion of arbitrary user-defined metadata items, with the restriction that the name of a user-defined metadata item shall not start with the prefix "cdmi\_".
 
 
 * The maximum number of user-defined metadata items is specified by the capability cdmi_metadata_maxitems.
@@ -556,7 +556,7 @@ All CDMI objects that support metadata shall permit the inclusion of arbitrary u
 
 
 
-
+.. _ref_support_for_storage_system_metadata:
 
 Support for Storage System Metadata
 ***********************************
@@ -625,6 +625,7 @@ After an object has been created, the storage system metadata, as described in :
       - Optional
 
 
+.. _ref_support_for_data_system_metadata:
 
 Support for Data System Metadata
 ********************************
@@ -778,7 +779,7 @@ Data system metadata (see :numref:`tbl_data_system_metadata`  is inherited from 
       - 
 
 
-
+.. _ref_support_for_provided_data_system_metadata:
 
 Support for Provided Data System Metadata
 *****************************************
