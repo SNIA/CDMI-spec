@@ -745,7 +745,6 @@ The HTTP request headers for reading a CDMI domain object using CDMI are shown i
 .. _tbl_cdmi_domain_object_read_request_headers:
 
 .._list-table:: Request Headers - Read a Domain Object using CDMI
-
     :header-rows: 1
     :widths: auto
     :align: center 

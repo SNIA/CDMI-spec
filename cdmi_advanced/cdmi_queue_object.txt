@@ -1408,10 +1408,10 @@ A response body may be provided as per :rfc:`2616`.
 
 Response Status
 ---------------
- :numref:`tbl_cdmi_queue_object_enqueue_response_status` describes the HTTP status codes that occur when enqueuing a new queue object using CDMI. 
+ :numref:`tbl_cdmi_queue_object_value_enqueue_response_status` describes the HTTP status codes that occur when enqueuing a new queue object using CDMI. 
 
 
-.. __tbl_cdmi_queue_object_enqueue_response_status:
+.. __tbl_cdmi_queue_object_value_enqueue_response_status:
 
 .. list-table:: HTTP Status Codes - Enqueue A New Queue Object Value Using CDMI
     :header-rows: 1
@@ -1674,10 +1674,10 @@ The following capability describes the supported operations that may be performe
 Request Header
 --------------
 
-The HTTP request header for deleting a CDMI queue object value using CDMI is shown in :numref:`tbl_cdmi_queue_object_delete_request_headers`. 
+The HTTP request header for deleting a CDMI queue object value using CDMI is shown in :numref:`tbl_cdmi_queue_object_value_delete_request_headers`. 
 
 
-.. _tbl_cdmi_queue_object_delete_request_headers:
+.. _tbl_cdmi_queue_object_value_delete_request_headers:
 
 .. list-table:: Request Header - Delete A Queue Object Value Using CDMI
     :header-rows: 1
