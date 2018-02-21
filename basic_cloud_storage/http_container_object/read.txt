@@ -1,6 +1,6 @@
-.. _ref_read_a_container_object_using_http:
+.. _ref_http_container_object_read:
 
 Read a Container Object using HTTP
 **********************************
 
-Reading a container object using HTTP is not defined by this version of this international standard. Clause :numref:`ref_read_a_container_object_using_cdmi` describes how to read a container object using CDMI.
+Reading a container object using HTTP is not defined by this version of this international standard. Clause :numref:`ref_cdmi_container_object_read` describes how to read a container object using CDMI.

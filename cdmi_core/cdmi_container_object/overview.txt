@@ -1,3 +1,5 @@
+.. _ref_cdmi_container_object_overview:
+
 
 Overview
 ********
@@ -12,7 +14,7 @@ Containers are addressed in CDMI in two ways:
 
 Every container object has a single, globally-unique object ID that remains constant for the life of the object. Each container object may also have one or more URI addresses that allow the container object to be accessed. Following the URI conventions for hierarchical paths, container URIs shall consist of one or more container names that are separated by forward slashes ("/") and that end with a forward slash ("/"). 
 
-If a request is performed against an existing container resource and the trailing slash at the end of the URI is omitted, the server shall respond with an HTTP status code of :numref:`ref_`301 Moved Permanently``. In addition, a Location header containing the URI with the trailing slash added shall be returned. 
+If a request is performed against an existing container resource and the trailing slash at the end of the URI is omitted, the server shall respond with an HTTP status code of ``301 Moved Permanently``. In addition, a Location header containing the URI with the trailing slash added shall be returned. 
 
 If a CDMI request is performed to create a new container resource and the trailing slash at the end of the URI is omitted, the server shall respond with an HTTP status code of ``400 Bad Request``.
 
@@ -73,12 +75,12 @@ The following optional data system metadata may be provided (see :numref:`tbl_co
       - Optional
 
 
-Container metadata may also include arbitrary user-supplied metadata, storage system metadata, and data system metadata as described in `Metadata`.
+Container metadata may also include arbitrary user-supplied metadata, storage system metadata, and data system metadata as described in :numref:`Clause %s <clause_cdmi_metadata>` 
 
 Reserved Container Names
 ------------------------
 
-This international standard defines reserved container names that shall not be used when creating new containers. These container names are reserved for use by this international standard, and if an attempt is made to create or delete them, an HTTP status code of :numref:`ref_`400 Bad Request`` shall be returned to the client. 
+This international standard defines reserved container names that shall not be used when creating new containers. These container names are reserved for use by this international standard, and if an attempt is made to create or delete them, an HTTP status code of ``400 Bad Request`` shall be returned to the client. 
 
 The reserved container names include: 
 
@@ -89,12 +91,12 @@ The reserved container names include:
 * cdmi_versions. 
 
 
-As additional names may be added in future versions of this international standard, server implementations shall prevent the creation of user-defined containers if the container name starts with "cdmi_". 
+As additional names may be added in future versions of this international standard, server implementations shall prevent the creation of user-defined containers if the container name starts with "cdmi\_". 
 
 Container Object Addressing
 ---------------------------
 
-Each container object is addressed via one or more unique URIs, and all operations may be performed through any of these URIs. For example, a container object may be accessible via multiple virtual hosting paths, where http://cloud.example.com/users/snia/cdmi/ is also accessible through http://snia.example.com/cdmi/. Conflicting writes via different paths shall be managed the same way that conflicting writes via one path are managed, via the principle of eventual consistency (see `Create a Container Object using CDMI`).
+Each container object is addressed via one or more unique URIs, and all operations may be performed through any of these URIs. For example, a container object may be accessible via multiple virtual hosting paths, where http://cloud.example.com/users/snia/cdmi/ is also accessible through http://snia.example.com/cdmi/. Conflicting writes via different paths shall be managed the same way that conflicting writes via one path are managed, via the principle of eventual consistency (see :numref:`create_a_container_object_using_cdmi` .
 
 Container Object Representations
 --------------------------------

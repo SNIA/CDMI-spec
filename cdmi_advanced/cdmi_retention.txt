@@ -1,13 +1,11 @@
-
-
 .. _clause_cdmi_retention:
 
 Retention and Hold Management
-========================================
+=============================
 
 
 Introduction
-************************
+************
 
 A cloud storage system may optionally implement retention management disciplines into the system management functionality of the cloud-based storage system. The implementation of retention and hold capabilities is indicated by the presence of the cloud storage system-wide capabilities for retention and hold capabilities.
 
@@ -24,7 +22,7 @@ Retention management may be applied to the following object types:
 
 
 Retention Management Disciplines
-************************
+********************************
 
 CDMI retention, deletion, and hold management affect any CDMI client that creates or deletes CDMI objects, as these disciplines mandate how a cloud storage system manages CDMI objects when they are created and until they are deleted. 
 
@@ -41,11 +39,11 @@ CDMI retention management is comprised of three management disciplines: retentio
 
 
 CDMI Retention
-************************
+**************
 
 
 Overview
------
+--------
 
 CDMI retention only allows one retention policy to be applied to an object at a time. 
 
@@ -60,19 +58,17 @@ When a CDMI client attempts to delete an object, the cloud storage system shall 
 
 When copying objects with a retention policy, retention properties shall not be transferred from the source CDMI object to the destination object, and the destination object shall not have a retention policy.
 
-:numref:`ref_object_retention` shows how to establish time-based retention with a retention identifier. The value of the object data system metadata for the retention period shall not be reduced.
+:numref:`fig_object_retention` shows how to establish time-based retention with a retention identifier. The value of the object data system metadata for the retention period shall not be reduced.
 
 
-<H6 CLASS="Figure-Caption">
+.. _fig_object_retention:
 
-Object Retention</H6>
-</CAPTION>
-    * - <H6 CLASS="NoSpace">
- </H6>
-
-<IMG SRC="CDMI_Spec-9.gif" ALT="">
-
-</TABLE>
+.. figure:: /images/missing.*
+    :align:  center
+    :figwidth: 100%
+   
+    Object Retention
+   
 
 A specific HTTP error code (403) shall be returned on operations to objects that are under retention period when the cloud storage system attempts to change or delete the object before the retention period criteria are met. 
 
@@ -81,115 +77,81 @@ A cloud storage system shall not prevent metadata changes that increase the rete
 
 
 Examples
------
+--------
 
-#. Place an existing object under retention:
-
-    .. code-block:: http
-
-
-    PUT /MyContainer/MyDataObject.txt?metadata:cdmi_retention_id;metadata:cdmi_retention_period HTTP/1.1
-
-    Host: cloud.example.com
-
-    Content-Type: application/cdmi-object
-
-    X-CDMI-Specification-Version: 1.1
-
-     
-
-    {
-
-    	"metadata" : {
-
-    		"cdmi_retention_id" : "1",
-
-    		"cdmi_retention_period" : "2010-04-28T00:00:00.000000Z/2012-04-27T00:00:00.000000Z"
-
-    	}
-
-    }
-
-   The following shows the response.
-
-   .. code-block:: http
-
-    HTTP/1.1 204 No Content
-
-
-#. Increase the duration of retention on an existing object under retention:
+#.  Place an existing object under retention:
 
     .. code-block:: http
 
+        PUT /MyContainer/MyDataObject.txt?metadata:cdmi_retention_id;metadata:cdmi_retention_period HTTP/1.1
+        Host: cloud.example.com
+        Content-Type: application/cdmi-object
+        X-CDMI-Specification-Version: 1.1
+         
+        {
+            "metadata" : {
+                "cdmi_retention_id" : "1",
+                "cdmi_retention_period" : "2010-04-28T00:00:00.000000Z/2012-04-27T00:00:00.000000Z"
+            }
+        }
 
-    PUT /MyContainer/MyDataObject.txt?metadata:cdmi_retention_period HTTP/1.1
-
-    Host: cloud.example.com
-
-    Content-Type: application/cdmi-object
-
-    X-CDMI-Specification-Version: 1.1
-
-     
-
-    {
-
-    	"metadata" : {
-
-    		"cdmi_retention_period" : "2011-04-28T00:00:00.000000Z/2013-04-27T00:00:00.000000Z"
-
-    	}
-
-    }
-
-   The following shows the response.
-
-   .. code-block:: http
-
-    HTTP/1.1 204 No Content
-
-
-#. Decrease the duration of retention on an existing object under retention:
+    The following shows the response.
 
     .. code-block:: http
 
-
-    PUT /MyContainer/MyDataObject.txt?metadata:cdmi_retention_period HTTP/1.1
-
-    Host: cloud.example.com
-
-    Content-Type: application/cdmi-object
-
-    X-CDMI-Specification-Version: 1.1
-
-     
-
-    {
-
-    	"metadata" : {
-
-    		"cdmi_retention_period" : "2011-04-28T00:00:00.000000Z/2012-01-27T00:00:00.000000Z"
-
-    	}
-
-    }
-
-   The following shows the response.
-
-   .. code-block:: http
-
-    HTTP/1.1 403 Forbidden
+        HTTP/1.1 204 No Content
 
 
+#.  Increase the duration of retention on an existing object under retention:
 
+    .. code-block:: http
+
+        PUT /MyContainer/MyDataObject.txt?metadata:cdmi_retention_period HTTP/1.1
+        Host: cloud.example.com
+        Content-Type: application/cdmi-object
+        X-CDMI-Specification-Version: 1.1
+         
+        {
+            "metadata" : {
+                "cdmi_retention_period" : "2011-04-28T00:00:00.000000Z/2013-04-27T00:00:00.000000Z"
+            }
+        }
+
+    The following shows the response.
+
+    .. code-block:: http
+
+        HTTP/1.1 204 No Content
+
+
+#.  Decrease the duration of retention on an existing object under retention:
+
+    .. code-block:: http
+
+        PUT /MyContainer/MyDataObject.txt?metadata:cdmi_retention_period HTTP/1.1
+        Host: cloud.example.com
+        Content-Type: application/cdmi-object
+        X-CDMI-Specification-Version: 1.1
+         
+        {
+            "metadata" : {
+                "cdmi_retention_period" : "2011-04-28T00:00:00.000000Z/2012-01-27T00:00:00.000000Z"
+            }
+        }
+
+    The following shows the response.
+
+    .. code-block:: http 
+
+        HTTP/1.1 403 Forbidden
 
 
 CDMI Hold
-************************
+*********
 
 
 Overview
------
+--------
 
 CDMI hold enforces read-only data object access and prohibition of object deletion. A cloud storage system shall allow multiple holds to be applied to a single object to satisfy multiple hold orders. While an object is on hold, a cloud storage system shall strictly enforce read-only access to the object and prohibit object deletion.
 
@@ -199,47 +161,41 @@ Hold management uses a hold indicator to determine the time period(s) during whi
 
 A CDMI client may place an object on hold by adding a hold identifier to the cdmi_hold_id data system metadata item. When an object is on hold, CDMI clients shall be subject to failures or unexpected state changes on operations, which would otherwise be successful if the object was not on hold.
 
-:numref:`ref_object_hold` shows how placing a hold on an object affects its read-only and deletion capability.
+:numref:`fig_object_hold` shows how placing a hold on an object affects its read-only and deletion capability.
 
 
-<H6 CLASS="Figure-Caption">
+.. _fig_object_hold:
 
-Object Hold</H6>
-</CAPTION>
-    * - <H6 CLASS="NoSpace">
- </H6>
+.. figure:: /images/missing.*
+    :align:  center
+    :figwidth: 100%
+   
+    Object Hold
+   
 
-<IMG SRC="CDMI_Spec-10.gif" ALT="">
-
-</TABLE>
-
-:numref:`ref_object_hold_on_object_with_retention` shows how to establish time-based retention with a retention identifier that has a hold placed on the object. The value of the object data system metadata for the retention period shall not be reduced, and the value of the object data system metadata for hold identifiers shall not permit holds to be removed. Removing holds is outside the scope of the CDMI international standard.
+:numref:`fig_object_hold_on_object_with_retention` shows how to establish time-based retention with a retention identifier that has a hold placed on the object. The value of the object data system metadata for the retention period shall not be reduced, and the value of the object data system metadata for hold identifiers shall not permit holds to be removed. Removing holds is outside the scope of the CDMI international standard.
 
 
-<H6 CLASS="Figure-Caption">
+.. _fig_object_hold_on_object_with_retention:
 
-Object Hold on Object with Retention</H6>
-</CAPTION>
-    * - <H6 CLASS="NoSpace">
- </H6>
+.. figure:: /images/missing.*
+    :align:  center
+    :figwidth: 100%
+   
+    Object Hold on Object with Retention
+   
 
-<IMG SRC="CDMI_Spec-11.gif" ALT="">
-
-</TABLE>
-
-:numref:`ref_object_with_multiple_holds` shows how placing multiple holds on an object affects its read-only and deletion capability.
+:numref:`fig_object_with_multiple_holds` shows how placing multiple holds on an object affects its read-only and deletion capability.
 
 
-<H6 CLASS="Figure-Caption">
+.. _fig_object_with_multiple_holds:
 
-Object with Multiple Holds</H6>
-</CAPTION>
-    * - <H6 CLASS="NoSpace">
- </H6>
-
-<IMG SRC="CDMI_Spec-12.gif" ALT="">
-
-</TABLE>
+.. figure:: /images/missing.*
+    :align:  center
+    :figwidth: 100%
+   
+    Object with Multiple Holds
+   
 
 A cloud storage system shall maintain an on-hold object in read-only mode with respect to the application access to data and metadata and shall prohibit deletion, either automated or explicit. 
 
@@ -253,123 +209,85 @@ A specific HTTP error code (403) shall be returned on operations to objects that
 
 
 Examples
------
+--------
 
-#. Place an existing object under hold: 
+#.  Place an existing object under hold: 
 
     .. code-block:: http
 
-
-    PUT /MyContainer/MyDataObject.txt?metadata:cdmi_hold_id HTTP/1.1
-
-    Host: cloud.example.com
-
-    Content-Type: application/cdmi-object
-
-    X-CDMI-Specification-Version: 1.1
-
-     
-
-    {
-
-      "metadata": {
-
-        "cdmi_hold_id": {
-
-           "case_7": ""
-
+        PUT /MyContainer/MyDataObject.txt?metadata:cdmi_hold_id HTTP/1.1
+        Host: cloud.example.com
+        Content-Type: application/cdmi-object
+        X-CDMI-Specification-Version: 1.1
+         
+        {
+          "metadata": {
+            "cdmi_hold_id": {
+               "case_7": ""
+            }
+          }
         }
 
-      }
-
-    }
-
-   The following shows the response.
-
-   .. code-block:: http
-
-    HTTP/1.1 204 No Content
-
-
-#. Attempt to remove a hold for an object under hold: 
+    The following shows the response.
 
     .. code-block:: http
 
-
-    PUT /MyContainer/MyDataObject.txt?metadata:cdmi_hold_id HTTP/1.1
-
-    Host: cloud.example.com
-
-    Content-Type: application/cdmi-object
-
-    X-CDMI-Specification-Version: 1.1
-
-     
-
-    {
-
-      "metadata": {
-
-        "cdmi_hold_id": {}
-
-      }
-
-    }
-
-   The following shows the response.
-
-   .. code-block:: http
-
-    HTTP/1.1 403 Forbidden
+        HTTP/1.1 204 No Content
 
 
-#. Add a second hold to an object under hold:
+#.  Attempt to remove a hold for an object under hold: 
 
     .. code-block:: http
 
+        PUT /MyContainer/MyDataObject.txt?metadata:cdmi_hold_id HTTP/1.1
+        Host: cloud.example.com
+        Content-Type: application/cdmi-object
+        X-CDMI-Specification-Version: 1.1
+         
+        {
+          "metadata": {
+            "cdmi_hold_id": {}
+          }
+        }
 
-    PUT /MyContainer/MyDataObject.txt?metadata:cdmi_hold_id HTTP/1.1
+    The following shows the response.
 
-    Host: cloud.example.com
+    .. code-block:: http
 
-    Content-Type: application/cdmi-object
-
-    X-CDMI-Specification-Version: 1.1
-
-     
-
-    {
-
-      "metadata":{
-
-        "cdmi_hold_id": {
-
-           "case_7": "",
-
-           "case_15": ""
-
-       }
-
-     	}
-
-    }
-
-   The following shows the response.
-
-   .. code-block:: http
-
-    HTTP/1.1 204 No Content
+        HTTP/1.1 403 Forbidden
 
 
+#.  Add a second hold to an object under hold:
 
+    .. code-block:: http
+
+        PUT /MyContainer/MyDataObject.txt?metadata:cdmi_hold_id HTTP/1.1
+        Host: cloud.example.com
+        Content-Type: application/cdmi-object
+        X-CDMI-Specification-Version: 1.1
+         
+        {
+          "metadata":{
+            "cdmi_hold_id": {
+               "case_7": "",
+               "case_15": ""
+           }
+            }
+        }
+
+    The following shows the response.
+
+    .. code-block:: http
+
+        HTTP/1.1 204 No Content
 
 
 CDMI Auto-deletion
-************************
+******************
 
 
 Overview
------
+--------
 
 CDMI deletion controls cloud storage system actions with respect to object deletion. A cloud storage system may automatically delete a CDMI object after the retention time and hold criteria have been met. (See :numref:`ref_cdmi_retention_autodelete` in :numref:`ref_data_system_metadata`.)
 
@@ -377,40 +295,30 @@ CDMI objects shall be automatically deleted by the system at the retention perio
 
 #.  Place an object under retention with autodelete:
 
-    PUT /MyContainer/MyDataObject.txt?metadata:cdmi_retention_period;metadata:cdmi_retention_autodelete HTTP/1.1
+    .. code-block:: http
 
-    Host: cloud.example.com
+        PUT /MyContainer/MyDataObject.txt?metadata:cdmi_retention_period;metadata:cdmi_retention_autodelete HTTP/1.1
+        Host: cloud.example.com
+        Content-Type: application/cdmi-object
+        X-CDMI-Specification-Version: 1.1
+         
+        {
+            "metadata":{
+                "cdmi_retention_period": "2011-04-28T00:00:00.000000Z/2013-04-27T00:00:00.000000Z",
+                "cdmi_retention_autodelete": "true"
+            }
+        }
 
-    Content-Type: application/cdmi-object
+    The following shows the response.
 
-    X-CDMI-Specification-Version: 1.1
+    .. code-block:: http
 
-     
+        HTTP/1.1 204 No Content
 
-    {
-
-    	"metadata":{
-
-    		"cdmi_retention_period": "2011-04-28T00:00:00.000000Z/2013-04-27T00:00:00.000000Z",
-
-    		"cdmi_retention_autodelete": "true"
-
-    	}
-
-    }
-
-   The following shows the response.
-
-   .. code-block:: http
-
-    HTTP/1.1 204 No Content
-
-
-
-
-
+        
+        
 Retention Security Considerations
-************************
+*********************************
 
 The accuracy and integrity of the retention start and elapsed times depend on the accuracy and integrity of the clock that is used to set their values. Equally important is the relative accuracy and security of the clock that determines if the retention period has elapsed when compared to the clock that sets the start time property. Relative time differences between these two clocks may lead to undesirable retention and deletion management behavior.
 

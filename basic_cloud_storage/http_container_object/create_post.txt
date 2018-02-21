@@ -1,4 +1,4 @@
-.. _ref_create_(post)_a_new_data_object_using_http:
+.. _ref_http_container_object_create_post:
 
 Create (POST) a New Data Object using HTTP
 ******************************************
@@ -38,9 +38,9 @@ The following capabilities describe the supported operations that may be perform
 Request Header 
 --------------
 
-The HTTP request header for creating a new CDMI data object using HTTP is shown in :numref:`tbl_create_a_new_data_object_using_http_request_header`.
+The HTTP request header for creating a new CDMI data object using HTTP is shown in :numref:`tbl_http_data_object_create_request_header`.
 
-.. _tbl_create_a_new_data_object_using_http_request_header:
+.. _tbl_http_data_object_create_request_header:
 
 .. list-table:: Request Header - Create a New Data Object using HTTP
     :header-rows: 1
@@ -72,10 +72,10 @@ The message body shall contain the contents (value) of the data object to be cre
 Response Header
 ---------------
 
-The HTTP response header for creating a new CDMI data object using HTTP is shown in :numref:`tbl_create_a_new_data_object_using_http_response_header`. 
+The HTTP response header for creating a new CDMI data object using HTTP is shown in :numref:`tbl_http_data_object_create_response_header`. 
 
 
-.. _tbl_create_a_new_data_object_using_http_response_header:
+.. _tbl_http_data_object_create_response_header:
 
 .. list-table:: Response Header - Create a New Data Object using HTTP
     :header-rows: 1
@@ -100,9 +100,9 @@ A response body may be provided as per :rfc:`2616`.
 Response Status 
 ---------------
 
-:numref:`tbl_create_a_new_data_object_using_http_http_status_codes` describes the HTTP status codes that occur when creating a new data object using HTTP.
+:numref:`tbl_http_data_object_create_response_status` describes the HTTP status codes that occur when creating a new data object using HTTP.
 
-.. _tbl_create_a_new_data_object_using_http_http_status_codes:
+.. _tbl_http_data_object_create_response_status:
 
 .. list-table:: HTTP Status Codes - Create a New Data Object using HTTP
     :header-rows: 1

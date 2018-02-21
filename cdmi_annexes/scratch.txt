@@ -1,226 +1,11 @@
 
 
-<H6 CLASS="A2">
-Summary Metadata for Bandwidth</H6>
 
-<H6 CLASS="A3">
-Overview</H6>
+Versioning
+***********************************
 
-Domain summaries provide summary measurement information about domain usage and billing. Some systems may track additional usage and billing information related to network bandwidth. This extension proposes a set of additional, optional contents for domain summary objects.
-
-
-<H6 CLASS="A3">
-Changes to CDMI 1.1</H6>
-
-The changes proposed are a set of additional, optional contents for domain summary objects.
-<OL>
-#. Insert into :numref:`ref_terms`.
-</OL>
-3.x
-private network segment
-     a single IP address or range of IP addresses that are considered internal (e.g., LAN)
-3.x
-public network segment
-     a single IP address or range of IP addresses that are considered external (e.g., WAN)
-<OL>
-#. A.. list-table entries to the end of :numref:`ref_contents_of_domain_summary_objects` in :numref:`ref_domain_object_summaries` as follows:
-    :header-rows: 1
-    :widths: auto
-    :align: center 
-
-
-
-    * - Metadata Name
-      - Type
-      - Description
-      - Requirement
-    * - cdmi_summary_network_bytes
-      - JSON String
-      - Total number of bytes read/written to/from public/private network segments
-      - Optional
-    * - cdmi_summary_reads_private
-      - JSON String
-      - Total number of bytes read from private network segment
-      - Optional
-    * - cdmi_summary_reads_private_min
-      - JSON String
-      - Minimum number of bytes read from private network segment for the given interval
-      - Optional
-    * - cdmi_summary_reads_private_max
-      - JSON String
-      - Maximum number of bytes read from private network segment for the given interval
-      - Optional
-    * - cdmi_summary_reads_private_avg
-      - JSON String
-      - Average number of bytes read from private network segment for the given interval
-      - Optional
-    * - cdmi_summary_writes_private
-      - JSON String
-      - Total number of bytes written to private network segment
-      - Optional
-    * - cdmi_summary_writes_private_min
-      - JSON String
-      - Minimum number of bytes written to private network segment for the given interval
-      - Optional
-    * - cdmi_summary_writes_private_max
-      - JSON String
-      - Maximum number of bytes written to private network segment for the given interval
-      - Optional
-    * - cdmi_summary_writes_private_avg
-      - JSON String
-      - Average number of bytes written to private network segment for the given interval
-      - Optional
-    * - cdmi_summary_reads_public
-      - JSON String
-      - Total number of bytes read from public network segment
-      - Optional
-    * - cdmi_summary_reads_public_min
-      - JSON String
-      - Minimum number of bytes read from public network segment for the given interval
-      - Optional
-    * - cdmi_summary_reads_public_max
-      - JSON String
-      - Maximum number of bytes read from public network segment for the given interval
-      - Optional
-    * - cdmi_summary_reads_public_avg
-      - JSON String
-      - Average number of bytes read from public network segment for the given interval
-      - Optional
-    * - cdmi_summary_writes_public
-      - JSON String
-      - Total number of bytes written to public network segment
-      - Optional
-    * - cdmi_summary_writes_public_min
-      - JSON String
-      - Minimum number of bytes written to public network segment for the given interval
-      - Optional
-    * - cdmi_summary_writes_public_max
-      - JSON String
-      - Maximum number of bytes written to public network segment for the given interval
-      - Optional
-    * - cdmi_summary_writes_public_avg
-      - JSON String
-      - Average number of bytes written to public network segment for the given interval
-      - Optional
-    * - cdmi_summary_reads_total
-      - JSON String
-      - Total number of bytes read from both public and private network segments
-      - Optional
-    * - cdmi_summary_writes_total
-      - JSON String
-      - Total number of bytes written to both public and private network segments
-      - Optional
-</TABLE>
-</OL>
-
-
-
-<H6 CLASS="A2">
-Expiring Access Control Entries (ACEs)</H6>
-
-<H6 CLASS="A3">
-Overview</H6>
-
-A common trait of cloud storage services is the ability to share an object with other clients for a limited time. This extension adds an attribute of ACEs used in ACLs that imposes a time limit (expiration) on the ACE. Once the ACE expires, the ACE is no longer  valid or included in the authorization calculation for the object.
-
-
-<H6 CLASS="A3">
-Changes to CDMI 1.1</H6>
-<OL>
-#. Insert into :numref:`ref_acl_evaluation`:
-</OL>
-<P CLASS="Body-Indent">
-After the bullet item:</P>
-
-
-* ACEs that do not refer to the principal P requesting the operation are ignored.
-
-<P CLASS="Body-Indent">
-Insert bullet:</P>
-
-
-* ACEs that have an expiration value less than the current time are ignored.
-#. Change :numref:`ref_acl_evaluation`:
-
-<P CLASS="Body-Indent">
-Original text:</P>
-
-    ACE = { acetype , identifier , aceflags , acemask , acetime }
-<P CLASS="Body-Indent">
-Revised text:</P>
-
-    ACE = { acetype , identifier , aceflags , acemask , acetime, expiration }
-<OL>
-#. Insert into :numref:`ref_acl_evaluation` after "``acemask = uint_t | acemaskstring``":
-</OL>
-
-    expiration = uint_t
-<OL>
-#. Insert into :numref:`ref_acl_evaluation` after "When ACE masks...":
-</OL>
-
-   When ACE expiration is presented in string format, it shall be specified in ISO-8601 point-in-time format as described in :numref:`ref_time_representations`.
-<OL>
-#. Insert a new subclause 16.1.x - ACE Expiration.
-</OL>
-
-   An ACE may have an optional expiration associated with it. The expiration is a point-in-time value, in ISO-8601 point-in-time format, as described in :numref:`ref_time_representations`, which specifies that the ACE is no longer valid and shall be ignored after the time specified. 
-
-
-
-<H6 CLASS="A2">
-Group Storage System Metadata</H6>
-
-<H6 CLASS="A3">
-Overview</H6>
-
-ACLs in CDMI can refer to the owner of an object by specifying an ACE Who of "OWNER@". This reference corresponds to the contents of the cdmi_owner storage system metadata. However, no cdmi_group storage system metadata corresponds to an ACE Who of "GROUP@".
-
-This extension defines a new storage system metadata item, cdmi_group, that allows an object to be associated with a group for ACL evaluation purposes.
-
-
-<H6 CLASS="A3">
-Changes to CDMI 1.1</H6>
-<OL>
-#. Add.. list-table enty to the end of :numref:`ref_capabilities_for_data_system_metadata` in :numref:`ref_data_system_metadata_capabilities`.
-    :header-rows: 1
-    :widths: auto
-    :align: center 
-
-
-
-    * - Capability Name
-      - Type
-      - Definition
-    * - cdmi_group
-      - JSON String
-      - If present and "true", this capability indicates that the cloud storage system supports group storage system metadata to indicate a group associated with the object.
-</TABLE>
-#. Add.. list-table entry below "cdmi_owner" in :numref:`ref_storage_system_metadata` of :numref:`ref_support_for_storage_system_metadata`.
-    :header-rows: 1
-    :widths: auto
-    :align: center 
-
-
-
-    * - Metadata Name
-      - Type
-      - Description
-      - Requirement
-    * - cdmi_group
-      - JSON String
-      - The name of the group that is associated with the object.
-      - Optional
-</TABLE>
-</OL>
-
-
-
-<H6 CLASS="A2">
-Versioning</H6>
-
-<H6 CLASS="A3">
-Overview</H6>
+Overview
+----------------------------------
 
 This CDMI extension adds the ability to request that data objects be versioned and defines how versions are accessed and managed. Version-enabled data objects provide access to and retention of historical versions of a data object and can provide compliance functionality and revision history. Version-enabled data objects also help applications handle multiple concurrent writers in disconnected distributed environments.
 
@@ -231,8 +16,8 @@ Reviewers: Please start reading at :numref:`ref_23_data_object_versions` on :num
 
 
 
-<H6 CLASS="A3">
-Changes to  CDMI 1.1</H6>
+Changes to  CDMI 1.1
+----------------------------------
 <OL>
 #. Insert into :numref:`ref_terms`.
 </OL>
@@ -607,7 +392,7 @@ This data system metadata item shall not be present in data object versions.
 <H6 CLASS="Body-Text-Head">
 23.1	Overview</H6>
 
-Version-enabled data objects allow the previous state of a data object to be retained when an update is performed. In a non-version-enabled data object, each update changes the state of the object, and the previous state is lost. This state change is shown in :numref:`ref_updates_to_a_non-version-enabled_data_object`.
+Version-enabled data objects allow the previous state of a data object to be retained when an update is performed. In a non-version-enabled data object, each update changes the state of the object, and the previous state is lost. This state change is shown in :numref:`ref_updates_to_a_nonversionenabled_data_object`.
 
 
 <H6 CLASS="Figure-Caption">
@@ -621,7 +406,7 @@ Updates to a Non-Version-Enabled Data Object</H6>
 
 </TABLE>
 
-When a data object has versioning enabled, each update creates a new "current version" with the same contents of the version-enabled data object, and the previous current version becomes a historical version. All versions can be accessed via separate URIs and are immutable. The version-enabled data object continues to be mutable and has the same behaviors to clients as a non-version-enabled data object. This behavior is shown in :numref:`ref_updates_to_a_version-enabled_data_object` from the perspective of a client.
+When a data object has versioning enabled, each update creates a new "current version" with the same contents of the version-enabled data object, and the previous current version becomes a historical version. All versions can be accessed via separate URIs and are immutable. The version-enabled data object continues to be mutable and has the same behaviors to clients as a non-version-enabled data object. This behavior is shown in :numref:`ref_updates_to_a_versionenabled_data_object` from the perspective of a client.
 
 
 <H6 CLASS="Figure-Caption">
@@ -677,7 +462,7 @@ Each data object version shall contain the above three fields, with the same val
 * s of the versions created by modifying this version. If the data object version does not have any children, this metadata item shall be empty.
 
 
-To visualize how these fields allow a client to traverse data object versions, the linkages between the version-enabled data object and data object versions in the final state of :numref:`ref_updates_to_a_version-enabled_data_object` is shown in :numref:`ref_linkages_between_a_version-enabled_data_object_and_data_object_versions`.
+To visualize how these fields allow a client to traverse data object versions, the linkages between the version-enabled data object and data object versions in the final state of :numref:`ref_updates_to_a_versionenabled_data_object` is shown in :numref:`ref_linkages_between_a_versionenabled_data_object_and_data_object_versions`.
 
 
 <H6 CLASS="Figure-Caption">

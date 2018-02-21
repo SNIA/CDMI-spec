@@ -33,8 +33,7 @@
 # ones.
 extensions = ['sphinx.ext.autodoc',
     'sphinx.ext.todo',
-    'sphinx.ext.coverage',
-    'sphinx.ext.autosectionlabel']
+    'sphinx.ext.coverage']
 
 # Add any paths that contain templates here, relative to this directory.
 templates_path = ['_templates']
@@ -72,7 +71,7 @@ language = 'en'
 # List of patterns, relative to source directory, that match files and
 # directories to ignore when looking for source files.
 # This patterns also effect to html_static_path and html_extra_path
-exclude_patterns = [ '**/scratch.txt' ]
+exclude_patterns = [ 'README.md', 'license.md', '**/scratch.txt' ]
 
 # The name of the Pygments (syntax highlighting) style to use.
 pygments_style = 'sphinx'
@@ -152,6 +151,10 @@ latex_elements = {
     \addto\captionsenglish{\renewcommand{\chaptername}{Clause}}
     \addto\captionsenglish{\renewcommand{\appendixname}{Annex}}
 
+    % Clear pages before new section
+    \usepackage{titlesec}
+    \newcommand{\sectionbreak}{\clearpage}
+    
     % Change the page headers
     \makeatletter
     \fancypagestyle{normal}{

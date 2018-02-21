@@ -87,6 +87,7 @@ Key Word Requirements
 In this international standard, the key words in :numref:`tbl_key_word_requirements` shall be interpreted as described in :rfc:`2119`.
 
 .. _tbl_key_word_requirements:
+
 .. table:: Key Word Requirements
     :align: center
 

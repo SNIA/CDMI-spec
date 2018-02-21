@@ -1,0 +1,8 @@
+Overview
+********
+
+CDMI extensions describe additional functionality for extending the CDMI International Standard. Each extension is first written as a standalone document that describes the changes that are required to implement the functionality being added into this International Standard.
+
+When one or more vendors have implemented a CDMI extension, it is eligible to be added to this annex. When multiple vendors have implemented a CDMI extension and demonstrated interoperability, the extension is eligible to be merged into the CDMI International Standard itself.
+
+CDMI extensions shall not break or modify existing functionality, and thus do not result in compatibility problems with existing clients. Compatibility is typically accomplished by relaxing restrictions imposed in the current CDMI International Standard, adding new fields, or using reserved names for metadata. Theclients that are using CDMI capabilities can identify the functionality that is associated with these CDMI extensions.

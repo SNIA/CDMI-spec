@@ -1,7 +1,6 @@
-.. raw:: latex
+.. _http_data_object_update:
 
-    \clearpage
-
+    
 Update a Data Object using HTTP
 *******************************
 
@@ -35,9 +34,9 @@ The following capabilities describe the supported operations that may be perform
 Request Headers
 ---------------
 
-The HTTP request headers for updating a CDMI data object using HTTP are shown in :numref:`tbl_update_a_cdmi_data_object_using_http_request_headers`. 
+The HTTP request headers for updating a CDMI data object using HTTP are shown in :numref:`tbl_http_data_object_updaterequest_headers`. 
 
-.. _tbl_update_a_cdmi_data_object_using_http_request_headers:
+.. _tbl_http_data_object_updaterequest_headers:
 
 .. list-table:: Request Headers - Update a CDMI Data Object using HTTP
     :header-rows: 1
@@ -73,9 +72,9 @@ The request message body contains the data to be stored in the value of the data
 Response Header
 ---------------
 
-The HTTP response header for updating a data object using HTTP is shown in :numref:`tbl_update_a_cdmi_data_object_using_http_response_header`. 
+The HTTP response header for updating a data object using HTTP is shown in :numref:`tbl_http_data_object_updateresponse_header`. 
 
-.. _tbl_update_a_cdmi_data_object_using_http_response_header:
+.. _tbl_http_data_object_updateresponse_header:
 
 .. list-table:: Response Header - Update a CDMI Data Object using HTTP
     :header-rows: 1
@@ -101,9 +100,9 @@ A response body may be provided as per :rfc:`2616`.
 Response Status
 ---------------
 
-The HTTP status codes that occur when updating a data object using HTTP are described in :numref:`tbl_update_a_cdmi_data_object_using_http_http_status_codes`. 
+The HTTP status codes that occur when updating a data object using HTTP are described in :numref:`tbl_http_data_object_updateresponse_status`. 
 
-.. _tbl_update_a_cdmi_data_object_using_http_http_status_codes:
+.. _tbl_http_data_object_updateresponse_status:
 
 .. list-table:: HTTP Status Codes - Update a CDMI Data Object using HTTP
     :header-rows: 1

@@ -1,12 +1,11 @@
-
 .. _clause_cdmi_results:
 
 Results Specification
-========================================
+=====================
 
 
 Introduction
-************************
+************
 
 CDMI™ provides a standardized mechanism to define subsets of object contents. This mechanism is known as a CDMI results specification. Results specifications are typically used to provide a CDMI client with a way to indicate on what subset of the contents of CDMI objects it intends to retrieve or operate.
 
@@ -14,126 +13,83 @@ Each JSON object within the results specification represents a set of fields tha
 
 The results JSON object shall be constructed using the same structure as is used for CDMI objects. To show this, assume the following result from a CDMI GET for a data object:
 
-    HTTP/1.1 200 OK
+.. code-block:: http
 
-    Content-Type: application/cdmi-object
-
-    X-CDMI-Specification-Version: 1.1
-
-    &nbsp;
-
-    {
-
-    	"objectType" : "application/cdmi-object",
-
-    	"objectID" : "00007E7F0010EB9092B29F6CD6AD6824",
-
-    	"objectName" : "MyDataObject.txt",
-
-    	"parentURI" : "/MyContainer/",
-
-         "parentID" : "00007E7F00102E230ED82694DAA975D2",
-
-    	"domainURI" : "/cdmi_domains/MyDomain/",
-
-    	"capabilitiesURI" : "/cdmi_capabilities/dataobject/",
-
-    	"completionStatus" : "Complete",
-
-    	"mimetype" : "text/plain",
-
-    	"metadata" : {
-
-    		"cdmi_size" : "108263",
-
-    			...
-
-    	},
-
-    	"valuerange" : "0-108262",
-
-    	"value" : "..."
-
-    }
-
+        HTTP/1.1 200 OK
+        Content-Type: application/cdmi-object
+        X-CDMI-Specification-Version: 1.1
+        
+        {
+            "objectType" : "application/cdmi-object",
+            "objectID" : "00007E7F0010EB9092B29F6CD6AD6824",
+            "objectName" : "MyDataObject.txt",
+            "parentURI" : "/MyContainer/",
+             "parentID" : "00007E7F00102E230ED82694DAA975D2",
+            "domainURI" : "/cdmi_domains/MyDomain/",
+            "capabilitiesURI" : "/cdmi_capabilities/dataobject/",
+            "completionStatus" : "Complete",
+            "mimetype" : "text/plain",
+            "metadata" : {
+                "cdmi_size" : "108263",
+                    ...
+            },
+            "valuerange" : "0-108262",
+            "value" : "..."
+        }
 
 
 Examples
-************************
+********
 
 Each field inside a results specification JSON object indicates that the field shall be included in the results. 
 
 #. The following results specification requests that the objectID and cdmi_size metadata fields be returned in the results:
 
-    .. code-block:: http
+    .. code-block:: json
 
-
-    {
-
-        "cdmi_results_specification" : {
-
-            "objectID" : "",
-
-            "metadata" : {
-
-                "cdmi_size" : "" 
-
+        {
+            "cdmi_results_specification" : {
+                "objectID" : "",
+                "metadata" : {
+                    "cdmi_size" : "" 
+                } 
             } 
-
         } 
-
-    } 
 
 
 #. If an object is matched, the result JSON is enqueued as follows:
 
-    .. code-block:: http
+    .. code-block:: json
 
-
-    {
-
-        "objectID" : "00007E7F0010EB9092B29F6CD6AD6824",
-
-        "metadata" : {
-
-            "cdmi_size" : "108263" 
-
+        {
+            "objectID" : "00007E7F0010EB9092B29F6CD6AD6824",
+            "metadata" : {
+                "cdmi_size" : "108263" 
+            } 
         } 
-
-    } 
 
 For most common use cases, clients request either the objectID, the objectName and parentURI, or all three fields in the cdmi_results_specification. If the parentURI or objectName is requested, the field shall only be returned for objects existing in a container object.
 
 
 #. To request all metadata items be returned for each matching object, the following cdmi_results_specification shall be used: 
 
-    .. code-block:: http
+    .. code-block:: json
 
-
-    {
-
-        "cdmi_results_specification" : {
-
-            "metadata" : "" 
-
-        } 
-
-    }
+        {
+            "cdmi_results_specification" : {
+                "metadata" : "" 
+            } 
+        }
 
 
 #. To request all fields and all metadata items be returned for each matching object, the following cdmi_results_specification shall be used:
 
-    .. code-block:: http
+    .. code-block:: json
 
-
-    {
-
-        "cdmi_results_specification" : "" 
-
-    }  
+        {
+            "cdmi_results_specification" : "" 
+        }  
 
 The value field is always returned in base 64 encoding when included in a query result, where the valuetransferencoding field indicates the encoding that should be expected if a GET to read the object is performed.
-
-&nbsp;
 
 
