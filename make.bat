@@ -9,7 +9,7 @@ if "%SPHINXBUILD%" == "" (
 )
 set SOURCEDIR=.
 set BUILDDIR=_build
-set SPHINXPROJ=CDMISpecification
+set SPHINXPROJ=CDMI_v2.0.0
 
 if "%1" == "" goto help
 

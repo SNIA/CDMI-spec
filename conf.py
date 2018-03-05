@@ -48,7 +48,7 @@ source_suffix = ['.rst', '.md', '.txt']
 master_doc = 'index'
 
 # General information about the project.
-project = 'CDMI specification'
+project = 'CDMI V2.0.0 Specification'
 copyright = '2018, SNIA'
 author = 'SNIA'
 
@@ -120,7 +120,7 @@ html_sidebars = {
 # -- Options for HTMLHelp output ------------------------------------------
 
 # Output file base name for HTML help builder.
-htmlhelp_basename = 'CDMIspecificationdoc'
+htmlhelp_basename = 'CDMI_v2.0.0_doc'
 
 
 # -- Options for LaTeX output ---------------------------------------------
@@ -185,7 +185,7 @@ latex_elements = {
 # (source start file, target name, title,
 #  author, documentclass [howto, manual, or own class]).
 latex_documents = [
-    (master_doc, 'CDMIspecification.tex', 'Cloud Data Management Interface (CDMI)',
+    (master_doc, 'CDMI_v2.0.0.tex', 'Cloud Data Management Interface (CDMI)',
      'SNIA Technical Position', 'manual'),
 ]
 
@@ -198,7 +198,7 @@ latex_toplevel_sectioning = 'part'
 # One entry per manual page. List of tuples
 # (source start file, name, description, authors, manual section).
 man_pages = [
-    (master_doc, 'cdmispecification', 'Cloud Data Management Interface (CDMI)',
+    (master_doc, 'CDMI_v2.0.0_spec', 'Cloud Data Management Interface (CDMI)',
      [author], 1)
 ]
 
@@ -209,8 +209,8 @@ man_pages = [
 # (source start file, target name, title, author,
 #  dir menu entry, description, category)
 texinfo_documents = [
-    (master_doc, 'CDMIspecification', 'CDMI specification Documentation',
-     author, 'CDMIspecification', 'One line description of project.',
+    (master_doc, 'CDMI_v2.0.0', 'CDMI specification Documentation',
+     author, 'CDMI_v2.0.0', 'CDMI Specification.',
      'Miscellaneous'),
 ]
 
