@@ -8,21 +8,17 @@ Synopsis
 
 To create a new container object, the following request shall be performed:
 
-    PUT <root URI>/<ContainerName>/<NewContainerName>/
+* ``PUT <root URI>/<ContainerName>/<ContainerObjectName>/``
 
 Where:
 
+* ``<root URI>`` is the path to the CDMI cloud.
+* ``<ContainerName>`` is zero or more intermediate container objects that already exist, with one slash (i.e., "/") between each pair of container object names.
+* ``<ContainerObjectName>`` is the name specified for the container object to be created.
 
-* <root URI> is the path to the CDMI cloud.
-* <ContainerName> is zero or more intermediate container objects that already exist, with one slash (i.e., "/") between each pair of container object names.
-* <NewContainerName> is the name specified for the container object to be created.
-
-
-After it is created, the container object shall also be accessible at <root URI>/cdmi_objectid/<objectID>/.
+After it is created, the container object shall also be accessible at ``<root URI>/cdmi_objectid/<objectID>/``.
 
 The presence of a trailing slash at the end of the HTTP PUT URI indicates that a container object is being created and distinguishes it from a request to create a data object.
-
-
 
 
 Capability
@@ -30,10 +26,7 @@ Capability
 
 The following capability describes the supported operations that may be performed when creating a new container object:
 
-
-* Support for the ability to create a new container object is indicated by the presence of the cdmi_create_container capability in the parent container object.
-
-
+* Support for the ability to create a new container object is indicated by the presence of the ``cdmi_create_container`` capability in the parent container object.
 
 
 Request Headers 
@@ -42,12 +35,10 @@ Request Headers
 Request headers may be provided as per :rfc:`2616`.
 
 
-
 Request Message Body 
 --------------------
 
 A request body shall not be provided.
-
 
 
 Response Headers 
@@ -56,12 +47,10 @@ Response Headers
 Response headers may be provided as per :rfc:`2616`.
 
 
-
 Response Message Body 
 ---------------------
 
 A response body may be provided as per :rfc:`2616`.
-
 
 
 Response Status
@@ -73,9 +62,8 @@ Response Status
 
 .. list-table:: HTTP Status Codes - Create a Container Object using HTTP
     :header-rows: 1
-    :widths: auto
+    :widths: 30 70
     :align: center 
-
 
     * - HTTP Status
       - Description
@@ -95,7 +83,7 @@ Response Status
 Example
 -------
 
-#. PUT to the URI the container object name:
+EXAMPLE 1: PUT to the URI the container object name:
 
    .. code-block:: http
 

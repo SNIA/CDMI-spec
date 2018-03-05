@@ -7,32 +7,24 @@ Delete a Container Object using HTTP
 Synopsis
 --------
 
-To delete an existing container object, including all contained children and snapshots, the following request shall be performed:
+The following HTTP DELETE operations delete an existing container object at the specified URI, including all contained children and snapshots:
 
-    DELETE <root URI>/<ContainerName>/<TheContainerName>/ 
+* ``DELETE <root URI>/<ContainerName>/<ContainerObjectName>/``
+* ``DELETE <root URI>/cdmi_objectid/<ContainerObjectID>``
 
 Where:
 
-
-* <root URI> is the path to the CDMI cloud.
-* <ContainerName> is zero or more intermediate container objects.
-* <TheContainerName> is the name of the container object to be deleted.
-
-
-The object shall also be accessible at <root URI>/cdmi_objectid/<objectID>/.
-
-
-
+* ``<root URI>`` is the path to the CDMI cloud.
+* ``<ContainerName>`` is zero or more intermediate container objects.
+* ``<ContainerObjectName>`` is the name of the container object to be deleted.
+* ``<ContainerObjectID>`` is the ID of the container object to be deleted.
 
 Capability 
 ----------
 
 The following capability describes the supported operations that may be performed when deleting an existing container object:
 
-
-* Support for the ability to delete an existing container object is indicated by the presence of the cdmi_delete_container capability in the specified container object.
-
-
+* Support for the ability to delete an existing container object is indicated by the presence of the ``cdmi_delete_container`` capability in the specified container object.
 
 
 Request Headers 
@@ -41,12 +33,10 @@ Request Headers
 Request headers may be provided as per :rfc:`2616`.
 
 
-
 Request Message Body 
 --------------------
 
 A request body may be provided as per :rfc:`2616`.
-
 
 
 Response Headers 
@@ -55,12 +45,10 @@ Response Headers
 Response headers may be provided as per :rfc:`2616`.
 
 
-
 Response Message Body 
 ---------------------
 
 A response body may be provided as per :rfc:`2616`.
-
 
 
 Response Status
@@ -70,9 +58,9 @@ Response Status
 
 .. _tbl_http_container_object_delete_response_status:
 
-.. list-table:: HTTP Status Codes - Delete a Container Object using HTTP
+.. list-table:: HTTP Status Codes - Delete a CDMI Container Object using HTTP
     :header-rows: 1
-    :widths: auto
+    :widths: 30 70
     :align: center 
 
     * - HTTP Status
@@ -94,7 +82,7 @@ Response Status
 Example
 -------
 
-#. DELETE to the container object URI:
+EXAMPLE 1: DELETE to the container object URI:
 
    .. code-block:: http
 
@@ -106,3 +94,4 @@ Example
    .. code-block:: http
 
        HTTP/1.1 204 No Content
+
