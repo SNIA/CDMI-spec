@@ -3,20 +3,18 @@
 Create a Data Object using HTTP
 *******************************
 
-
 Synopsis
 --------
 
 The following HTTP PUT creates a new data object at the specified URI:
 
-    ``PUT <root URI>/<ContainerName>/<DataObjectName>``
+* ``PUT <root URI>/<ContainerName>/<DataObjectName>``
 
 Where:
 
 * ``<root URI>`` is the path to the CDMI cloud.
 * ``<ContainerName>`` is zero or more intermediate containers that already exist, with one slash (i.e., ``"/"``) between each pair of container names.
 * ``<DataObjectName>`` is the name specified for the data object to be created.
-
 
 After it is created, the data object shall also be accessible at ``<root URI>/cdmi_objectid/<objectID>``.
 

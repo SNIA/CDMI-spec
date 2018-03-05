@@ -7,18 +7,17 @@ Delete a Data Object using HTTP
 Synopsis
 --------
 
-The following HTTP DELETE deletes an existing data object at the specified URI:
+The following HTTP DELETE operations delete an existing data object at the specified URI:
 
-    ``DELETE <root URI>/<ContainerName>/<DataObjectName>``
+* ``DELETE <root URI>/<ContainerName>/<DataObjectName>``
+* ``DELETE <root URI>/cdmi_objectid/<DataObjectID>``
 
 Where:
 
 * ``<root URI>`` is the path to the CDMI cloud.
 * ``<ContainerName>`` is zero or more intermediate containers.
 * ``<DataObjectName>`` is the name of the data object to be deleted.
-
-The object shall also be accessible at ``<root URI>/cdmi_objectid/<objectID>``.
-
+* ``<DataObjectID>`` is the ID of the data object to be deleted.
 
 Capability 
 -----------
