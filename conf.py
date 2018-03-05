@@ -124,7 +124,7 @@ htmlhelp_basename = 'CDMI_v2.0.0_doc'
 
 
 # -- Options for LaTeX output ---------------------------------------------
-#latex_engine = 'xelatex'
+latex_engine = 'xelatex'
 
 latex_elements = {
     # The paper size ('letterpaper' or 'a4paper').
@@ -135,12 +135,20 @@ latex_elements = {
 
     # The font size ('10pt', '11pt' or '12pt').
     #
-    # 'pointsize': '10pt',
+    'pointsize': '10pt',
 
     # Additional stuff for the LaTeX preamble.
     #
     # 'preamble': ''
+    'inputenc': '',
+    'utf8extra': '',
+
     'preamble': r'''
+
+    \usepackage{fontspec}
+    \setsansfont{Arial}
+    \setmainfont{Arial}
+    \setmonofont{Courier New}
 
     % Make table headers lightgray
     \usepackage{colortbl}
