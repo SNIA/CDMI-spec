@@ -56,6 +56,9 @@ Response Status
 
 :numref:`tbl_http_data_object_delete_response_status` describes the HTTP status codes that occur when deleting a data object using HTTP. 
 
+.. tabularcolumns:: |>{\raggedright\arraybackslash}\Y{0.30}
+                    |>{\raggedright\arraybackslash}\Y{0.70}|
+
 .. _tbl_http_data_object_delete_response_status:
 
 .. list-table:: HTTP Status Codes - Delete a CDMI Data Object using HTTP

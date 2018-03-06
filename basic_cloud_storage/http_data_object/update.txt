@@ -8,18 +8,17 @@ Update a Data Object using HTTP
 Synopsis
 --------
 
-The following HTTP PUT updates an existing data object at the specified URI:
+The following HTTP PUT operation updates an existing data object at the specified URI:
 
-    ``PUT <root URI>/<ContainerName>/<DataObjectName>``
+* ``PUT <root URI>/<ContainerName>/<DataObjectName>``
+* ``PUT <root URI>/cdmi_objectid/<DataObjectID>``
 
 Where:
 
 * ``<root URI>`` is the path to the CDMI cloud.
 * ``<ContainerName>`` is zero or more intermediate containers.
 * ``<DataObjectName>`` is the name of the data object to be updated.
-
-The object shall also be accessible at ``<root URI>/cdmi_objectid/<objectID>``. An update shall not result in a change to the object ID.
-
+* ``<DataObjectID>`` is the ID of the data object to be read from.
 
 
 Capabilities
@@ -35,6 +34,11 @@ Request Headers
 ---------------
 
 The HTTP request headers for updating a CDMI data object using HTTP are shown in :numref:`tbl_http_data_object_updaterequest_headers`. 
+
+.. tabularcolumns:: |>{\raggedright\arraybackslash}\Y{0.20}
+                    |>{\raggedright\arraybackslash}\Y{0.10}
+                    |>{\raggedright\arraybackslash}\Y{0.55}
+                    |>{\raggedright\arraybackslash}\Y{0.15}|
 
 .. _tbl_http_data_object_updaterequest_headers:
 
@@ -74,6 +78,11 @@ Response Header
 
 The HTTP response header for updating a data object using HTTP is shown in :numref:`tbl_http_data_object_updateresponse_header`. 
 
+.. tabularcolumns:: |>{\raggedright\arraybackslash}\Y{0.20}
+                    |>{\raggedright\arraybackslash}\Y{0.10}
+                    |>{\raggedright\arraybackslash}\Y{0.55}
+                    |>{\raggedright\arraybackslash}\Y{0.15}|
+
 .. _tbl_http_data_object_updateresponse_header:
 
 .. list-table:: Response Header - Update a CDMI Data Object using HTTP
@@ -101,6 +110,9 @@ Response Status
 ---------------
 
 The HTTP status codes that occur when updating a data object using HTTP are described in :numref:`tbl_http_data_object_updateresponse_status`. 
+
+.. tabularcolumns:: |>{\raggedright\arraybackslash}\Y{0.30}
+                    |>{\raggedright\arraybackslash}\Y{0.70}|
 
 .. _tbl_http_data_object_updateresponse_status:
 

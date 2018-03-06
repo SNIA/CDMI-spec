@@ -8,17 +8,17 @@ Read a Data Object using HTTP
 Synopsis
 --------
 
-The following HTTP GET reads from an existing data object at the specified URI:
+The following HTTP GET operations read from an existing data object at the specified URI:
 
-    ``GET <root URI>/<ContainerName>/<DataObjectName>``
+* ``GET <root URI>/<ContainerName>/<DataObjectName>``
+* ``GET <root URI>/cdmi_objectid/<DataObjectID>``
 
 Where:
 
 * ``<root URI>`` is the path to the CDMI cloud.
 * ``<ContainerName>`` is zero or more intermediate containers.
 * ``<DataObjectName>`` is the name of the data object to be read from.
-
-The object shall also be accessible at ``<root URI>/cdmi_objectid/<objectID>``.
+* ``<DataObjectID>`` is the ID of the data object to be read from.
 
 
 Capabilities
@@ -34,6 +34,11 @@ Request Header
 --------------
 
 The HTTP request header for reading a CDMI data object using HTTP is shown in :numref:`tbl_http_data_object_readrequest_header`. 
+
+.. tabularcolumns:: |>{\raggedright\arraybackslash}\Y{0.20}
+                    |>{\raggedright\arraybackslash}\Y{0.10}
+                    |>{\raggedright\arraybackslash}\Y{0.55}
+                    |>{\raggedright\arraybackslash}\Y{0.15}|
 
 .. _tbl_http_data_object_readrequest_header:
 
@@ -62,6 +67,11 @@ Response Headers
 ----------------
 
 The HTTP response headers for reading a data object using HTTP are shown in :numref:`tbl_http_data_object_readresponse_headers`.
+
+.. tabularcolumns:: |>{\raggedright\arraybackslash}\Y{0.20}
+                    |>{\raggedright\arraybackslash}\Y{0.10}
+                    |>{\raggedright\arraybackslash}\Y{0.55}
+                    |>{\raggedright\arraybackslash}\Y{0.15}|
 
 .. _tbl_http_data_object_readresponse_headers:
 
@@ -97,6 +107,9 @@ Response Status
 ---------------
 
 The HTTP status codes that occur when reading a data object using HTTP are described in :numref:`tbl_http_data_object_readresponse_status`.
+
+.. tabularcolumns:: |>{\raggedright\arraybackslash}\Y{0.30}
+                    |>{\raggedright\arraybackslash}\Y{0.70}|
 
 .. _tbl_http_data_object_readresponse_status:
 
