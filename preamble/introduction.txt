@@ -9,6 +9,14 @@ This Cloud Data Management Interface (CDMI™) international standard is intende
 
 This document is organized as follows:
 
+.. raw:: latex
+
+    \renewcommand{\arraystretch}{1.2}
+   
+.. tabularcolumns:: |>{\raggedright\arraybackslash}\Y{0.13}
+                    |>{\raggedright\arraybackslash}\Y{0.25}
+                    |>{\raggedright\arraybackslash}\Y{0.62}|
+
 .. list-table:: Overview of this document
     :widths: auto
     :align: center
@@ -46,7 +54,7 @@ This document is organized as follows:
     * - :numref:`Clause %s <clause_cdmi_queue_object>`
       - Queue Object Resource Operations using CDMI
       - Provides the normative standard of queue object resource operations using CDMI
-    * - :numref:`Clause %s <clause_cdmi_container_object>`
+    * - :numref:`Clause %s <clause_cdmi_capability_object>`
       - Capability Object Resource Operations using CDMI
       - Provides the normative standard of capability object resource operations using CDMI
     * - :numref:`Clause %s <clause_cdmi_exports>`
@@ -56,7 +64,7 @@ This document is organized as follows:
       - Snapshots
       - Discusses how snapshots are accessed under CDMI containers
     * - :numref:`Clause %s <clause_cdmi_serialization>`
-      - Serialization/Deserialization
+      - Serialization/ Deserialization
       - Discusses serialization and deserialization, including import and export of serialized data under CDMI
     * - :numref:`Clause %s <clause_cdmi_metadata>`
       - Metadata
