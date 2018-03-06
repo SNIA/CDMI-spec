@@ -135,7 +135,7 @@ latex_elements = {
 
     # The font size ('10pt', '11pt' or '12pt').
     #
-    'pointsize': '10pt',
+    'pointsize': '8pt',
 
     # Additional stuff for the LaTeX preamble.
     #
@@ -149,6 +149,7 @@ latex_elements = {
     \setsansfont{Arial}
     \setmainfont{Arial}
     \setmonofont{Courier New}
+    \changefontsizes[10pt]{8pt}
 
     % Make table headers lightgray
     \usepackage{colortbl}
