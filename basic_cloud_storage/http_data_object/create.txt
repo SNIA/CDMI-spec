@@ -6,7 +6,7 @@ Create a Data Object using HTTP
 Synopsis
 --------
 
-The following HTTP PUT operation creates a new data object at the specified URI:
+The following HTTP PUT operation creates a new data object in the specified container:
 
 * ``PUT <root URI>/<ContainerName>/<DataObjectName>``
 
@@ -58,7 +58,7 @@ The HTTP request headers for creating a CDMI data object using HTTP are shown in
       - Optional
     * - X-CDMI-Partial
       - Header String
-      - ``"true"``. Indicates that the newly created object is part of a series of writes and has not yet been fully created. When set, the completionStatus field shall be set to "Processing". ``X-CDMI-Partial`` works across CDMI and non-CDMI operations.
+      - Indicates that the newly created object is part of a series of writes and has not yet been fully created. When set to ``true``, the completionStatus field shall be set to ``Processing``. ``X-CDMI-Partial`` works across CDMI and non-CDMI operations.
       - Optional
     * - Content-Range
       - Header String
