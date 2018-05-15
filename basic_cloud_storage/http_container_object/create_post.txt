@@ -8,16 +8,16 @@ Synopsis
 
 To create a new data object in a specified container where the name of the data object is a server-assigned object identifier, the following request shall be performed:
 
-    POST <root URI>/<ContainerName>/
+    ``POST <root URI>/<ContainerName>/``
 
 Where:
 
 
-* <root URI> is the path to the CDMI cloud.
-* <ContainerName> is zero or more intermediate container objects that already exist, with one slash (i.e., "/") between each pair of container object names.
+* ``<root URI>`` is the path to the CDMI cloud.
+* ``<ContainerName>`` is zero or more intermediate container objects that already exist, with one slash (i.e., "/") between each pair of container object names.
 
 
-The data object shall be accessible as a child of the container with a server-assigned name and shall also be accessible at <root URI>/cdmi_objectid/<objectID>.
+The data object shall be accessible as a child of the container with a server-assigned name and shall also be accessible at ``<root URI>/cdmi_objectid/<objectID>``.
 
 HTTP POST to a container is used to enable CDMI servers to support :rfc:`1867` form-based file uploading. When implementing :rfc:`1867`, the CDMI server-assigned name may be the user-provided file name.
 
@@ -28,10 +28,10 @@ Capabilities
 
 The following capabilities describe the supported operations that may be performed when creating a new data object:
 
-* Support for the ability to create data objects through this operation is indicated by  the presence of both the cdmi_post_dataobject and cdmi_create_dataobject capabilities in the specified container object.
-* If the new data object is being created in "/cdmi_objectid/", support for the ability to create the value of the new data object in specified byte ranges is indicated by the presence of the "cdmi_create_value_range_by_ID" system capability.
-* If the new data object is being created in a container object, support for the ability to create the value of the new data object in specified byte ranges is indicated by the presence of the "cdmi_create_value_range" capability in the parent container.
-* Support for the ability to create a new data object by ID using multi-part MIME is indicated by the presence of the "cdmi_multipart_mime" system-wide capability.
+* Support for the ability to create data objects through this operation is indicated by  the presence of both the "``cdmi_post_dataobject``" and "``cdmi_create_dataobject``" capabilities in the specified container object.
+* If the new data object is being created in ``/cdmi_objectid/``, support for the ability to create the value of the new data object in specified byte ranges is indicated by the presence of the "``cdmi_create_value_range_by_ID``" system capability.
+* If the new data object is being created in a container object, support for the ability to create the value of the new data object in specified byte ranges is indicated by the presence of the "``cdmi_create_value_range``" capability in the parent container.
+* Support for the ability to create a new data object by ID using multi-part MIME is indicated by the presence of the "``cdmi_multipart_mime``" system-wide capability.
 
 
 
@@ -40,13 +40,17 @@ Request Header
 
 The HTTP request header for creating a new CDMI data object using HTTP is shown in :numref:`tbl_http_data_object_create_request_header`.
 
+.. tabularcolumns:: |>{\raggedright\arraybackslash}\Y{0.20}
+                    |>{\raggedright\arraybackslash}\Y{0.10}
+                    |>{\raggedright\arraybackslash}\Y{0.55}
+                    |>{\raggedright\arraybackslash}\Y{0.15}|
+
 .. _tbl_http_data_object_create_request_header:
 
 .. list-table:: Request Header - Create a New Data Object using HTTP
     :header-rows: 1
-    :widths: auto
+    :widths: 20 10 55 15
     :align: center 
-
 
     * - Header
       - Type
@@ -54,11 +58,13 @@ The HTTP request header for creating a new CDMI data object using HTTP is shown 
       - Requirement
     * - Content-Type
       - Header String
-      - The content type of the data to be stored as a data object. The value specified here shall be converted to lower case and stored in the mimetype field of the CDMI data object. If the content type includes the charset parameter as defined in :rfc:`2616` of "utf-8" (e.g., ";charset=utf-8"), the valuetransferencoding field of the CDMI data object shall be set to "utf-8". Otherwise, the valuetransferencoding field of the CDMI data object shall be set to "base64".
+      - The content type of the data to be stored as a data object. The value specified here shall be converted to lower case and stored in the mimetype field of the CDMI data object.
+
+        * If the content type includes the charset parameter as defined in :rfc:`2047` of ``utf-8`` (e.g., "``;charset=utf-8``"), the valuetransferencoding field of the CDMI data object shall be set to "``utf-8``". Otherwise, the valuetransferencoding field of the CDMI data object shall be set to "``base64``".
       - Mandatory
     * - X-CDMI-Partial
       - Header String
-      - "true". Indicates that the newly created object is part of a series of writes and has not yet been fully created. When set, the completionStatus field shall be set to "Processing". X-CDMI-Partial works across CDMI and non-CDMI operations.
+      - Indicates that the newly created object is part of a series of writes and has not yet been fully created. When set to "``true``", the ``completionStatus`` field shall be set to "``Processing``". ``X-CDMI-Partial`` works across CDMI and non-CDMI operations.
       - Optional
 
 
@@ -74,12 +80,16 @@ Response Header
 
 The HTTP response header for creating a new CDMI data object using HTTP is shown in :numref:`tbl_http_data_object_create_response_header`. 
 
+.. tabularcolumns:: |>{\raggedright\arraybackslash}\Y{0.20}
+                    |>{\raggedright\arraybackslash}\Y{0.10}
+                    |>{\raggedright\arraybackslash}\Y{0.55}
+                    |>{\raggedright\arraybackslash}\Y{0.15}|
 
 .. _tbl_http_data_object_create_response_header:
 
 .. list-table:: Response Header - Create a New Data Object using HTTP
     :header-rows: 1
-    :widths: auto
+    :widths: 20 10 55 15
     :align: center 
 
     * - Header
@@ -88,7 +98,13 @@ The HTTP response header for creating a new CDMI data object using HTTP is shown
       - Requirement
     * - Location
       - Header String 
-      - The unique absolute URI for the new data object as assigned by the system. In the absence of file name information from the client, the system shall assign the URI in the form: http://host:port/<root URI>/<ContainerName>/<ObjectID> or https://host:port/<root URI>/<ContainerName>/<ObjectID>.
+      - The unique absolute URI for the new data object as assigned by the system.
+
+        .. raw:: latex
+
+          \vspace*{1ex}
+
+        In the absence of file name information from the client, the system shall assign the URI in the form: ``http://host:port/<root URI>/<ContainerName>/<ObjectID>`` or ``https://host:port/<root URI>/<ContainerName>/<ObjectID>``.
       - Mandatory
 
 Response Message Body 
@@ -102,11 +118,14 @@ Response Status
 
 :numref:`tbl_http_data_object_create_response_status` describes the HTTP status codes that occur when creating a new data object using HTTP.
 
+.. tabularcolumns:: |>{\raggedright\arraybackslash}\Y{0.30}
+                    |>{\raggedright\arraybackslash}\Y{0.70}|
+
 .. _tbl_http_data_object_create_response_status:
 
 .. list-table:: HTTP Status Codes - Create a New Data Object using HTTP
     :header-rows: 1
-    :widths: auto
+    :widths: 30 70
     :align: center 
 
 
@@ -126,7 +145,7 @@ Response Status
 Examples
 --------
 
-#. POST to the container object URI the data object contents:
+EXAMPLE 1: POST to the container object URI the data object contents:
 
    .. code-block:: http
 
@@ -143,4 +162,3 @@ Examples
     HTTP/1.1 201 Created
     Location: http://cloud.example.com/MyContainer/00007ED900104E1D14771DC67C27BF8B
     
-    utf-8
