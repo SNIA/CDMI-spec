@@ -3,57 +3,56 @@
 Read a Data Object using CDMI
 *****************************
 
-
 Synopsis
 --------
 
-The following HTTP GET reads from an existing data object at the specified URI:
+To read an existing data object, the following requests shall be performed:
 
-    GET <root URI>/<ContainerName>/<DataObjectName>
-
-    GET <root URI>/<ContainerName>/<DataObjectName>?<fieldname>;<fieldname>;...
-
-    GET <root URI>/<ContainerName>/<DataObjectName>?value:<range>;...
-
-    GET <root URI>/<ContainerName>/<DataObjectName>?metadata:<prefix>;...
+* ``GET <root URI>/<ContainerName>/<DataObjectName>``
+* ``GET <root URI>/<ContainerName>/<DataObjectName>?<fieldname>;<fieldname>;...``
+* ``GET <root URI>/<ContainerName>/<DataObjectName>?value:<range>;...``
+* ``GET <root URI>/<ContainerName>/<DataObjectName>?metadata:<prefix>;...``
+* ``GET <root URI>/cdmi_objectid/<DataObjectID>``
+* ``GET <root URI>/cdmi_objectid/<DataObjectID>?<fieldname>;<fieldname>;...``
+* ``GET <root URI>/cdmi_objectid/<DataObjectID>?value:<range>;...``
+* ``GET <root URI>/cdmi_objectid/<DataObjectID>?metadata:<prefix>;...``
 
 Where:
 
-
-* <root URI> is the path to the CDMI cloud.
-* <ContainerName> is zero or more intermediate containers.
-* <DataObjectName> is the name of the data object to be read from.
-* <fieldname> is the name of a field.
-* <range> is a byte range of the data object value to be returned in the value field.<prefix> is a matching prefix that returns all metadata items that start with the prefix value.
-
-
-The object shall also also be accessible at <root URI>/cdmi_objectid/<objectID>.
-
+* ``<root URI>`` is the path to the CDMI cloud.
+* ``<ContainerName>`` is zero or more intermediate containers.
+* ``<DataObjectName>`` is the name of the data object to be read from.
+* ``<fieldname>`` is the name of a field.
+* ``<range>`` is a byte range of the data object value to be returned in the value field.
+* ``<prefix>`` is a matching prefix that returns all metadata items that start with the prefix value.
+* ``<DataObjectID>`` is the ID of the data object to be read from.
 
 Capabilities 
 ------------
 
 The following capabilities describe the supported operations that may be performed when reading an existing data object:
 
-
-* Support for the ability to read the metadata of an existing data object is indicated by the presence of the cdmi_read_metadata capability in the specified object.
-* Support for the ability to read the value of an existing data object is indicated by the presence of the cdmi_read_value capability in the specified object. 
-* Support for the ability to read the value of an existing data object in specific byte ranges is indicated by the presence of the cdmi_read_value_range capability in the specified object.
-* Support for the ability to read a data object using multi-part MIME is indicated by the presence of the "cdmi_multipart_mime" system-wide capability.
-
+* Support for the ability to read the metadata of an existing data object is indicated by the presence of the ``cdmi_read_metadata`` capability in the specified object.
+* Support for the ability to read the value of an existing data object is indicated by the presence of the ``cdmi_read_value capability`` in the specified object. 
+* Support for the ability to read the value of an existing data object in specific byte ranges is indicated by the presence of the ``cdmi_read_value_range capability`` in the specified object.
+* Support for the ability to read a data object using multi-part MIME is indicated by the presence of the ``cdmi_multipart_mime`` system-wide capability.
 
 Request Headers
 ---------------
 
 The HTTP request headers for reading a CDMI data object using CDMI are shown in :numref:`tbl_cdmi_data_object_read_request_headers`. 
 
+.. tabularcolumns:: |>{\raggedright\arraybackslash}\Y{0.20}
+                    |>{\raggedright\arraybackslash}\Y{0.10}
+                    |>{\raggedright\arraybackslash}\Y{0.55}
+                    |>{\raggedright\arraybackslash}\Y{0.15}|
+
 .. _tbl_cdmi_data_object_read_request_headers:
 
 .. list-table:: Request Headers - Read a CDMI Data Object using CDMI
     :header-rows: 1
-    :widths: auto
+    :widths: 20 10 55 15
     :align: center 
-
 
     * - Header
       - Type
@@ -61,12 +60,8 @@ The HTTP request headers for reading a CDMI data object using CDMI are shown in 
       - Requirement
     * - Accept
       - Header String
-      - "application/cdmi-object", "multipart/mixed", or a consistent value as per clause :numref:`ref_content-type_negotiation` 
+      - "``application/cdmi-object``", "``multipart/mixed``", or a consistent value as per clause :numref:`ref_content-type_negotiation` 
       - Optional
-    * - X-CDMI-Specification-Version
-      - Header String
-      - A comma-separated list of versions that the client supports, e.g., "1.1, 1.5, 2.0"
-      - Mandatory
 
 
 Request Message Body 
@@ -80,27 +75,28 @@ Response Headers
 
 The HTTP response headers for reading a data object using CDMI are shown in :numref:`tbl_cdmi_data_object_read_response_headers`. 
 
+.. tabularcolumns:: |>{\raggedright\arraybackslash}\Y{0.20}
+                    |>{\raggedright\arraybackslash}\Y{0.10}
+                    |>{\raggedright\arraybackslash}\Y{0.55}
+                    |>{\raggedright\arraybackslash}\Y{0.15}|
+
 .. _tbl_cdmi_data_object_read_response_headers:
 
 .. list-table:: Response Headers - Read a CDMI Data Object using CDMI 
     :header-rows: 1
-    :widths: auto
+    :widths: 20 10 55 15
     :align: center 
 
     * - Header
       - Type
       - Description
       - Requirement
-    * - X-CDMI-Specification-Version
-      - Header String
-      - The server shall respond with the highest version supported by both the client and the server, e.g., "1.1".
-        If the server does not support any of the versions that the client supports, the server shall return an HTTP status code of ``400 Bad Request``.
-      - Mandatory
     * - Content-Type
       - Header String
-      - "application/cdmi-object" or "multipart/mixed"
-        * If "multipart/mixed", the body shall consist of at least two MIME parts, where the first part shall contain a body of content-type "application/cdmi-object" and the second and subsequent parts shall contain the requested byte ranges of the value as described in :numref:`update_a_data_object_using_cdmi`  
-        * If multiple byte ranges are included and the Content-Range header is omitted for a part, the data in the part shall be appended to the data in the preceding part, with the first part having a byte offset of zero.
+      - "``application/cdmi-object``" or "``multipart/mixed``"
+        
+          * If "``multipart/mixed``", the body shall consist of at least two MIME parts, where the first part shall contain a body of content-type "``application/cdmi-object``" and the second and subsequent parts shall contain the requested byte ranges of the value as described in :numref:`update_a_data_object_using_cdmi`  
+          * If multiple byte ranges are included and the Content-Range header is omitted for a part, the data in the part shall be appended to the data in the preceding part, with the first part having a byte offset of zero.
       - Mandatory
     * - Location
       - Header String
@@ -114,14 +110,18 @@ Response Message Body
 
 The response message body fields for reading a CDMI data object using CDMI are shown in :numref:`tbl_read_a_data_object_using_cdmi_response_message_body`. 
 
+.. tabularcolumns:: |>{\raggedright\arraybackslash}\Y{0.20}
+                    |>{\raggedright\arraybackslash}\Y{0.10}
+                    |>{\raggedright\arraybackslash}\Y{0.55}
+                    |>{\raggedright\arraybackslash}\Y{0.15}|
 
 .. _tbl_read_a_data_object_using_cdmi_response_message_body:
 
 .. list-table:: Response Message Body - Read a Data Object using CDMI
+    :class: longtable
     :header-rows: 1
-    :widths: auto
+    :widths: 20 10 55 15
     :align: center 
-
 
     * - Field Name
       - Type
@@ -129,7 +129,7 @@ The response message body fields for reading a CDMI data object using CDMI are s
       - Requirement
     * - objectType
       - JSON String
-      - "application/cdmi-object"
+      - "``application/cdmi-object``"
       - Mandatory
     * - objectID
       - JSON String
@@ -138,19 +138,27 @@ The response message body fields for reading a CDMI data object using CDMI are s
     * - objectName
       - JSON String
       - Name of the object
+        
         * For objects in a container, the objectName field shall be returned. 
         * For objects not in a container (objects that are only accessible by ID), the objectName field does not exist and shall not be returned. 
       - Conditional
     * - parentURI
       - JSON String
       - URI for the parent object
+        
         * For objects in a container, the parentURI field shall be returned. 
         * For objects not in a container (objects that are only accessible by ID), the parentURI field does not exist and shall not be returned. 
+      
+        .. raw:: latex
+
+          \vspace*{1ex}
+
         Appending the objectName to the parentURI shall always produce a valid URI for the object. 
       - Conditional
     * - parentID
       - JSON String
       - Object ID of the parent container object
+
         * For objects in a container, the parentID field shall be returned. 
         * For objects not in a container (objects that are only accessible by ID), the parentID field does not exist and shall not be returned.
       - Conditional
@@ -165,13 +173,20 @@ The response message body fields for reading a CDMI data object using CDMI are s
     * - completionStatus
       - JSON String
       - A string indicating if the object is still in the process of being created or updated by another operation, and after that operation is complete, indicates if it was successfully created or updated or if an error occurred.
-        The value shall be the string "Processing", the string "Complete", or an error string starting with the value "Error".
+      
+        .. raw:: latex
+
+          \vspace*{1ex}
+
+        The value shall be the string "``Processing``", the string "``Complete``", or an error string starting with the value "``Error``".
       - Mandatory
     * - percentComplete
       - JSON String
-      - * When the value of completionStatus is "Processing", this field, if provided, shall indicate the percentage of completion as a numeric integer value from 0 through 100. 
-        * When the value of completionStatus is "Complete", this field, if provided, shall contain the value "100". 
-        * When the value of completionStatus is "Error", this field, if provided, may contain any integer value from 0 through 100. 
+      - A string indicating the percentage of completion if the object is still in the process of bewing created or updated by another operation.
+
+        * When the value of completionStatus is "``Processing``", this field, if provided, shall indicate the percentage of completion as a numeric integer value from 0 through 100. 
+        * When the value of completionStatus is "``Complete``", this field, if provided, shall contain the value "``100``". 
+        * When the value of completionStatus is "``Error``", this field, if provided, may contain any integer value from "``0``" through "``100``".
       - Optional
     * - mimetype
       - JSON String
@@ -181,11 +196,17 @@ The response message body fields for reading a CDMI data object using CDMI are s
       - JSON Object
       - Metadata for the data object
         This field includes any user and data system metadata specified in the request body metadata field, along with storage system metadata generated by the cloud storage system. 
+      
+        .. raw:: latex
+
+          \vspace*{1ex}
+
         See :numref:`Clause %s <clause_cdmi_metadata>` for a further description of metadata.
       - Mandatory
     * - valuerange
       - JSON String
       - The range of bytes of the data object to be returned in the value field
+
         * If a specific value range has been requested, the valuerange field shall correspond to the bytes requested. If the request extends beyond the end of the value, the valuerange field shall indicate the smaller byte range returned.
         * If the object value has gaps (due to PUTs with non-contiguous value ranges), the value range will indicate the range to the first gap in the object value.
         * The cdmi_size storage system metadata of the data object shall always indicate the complete size of the object, including zero-filled gaps.
@@ -193,36 +214,37 @@ The response message body fields for reading a CDMI data object using CDMI are s
     * - valuetransferencoding
       - JSON  String
       - The value transfer encoding used for the data object value. Two value transfer encodings are defined:
-        * "utf-8" indicates that the data object contains a valid UTF-8 string, and it shall be transported as a UTF-8 string in the value field.
-        * "base64" indicates that the data object may contain arbitrary binary sequences, and it shall be transported as a base 64-encoded string in the value field.
+
+        * "``utf-8``" indicates that the data object contains a valid UTF-8 string, and it shall be transported as a UTF-8 string in the value field.
+        * "``base64``" indicates that the data object may contain arbitrary binary sequences, and it shall be transported as a base 64-encoded string in the value field.
       - Mandatory
     * - value
       - JSON String
       - The data object value
+
         * If the valuetransferencoding field indicates UTF-8 encoding, the value field shall contain a UTF-8 string using JSON escaping rules described in :rfc:`4627`.
         * If the valuetransferencoding field indicates base 64 encoding, the value field shall contain a base 64-encoded string as described in :rfc:`4648`.
         * The value field shall not be provided when using multi-part MIME.
-        * The value field shall only be provided when the completionStatus field contains "Complete".
+        * The value field shall only be provided when the completionStatus field contains "``Complete``".
         * When reading a value, zeros shall be returned for any gaps resulting from non-contiguous writes.
       - Conditional
 
-
 If individual fields are specified in the GET request, only these fields are returned in the result body. Optional fields that are requested but do not exist are omitted from the result body.
-
-
 
 Response Status
 ---------------
 
 The HTTP status codes that occur when reading a data object using CDMI are described in :numref:`tbl_cdmi_data_object_read_response_status`. 
 
+.. tabularcolumns:: |>{\raggedright\arraybackslash}\Y{0.30}
+                    |>{\raggedright\arraybackslash}\Y{0.70}|
+
 .. _tbl_cdmi_data_object_read_response_status:
 
 .. list-table:: HTTP Status Codes - Read a CDMI Data Object using CDMI 
     :header-rows: 1
-    :widths: auto
+    :widths: 30 70
     :align: center 
-
 
     * - HTTP Status
       - Description
@@ -244,24 +266,26 @@ The HTTP status codes that occur when reading a data object using CDMI are descr
       - The server is unable to provide the object in the specified in the Accept header.
 
 
+.. raw:: latex
+
+          \newpage
+
 Examples
 --------
 
-#. GET to the data object URI to read all fields of the data object:
+EXAMPLE 1: GET to the data object URI to read all fields of the data object:
 
    .. code-block:: http
 
        GET /MyContainer/MyDataObject.txt HTTP/1.1
        Host: cloud.example.com
        Accept: application/cdmi-object
-       X-CDMI-Specification-Version: 1.1
 
    The following shows the response.
 
    .. code-block:: http
    
        HTTP/1.1 200 OK
-       X-CDMI-Specification-Version: 1.1
        Content-Type: application/cdmi-object
 
        {
@@ -283,14 +307,13 @@ Examples
        }
 
 
-#. GET to the data object URI by ID to read all fields of the data object:
+EXAMPLE 2: GET to the data object URI by ID to read all fields of the data object:
 
    .. code-block:: http
 
        GET /cdmi_objectid/00007ED90010D891022876A8DE0BC0FD HTTP/1.1
        Host: cloud.example.com 
        Accept: application/cdmi-object
-       X-CDMI-Specification-Version: 1.1 
 
    The following shows the response.
 
@@ -298,7 +321,6 @@ Examples
    
        HTTP/1.1 200 OK
        Content-Type: application/cdmi-object
-       X-CDMI-Specification-Version: 1.1
 
        {
            "objectType" : "application/cdmi-object",
@@ -318,37 +340,34 @@ Examples
            "value" : "This is the Value of this Data Object" 
        }
 
-#. GET to the data object URI to read the value and mimetype fields of the data object:
+EXAMPLE 3: GET to the data object URI to read the value and mimetype fields of the data object:
 
-    .. code-block:: http
+  .. code-block:: http
 
-       GET /MyContainer/MyDataObject.txt?value;mimetype HTTP/1.1
-       Host: cloud.example.com
-       Accept: application/cdmi-object
-       X-CDMI-Specification-Version: 1.1
+     GET /MyContainer/MyDataObject.txt?value;mimetype HTTP/1.1
+     Host: cloud.example.com
+     Accept: application/cdmi-object
 
-   The following shows the response.
+  The following shows the response.
 
-   .. code-block::http
-   
-       HTTP/1.1 200 OK
-       Content-Type: application/cdmi-object
-       X-CDMI-Specification-Version: 1.1
+  .. code-block:: http
 
-       {
-           "value" : "This is the Value of this Data Object",
-           "mimetype" : "text/plain"
-       }
+     HTTP/1.1 200 OK
+     Content-Type: application/cdmi-object
+
+     {
+         "value" : "This is the Value of this Data Object",
+         "mimetype" : "text/plain"
+     }
 
 
-#. GET to the data object URI to read the first 11 bytes of the value of the data object:
+EXAMPLE 4: GET to the data object URI to read the first 11 bytes of the value of the data object:
 
    .. code-block:: http
 
        GET /MyContainer/MyDataObject.txt?valuerange;value:0-10 HTTP/1.1
        Host: cloud.example.com
        Accept: application/cdmi-object
-       X-CDMI-Specification-Version: 1.1
 
    The following shows the response.
 
@@ -356,7 +375,6 @@ Examples
    
        HTTP/1.1 200 OK
        Content-Type: application/cdmi-object
-       X-CDMI-Specification-Version: 1.1
 
        {
            "valuerange" : "0-10",
@@ -364,14 +382,13 @@ Examples
        }
 
 
-#. GET to the data object URI to read the data object using multi-part MIME:
+EXAMPLE 5: GET to the data object URI to read the data object using multi-part MIME:
 
    .. code-block:: http
 
        GET /MyContainer/MyDataObject.txt HTTP/1.1 
        Host: cloud.example.com 
        Accept: multipart/mixed
-       X-CDMI-Specification-Version: 1.1
 
    The following shows the response.
 
@@ -379,7 +396,6 @@ Examples
    
        HTTP/1.1 200 OK 
        Content-Type: multipart/mixed; boundary=gc0p4Jq0M2Yt08j34c0p
-       X-CDMI-Specification-Version: 1.1
 
        --gc0p4Jq0M2Yt08j34c0p
        Content-Type: application/cdmi-object
@@ -412,14 +428,13 @@ Examples
        --gc0p4Jq0M2Yt08j34c0p—
 
 
-#. GET to the data object URI to read the data object using multi-part MIME, with optional content-lengths for the parts:
+EXAMPLE 6: GET to the data object URI to read the data object using multi-part MIME, with optional content-lengths for the parts:
 
    .. code-block:: http
 
        GET /MyContainer/MyDataObject.txt HTTP/1.1 
        Host: cloud.example.com 
        Accept: multipart/mixed
-       X-CDMI-Specification-Version: 1.1
 
    The following shows the response.
 
@@ -427,7 +442,6 @@ Examples
    
        HTTP/1.1 200 OK 
        Content-Type: multipart/mixed; boundary=gc0p4Jq0M2Yt08j34c0p
-       X-CDMI-Specification-Version: 1.1
 
        --gc0p4Jq0M2Yt08j34c0p
        Content-Type: application/cdmi-object
@@ -462,22 +476,20 @@ Examples
        --gc0p4Jq0M2Yt08j34c0p—
 
    
-   #. GET to the data object URI to read the metadata and multiple byte ranges of the binary contents using multi-part MIME:
+EXAMPLE 7: GET to the data object URI to read the metadata and multiple byte ranges of the binary contents using multi-part MIME:
 
    .. code-block:: http
 
        GET /MyContainer/MyDataObject.txt?metadata;value:0-10;value:21-24 HTTP/1.1 
        Host: cloud.example.com 
        Accept: multipart/mixed
-       X-CDMI-Specification-Version: 1.1
 
    The following shows the response.
 
-   .. code-block: http
+   .. code-block:: http
    
        HTTP/1.1 200 OK 
        Content-Type: multipart/mixed; boundary=gc0p4Jq0M2Yt08j34c0p
-       X-CDMI-Specification-Version: 1.1
        
        --gc0p4Jq0M2Yt08j34c0p
        Content-Type: application/cdmi-object

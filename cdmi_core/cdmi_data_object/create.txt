@@ -8,18 +8,17 @@ Synopsis
 
 To create a new data object, the following request shall be performed:
 
-    PUT <root URI>/<ContainerName>/<DataObjectName>
+* ``PUT <root URI>/<ContainerName>/<DataObjectName>``
 
 To create a new data object by ID, see :numref:`ref_cdmi_container_object_create_post_queue`.
 
 Where:
 
-* <root URI> is the path to the CDMI cloud.
-* <ContainerName> is zero or more intermediate containers that already exist, with one slash (i.e., "/") between each pair of container names.
-* <DataObjectName> is the name specified for the data object to be created.
+* ``<root URI>`` is the path to the CDMI cloud.
+* ``<ContainerName>`` is zero or more intermediate containers that already exist, with one slash (i.e., "``/``") between each pair of container names.
+* ``<DataObjectName>`` is the name specified for the data object to be created.
 
-
-After it is created, the data object shall also be accessible at <root URI>/cdmi_objectid/<objectID>.
+After it is created, the data object shall also be accessible at ``<root URI>/cdmi_objectid/<objectID>``.
 
 Delayed Completion of Create
 ----------------------------
@@ -29,32 +28,32 @@ In response to a create operation for a data object, the server may return an HT
 
 * The server shall return a Location header with an absolute URI to the object to be created along with an HTTP status code of ``202 Accepted``.
 * With an HTTP status code of ``202 Accepted``, the server implies that the following checks have passed:
-  - user authorization for creating the object;
-  - user authorization for read access to any source object for move, copy, serialize, or deserialize; and
-  - availability of space to create the object or at least enough space to create a URI to report an error.
+
+  * user authorization for creating the object;
+  * user authorization for read access to any source object for move, copy, serialize, or deserialize; and
+  * availability of space to create the object or at least enough space to create a URI to report an error.
+
 * A client might not be able to immediately access the created object, e.g., due to delays resulting from the implementation’s use of eventual consistency. 
 
 The client performs GET operations to the URI to track the progress of the operation. In response, the server returns two fields in its response body to indicate progress. 
 
-* A mandatory completionStatus text field contains either "Processing", "Complete", or an error string starting with the value "Error".
-* An optional percentComplete field contains the percentage of the operation that has completed (0 to 100). 
+* A mandatory ``completionStatus`` text field contains either "``Processing``", "``Complete``", or an error string starting with the value "``Error``".
+* An optional ``percentComplete`` field contains the percentage of the operation that has completed (0 to 100). 
 
-GET shall not return any value for the data object when completionStatus is not "Complete". If the final result of the create operation is an error, the URI is created with the completionStatus field set to the error message. It is the client's responsibility to delete the URI after the error has been noted.
-
-
+GET shall not return any value for the data object when ``completionStatus`` is not "``Complete``". If the final result of the create operation is an error, the URI is created with the ``completionStatus`` field set to the error message. It is the client's responsibility to delete the URI after the error has been noted.
 
 Capabilities
 ------------
 The following capabilities describe the supported operations that may be performed when creating a new data object:
 
-* Support for the ability to create a new data object is indicated by the presence of the cdmi_create_dataobject capability in the parent container.
-* If the object being created in the parent container is a reference, support for that ability is indicated by the presence of the cdmi_create_reference capability in the parent container.
-* If the new data object is a copy of an existing data object, support for the ability to copy is indicated by the presence of the cdmi_copy_dataobject capability in the parent container.
-* If the new data object is the destination of a move, support for the ability to move the data object is indicated by the presence of the cdmi_move_dataobject capability in the parent container.
-* If the new data object is the destination of a deserialize operation, support for the ability to deserialize the source data object is indicated by the presence of the cdmi_deserialize_dataobject capability in the parent container.
-* If the new data object is the destination of a serialize operation, support for the ability to serialize the source data object is indicated by the presence of the cdmi_serialize_dataobject, cdmi_serialize_container, cdmi_serialize_domain, or cdmi_serialize_queue capability in the parent container.
-* Support for the ability to create the value of a new data object in specified byte ranges is indicated by the presence of the "cdmi_create_value_range" capability in the parent container.
-* Support for the ability to create a new data object using multi-part MIME is indicated by the presence of the "cdmi_multipart_mime" system-wide capability.
+* Support for the ability to create a new data object is indicated by the presence of the ``cdmi_create_dataobject`` capability in the parent container.
+* If the object being created in the parent container is a reference, support for that ability is indicated by the presence of the ``cdmi_create_reference`` capability in the parent container.
+* If the new data object is a copy of an existing data object, support for the ability to copy is indicated by the presence of the ``cdmi_copy_dataobject`` capability in the parent container.
+* If the new data object is the destination of a move, support for the ability to move the data object is indicated by the presence of the ``cdmi_move_dataobject`` capability in the parent container.
+* If the new data object is the destination of a deserialize operation, support for the ability to deserialize the source data object is indicated by the presence of the ``cdmi_deserialize_dataobject`` capability in the parent container.
+* If the new data object is the destination of a serialize operation, support for the ability to serialize the source data object is indicated by the presence of the ``cdmi_serialize_dataobject``, ``cdmi_serialize_container``, ``cdmi_serialize_domain``, or ``cdmi_serialize_queue`` capability in the parent container.
+* Support for the ability to create the value of a new data object in specified byte ranges is indicated by the presence of the ``cdmi_create_value_range`` capability in the parent container.
+* Support for the ability to create a new data object using multi-part MIME is indicated by the presence of the ``cdmi_multipart_mime`` system-wide capability.
 
 
 Request Headers
@@ -62,12 +61,16 @@ Request Headers
 
 The HTTP request headers for creating a CDMI data object using CDMI are shown in :numref:`tbl_cdmi_data_object_create_request_headers`.
 
+.. tabularcolumns:: |>{\raggedright\arraybackslash}\Y{0.20}
+                    |>{\raggedright\arraybackslash}\Y{0.10}
+                    |>{\raggedright\arraybackslash}\Y{0.55}
+                    |>{\raggedright\arraybackslash}\Y{0.15}|
 
 .. _tbl_cdmi_data_object_create_request_headers:
 
 .. list-table:: Request Headers for Creating a CDMI Data Object using CDMI
     :header-rows: 1
-    :widths: auto
+    :widths: 20 10 55 15
     :align: center 
 
     * - Header
@@ -76,35 +79,40 @@ The HTTP request headers for creating a CDMI data object using CDMI are shown in
       - Requirement
     * - Accept
       - Header String
-      - "application/cdmi-object" or a consistent value as per clause :numref:`ref_content-type_negotiation` 
+      - "``application/cdmi-object``" or a consistent value as per clause :numref:`ref_content-type_negotiation` 
       - Optional
     * - Content-Type
       - Header String
-      - "application/cdmi-object” or "multipart/mixed"
-        * If "multipart/mixed" is specified, the body shall consist of at least two MIME parts, where the first part shall contain a body of content-type "application/cdmi-object", and the second and subsequent parts shall contain one or more byte ranges of the value as described in :numref:`ref_create_a_data_object_using_http`.
-        * If multiple byte ranges are included and the Content-Range header is omitted for a part, the data in the part shall be appended to the data in the preceding part, with the first part having a byte offset of zero.
-      - Mandatory
-    * - X-CDMI-Specification-Version
-      - Header String
-      - A comma-separated list of versions that the client supports, e.g., "1.1, 1.5, 2.0"
+      - "``application/cdmi-object``” or "``multipart/mixed``"
+
+          * If "``multipart/mixed``" is specified, the body shall consist of at least two MIME parts, where the first part shall contain a body of content-type "``application/cdmi-object``", and the second and subsequent parts shall contain one or more byte ranges of the value as described in :numref:`ref_http_data_object_create`.
+          * If multiple byte ranges are included and the ``Content-Range`` header is omitted for a part, the data in the part shall be appended to the data in the preceding part, with the first part having a byte offset of zero.
       - Mandatory
     * - X-CDMI-Partial
       - Header String 
-      - "true". Indicates that the newly created object is part of a series of writes and the value has not yet been fully populated. If X-CDMI-Partial is present, the completionStatus field in the response body shall be set to "Processing". X-CDMI-Partial works across CDMI and non-CDMI operations.
+      - Indicates that the newly created object is part of a series of writes and has not yet been fully created. When set to "``true``", the ``completionStatus`` field shall be set to "``Processing``". ``X-CDMI-Partial`` works across CDMI and non-CDMI operations.
       - Optional
 
+.. raw:: latex
+
+          \newpage
 
 Request Message Body
 --------------------
 
 The request message body fields for creating a data object using CDMI are shown in :numref:`tbl_cdmi_data_object_create_request_message_body`. 
 
+.. tabularcolumns:: |>{\raggedright\arraybackslash}\Y{0.20}
+                    |>{\raggedright\arraybackslash}\Y{0.10}
+                    |>{\raggedright\arraybackslash}\Y{0.55}
+                    |>{\raggedright\arraybackslash}\Y{0.15}|
+
 .. _tbl_cdmi_data_object_create_request_message_body:
 
 .. list-table:: Request Message Body - Create a Data Object using CDMI
     :class: longtable
     :header-rows: 1
-    :widths: auto
+    :widths: 20 10 55 15
     :align: center 
 
     * - Field Name
@@ -114,26 +122,29 @@ The request message body fields for creating a data object using CDMI are shown 
     * - mimetype
       - JSON String
       - MIME type of the data contained within the value field of the data object
-        * This field may be included when creating by value or when deserializing, serializing, copying, and moving a data object.
-        * If this field is not included and multi-part MIME is not being used, the value of "text/plain" shall be assigned as the field value.
-        * If this field is not included and multi-part MIME is being used, the value of the Content-Type header of the second MIME part shall be assigned as the field value.
-        * This field shall be stored as part of the data object.
-        * This MIME type value shall be converted to lower case before being stored. 
+        
+          * This field may be included when creating by value or when deserializing, serializing, copying, and moving a data object.
+          * If this field is not included and multi-part MIME is not being used, the value of "``text/plain``" shall be assigned as the field value.
+          * If this field is not included and multi-part MIME is being used, the value of the ``Content-Type`` header of the second MIME part shall be assigned as the field value.
+          * This field shall be stored as part of the data object.
+          * This MIME type value shall be converted to lower case before being stored. 
       - Optional
     * - metadata
       - JSON Object
       - Metadata for the data object
-        * If this field is included when deserializing, serializing, copying, or moving a data object, the value provided in this field shall replace the metadata from the source URI. 
-        * If this field is not included when deserializing, serializing, copying, or moving a data object, the metadata from the source URI shall be used. 
-        * If this field is included when creating a new data object by specifying a value, the value provided in this field shall be used as the metadata. 
-        * If this field is not included when creating a new data object by specifying a value, an empty JSON object (i.e., "{}") shall be assigned as the field value. 
-        * This field shall not be included when referencing a data object. 
+        
+          * If this field is included when deserializing, serializing, copying, or moving a data object, the value provided in this field shall replace the metadata from the source URI. 
+          * If this field is not included when deserializing, serializing, copying, or moving a data object, the metadata from the source URI shall be used. 
+          * If this field is included when creating a new data object by specifying a value, the value provided in this field shall be used as the metadata. 
+          * If this field is not included when creating a new data object by specifying a value, an empty JSON object (i.e., "``{}``") shall be assigned as the field value. 
+          * This field shall not be included when referencing a data object. 
       - Optional
     * - domainURI
       - JSON String
       - URI of the owning domain
-        * If different from the parent domain, the user shall have the "cross-domain" privilege (see cdmi_member_privileges in :numref:`tbl_required_settings_for_domain_member_user_objects` . 
-        * If not specified, the domain of the parent container shall be used. 
+        
+          * If different from the parent domain, the user shall have the "``cross-domain``" privilege (see ``cdmi_member_privileges`` in :numref:`tbl_required_settings_for_domain_member_user_objects` . 
+          * If not specified, the domain of the parent container shall be used. 
       - Optional
     * - deserialize
       - JSON String
@@ -146,17 +157,22 @@ The request message body fields for creating a data object using CDMI are shown 
     * - copy
       - JSON String
       - URI of a source CDMI data object or queue object that shall be copied into the new destination data object. 
-        * If the destination data object URI and the copy source object URI both do not specify individual fields, the destination data object shall be a complete copy of the source data object. 
-        * If the destination data object URI or the copy source object URI specifies individual fields, only the fields specified shall be used to create the destination data object. If specified fields are not present in the source, default field values shall be used. 
-        * If the destination data object URI and the copy source object URI both specify fields, an HTTP status code of ``400 Bad Request`` shall be returned to the client. 
-        * If the copy source object URI points to a queue object, as part of the copy operation, multiple queue values shall be concatenated into a single data object value. 
-        * If the copy source object URI points to one or more queue object values, as part of the copy operation, the specified queue values shall be concatenated into a single data object value.
-        * If there are insufficient permissions to read the data object at the source URI or create the data object at the destination URI, or if the read operation fails, the copy shall return an HTTP status code of ``400 Bad Request``, and the destination object shall not be created.
+        
+          * If the destination data object URI and the copy source object URI both do not specify individual fields, the destination data object shall be a complete copy of the source data object. 
+          * If the destination data object URI or the copy source object URI specifies individual fields, only the fields specified shall be used to create the destination data object. If specified fields are not present in the source, default field values shall be used. 
+          * If the destination data object URI and the copy source object URI both specify fields, an HTTP status code of ``400 Bad Request`` shall be returned to the client. 
+          * If the copy source object URI points to a queue object, as part of the copy operation, multiple queue values shall be concatenated into a single data object value. 
+          * If the copy source object URI points to one or more queue object values, as part of the copy operation, the specified queue values shall be concatenated into a single data object value.
+          * If there are insufficient permissions to read the data object at the source URI or create the data object at the destination URI, or if the read operation fails, the copy shall return an HTTP status code of ``400 Bad Request``, and the destination object shall not be created.
       - Optional [#a]_
     * - move
       - JSON String
       - URI of an existing local or remote CDMI data object (source URI) that shall be relocated to the URI specified in the PUT. The contents of the object, including the object ID, shall be preserved by a move, and the data object at the source URI shall be removed after the data object at the destination has been successfully created. 
       
+        .. raw:: latex
+
+          \vspace*{1ex}
+
         If there are insufficient permissions to read the data object at the source URI, write the data object at the destination URI, or delete the data object at the source URI, or if any of these operations fail, the move shall return an HTTP status code of ``400 Bad Request``, and the source and destination are left unchanged.
       - Optional [#a]_
     * - reference
@@ -170,35 +186,45 @@ The request message body fields for creating a data object using CDMI are shown 
     * - valuetransferencoding
       - JSON String
       - The value transfer encoding used for the data object value. Two value transfer encodings are defined.
-        * "utf-8" indicates that the data object contains a valid UTF-8 string, and it shall be transported as a UTF-8 string in the value field.
-        * "base64" indicates that the data object may contain arbitrary binary sequences, and it shall be transported as a base 64-encoded string in the value field. Setting the contents of the data object value field to any value other than a valid base 64 string shall result in an HTTP status code of ``400 Bad Request`` being returned to the client.
-        * This field shall only be included when creating a data object by value.
-        * If this field is not included and multi-part MIME is not being used, the value of "utf-8" shall be assigned as the field value.
-        * If this field is not included and multi-part MIME is being used, the value of "utf-8" shall be assigned as the field value if the Content-Type header of the second and all MIME parts includes the charset parameter as defined in RFC 2046 of "utf-8" (e.g., ";charset=utf-8"). Otherwise, the value of "base64" shall be assigned as the field value. This field applies only to the encoding of the value when represented in JSON; the Content-Transfer-Encoding header of the part specifies the encoding of the value within a multi-part MIME request, as defined in :rfc:`2045`.
-        * This field shall be stored as part of the object.
+        
+          * "``utf-8``" indicates that the data object contains a valid UTF-8 string, and it shall be transported as a UTF-8 string in the value field.
+          * "``base64``" indicates that the data object may contain arbitrary binary sequences, and it shall be transported as a base 64-encoded string in the value field. Setting the contents of the data object value field to any value other than a valid base 64 string shall result in an HTTP status code of ``400 Bad Request`` being returned to the client.
+          * This field shall only be included when creating a data object by value.
+          * If this field is not included and multi-part MIME is not being used, the value of "``utf-8``" shall be assigned as the field value.
+          * If this field is not included and multi-part MIME is being used, the value of "``utf-8``" shall be assigned as the field value if the Content-Type header of the second and all MIME parts includes the charset parameter as defined in RFC 2046 of "``utf-8``" (e.g., "``;charset=utf-8``"). Otherwise, the value of "``base64``" shall be assigned as the field value. This field applies only to the encoding of the value when represented in JSON; the ``Content-Transfer-Encoding`` header of the part specifies the encoding of the value within a multi-part MIME request, as defined in :rfc:`2045`.
+          * This field shall be stored as part of the object.
       - Optional [#a]_
     * - value
       - JSON String
       - The data object value
-        * If this field is not included and multi-part MIME is not being used, an empty JSON String (i.e., "") shall be assigned as the field value.
-        * If this field is not included and multi-part MIME is being used, the contents of the second MIME part shall be assigned as the field value.
-        * If the valuetransferencoding field indicates UTF-8 encoding, the value shall be a UTF-8 string escaped using the JSON escaping rules described in :rfc:`4627`.
-        * If the valuetransferencoding field indicates base 64 encoding, the value shall be first encoded using the base 64 encoding rules described in :rfc:`4648`.
+        
+          * If this field is not included and multi-part MIME is not being used, an empty JSON String (i.e., "") shall be assigned as the field value.
+          * If this field is not included and multi-part MIME is being used, the contents of the second MIME part shall be assigned as the field value.
+          * If the ``valuetransferencoding`` field indicates UTF-8 encoding, the value shall be a UTF-8 string escaped using the JSON escaping rules described in :rfc:`4627`.
+          * If the ``valuetransferencoding`` field indicates base 64 encoding, the value shall be first encoded using the base 64 encoding rules described in :rfc:`4648`.
       - Optional [#a]_
 
 .. [#a] Only one of these fields shall be specified in any given operation. Except for value, these fields shall not be stored. If more than one of these fields is supplied, the server shall respond with an HTTP status code of ``400 Bad Request``.
 
+.. raw:: latex
+
+          \newpage
 
 Response Headers
 ----------------
 
 The HTTP response headers for creating a data object using CDMI are shown in :numref:`tbl_cdmi_data_object_create_response_headers`.
 
+.. tabularcolumns:: |>{\raggedright\arraybackslash}\Y{0.20}
+                    |>{\raggedright\arraybackslash}\Y{0.10}
+                    |>{\raggedright\arraybackslash}\Y{0.55}
+                    |>{\raggedright\arraybackslash}\Y{0.15}|
+
 .. _tbl_cdmi_data_object_create_response_headers:
 
 .. list-table:: Response Headers - Create a Data Object using CDMI
     :header-rows: 1
-    :widths: auto
+    :widths: 20 10 55 15
     :align: center 
 
     * - Header
@@ -207,16 +233,11 @@ The HTTP response headers for creating a data object using CDMI are shown in :nu
       - Requirement
     * - Content-Type
       - Header String
-      - "application/cdmi-object"
-      - Mandatory
-    * - X-CDMI-Specification-Version
-      - Header String 
-      - The server shall respond with the highest version supported by both the client and the server, e.g., "1.1".
-        If the server does not support any of the versions that the client supports, the server shall return an HTTP status code of ``400 Bad Request``.
+      - "``application/cdmi-object``"
       - Mandatory
     * - Location
       - Header String
-      - When an HTTP status code of ``202 Accepted``  is returned, the server shall respond with the absolute URL of the object that is in the process of being created.
+      - When an HTTP status code of ``202 Accepted`` is returned, the server shall respond with the absolute URL of the object that is in the process of being created.
       - Conditional
 
 
@@ -225,13 +246,18 @@ Response Message Body
 
 The response message body fields for creating a data object using CDMI are shown in :numref:`tbl_cdmi_data_object_create_response_message_body`.
 
+.. tabularcolumns:: |>{\raggedright\arraybackslash}\Y{0.20}
+                    |>{\raggedright\arraybackslash}\Y{0.10}
+                    |>{\raggedright\arraybackslash}\Y{0.55}
+                    |>{\raggedright\arraybackslash}\Y{0.15}|
+
 .. _tbl_cdmi_data_object_create_response_message_body:
 
 .. list-table:: Response Message Body - Create a Data Object using CDMI
+    :class: longtable
     :header-rows: 1
-    :widths: auto
+    :widths: 20 10 55 15
     :align: center 
-
 
     * - Field Name
       - Type
@@ -239,7 +265,7 @@ The response message body fields for creating a data object using CDMI are shown
       - Requirement
     * - objectType
       - JSON String
-      - "application/cdmi-object"
+      - "``application/cdmi-object``"
       - Mandatory
     * - objectID
       - JSON String
@@ -252,6 +278,11 @@ The response message body fields for creating a data object using CDMI are shown
     * - parentURI
       - JSON String
       - URI for the parent object. 
+      
+        .. raw:: latex
+
+          \vspace*{1ex}
+
         Appending the objectName to the parentURI shall always produce a valid URI for the object. 
       - Mandatory
     * - parentID
@@ -268,15 +299,21 @@ The response message body fields for creating a data object using CDMI are shown
       - Mandatory
     * - completionStatus
       - JSON String
-      - A string indicating if the object is still in the process of being created or updated by another operation, and after that operation is complete, indicates if it was successfully created or
-        updated or if an error occurred.
-        The value shall be the string "Processing", the string "Complete", or an error string starting with the value "Error".
+      - A string indicating if the object is still in the process of being created or updated by another operation, and after that operation is complete, indicates if it was successfully created or updated or if an error occurred.
+      
+        .. raw:: latex
+
+          \vspace*{1ex}
+
+        The value shall be the string "``Processing``", the string "``Complete``", or an error string starting with the value "``Error``".
       - Mandatory
     * - percentComplete
       - JSON String
-      - * When the value of completionStatus is "Processing", this field, if provided, shall indicate the percentage of completion as a numeric integer value from 0 through 100. 
-        * When the value of completionStatus is "Complete", this field, if provided, shall contain the value "100". 
-        * When the value of completionStatus is "Error", this field, if provided, may contain any integer value from 0 through 100.
+      - A string indicating the percentage of completion if the object is still in the process of bewing created or updated by another operation.
+
+        * When the value of completionStatus is "``Processing``", this field, if provided, shall indicate the percentage of completion as a numeric integer value from 0 through 100. 
+        * When the value of completionStatus is "``Complete``", this field, if provided, shall contain the value "``100``". 
+        * When the value of completionStatus is "``Error``", this field, if provided, may contain any integer value from "``0``" through "``100``".
       - Optional
     * - mimetype
       - JSON String
@@ -294,13 +331,15 @@ Response Status
 
 The HTTP status codes that occur when creating a data object using CDMI are described in :numref:`tbl_cdmi_data_object_create_response_status`.
 
+.. tabularcolumns:: |>{\raggedright\arraybackslash}\Y{0.30}
+                    |>{\raggedright\arraybackslash}\Y{0.70}|
+
 .. _tbl_cdmi_data_object_create_response_status:
 
 .. list-table:: HTTP Status Codes - Create a Data Object using CDMI 
     :header-rows: 1
-    :widths: auto
+    :widths: 30 70
     :align: center 
-
 
     * - HTTP Status
       - Description
@@ -323,7 +362,7 @@ The HTTP status codes that occur when creating a data object using CDMI are desc
 Examples
 --------
 
-#. PUT to the container URI the data object name and contents:
+EXAMPLE 1: PUT to the container URI the data object name and contents:
 
    .. code-block:: http
 
@@ -331,7 +370,6 @@ Examples
        Host: cloud.example.com
        Accept: application/cdmi-object
        Content-Type: application/cdmi-object
-       X-CDMI-Specification-Version: 1.1
 
        {
            "mimetype" : "text/plain",
@@ -347,7 +385,6 @@ Examples
 
        HTTP/1.1 201 Created
        Content-Type: application/cdmi-object
-       X-CDMI-Specification-Version: 1.1
        
        {
            "objectType" : "application/cdmi-object",
@@ -365,7 +402,7 @@ Examples
        }
 
 
-#. PUT to the container URI the data object name and binary contents:
+EXAMPLE 2: PUT to the container URI the data object name and binary contents:
 
    .. code-block:: http
 
@@ -373,7 +410,6 @@ Examples
        Host: cloud.example.com 
        Accept: application/cdmi-object 
        Content-Type: application/cdmi-object 
-       X-CDMI-Specification-Version: 1.1
 
        {
           "mimetype" : "text/plain", 
@@ -388,7 +424,6 @@ Examples
 
        HTTP/1.1 201 Created 
        Content-Type: application/cdmi-object 
-       X-CDMI-Specification-Version: 1.1
 
        {
           "objectType": "application/cdmi-object",
@@ -405,7 +440,7 @@ Examples
           }
        }
 
-#.  PUT to the container URI the data object name and binary contents using multi-part MIME:
+EXAMPLE 3: PUT to the container URI the data object name and binary contents using multi-part MIME:
 
    .. code-block:: http
 
@@ -413,7 +448,6 @@ Examples
        Host: cloud.example.com 
        Accept: application/cdmi-object 
        Content-Type: multipart/mixed; boundary=gc0p4Jq0M2Yt08j34c0p
-       X-CDMI-Specification-Version: 1.1
 
        --gc0p4Jq0M2Yt08j34c0p
        Content-Type: application/cdmi-object 
@@ -440,7 +474,6 @@ Examples
        
        HTTP/1.1 201 Created 
        Content-Type: application/cdmi-object 
-       X-CDMI-Specification-Version: 1.1
 
        {
         "objectType": "application/cdmi-object", 
@@ -460,7 +493,7 @@ Examples
        }
 
 
-#. PUT to the container URI the data object name and binary contents using multi-part MIME with optional content-lengths for the parts:
+EXAMPLE 4: PUT to the container URI the data object name and binary contents using multi-part MIME with optional content-lengths for the parts:
 
    .. code-block:: http
 
@@ -468,7 +501,6 @@ Examples
        Host: cloud.example.com 
        Accept: application/cdmi-object 
        Content-Type: multipart/mixed; boundary=gc0p4Jq0M2Yt08j34c0p
-       X-CDMI-Specification-Version: 1.1
 
        --gc0p4Jq0M2Yt08j34c0p
        Content-Type: application/cdmi-object 
@@ -497,7 +529,6 @@ Examples
 
        HTTP/1.1 201 Created 
        Content-Type: application/cdmi-object 
-       X-CDMI-Specification-Version: 1.1
 
        {
         "objectType": "application/cdmi-object", 
