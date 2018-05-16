@@ -6,53 +6,52 @@ Read a Container Object using CDMI
 Synopsis
 --------
 
-To read all fields from an existing container object, the following request shall be performed:
+To read an existing container object, the following requests shall be performed:
 
-    GET <root URI>/<ContainerName>/<TheContainerName>/
-
-To read one or more requested fields from an existing container object, one of the following requests shall be performed:
-
-    GET <root URI>/<ContainerName>/<TheContainerName>/?<fieldname>;<fieldname>;...
-
-    GET <root URI>/<ContainerName>/<TheContainerName>/?children:<range>;...
-
-    GET <root URI>/<ContainerName>/<TheContainerName>/?metadata:<prefix>;...
+* ``GET <root URI>/<ContainerName>/<TheContainerName>/``
+* ``GET <root URI>/<ContainerName>/<TheContainerName>/?<fieldname>;<fieldname>;...``
+* ``GET <root URI>/<ContainerName>/<TheContainerName>/?children:<range>;...``
+* ``GET <root URI>/<ContainerName>/<TheContainerName>/?metadata:<prefix>;...``
+* ``GET <root URI>/cdmi_objectid/<ContainerObjectID>/``
+* ``GET <root URI>/cdmi_objectid/<ContainerObjectID>/?<fieldname>;<fieldname>;...``
+* ``GET <root URI>/cdmi_objectid/<ContainerObjectID>/?children:<range>;...``
+* ``GET <root URI>/cdmi_objectid/<ContainerObjectID>/?metadata:<prefix>;...``
 
 Where:
 
-
-* <root URI> is the path to the CDMI cloud.
-* <ContainerName> is zero or more intermediate container objects.
-* <TheContainerName> is the name specified for the container object to be read from.
-* <fieldname> is the name of a field.
-* <range> is a numeric range within the list of children.
-* <prefix> is a matching prefix that returns all metadata items that start with the prefix value.
-
-The container object shall also be accessible at <root URI>/cdmi_objectid/<objectID>/.
+* ``<root URI>`` is the path to the CDMI cloud.
+* ``<ContainerName>`` is zero or more intermediate container objects.
+* ``<TheContainerName>`` is the name specified for the container object to be read from.
+* ``<fieldname>`` is the name of a field.
+* ``<range>`` is a numeric range within the list of children.
+* ``<prefix>`` is a matching prefix that returns all metadata items that start with the prefix value.
+* ``<ContainerObjectID>`` is the ID of the data object to be read from.
 
 Capabilities
 ------------
 
 The following capabilities describe the supported operations that may be performed when reading an existing container object:
 
-
-* Support for the ability to read the metadata of an existing container object is indicated by the presence of the cdmi_read_metadata capability in the specified container object.
-* Support for the ability to list the children of an existing container object is indicated by the presence of the cdmi_list_children capability in the specified container object.
-* Support for the ability to list ranges of the children of an existing container object is indicated by the presence of the cdmi_list_children_range capability in the specified container object.
-
+* Support for the ability to read the metadata of an existing container object is indicated by the presence of the ``cdmi_read_metadata`` capability in the specified container object.
+* Support for the ability to list the children of an existing container object is indicated by the presence of the ``cdmi_list_children`` capability in the specified container object.
+* Support for the ability to list ranges of the children of an existing container object is indicated by the presence of the ``cdmi_list_children_range`` capability in the specified container object.
 
 Request Headers
 ---------------
 
 The HTTP request headers for reading a CDMI container object using CDMI are shown in :numref:`tbl_cdmi_container_object_read_request_headers`. 
 
+.. tabularcolumns:: |>{\raggedright\arraybackslash}\Y{0.20}
+                    |>{\raggedright\arraybackslash}\Y{0.10}
+                    |>{\raggedright\arraybackslash}\Y{0.55}
+                    |>{\raggedright\arraybackslash}\Y{0.15}|
+
 .. _tbl_cdmi_container_object_read_request_headers:
 
 .. list-table:: Request Headers - Read a Container Object using CDMI  
     :header-rows: 1
-    :widths: auto
+    :widths: 20 10 55 15
     :align: center 
-
 
     * - Header
       - Type
@@ -62,11 +61,6 @@ The HTTP request headers for reading a CDMI container object using CDMI are show
       - Header String
       - "application/cdmi-container" or a consistent value as per clause :numref:`ref_content-type_negotiation` 
       - Optional
-    * - X-CDMI-Specification-Version
-      - Header String
-      - A comma-separated list of versions that the client supports, e.g., "1.1, 1.5, 2.0"
-      - Mandatory
-
 
 Request Message Body 
 --------------------
@@ -78,23 +72,22 @@ Response Headers
 
 The HTTP response headers for reading a CDMI container object using CDMI are shown in :numref:ref:`tbl_cdmi_container_object_read_response_headers`.
 
+.. tabularcolumns:: |>{\raggedright\arraybackslash}\Y{0.20}
+                    |>{\raggedright\arraybackslash}\Y{0.10}
+                    |>{\raggedright\arraybackslash}\Y{0.55}
+                    |>{\raggedright\arraybackslash}\Y{0.15}|
+
 .. _tbl_cdmi_container_object_read_response_headers:
 
 .. list-table:: Response Headers - Read a Container Object using CDMI
     :header-rows: 1
-    :widths: auto
+    :widths: 20 10 55 15
     :align: center 
-
 
     * - Header
       - Type
       - Description
       - Requirement
-    * - X-CDMI-Specification-Version
-      - Header String
-      - The server shall respond with the highest version supported by both the client and the server, e.g., "1.1".
-        If the server does not support any of the versions that the client supports, the server shall return an HTTP status code of ``400 Bad Request``.
-      - Mandatory
     * - Content-Type
       - Header String
       - "application/cdmi-container"
@@ -104,19 +97,23 @@ The HTTP response headers for reading a CDMI container object using CDMI are sho
       - The server shall respond with an absolute URI to which the reference redirects if the object is a reference.
       - Conditional
 
-
 Response Message Body
 ---------------------
 
 The response message body fields for reading a CDMI container object using CDMI are shown in :numref:`tbl_cdmi_container_object_read_response_message_body` 
 
+.. tabularcolumns:: |>{\raggedright\arraybackslash}\Y{0.20}
+                    |>{\raggedright\arraybackslash}\Y{0.10}
+                    |>{\raggedright\arraybackslash}\Y{0.55}
+                    |>{\raggedright\arraybackslash}\Y{0.15}|
+
 .. _tbl_cdmi_container_object_read_response_message_body:
 
 .. list-table:: Response Message Body - Read a Container Object using CDMI 
+    :class: longtable
     :header-rows: 1
-    :widths: auto
+    :widths: 20 10 55 15
     :align: center 
-
 
     * - Field Name
       - Type
@@ -124,7 +121,7 @@ The response message body fields for reading a CDMI container object using CDMI 
       - Requirement
     * - objectType
       - JSON String
-      - "application/cdmi-container"
+      - "``application/cdmi-container``"
       - Mandatory
     * - objectID
       - JSON String
@@ -133,21 +130,25 @@ The response message body fields for reading a CDMI container object using CDMI 
     * - objectName
       - JSON String
       - Name of the object
+
         * For objects in a container, the objectName field shall be returned. 
-        * For objects not in a container (objects that are only accessible by ID), the objectName field does not exist and shall not be returned. 
+        * For objects not in a container (objects that are only accessible by ID), the "``objectName``" field does not exist and shall not be returned. 
       - Conditional
     * - parentURI
       - JSON String
       - URI for the parent object
+
         * For objects in a container, the parentURI field shall be returned. 
-        * For objects not in a container (objects that are only accessible by ID), the parentURI field does not exist and shall not be returned. 
-        Appending the objectName to the parentURI shall always produce a valid URI for the object. 
+        * For objects not in a container (objects that are only accessible by ID), the "``parentURI``" field does not exist and shall not be returned. 
+
+        Appending the "``objectName``" to the "``parentURI``" shall always produce a valid URI for the object. 
       - Conditional
     * - parentID
       - JSON String
       - Object ID of the parent container object
-        * For objects in a container, the parentID field shall be returned. 
-        * For objects not in a container (objects that are only accessible by ID), the parentID field does not exist and shall not be returned.
+
+        * For objects in a container, the "``parentID``" field shall be returned. 
+        * For objects not in a container (objects that are only accessible by ID), the "``parentID``" field does not exist and shall not be returned.
       - Conditional
     * - domainURI
       - JSON String
@@ -160,13 +161,20 @@ The response message body fields for reading a CDMI container object using CDMI 
     * - completionStatus
       - JSON String
       - A string indicating if the object is still in the process of being created or updated by another operation, and after that operation is complete, indicates if it was successfully created or updated or if an error occurred.
-        The value shall be the string "Processing", the string "Complete", or an error string starting with the value "Error".
+      
+        .. raw:: latex
+
+          \vspace*{1ex}
+
+        The value shall be the string "``Processing``", the string "``Complete``", or an error string starting with the value "``Error``".
       - Mandatory
     * - percentComplete
       - JSON String
-      - * When the value of completionStatus is "Processing", this field, if provided, shall indicate the percentage of completion as a numeric integer value from 0 through 100. 
-        * When the value of completionStatus is "Complete", this field, if provided, shall contain the value "100". 
-        * When the value of completionStatus is "Error", this field, if provided, may contain any integer value from 0 through 100.
+      - A string indicating the percentage of completion if the object is still in the process of bewing created or updated by another operation.
+
+        * When the value of completionStatus is "``Processing``", this field, if provided, shall indicate the percentage of completion as a numeric integer value from 0 through 100. 
+        * When the value of completionStatus is "``Complete``", this field, if provided, shall contain the value "``100``". 
+        * When the value of completionStatus is "``Error``", this field, if provided, may contain any integer value from "``0``" through "``100``".
       - Optional
     * - metadata
       - JSON Object
@@ -186,27 +194,30 @@ The response message body fields for reading a CDMI container object using CDMI 
       - Mandatory
     * - children
       - JSON Array of JSON Strings
-      - Names of the children objects in the container object. When a client uses a child name in a request URI or a header URI, the client shall escape reserved characters  according to :rfc:`3986`, e.g., a "%" character in a child name shall be replaced with "%25". 
-        * Children that are container objects shall have "/" appended to the child name.
-        * Children that are references shall have "?" appended to the child name.
+      - Names of the children objects in the container object. When a client uses a child name in a request URI or a header URI, the client shall escape reserved characters  according to :rfc:`3986`, e.g., a "``%``" character in a child name shall be replaced with "``%25``". 
+
+        * Children that are container objects shall have "``/``" appended to the child name.
+        * Children that are references shall have "``?``" appended to the child name.
       - Mandatory
 
 .. [#a] Returned only if present.
-
 
 If individual fields are specified in the GET request, only these fields are returned in the result body. Optional fields that are requested but do not exist are omitted from the result body.
 
 Response Status
 ---------------
 
- :numref:`http_status_codes_read_a_container_object_using_cdmi` describes the HTTP status codes that occur when reading a container object using CDMI. 
+:numref:`tbl_cdmi_container_object_read_response_status` describes the HTTP status codes that occur when reading a container object using CDMI. 
 
+.. tabularcolumns:: |>{\raggedright\arraybackslash}\Y{0.30}
+                    |>{\raggedright\arraybackslash}\Y{0.70}|
+
+.. _tbl_cdmi_container_object_read_response_status:
 
 .. list-table:: HTTP Status Codes - Read a Container Object using CDMI
     :header-rows: 1
-    :widths: auto
+    :widths: 30 70
     :align: center 
-
 
     * - HTTP Status
       - Description
@@ -225,18 +236,16 @@ Response Status
     * - ``406 Not Acceptable``
       - The server is unable to provide the object in the content type specified in the Accept header.
 
-
 Examples
 --------
 
-#. GET to the container object URI to read all the fields of the container object:
+EXAMPLE 1: GET to the container object URI to read all the fields of the container object:
 
    .. code-block:: http
 
         GET /MyContainer/ HTTP/1.1
         Host: cloud.example.com
         Accept: application/cdmi-container
-        X-CDMI-Specification-Version: 1.1
 
    The following shows the response.
    
@@ -244,7 +253,6 @@ Examples
 
         HTTP/1.1 200 OK
         Content-Type: application/cdmi-container
-        X-CDMI-Specification-Version: 1.1
         
         {
             "objectType" : "application/cdmi-container",
@@ -281,14 +289,13 @@ Examples
             }
         }
 
-#. GET to the container object URI to read parentURI and children of the container object:
+EXAMPLE 2: GET to the container object URI to read parentURI and children of the container object:
 
    .. code-block:: http
 
         GET /MyContainer/?parentURI;children HTTP/1.1
         Host: cloud.example.com
         Accept: application/cdmi-container
-        X-CDMI-Specification-Version: 1.1
 
    The following shows the response.
    
@@ -296,7 +303,6 @@ Examples
 
         HTTP/1.1 200 OK
         Content-Type: application/cdmi-container
-        X-CDMI-Specification-Version: 1.1
         
         {
             "parentURI" : "/",
@@ -309,14 +315,13 @@ Examples
             ]
         }
 
-#. GET to the container object URI to read children 0..2 and childrenrange of the container object:
+EXAMPLE 3: GET to the container object URI to read children 0..2 and childrenrange of the container object:
 
    .. code-block:: http
 
         GET /MyContainer/?childrenrange;children:0-2 HTTP/1.1
         Host: cloud.example.com
         Accept: application/cdmi-container
-        X-CDMI-Specification-Version: 1.1
 
    The following shows the response.
    
@@ -324,7 +329,6 @@ Examples
 
         HTTP/1.1 200 OK
         Content-Type: application/cdmi-container
-        X-CDMI-Specification-Version: 1.1
         
         {
             "childrenrange" : "0-2",
@@ -335,14 +339,13 @@ Examples
             ]
         }
 
-#. GET to the container object by ID to read children 0..2 and childrenrange of the container object: 
+EXAMPLE 4: GET to the container object by ID to read children 0..2 and childrenrange of the container object: 
 
    .. code-block:: http
 
         GET /cdmi_objectid/0000706D0010B84FAD185C425D8B537E/?childrenrange;children:0-2 HTTP/1.1 
         Host: cloud.example.com 
         Accept: application/cdmi-container 
-        X-CDMI-Specification-Version: 1.1
 
    The following shows the response.
    
@@ -350,7 +353,6 @@ Examples
 
         HTTP/1.1 200 OK 
         Content-Type: application/cdmi-container
-        X-CDMI-Specification-Version: 1.1
         
         {
             "childrenrange": "0-2",

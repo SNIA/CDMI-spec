@@ -3,55 +3,32 @@
 Delete a Container Object using CDMI
 ************************************
 
-
 Synopsis
 --------
 
-To delete an existing container object, including all contained children and snapshots, the following request shall be performed:
+To delete an existing container object, including all contained children and snapshots, the following requests shall be performed:
 
-    DELETE <root URI>/<ContainerName>/<TheContainerName>/ 
+* ``DELETE <root URI>/<ContainerName>/<TheContainerName>``
+* ``DELETE <root URI>/cdmi_objectid/<ContainerObjectID>``
 
 Where:
 
-
-* <root URI> is the path to the CDMI cloud.
-* <ContainerName> is zero or more intermediate container objects.
-* <TheContainerName> is the name of the container object to be deleted.
-
-
-The object shall also be accessible at <root URI>/cdmi_objectid/<objectID>/.
-
+* ``<root URI>`` is the path to the CDMI cloud.
+* ``<ContainerName>`` is zero or more intermediate container objects.
+* ``<TheContainerName>`` is the name of the container object to be deleted.
+* ``<ContainerObjectID>`` is the ID of the data object to be deleted.
 
 Capability 
 ----------
 
 The following capability describes the supported operations that may be performed when deleting an existing container object:
 
-
-* Support for the ability to delete an existing container object is indicated by the presence of the cdmi_delete_container capability in the specified container object.
-
+* Support for the ability to delete an existing container object is indicated by the presence of the ``cdmi_delete_container`` capability in the specified container object.
 
 Request Header
 --------------
 
-The HTTP request header for deleting a CDMI container object using CDMI is shown in :numref:`tbl_cdmi_container_object_delete_request_headers`. 
-
-.. _tbl_cdmi_container_object_delete_request_headers:
-.. list-table:: Request Header - Delete a Container Object Using CDMI
-    :header-rows: 1
-    :widths: auto
-    :align: center 
-
-
-    * - Header
-      - Type
-      - Description
-      - Requirement
-    * - X-CDMI-Specification-Version
-      - Header String
-      - A comma-separated list of versions that the client supports, e.g., "1.1, 1.5, 2.0"
-      - Mandatory
-
+Request headers may be provided as per :rfc:`2616`.
 
 Request Message Body 
 --------------------
@@ -73,13 +50,15 @@ Response Status
 
 :numref:`tbl_cdmi_container_object_delete_response_status` describes the HTTP status codes that occur when deleting a container object using CDMI. 
 
+.. tabularcolumns:: |>{\raggedright\arraybackslash}\Y{0.30}
+                    |>{\raggedright\arraybackslash}\Y{0.70}|
+
 .. _tbl_cdmi_container_object_delete_response_status:
 
 .. list-table:: HTTP Status Codes - Delete a Container Object Using CDMI
     :header-rows: 1
-    :widths: auto
+    :widths: 30 70
     :align: center 
-
 
     * - HTTP Status
       - Description
@@ -96,15 +75,15 @@ Response Status
     * - ``409 Conflict``
       - The operation conflicts with a non-CDMI access protocol lock or may cause a state transition error on the server.
 
-
 Example
 -------
 
-#.  DELETE to the container object URI:
+EXAMPLE 1: DELETE to the container object URI:
+
+   .. code-block:: http
 
         DELETE /MyContainer/ HTTP/1.1
         Host: cloud.example.com
-        X-CDMI-Specification-Version: 1.1
 
    The following shows the response.
 
@@ -112,3 +91,15 @@ Example
         
         HTTP/1.1 204 No Content
 
+EXAMPLE 2: DELETE by container object ID:
+
+   .. code-block:: http
+
+       DELETE /cdmi_objectid/00007ED900104E1D14771DC67C27BF8B/ HTTP/1.1
+       Host: cloud.example.com
+
+   The following shows the response.
+
+   .. code-block:: http
+   
+       HTTP/1.1 204 No Content 
