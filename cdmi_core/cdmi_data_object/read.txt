@@ -140,27 +140,27 @@ The response message body fields for reading a CDMI data object using CDMI are s
       - Name of the object
         
         * For objects in a container, the objectName field shall be returned. 
-        * For objects not in a container (objects that are only accessible by ID), the objectName field does not exist and shall not be returned. 
+        * For objects not in a container (objects that are only accessible by ID), the "``objectName``" field does not exist and shall not be returned. 
       - Conditional
     * - parentURI
       - JSON String
       - URI for the parent object
         
         * For objects in a container, the parentURI field shall be returned. 
-        * For objects not in a container (objects that are only accessible by ID), the parentURI field does not exist and shall not be returned. 
+        * For objects not in a container (objects that are only accessible by ID), the "``parentURI``" field does not exist and shall not be returned. 
       
         .. raw:: latex
 
           \vspace*{1ex}
 
-        Appending the objectName to the parentURI shall always produce a valid URI for the object. 
+        Appending the "``objectName``" to the "``parentURI``" shall always produce a valid URI for the object. 
       - Conditional
     * - parentID
       - JSON String
       - Object ID of the parent container object
 
-        * For objects in a container, the parentID field shall be returned. 
-        * For objects not in a container (objects that are only accessible by ID), the parentID field does not exist and shall not be returned.
+        * For objects in a container, the "``parentID``" field shall be returned. 
+        * For objects not in a container (objects that are only accessible by ID), the "``parentID``" field does not exist and shall not be returned.
       - Conditional
     * - domainURI
       - JSON String

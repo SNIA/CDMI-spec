@@ -6,86 +6,59 @@ Delete a Data Object using CDMI
 Synopsis
 --------
 
-The following HTTP DELETE deletes an existing data object at the specified URI:
+To delete an existing data object, the following requests shall be performed:
 
-    DELETE <root URI>/<ContainerName>/<DataObjectName>
+* ``DELETE <root URI>/<ContainerName>/<DataObjectName>``
+* ``DELETE <root URI>/cdmi_objectid/<DataObjectID>``
 
 Where:
 
-
-* <root URI> is the path to the CDMI cloud.
-* <ContainerName> is zero or more intermediate containers.
-* <DataObjectName> is the name of the data object to be deleted.
-
-
-The object shall also be accessible at <root URI>/cdmi_objectid/<objectID>.
-
+* ``<root URI>`` is the path to the CDMI cloud.
+* ``<ContainerName>`` is zero or more intermediate containers.
+* ``<DataObjectName>`` is the name of the data object to be deleted.
+* ``<DataObjectID>`` is the ID of the data object to be deleted.
 
 Capability
 ----------
 
 The following capability describes the supported operations that may be performed when deleting an existing data object:
 
-
-* Support for the ability to delete an existing data object is indicated by the presence of the cdmi_delete_dataobject capability in the specified object.
-
-
-
+* Support for the ability to delete an existing data object is indicated by the presence of the ``cdmi_delete_dataobject`` capability in the specified object.
 
 Request Header
 --------------
 
-The HTTP request header for deleting a CDMI data object using CDMI is shown in :numref:`tbl_cdmi_data_object_delete_request_header`.
-
-.. _tbl_cdmi_data_object_delete_request_header:
-
-.. list-table:: Request Header - Delete a CDMI Data Object using CDMI
-    :header-rows: 1
-    :widths: auto
-    :align: center 
-
-    * - Header
-      - Type
-      - Description
-      - Requirement
-    * - X-CDMI-Specification-Version
-      - Header String
-      - A comma-separated list of versions that the client supports, e.g., "1.1, 1.5, 2.0"
-      - Mandatory
-
+Request headers may be provided as per :rfc:`2616`.
 
 Request Message Body 
 --------------------
 
 A request body may be provided as per :rfc:`2616`.
 
-
 Response Headers 
 ----------------
 
 Response headers may be provided as per :rfc:`2616`.
-
-
 
 Response Message Body 
 ---------------------
 
 A response body may be provided as per :rfc:`2616`.
 
-
-
 Response Status
 ---------------
 
 :numref:`tbl_cdmi_data_object_delete_response_status` describes the HTTP status codes that occur when deleting a data object using CDMI. 
 
+.. tabularcolumns:: |>{\raggedright\arraybackslash}\Y{0.30}
+                    |>{\raggedright\arraybackslash}\Y{0.70}|
+
 .. _tbl_cdmi_data_object_delete_response_status:
 
 .. list-table:: HTTP Status Codes - Delete a CDMI Data Object using CDMI
     :header-rows: 1
-    :widths: auto
+    :widths: 30 70
     :align: center 
-
 
     * - HTTP Status
       - Description
@@ -102,18 +75,28 @@ Response Status
     * - ``409 Conflict``
       - The operation conflicts with a non-CDMIP access protocol lock or may cause a state transition error on the server or the data object may not be deleted.
 
-
-
 Example
 --------
 
-#. DELETE to the data object URI:
+EXAMPLE 1: DELETE by data object URI:
 
    .. code-block:: http
 
        DELETE /MyContainer/MyDataObject.txt HTTP/1.1
        Host: cloud.example.com
-       X-CDMI-Specification-Version: 1.1
+
+   The following shows the response.
+
+   .. code-block:: http
+   
+       HTTP/1.1 204 No Content 
+
+EXAMPLE 2: DELETE by data object ID:
+
+   .. code-block:: http
+
+       DELETE /cdmi_objectid/00007ED90010D891022876A8DE0BC0FD HTTP/1.1
+       Host: cloud.example.com
 
    The following shows the response.
 

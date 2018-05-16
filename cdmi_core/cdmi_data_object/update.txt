@@ -21,7 +21,7 @@ Where:
 * ``<ContainerName>`` is zero or more intermediate containers.
 * ``<DataObjectName>`` is the name of the data object to be updated.
 * ``<range>`` is a byte range for the data object value to be updated.
-* ``<DataObjectID>`` is the ID of the data object to be read from.
+* ``<DataObjectID>`` is the ID of the data object to be updated.
 
 Capabilities
 ------------
@@ -243,7 +243,6 @@ EXAMPLE 1: PUT to the data object URI to set new field values:
        PUT /MyContainer/MyDataObject.txt HTTP/1.1
        Host: cloud.example.com
        Content-Type: application/cdmi-object
-       X-CDMI-Specification-Version: 1.1
        
        {
            "mimetype" : "text/plain",
@@ -268,7 +267,6 @@ EXAMPLE 2: PUT to the data object URI to set a new MIME type:
        PUT /MyContainer/MyDataObject.txt?mimetype HTTP/1.1
        Host: cloud.example.com
        Content-Type: application/cdmi-object
-       X-CDMI-Specification-Version: 1.1
        
        {
            "mimetype" : "text/plain"
@@ -288,7 +286,6 @@ EXAMPLE 3: PUT to the data object URI to update a range of the value:
        PUT /MyContainer/MyDataObject.txt?value:21-24 HTTP/1.1
        Host: cloud.example.com
        Content-Type: application/cdmi-object
-       X-CDMI-Specification-Version: 1.1
        
        {
            "value" : "dGhhdA=="
@@ -313,7 +310,6 @@ EXAMPLE 4: PUT to the data object URI to replace all metadata with new metadata:
        PUT /MyContainer/MyDataObject.txt?metadata HTTP/1.1
        Host: cloud.example.com
        Content-Type: application/cdmi-object
-       X-CDMI-Specification-Version: 1.1
        
        {
            "metadata" : {
@@ -336,7 +332,6 @@ EXAMPLE 5: PUT to the data object URI to add a new metadata item while preservin
        PUT /MyContainer/MyDataObject.txt?metadata:shape HTTP/1.1
        Host: cloud.example.com
        Content-Type: application/cdmi-object
-       X-CDMI-Specification-Version: 1.1
        
        {
            "metadata" : {
@@ -358,7 +353,6 @@ EXAMPLE 6: PUT to the data object URI to replace just one metadata item with a n
        PUT /MyContainer/MyDataObject.txt?metadata:colour HTTP/1.1
        Host: cloud.example.com
        Content-Type: application/cdmi-object
-       X-CDMI-Specification-Version: 1.1
        
        {
            "metadata" : {
@@ -380,7 +374,6 @@ EXAMPLE 7: Delete a single metadata item:
        PUT /MyContainer/MyDataObject.txt?metadata:colour HTTP/1.1 
        Host: cloud.example.com 
        Content-Type: application/cdmi-object 
-       X-CDMI-Specification-Version: 1.1
        
        {
            "metadata": {}
@@ -401,7 +394,6 @@ EXAMPLE 8: Add, update, and delete metadata items. Assume a starting condition w
        
        Host: cloud.example.com
        Content-Type: application/cdmi-object
-       X-CDMI-Specification-Version: 1.1
        
        {
            "metadata": {
@@ -424,7 +416,6 @@ EXAMPLE 9: PUT to the data object URI to set new field values and the binary con
        PUT /MyContainer/MyDataObject.txt HTTP/1.1 
        Host: cloud.example.com 
        Content-Type: multipart/mixed; boundary=gc0p4Jq0M2Yt08j34c0p
-       X-CDMI-Specification-Version: 1.1
        
        --gc0p4Jq0M2Yt08j34c0p
        Content-Type: application/cdmi-object 
@@ -459,7 +450,6 @@ EXAMPLE 10: PUT to the data object URI to replace just one metadata item and upd
        PUT /MyContainer/BinaryObject.txt?metadata:colour HTTP/1.1 
        Host: cloud.example.com 
        Content-Type: multipart/mixed; boundary=gc0p4Jq0M2Yt08j34c0p
-       X-CDMI-Specification-Version: 1.1
        
        --gc0p4Jq0M2Yt08j34c0p
        Content-Type: application/cdmi-object 
