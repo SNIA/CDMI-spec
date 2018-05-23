@@ -25,7 +25,6 @@ Delayed Completion of Create
 
 In response to a create operation for a data object, the server may return an HTTP status code of ``202 Accepted`` to indicate that the object is in the process of being created. This response is useful for long-running operations (e.g., copying a large data object from a source URI). Such a response has the following implications.
 
-
 * The server shall return a Location header with an absolute URI to the object to be created along with an HTTP status code of ``202 Accepted``.
 * With an HTTP status code of ``202 Accepted``, the server implies that the following checks have passed:
 
@@ -183,6 +182,9 @@ The request message body fields for creating a data object using CDMI are shown 
     * - deserializevalue
       - JSON String
       - A data object serialized as specified in :rfc:`4648`.
+
+          * If multi-part MIME is being used and this field contains the value of the MIME boundary parameter, the contents of the second MIME part shall be assigned as the field value. 
+          * If the serialized data object in the second MIME part does not include a value field, the contents of the third MIME part shall be assigned as the field value of the value field.
       - Optional [#a]_
     * - valuetransferencoding
       - JSON String
