@@ -146,6 +146,7 @@ Finally, capabilities allow a client to discover the capabilities of a CDMI impl
 For example, in :numref:`ref_object_id`, this international standard states, "Every cloud storage system shall allow object ID-based access to stored objects." This requirement shall be understood in the context that access by object ID is predicated on the presence of the cdmi_object_access_by_ID capability.
 
 
+.. _ref_object_model_for_cdmi:
 
 Object Model for CDMI
 *********************
