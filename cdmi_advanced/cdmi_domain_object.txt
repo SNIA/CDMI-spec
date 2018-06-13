@@ -3,67 +3,105 @@
 Domain Object Resource Operations using CDMI
 ============================================
 
-
 Overview
 ********
 
-Domain objects represent the concept of administrative ownership of stored data within a CDMI™ storage system. A cloud service may include a hierarchy of domains that provide access to domain-related information within a CDMI context. This domain hierarchy is a series of CDMI objects that correspond to parent and child domains, with each domain corresponding to logical groupings of objects that are to be managed together. Domain measurement information about objects that are associated with each domain flow up to parent domains, facilitating billing and management operations that are typical for a cloud storage environment.
+Domain objects represent the concept of administrative ownership of stored data within a CDMI™ storage system. Each object may be owned and managed by a different administrative entity, which is expressed as a domain.
 
-Domain objects are created in the cdmi_domains container found in the root URI for the cloud storage system. If the cdmi_create_domain capability is present for the URI of a given domain, then the cloud storage system supports the ability to create child domains under the URI. If a cloud storage system supports domains, the cdmi_domains container shall be present. 
+A cloud service may include a hierarchy of domains that provide access to domain-related information within a CDMI context. This domain hierarchy is a series of CDMI objects that correspond to parent and child domains, with each domain corresponding to logical groupings of objects that are to be managed together. Domain measurement information about objects that are associated with each domain flow up to parent domains, facilitating billing and management operations that are typical for a cloud storage environment.
 
-Domains are addressed in CDMI in two ways: 
+FIXME - Add diagram (Issue #96)
 
+Each CDMI domain object is represented as a JSON object, containing one or more "fields". For example, the "``metadata``" field contains metadata items.
 
-* by name (e.g., http://cloud.example.com/cdmi_domains/myDomain/); and 
-* by object ID (e.g., http://cloud.example.com/cdmi_objectid/00007ED90010329E642EBFBC8B57E9AD/.
+EXAMPLE 1: CDMI Domain Object
 
+  .. code-block:: http
 
-Every domain object has a single, globally-unique object ID that remains constant for the life of the object. Each domain object shall also have one URI address that allows the domain object to be accessed. Following the URI conventions for hierarchical paths, domain URIs shall start with "/cdmi_domains/" and consist of one or more domain names that are separated by forward slashes ("/") and that end with a forward slash ("/"). 
+    {
+        "objectType" : "application/cdmi-domain",
+        "objectID" : "00007E7F00104BE66AB53A9572F9F51E",
+        "objectName" : "MyDomain/",
+        "parentURI" : "/cdmi_domains/",
+        "parentID" : "00007E7F0010C058374D08B0AC7B3550",
+        "domainURI" : "/cdmi_domains/MyDomain/",
+        "capabilitiesURI" : "/cdmi_capabilities/domain/",
+        "metadata" : {
+            "cdmi_domain_enabled": "true",
+            "cdmi_authentication_methods": "anonymous, basic",
+            ...
+        },
+        "childrenrange" : "0-1",
+        "children" : [
+            "cdmi_domain_summary/",
+            "cdmi_domain_members/"
+        ]
+    }
+
+The meaning, use, and permitted values of each field is described in each operation that creates, modifies or retreives CDMI domain objects.
+
+Domain Object Addressing
+------------------------
+
+Domain objects are created in a special ``cdmi_domains`` container, found in the root URI for the cloud storage system. If the ``cdmi_create_domain capability`` is present for the URI of a given domain, then the cloud storage system supports the ability to create child domains under the URI. If a cloud storage system supports domains, the ``cdmi_domains`` container shall be present. 
+
+Domain objects are addressed in CDMI in two ways: 
+
+* by name (e.g., ``http://cloud.example.com/cdmi_domains/myDomain/``); and 
+* by object ID (e.g., ``http://cloud.example.com/cdmi_objectid/00007ED90010329E642EBFBC8B57E9AD/``).
+
+Every domain object has a single, globally-unique object ID that remains constant for the life of the object. Each domain object shall also have at least one URI address that allows the domain object to be accessed. Following the URI conventions for hierarchical paths, domain URIs shall start with "``<root URI>/cdmi_domains/``" and consist of one or more domain names that are separated by forward slashes ("``/``") and that end with a forward slash ("``/``"). 
 
 If a request is performed against an existing domain resource and the trailing slash at the end of the URI is omitted, the server shall respond with an HTTP status code of ``301 Moved Permanently``, and a Location header containing the URI with the trailing slash will be added. 
 
 If a CDMI request is performed to create a new domain resource and the trailing slash at the end of the URI is omitted, the server shall respond with an HTTP status code of ``400 Bad Request``. 
 
+Domain objects may also be nested.
+
+    EXAMPLE 2: The following URI represents a nested domains:
+
+        ``http://cloud.example.com/cdmi_domains/myDomain/subDomain/``
+
+A nested domain has a parent domain object, shall be included in the children field of the parent domain object, and shall inherit <FIXME> from its parent domain. 
+
+Domain Object Fields
+--------------------
+
 Individual fields within a domain object may be accessed by specifying the field name after a question mark "?" appended to the end of the domain object URI. 
 
-#. The following URI returns just the children field in the response message body: 
+  EXAMPLE 3: The following URI returns just the children field in the response message body: 
     
-  http://cloud.example.com/cdmi_domains/myDomain/?children 
+    ``http://cloud.example.com/cdmi_domains/myDomain/?children``
 
-By specifying a range after the children field name, specific ranges of the children field may be accessed. 
+  EXAMPLE 4: By specifying a range after the children field name, specific ranges of the children field may be accessed. 
 
+    ``http://cloud.example.com/cdmi_domains/myDomain/?children:0-2``
 
-#. The following URI returns the first three children from the children field: 
-
-  http://cloud.example.com/cdmi_domains/myDomain/?children:0-2 
-
-Children ranges are specified in a way that is similar to byte ranges as per Section 14.35.1 of RFC 2616. A client can determine the number of children present by requesting the childrenrange field without requesting a range of children. 
+Children ranges are specified in a way that is similar to byte ranges as per Section 14.35.1 of :rfc:`2616`. A client can determine the number of children present by requesting the childrenrange field without requesting a range of children.
 
 A list of fields separated by a semicolon ";" may be specified, allowing multiple fields to be accessed in a single request. 
 
-#. The following URI would return the children and metadata fields in the response message body: 
+    EXAMPLE 5: The following URI would return the children and metadata fields in the response body:
 
+      ``http://cloud.example.com/cdmi_domains/myDomain/?children;metadata``
 
-   http://cloud.example.com/cdmi_domains/myDomain/?children;metadata 
-
-If read access to any of the requested fields is not permitted by the object ACL, only the permitted fields shall be returned. If no requested fields are permitted to be read, an HTTP status code of ``403 Forbidden`` shall be returned to the client. 
-
-If write access to any of the requested fields is not permitted by the object ACL, no updates shall be performed, and an HTTP status code of ``403 Forbidden`` shall be returned to the client.
-
-When a client provides or includes deserialization fields that are not defined in this international standard, these fields shall be stored as part of the object.
-
-
+When a client provides fields that are not defined in this international standard or deserializes an object containing fields that are not defined in this international standard, these fields shall be stored as part of the object but shall not be interpreted.
 
 Domain Object Metadata
 ----------------------
 
 The following domain-specific field shall be present for each domain (see :numref:`tbl_Required_Metadata_for_a_Domain_Object`).
 
+.. tabularcolumns:: |>{\raggedright\arraybackslash}\Y{0.29}
+                    |>{\raggedright\arraybackslash}\Y{0.09}
+                    |>{\raggedright\arraybackslash}\Y{0.48}
+                    |>{\raggedright\arraybackslash}\Y{0.14}|
+
 .. _tbl_Required_Metadata_for_a_Domain_Object:
 
-.. list-table:: .*
+.. list-table:: Required metadata for a domain object
+    :class: longtable
     :header-rows: 1
-    :widths: auto
     :align: center 
 
     * - Metadata Name
@@ -72,79 +110,108 @@ The following domain-specific field shall be present for each domain (see :numre
       - Requirement
     * - cdmi_domain_enabled
       - JSON String
-      - Indicates if the domain is enabled and specified at the time of creation. Values shall be "true" or "false".
-        * If a domain is disabled, the cloud storage system shall not permit any operations to be performed against any URI managed by that domain.
-        * If this metadata item is not present at the time of domain creation, the value is set to "false".
+      - Indicates if the domain is enabled and specified at the time of creation. Values shall be "``true``" or "``false``".
+
+          * If a domain is disabled, the cloud storage system shall not permit any operations to be performed against any URI managed by that domain.
+          * If this metadata item is not present at the time of domain creation, the value is set to "``false``".
       - Mandatory
     * - cdmi_domain_delete_reassign
       - JSON String
       - If the domain is deleted, indicates to which domain the objects that belong to the domain shall be reassigned. 
-        * To delete a domain that contains objects, this metadata item shall be present. 
-        * If this metadata item is not present or does not contain the URI of a valid domain that is different from the URI of the domain being deleted, an attempt to delete a domain that has objects shall result in an HTTP status code of ``400 Bad Request``.
-      - Conditional
 
+          * To delete a domain that contains objects, this metadata item shall be present. 
+          * If this metadata item is not present or does not contain the URI of a valid domain that is different from the URI of the domain being deleted, an attempt to delete a domain that has objects shall result in an HTTP status code of ``400 Bad Request``.
+      - Conditional
 
 Domains may also contain domain-specific data system metadata items as defined in :numref:`ref_support_for_data_system_metadata` and :numref:`ref_support_for_provided_data_system_metadata` Domain data system metadata shall be inherited to child domain objects.
 
+Domain Object Access Control
+----------------------------
+
+If read access to any of the requested fields is not permitted by the object ACL, only the permitted fields shall be returned. If no requested fields are permitted to be read, an HTTP status code of ``403 Forbidden`` shall be returned to the client. 
+
+If write access to any of the requested fields is not permitted by the object ACL, no updates shall be performed, and an HTTP status code of ``403 Forbidden`` shall be returned to the client.
+
+.. _ref_domain_usage_in_access_control:
+
+Domain Usage in Access Control
+------------------------------
+
+When a transaction is performed against a CDMI object, the associated domain object (i.e., the domain object indicated by the ``domainURI``) specifies the authentication context. The user identity and credentials presented as part of the transaction are compared to the domain membership list to determine if the user is authorized within the domain and to resolve the user's principal. If resolved, the user’s principal is evaluated against the object's ACL to determine if the transaction is permitted.
+
+When evaluating members within a domain, delegations are evaluated first, in any order, followed by user records, in any order. If there is at least one matching record and none of the matching records indicate that the user is disabled, the user is considered to be a member of the domain.
+
+When a sub-domain is initially created, the membership container contains one member record that is a delegation in which the delegation URI is set to the URI of the parent domain.
+
+Domain Object Representations
+-----------------------------
+
+The representations in this clause are shown using JSON notation. Both clients and servers shall support UTF-8 JSON representation. The request and response body JSON fields may be specified or returned in any order, with the exception that, if present, for domain objects, the childrenrange and children fields shall appear last and in that order.
+
+
 
 Domain Object Summaries
------------------------
+***********************
 
-Domain object summaries provide summary measurement information about domain usage and billing. If supported, a domain summary container named "cdmi_domain_summary" shall be present under each domain container. Like any container, the domain summary subcontainer may have an Access Control List (ACL) (see :numref:`ref_access_control`) that restricts access to this information.
+Domain object summaries provide summary measurement information about domain usage and billing. If supported, a domain summary container named "``cdmi_domain_summary``" shall be present under each domain container. Like any container, the domain summary subcontainer may have an Access Control List (ACL) (see :numref:`ref_access_control`) that restricts access to this information.
 
-Within each domain summary container are a series of domain summary data objects that are generated by the cloud storage system. The "yearly", "monthly", and "daily" containers of these data objects contain domain summary data objects corresponding to each year, month, and day, respectively. These containers are organized into the following structures:
+Within each domain summary container are a series of domain summary data objects that are generated by the cloud storage system. The "``yearly``", "``monthly``", and "``daily``" containers of these data objects contain domain summary data objects corresponding to each year, month, and day, respectively. These containers are organized into the following structures:
 
-   http://example.com/cdmi_domains/domain/
+   ``http://example.com/cdmi_domains/domain/``
 
-   http://example.com/cdmi_domains/domain/cdmi_domain_summary/
+   ``http://example.com/cdmi_domains/domain/cdmi_domain_summary/``
 
-   http://example.com/cdmi_domains/domain/cdmi_domain_summary/cumulative
+   ``http://example.com/cdmi_domains/domain/cdmi_domain_summary/cumulative``
 
-   http://example.com/cdmi_domains/domain/cdmi_domain_summary/daily/
+   ``http://example.com/cdmi_domains/domain/cdmi_domain_summary/daily/``
 
-   http://example.com/cdmi_domains/domain/cdmi_domain_summary/daily/2009-07-01
+   ``http://example.com/cdmi_domains/domain/cdmi_domain_summary/daily/2009-07-01``
 
-   http://example.com/cdmi_domains/domain/cdmi_domain_summary/daily/2009-07-02
+   ``http://example.com/cdmi_domains/domain/cdmi_domain_summary/daily/2009-07-02``
 
-   http://example.com/cdmi_domains/domain/cdmi_domain_summary/daily/2009-07-03
+   ``http://example.com/cdmi_domains/domain/cdmi_domain_summary/daily/2009-07-03``
 
-   http://example.com/cdmi_domains/domain/cdmi_domain_summary/monthly/
+   ``http://example.com/cdmi_domains/domain/cdmi_domain_summary/monthly/``
 
-   http://example.com/cdmi_domains/domain/cdmi_domain_summary/monthly/2009-07
+   ``http://example.com/cdmi_domains/domain/cdmi_domain_summary/monthly/2009-07``
 
-   http://example.com/cdmi_domains/domain/cdmi_domain_summary/monthly/2009-08
+   ``http://example.com/cdmi_domains/domain/cdmi_domain_summary/monthly/2009-08``
 
-   http://example.com/cdmi_domains/domain/cdmi_domain_summary/monthly/2009-10
+   ``http://example.com/cdmi_domains/domain/cdmi_domain_summary/monthly/2009-10``
 
-   http://example.com/cdmi_domains/domain/cdmi_domain_summary/yearly/
+   ``http://example.com/cdmi_domains/domain/cdmi_domain_summary/yearly/``
 
-   http://example.com/cdmi_domains/domain/cdmi_domain_summary/yearly/2009
+   ``http://example.com/cdmi_domains/domain/cdmi_domain_summary/yearly/2009``
 
-   http://example.com/cdmi_domains/domain/cdmi_domain_summary/yearly/2010
+   ``http://example.com/cdmi_domains/domain/cdmi_domain_summary/yearly/2010``
 
-The "cumulative" summary data object covers the entire time period, from the time the domain is created to the time it is accessed. Each data object at the daily, monthly, and yearly level contains domain summary information for the time period specified, bounded by domain creation time and access time.
+The "``cumulative``" summary data object covers the entire time period, from the time the domain is created to the time it is accessed. Each data object at the daily, monthly, and yearly level contains domain summary information for the time period specified, bounded by domain creation time and access time.
 
 If a time period extends earlier than the domain creation time, the summary information includes the time from when the domain was created until the end of the time period. 
 
-#. If a domain were created on July 4, 2009, at noon, the daily summary "2009-07-04" would contain information from noon until midnight, the monthly summary "2009-07" would contain information from noon on July 4 until midnight on July 31, and the yearly summary "2009" would contain information from noon on July 4 until midnight on December 31.
+EXAMPLE 1: If a domain were created on July 4, 2009, at noon, the daily summary "``2009-07-04``" would contain information from noon until midnight, the monthly summary "``2009-07``" would contain information from noon on July 4 until midnight on July 31, and the yearly summary "``2009``" would contain information from noon on July 4 until midnight on December 31.
 
 If a time period starts after the time when the domain was created and ends earlier than the time of access, the summary data object contains complete information for that time period. 
 
-#. If a domain were created on July 4, 2009, and on July 10, the "2009-07-06" daily summary data object was accessed, it would contain information for the complete day.
+EXAMPLE 2: If a domain were created on July 4, 2009, and on July 10, the "``2009-07-06``" daily summary data object was accessed, it would contain information for the complete day.
 
 If a time period ends after the current access time, the domain summary data object contains partial information from the start of the time period (or the time the domain was created) until the time of access.
 
-#. If a domain were created on July 4, 2009, and at noon on July 10, the "2009-07-10" daily summary data object was accessed, it would contain information from the beginning of the day until noon.
+EXAMPLE 3: If a domain were created on July 4, 2009, and at noon on July 10, the "``2009-07-10``" daily summary data object was accessed, it would contain information from the beginning of the day until noon.
 
 The information in :numref:`tbl_contents_of_domain_summary_objects` shall be present within the contents of each domain summary object, which are in JSON representation.
 
+.. tabularcolumns:: |>{\raggedright\arraybackslash}\Y{0.29}
+                    |>{\raggedright\arraybackslash}\Y{0.09}
+                    |>{\raggedright\arraybackslash}\Y{0.48}
+                    |>{\raggedright\arraybackslash}\Y{0.14}|
+
 .. _tbl_contents_of_domain_summary_objects:
 
-.. list-table:: .*
+.. list-table:: Contents of domain summary objects
+    :class: longtable
     :header-rows: 1
-    :widths: auto
     :align: center 
-
 
     * - Metadata Name
       - Type
@@ -231,31 +298,29 @@ The information in :numref:`tbl_contents_of_domain_summary_objects` shall be pre
       - The average rate at which energy is consumed (in kilowatt hours per hour) by the domain during the summary time period
       - Optional
 
+EXAMPLE 4: An example of a daily domain summary object is as follows:
 
+    .. code-block:: json
 
-#.  An example of a daily domain summary object is as follows:
-
-.. code-block:: json
-
-    {
-        "cdmi_domainURI" : "/cdmi_domains/MyDomain/",
-        "cdmi_summary_start" : "2009-12-10T00:00:00",
-        "cdmi_summary_end" : "2009-12-10T23:59:59",
-        "cdmi_summary_objecthours" : "382239734",
-        "cdmi_summary_puts" : "234234",
-        "cdmi_summary_gets" : "489432",
-        "cdmi_summary_bytehours" : "334895798347",
-        "cdmi_summary_writes" : "7218368343",
-        "cdmi_summary_reads" : "11283974933",
-        "cdmi_summary_charge" : "4289.23 USD"
-    }
+        {
+            "cdmi_domainURI" : "/cdmi_domains/MyDomain/",
+            "cdmi_summary_start" : "2009-12-10T00:00:00",
+            "cdmi_summary_end" : "2009-12-10T23:59:59",
+            "cdmi_summary_objecthours" : "382239734",
+            "cdmi_summary_puts" : "234234",
+            "cdmi_summary_gets" : "489432",
+            "cdmi_summary_bytehours" : "334895798347",
+            "cdmi_summary_writes" : "7218368343",
+            "cdmi_summary_reads" : "11283974933",
+            "cdmi_summary_charge" : "4289.23 USD"
+        }
 
 If the charge value is provided, the value is for the operational cost (excluding fixed fees) of service already performed and storage and bandwidth already consumed. Pricing of services is handled separately.
 
-Domain summary information may be extended by vendors to include additional metadata or domain reports beyond the metadata items specified by this international standard, as long as the field names for those metadata items do not begin with "cdmi\_".
+Domain summary information may be extended by vendors to include additional metadata or domain reports beyond the metadata items specified by this international standard, as long as the field names for those metadata items do not begin with "``cdmi_``".
 
 Domain Object Membership
-------------------------
+************************
 
 In cloud storage environments, in the same way that domains are often created programmatically, domain user membership and credential mapping also shall be populated using such interfaces. By providing access to user membership, this capability enables self-enrollment, automatic provisioning, and other advanced self-service capabilities, either directly using CDMI or through software systems that interface with CDMI.
 
@@ -265,23 +330,28 @@ If supported, a domain membership container named cdmi_domain_members shall be p
 
 Within each domain membership container are a series of user objects that are specified through CDMI to define each user known to the domain. These objects are formatted into the following structure:
 
-   http://example.com/cdmi_domains/domain/
+   ``http://example.com/cdmi_domains/domain/``
 
-   http://example.com/cdmi_domains/domain/cdmi_domain_members/
+   ``http://example.com/cdmi_domains/domain/cdmi_domain_members/``
 
-   http://example.com/cdmi_domains/domain/cdmi_domain_members/john_doe
+   ``http://example.com/cdmi_domains/domain/cdmi_domain_members/john_doe``
 
-   http://example.com/cdmi_domains/domain/cdmi_domain_members/john_smith
+   ``http://example.com/cdmi_domains/domain/cdmi_domain_members/john_smith``
 
 The domain membership container may also contain subcontainers with data objects. Data objects in these subcontainers are treated the same as data objects in the domain membership container, and no meaning is inferred from the subcontainer name. This organization is used to create different access security relationships for groups of user objects and to allow delegation to a common set of members.
 
 :numref:`tbl_required_settings_for_domain_member_user_objects` lists the domain settings that shall be present within each domain member user object.
 
+.. tabularcolumns:: |>{\raggedright\arraybackslash}\Y{0.29}
+                    |>{\raggedright\arraybackslash}\Y{0.09}
+                    |>{\raggedright\arraybackslash}\Y{0.48}
+                    |>{\raggedright\arraybackslash}\Y{0.14}|
+
 .. _tbl_required_settings_for_domain_member_user_objects:
 
-.. list-table:: .*
+.. list-table:: Required settings for domain member user objects
+    :class: longtable
     :header-rows: 1
-    :widths: auto
     :align: center 
 
     * - Metadata Name
@@ -294,7 +364,7 @@ The domain membership container may also contain subcontainers with data objects
       - Mandatory
     * - cdmi_member_type
       - JSON String
-      - This field indicates the type of member record. Values include "user", "group", and "delegation".
+      - This field indicates the type of member record. Values include "``user``", "``group``", and "``delegation``".
       - Mandatory
     * - cdmi_member_name
       - JSON String
@@ -302,7 +372,7 @@ The domain membership container may also contain subcontainers with data objects
       - Mandatory
     * - cdmi_member_credentials
       - JSON String
-      - This field contains credentials to be matched against the credentials as presented by the client. If this field is not present, one or more delegations shall be present and shall be used to resolve user credentials. As one cannot log in as a group but only as a member of a group, the "group" type member records shall not have credentials.
+      - This field contains credentials to be matched against the credentials as presented by the client. If this field is not present, one or more delegations shall be present and shall be used to resolve user credentials. As one cannot log in as a group but only as a member of a group, the "``group``" type member records shall not have credentials.
       - Optional
     * - cdmi_member_principal
       - JSON String
@@ -310,25 +380,29 @@ The domain membership container may also contain subcontainers with data objects
       - Optional
     * - cdmi_member_privileges
       - JSON Array of JSON Strings
-      - This field contains a JSON list of special privileges associated with the user or "group". The following privileges are defined:
-        * "administrator". Allows the principal to take ownership of any object/container.
-        * "backup_operator". Bypass regular ACL checks to allow backup and restore of objects and containers, including all associated attributes, metadata, ACLs and ownership.
-        * "cross_domain". Operations specifying a domain other than the domain of the parent object are permitted. Unless this privilege is conferred by the user record or a group (possibly nested) to which the user or group belongs, all attempts to change the domain of objects to a domain other than the parent domain shall fail.
+      - This field contains a JSON list of special privileges associated with the "``user``" or "``group``". The following privileges are defined:
+
+        * "``administrator``". Allows the principal to take ownership of any object/container.
+        * "``backup_operator``". Bypass regular ACL checks to allow backup and restore of objects and containers, including all associated attributes, metadata, ACLs and ownership.
+        * "``cross_domain``". Operations specifying a domain other than the domain of the parent object are permitted. Unless this privilege is conferred by the user record or a group (possibly nested) to which the user or group belongs, all attempts to change the domain of objects to a domain other than the parent domain shall fail.
       - Mandatory
     * - cdmi_member_groups
       - JSON Array of JSON Strings
       - This field contains a JSON array of group names to which the user or group belongs.
       - Optional
 
-
 :numref:`tbl_required_settings_for_domain_member_delegation_objects` lists the domain settings that shall be present within each domain member delegation object.
 
+.. tabularcolumns:: |>{\raggedright\arraybackslash}\Y{0.29}
+                    |>{\raggedright\arraybackslash}\Y{0.09}
+                    |>{\raggedright\arraybackslash}\Y{0.48}
+                    |>{\raggedright\arraybackslash}\Y{0.14}|
 
 .. _tbl_required_settings_for_domain_member_delegation_objects:
 
-.. list-table:: .*
+.. list-table:: Required settings for domain member delegation objects
+    :class: longtable
     :header-rows: 1
-    :widths: auto
     :align: center 
 
     * - Metadata Name
@@ -341,16 +415,20 @@ The domain membership container may also contain subcontainers with data objects
       - Mandatory
     * - cdmi_member_type
       - JSON String
-      - This field indicates the type of member record. Values include "user" and "delegation".
+      - This field indicates the type of member record. Values include "``user``" and "``delegation``".
       - Mandatory
     * - cdmi_delegation_URI
       - JSON String
       - This field contains the URI of an external identity resolution provider (such as LDAP or Active Directory) or the URI of a domain membership container object.
-        External delegations are expressed in the form of ldap:// or ad://.
+      
+        .. raw:: latex
+
+          \vspace*{1ex}
+
+        External delegations are expressed in the form of ``ldap://<uri>`` or ``ad://<uri>``.
       - Mandatory
 
-
-#. An example of a domain membership object for a user is as follows:
+EXAMPLE 1: An example of a domain membership object for a user is as follows:
 
     .. code-block:: json
 
@@ -369,7 +447,7 @@ The domain membership container may also contain subcontainers with data objects
             ]
         }
 
-#. An example of a domain membership object for a delegation is as follows:
+EXAMPLE 2: An example of a domain membership object for a delegation is as follows:
 
     .. code-block:: json
 
@@ -380,75 +458,54 @@ The domain membership container may also contain subcontainers with data objects
         }
 
 
-
-.. _ref_domain_usage_in_access_control:
-
-Domain Usage in Access Control
-------------------------------
-
-When a transaction is performed against a CDMI object, the associated domain object (i.e., the domain object indicated by the domainURI) specifies the authentication context. The user identity and credentials presented as part of the transaction are compared to the domain membership list to determine if the user is authorized within the domain and to resolve the user's principal. If resolved, the user’s principal is evaluated against the object's ACL to determine if the transaction is permitted.
-
-When evaluating members within a domain, delegations are evaluated first, in any order, followed by user records, in any order. If there is at least one matching record and none of the matching records indicate that the user is disabled, the user is considered to be a member of the domain.
-
-When a sub-domain is initially created, the membership container contains one member record that is a delegation in which the delegation URI is set to the URI of the parent domain.
-
-
-
-Domain Object Representations
------------------------------
-
-The representations in this clause are shown using JSON notation. Both clients and servers shall support UTF-8 JSON representation. The request and response body JSON fields may be specified or returned in any order, with the exception that, if present, for domain objects, the childrenrange and children fields shall appear last and in that order.
-
-
-
-
 Create a Domain Object using CDMI
 *********************************
-
 
 Synopsis
 --------
 
 To create a new domain object, the following request shall be performed:
 
-    PUT <root URI>/cdmi_domains/<DomainName>/<NewDomainName>/
+    ``PUT <root URI>/cdmi_domains/<DomainName>/<NewDomainName>/``
 
 Where:
 
+* ``<root URI>`` is the path to the CDMI cloud.
+* ``<DomainName>`` is zero or more intermediate domains that already exist, with one slash (i.e., "``/``") between each pair of domain names.
+* ``<NewDomainName>`` is the name specified for the domain to be created.
 
-* <root URI> is the path to the CDMI cloud.
-* <DomainName> is zero or more intermediate domains that already exist.
-* <NewDomainName> is the name specified for the domain to be created.
+After it is created, the domain shall also be accessible at ``<root URI>/cdmi_objectid/<objectID>/``.
 
+Delayed Completion of Create
+----------------------------
 
-After it is created, the domain shall also be accessible at <root URI>/cdmi_objectid/<objectID>/.
-
+Delayed completion shall not be supported for creating domain objects.
 
 Capabilities 
 ------------
 
 The following capabilities describe the supported operations that may be performed when creating a new domain:
 
-
-* Support for the ability to create a new domain object is indicated by the presence of the cdmi_create_domain capability in the parent domain.
-* If the new domain object is a copy of an existing domain object, support for the ability to copy is indicated by the presence of the cdmi_copy_domain capability in the source domain.
-* If the new domain is the destination of a deserialize operation, support for the ability to deserialize the source data object serialization of a domain is indicated by the presence of the cdmi_deserialize_domain capability in the parent domain. 
-
-
-
+* Support for the ability to create a new domain object is indicated by the presence of the ``cdmi_create_domain capability`` in the parent domain.
+* If the new domain object is a copy of an existing domain object, support for the ability to copy is indicated by the presence of the ``cdmi_copy_domain capability`` in the source domain.
+* If the new domain is the destination of a deserialize operation, support for the ability to deserialize the source data object serialization of a domain is indicated by the presence of the ``cdmi_deserialize_domain`` capability in the parent domain. 
 
 Request Headers
 ---------------
 
 The HTTP request headers for creating a CDMI domain object using CDMI are shown in :numref:`tbl_cdmi_domain_object_create_request_headers`  
 
+.. tabularcolumns:: |>{\raggedright\arraybackslash}\Y{0.29}
+                    |>{\raggedright\arraybackslash}\Y{0.09}
+                    |>{\raggedright\arraybackslash}\Y{0.48}
+                    |>{\raggedright\arraybackslash}\Y{0.14}|
+
 .. _tbl_cdmi_domain_object_create_request_headers:
 
-.. list-table:: .*
+.. list-table:: Request headers - Create a domain object using CDMI
+    :class: longtable
     :header-rows: 1
-    :widths: auto
     :align: center 
-
 
     * - Header
       - Type
@@ -456,28 +513,28 @@ The HTTP request headers for creating a CDMI domain object using CDMI are shown 
       - Requirement
     * - Accept
       - Header String
-      - "application/cdmi-domain" or a consistent value as per clause :numref:`ref_content-type_negotiation`
+      - "``application/cdmi-domain``" or a consistent value as per clause :numref:`ref_content-type_negotiation`
       - Optional
     * - Content-Type
       - Header String
-      - "application/cdmi-domain"
+      - "``application/cdmi-domain``"
       - Mandatory
-    * - X-CDMI-Specification-Version
-      - Header String
-      - A comma-separated list of versions that the client supports, for example, "1.1, 1.5, 2.0"
-      - Mandatory
-
 
 Request Message Body
 --------------------
 
-The request message body fields for creating a domain object using CDMI are shown in :numref:`ref_request_message_body_create_a_domain_object_using_cdmi`. 
+The request message body fields for creating a domain object using CDMI are shown in :numref:`tbl_cdmi_domain_object_create_request_message_body`. 
+
+.. tabularcolumns:: |>{\raggedright\arraybackslash}\Y{0.29}
+                    |>{\raggedright\arraybackslash}\Y{0.09}
+                    |>{\raggedright\arraybackslash}\Y{0.48}
+                    |>{\raggedright\arraybackslash}\Y{0.14}|
 
 .. _tbl_cdmi_domain_object_create_request_message_body:
 
 .. list-table:: Request Message Body Create a Domain Object using CDMI
+    :class: longtable
     :header-rows: 1
-    :widths: auto
     :align: center 
 
     * - Field Name
@@ -487,10 +544,11 @@ The request message body fields for creating a domain object using CDMI are show
     * - metadata
       - JSON Object
       - Metadata for the domain object
+
         * If this field is included when deserializing, serializing, copying, or moving a domain object, the value provided in this field shall replace the metadata from the source URI. 
         * If this field is not included when deserializing, serializing, copying, or moving a domain object, the metadata from the source URI shall be used. 
         * If this field is included when creating a new domain object by specifying a value, the value provided in this field shall be used as the metadata. 
-        * If this field is not included when creating a new domain object by specifying a value, an empty JSON object (i.e., "{}") shall be assigned as the field value.
+        * If this field is not included when creating a new domain object by specifying a value, an empty JSON object (i.e., "``{}``") shall be assigned as the field value.
       - Optional
     * - copy
       - JSON String
@@ -499,6 +557,11 @@ The request message body fields for creating a domain object using CDMI are show
     * - move
       - JSON String
       - URI of an existing local CDMI domain object (source URI) that shall be relocated, along with all child domains, to the URI specified in the PUT. The contents of the domain and all sub-domains, including the object ID, shall be preserved by a move, and the domain and sub-domains of the source URI shall be removed after the objects at the destination have been successfully created. 
+      
+        .. raw:: latex
+
+          \vspace*{1ex}
+
         If there are insufficient permissions to read the objects at the source URI, write the objects at the destination URI, or delete the objects at the source URI, or if any of these operations fail, the move shall return an HTTP status code of ``400 Bad Request``, and the source and destination are left unchanged.
       - Optional [#a]_
     * - deserialize
@@ -507,24 +570,26 @@ The request message body fields for creating a domain object using CDMI are show
       - Optional [#a]_
     * - deserializevalue
       - JSON String
-      - A domain object serialized as specified in :rfc:`4648`.
+      - A domain object serialized as specified in :numref:`Clause %s <clause_cdmi_serialization>` and encoded using base 64 encoding rules described in RFC 4648.
       - Optional [#a]_
 
 .. [#a] Only one of these fields shall be specified in any given operation. Except for value, these fields shall not be stored. If more than one of these fields is supplied, the server shall respond with an HTTP status code of ``400 Bad Request``.
-
-
-
 
 Response Headers
 ----------------
 
 The HTTP response headers for creating a domain object using CDMI are shown in :numref:`tbl_cdmi_domain_object_create_response_headers`
 
+.. tabularcolumns:: |>{\raggedright\arraybackslash}\Y{0.29}
+                    |>{\raggedright\arraybackslash}\Y{0.09}
+                    |>{\raggedright\arraybackslash}\Y{0.48}
+                    |>{\raggedright\arraybackslash}\Y{0.14}|
+
 .. _tbl_cdmi_domain_object_create_response_headers:
 
-.. list-table:: .*
+.. list-table:: Response headers - Create a domain object using CDMI
+    :class: longtable
     :header-rows: 1
-    :widths: auto
     :align: center 
 
     * - Header
@@ -533,29 +598,25 @@ The HTTP response headers for creating a domain object using CDMI are shown in :
       - Requirement
     * - Content-Type
       - Header String
-      - "application/cdmi-domain"
+      - "``application/cdmi-domain``"
       - Mandatory
-    * - X-CDMI-Specification-Version
-      - Header String
-      - The server shall respond with the highest version supported by both the client and the server, e.g., "1.1".
-        If the server does not support any of the versions that the client supports, the server shall return an HTTP status code of ``400 Bad Request``.
-      - Mandatory
-
-
-
 
 Response Message Body
 ---------------------
 
 The response message body fields for creating a domain object using CDMI are shown in :numref:`tbl_cdmi_domain_object_create_response_message_body`
 
+.. tabularcolumns:: |>{\raggedright\arraybackslash}\Y{0.29}
+                    |>{\raggedright\arraybackslash}\Y{0.09}
+                    |>{\raggedright\arraybackslash}\Y{0.48}
+                    |>{\raggedright\arraybackslash}\Y{0.14}|
+
 .. _tbl_cdmi_domain_object_create_response_message_body:
 
-.. list-table:: .*
+.. list-table:: Response message body - Create a domain object using CDMI
+    :class: longtable
     :header-rows: 1
-    :widths: auto
     :align: center 
-
 
     * - Field Name
       - Type
@@ -563,7 +624,7 @@ The response message body fields for creating a domain object using CDMI are sho
       - Requirement
     * - objectType
       - JSON String
-      - "application/cdmi-domain"
+      - "``application/cdmi-domain``"
       - Mandatory
     * - objectID
       - JSON String
@@ -575,7 +636,13 @@ The response message body fields for creating a domain object using CDMI are sho
       - Mandatory
     * - parentURI
       - JSON String
-      - URI for the parent objectAppending the objectName to the parentURI shall always produce a valid URI for the object. 
+      - URI for the parent object
+      
+        .. raw:: latex
+
+          \vspace*{1ex}
+
+        Appending the objectName to the parentURI shall always produce a valid URI for the object. 
       - Mandatory
     * - parentID
       - JSON String
@@ -599,95 +666,83 @@ The response message body fields for creating a domain object using CDMI are sho
       - Mandatory
     * - children
       - JSON Array of JSON Strings
-      - Names of the children domains in the domain. Child containers end with "/".
+      - Names of the children domains in the domain. Child containers end with "``/``".
       - Mandatory
-
-
-
 
 Response Status
 ---------------
 
 :numref:`ref_response_status_create_a_domain_object_using_cdmi` describes the HTTP status codes that occur when creating a domain object using CDMI. 
 
+.. tabularcolumns:: |>{\raggedright\arraybackslash}\Y{0.30}
+                    |>{\raggedright\arraybackslash}\Y{0.70}|
 
 .. _tbl_cdmi_domain_object_create_response_status:
 
-.. list-table:: .*
+.. list-table:: HTTP status codes - Create a domain object using CDMI
+    :class: longtable
     :header-rows: 1
-    :widths: auto
     :align: center 
-
 
     * - HTTP Status
       - Description
     * - ``201 Created``
-
       - The new domain object was created.
     * - ``400 Bad Request``
-
       - The request contains invalid parameters or field names.
     * - ``401 Unauthorized``
-
       - The authentication credentials are missing or invalid.
     * - ``403 Forbidden``
-
       - The client lacks the proper authorization to perform this request.
     * - ``404 Not Found``
-
       - The resource was not found at the specified URI.
     * - ``409 Conflict``
-
       - The operation conflicts with a non-CDMI access protocol lock or may cause a state transition error on the server.
-
-
 
 
 Example
 -------
 
-#.  PUT to the domain URI the domain name and metadata:
+EXAMPLE 1: PUT to the domain URI the domain name and metadata:
 
     .. code-block:: http
 
-        PUT /cdmi_domains/MyDomain/ HTTP/1.1
-        Host: cloud.example.com
-        Accept: application/cdmi-domain
-        Content-Type: application/cdmi-domain
-        X-CDMI-Specification-Version: 1.1
-         
-        "metadata":
-        {
-            "cdmi_domain_enabled": "true"
-        } 
+      PUT /cdmi_domains/MyDomain/ HTTP/1.1
+      Host: cloud.example.com
+      Accept: application/cdmi-domain
+      Content-Type: application/cdmi-domain
+       
+      "metadata":
+      {
+          "cdmi_domain_enabled": "true"
+      } 
 
    The following shows the response.
 
-   .. code-block:: http
+    .. code-block:: http
 
-        HTTP/1.1 201 Created
-        Content-Type: application/cdmi-domain
-        X-CDMI-Specification-Version: 1.1
-         
-        {
-            "objectType" : "application/cdmi-domain",
-            "objectID" : "00007E7F00104BE66AB53A9572F9F51E",
-            "objectName" : "MyDomain/",
-            "parentURI" : "/cdmi_domains/",
-            "parentID" : "00007E7F0010C058374D08B0AC7B3550", 
-            "domainURI" : "/cdmi_domains/MyDomain/",
-            "capabilitiesURI" : "/cdmi_capabilities/domain/",
-            "metadata" : {
-                "cdmi_domain_enabled": "true",
-                "cdmi_authentication_methods": "anonymous, basic",
-                        ...
-            },
-            "childrenrange" : "0-1",
-            "children" : [
-                "cdmi_domain_summary/",
-                "cdmi_domain_members/"
-            ] 
-        }
+      HTTP/1.1 201 Created
+      Content-Type: application/cdmi-domain
+       
+      {
+          "objectType" : "application/cdmi-domain",
+          "objectID" : "00007E7F00104BE66AB53A9572F9F51E",
+          "objectName" : "MyDomain/",
+          "parentURI" : "/cdmi_domains/",
+          "parentID" : "00007E7F0010C058374D08B0AC7B3550", 
+          "domainURI" : "/cdmi_domains/MyDomain/",
+          "capabilitiesURI" : "/cdmi_capabilities/domain/",
+          "metadata" : {
+              "cdmi_domain_enabled": "true",
+              "cdmi_authentication_methods": "anonymous, basic",
+                      ...
+          },
+          "childrenrange" : "0-1",
+          "children" : [
+              "cdmi_domain_summary/",
+              "cdmi_domain_members/"
+          ] 
+      }
 
 
 Read a Domain Object using CDMI
@@ -1138,7 +1193,8 @@ A response body may be provided as per :rfc:`2616`.
 
 Response Status
 ---------------
- :numref:`http_status_codes_update_a_domain_object_using_cdmi` describes the HTTP status codes that occur when updating a domain object using CDMI. 
+
+ :numref:`http_status_codes_update_a_domain_object_using_cdmi` describes the HTTP status codes that occur when updating a domain object using CDMI. 
 
 
 .. _tbl_cdmi_domain_object_update_response_status:
@@ -1277,7 +1333,8 @@ A response body may be provided as per :rfc:`2616`.
 
 Response Status
 ---------------
- :numref:`http_status_codes_delete_a_domain_object_using_cdmi` describes the HTTP status codes that occur when deleting a domain object using CDMI. 
+
+ :numref:`http_status_codes_delete_a_domain_object_using_cdmi` describes the HTTP status codes that occur when deleting a domain object using CDMI. 
 
 
 .. _tbl_cdmi_domain_object_delete_response_status:
