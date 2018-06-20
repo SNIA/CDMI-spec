@@ -15,7 +15,7 @@ Each CDMI container object is represented as a JSON object, containing one or mo
 
 EXAMPLE 1: CDMI Container Object
 
-  .. code-block:: http
+  .. code-block:: json
 
     {
         "objectType" : "application/cdmi-container",
