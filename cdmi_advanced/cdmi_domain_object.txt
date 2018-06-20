@@ -457,6 +457,7 @@ EXAMPLE 2: An example of a domain membership object for a delegation is as follo
             "cdmi_delegation_URI" : "/cdmi_domains/MyDomain/"
         }
 
+.. _ref_cdmi_domain_object_create:
 
 Create a Domain Object using CDMI
 *********************************
@@ -466,7 +467,7 @@ Synopsis
 
 To create a new domain object, the following request shall be performed:
 
-    ``PUT <root URI>/cdmi_domains/<DomainName>/<NewDomainName>/``
+* ``PUT <root URI>/cdmi_domains/<DomainName>/<NewDomainName>/``
 
 Where:
 
@@ -744,66 +745,59 @@ EXAMPLE 1: PUT to the domain URI the domain name and metadata:
           ] 
       }
 
+.. _ref_cdmi_domain_object_read:
 
 Read a Domain Object using CDMI
 *******************************
 
-
 Synopsis
 --------
 
-To read all fields from an existing domain object, the following request shall be performed:
+To read an existing domain object, the following requests shall be performed:
 
-    GET <root URI>/cdmi_domains/<DomainName>/<TheDomainName>/
-
-To read one or more requested fields from an existing domain object, one of the following requests shall be performed:
-
-    GET <root URI>/cdmi_domains/<DomainName>/<TheDomainName>/?<fieldname>;<fieldname>;...
-
-    GET <root URI>/cdmi_domains/<DomainName>/<TheDomainName>/?children:<range>;...
-
-    GET <root URI>/cdmi_domains/<DomainName>/<TheDomainName>/?metadata:<prefix>;...
+* ``GET <root URI>/cdmi_domains/<DomainName>/<TheDomainName>/``
+* ``GET <root URI>/cdmi_domains/<DomainName>/<TheDomainName>/?<fieldname>;<fieldname>;...``
+* ``GET <root URI>/cdmi_domains/<DomainName>/<TheDomainName>/?children:<range>;...``
+* ``GET <root URI>/cdmi_domains/<DomainName>/<TheDomainName>/?metadata:<prefix>;...``
+* ``GET <root URI>/cdmi_objectid/<DomainObjectID>/``
+* ``GET <root URI>/cdmi_objectid/<DomainObjectID>/?<fieldname>;<fieldname>;...``
+* ``GET <root URI>/cdmi_objectid/<DomainObjectID>/?children:<range>;...``
+* ``GET <root URI>/cdmi_objectid/<DomainObjectID>/?metadata:<prefix>;...``
 
 Where:
 
-
-* <root URI> is the path to the CDMI cloud.
-* <DomainName> is zero or more parent domains.
-* <TheDomainName> is the name specified for the domain to be read from.
-* <fieldname> is the name of a field.
-* <range> is a numeric range within the list of children.
-* <prefix> is a matching prefix that returns all metadata items that start with the prefix value.
-
-
-The object shall also be accessible at <root URI>/cdmi_objectid/<objectID>/.
-
-
-
+* ``<root URI>`` is the path to the CDMI cloud.
+* ``<DomainName>`` is zero or more parent domains.
+* ``<TheDomainName>`` is the name specified for the domain to be read from.
+* ``<fieldname>`` is the name of a field.
+* ``<range>`` is a numeric range within the list of children.
+* ``<prefix>`` is a matching prefix that returns all metadata items that start with the prefix value.
+* ``<DomainObjectID>`` is the ID of the data object to be read from.
 
 Capabilities 
 ------------
 
 The following capabilities describe the supported operations that may be performed when reading an existing domain:
 
-
-* Support for the ability to read the metadata of an existing domain object is indicated by the presence of the cdmi_read_metadata capability in the specified domain.
-* Support for the ability to list the children of an existing domain object is indicated by the presence of the cdmi_list_children capability in the specified domain.
-
-
-
+* Support for the ability to read the metadata of an existing domain object is indicated by the presence of the ``cdmi_read_metadata`` capability in the specified domain.
+* Support for the ability to list the children of an existing domain object is indicated by the presence of the ``cdmi_list_children`` capability in the specified domain.
 
 Request Headers
 ---------------
 
-The HTTP request headers for reading a CDMI domain object using CDMI are shown in :numref:`tbl_cdmi_domain_object_read_request_headers`
+The HTTP request headers for reading a CDMI domain object using CDMI are shown in :numref:`tbl_cdmi_domain_object_read_request_headers`.
+
+.. tabularcolumns:: |>{\raggedright\arraybackslash}\Y{0.20}
+                    |>{\raggedright\arraybackslash}\Y{0.10}
+                    |>{\raggedright\arraybackslash}\Y{0.55}
+                    |>{\raggedright\arraybackslash}\Y{0.15}|
 
 .. _tbl_cdmi_domain_object_read_request_headers:
 
-.._list-table:: Request Headers - Read a Domain Object using CDMI
+.. list-table:: Request Headers - Read a Domain Object using CDMI
+    :class: longtable
     :header-rows: 1
-    :widths: auto
     :align: center 
-
 
     * - Header
       - Type
@@ -811,71 +805,60 @@ The HTTP request headers for reading a CDMI domain object using CDMI are shown i
       - Requirement
     * - Accept
       - Header String
-      - "application/cdmi-domain" or a consistent value as per clause :numref:`ref_content-type_negotiation`
+      - "``application/cdmi-domain``" or a consistent value as per clause :numref:`ref_content-type_negotiation`
       - Optional
-    * - X-CDMI-Specification-Version
-      - Header String
-      - A comma-separated list of versions that the client supports, e.g., "1.1, 1.5, 2.0"
-      - Mandatory
-
-
-
 
 Request Message Body
 --------------------
 
 A request body shall not be provided.
 
-
-
 Response Headers
 ----------------
 
-The HTTP response headers for reading a CDMI domain object using CDMI are shown in :numref:`ref_response_headers_read_a_domain_object_using_cdmi`. 
+The HTTP response headers for reading a CDMI domain object using CDMI are shown in :numref:`tbl_cdmi_domain_object_read_response_headers`. 
 
+.. tabularcolumns:: |>{\raggedright\arraybackslash}\Y{0.20}
+                    |>{\raggedright\arraybackslash}\Y{0.10}
+                    |>{\raggedright\arraybackslash}\Y{0.55}
+                    |>{\raggedright\arraybackslash}\Y{0.15}|
 
 .. _tbl_cdmi_domain_object_read_response_headers:
 
-.. list-table:: .*
+.. list-table:: Response Headers - Read a Domain Object using CDMI
+    :class: longtable
     :header-rows: 1
-    :widths: auto
     :align: center 
-
 
     * - Header
       - Type
       - Description
       - Requirement
-    * - X-CDMI-Specification-Version
-      - Header String
-      - The server shall respond with the highest version supported by both the client and the server, e.g., "1.1".
-        If the server does not support any of the versions that the client supports, the server shall return an HTTP status code of ``400 Bad Request``.
-      - Mandatory
     * - Content-Type
       - Header String
-      - "application/cdmi-domain"
+      - "``application/cdmi-domain``"
       - Mandatory
     * - Location
       - Header String
       - The server shall respond with an absolute URI to which the reference redirects if the object is a reference.
       - Conditional
 
-
-
-
 Response Message Body
 ---------------------
 
 The response message body fields for reading a CDMI domain object using CDMI are shown in :numref:`tbl_cdmi_domain_object_read_response_message_body` 
 
+.. tabularcolumns:: |>{\raggedright\arraybackslash}\Y{0.20}
+                    |>{\raggedright\arraybackslash}\Y{0.10}
+                    |>{\raggedright\arraybackslash}\Y{0.55}
+                    |>{\raggedright\arraybackslash}\Y{0.15}|
 
 .. _tbl_cdmi_domain_object_read_response_message_body:
 
-.. list-table:: .*
+.. list-table:: Response Message Body - Read a Domain Object using CDMI 
+    :class: longtable
     :header-rows: 1
-    :widths: auto
     :align: center 
-
 
     * - Field Name
       - Type
@@ -883,7 +866,7 @@ The response message body fields for reading a CDMI domain object using CDMI are
       - Requirement
     * - objectType
       - JSON String
-      - "application/cdmi-domain"
+      - "``application/cdmi-domain``"
       - Mandatory
     * - objectID
       - JSON String
@@ -896,14 +879,23 @@ The response message body fields for reading a CDMI domain object using CDMI are
     * - parentURI
       - JSON String
       - URI for the parent object
+      
+        .. raw:: latex
+
+          \vspace*{1ex}
+
+        Appending the "``objectName``" to the "``parentURI``" shall always produce a valid URI for the object. 
       - Mandatory
     * - parentID
       - JSON String
-      - Object ID of the parent container object
+      - Object ID of the parent domain object
+
+        * For domain objects directly under "``cdmi_domains``", the object ID of "``cdmi_domains``" container shall be returned. 
+        * For domain objects under another domain, the object ID of the parent domain shall be returned.
       - Mandatory
     * - domainURI
       - JSON String
-      - URI of the owning domain. A domain object is always owned by itself.
+      - URI of the owning domain. A domain object shall always be owned by itself.
       - Mandatory
     * - capabilitiesURI
       - JSON String
@@ -919,25 +911,24 @@ The response message body fields for reading a CDMI domain object using CDMI are
       - Mandatory
     * - children
       - JSON Array of JSON Strings
-      - The children of the domain. Sub-domains end with "/".
+      - The children of the domain. Sub-domains end with "``/``".
       - Mandatory
 
-
 If individual fields are specified in the GET request, only these fields are returned in the result body. Optional fields that are requested but do not exist are omitted from the result body.
-
 
 Response Status
 ---------------
 
-:numref:`ref_response_status_read_a_domain_object_using_cdmi` describes the HTTP status codes that occur when reading a domain object using CDMI. 
+:numref:`tbl_cdmi_domain_object_read_response_status` describes the HTTP status codes that occur when reading a domain object using CDMI. 
+
+.. tabularcolumns:: |>{\raggedright\arraybackslash}\Y{0.30}
+                    |>{\raggedright\arraybackslash}\Y{0.70}|
 
 .. _tbl_cdmi_domain_object_read_response_status:
 
 .. list-table:: HTTP Status Codes Read a Domain Object using CDMI
     :header-rows: 1
-    :widths: auto
     :align: center 
-
 
     * - HTTP Status
       - Description
@@ -956,18 +947,16 @@ Response Status
     * - ``406 Not Acceptable``
       - The server is unable to provide the object in the content type specified in the Accept header.
 
-
 Examples
 --------
 
-#. GET to the domain URI to read all the fields of the domain:
+EXAMPLE 1: GET to the domain URI to read all the fields of the domain:
 
    .. code-block:: http
 
         GET /cdmi_domains/MyDomain/ HTTP/1.1
         Host: cloud.example.com
         Accept: application/cdmi-domain
-        X-CDMI-Specification-Version: 1.1
 
    The following shows the response.
 
@@ -975,7 +964,6 @@ Examples
 
         HTTP/1.1 200 OK
         Content-Type: application/cdmi-domain
-        X-CDMI-Specification-Version: 1.1
          
         {
             "objectType": "application/cdmi-domain",
@@ -998,14 +986,13 @@ Examples
         }
 
 
-#. GET to the domain URI to read the parentURI and children of the domain:
+EXAMPLE 2: GET to the domain URI to read the parentURI and children of the domain:
 
    .. code-block:: http
 
         GET /MyDomain/?parentURI;children HTTP/1.1
         Host: cloud.example.com
         Accept: application/cdmi-domain
-        X-CDMI-Specification-Version: 1.1
 
    The following shows the response.
 
@@ -1013,7 +1000,6 @@ Examples
 
         HTTP/1.1 200 OK
         Content-Type: application/cdmi-domain
-        X-CDMI-Specification-Version: 1.1
          
         {
             "parentURI" : "/cdmi_domains/",
@@ -1023,14 +1009,13 @@ Examples
             ]
         }
 
-#. GET to the domain URI to read the first two children of the domain:
+EXAMPLE 3: GET to the domain URI to read the first two children of the domain:
 
    .. code-block:: http
 
         GET /MyDomain/?childrenrange;children:0-1 HTTP/1.1
         Host: cloud.example.com
         Accept: application/cdmi-domain
-        X-CDMI-Specification-Version: 1.1
 
    The following shows the response.
 
@@ -1038,7 +1023,6 @@ Examples
 
         HTTP/1.1 200 OK
         Content-Type: application/cdmi-domain
-        X-CDMI-Specification-Version: 1.1
          
         {
             "childrenrange" : "0-1",
@@ -1047,6 +1031,7 @@ Examples
                 "cdmi_domain_members/" 
             ]
         }
+
 
 Update a Domain Object using CDMI
 *********************************
