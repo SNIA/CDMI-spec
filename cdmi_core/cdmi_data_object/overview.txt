@@ -15,7 +15,7 @@ Each CDMI data object is represented as a JSON object, containing one or more "f
 
 EXAMPLE 1: CDMI Data Object
 
-	.. code-block:: http
+	.. code-block:: json
 
 		{
 		    "objectType" : "application/cdmi-object",
