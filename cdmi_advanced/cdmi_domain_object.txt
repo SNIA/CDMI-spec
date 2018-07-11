@@ -1039,50 +1039,48 @@ Update a Domain Object using CDMI
 Synopsis
 --------
 
-To update some or all fields in an existing domain object, the following request shall be performed:
+To update an existing domain object, the following requests shall be performed:
 
-    PUT <root URI>/cdmi_domains/<DomainName>/<TheDomainName>/
-
-To add, update, and remove specific metadata items of an existing domain object, the following request shall be performed:
-
-    PUT <root URI>/cdmi_domains/<DomainName>/<TheDomainName>/?metadata:<metadataname>;...
+* ``PUT <root URI>/cdmi_domains/<DomainName>/<TheDomainName>/``
+* ``PUT <root URI>/cdmi_domains/<DomainName>/<TheDomainName>/?metadata:<metadataname>;...``
+* ``PUT <root URI>/cdmi_objectid/<DomainObjectID>``
+* ``PUT <root URI>/cdmi_objectid/<DomainObjectID>?metadata:<metadataname>;....``
 
 Where:
 
+* ``<root URI>`` is the path to the CDMI cloud.
+* ``<DomainName>`` is zero or more parent domains.
+* ``<TheDomainName>`` is the name specified for the domain to be read from.
+* ``<DomainObjectID>`` is the ID of the data object to be read from.
 
-* <root URI> is the path to the CDMI cloud.
-* <DomainName> is zero or more parent domains.
-* <TheDomainName> is the name specified for the domain to be updated.
+Delayed Completion of Update
+----------------------------
 
-
-The object shall also be accessible at <root URI>/cdmi_objectid/<objectID>/. An update shall not result in a change to the object ID.
-
-
-
+Delayed completion shall not be supported for creating domain objects.
 
 Capability
 ----------
 
 The following capability describes the supported operations that may be performed when updating an existing domain:
 
-
-* Support for the ability to modify the metadata of an existing domain object is indicated by the presence of the cdmi_modify_metadata capability in the specified domain.
-
-
-
+* Support for the ability to modify the metadata of an existing domain object is indicated by the presence of the ``cdmi_modify_metadata`` capability in the specified domain.
 
 Request Headers
 ---------------
 
 The HTTP request headers for updating a CDMI domain object using CDMI are shown in :numref:`tbl_cdmi_domain_object_update_request_headers`.
 
+.. tabularcolumns:: |>{\raggedright\arraybackslash}\Y{0.20}
+                    |>{\raggedright\arraybackslash}\Y{0.10}
+                    |>{\raggedright\arraybackslash}\Y{0.55}
+                    |>{\raggedright\arraybackslash}\Y{0.15}|
+
 .. _tbl_cdmi_domain_object_update_request_headers:
 
-.. list-table:: .*
+.. list-table:: Request Headers - Update a Domain Object using CDMI
     :header-rows: 1
-    :widths: auto
+    :widths: 20 10 55 15
     :align: center 
-
 
     * - Header
       - Type
@@ -1090,29 +1088,26 @@ The HTTP request headers for updating a CDMI domain object using CDMI are shown 
       - Requirement
     * - Content-Type
       - Header String
-      - "application/cdmi-domain"
+      - "``application/cdmi-domain``"
       - Mandatory
-    * - X-CDMI-Specification-Version
-      - Header String
-      - A comma-separated list of versions that the client supports, e.g., "1.1, 1.5, 2.0"
-      - Mandatory
-
-
-
 
 Request Message Body
 --------------------
 
 The request message body fields for updating a domain object using CDMI are shown in :numref:`tbl_cdmi_domain_object_update_request_message_body`.
 
+.. tabularcolumns:: |>{\raggedright\arraybackslash}\Y{0.20}
+                    |>{\raggedright\arraybackslash}\Y{0.10}
+                    |>{\raggedright\arraybackslash}\Y{0.55}
+                    |>{\raggedright\arraybackslash}\Y{0.15}|
 
 .. _tbl_cdmi_domain_object_update_request_message_body:
 
 .. list-table:: Request Message Body - Update a domain object using CDMI
+    :class: longtable
     :header-rows: 1
-    :widths: auto
+    :widths: 20 10 55 15
     :align: center 
-
 
     * - Field Name
       - Type
@@ -1121,41 +1116,72 @@ The request message body fields for updating a domain object using CDMI are show
     * - metadata
       - JSON Object
       - Metadata for the domain object. If present, the new metadata specified replaces the existing object metadata. If individual metadata items are specified in the URI, only those items are replaced; other items are preserved. 
+      
+        .. raw:: latex
+
+          \vspace*{1ex}
+
         See :numref:`Clause %s <clause_cdmi_metadata>` for a further description of metadata.
       - Optional
     * - copy
       - JSON String
-      - URI of a CDMI domain object that shall be copied into the existing domain object. Only the metadata and membership of the domain shall be copied, not any sub-domains of the domain. 
+      - URI of a CDMI domain object that shall be copied into the existing domain object. Only the metadata and membership of the domain object itself shall be copied, not any sub-domains of the domain object. 
+
+        * If the destination domain object URI and the copy source domain object URI both do not specify individual fields, the destination domain object metadata and membership shall be replaced with the source domain object metadata and membership.
+        * If the destination domain object URI or the copy source domain object URI specifies individual fields, only the fields specified shall be used to update the destination domain object. If specified fields are not present in the source, these fields shall be ignored. 
+        * If the destination domain object URI and the copy source domain object URI both specify fields, an HTTP status code of ``400 Bad Request`` shall be returned to the client. 
+      
+        .. raw:: latex
+
+          \vspace*{1ex}
+
+        If there are insufficient permissions to read the domain object at the source URI or create the domain object at the destination URI, or if the read operation fails, the copy shall return an HTTP status code of ``400 Bad Request``, and the destination domain object shall not be updated. 
       - Optional [#b]_
     * - deserialize
       - JSON String
-      - URI of a serialized CDMI domain object that shall be deserialized to update an existing domain object. The object ID of the serialized domain object shall match the object ID of the destination domain object.
-        If the serialized domain does not contain children, the update is applied only to the domain object, and any existing children are left as is. If the serialized domain object does contain children, then creates, updates, and deletes are recursively applied for each child, depending on the differences between the provided serialized state and the current state of the children. 
+      - The URL of a domain object serialized as specified in :rfc:`4648`. 
+      
+        .. raw:: latex
+
+          \vspace*{1ex}
+
+        The object ID of the serialized domain object shall match the object ID of the destination domain object. Otherwise, the server shall return an HTTP status code of ``400 Bad Request``.
+
+        * If the serialized domain object does not contain sub-domains, the update is applied only to the domain object, and any existing sub-domains are left as is. 
+        * If the serialized domain object does contain sub-domains, then creates, updates, and deletes are recursively applied for each sub-domain, depending on the differences between the provided serialized state and the current state of the sub-domains.
       - Optional [#b]_
     * - deserializevalue
       - JSON String
-      - A domain object serialized as specified in :rfc:`4648`. The object ID of the serialized domain object shall match the object ID of the destination domain object.
-        If the serialized domain does not contain children, the update is applied only to the domain object, and any existing children are left as is. If the serialized domain object does contain children, then creates, updates, and deletes are recursively applied for each child, depending on the differences between the provided serialized state and the current state of the children.
+      - The value of a domain object serialized as specified in :rfc:`4648`. 
+      
+        .. raw:: latex
+
+          \vspace*{1ex}
+
+        The object ID of the serialized domain object shall match the object ID of the destination domain object. Otherwise, the server shall return an HTTP status code of ``400 Bad Request``.
+
+        * If the serialized domain object does not contain sub-domains, the update is applied only to the domain object, and any existing sub-domains are left as is. 
+        * If the serialized domain object does contain sub-domains, then creates, updates, and deletes are recursively applied for each sub-domain, depending on the differences between the provided serialized state and the current state of the sub-domains.
       - Optional [#b]_
 
 .. [#b] Only one of these fields shall be specified in any given operation. Except for value, these fields shall not be stored.
 
-
-
-
 Response Header
 ---------------
 
-The HTTP response header for updating a CDMI domain object using CDMI is shown in :numref:`response_header_update_a_domain_object_using_cdmi`  
+The HTTP response header for updating a CDMI domain object using CDMI is shown in :numref:`tbl_cdmi_domain_object_update_response_headers`  
 
+.. tabularcolumns:: |>{\raggedright\arraybackslash}\Y{0.20}
+                    |>{\raggedright\arraybackslash}\Y{0.10}
+                    |>{\raggedright\arraybackslash}\Y{0.55}
+                    |>{\raggedright\arraybackslash}\Y{0.15}|
 
 .. _tbl_cdmi_domain_object_update_response_headers:
 
-.. list-table:: .*
+.. list-table:: Response Header - Update a domain object using CDMI
     :header-rows: 1
-    :widths: auto
+    :widths: 20 10 55 15
     :align: center 
-
 
     * - Header
       - Type
@@ -1166,29 +1192,25 @@ The HTTP response header for updating a CDMI domain object using CDMI is shown i
       - The server shall respond with an absolute URI to which the reference redirects if the object is a reference.
       - Conditional
 
-
-
-
 Response Message Body 
 ---------------------
 
 A response body may be provided as per :rfc:`2616`.
 
-
-
 Response Status
 ---------------
 
- :numref:`http_status_codes_update_a_domain_object_using_cdmi` describes the HTTP status codes that occur when updating a domain object using CDMI. 
+ :numref:`tbl_cdmi_domain_object_update_response_status` describes the HTTP status codes that occur when updating a domain object using CDMI. 
 
+.. tabularcolumns:: |>{\raggedright\arraybackslash}\Y{0.30}
+                    |>{\raggedright\arraybackslash}\Y{0.70}|
 
 .. _tbl_cdmi_domain_object_update_response_status:
 
-.. list-table:: .*
+.. list-table:: HTTP Status Codes - Update a Domain Object using CDMI
     :header-rows: 1
-    :widths: auto
+    :widths: 30 70
     :align: center 
-
 
     * - HTTP Status
       - Description
@@ -1207,20 +1229,16 @@ Response Status
     * - ``409 Conflict``
       - The operation conflicts with a non-CDMI access protocol lock or may cause a state transition error on the server.
 
-
-
-
 Example
 -------
 
-#.  PUT to the domain URI to set new field values:
+EXAMPLE 1: PUT to the domain URI to set new field values:
 
     .. code-block:: http
 
         PUT /cdmi_domains/MyDomain/ HTTP/1.1
         Host: cloud.example.com
         Content-Type: application/cdmi-domain
-        X-CDMI-Specification-Version: 1.1
          
         {
             "metadata" : {
