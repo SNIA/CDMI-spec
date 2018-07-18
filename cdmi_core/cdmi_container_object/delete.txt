@@ -16,7 +16,7 @@ Where:
 * ``<root URI>`` is the path to the CDMI cloud.
 * ``<ContainerName>`` is zero or more intermediate container objects.
 * ``<TheContainerName>`` is the name of the container object to be deleted.
-* ``<ContainerObjectID>`` is the ID of the data object to be deleted.
+* ``<ContainerObjectID>`` is the ID of the container object to be deleted.
 
 Capability 
 ----------
@@ -57,7 +57,6 @@ Response Status
 
 .. list-table:: HTTP Status Codes - Delete a Container Object Using CDMI
     :header-rows: 1
-    :widths: 30 70
     :align: center 
 
     * - HTTP Status
