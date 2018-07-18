@@ -1079,7 +1079,6 @@ The HTTP request headers for updating a CDMI domain object using CDMI are shown 
 
 .. list-table:: Request Headers - Update a Domain Object using CDMI
     :header-rows: 1
-    :widths: 20 10 55 15
     :align: center 
 
     * - Header
@@ -1106,7 +1105,6 @@ The request message body fields for updating a domain object using CDMI are show
 .. list-table:: Request Message Body - Update a domain object using CDMI
     :class: longtable
     :header-rows: 1
-    :widths: 20 10 55 15
     :align: center 
 
     * - Field Name
@@ -1180,7 +1178,6 @@ The HTTP response header for updating a CDMI domain object using CDMI is shown i
 
 .. list-table:: Response Header - Update a domain object using CDMI
     :header-rows: 1
-    :widths: 20 10 55 15
     :align: center 
 
     * - Header
@@ -1209,7 +1206,6 @@ Response Status
 
 .. list-table:: HTTP Status Codes - Update a Domain Object using CDMI
     :header-rows: 1
-    :widths: 30 70
     :align: center 
 
     * - HTTP Status
@@ -1256,97 +1252,61 @@ EXAMPLE 1: PUT to the domain URI to set new field values:
 Delete a Domain Object using CDMI
 *********************************
 
-
 Synopsis
 --------
 
-To delete an existing domain object and transfer all objects associated with that domain to another domain (to preserve access), the following request shall be performed:
+To delete an existing domain object, and transfer all objects associated with that domain to another domain (to preserve access), the following request shall be performed:
 
-    DELETE <root URI>/cdmi_domains/<DomainName>/<TheDomainName>/ 
+* ``DELETE <root URI>/cdmi_domains/<DomainName>/<TheDomainName>/``
+* ``DELETE <root URI>/cdmi_objectid/<DomainObjectID>``
 
 Where:
 
-
-* <root URI> is the path to the CDMI cloud.
-* <DomainName> is zero or more parent domains.
-* <TheDomainName> is the name specified for the domain to be deleted.
-
-
-The object shall also be accessible at <root URI>/cdmi_objectid/<objectID>/.
-
-
-
+* ``<root URI>`` is the path to the CDMI cloud.
+* ``<DomainName>`` is zero or more parent domains.
+* ``<TheDomainName>`` is the name specified for the domain to be deleted.
+* ``<DomainObjectID>`` is the ID of the domain object to be deleted.
 
 Capability
 ----------
 
 The following capability describes the supported operations that may be performed when deleting an existing domain:
 
-
-* Support for the ability to delete an existing domain object is indicated by the presence of the cdmi_delete_domain  capability in the specified domain.
-
-
-
+* Support for the ability to delete an existing domain object is indicated by the presence of the ``cdmi_delete_domain`` capability in the specified domain.
 
 Request Headers
 ---------------
 
-The HTTP request header for deleting a CDMI domain object using CDMI is shown in :numref:`request_headers_delete_a_domain_object_using_cdmi` 
-
-
-.. _tbl_cdmi_domain_object_delete_request_headers:
-
-.. list-table:: .*
-    :header-rows: 1
-    :widths: auto
-    :align: center 
-
-
-    * - Header
-      - Type
-      - Description
-      - Requirement
-    * - X-CDMI-Specification-Version
-      - Header String
-      - A comma-separated list of versions that the client supports, e.g., "1.1, 1.5, 2.0"
-      - Mandatory
-
-
+Request headers may be provided as per :rfc:`2616`.
 
 Request Message Body
 --------------------
 
 A request body may be provided as per :rfc:`2616`.
 
-
-
 Response Headers 
 ----------------
 
 Response headers may be provided as per :rfc:`2616`.
-
-
 
 Response Message Body 
 ---------------------
 
 A response body may be provided as per :rfc:`2616`.
 
-
-
 Response Status
 ---------------
 
- :numref:`http_status_codes_delete_a_domain_object_using_cdmi` describes the HTTP status codes that occur when deleting a domain object using CDMI. 
+ :numref:`tbl_cdmi_domain_object_delete_response_status` describes the HTTP status codes that occur when deleting a domain object using CDMI. 
 
+.. tabularcolumns:: |>{\raggedright\arraybackslash}\Y{0.30}
+                    |>{\raggedright\arraybackslash}\Y{0.70}|
 
 .. _tbl_cdmi_domain_object_delete_response_status:
 
-.. list-table:: .*
+.. list-table:: HTTP status codes - Delete a Domain Object using CDMI
     :header-rows: 1
-    :widths: auto
     :align: center 
-
 
     * - HTTP Status
       - Description
@@ -1363,17 +1323,15 @@ Response Status
     * - ``409 Conflict``
       - The operation conflicts with a non-CDMI access protocol lock or may cause a state transition error on the server.
 
-
 Example
 -------
 
-#.  DELETE to the domain URI:
+EXAMPLE 1: DELETE to the domain object URI:
 
     .. code-block:: http
 
         DELETE /cdmi_domains/MyDomain/ HTTP/1.1
         Host: cloud.example.com
-        X-CDMI-Specification-Version: 1.1
 
     The following shows the response.
 
