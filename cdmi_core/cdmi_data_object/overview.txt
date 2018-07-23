@@ -45,7 +45,7 @@ Data Object Addressing
 Data objects are addressed in CDMI in two ways: 
 
 * by name (e.g. ``http://cloud.example.com/dataobject``); and
-* by object ID (e.g. ``http://cloud.example.com/cdmi_objectid/00007ED90010D891022876A8DE0BC0FD``).
+* by ID (e.g. ``http://cloud.example.com/cdmi_objectid/00007ED90010D891022876A8DE0BC0FD``).
 
 Every data object has a single, globally-unique object identifier (ID) that remains constant for the life of the object. Each data object shall have one or more URI addresses that allow the object to be accessed. 
 
