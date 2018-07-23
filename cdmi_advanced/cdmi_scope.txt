@@ -17,7 +17,6 @@ Each JSON object is constructed using the same structure that CDMI objects use. 
 
     HTTP/1.1 200 OK
     Content-Type: application/cdmi-object
-    X-CDMI-Specification-Version: 1.1
     
     {
         "objectType" : "application/cdmi-object",
