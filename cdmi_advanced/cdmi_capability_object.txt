@@ -8,7 +8,7 @@ Overview
 
 Capability objects represent what specific functionality and operations are supported by a given CDMI server, and allow CDMI clients to discover what subset of this international standard is implemented.
 
-All CDMI servers shall support capabilities.
+All CDMI servers shall support capabilities and the ability for CDMI clients to read capabilities.
 
 Each CDMI capability object is represented as a JSON object, containing one or more "fields". For example, the "``capabilities``" field contains specific capability items.
 
@@ -57,11 +57,11 @@ Every CDMI object (excluding capability objects) includes a server-generated "ca
 
 System-wide capabilities are described by the root capabilities object, which is accessible at "``<root URI>/cdmi_capabilities/``".
 
-Capabilities cannot be altered by clients, but may be changed by a CDMI service provider.
+Capabilities cannot be altered by clients, but may be changed by the CDMI server to reflect configuration changes or operational changes. For example, if part of a namespace becomes read-only, capabilities indicating operations that modify that part of the namespace may no longer be present.
 
-Cloud clients should use capabilities to discover what operations are supported. If an operation is attempted on a CDMI object that does not have a corresponding capability, an HTTP status code of ``400 Bad Request`` shall be returned to the client. All CDMI-compliant cloud storage systems shall implement the ability to read capabilities, but support for the functionality indicated by each capability is optional.
+Cloud clients should use capabilities to discover what operations are supported. If an operation is attempted on a CDMI object that does not have a corresponding capability, an HTTP status code of ``400 Bad Request`` shall be returned to the client.
 
-The capabilities defined as part of this international standard are described starting in :numref:`ref_cloud_storage_system-wide_capabilities`  Vendor-defined capabilities not specified in this international standard shall not start with "cdmi\_". 
+The capabilities defined as part of this international standard are described starting in :numref:`ref_cloud_storage_system-wide_capabilities`. Vendor-defined capabilities not specified in this international standard shall not start with "cdmi\_". 
 
 Capability Object Addressing
 ----------------------------
@@ -69,7 +69,7 @@ Capability Object Addressing
 Capability objects are addressed in CDMI in two ways:
 
 * by name (e.g. ``http://cloud.example.com/cdmi_capabilities/``); and
-* by object ID (e.g. ``http://cloud.example.com/cdmi_objectid/00007E7F00104BE66AB53A9572F9F51E/``).
+* by ID (e.g. ``http://cloud.example.com/cdmi_objectid/00007E7F00104BE66AB53A9572F9F51E/``).
 
 Every capability object has a single, globally-unique object ID that remains constant for the life of the object. Each capability object may also have one or more URI addresses that allow the capability object to be accessed.
 
@@ -79,22 +79,32 @@ Following the URI conventions for hierarchical paths, capability URIs shall cons
 
 If a request is performed against an existing capability resource and the trailing slash at the end of the URI is omitted, the server shall respond with an HTTP status code of ``301 Moved Permanently``. In addition, a Location header containing the URI with the trailing slash added shall be returned. 
 
-Non-CDMI requests to create a container resource are not supported.
-
 Capabiltiies may also be nested.
 
     EXAMPLE 2: The following URI represents a nested capability:
 
         ``http://cloud.example.com/cdmi_capabilities/container/``
 
-A nested capability has a parent capability object, shall be included in the children field of the parent capability object. 
+A nested capability has a parent capability object, and shall be included in the children field of the parent capability object. 
 
 Capability Object Access Control
 --------------------------------
 
-Capability objects are not subject to access control restrictions. Any authenticated CDMI client shall be capable of viewing all relevent CDMI Capabilities.
+Capability objects are not subject to CDMI ACLs. Any authenticated CDMI client shall be capable of reading all Capability objects [#b]_ .
 
-Capabilities may differ from the operations permitted by an Access Control List (ACL) (see :numref:`ref_access_control`) associated with a given URI‚ e.g., a read-only cloud may not permit write access to a container or object, despite the presence of an ACL allowing write access.
+.. [#b] A CDMI Server may filter the visibility of capability objects and/or capability items for security purposes, for example, to prevent the client discovery of the names and characteristics of classification levels above the client's maximum classification level. Such filtering is out of scope of this international standard.
+
+Capabilities may differ from the operations permitted by an Access Control List (ACL) (see :numref:`ref_access_control`) associated with a given object. For example, a read-only cloud may not permit write access to a container or object, despite the presence of an ACL allowing write access.
+
+
+Capability Object Representations
+---------------------------------
+
+The representations in this clause are shown using JSON notation. Both clients and servers shall support UTF-8 JSON representation. The request and response body JSON fields may be specified or returned in any order, with the exception that, if present, for capability objects, the childrenrange and children fields shall appear last and in that order. 
+
+.. raw:: latex
+
+  \newpage
 
 .. _ref_cloud_storage_system-wide_capabilities:
 
@@ -263,7 +273,11 @@ Cloud Storage System-Wide Capabilities
       - If present and "``true``", this capability indicates that the system allows a new data object’s value to be created with byte ranges through "``/cdmi_objectid/``".
 
 
+.. raw:: latex
 
+  \newpage
+
+.. _ref_storage_system_metadata_capabilities:
 
 Storage System Metadata Capabilities
 ------------------------------------
@@ -306,6 +320,10 @@ Storage System Metadata Capabilities
       - JSON String    
       - If present and "``true``", this capability indicates that the cloud storage system shall generate a ``cdmi_mcount`` storage system metadata for each stored object.
 
+
+.. raw:: latex
+
+  \newpage
 
 .. _ref_data_system_metadata_capabilities:
 
@@ -543,6 +561,12 @@ Data System Metadata Capabilities
         When present, the cdmi_authentication_methods data system metadata shall be supported for all domains.
 
 
+.. raw:: latex
+
+  \newpage
+
+.. _ref_cdata_object_capabilities:
+
 Data Object Capabilities
 ------------------------
 
@@ -590,6 +614,11 @@ Data Object Capabilities
 
 
 
+.. raw:: latex
+
+  \newpage
+
+.. _ref_container_capabilities:
 
 Container Capabilities
 ----------------------
@@ -703,6 +732,11 @@ Container Capabilities
 
 
 
+.. raw:: latex
+
+  \newpage
+
+.. _ref_domain_capabilities:
 
 Domain Object Capabilities
 --------------------------
@@ -759,6 +793,11 @@ Domain Object Capabilities
 
 
 
+.. raw:: latex
+
+  \newpage
+
+.. _ref_queue_capabilities:
 
 Queue Object Capabilities
 -------------------------
@@ -810,70 +849,54 @@ Queue Object Capabilities
 
 
 
-Capability Object Representations
----------------------------------
-
-The representations in this clause are shown using JSON notation. Both clients and servers shall support UTF-8 JSON representation. The request and response body JSON fields may be specified or returned in any order, with the exception that, if present, for capability objects, the childrenrange and children fields shall appear last and in that order. 
-
-
-
 .. _ref_cdmi_capability_object_read:
 
 Read a Capabilities Object using CDMI
 *************************************
 
-
 Synopsis 
 --------
 
-To read all fields from an existing capability object, the following request shall be performed:
+To read an existing capability object, the following requests shall be performed:
 
-    GET <root URI>/cdmi_capabilities/<Capability>/<TheCapability>/
-
-To read one or more requested fields from an existing capability object, one of the following requests shall be performed:
-
-    GET <root URI>/cdmi_capabilities/<Capability>/<TheCapability>/?<fieldname>;<fieldname>
-
-    GET <root URI>/cdmi_capabilities/<Capability>/<TheCapability>/?children:<range> 
+* ``GET <root URI>/cdmi_capabilities/<Capability>/<TheCapability>/``
+* ``GET <root URI>/cdmi_capabilities/<Capability>/<TheCapability>/?<fieldname>;<fieldname>;...``
+* ``GET <root URI>/cdmi_capabilities/<Capability>/<TheCapability>/?children:<range>;...``
+* ``GET <root URI>/cdmi_objectid/<CapabilityObjectID>/``
+* ``GET <root URI>/cdmi_objectid/<CapabilityObjectID>/?<fieldname>;<fieldname>;...``
+* ``GET <root URI>/cdmi_objectid/<CapabilityObjectID>/?children:<range>;...``
 
 Where:
 
+* ``<root URI>`` is the path to the CDMI cloud.
+* ``<Capability>`` is zero or more parent capabilities.
+* ``<TheCapability>`` is the name specified for the capability to be read from.
+* ``<fieldname>`` is the name of a field.
+* ``<range>`` is a numeric range within the list of children.
+* ``<prefix>`` is a matching prefix that returns all metadata items that start with the prefix value.
+* ``<CapabilityObjectID>`` is the ID of the capability object to be read from.
 
-* <root URI> is the path to the CDMI cloud.
-* <Capability> is zero or more intermediate capabilities containers.
-* <TheCapability> is the name specified for the capabilities to be read from.
-* <fieldname> is the name of a field.
-* <range> is a numeric range within the list of children.
+Capabilities 
+------------
 
-
-The object shall also be accessible at <root URI>/cdmi_objectid/<objectID>/.
-
-
-
-
-Capability 
-----------
-
-The following capability describes the supported operations that may be performed when reading an existing capabilities object:
-
-
-* All CDMI implementations shall permit clients to read all fields of all capabilities objects.
-
-
-
+No capabilities are associated with reading a capability object.
 
 Request Headers
 ---------------
 
 The HTTP request headers for reading a CDMI capabilities object using CDMI are shown in :numref:`tbl_cdmi_capability_object_read_request_headers`. 
 
+.. tabularcolumns:: |>{\raggedright\arraybackslash}\Y{0.20}
+                    |>{\raggedright\arraybackslash}\Y{0.10}
+                    |>{\raggedright\arraybackslash}\Y{0.55}
+                    |>{\raggedright\arraybackslash}\Y{0.15}|
+
 .. _tbl_cdmi_capability_object_read_request_headers:
 
 .. list-table:: Request Headers - Read a Capabilities Object Using CDMI
+    :class: longtable
     :header-rows: 1
-    :widths: auto
     :align: center 
-
 
     * - Header    
       - Type    
@@ -883,64 +906,54 @@ The HTTP request headers for reading a CDMI capabilities object using CDMI are s
       - Header String    
       - "application/cdmi-capability" or a consistent value as per clause :numref:`ref_content-type_negotiation`    
       - Optional
-    * - X-CDMI-Specification-Version    
-      - Header String    
-      - A comma-separated list of versions that the client supports, e.g., "1.1, 1.5, 2.0"    
-      - Mandatory
-
-
-
 
 Request Message Body 
 --------------------
 
 A request body shall not be provided.
 
-
-
 Response Headers
 ----------------
 
 The HTTP response headers for reading a CDMI capabilities object using CDMI are shown in :numref:`tbl_cdmi_capability_object_read_response_headers`.
 
+.. tabularcolumns:: |>{\raggedright\arraybackslash}\Y{0.20}
+                    |>{\raggedright\arraybackslash}\Y{0.10}
+                    |>{\raggedright\arraybackslash}\Y{0.55}
+                    |>{\raggedright\arraybackslash}\Y{0.15}|
+
 .. _tbl_cdmi_capability_object_read_response_headers:
 
 .. list-table:: Response Headers - Read a Capabilities Object Using CDMI
+    :class: longtable
     :header-rows: 1
-    :widths: auto
     :align: center 
-
 
     * - Header    
       - Type    
       - Description    
       - Requirement
-    * - X-CDMI-Specification-Version    
-      - Header String    
-      - The server shall respond with the highest version supported by both the client and the server, e.g., "1.1".
-
-        If the server does not support any of the versions that the client supports, the server shall return an HTTP status code of ``400 Bad Request``.
-      - Mandatory
     * - Content-Type    
       - Header String    
       - "application/cdmi-capability"    
       - Mandatory
-
-
-
 
 Response Message Body
 ---------------------
 
 The response message body fields for reading a CDMI capabilities object using CDMI are shown in :numref:`tbl_cdmi_capability_object_read_response_message_body`.
 
+.. tabularcolumns:: |>{\raggedright\arraybackslash}\Y{0.20}
+                    |>{\raggedright\arraybackslash}\Y{0.10}
+                    |>{\raggedright\arraybackslash}\Y{0.55}
+                    |>{\raggedright\arraybackslash}\Y{0.15}|
+
 .. _tbl_cdmi_capability_object_read_response_message_body:
 
 .. list-table:: Response Message Body - Read a Capabilities Object using CDMI
+    :class: longtable
     :header-rows: 1
-    :widths: auto
     :align: center 
-
 
     * - Field Name    
       - Type    
@@ -948,7 +961,7 @@ The response message body fields for reading a CDMI capabilities object using CD
       - Requirement
     * - objectType    
       - JSON String    
-      - "application/cdmi-capability"    
+      - "``application/cdmi-capability``"    
       - Mandatory
     * - objectID    
       - JSON String    
@@ -958,17 +971,35 @@ The response message body fields for reading a CDMI capabilities object using CD
       - JSON String    
       - Name of the object    
       - Mandatory
-    * - parentURI    
-      - JSON String    
-      - URI for the parent object    
+    * - parentURI
+      - JSON String
+      - URI for the parent object
+      
+        .. raw:: latex
+
+          \vspace*{1ex}
+
+        Appending the "``objectName``" to the "``parentURI``" shall always produce a valid URI for the object. 
       - Mandatory
     * - parentID    
       - JSON String    
-      - Object ID of the parent container object    
+      - Object ID of the parent capability object.
       - Mandatory
     * - capabilities    
       - JSON Object    
-      - The capabilities supported by the corresponding object. Capabilities in the "/cdmi_capabilities/" object are system-wide capabilities. Capabilities found in children objects under "/cdmi_capabilities/" correspond to the capabilities of a specific subset of objects. Each capability is expressed as a JSON string.    
+      - The capabilities supported by the corresponding object.
+      
+        .. raw:: latex
+
+          \vspace*{1ex}
+
+        Capabilities in the "/cdmi_capabilities/" object are system-wide capabilities. Capabilities found in children objects under "/cdmi_capabilities/" correspond to the capabilities of a specific subset of objects.
+      
+        .. raw:: latex
+
+          \vspace*{1ex}
+
+        Each capability is expressed as a JSON string.    
       - Mandatory
     * - childrenrange    
       - JSON String     
@@ -976,27 +1007,30 @@ The response message body fields for reading a CDMI capabilities object using CD
       - Mandatory
     * - children    
       - JSON Array of JSON Strings    
-      - Names of the children capabilities objects. For the root container capabilities, this includes "domain/", "container/", "dataobject/", and "queue/". Within each of these capabilities objects, further more specialized capabilities profiles may be specified by the cloud storage system.    
+      - Names of the children capabilities objects.
+      
+        .. raw:: latex
+
+          \vspace*{1ex}
+
+        For the root container capabilities, this includes "``domain/``", "``container/``", "``dataobject/``", and "``queue/``". Within each of these capabilities objects, further more specialized capabilities profiles may be specified by the cloud storage system.    
       - Mandatory
 
-
 If individual fields are specified in the GET request, only these fields are returned in the result body. Optional fields that are requested but do not exist are omitted from the result body.
-
-
 
 Response Status
 ---------------
 
 :numref:`tbl_cdmi_capability_object_read_response_status` describes the HTTP status codes that occur when reading a capabilities object using CDMI. 
 
+.. tabularcolumns:: |>{\raggedright\arraybackslash}\Y{0.30}
+                    |>{\raggedright\arraybackslash}\Y{0.70}|
 
 .. _tbl_cdmi_capability_object_read_response_status:
 
 .. list-table:: HTTP Status Codes Read a Capabilities Object using CDMI
     :header-rows: 1
-    :widths: auto
     :align: center 
-
 
     * - HTTP Status    
       - Description
@@ -1013,26 +1047,23 @@ Response Status
     * - ``406 Not Acceptable``
       - The server is unable to provide the object in the content type specified in the Accept header.
 
-
 Examples
 --------
 
-#.  GET to the root container capabilities URI to read all fields of the container:
+EXAMPLE 1: GET to the root container capabilities URI to read all fields of the container:
 
     .. code-block:: http
 
         GET /cdmi_capabilities/ HTTP/1.1
         Host: cloud.example.com
         Accept: application/cdmi-capability
-        X-CDMI-Specification-Version: 1.1
 
     The following shows the response.
 
-   .. code-block:: http
+    .. code-block:: http
 
         HTTP/1.1 200 OK
         Content-Type: application/cdmi-capability
-        X-CDMI-Specification-Version: 1.1
          
         {
             "objectType": "application/cdmi-capability",
@@ -1060,14 +1091,13 @@ Examples
         }
 
         
-#.  GET to the root container capabilities URI to read the capabilities and children of the container:
+EXAMPLE 2: GET to the root container capabilities URI to read the capabilities and children of the container:
 
     .. code-block:: http
 
         GET /cdmi_capabilities/?capabilities;children HTTP/1.1
         Host: cloud.example.com
         Accept: application/cdmi-capability
-        X-CDMI-Specification-Version: 1.1
 
     The following shows the response.
 
@@ -1075,7 +1105,6 @@ Examples
 
         HTTP/1.1 200 OK
         Content-Type: application/cdmi-capability
-        X-CDMI-Specification-Version: 1.1
          
         {
             "capabilities": {
@@ -1096,14 +1125,13 @@ Examples
             ]
         }
 
-#.  GET to the root container capabilities URI to read the first two children of the container:
+EXAMPLE 3: GET to the root container capabilities URI to read the first two children of the container:
 
     .. code-block:: http
 
         GET /cdmi_capabilities/?childrenrange;children:0-1 HTTP/1.1
         Host: cloud.example.com
         Accept: application/cdmi-capability
-        X-CDMI-Specification-Version: 1.1
 
     The following shows the response.
 
@@ -1111,7 +1139,6 @@ Examples
 
         HTTP/1.1 200 OK
         Content-Type: application/cdmi-capability
-        X-CDMI-Specification-Version: 1.1
          
         {
             "childrenrange" : "0-1",
