@@ -3,24 +3,49 @@
 Capability Object Resource Operations using CDMI
 ================================================
 
-
 Overview
 ********
 
-Capability objects allow a CDMI™ client to discover what subset of this international standard is implemented by a CDMI provider.
+Capability objects represent what specific functionality and operations are supported by a given CDMI server, and allow CDMI clients to discover what subset of this international standard is implemented.
 
-For each URI in a cloud storage system, the set of interactions that the system is capable of performing for that URI are described by the presence of named capabilities. Each capability present for a given URI indicates what functionality the cloud storage system will allow against that URI. Capabilities are always static.
+All CDMI servers shall support capabilities.
 
-Capabilities may differ from the operations permitted by an Access Control List (ACL) (see :numref:`ref_access_control`) associated with a given URI‚ e.g., a read-only cloud may not permit write access to a container or object, despite the presence of an ACL allowing write access.
+Each CDMI capability object is represented as a JSON object, containing one or more "fields". For example, the "``capabilities``" field contains specific capability items.
 
-Cloud clients may use capabilities to discover what operations are supported. If an operation is attempted on a CDMI object that does not have a corresponding capability, an HTTP status code of ``400 Bad Request`` shall be returned to the client. All CDMI-compliant cloud storage systems shall implement the ability to read capabilities, but support for the functionality indicated by each capability is optional.
+EXAMPLE 1: CDMI Capability Object
 
-Every CDMI data object, container object, domain object, and queue object shall have a capabilitiesURI field that contains a valid URI of a capabilities object. Within the capabilities object, the name of each capability confers a specific meaning that has been agreed to between the cloud storage provider and the cloud storage consumer. 
+  .. code-block:: json
 
-The capabilities defined as part of this international standard are described starting in :numref:`ref_cloud_storage_system-wide_capabilities`  Vendor-defined capabilities not specified in this international standard shall not start with "cdmi\_". 
+    {
+      "objectType": "application/cdmi-capability",
+      "objectID": "00007E7F00104BE66AB53A9572F9F51E",
+      "objectName": "cdmi_capabilities/",
+      "parentURI": "/",
+      "parentID": "00007E7F0010128E42D87EE34F5A6560",
+      "capabilities": {
+          "cdmi_domains": "true",
+          "cdmi_export_nfs": "true",
+          "cdmi_export_iscsi": "true",
+          "cdmi_queues": "true",
+          "cdmi_notification": "true",
+          "cdmi_query": "true",
+          "cdmi_metadata_maxsize": "4096",
+          "cdmi_metadata_maxitems": "1024"
+      },
+      "childrenrange": "0-3",
+      "children": [
+        "domain/",
+        "container/",
+        "dataobject/",
+        "queue/"
+      ]
+    }
+
+The meaning, use, and permitted values of each field is described in :numref:`ref_cdmi_capability_object_read`.
+
+Every CDMI object (excluding capability objects) includes a server-generated "capabilitiesURI" field that contains the URI of the capabilities object that describes which operations are permitted for that CDMI object.
 
 :numref:`fig_hierarchyofcapabilities` shows the hierarchy of capabilities and shows how the capabilitiesURI links data objects and container objects into the capabilities tree. 
-
 
 .. _fig_HierarchyofCapabilities:
 
@@ -30,16 +55,46 @@ The capabilities defined as part of this international standard are described st
    
     Hierarchy of Capabilities
 
+System-wide capabilities are described by the root capabilities object, which is accessible at "``<root URI>/cdmi_capabilities/``".
 
+Capabilities cannot be altered by clients, but may be changed by a CDMI service provider.
 
-The capabilities container within the capabilities tree to which an object is linked is based on the type of the object and the data system metadata fields present in the object. 
+Cloud clients should use capabilities to discover what operations are supported. If an operation is attempted on a CDMI object that does not have a corresponding capability, an HTTP status code of ``400 Bad Request`` shall be returned to the client. All CDMI-compliant cloud storage systems shall implement the ability to read capabilities, but support for the functionality indicated by each capability is optional.
 
-A container with no data system metadata fields specified may map to the "container" capabilities entry.
+The capabilities defined as part of this international standard are described starting in :numref:`ref_cloud_storage_system-wide_capabilities`  Vendor-defined capabilities not specified in this international standard shall not start with "cdmi\_". 
 
-As an option, a CDMI implementation may map a container to a "gold_container" capabilities entry, if a data system metadata field is present and set to a given value, such as if the cdmi_data_redundancy field was set to the value of "4". This permits a cloud provider to create profiles of data system metadata fields and values.
+Capability Object Addressing
+----------------------------
 
-Capabilities do not have a CDMI metadata field.
+Capability objects are addressed in CDMI in two ways:
 
+* by name (e.g. ``http://cloud.example.com/cdmi_capabilities/``); and
+* by object ID (e.g. ``http://cloud.example.com/cdmi_objectid/00007E7F00104BE66AB53A9572F9F51E/``).
+
+Every capability object has a single, globally-unique object ID that remains constant for the life of the object. Each capability object may also have one or more URI addresses that allow the capability object to be accessed.
+
+When a capability object is addressed via more than one unique URIs, all operations may be performed through any of these URIs. For example, a capability object may be accessible via multiple virtual hosting paths, where ``http://cloud.example.com/users/snia/cdmi/cdmi_capabilities/`` is also accessible through ``http://snia.example.com/cdmi/cdmi_cabilities/``.
+
+Following the URI conventions for hierarchical paths, capability URIs shall consist of one or more capability names that are separated by forward slashes ("``/``") and that end with a forward slash ("``/``"). 
+
+If a request is performed against an existing capability resource and the trailing slash at the end of the URI is omitted, the server shall respond with an HTTP status code of ``301 Moved Permanently``. In addition, a Location header containing the URI with the trailing slash added shall be returned. 
+
+Non-CDMI requests to create a container resource are not supported.
+
+Capabiltiies may also be nested.
+
+    EXAMPLE 2: The following URI represents a nested capability:
+
+        ``http://cloud.example.com/cdmi_capabilities/container/``
+
+A nested capability has a parent capability object, shall be included in the children field of the parent capability object. 
+
+Capability Object Access Control
+--------------------------------
+
+Capability objects are not subject to access control restrictions. Any authenticated CDMI client shall be capable of viewing all relevent CDMI Capabilities.
+
+Capabilities may differ from the operations permitted by an Access Control List (ACL) (see :numref:`ref_access_control`) associated with a given URI‚ e.g., a read-only cloud may not permit write access to a container or object, despite the presence of an ACL allowing write access.
 
 .. _ref_cloud_storage_system-wide_capabilities:
 
@@ -762,6 +817,7 @@ The representations in this clause are shown using JSON notation. Both clients a
 
 
 
+.. _ref_cdmi_capability_object_read:
 
 Read a Capabilities Object using CDMI
 *************************************
