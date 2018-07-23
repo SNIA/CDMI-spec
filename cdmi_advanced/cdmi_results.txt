@@ -3,7 +3,6 @@
 Results Specification
 =====================
 
-
 Introduction
 ************
 
@@ -17,7 +16,6 @@ The results JSON object shall be constructed using the same structure as is used
 
         HTTP/1.1 200 OK
         Content-Type: application/cdmi-object
-        X-CDMI-Specification-Version: 1.1
         
         {
             "objectType" : "application/cdmi-object",
@@ -43,7 +41,7 @@ Examples
 
 Each field inside a results specification JSON object indicates that the field shall be included in the results. 
 
-#. The following results specification requests that the objectID and cdmi_size metadata fields be returned in the results:
+EXAMPLE 1: The following results specification requests that the objectID and cdmi_size metadata fields be returned in the results:
 
     .. code-block:: json
 
@@ -57,7 +55,7 @@ Each field inside a results specification JSON object indicates that the field s
         } 
 
 
-#. If an object is matched, the result JSON is enqueued as follows:
+EXAMPLE 2: If an object is matched, the result JSON is enqueued as follows:
 
     .. code-block:: json
 
@@ -71,7 +69,7 @@ Each field inside a results specification JSON object indicates that the field s
 For most common use cases, clients request either the objectID, the objectName and parentURI, or all three fields in the cdmi_results_specification. If the parentURI or objectName is requested, the field shall only be returned for objects existing in a container object.
 
 
-#. To request all metadata items be returned for each matching object, the following cdmi_results_specification shall be used: 
+EXAMPLE 3: To request all metadata items be returned for each matching object, the following cdmi_results_specification shall be used: 
 
     .. code-block:: json
 
@@ -82,7 +80,7 @@ For most common use cases, clients request either the objectID, the objectName a
         }
 
 
-#. To request all fields and all metadata items be returned for each matching object, the following cdmi_results_specification shall be used:
+EXAMPLE 4: To request all fields and all metadata items be returned for each matching object, the following cdmi_results_specification shall be used:
 
     .. code-block:: json
 
