@@ -27,7 +27,7 @@ Each interface description has nine components, as described in :numref:`tbl_int
     * - Capabilities
       - A description of the supported operations
     * - Request Headers
-      - The request headers, such as Accept, Authorization, Content-Length, Content-Type, X-CDMI-Specification-Version
+      - The request headers, such as Accept, Authorization, Content-Length, Content-Type
     * - Request Message Body
       - A description of the message body contents
     * - Response Headers
