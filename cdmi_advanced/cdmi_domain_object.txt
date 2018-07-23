@@ -8,7 +8,9 @@ Overview
 
 Domain objects represent the concept of administrative ownership of stored data within a CDMI™ storage system. Each object may be owned and managed by a different administrative entity, which is expressed as a domain.
 
-A cloud service may include a hierarchy of domains that provide access to domain-related information within a CDMI context. This domain hierarchy is a series of CDMI objects that correspond to parent and child domains, with each domain corresponding to logical groupings of objects that are to be managed together. Domain measurement information about objects that are associated with each domain flow up to parent domains, facilitating billing and management operations that are typical for a cloud storage environment.
+If a cloud storage system supports domains, the ``cdmi_domains`` system-wide capability shall be present, and the ``cdmi_domains`` container shall be present in the CDMI root container. 
+
+A cloud storage system may include a hierarchy of domains that provide access to domain-related information within a CDMI context. This domain hierarchy is a series of CDMI objects that correspond to parent and child domains, with each domain corresponding to logical groupings of objects that are to be managed together. Domain measurement information about objects that are associated with each domain flow up to parent domains, facilitating billing and management operations that are typical for a cloud storage environment.
 
 FIXME - Add diagram (Issue #96)
 
@@ -43,7 +45,7 @@ The meaning, use, and permitted values of each field is described in each operat
 Domain Object Addressing
 ------------------------
 
-Domain objects are created in a special ``cdmi_domains`` container, found in the root URI for the cloud storage system. If the ``cdmi_create_domain`` capability is present for the URI of a given domain, then the cloud storage system supports the ability to create child domains under the URI. If a cloud storage system supports domains, the ``cdmi_domains`` system-wide capability shall be present, and the ``cdmi_domains`` container shall be present in the CDMI root container. 
+Domain objects are created in a special ``cdmi_domains`` container, found in the root URI for the cloud storage system. If the ``cdmi_create_domain`` capability is present for the URI of a given domain, then the cloud storage system supports the ability to create child domains under the URI. 
 
 Domain objects are addressed in CDMI in two ways: 
 
