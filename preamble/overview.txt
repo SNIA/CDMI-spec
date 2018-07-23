@@ -3,8 +3,6 @@
 Overview of Cloud Storage
 =========================
 
-
-
 ************
 Introduction
 ************
@@ -15,8 +13,6 @@ Another important concept in this international standard is that of metadata. Wh
 
 The appeal of cloud storage is due to some of the same attributes that define other cloud services: pay as you go, the illusion of infinite capacity (elasticity), and the simplicity of use/management. It is therefore important that any interface for cloud storage support these attributes, while allowing for a multitude of business use cases.
 
-
-
 What is Cloud Storage?
 **********************
 
@@ -25,8 +21,6 @@ The use of the term cloud in describing these new models arose from architecture
 The cloud abstraction of complexity produces a simple base on which other features can be built. The general cloud model extends this base by adding a pool of resources. An important part of the cloud model is the concept of a pool of resources that is drawn from, on demand, in small increments. A relatively recent innovation that has made this possible is virtualization. 
 
 Thus, cloud storage is simply the delivery of virtualized storage on demand. The formal term that is used for this is Data storage as a Service (DaaS).
-
-
 
 Data Storage as a Service
 *************************
@@ -59,9 +53,6 @@ Each data object is created, retrieved, updated, and deleted as a separate resou
     
     Storage Interfaces for Object Storage Client Data
 
-
-
-
 Data Management for Cloud Storage
 *********************************
 
@@ -77,8 +68,6 @@ Storage system metadata is produced/interpreted by the cloud service and basic s
 
 Data system metadata is interpreted by the cloud service as data requirements that control the operation of underlying data services for that data. It may apply to an aggregation of data objects in a container or to individual data objects, if the cloud service supports this level of granularity. For more information on support for data system metadata, see :numref:`ref_support_for_data_system_metadata`.
 
-
-
 .. _ref_data_and_container_management:
 
 Data and Container Management
@@ -88,14 +77,11 @@ There is no reason that managing data and managing containers should involve dif
 
 Even if the provided interface does not support setting metadata on individual objects, metadata may still be applied to the containers. In such a case, the interface does not provide a mechanism to override metadata that an individual object inherits from its parent container. For file-based interfaces that support extended attributes (e.g., CIFS, NFSv4), these extended attributes may be used to specify the data system metadata to override that specified for the container. 
 
-
-
 ********************************************
 Reference Model for Cloud Storage Interfaces
 ********************************************
 
 The cloud storage reference model is shown in :numref:`fig_reference_model_for_cloud_storage_interfaces`.
-
 
 .. _fig_reference_model_for_cloud_storage_interfaces:
 
@@ -143,8 +129,7 @@ Domains may also be hierarchical, allowing for corporate domains with multiple c
 
 Finally, capabilities allow a client to discover the capabilities of a CDMI implementation. Requirements throughout this international standard shall be understood in the context of CDMI capabilities. Mandatory requirements on functionality that is conditioned on a CDMI capability shall not be interpreted to require implementation of that capability, but rather shall be interpreted to apply only to implementations that support the functionality required by that capability.
 
-For example, in :numref:`ref_object_id`, this international standard states, "Every cloud storage system shall allow object ID-based access to stored objects." This requirement shall be understood in the context that access by object ID is predicated on the presence of the cdmi_object_access_by_ID capability.
-
+For example, in :numref:`ref_object_id`, this international standard states, "Every cloud storage system shall allow object ID-based access to stored objects." This requirement shall be understood in the context that access by object ID is predicated on the presence of the ``cdmi_object_access_by_ID`` capability.
 
 .. _ref_object_model_for_cdmi:
 
@@ -172,7 +157,6 @@ The five types of resources defined are shown in :numref:`tbl_types_of_resources
 
 .. list-table:: Types of Resources in the Model
     :header-rows: 1
-    :widths: 20 60 20
     :align: center
 
     * - Resource Type
@@ -200,7 +184,7 @@ Queue objects are also defined (see :numref:`fig_cdmi_object_model`) and provide
 
 CDMI defines two namespaces that can be used to access stored objects, a flat object ID namespace and a hierarchical path-based namespace. Support for objects accessed by object ID is indicated by the system-wide capability ``cdmi_object_access_by_ID``, and support for objects accessed by hierarchical path is indicated by the container capability cdmi_create_dataobject found on the root container (and any subcontainers).
 
-Objects are created by ID by performing an HTTP POST against a special URI, designated as ``/cdmi_objectid/`` (see :numref:`ref_cdmi_container_object_create_post_object`). Subsequent to creation, objects are modified by performing PUTs using the object ID assigned by the CDMI server, using the /cdmi_objectid/ URI (see :numref:`ref_cdmi_data_object_update`). The same URI is used to retrieve and delete objects by ID. 
+Objects are created by ID by performing an HTTP POST against a special URI, designated as ``/cdmi_objectid/`` (see :numref:`ref_cdmi_container_object_create_post_object`). Subsequent to creation, objects are modified by performing PUTs using the object ID assigned by the CDMI server, using the "``/cdmi_objectid/``" URI (see :numref:`ref_cdmi_data_object_update`). The same URI is used to retrieve and delete objects by ID. 
 
 Objects are created by name by performing an HTTP PUT to the desired path URI (see :numref:`ref_cdmi_data_object_create`). Subsequent to creation, objects are modified by performing PUTs using the object path specified by the client (see :numref:`ref_cdmi_data_object_update`). The same URI is used to retrieve and delete objects by path. 
 
@@ -214,9 +198,6 @@ CDMI defines mechanisms so that objects having only an object ID can be assigned
     
     Object Transitions between Named and ID-only
 
-
-
-
 CDMI Metadata
 *************
 
@@ -228,7 +209,7 @@ CDMI data system metadata, user metadata, and storage system metadata is defined
 
 Data system metadata is metadata that is specified by a CDMI client and is a component of objects. Data system metadata abstractly specifies the data requirements associated with data services that are deployed in the cloud storage system.
 
-User metadata consists of client-defined JSON strings, arrays, and objects that are stored in the metadata field. The namespace used for user metadata names is self-administered (e.g., using the reverse domain name), and user metadata names shall not begin with the prefix "cdmi\_".
+User metadata consists of client-defined JSON strings, arrays, and objects that are stored in the metadata field. The namespace used for user metadata names is self-administered (e.g., using the reverse domain name), and user metadata names shall not begin with the prefix "``cdmi_``".
 
 Storage system metadata is metadata that is generated by the storage services in the system (e.g., creation time, size) to provide useful information to a CDMI client. 
 
@@ -252,9 +233,6 @@ The matrix of the creation and consumption of storage system metadata is shown i
       - Data system metadata
       - N/A
 
-      
-
-      
 .. _ref_object_id:
 
 CDMI Object IDs
@@ -262,21 +240,17 @@ CDMI Object IDs
 
 Every object stored within a CDMI-compliant system shall have a globally unique object identifier (ID) assigned at creation time. The CDMI object ID is a string with requirements for how it is generated and how it obtains its uniqueness. Each cloud service that implements CDMI shall generate these identifiers such that the probability of conflicting with identifiers generated by other cloud services and the probability of generating an identifier that has already been used is effectively zero. 
 
-Every cloud storage system shall allow object ID-based access to stored objects by allowing the object's ID to be appended to the root container URI. If the data object "MyDataObject.txt", located in the root container, has an object ID of "00006FFD001001CCE3B2B4F602032653", the following pair of URIs access the same data object: 
+Every cloud storage system shall allow object ID-based access to stored objects by allowing the object's ID to be appended to the root container URI. If the data object "MyDataObject.txt", located in the root container, has an object ID of "``00006FFD001001CCE3B2B4F602032653``", the following pair of URIs access the same data object: 
 
-    http://cloud.example.com/root/MyDataObject.txt
+* ``http://cloud.example.com/root/MyDataObject.txt``
+* ``http://cloud.example.com/root/cdmi_objectid/00006FFD001001CCE3B2B4F602032653``
 
-    http://cloud.example.com/root/cdmi_objectid/00006FFD001001CCE3B2B4F602032653
+If containers are supported, they shall also be accessible by object ID. If the container "MyContainer", located in the root container, has an object ID of "``00006FFD0010AA33D8CEF9711E0835CA``", the following pairs of URIs access the same object: 
 
-If containers are supported, they shall also be accessible by object ID. If the container "MyContainer", located in the root container, has an object ID of "00006FFD0010AA33D8CEF9711E0835CA", the following pairs of URIs access the same object: 
-
-    http://cloud.example.com/root/MyContainer/
-
-    http://cloud.example.com/root/cdmi_objectid/00006FFD0010AA33D8CEF9711E0835CA/
-
-    http://cloud.example.com/root/MyContainer/MyDataObject.txt
-
-    http://cloud.example.com/root/cdmi_objectid/00006FFD0010AA33D8CEF9711E0835CA/MyDataObject.txt
+* ``http://cloud.example.com/root/MyContainer/``
+* ``http://cloud.example.com/root/cdmi_objectid/00006FFD0010AA33D8CEF9711E0835CA/``
+* ``http://cloud.example.com/root/MyContainer/MyDataObject.txt``
+* ``http://cloud.example.com/root/cdmi_objectid/00006FFD0010AA33D8CEF9711E0835CA/MyDataObject.txt``
 
 CDMI Object ID Format
 *********************
@@ -300,25 +274,22 @@ The fields shown in :numref:`tbl_objectid_format` are defined as follows:
 * The Enterprise Number field shall be the SNMP enterprise number of the offering organization that developed the system that created the object ID, in network byte order. See :rfc:`2578` and http://www.iana.org/assignments/enterprise-numbers. 0 is a reserved value.
 * The byte at offset 5 shall contain the full length of the object ID, in bytes.
 
-* The CRC field shall contain a 2-byte (16-bit) CRC in network byte order. The CRC field enables the object ID to be validated for integrity. The CRC field shall be generated by running the algorithm (see [CRC]_) across all bytes of the object ID, as defined by the Length field, with the CRC field set to zero. The CRC function shall have the following fields:
+* The CRC field shall contain a 2-byte (16-bit) CRC in network byte order. The CRC field enables the object ID to be validated for integrity. The CRC field shall be generated by running the algorithm (see ISO 14701:2012) across all bytes of the object ID, as defined by the Length field, with the CRC field set to zero. The CRC function shall have the following fields:
 
     - Name 	: "CRC-16",
     - Width 	: 16,
-    - Poly 	: 0x8005,
-    - Init 	: 0x0000,
+    - Poly 	: ``0x8005``,
+    - Init 	: ``0x0000``,
     - RefIn 	: True,
     - RefOut 	: True,
-    - XorOut 	: 0x0000, and
-    - Check 	: 0xBB3D.
+    - XorOut 	: ``0x0000``, and
+    - Check 	: ``0xBB3D``.
   
-  This function defines a 16-bit CRC with polynomial 0x8005, reflected input, and reflected output. This CRC-16 is specified in [CRC]_ 
+  This function defines a 16-bit CRC with polynomial ``0x8005``, reflected input, and reflected output. This CRC-16 is specified in ISO 14701:2012. 
 
 * Opaque data in each object ID shall be unique for a given Enterprise Number.
 
 The native format for an object ID is binary. When necessary, such as when included in URIs and JSON strings, the object ID textual representation shall be encoded using Base16 encoding rules described in :rfc:`4648` and shall be case insensitive. 
-
-
-
 
 ********
 Security
@@ -334,7 +305,6 @@ Security, in the context of CDMI, refers to the protective measures employed in 
 * eliminates data in a controlled manner; and 
 * discovers the security capabilities of of a particular implementation. 
 
-
 Security measures within CDMI may be summarized as: 
 
 * transport security, 
@@ -347,13 +317,9 @@ Security measures within CDMI may be summarized as:
 * data at-rest encryption, and 
 * security capabilities. 
 
-
 With the exception of both the transport security and the security capabilities, which are mandatory to implement, the security measures may vary significantly from implementation to implementation.
 
 When security is a concern, the CDMI client should begin with a series of security capability lookups (see :numref:`ref_cloud_storage_system-wide_capabilities`  to determine the exact nature of the security features that are available. Based on the values of these capabilities, a risk-based decision should be made as to whether the CDMI server should be used. This is particularly true when the data to be stored in the cloud storage is sensitive or regulated in a way that requires stored data to be protected (e.g., encrypted) or handled in a particular manner (e.g., full accountability and traceability of management and access).
-
-
-
 
 HTTP Security
 *************
@@ -368,9 +334,6 @@ To ensure both security and interoperability, all CDMI implementations:
 
 
 When TLS is used to secure HTTP, the client and server typically perform some form of entity authentication. However, the specific nature of this entity authentication depends on the cipher suite negotiated; a cipher suite specifies the encryption algorithm and digest algorithm to use on a TLS connection. A very common scenario involves using server-side certificates, which the client trusts, as the basis for unidirectional entity authentication. It is possible that mutual authentication involving both client-side and server-side certificates may be required.
-
-
-
 
 Client Authentication
 *********************
@@ -391,9 +354,6 @@ Once a user is authenticated, the provided principal name shall be mapped by the
 
 A CDMI server typically relies on an authentication service (local and/or external) to validate client credentials. Differing authentication schemes may be supported, including host-based authentication, Kerberos, PKI, or other; the authentication service is beyond the scope of this international standard.
 
-
-
-
 Use of TLS
 **********
 
@@ -403,16 +363,10 @@ Recommendations for using HTTP and TLS include:
 * 	A client that fails to connect to a CDMI server on port 443 should retry without TLS on TCP port 80 if their security policy allows it.
 * 	Servers may respond to HTTP requests on port 80 with an HTTP REDIRECT to the appropriate TLS URI (using port 443). Clients should honor such redirects in this situation.
 
-
-
-
 Further Information
 *******************
 
-For further information pertaining to storage security techniques, see :numref:`iso/iec_dis_27040` 
-
-
-
+For further information pertaining to storage security techniques, see ISO 14701:2012. 
 
 ************************
 Required HTTP Support 
@@ -423,7 +377,6 @@ RFC 2616 Support Requirements
 
 A conformant implementation of CDMI shall also be a conformant implementation of :rfc:`2616` (i.e., HTTP 1.1). The subclauses below list the sections of :rfc:`2616` that shall be supported; however, this list is not comprehensive.
 
-
 .. _ref_content-type_negotiation:
 
 Content-Type Negotiation
@@ -431,20 +384,20 @@ Content-Type Negotiation
 
 For CDMI operations, media types for CDMI objects are used as defined in :rfc:`6208`. All CDMI representations follow the rules established for "application/json" as defined in :rfc:`4627`. The use of the CDMI media types with the "+json" suffix shall be supported as defined in :rfc:`6839`. 
 
-A client may optionally supply an HTTP Accept header, as per section 14.1 of :rfc:`2616`. If a client is restricting the response to a specific CDMI media type, the corresponding media type shall be specified in the Accept header. Otherwise, the Accept header may contain "*/*" or a list of media types, or it may be omitted. 
+A client may optionally supply an HTTP Accept header, as per section 14.1 of :rfc:`2616`. If a client is restricting the response to a specific CDMI media type, the corresponding media type shall be specified in the Accept header. Otherwise, the Accept header may contain "``*/*``" or a list of media types, or it may be omitted. 
 
 If a request body is present, the client shall include a Content-Type header, as per section 14.17 of :rfc:`2616`. If the client does not provide a Content-Type header when required or provides a media type in the Content-Type header that does not match with the existing resource media type, the server shall return an HTTP status code of ``400 Bad Request``.
 
-If a response body is present, the server shall provide a Content-Type header. 
+If a response body is present, the server shall provide a ``Content-Type`` header. 
 
-This international standard may further qualify content negotiation (e.g., in :numref:`ref_cdmi_container_object_read`, the absence of a Content-Type header has a specific meaning).
+This international standard may further qualify content negotiation (e.g., in :numref:`ref_cdmi_container_object_read`, the absence of a ``Content-Type`` header has a specific meaning).
 
 Range Support
 *************
 
 The server shall support HTTP Range headers and partial content responses (see Section 14.16 of :rfc:`2616`). 
 
-The values of the childrange, valuerange and queuerange fields are formatted based on the HTTP byte-range-resp-spec, as defined in clause 14.16 of RFC 2616.
+The values of the childrange, valuerange and queuerange fields are formatted based on the HTTP byte-range-resp-spec, as defined in clause 14.16 of :rfc:`2616`.
 
 URI Escaping
 ************
@@ -497,48 +450,48 @@ All URIs in this international standard are relative to the root URI unless othe
     * - Root URI
       - \+ Relative URI
       - \=> Resolved URI
-    * - http://cloud.example.com/
-      - container/testObject
-      - http://cloud.example.com/container/testObject 
-    * - http://cloud.example.com/
-      - /container/testObject
-      - http://cloud.example.com/container/testObject
-    * - http://cloud.example.com/p1/
-      - container/testObject
-      - http://cloud.example.com/p1/ccontainer/testObject 
-    * - http://cloud.example.com/p1/
-      - /container/testObject
-      - http://cloud.example.com/container/testObject 
-    * - http://cloud.example.com/p1/p2/
-      - container/testObject
-      - http://cloud.example.com/p1/p2/container/testObject 
-    * - http://cloud.example.com/p1/p2/
-      - /container/testObject
-      - http://cloud.example.com/container/testObject 
+    * - ``http://cloud.example.com/``
+      - ``container/testObject``
+      - ``http://cloud.example.com/container/testObject``
+    * - ``http://cloud.example.com/``
+      - ``/container/testObject``
+      - ``http://cloud.example.com/container/testObject``
+    * - ``http://cloud.example.com/p1/``
+      - ``container/testObject``
+      - ``http://cloud.example.com/p1/ccontainer/testObject``
+    * - ``http://cloud.example.com/p1/``
+      - ``/container/testObject``
+      - ``http://cloud.example.com/container/testObject``
+    * - ``http://cloud.example.com/p1/p2/``
+      - ``container/testObject``
+      - ``http://cloud.example.com/p1/p2/container/testObject``
+    * - ``http://cloud.example.com/p1/p2/``
+      - ``/container/testObject``
+      - ``http://cloud.example.com/container/testObject``
 
-This international standard places no restrictions on root and relative URIs. All of the examples in this specification use a root URI of http://cloud.example.com/ and return absolute path references as shown in the second line of :numref:`tbl_relative_uris_resolved_against_root_uris`.
+This international standard places no restrictions on root and relative URIs. All of the examples in this specification use a root URI of ``http://cloud.example.com/`` and return absolute path references as shown in the second line of :numref:`tbl_relative_uris_resolved_against_root_uris`.
 
-* If the root URI is "/", the container located at the root URI shall omit the parentID field and shall return an empty string ("") for the value of the parentURI field. 
-* If the root URI is not "/" and the parent is a CDMI container, the container located at the root URI shall populate parentID field with the CDMI object ID of the CDMI container corresponding to the parent path component, and populate the parentURI field with the URI of the parent path component. 
-* If the root URI is not "/" and the parent is not a CDMI container, the container located at the root URI shall omit the parentID field, and populate the parentURI field with the URI of the parent path component. 
-* If the root URI is not "/" and the parent is not accessible, the server may omit the parentID field and return an empty string ("") for the value of the parentURI field.
+* If the root URI is "``/``", the container located at the root URI shall omit the ``parentID`` field and shall return an empty string ("") for the value of the ``parentURI`` field. 
+* If the root URI is not "``/``" and the parent is a CDMI container, the container located at the root URI shall populate ``parentID`` field with the CDMI object ID of the CDMI container corresponding to the parent path component, and populate the ``parentURI`` field with the URI of the parent path component. 
+* If the root URI is not "``/``" and the parent is not a CDMI container, the container located at the root URI shall omit the ``parentID`` field, and populate the ``parentURI`` field with the URI of the parent path component. 
+* If the root URI is not "``/``" and the parent is not accessible, the server may omit the ``parentID`` field and return an empty string ("") for the value of the ``parentURI`` field.
 
 
 Reserved Characters
 *******************
 
-The name of CDMI data objects, container objects, queue objects, domain objects and capability objects shall not contain the "/" or "?" characters, as these characters are reserved for delimiters.
+The name of CDMI data objects, container objects, queue objects, domain objects and capability objects shall not contain the "``/``" or "``?``" characters, as these characters are reserved for delimiters.
 
 
+.. _time_representations:
 
 ********************
 Time Representations
 ********************
 
-Unless otherwise specified, all date/time values are in the :numref:`iso_8601:2004` extended representation (YYYY-MM-DDThh:mm:ss.ssssssZ). The full precision shall be specified, the sub-second separator shall be a ".", the Z UTC zone indicator shall be included, and all timestamps shall be in UTC time zone. The YYYY-MM-DDT24:00:00.000000Z hour shall not be used, and instead, it shall be represented as YYYY-MM-DDT00:00:00.000000Z. 
+Unless otherwise specified, all date/time values are in the ISO 8601:2004 extended representation ("``YYYY-MM-DDThh:mm:ss.ssssssZ``"). The full precision shall be specified, the sub-second separator shall be a "``.``", the "``Z``" UTC zone indicator shall be included, and all timestamps shall be in UTC time zone. The "``YYYY-MM-DDT24:00:00.000000Z``" hour shall not be used, and instead, it shall be represented as "``YYYY-MM-DDT00:00:00.000000Z``". 
 
-Unless otherwise specified, all date/time intervals are in the :numref:`ref_iso_8601:2004` start date/end date representation (YYYY-MM-DDThh:mm:ss.ssssssZ/YYYY-MM-DDThh:mm:ss.ssssssZ). The end date shall be equal to or later than the start date. The full precision shall be specified, the sub-second separator shall be a ".", the Z UTC zone indicator shall be included, and all timestamps shall be in UTC time zone. The YYYY-MM-DDT24:00:00.000000Z hour shall not be used, and instead, it shall be represented as YYYY-MM-DDT00:00:00.000000Z. 
-
+Unless otherwise specified, all date/time intervals are in the ISO 8601:2004 start date/end date representation ("``YYYY-MM-DDThh:mm:ss.ssssssZ/YYYY-MM-DDThh:mm:ss.ssssssZ``"). The end date shall be equal to or later than the start date. The full precision shall be specified, the sub-second separator shall be a "``.``", the "``Z``" UTC zone indicator shall be included, and all timestamps shall be in UTC time zone. The "``YYYY-MM-DDT24:00:00.000000Z`` hour shall not be used, and instead, it shall be represented as "``YYYY-MM-DDT00:00:00.000000Z``". 
 
 ***********************
 Backwards Compatibility
@@ -549,12 +502,11 @@ CDMI client and server implementations shall implement the following measures to
 Specification Version Header
 ****************************
 
-CDMI 2.x clients shall not include the X-CDMI-SPECIFICATION-VERSION custom header. When a CDMI 2.x client connects performs an operation against a CDMI 1.x Server, the absence of this header will result in an error response from the CDMI server. The client may use the presence of a X-CDMI-SPECIFICATION-VERSION header in an error response as an indication to down-negotiate to CDMI 1.x.
+CDMI 2.x clients shall not include the ``X-CDMI-Specification-Version`` custom header. When a CDMI 2.x client connects performs an operation against a CDMI 1.x Server, the absence of this header will result in an error response from the CDMI server. The client may use the presence of a ``X-CDMI-Specification-Version`` header in an error response as an indication to down-negotiate to CDMI 1.x.
 
-CDMI 2.x servers may use the presence of the X-CDMI-SPECIFICATION-VERSION custom header from a CDMI 1.x client to down-negotiate to CDMI 1.x.
+CDMI 2.x servers may use the presence of the ``X-CDMI-Specification-Version`` custom header from a CDMI 1.x client to down-negotiate to CDMI 1.x.
 
-See the CDMI 1.1.1 specification for more details on backwards compatiblity.
-
+See the CDMI 1.1.1 Specification for more details on backwards compatiblity.
 
 *****************
 Object References
@@ -562,7 +514,7 @@ Object References
 
 Object references are URIs within the cloud storage namespace that redirect to another URI within the same or another cloud storage namespace. References are similar to soft links in a file system. The cloud does not guarantee that the referenced URI will be valid after the time of creation.
 
-References are visible as children in a container and are distinguished from non-references in container children listings by the presence of a trailing "?" character added to the reference name. Performing an operation (with the exception of create or delete) to a reference URI will result in an HTTP status code of ``302 Found``, with the HTTP Location header containing the absolute redirect destination URI that was specified at the time the reference was created. The reference’s destination URI shall not be changed after a reference has been created.
+References are visible as children in a container and are distinguished from non-references in container children listings by the presence of a trailing "``?``" character added to the reference name. Performing an operation (with the exception of create or delete) to a reference URI will result in an HTTP status code of ``302 Found``, with the HTTP Location header containing the absolute redirect destination URI that was specified at the time the reference was created. The reference’s destination URI shall not be changed after a reference has been created.
 
 To continue, when CDMI clients receive an HTTP status code of ``302 Found``, they should retry the operation using the URI contained within the Location header.
 
