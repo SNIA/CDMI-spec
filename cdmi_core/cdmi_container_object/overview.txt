@@ -49,7 +49,7 @@ Container Object Addressing
 Container objects are addressed in CDMI in two ways:
 
 * by name (e.g. ``http://cloud.example.com/container/``); and
-* by object ID (e.g. ``http://cloud.example.com/cdmi_objectid/00007ED900104E1D14771DC67C27BF8B/``).
+* by ID (e.g. ``http://cloud.example.com/cdmi_objectid/00007ED900104E1D14771DC67C27BF8B/``).
 
 Every container object has a single, globally-unique object ID that remains constant for the life of the object. Each container object may also have one or more URI addresses that allow the container object to be accessed.
 
