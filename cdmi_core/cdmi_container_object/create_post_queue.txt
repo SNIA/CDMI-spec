@@ -331,7 +331,6 @@ EXAMPLE 1: POST to the container object URI the queue object contents:
         Host: cloud.example.com
         ``Content-Type: application/cdmi-queue``
         Accept: application/cdmi-queue
-        X-CDMI-Specification-Version: 1.1
          
         {
         }
@@ -342,7 +341,6 @@ The following shows the response.
 
         HTTP/1.1 201 Created
         Content-Type: application/cdmi-queue 
-        X-CDMI-Specification-Version: 1.1 
         Location: http://cloud.example.com/MyContainer/00007ED900104E1D14771DC67C27BF8B
          
         {
