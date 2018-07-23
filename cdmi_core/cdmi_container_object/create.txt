@@ -368,7 +368,6 @@ EXAMPLE 1: PUT to the URI the container object name and metadata:
    
     HTTP/1.1 201 Created
     Content-Type: application/cdmi-container
-    X-CDMI-Specification-Version: 1.1
     
     {
         "objectType" : "application/cdmi-container",
