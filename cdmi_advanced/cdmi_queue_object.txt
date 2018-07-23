@@ -3,16 +3,68 @@
 Queue Object Resource Operations using CDMI
 ===========================================
 
-
 Overview
 ********
 
-Queue objects provide first-in, first-out access when storing and retrieving data. A queue object writer POSTs data into a queue object, and a queue object reader GETs value(s) from the queue object and subsequently deletes the value(s) to acknowledge receipt of the value(s) that it received. Queuing provides a simple mechanism for one or more writers to send data to a single reader in a reliable way. If supported by the cloud storage system, cloud clients create the queue objects by using the mechanism described in :numref:`ref_create_post_a_new_queue_object_using_cdmi` and this clause.
+Queue objects are similar to data objects, only with first-in, first-out access "queue"-style accesse semantics when storing and retrieving value data.
 
-Queue objects are addressed in CDMI™ in two ways:
+If a cloud storage system supports queues, the ``cdmi_queues`` system-wide capability shall be present. The ability to create a queue object is determiend by the presence or absence of the ``cdmi_create_queue`` and ``cdmi_post_queue`` capabilities in the parent container, and by the ``cdmi_post_queue_by_ID`` system-wide capability for creation by ID.
 
-* by name (e.g., http://cloud.example.com/queueobject); and
-* by object ID (e.g., http://cloud.example.com/cdmi_objectid/00007ED900104F67307652BAC9A37C93/).
+A queue object writer POSTs data into a queue object, and a queue object reader GETs value(s) from the queue object and subsequently deletes the value(s) to acknowledge receipt of the value(s) that it received. Queues provides a simple mechanism for one or more writers to send data to a single reader in a reliable way. If supported by the cloud storage system, cloud clients create the queue objects by using the mechanism described in :numref:`ref_create_post_a_new_queue_object_using_cdmi` and this clause.
+
+FIXME - Add diagram (Issue #120)
+
+Each CDMI queue object is represented as a JSON object, containing one or more "fields". For example, the "``metadata``" field contains metadata items.
+
+EXAMPLE 1: CDMI Queue Object
+
+  .. code-block:: http
+
+      {
+          "objectType": "application/cdmi-queue",
+          "objectID": "00007E7F00104BE66AB53A9572F9F51E",
+          "objectName": "MyQueue",
+          "parentURI": "/MyContainer/",
+          "parentID" : "00007ED900104F67307652BAC9A37C93", 
+          "domainURI": "/cdmi_domains/MyDomain/",
+          "capabilitiesURI": "/cdmi_capabilities/queue/",
+          "completionStatus": "Complete",
+          "metadata": {},
+          "queueValues": "1-1",
+          "mimetype": [
+              "text/plain"
+          ],
+          "valuerange": [
+              "0-19"
+          ],
+          "valuetransferencoding": [
+              "utf-8"
+          ],
+          "value": [
+              "First Enqueued Value"
+          ]
+      }
+
+The meaning, use, and permitted values of each field is described in each operation that creates, modifies or retreives CDMI queue objects.
+
+Queue Object Addressing
+-----------------------
+
+Queue objects are addressed in CDMI in two ways: 
+
+* by name (e.g., ``http://cloud.example.com/queueobject``); and
+* by ID (e.g., ``http://cloud.example.com/cdmi_objectid/00007ED900104F67307652BAC9A37C93/``).
+
+
+
+
+
+
+Queue objects can be created in any container where the ``cdmi_create_queue`` capability is present. , and is also supported by creation by ID in the ``cdmi_objectID`` container. 
+
+
+
+
 
 Every queue object has a single, globally-unique object identifier (ID) that remains constant for the life of the object. Each queue object shall have one or more URI addresses that allow the object to be accessed.  
 
@@ -711,7 +763,8 @@ If individual fields are specified in the GET request, only these fields are ret
 
 Response Status
 ---------------
-:numref:`tbl_cdmi_queue_object_read_response_status` describes the HTTP status codes that occur when reading a queue object using CDMI. 
+
+:numref:`tbl_cdmi_queue_object_read_response_status` describes the HTTP status codes that occur when reading a queue object using CDMI. 
 
 .. _tbl_cdmi_queue_object_read_response_status:
 
@@ -1074,7 +1127,8 @@ A response body may be provided as per :rfc:`2616`.
 
 Response Status
 ---------------
- :numref:`tbl_cdmi_queue_object_update_response_status` describes the HTTP status codes that occur when updating a queue object using CDMI. 
+
+ :numref:`tbl_cdmi_queue_object_update_response_status` describes the HTTP status codes that occur when updating a queue object using CDMI. 
 
 
 .. _tbl_cdmi_queue_object_update_response_status:
@@ -1408,7 +1462,8 @@ A response body may be provided as per :rfc:`2616`.
 
 Response Status
 ---------------
- :numref:`tbl_cdmi_queue_object_value_enqueue_response_status` describes the HTTP status codes that occur when enqueuing a new queue object using CDMI. 
+
+ :numref:`tbl_cdmi_queue_object_value_enqueue_response_status` describes the HTTP status codes that occur when enqueuing a new queue object using CDMI. 
 
 
 .. __tbl_cdmi_queue_object_value_enqueue_response_status:
@@ -1717,7 +1772,8 @@ A response body may be provided as per :rfc:`2616`.
 
 Response Status
 ---------------
-:numref:`tbl_a_queue_object_value_using_cdmi_delete_response_status` describes the HTTP status codes that occur when deleting a queue object value using CDMI. 
+
+:numref:`tbl_a_queue_object_value_using_cdmi_delete_response_status` describes the HTTP status codes that occur when deleting a queue object value using CDMI. 
 
 
 .. _tbl_a_queue_object_value_using_cdmi_delete_response_status:
