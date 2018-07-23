@@ -52,7 +52,6 @@ All code text and HTTP status codes are shown in a fixed-width font, as follows:
     Host: cloud.example.com
     Accept: application/cdmi-object
     Content-Type: application/cdmi-object
-    X-CDMI-Specification-Version: 1.1
 
     {
       "mimetype" : "text/plain",

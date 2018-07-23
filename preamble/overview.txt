@@ -460,7 +460,6 @@ A client retrieving a metadata item named "@user" from a container object with t
     GET /%40MyContainer/?objectName;metadata:%40user HTTP/1.1
     Host: cloud.example.com
     Accept: application/cdmi-container
-    X-CDMI-Specification-Version: 1.1
 
 The response shall be:
 
@@ -468,7 +467,6 @@ The response shall be:
 
     HTTP/1.1 200 OK
     Content-Type: application/cdmi-container
-    X-CDMI-Specification-Version: 1.1
     
     {
         "objectName": "@MyContainer/",
@@ -577,7 +575,6 @@ EXAMPLE 1: GET to a URI, where the URI is a reference:
       GET /MyContainer/MyDataObject.txt HTTP/1.1 
       Host: cloud.example.com 
       Accept: application/cdmi-object 
-      X-CDMI-Specification-Version: 1.1 
 
   The following shows the response.
 
@@ -595,7 +592,6 @@ EXAMPLE 2: GET to an object ID URI, where the URI is a reference:
       GET /cdmi_objectid/00006FFD0010AA33D8CEF9711E0835CA HTTP/1.1 
       Host: cloud.example.com 
       Accept: application/cdmi-object 
-      X-CDMI-Specification-Version: 1.1 
 
   The following shows the response.
 
@@ -611,7 +607,6 @@ EXAMPLE 3: PUT to create a reference:
       PUT /MyContainer/MyDataObject.txt HTTP/1.1
       Host: cloud.example.com Accept: application/cdmi-object
       Content-Type: application/cdmi-object
-      X-CDMI-Specification-Version: 1.1
       
       {
           "reference": "http://cloud.example.com/MyContainer/MyOtherDataObject.txt"
@@ -634,7 +629,6 @@ EXAMPLE 4: POST to create a reference:
       POST /cdmi_objectid/ HTTP/1.1 
       Host: cloud.example.com Accept: application/cdmi-object 
       Content-Type: application/cdmi-object 
-      X-CDMI-Specification-Version: 1.1
       
       {
           "reference": "http://cloud.example.com/MyContainer/MyOtherDataObject.txt"</P>
@@ -653,7 +647,6 @@ EXAMPLE 5: DELETE to delete a reference:
 
       DELETE /MyContainer/MyDataObject.txt HTTP/1.1
       Host: cloud.example.com 
-      X-CDMI-Specification-Version: 1.1
 
   The following shows the response.
 
