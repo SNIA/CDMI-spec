@@ -774,7 +774,7 @@ Where:
 * ``<fieldname>`` is the name of a field.
 * ``<range>`` is a numeric range within the list of children.
 * ``<prefix>`` is a matching prefix that returns all metadata items that start with the prefix value.
-* ``<DomainObjectID>`` is the ID of the data object to be read from.
+* ``<DomainObjectID>`` is the ID of the domain object to be read from.
 
 Capabilities 
 ------------
