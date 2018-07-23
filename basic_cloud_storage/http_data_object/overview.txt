@@ -1,20 +1,14 @@
 .. _http_data_object_overview:
 
-
 Overview
 ********
 
 Data objects are the fundamental storage components within CDMI™ and are analogous to files in a file system.
 
-As CDMI builds on top of, and is compatible with, the HTTP standard (:rfc:`2616`), this allows unmodified HTTP clients to communicate with a CDMI server. This also 
-allows CDMI operations to coexist with other HTTP-based storage protocols, such as WebDAV, S3, and OpenStack Swift. 
+As CDMI builds on top of, and is compatible with, the HTTP standard (:rfc:`2616`), this allows unmodified HTTP clients to communicate with a CDMI server. This also allows CDMI operations to coexist with other HTTP-based storage protocols, such as WebDAV, S3, and OpenStack Swift. 
 
-A CDMI server differentiates between HTTP and CDMI operations using the standard Content-Type and Accept headers. When CDMI MIME types defined in :rfc:`6208` are 
-used in these headers, this indicates that CDMI behaviors, as described in :numref:`clause %s <clause_cdmi_data_object>`, are used in addition to the standard 
-HTTP behaviors. When CDMI MIME types are used, the X-CDMI-Specification-Version header is included to indicate which version of CDMI is being requested by the 
-client and provided by the server. 
+A CDMI server differentiates between HTTP and CDMI operations using the standard Content-Type and Accept headers. When CDMI MIME types defined in :rfc:`6208` are used in these headers, this indicates that CDMI behaviors, as described in :numref:`clause %s <clause_cdmi_data_object>`, are used in addition to the standard HTTP behaviors.
 
 In CDMI 1.0.2, basic HTTP operations were described as "Non-CDMI" operations to distinguish them from operations using CDMI MIME types.
 
-A CDMI implementation that supports data objects shall include support for basic data object HTTP operations corresponding with the CDMI capabilities that are 
-published by the implementation. Capabilities allow a client to discover which operations (such as create, update, delete, etc.) are supported and are described in :numref:`clause %s <clause_cdmi_container_object>`.
+A CDMI implementation that supports data objects shall include support for basic data object HTTP operations corresponding with the CDMI capabilities that are published by the implementation. Capabilities allow a client to discover which operations (such as create, update, delete, etc.) are supported and are described in :numref:`clause %s <clause_cdmi_container_object>`.
