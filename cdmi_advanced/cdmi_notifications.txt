@@ -1,9 +1,12 @@
 .. _clause_cdmi_notifications:
 
 Notification Queues
-========================================
+===================
 
-A cloud storage system may optionally implement notification functionality. The implementation of notification is indicated by the presence of the cloud storage system-wide capabilities for notification and requires support for CDMI™ queues.
+Overview
+********
+
+A cloud storage system may optionally implement notification functionality. The implementation of notification is indicated by the presence of the cloud storage system-wide capabilities for notification, and requires support for CDMI™ queues.
 
 Notification queues allow CDMI clients to efficiently discover what changes have occurred to the system. As queue data is persistent, no session state needs to be retained by the client. If different notification queues are used for different clients, then each client operates independently from the others (e.g., a storage management application may use a notification queue to keep its database current without having to do full scans of a container to discover what data objects have been added, modified, or removed).
 
@@ -13,15 +16,22 @@ To create a notification queue, the client creates a regular CDMI queue and adds
 
 After the notification queue is created, all subsequent matching events after the queue creation time shall result in notification results being enqueued into the queue. CDMI does not mandate any specific ordering of events, and clients must be able to handle events that arrive out of order.
 
-When creating a notification queue, the metadata described in :numref:`tbl_required_metadata_for_a_notification_queue` shall be provided. Attempts to change metadata in this table shall result in an HTTP status code of ``403 Forbidden``. After a notification queue has been created, with the exception of cdmi_queue_type, the metadata items in this table cannot be changed. cdmi_queue_type can only be removed, indicating to the system that the notification queue shall no longer receive notifications and shall be treated as a regular CDMI queue object. 
+Required Metadata
+*****************
+
+When creating a notification queue, the metadata described in :numref:`tbl_required_metadata_for_a_notification_queue` shall be provided. Attempts to change metadata in this table shall result in an HTTP status code of ``403 Forbidden``. After a notification queue has been created, with the exception of cdmi_queue_type, the metadata items in this table cannot be changed. ``cdmi_queue_type`` can only be removed, indicating to the system that the notification queue shall no longer receive notifications and shall be treated as a regular CDMI queue object. 
+
+.. tabularcolumns:: |>{\raggedright\arraybackslash}\Y{0.29}
+                    |>{\raggedright\arraybackslash}\Y{0.09}
+                    |>{\raggedright\arraybackslash}\Y{0.48}
+                    |>{\raggedright\arraybackslash}\Y{0.14}|
 
 .. _tbl_required_metadata_for_a_notification_queue:
 
-.. list-table:: .*
+.. list-table:: Required metadata for a notification queue
+    :class: longtable
     :header-rows: 1
-    :widths: auto
     :align: center 
-
 
     * - Metadata Name
       - Type
@@ -29,53 +39,55 @@ When creating a notification queue, the metadata described in :numref:`tbl_requi
       - Requirement
     * - cdmi_queue_type
       - JSON String
-      - The queue type indicates how the cloud storage system shall manage the queue object. The type of cdmi_notification_queue is defined for notification queues.
+      - The queue type indicates how the cloud storage system shall manage the queue object. The type of ``cdmi_notification_queue`` is defined for notification queues.
       - Mandatory
     * - cdmi_notification_events
       - JSON Array of JSON Strings
       - The notification events metadata contains a JSON array that indicates which events generate notifications. Defined values are:
 
-
-        * cdmi_create_processing - Notifications are generated when a new object is created but is still in the "Processing" completion status.
-        * cdmi_create_complete - Notifications are generated when a new object is created immediately or when a new object in the process of being created transitions from the "Processing" completion status. When an object transitions from "Processing" completion status, the "cdmi_event_result" is the HTTP result code that would have been returned if the create operation was not delayed.
-        * cdmi_read - Notifications are generated when an object is read.
-        * cdmi_modify_processing - Notifications are generated when an existing object is modified but is still in the "Processing" completion status.
-
-      - Mandatory
-    * - 
-      - 
-      - * cdmi_modify_complete - Notifications are generated when an existing object is modified and is in the "Complete" completion status. This notification is also generated when an existing object being modified transitions from "Processing" to "Complete". When an object transitions from "Processing" completion status, the "cdmi_event_result" is the HTTP result code that would have been returned if the modify operation was not delayed.
-        * cdmi_rename - Notifications are generated when an object is renamed as part of a move operation. 
-        * cdmi_copy - Notifications are generated for the newly created copied object when the copy is completed.
-        * cdmi_reference - Notifications are generated when a reference is created.
-        * cdmi_delete - Notifications are generated when an object is deleted.
-        * cdmi_export - Notifications are generated when a container is exported.
-        * cdmi_snapshot - Notifications are generated when a container snapshot is created.
+        * ``cdmi_create_processing`` - Notifications are generated when a new object is created but is still in the "Processing" completion status.
+        * ``cdmi_create_complete`` - Notifications are generated when a new object is created immediately or when a new object in the process of being created transitions from the "Processing" completion status. When an object transitions from "Processing" completion status, the "``cdmi_event_result``" is the HTTP result code that would have been returned if the create operation was not delayed.
+        * ``cdmi_read`` - Notifications are generated when an object is read.
+        * ``cdmi_modify_processing`` - Notifications are generated when an existing object is modified but is still in the "``Processing``" completion status.
+        * ``cdmi_modify_complete`` - Notifications are generated when an existing object is modified and is in the "Complete" completion status. This notification is also generated when an existing object being modified transitions from "Processing" to "Complete". When an object transitions from "Processing" completion status, the "``cdmi_event_result``" is the HTTP result code that would have been returned if the modify operation was not delayed.
+        * ``cdmi_rename`` - Notifications are generated when an object is renamed as part of a move operation. 
+        * ``cdmi_copy`` - Notifications are generated for the newly created copied object when the copy is completed.
+        * ``cdmi_reference`` - Notifications are generated when a reference is created.
+        * ``cdmi_delete`` - Notifications are generated when an object is deleted.
+        * ``cdmi_export`` - Notifications are generated when a container is exported.
+        * ``cdmi_snapshot`` - Notifications are generated when a container snapshot is created.
         * <implementor-specific events>
 
-        Clients may include the desired notification event types in the cdmi_notification_events JSON array. If all notifications events are desired, an empty JSON array shall be used.
-      - 
+        Clients may include the desired notification event types in the ``cdmi_notification_events`` JSON array. If all notifications events are desired, an empty JSON array shall be used.
+      - Mandatory
     * - cdmi_scope_specification
       - JSON Array of JSON Objects
       - The scope specification determines the set of objects on which operations trigger the generation of notifications. If notifications are desired for all objects, include an empty JSON array.
+      
+        .. raw:: latex
 
-        See :numref:`scope_specification` for how to construct a scope specification.
+          \vspace*{1ex}
+
+        See :numref:`clause_cdmi_scope` for how to construct a scope specification.
       - Mandatory
     * - cdmi_results_specification
       - JSON Object
-      - The results specification contains the JSON fields to be returned for each object that matches the notification scope specification. See :numref:`ref_results_specification` for how to construct a results specification.
+      - The results specification contains the JSON fields to be returned for each object that matches the notification scope specification. See :numref:`clause_cdmi_results` for how to construct a results specification.
+      
+        .. raw:: latex
 
-        In addition to the fields defined in :numref:`ref_results_specification`, for notifications, four additional fields are defined:
+          \vspace*{1ex}
 
-        * cdmi_event - Indicates the event as specified in the cdmi_notification_events field that triggered the notification;
+        In addition to the fields defined in :numref:`clause_cdmi_results`, for notifications, four additional fields are defined:
+
+        * cdmi_event - Indicates the event as specified in the "``cdmi_notification_events``" field that triggered the notification;
         * cdmi_event_result - Indicates the status result of the event that triggered the notification. The status is the same as the status that was returned over the HTTP request, i.e., ``200 OK``, ``404 Not Found``, etc.;
         * cdmi_event_time - Indicates the time of the event that triggered the notification. The time will be formatted in ISO-8601 time (see :numref:`time_representations` and :numref:`ref_iso_8601:2004`); and
         * cdmi_event_user - Indicates the principal (ACL name) of the user that caused the event that triggered the notification. If the system triggered the event, the name will be left as an empty string. 
-
       - Mandatory
 
 
-#.  The metadata associated with a notification queue is as follows:
+EXAMPLE 1: The metadata associated with a notification queue is as follows:
 
     .. code-block:: json
 
@@ -112,7 +124,7 @@ When creating a notification queue, the metadata described in :numref:`tbl_requi
     When notification results are stored in a notification queue, each enqueued value shall consist of a JSON object of MIME type "application/json". This JSON object contains the specified values requested in the cdmi_results_specification of the notification queue metadata.
 
 
-#.  A notification result JSON object is as follows:
+EXAMPLE 2: A notification result JSON object is as follows:
 
     .. code-block:: json
 
@@ -130,14 +142,21 @@ Objects shall only be included in the notification results if the user who creat
 
 If the administrator created the notification queue, then all matching objects that the administrator is allowed to read are included in the results. If user "jdoe" created the notification queue, then only matching objects that "jdoe" is allowed to read are included in the results.
 
+System-created metadata
+***********************
+
 :numref:`tbl_notification_status_metadata` describes the system-created metadata that provides details on the status of the notification queue.
 
+.. tabularcolumns:: |>{\raggedright\arraybackslash}\Y{0.29}
+                    |>{\raggedright\arraybackslash}\Y{0.09}
+                    |>{\raggedright\arraybackslash}\Y{0.48}
+                    |>{\raggedright\arraybackslash}\Y{0.14}|
 
 .. _tbl_notification_status_metadata:
 
 .. list-table:: Notification Status Metadata
+    :class: longtable
     :header-rows: 1
-    :widths: auto
     :align: center 
 
 
@@ -148,7 +167,6 @@ If the administrator created the notification queue, then all matching objects t
     * - cdmi_notification_status
       - JSON String
       - A string indicating the state of the notification queue. Defined values are: 
-
 
         * Processing - Indicates that the notification queue is scanning for results; 
         * Halted - Indicates that new notifications will no longer be enqueued;
