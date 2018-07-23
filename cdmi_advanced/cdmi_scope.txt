@@ -3,9 +3,8 @@
 Scope Specification
 ===================
 
-
-Introduction
-************
+Overview
+********
 
 CDMI™ provides a standardized mechanism to define sets of objects that match certain characteristics. This mechanism is known as a CDMI scope specification. Scope specifications are typically used to provide a CDMI client with a way to indicate in what set of CDMI objects it is interested.
 
