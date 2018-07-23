@@ -50,7 +50,7 @@ Domain objects are created in a special ``cdmi_domains`` container, found in the
 Domain objects are addressed in CDMI in two ways: 
 
 * by name (e.g., ``http://cloud.example.com/cdmi_domains/myDomain/``); and 
-* by object ID (e.g., ``http://cloud.example.com/cdmi_objectid/00007ED90010329E642EBFBC8B57E9AD/``).
+* by ID (e.g., ``http://cloud.example.com/cdmi_objectid/00007ED90010329E642EBFBC8B57E9AD/``).
 
 Every domain object has a single, globally-unique object ID that remains constant for the life of the object. Each domain object shall also have at least one URI address that allows the domain object to be accessed. Following the URI conventions for hierarchical paths, domain URIs shall start with "``<root URI>/cdmi_domains/``" and consist of one or more domain names that are separated by forward slashes ("``/``") and that end with a forward slash ("``/``"). 
 
