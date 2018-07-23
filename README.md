@@ -32,13 +32,14 @@ Sphinx with LaTeX
    Tested with ActiveState Perl
    https://www.activestate.com/activeperl/downloads
 
-5. Install MikTeX packages
+5. Install required MikTeX packages as follows: 
 
-   a. Open MikTeX console
-   b. Stay in user mode
-   c. Click on "Packages"
-   d. Find and install 'latexmk'
-   e. Other MikTeX packages will be automatically installed during the LaTeX build later on.
+   1. Open MikTeX console from Windows Start menu
+   2. Click on 'Stay in user mode'
+   3. Choose the tab "Packages" on the left side of the window
+   4. Find the package 'latexmk' in the list and install via right-clicking and choosing 'install package'
+   5. Close the window
+   6. Other MikTeX packages will be automatically installed during the LaTeX build later on.
 
 Build
 -----
