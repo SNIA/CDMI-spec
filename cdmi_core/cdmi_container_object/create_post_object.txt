@@ -381,7 +381,6 @@ EXAMPLE 1: POST to the container object URI the data object contents:
       Host: cloud.example.com
       Accept: application/cdmi-object
       Content-Type: application/cdmi-object
-      X-CDMI-Specification-Version: 1.1
        
       {
           "mimetype" : "text/plain",
@@ -397,7 +396,6 @@ The following shows the response.
 
       HTTP/1.1 201 Created
       Content-Type: application/cdmi-object
-      X-CDMI-Specification-Version: 1.1
       Location: http://cloud.example.com/MyContainer/00007ED900104E1D14771DC67C27BF8B 
        
       {
@@ -423,7 +421,6 @@ EXAMPLE 2: POST to the object ID URI the data object contents:
       Host: cloud.example.com 
       Accept: application/cdmi-object 
       Content-Type: application/cdmi-object 
-      X-CDMI-Specification-Version: 1.1 
        
       {
           "mimetype": "text/plain",
@@ -438,7 +435,6 @@ The following shows the response.
       HTTP/1.1 201 Created 
       Location: http://cloud.example.com/cdmi_objectid/00007ED900104E1D14771DC67C27BF8B
       Content-Type: application/cdmi-object 
-      X-CDMI-Specification-Version: 1.1 
        
       {
           "objectType": "application/cdmi-object",
@@ -468,7 +464,6 @@ EXAMPLE 3: POST to the object ID URI the data object fields and binary contents 
       Host: cloud.example.com 
       Accept: application/cdmi-object 
       Content-Type: multipart/mixed; boundary=gc0p4Jq0M2Yt08j34c0p
-      X-CDMI-Specification-Version: 1.1
       
       --gc0p4Jq0M2Yt08j34c0p
       Content-Type: application/cdmi-object
@@ -495,7 +490,6 @@ The following shows the response.
       HTTP/1.1 201 Created
       Location: http://cloud.example.com/cdmi_objectid/00007ED90010C2414303B5C6D4F83170
       Content-Type: application/cdmi-object 
-      X-CDMI-Specification-Version: 1.1
       
       {
           "objectType": "application/cdmi-object", 
