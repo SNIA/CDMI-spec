@@ -80,11 +80,23 @@ The provisions of the referenced specifications other than ISO/IEC, IEC, ISO, an
     RFC 5246
          The Transport Layer Security (TLS) Protocol Version 1.2 - see :rfc:`5246`
 
+	RFC 5652
+		 Cryptographic Message Syntac (CMS) - see :rfc:`5652`
+		 
     RFC 6208
          Cloud Data Management Interface (CDMI) Media Types - see :rfc:`6208`
 
     RFC 6839
          Additional Media Type Structured Syntax Suffixes - see :rfc:`6839`
 
+	RFC 7515
+		 JSON Web Signatures - see :rfc:`7515`
+		 
+	RFC 7516
+		 JSON Web Encryption - see :rfc:`7516`
+
+	RFC 7518
+		 JSON Web Algorithms - see :rfc:`7518`
+		 
     SNIA TLS
          TLS Specification for Storage Systems, version 1.0 - https://snia.org/tech_activities/standards/curr_standards/tls
