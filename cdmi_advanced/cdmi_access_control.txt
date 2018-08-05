@@ -383,7 +383,991 @@ An example of a packaged DAC request is shown below [#]_:
 Once created, the packaged DAC request shall be submitted using the DAC request URI specified in the DAC object metadata, for example, as an HTTP PUT operation of type "``application/json``", or via an SMTP email. The ``dac_request_dest_certificate`` and ``dac_request_dest_uri`` may be used to route the request through intermediary hops, as needed.
 
 
+.. _ref_dac_response:
 
+DAC Response
+************
+
+When a DAC provider receives a DAC request, it shall decrypt the request using its private key, verify the signature of the CDMI server, and shall evaluate the request. Based on the information provided, the DAC provider shall allow or deny operations by modifying or replacing the ACL mask that was initially determined by the CDMI server.
+
+To indicate the result of the DAC request to the requesting CDMI server, the DAC provider shall construct a DAC response, as specified below:
+
+
+.. _tbl_dac_response:
+
+.. list-table:: DAC Response
+    :header-rows: 1
+    :widths: auto
+    :align: center 
+
+    * - Field Name	
+      - Type	
+      - Description	
+      - Requirement
+    * - dac_response_version	
+      - JSON String	
+      - Indicates the version of the DAC response. This field shall be set to the value "``1``".
+      - Mandatory
+    * - dac_response_id	
+      - JSON String	
+      - Contains the system-specified identifier specified in the corresponding ``dac_request_id``.	
+      - Mandatory
+    * - dac_applied_mask	
+      - JSON String	
+      - A text or hexadecimal string representation of the ACE mask that shall be used, as defined in :numref:`clause %s <ref_ace_bit_masks>`.	
+      - Mandatory
+    * - dac_object_key	
+      - JSON Object	
+      - The key for the object in JWK format (See :rfc:`7517`). This key is only disclosed when ``cdmi_enc_key_id`` is included in the DAC request and the DAC provider allows access. 	
+      - Optional
+    * - dac_response_headers	
+      - JSON Object	
+      - A series of headers that start with "``CDMI-DAC-``" to be returned to the client.
+
+        These headers can be used to pass information from the DAC provider back to the client.	
+      - Optional
+    * - dac_key_cache_expiry	
+      - JSON String	
+      - The complete date/time when the object key is no longer to be cached, specified in ISO 8601 date/time format.
+      
+        If this field is not included, the key shall not be cached.	
+      - Optional
+    * - dac_response_cache_expiry	
+      - JSON String	
+      - The complete date/time when the DAC response is no longer to be cached, specified in ISO 8601 date/time format.
+
+        If this field is not included, the response shall not be cached.	
+      - Optional
+    * - dac_redirect_objectID	
+      - JSON String	
+      - Indicates an alternate CDMI Object ID used to access the requested object. If present, the CDMI server shall send an HTTP Redirect to the client.	
+      - Optional
+    * - dac_audit_uri	
+      - JSON String	
+      - Indicates a URI to a CDMI queue where audit logging messages associated with the operations shall be submitted.
+
+        When present, audit logging messages shall be generated for receiving the response, performing the operation, and determining when to purge the key (see :numref:`clause %s <ref_object_logging>`).	
+        
+      - Optional
+
+An example of a DAC response is shown below:
+
+.. code-block:: json
+
+    {
+       "dac_response_version": "1",
+       "dac_response_id": "037130fa-da72-44f0-8a31-62073263ac95",
+       "dac_applied_mask": "ALL_PERMS",
+       "dac_response_headers": {
+          "CDMI-DAC-AuthInfo": "No key requested."
+       },
+       "dac_response_cache_expiry": "2017-04-06T15:06:01.554Z"
+    }
+
+.. _ref_packaged_dac_response:    
+    
+Packaged DAC Response
+*********************
+The above JSON (DAC response) shall be encrypted in JWE format where the recipient is the public key of the CDMI server certificate (as specified in the DAC request), and is JWS-signed using the private key of the DAC provider that corresponds to the DAC provider identity certificate associated with the object (``cdmi_dac_certificate``), or with a different signing, included in a jku/jwk/x5u or x5c JOSE header to allow retrieval of the public signing verification key.
+
+The certificate of the CDMI server is then attached:
+
+.. _tbl_packaged_dac_response:
+
+.. list-table:: Packaged DAC Response
+    :header-rows: 1
+    :widths: auto
+    :align: center 
+
+    * - Field Name	
+      - Type	
+      - Description	
+      - Requirement
+    * - dac_response	
+      - JSON Object	
+      - JOSE encrypted and signed response	
+      - Mandatory
+    * - dac_response_dest_certificate	
+      - JSON Object	
+      - The contents of the DAC request ``server_identity`` field.	
+      - Mandatory
+    * - dac_response_dest_uri	
+      - JSON String	
+      - The contents of the DAC request ``dac_response_uri`` field, if present
+      - Optional
+
+An example of a packaged DAC response is shown below [#]_:
+
+.. [#] Decrypt with "d": "huCoV1iC24rZ3uF5q-1HHlGb2UcC6Ue9oNezEQNzUB8"
+
+.. code-block:: json
+
+    {
+       "dac_response": {
+          "protected": 
+             "eyJqd2siOiJ7XCJrdHlcIjpcIkVDXCIsXCJ4XCI6XCJnb3FoUmdNNGh5RWgxcC1m
+              RDFvVTE1UUFnZEtYc0JaVFFfMEItSWdTejZNXCIsXCJ5XCI6XCJjZDhSVG04dUxU
+              R2JsSXppb0F6djhkeklrTTg1YzA4bzIzZWtzSnJEdDJZXCIsXCJjcnZcIjpcIlAt
+              MjU2XCJ9IiwiYWxnIjoiRVMyNTYifQ",
+          "payload": 
+             "eyJwcm90ZWN0ZWQiOiJleUpoYkdjaU9pSkZRMFJJTFVWVElpd2laVzVqSWpvaVFU
+              STFOa2REVFNJc0ltVndheUk2ZXlKcmRIa2lPaUpGUXlJc0luZ2lPaUpNVUVReWRX
+              WmlkMUpmT0hoU2FWRlRNMWN3YUZSbU5tWnlXWEZDU0hWYU4xQTVUbEEzVFdaVFEy
+              MDRJaXdpZVNJNklqWmhiMWgxUzJFeVVqZHNTMW93YlU5UlJUQmFlV0pQU2pKWlYy
+              bzNOM1l3Wm5GWU1ESnBiRE5EVUVVaUxDSmpjbllpT2lKUUxUSTFOaUo5ZlEiLCJl
+              bmNyeXB0ZWRfa2V5IjoiIiwiaXYiOiJYMFhTUDNZVTNBUkJwQ1NlIiwiY2lwaGVy
+              dGV4dCI6Ik5DQXE1dnBCeUVaVERJcHlWem5Gemxtbm1JU09sVk5uNGpSUUtKWjB5
+              c0s0dzZPcDYtNE94cGtvVVY5WUFvbDhmdUVOeFFMdjFBQUpDWXB3M0ZFelRrMEpG
+              VmU1NWE0UlNIVkhnSlJmMEhiWjlxbk5aOHY0d1JUaXBGS0RsakpvLUhXOG82bzlM
+              czV2YmRVTGJPRk9Db3RTTGZuekdSQ3lMV3Z2TUZaS3BHXzM1b21PeFpNcW1oN2Ro
+              c3IxMmF6cHdkSnJKX084TTFkVHdDaWZxeURlWWFpNGM4M3U4TUhieDdETldRWkhH
+              QnIzT1J0bDhaWGJTQW9OQ09fVWRpdU8zWXZmWmNiWU51TTY2UXBZbDFobENSaDJO
+              eEZtLW12VUR0a1VoaXR5cTdyZ3BSbWZoYndKNklCaGdpdyIsInRhZyI6Ijh3YWx6
+              T0Q4U3hWTC1STXY3OXlTZGcifQ",
+          "signature": 
+             "8-09XlWUUDsXXqoEh5EKIAYEOTR-vtAYqauW1aNfdv2Io9B4RCuALl3zi7i27vbo
+              TYvHxnFa7K6HJPygsAVn5g "
+       },
+       "dac_response_dest_certificate": {
+          "kty": "EC",
+          "x": "joyfi05KEI3hcOhJeOfny_TWsZ9FFS1zUydFQhm3G78",
+          "y": "Nsk3jX1ph0FH8APR2k0XSu6pDZYyF7f_Okplf7hZ_8k",
+          "crv": "P-256"
+       }
+    }
+
+    
+Once created, the packaged DAC response shall be returned as the response to the HTTPS/HTTP request, or submitted using the DAC response URI specified in the DAC request, for example, as an HTTP PUT operation or via an SMTP email. The ``dac_response_dest_certificate`` and ``dac_response_dest_uri`` may also be used to route the request through intermediary hops if needed, as determined by the routing system, which is out of scope of this standard.
+
+When the CDMI server receives a packaged DAC response message, it shall decrypt it using its private key and shall verify the signature. If the decryption and signature verification are successful, the CDMI server shall use the provided ``dac_applied_mask`` in place of the ACL computed mask.
+
+If the CDMI server supports key or DAC response caching, cache expiry values shall be honored. Cached responses and keys can only be used for identical client operations, where the client identity, objectID, operation, and "CDMI-DAC-" request headers are identical. Otherwise, the cached response shall be expired. If an audit URI is present in the cached response, audit messages shall also be generated for all operations allowed using the cached response.
+
+The CDMI server shall also implement audit logging when specified in the DAC response. If the CDMI server does not support audit logging and it is required by a DAC response, the operation shall be denied.
+
+If a ``dac_redirect_objectID`` field is returned in the DAC response, the CDMI server shall return an HTTP redirect to the specified Object ID. This redirect allows a DAC provider to create a client-operation-specific instance of the object that is encrypted with a single-use key.
+
+
+Error Handling
+**************
+
+In the following scenarios, the following HTTP response codes shall be returned to a client:
+
+-	When a DAC response denies the requested operation, an HTTP status code of ``403 Forbidden`` shall be returned to the client along with any ``dac_response_headers`` included in the response.
+-	When a DAC response includes a ``dac_redirect_objectID``, an HTTP status code of ``302 Found`` shall be returned to the client along with any ``dac_response_headers`` included in the response.
+-	When a DAC request to access or modify an encrypted object is allowed, but the key is not included in the DAC response, an HTTP status code of ``401 Unauthorized`` shall be returned to the client along with any ``dac_response_headers`` included in the response.
+-	When a DAC request to access or modify an encrypted object is allowed, but cannot be performed due to lack of support for an encryption algorithm, signing algorithm, or key type, an HTTP status code of ``501 Not Implemented`` shall be returned along with any ``dac_response_headers`` included in the response.
+-	When a DAC request times out, an HTTP status code of ``500 Internal Server Error`` shall be returned to the client.
+-	When a DAC request cannot be sent or routed because the DAC metadata is not supported or valid, an HTTP status code of ``501 Not Implemented`` shall be returned to the client. 
+-	When a DAC request cannot be sent or routed because an upstream system is unavailable, an HTTP status code of ``500 Internal Server Error`` shall be returned to the client.
+
+
+
+Examples
+********
+
+The following examples illustrate the primary ways that DAC requests are performed.
+
+
+EXAMPLE 1: GET ciphertext of encrypted object with delegated access control
+
+    The following CDMI operation is performed against an encrypted CDMI object with delegated access control metadata:
+
+    .. code-block:: http
+
+        GET /MyContainer/MyEncryptedObject.txt HTTP/1.1
+        Host: cloud.example.com
+        Accept: application/cms, application/jose+json
+
+    The CDMI server verifies local access controls and determines that the request can proceed. The following DAC request is generated:
+
+
+    .. code-block:: json
+    
+        {
+           "dac_request_version": "1",
+           "dac_request_id": "5b801b19-479e-446d-882a-8483f7c4905c",
+           "server_identity": {
+              "kty": "EC",
+              "x": "joyfi05KEI3hcOhJeOfny_TWsZ9FFS1zUydFQhm3G78",
+              "y": "Nsk3jX1ph0FH8APR2k0XSu6pDZYyF7f_Okplf7hZ_8k",
+              "crv": "P-256"
+           },
+           "client_identity": {
+              "acl_name": "anonymous",
+              "acl_group": ["guest"]
+           },
+           "acl_effective_mask": "READ_ALL",
+           "client_headers": {},
+           "cdmi_objectID": "0000000800182F9E64313363323731622D363536662D3465",
+           "cdmi_operation": "cdmi_read"
+        }
+        
+    This request is first JWE encrypted with the key in cdmi_dac_certificate. The result is JWS signed, using either the key in server_identity, or a different key embedded in the JWS header.
+
+    The DAC provider verifies, decryptes and processes the request and returns the following DAC response:
+
+
+    .. code-block:: json
+
+        {
+           "dac_response_version": "1",
+           "dac_response_id": "5b801b19-479e-446d-882a-8483f7c4905c",
+              "dac_applied_mask": "ALL_PERMS",
+           "dac_response_headers": {
+              "CDMI-DAC-AuthInfo": "No key requested."
+           }
+        }
+        
+    The ``CDMI-DAC-AuthInfo`` indicates a custom header. 
+    
+    Since the operation is allowed by the DAC provider, the following response is sent:
+    
+    .. code-block:: http
+        
+        HTTP/1.1 200 OK
+        Content-Type: application/jose+json
+        Content-Length: 290
+        CDMI-DAC-AuthInfo: No key requested.
+        
+        <JOSE+JSON Encrypted Object>
+
+EXAMPLE 2: GET ciphertext of encrypted object with passthrough key access
+
+    The following CDMI operation is performed against an encrypted CDMI object with delegated access control metadata:
+
+    .. code-block:: http
+
+        GET /MyContainer/MyEncryptedObject.txt HTTP/1.1
+        Host: cloud.example.com
+        Accept: application/cms, application/jose+json
+        Authorization: Basic am9lOnBhc3N3b3Jk
+        CDMI-DAC-N: <vendor-specific header that indicates key passthrough>
+
+    The CDMI server verifies local access controls and determines that the request can proceed. The following DAC request is generated. The ``CDMI-DAC-N`` is a custom header that indicates that the client wants to obtain the object decryption key via header pass-through. 
+    
+    To demonstrate the power of such custom headers: the ``CDMI-DAC-N`` request header could contain a cell phone number. The matching response header would then contain a password-based encryption of the object key, while the password will be delivered via a message to the cell phone. It is up to the vendor to come up with and implement such mechanisms.
+
+
+    .. code-block:: json
+    
+        {
+           "dac_request_version": "1",
+           "dac_request_id": "77b54650-183f-4053-8512-be08f7c6c50e",
+           "server_identity": {
+              "kty": "EC",
+              "x": "joyfi05KEI3hcOhJeOfny_TWsZ9FFS1zUydFQhm3G78",
+              "y": "Nsk3jX1ph0FH8APR2k0XSu6pDZYyF7f_Okplf7hZ_8k",
+              "crv": "P-256"
+           },
+           "client_identity": {
+              "acl_name": "joe",
+              "acl_group": ["users"]
+           },
+           "acl_effective_mask": "READ_ALL",
+           "client_headers": {
+              "CDMI-DAC-N": "<copy from headers>"
+           },
+           "cdmi_objectID": "0000000800182F9E64313363323731622D363536662D3465",
+           "cdmi_operation": "cdmi_read"
+        }
+        
+    This request is first JWE encrypted with the key in ``cdmi_dac_certificate``. The result is JWS signed, either using the key in ``server_identity``, or a different key embedded in the JWS header. Replication of these encrypted messages is not useful and will be skipped.
+    
+    The DAC provider processes the request, obtains the object decryption key and embeds it as a dac_response_header, then returns the following DAC response:
+
+
+    .. code-block:: json
+    
+        {
+           "dac_response_version": "1",
+           "dac_response_id": "5b801b19-479e-446d-882a-8483f7c4905c",
+           "dac_applied_mask": "ALL_PERMS",
+           "dac_response_headers": {
+              "CDMI-DAC-AuthInfo": "Key successfully retrieved from keyserver."
+              "CDMI-DAC-N": "<vendor-specific decryption key info>"
+           }
+        }
+        
+        
+    Since the operation is allowed by the DAC provider, the following response is sent:
+
+    .. code-block:: http
+
+        HTTP/1.1 200 OK
+        Content-Type: application/jose+json
+        Content-Length: 290
+        CDMI-DAC-AuthInfo: Key successfully retrieved from keyserver.
+        CDMI-DAC-N: <vendor-specific decryption key info>
+
+        <JOSE+JSON Encrypted Object>
+
+    The client can now parse the key in the ``CDMI-DAC-N`` header and use it to decrypt the ciphertext.
+
+    
+EXAMPLE 3: GET plaintext of encrypted object with delegated access control
+
+    The following CDMI operation is performed against an encrypted CDMI object with delegated access control metadata:
+
+    .. code-block:: http
+
+        GET /MyContainer/MyEncryptedObject.txt HTTP/1.1
+        Host: cloud.example.com
+        Accept: */*
+        Authorization: Basic am9lOnBhc3N3b3Jk
+
+    The CDMI server verifies local access controls and determines that the request can proceed. The following DAC request is generated:
+
+    .. code-block:: json
+
+        {
+           "dac_request_version": "1",
+           "dac_request_id": "b79d7619-1bbd-45a1-b2d3-5753f7fc5155",
+           "server_identity": {
+              "kty": "EC",
+              "x": "joyfi05KEI3hcOhJeOfny_TWsZ9FFS1zUydFQhm3G78",
+              "y": "Nsk3jX1ph0FH8APR2k0XSu6pDZYyF7f_Okplf7hZ_8k",
+              "crv": "P-256"
+           },
+           "client_identity": {
+              "acl_name": "joe",
+              "acl_group": ["users"]
+           },
+           "acl_effective_mask": "READ_ALL",
+           "client_headers": {},
+           "cdmi_objectID": "0000000800182F9E64313363323731622D363536662D3465",
+           "cdmi_operation": "cdmi_read",
+           "cdmi_enc_key_id": "0000000800182F9E64313363323731622D363536662D3465"
+        }
+
+       
+    The DAC provider processes the request, obtains the object decryption key and returns the following DAC response:
+
+
+    .. code-block:: json
+
+        {
+           "dac_response_version": "1",
+           "dac_response_id": "b79d7619-1bbd-45a1-b2d3-5753f7fc5155",
+           "dac_applied_mask": "ALL_PERMS",
+           "dac_object_key": {
+              "kty": "oct",
+              "kid": "0000000800182F9E64313363323731622D363536662D3465",
+              "use": "enc",
+              "alg": "dir",
+              "k": "vBX811eh8ydyI08by7L13kZKNmfRHTAMZa5vJqMCHQU"
+           },
+           "dac_response_headers": {
+              "CDMI-DAC-AuthInfo": "Key successfully obtained from KMS."
+           }
+           "dac_key_cache_expiry": "2017-04-05T14:58:58Z",
+           "dac_response_cache_expiry": "2017-04-05T14:58:58Z"
+        }
+
+    Since the operation is allowed by the DAC provider and the key is provided, the object is decrypted by the CDMI server and the following response is sent:
+
+
+    .. code-block:: http
+
+        HTTP/1.1 200 OK
+        Content-Type: text/plain
+        Content-Length: 252
+
+        <Decrypted contents of Encrypted Value>
+
+EXAMPLE 4: RSA Example
+
+    In this example, there are two hospitals (A and B), that both have CDMI servers, and federate objects between them. At some point, the following encrypted object has been made at hospital A. It containts a cdmi_dac_certificate and cdmi_dac_uri that indicate how access can be requested at hospital A. The cerificate contains a 2048-bit RSA encryption key, with a matching X.509 certification chain that can be used to verify the certificate.
+
+    .. code-block:: json
+
+        {
+           "objectType": "application/cdmi-object",
+           "objectName": "MyEncryptedObject.txt",
+           "capabilitiesURI": "/cdmi_capabilities/dataobject/",
+           "objectID": "000000080018F34436313131393061372D613735302D3438",
+           "mimetype": "application/jose+json",
+           "metadata": {
+              "cdmi_size": "306",
+              "cdmi_dac_uri": "https://cdmi.hos-a.fr:9001/dac/",
+              "cdmi_atime": "2017-04-06T14:06:34",
+              "cdmi_enc_key_id": "encryption_key_1",
+              "cdmi_dac_certificate": {
+                 "kty": "RSA",
+                 "kid": "cdmi.hos-a.fr_encrypt_public",
+                 "key_ops": [
+                   "wrapKey",
+                   "unwrapKey",
+                   "encrypt",
+                   "decrypt"
+                 ],
+                 "n": 
+                    "uL7ANgD80H5sNqo3nHzovPRxgncQLhz0oQvGMVvULCkrYXMaXZ5sNv7fT6UdMSZi
+                     T-e0sthapmEqrpeV9RKHsiF3COGl2YndUHixpEkHp8y1ggcH6iTzoBsgXMZ7OLW-
+                     mJ2RW3rodT7k-tcozYYsTSM5egMPQSAKgt0nMnPmdNRnEyA2_NJ8Y7lNkEXyja0Q
+                     JLstzkP8-cKS0BkEquLQEMbZVRM6U5uG69cj1i9OWvuRzPoaATKyt6Cc4f6PUu9L
+                     OyCBUAs9dXsRrt3B8H1qe7io7FAAcOpcUDKDnLFXS1THc37DK_zEyKZcMttjCvEl
+                     Ovt-cIaokdnxJeggv9AFGQ",
+                 "e": "AQAB",
+                 "x5c": [
+                   "MIIDMDCCAhigAwIBAgIBBDANBgkqhkiG9w0BAQsFADBCMQswCQYDVQQGEwJubDER
+                    MA8GA1UEChMIbGllc2RvbmsxDTALBgNVBAsTBGNkbWkxETAPBgNVBAMTCHJzYS1y
+                    b290MCAXDTE2MTAyNzEyNDUwMFoYDzk5OTkxMjMxMjM1OTU5WjA1MQswCQYDVQQG
+                    EwJmcjEOMAwGA1UEChMFaG9zLWExFjAUBgNVBAMTDWNkbWkuaG9zLWEuZnIwggEi
+                    MA0GCSqGSIb3DQEBAQUAA4IBDwAwggEKAoIBAQC4vsA2APzQfmw2qjecfOi89HGC
+                    dxAuHPShC8YxW9QsKSthcxpdnmw2/t9PpR0xJmJP57Sy2FqmYSqul5X1EoeyIXcI
+                    4aXZid1QeLGkSQenzLWCBwfqJPOgGyBcxns4tb6YnZFbeuh1PuT61yjNhixNIzl6
+                    Aw9BIAqC3Scyc+Z01GcTIDb80nxjuU2QRfKNrRAkuy3OQ/z5wpLQGQSq4tAQxtlV
+                    EzpTm4br1yPWL05a+5HM+hoBMrK3oJzh/o9S70s7IIFQCz11exGu3cHwfWp7uKjs
+                    UABw6lxQMoOcsVdLVMdzfsMr/MTIplwy22MK8SU6+35whqiR2fEl6CC/0AUZAgMB
+                    AAGjPDA6MAwGA1UdEwEB/wQCMAAwHQYDVR0OBBYEFBAIGICMR5H6KLKMlZAEhCCc
+                    KwE9MAsGA1UdDwQEAwIEMDANBgkqhkiG9w0BAQsFAAOCAQEAANYSSryUU6112pYM
+                    r83M3GWnjzu16B+4KgimZ8kbey94zNPdwmwQdSe0Xmg+1Otc6VUB40ouNnwK8efB
+                    aWBtXwCA7Nb715nTqo2+rn+X+A0mGrYaKkToPEe8ZYwDcOlOpNC9JFE+QgP9/CJa
+                    AaWrf95W+4kra2WnA4Bhqu2WWXnQkL47/nKcGVZgQAH+mVnxPaI0gELYdonXU/S2
+                    8HqxoyjpGL/vmyc46zUbxYsgx/jiE7J0fJVP6Yk/3dlNYCCpLtV8VmzFAQAeCcn8
+                    AWowFcd09a4SY09rn1MUv/rrvXpzflfn9j7PtRRFj2e/KhitmOH1zKDuYzREpUOu
+                    TDlPIQ==",
+                   "MIIDQDCCAiigAwIBAgIBATANBgkqhkiG9w0BAQsFADBCMQswCQYDVQQGEwJubDER
+                    MA8GA1UEChMIbGllc2RvbmsxDTALBgNVBAsTBGNkbWkxETAPBgNVBAMTCHJzYS1y
+                    b290MCAXDTE2MTAyNzEyNDQwMFoYDzk5OTkxMjMxMjM1OTU5WjBCMQswCQYDVQQG
+                    EwJubDERMA8GA1UEChMIbGllc2RvbmsxDTALBgNVBAsTBGNkbWkxETAPBgNVBAMT
+                    CHJzYS1yb290MIIBIjANBgkqhkiG9w0BAQEFAAOCAQ8AMIIBCgKCAQEAsrUj46dx
+                    5ojlaZk7YtOL6e+Q6JoG7gVMaXkJn1Szlx9ND/8w4PeO1SQ2skukdOHAlQRmxdft
+                    zhccNTM5hmbcn8TAfWSYqQF1R7s78bVjtmat6AQP1vSgiyZ8Ak+iYZEq3c2zVyYQ
+                    HKKxWxmFZt1HT8/H/B3bXveXQcERKE+Tq66h8pqVcocQUtzRFsEYmv0bR1rghtoq
+                    H8nhB5xnebgVlXjApW+et2SE7r6Fjv1aAbGI89ouJ1gsMPeX56P8AUjacFtNKc44
+                    Obu6HRXY/jm6f2m1EUm84EUsJ+9b5+S2x4qPttJDfSCasWYYz4mFJ8MwmFiBGUwf
+                    geT2bUm6t7qqbQIDAQABoz8wPTAPBgNVHRMBAf8EBTADAQH/MB0GA1UdDgQWBBR+
+                    tEB2udkEXxX0k15GztF/4ol03jALBgNVHQ8EBAMCAQYwDQYJKoZIhvcNAQELBQAD
+                    ggEBAIjx1f9rJ2B+mDSA3L2GRhjrPRjfI6Un3Z51CeW9gO9PMQ5ws5pDJyB79dE/
+                    Q8Uf1e8pZyjchTsRa8GRdnKyndN2imayOVUvPoTd3/ZSmfkurcbj3I4VW8sjHP7C
+                    E8fmUS8Xprdpo2SxV7oneJC0vt5eyh8mgfJ/qSbwVaiXuH1Wxi6duAvdxddMXAxQ
+                    KPG1KKVM7CYfCdpX/HagCOHzcto+374zFqqnQ1Kx5rbgvxNSgm/PDDOMwP03+bbT
+                    R63KSK1VbdtLBuS4jgaPabwyxQz/FciwTu/HLOQn8TNqDWyoIbs+eQX2Mds2Apul
+                    8XH2+CakjBLMLL3Tlj2x+6tKR9o="
+                 ]
+              },
+              "cdmi_ctime": "2017-04-06T14:06:31"
+           },
+           "valueTransferEncoding": "json",
+           "value": {
+              "protected": 
+                 "eyJraWQiOiJlbmNyeXB0aW9uX2tleV8xIiwiYWxnIjoiQTI1NktXIiwiY3R5Ijoi
+                  dGV4dC9wbGFpbiIsImVuYyI6IkEyNTZHQ00ifQ ",
+              "encrypted_key": 
+                 "329yyozEo3JPCpXGPKyI_fa5hhFH9dmfB7kulg1Q6NhoVAvdmDMclg",
+              "iv": "9Gr5Hxzcs9hxPmPM",
+              "ciphertext": "-sJkcHcdQUXChEBlZm7UZya1RR2_IcpRocC-BmQfAuA3",
+              "tag": "VIFJDcMdZngtpLWWDX8vFw"
+           }
+        }
+
+    This encrypted object has been federated to the CDMI server at hospital B. Now, one of its clients wants to transparently access the plaintext of this object by performing the following operation:
+
+    
+    .. code-block:: http
+
+        GET /cdmi/MyContainer/MyEncryptedObject.txt HTTP/1.1
+        Host: cdmi.hos-b.us:9002
+        Accept: */*
+
+    The CDMI server at hospital B will look up the object and find out that it is an encrypted object with DAC information attached. As a result it will generate the following (plain) 
+    DAC request:
+
+
+    .. code-block:: json
+
+        {
+           "dac_request_version": "1",
+           "dac_request_id": "73da04e1-2182-447e-8342-f4b9f06ec936",
+           "server_identity": {
+              "kty": "RSA",
+              "kid": "cdmi.hos-b.us_encrypt_public",
+              "key_ops": [
+                 "wrapKey",
+                 "unwrapKey",
+                 "encrypt",
+                 "decrypt"
+              ],
+              "n": 
+                 "oQMQkY85UzwO7K6H0QQNfAiRMN3ZfhK0aXEKx7YwvrCU9IKOquZ1OYZ9Cv8556_8
+                  E8yZm02JDWOBOaSsGHU835jvXf12f4MywKGWj5FtIGL-j9kXF6SWq3zuLVYlXpMI
+                  KsJngHMVFca_-ZhZ2vLsrnDR1aCNEC48gR26ewp6WX1ptnSc1W4x3Mj-ONMVzxVE
+                  7XNlwYysTgDtonmTQD-YG6_KhhAPx0YowMbUWv_cMQvXsi7MMDyZn6fxfq4zQmQ2
+                  V5RtUy5msd6K3beDzS4LmZhsJmjU7YnhOj0pZby4Zckm43npjXPAuwPhzK2OW7qb
+                  fkv0qm4rsFWUcuNh8lBsDw",
+              "e": "AQAB",
+              "x5c": [
+                 "MIIDMDCCAhigAwIBAgIBBTANBgkqhkiG9w0BAQsFADBCMQswCQYDVQQGEwJubDER
+                  MA8GA1UEChMIbGllc2RvbmsxDTALBgNVBAsTBGNkbWkxETAPBgNVBAMTCHJzYS1y
+                  b290MCAXDTE2MTAyNzEyNDUwMFoYDzk5OTkxMjMxMjM1OTU5WjA1MQswCQYDVQQG
+                  EwJ1czEOMAwGA1UEChMFaG9zLWIxFjAUBgNVBAMTDWNkbWkuaG9zLWIudXMwggEi
+                  MA0GCSqGSIb3DQEBAQUAA4IBDwAwggEKAoIBAQChAxCRjzlTPA7srofRBA18CJEw
+                  3dl+ErRpcQrHtjC+sJT0go6q5nU5hn0K\/znnr\/wTzJmbTYkNY4E5pKwYdTzfmO
+                  9d\/XZ\/gzLAoZaPkW0gYv6P2RcXpJarfO4tViVekwgqwmeAcxUVxr\/5mFna8uy
+                  ucNHVoI0QLjyBHbp7CnpZfWm2dJzVbjHcyP440xXPFUTtc2XBjKxOAO2ieZNAP5g
+                  br8qGEA\/HRijAxtRa\/9wxC9eyLswwPJmfp\/F+rjNCZDZXlG1TLmax3ordt4PN
+                  LguZmGwmaNTtieE6PSllvLhlySbjeemNc8C7A+HMrY5bupt+S\/SqbiuwVZRy42H
+                  yUGwPAgMBAAGjPDA6MAwGA1UdEwEB\/wQCMAAwHQYDVR0OBBYEFH7NJvMIfTQtZn
+                  nyiIdLNkjCgwSIMAsGA1UdDwQEAwIEMDANBgkqhkiG9w0BAQsFAAOCAQEAdiADIv
+                  0v09SUDcPL+BKysvchn\/Sgx5KBu7n9KFwE31Dhx2zvT6ruL8kXdekPH9cfrDafW
+                  6I\/vnbzAVj02i5pM2cHayj13fTOWSVwpcQuvkoIF9eVIWONkemMMf7M7jpTw07z
+                  7S2T5usaDmMNpqj8y5pRpQo3PnBVxpEZJ0XaSdfuiHtVLDq8gDZCq6Hc2tt7JM3W
+                  njnQgs+1lSGRuqWOcpmVONIoqvhiolNDZV35Z7puRwqck1N2f1qyHHGBWXfCN9U4
+                  ci6q1BnWBIFV+hURge8NSbpqawolaNueUbTcKjN3JsMC4ZxhMF9rN3uuPn+UAYkA
+                  yQkcSmGSMM07wcAkMg==",
+                 "MIIDQDCCAiigAwIBAgIBATANBgkqhkiG9w0BAQsFADBCMQswCQYDVQQGEwJubDER
+                  MA8GA1UEChMIbGllc2RvbmsxDTALBgNVBAsTBGNkbWkxETAPBgNVBAMTCHJzYS1y
+                  b290MCAXDTE2MTAyNzEyNDQwMFoYDzk5OTkxMjMxMjM1OTU5WjBCMQswCQYDVQQG
+                  EwJubDERMA8GA1UEChMIbGllc2RvbmsxDTALBgNVBAsTBGNkbWkxETAPBgNVBAMT
+                  CHJzYS1yb290MIIBIjANBgkqhkiG9w0BAQEFAAOCAQ8AMIIBCgKCAQEAsrUj46dx
+                  5ojlaZk7YtOL6e+Q6JoG7gVMaXkJn1Szlx9ND\/8w4PeO1SQ2skukdOHAlQRmxdf
+                  tzhccNTM5hmbcn8TAfWSYqQF1R7s78bVjtmat6AQP1vSgiyZ8Ak+iYZEq3c2zVyY
+                  QHKKxWxmFZt1HT8\/H\/B3bXveXQcERKE+Tq66h8pqVcocQUtzRFsEYmv0bR1rgh
+                  toqH8nhB5xnebgVlXjApW+et2SE7r6Fjv1aAbGI89ouJ1gsMPeX56P8AUjacFtNK
+                  c44Obu6HRXY\/jm6f2m1EUm84EUsJ+9b5+S2x4qPttJDfSCasWYYz4mFJ8MwmFiB
+                  GUwfgeT2bUm6t7qqbQIDAQABoz8wPTAPBgNVHRMBAf8EBTADAQH\/MB0GA1UdDgQ
+                  WBBR+tEB2udkEXxX0k15GztF\/4ol03jALBgNVHQ8EBAMCAQYwDQYJKoZIhvcNAQ
+                  ELBQADggEBAIjx1f9rJ2B+mDSA3L2GRhjrPRjfI6Un3Z51CeW9gO9PMQ5ws5pDJy
+                  B79dE\/Q8Uf1e8pZyjchTsRa8GRdnKyndN2imayOVUvPoTd3\/ZSmfkurcbj3I4V
+                  W8sjHP7CE8fmUS8Xprdpo2SxV7oneJC0vt5eyh8mgfJ\/qSbwVaiXuH1Wxi6duAv
+                  dxddMXAxQKPG1KKVM7CYfCdpX\/HagCOHzcto+374zFqqnQ1Kx5rbgvxNSgm\/PD
+                  DOMwP03+bbTR63KSK1VbdtLBuS4jgaPabwyxQz\/FciwTu\/HLOQn8TNqDWyoIbs
+                  +eQX2Mds2Apul8XH2+CakjBLMLL3Tlj2x+6tKR9o="
+              ]
+           },
+           "client_identity": {
+              "acl_name": "anonymous",
+              "acl_group": ["guests"]
+           },
+           "acl_effective_mask": "READ_ALL",
+           "client_headers": {},
+           "cdmi_objectID": "000000080018F34436313131393061372D613735302D3438",
+           "cdmi_operation": "cdmi_read",
+           "cdmi_enc_key_id": "encryption_key_1"
+        } 
+        
+    This plain DAC request will be JWE encrypted using the key found in the object’s ``cdmi_dac_certificate`` (key id ‘cdmi.hos-a.fr_encrypt_public’). Then it will be JWS signed using hospital B’s private signing key. Since this signing key is not equal to the encryption key (in ``server_identity``) it is embedded in the JOSE protected header of the JWS (note: Base64 decode of the protected header reveals the signing key; Base64 decode of the payload reveals the JWE.)
+    
+    
+    .. code-block:: json
+
+        {
+           "dac_request": {
+              "protected": 
+                 "eyJraWQiOiJjZG1pLmhvcy1iLnVzX3NpZ25fcHJpdmF0ZSIsImp3ayI6IntcImt0
+                  eVwiOlwiUlNBXCIsXCJraWRcIjpcImNkbWkuaG9zLWIudXNfc2lnbl9wcml2YXRl
+                  XCIsXCJrZXlfb3BzXCI6W1widmVyaWZ5XCIsXCJzaWduXCJdLFwiblwiOlwicEVR
+                  aFFUMVF6QmdrV2RiVW56eVkwbkZmWjRVYXJnbFVPcGFxeGlXYXk5cGhnQ0x6Tmtj
+                  RHZ4eVdIdHFRSWE0ZHpvMDVaXzBiOXhNTElrYUI5MTJheV83MllOZHpmMWVfaUVX
+                  Mi1OdVB4MHVSaFV3SzQ4WUo2MFlwVTdpN2ZpQWNKeVJoU1dlWGtnQXQyRndUYnkt
+                  SjlsNW9DV1dZemRfc0U3a2NMSkc0QmkwSEtQbVhrUEVwbXpOamhsU0VsdnlodHFL
+                  djRERG1JRk1JTDNrUGJueGNfX0RwenAyaVVpdGhvUFhpY1pJQXMtUDIybGRGMkRE
+                  X0tzbW9SU3RQR2NuTEVYbWpKcXhoRU13Qm5UZE14TjdQNnh6bk5iQVNtdXNnR21F
+                  XzJXdVUyS09yLVBtYm5wTnNLcm14SHRhT2trc2pZdjFyVGhzRmkxNUZmSVQyQ1dU
+                  MnVRXCIsXCJlXCI6XCJBUUFCXCIsXCJ4NWNcIjpbXCJNSUlETURDQ0FoaWdBd0lC
+                  QWdJQkF6QU5CZ2txaGtpRzl3MEJBUXNGQURCQ01Rc3dDUVlEVlFRR0V3SnViREVS
+                  TUE4R0ExVUVDaE1JYkdsbGMyUnZibXN4RFRBTEJnTlZCQXNUQkdOa2JXa3hFVEFQ
+                  QmdOVkJBTVRDSEp6WVMxeWIyOTBNQ0FYRFRFMk1UQXlOekV5TkRVd01Gb1lEems1
+                  T1RreE1qTXhNak0xT1RVNVdqQTFNUXN3Q1FZRFZRUUdFd0oxY3pFT01Bd0dBMVVF
+                  Q2hNRmFHOXpMV0l4RmpBVUJnTlZCQU1URFdOa2JXa3VhRzl6TFdJdWRYTXdnZ0Vp
+                  TUEwR0NTcUdTSWIzRFFFQkFRVUFBNElCRHdBd2dnRUtBb0lCQVFDa1JDRkJQVkRN
+                  R0NSWjF0U2ZQSmpTY1Y5bmhScXVDVlE2bHFyR0packwybUdBSXZNMlJ3Ty9ISlll
+                  MnBBaHJoM09qVGxuL1J2M0V3c2lSb0gzWFpyTC92WmcxM04vVjcrSVJiYjQyNC9I
+                  UzVHRlRBcmp4Z25yUmlsVHVMdCtJQnduSkdGSlo1ZVNBQzNZWEJOdkw0bjJYbWdK
+                  WlpqTjMrd1R1Undza2JnR0xRY28rWmVROFNtYk0yT0dWSVNXL0tHMm9xL2dNT1ln
+                  VXdndmVROXVmRnovOE9uT25hSlNLMkdnOWVKeGtnQ3o0L2JhVjBYWU1QOHF5YWhG
+                  SzA4Wnljc1JlYU1tckdFUXpBR2ROMHpFM3MvckhPYzFzQkthNnlBYVlUL1phNVRZ
+                  bzZ2NCtadWVrMndxdWJFZTFvNlNTeU5pL1d0T0d3V0xYa1Y4aFBZSlpQYTVBZ01C
+                  QUFHalBEQTZNQXdHQTFVZEV3RUIvd1FDTUFBd0hRWURWUjBPQkJZRUZCeHdnVzB4
+                  TFV3QlRSaUlTMVZ2di9KVmNPMlFNQXNHQTFVZER3UUVBd0lIZ0RBTkJna3Foa2lH
+                  OXcwQkFRc0ZBQU9DQVFFQVI5bzMxQmR6N080d21GcFE0eEZjalFkSktSaFBiNndk
+                  RHdyOTM5OXd5OFUxV0VFOEpEQ0FvbW9nakJlQ2RLUWVqWE1oVjR1Vkx1YllpSitj
+                  WVRxZXh0NTJNb0pJRmUySnozNC9LbFVkYU5ENE5Jdm5teC9mWS83Qk9qQWFkY2Ny
+                  L0NQVUxmczE5OHUybG9GNUVSYWtPM2lGajhwWFY1MjlDSFFmekpsaGh0c0VoL3p2
+                  TXgydXpNTlpaWFlkVWxyQ0NBZGFGbWtFRDBHUHM4SGZDR1VXUytlQVNiN1ZnQXBC
+                  N0NYb1ZJLzVKa2JzL0ZreEF3TWlxSmE2RUpyYkRkSFl0N2prVktwcmVpMWlxRVBj
+                  Ri9MU0pNZXhGVjJVcDVISk9OMG1QMGFDclYwbFE2Nys3Mjg2Mkw1VmFjM0tjQTk0
+                  dVBZVTUxVEJITFNBVXRLTDI5Uk9oZz09XCIsXCJNSUlEUURDQ0FpaWdBd0lCQWdJ
+                  QkFUQU5CZ2txaGtpRzl3MEJBUXNGQURCQ01Rc3dDUVlEVlFRR0V3SnViREVSTUE4
+                  R0ExVUVDaE1JYkdsbGMyUnZibXN4RFRBTEJnTlZCQXNUQkdOa2JXa3hFVEFQQmdO
+                  VkJBTVRDSEp6WVMxeWIyOTBNQ0FYRFRFMk1UQXlOekV5TkRRd01Gb1lEems1T1Rr
+                  eE1qTXhNak0xT1RVNVdqQkNNUXN3Q1FZRFZRUUdFd0p1YkRFUk1BOEdBMVVFQ2hN
+                  SWJHbGxjMlJ2Ym1zeERUQUxCZ05WQkFzVEJHTmtiV2t4RVRBUEJnTlZCQU1UQ0hK
+                  ellTMXliMjkwTUlJQklqQU5CZ2txaGtpRzl3MEJBUUVGQUFPQ0FROEFNSUlCQ2dL
+                  Q0FRRUFzclVqNDZkeDVvamxhWms3WXRPTDZlK1E2Sm9HN2dWTWFYa0puMVN6bHg5
+                  TkQvOHc0UGVPMVNRMnNrdWtkT0hBbFFSbXhkZnR6aGNjTlRNNWhtYmNuOFRBZldT
+                  WXFRRjFSN3M3OGJWanRtYXQ2QVFQMXZTZ2l5WjhBaytpWVpFcTNjMnpWeVlRSEtL
+                  eFd4bUZadDFIVDgvSC9CM2JYdmVYUWNFUktFK1RxNjZoOHBxVmNvY1FVdHpSRnNF
+                  WW12MGJSMXJnaHRvcUg4bmhCNXhuZWJnVmxYakFwVytldDJTRTdyNkZqdjFhQWJH
+                  STg5b3VKMWdzTVBlWDU2UDhBVWphY0Z0TktjNDRPYnU2SFJYWS9qbTZmMm0xRVVt
+                  ODRFVXNKKzliNStTMng0cVB0dEpEZlNDYXNXWVl6NG1GSjhNd21GaUJHVXdmZ2VU
+                  MmJVbTZ0N3FxYlFJREFRQUJvejh3UFRBUEJnTlZIUk1CQWY4RUJUQURBUUgvTUIw
+                  R0ExVWREZ1FXQkJSK3RFQjJ1ZGtFWHhYMGsxNUd6dEYvNG9sMDNqQUxCZ05WSFE4
+                  RUJBTUNBUVl3RFFZSktvWklodmNOQVFFTEJRQURnZ0VCQUlqeDFmOXJKMkIrbURT
+                  QTNMMkdSaGpyUFJqZkk2VW4zWjUxQ2VXOWdPOVBNUTV3czVwREp5Qjc5ZEUvUThV
+                  ZjFlOHBaeWpjaFRzUmE4R1Jkbkt5bmROMmltYXlPVlV2UG9UZDMvWlNtZmt1cmNi
+                  ajNJNFZXOHNqSFA3Q0U4Zm1VUzhYcHJkcG8yU3hWN29uZUpDMHZ0NWV5aDhtZ2ZK
+                  L3FTYndWYWlYdUgxV3hpNmR1QXZkeGRkTVhBeFFLUEcxS0tWTTdDWWZDZHBYL0hh
+                  Z0NPSHpjdG8rMzc0ekZxcW5RMUt4NXJiZ3Z4TlNnbS9QRERPTXdQMDMrYmJUUjYz
+                  S1NLMVZiZHRMQnVTNGpnYVBhYnd5eFF6L0ZjaXdUdS9ITE9RbjhUTnFEV3lvSWJz
+                  K2VRWDJNZHMyQXB1bDhYSDIrQ2FrakJMTUxMM1RsajJ4KzZ0S1I5bz1cIl19Iiwi
+                  YWxnIjoiUlMyNTYifQ",
+              "payload": 
+                 "eyJwcm90ZWN0ZWQiOiJleUpyYVdRaU9pSmpaRzFwTG1odmN5MWhMbVp5WDJWdVkz
+                  SjVjSFJmY0hWaWJHbGpJaXdpWVd4bklqb2lVbE5CTFU5QlJWQWlMQ0psYm1NaU9p
+                  SkJNalUyUjBOTkluMCIsImVuY3J5cHRlZF9rZXkiOiJ0WkQ4ZkpUT1hGZ3NTVi11
+                  RXN1ZS1VYURnVVpQX3FFZWFVUFFyQmpObUF3UlpMSXlONklUc3hhclRqbDR3YjdH
+                  UXltN0prOWw4QXlld0Fkakltby1yOUNULUhSbmR5Nlc2Nkd4bW11TGhwOV9ncjl2
+                  WEtjeXh3QUhHeGIyZGo3dmlIQjlIRElNazZEQzB1Ri1naWZlM3VaeEhjdVVfYkRG
+                  VGZBU0M2TEwyLTlIQ29OMzlSM2VZcC1FeWc0clhwZ2t6SkpnLTdRSUpHV3pvRFF1
+                  d2VfeEM3Vmh5Q25vdDc2bW9RbEpSM1I5Snh6M2M4TE96ckp0YTY3YjdhS3Zodzk5
+                  eUNPX3REb3d0WDZpNUd1cmZVbE5GN2VucmUwOWd3cUlLT3ZxQWRDTVdlSU5YWnVO
+                  WjlZX3Y5RjVvWlF1M21BcEdib0dVdVRvRWxUMFFKd1dwaUR6bUEiLCJpdiI6InVJ
+                  ODQyQ3ZsRUpBYTd4Y1YiLCJjaXBoZXJ0ZXh0IjoiVjBCcWtLTV93TmV6UVJuOGxv
+                  b3VOdFhPem9tSjJLbElYaU1NT0VQSk1NTVZpd0lKY05IWHdBV01wUnBoMlRrMnlS
+                  dUoweHBZbmRPdVBtUHdPVGljMWR4YXZvaGJEdHloTEFQS09TNWIzSk9lQTgxbWU3
+                  enRaeFdxOFRDVVRFVkhBVTM5dERzZUQyZ0tUME0yOFR1dXpEZHhJcEtUMXJQRXZr
+                  WThIQVBjakhZQ2pTeVpmcEhJSlpkUUhEclo0YUZBN0xETkkxWkxPOEhXMmtJbFB6
+                  UzQ0WFdKQzYwS243THJvSXRyZ0hCWnJfZEFpNWlIQTdmU0VCSFVSRFpPQ0pfdzlr
+                  TldLMDZfVTN3S2xVNU9DeFFYNzFMRGxCQllENlpaa2lwaExoRl91RUxvZFdKREo1
+                  Zmg4VnhDRUJ6ZVdqckR1M3UzMXNldHJEbmRIaFNsT2VyeEswNFZuQXNETlczRXNT
+                  a2twLXp5cFh4d2ZBRVQ0VWxiR3V0UV9FX2xsX2M4VVZjSnJhRXJoZFgzX2VNajdS
+                  YThud2VEdGxZWjlDLWVlQkdJYzE1OTZLaVZzQlJ0c1dPZm5SLWQzdVZFREMwZnVv
+                  alp1U3M1Mm1mWjh5dU1yeE9QWDJodzFVVGlCeHRuODdyQjRNc1ppSkwwc2VIelIz
+                  T3d4eEFMUFJRSzFzQVNweXJRaW1jTVJBSUtGVzJUUDFjSjRmYTlIdmNTbzN0eTUx
+                  cENSVGlmUV9CSFlLM01LaGdWMWVnZ0I2Mmw4SEs2NkE0dFlpcjJyUnhkNEZPb1U0
+                  bXN0bVQ3aFpmOVhBRzFBMzNwSHNxSEFINng4LVJDc0FwOHlGeHd1SHg3X0s2ZzNo
+                  ZzJNSTNHZUpBTGxMRXhyeUJ5NEF4OXQ5ZEg0SWkzZWZjZlh2LVROcmFIS0tHd3VM
+                  QUItby1jVG1WUWZfU3dGSEtHZGNjSWgwazFYT3VXdkFmekducjJKMnhBVjBUQzdz
+                  YWNyZHBWNzgyWkM2T2dSSVliTEs0RnhUYXpuMXY1dlZjRms4dU40NFgxV2VuM09f
+                  RmR1UllLZ0ZPbUFyTHd4WXBMYXJSS1QzX3FPcjlOQnYtQ3FycEJPV2EwVlVtaXF5
+                  TWxTb2VHR2plaHcwLVNuMVBTa3dWb25jNTVYTWxYcEVZc2hJb3dHN0xnb0dBakxl
+                  MU13cjkxNWxmWnZsajFpckljbGk5MGtIWVBKTjdZVTJEMVhaM2hEV3FLTTRLWG1w
+                  RnJaVk5qdi0yUWN0ZGt1Vk1MaHQwN2JESU51aUpDZENsS0llbWVVZlhZMW1IakxB
+                  N1J6Tjg0SjN4UTIzVXN5eFdWLTFYRTJueEFmcmYzMG5KZG5HTi1KbEhqdFMtQW5E
+                  cXljUGQ4VjhBcUw5UURrUm1tZmsxRnBwTUdEaW9XS1lVM2JTTGhyTHh0RzMweUQ2
+                  bzVlb0UtUFN0aW9XcGVsN1lZcVg0aGxlNGNoNWVhWkQyRF93Ni1VOUxLbmQ2NnZq
+                  OVptNjU2YVZrYy1SSGhNWEpQczhMeElCM2hrQ1BSMi1KN2lUaTBZYTh2d016OFJ5
+                  LVQ2Z285b3VVU2F3MHJYbi0wNm9HNC00aXZhMnZ2UkZGaXFOS25KYTdrM1BrWDF2
+                  cXVqQUl5Ti1ESkI2cmZNZnZxTlZmV0phNXBuNTZLY1g4TFBPeUFiSGo4WUNWT3Fo
+                  QldtbGt1SjM4WUtpY1dWRkJfTlpSZEpseDRTUXdoQ2pLYlJtdmxENXJqeEk4NTRY
+                  NTdzQkNQbmpaTzdvZDRpZ2lVbnlfZjNyRkZQd1lieVFmdWxkM3hMRVdSWWZCWUpu
+                  YWRvNzB0S1VXMllOcWFzUzR3SW9ibFhFSnR5a2RPTHdQLVkybGRVMXdVbThsUHdp
+                  VXpNZGtrY2xDWkQ2Wkx6LU9GdDdLaE9EbUxPTUdPNWlhczlzeG9DaG4zYzFMcnFQ
+                  amd1Ui1RWFNoaUZrNmtYVU5CMnlIVEt3dmZZT0ZjUjhEbDdleVJCQ3NVUUY4STdT
+                  ZkFWNkJrMm82ZU1jdEJGTXluWFgydU9nWXEwOWtUM0ppckhzbGl3dThZbzM1bHpW
+                  ZGViWnlqREIxbWl2LUNKR091ZjRxbEZxRzNiYVBCQmhNa0ZFS2lWU0FJZmdDaFlu
+                  dUc3WkxvNmVWMW4zMnRGeDFzdEdUcnpuMk13alNzektPMTJIY3VkcUZnTUREQ28w
+                  T19OREZ4Qmh1RFB3aVNadnBGNHJWV201QktEbjBOQzNFcy1zOExGaDZJUFVTMW1l
+                  VFB2Umx0cERJZTljQTZqdHhCQURacVphdGtreXB5ZzZGRDZzUjhUQVRDRGo0WWhT
+                  Rzk4MVBmRFZ1S09FVjlqaTdzd3lkLW9ST2Q1UXZCa1lKUkxhckpEOGhEdWZIcHdy
+                  MlViNENBb1JKcnJWdGM4TmJDcmlLbmZGWVBQal8yN3p1RFZKZXBxQTdpOVVTY0ZD
+                  T25vUEx3NEFpVmxqQVRPVU93MmNzR0FqM19tLThPR2cxM3BTUHNjWDlSUm5TV1lY
+                  cjdFdnFJaUVXNDZaNTR6NlJTNHg0Z1dqZWFzNUpHdmRsQkhoQk42bFd4QTFLa0Vs
+                  el90NlVOSVhGSWpZRTdyVF9oUzJsWmstWGNPelZuM0gxTllZU3NpTVVLVDNvWm4t
+                  UmliVVhoMGZjbVNWTHFRMnVuX2dQV3MyT0VUeHB3U1Y2dk9leWRjOFcwQVdhSVph
+                  Vm43bW1MNnY2aEctTVFLSl92S3pfaTNxbkRxRUVzVjhDQVE3NTN1cWpHUVBEMUs4
+                  VGtZeTNucnhncEh1ODY3UDJNUGpVQWFxeldTV1dNN2FQeVhCTkZNeFQ5V3Q5ZmVw
+                  VEFheDdhLVo1VGcwS1pxS0lDQVVNYUo4OWJveG1ncG9rcGFRVWtQS1pFMjR2NGph
+                  ZE5pT21SSHJMeE11VzVrdG5kQk5Bb0dHbm9HRTNzYWZlc24wX2NPc3M2TTVXcEhR
+                  Z1N6VWxacF9aREJ5Q09ldFo1TmEwMjVfb2t1T2drUklKVjN4MmZPbWM2U0wwU3Fy
+                  R1lWSEhORmZKN2lLeVNXTk5Sdkl4UmhWTmJYVXFMRl9OYUMxZDdNQmpkTHY3WlFp
+                  Ym0yT3BmSWtmSlNNUzFKcFVwSVNRakR4djk2TFhIOHBhQXBTVDZtWnlEa0VrTW1O
+                  b2ZXSktwM0pQNUFTTXZ2S3dsbkgxQU9rSWJYZjdRLXlyYkthY1BtWEhkZ2hjRmZa
+                  Vi1ldU9ERzhfdTRWdGZwOEF0LVBRSkJyX1V0cVZJbHpReDBnUE5MVVdMbzdlRmlv
+                  dEtPTEx3Vjh2MGpxcDdUUlBIVzBHc3pVWmFZb0RjYUZMaXZDaFJwVDktQks3d29w
+                  RXhfN1FxUWUxSVhuMVNKQWRtZFpvZmdfSF9ZeWU0MVJjSnZGeWp6SmZBOGlranBs
+                  STMxVW9WSzVaTllXSVExZ2lvUFh3U3JUVW1GeE45X3Z0aHl5Z1pYTXQzVkZiUTNB
+                  eFBBZjlSSE5ENlpBOGFValk2R0pNb1BvX3FySkMyLW9hQzd0cTc0SURBekk3bmpM
+                  S09VMG9IZ3RtaGhGUVB6cloyWjZOYUlLaTJIWm9yLWc3LWctN1N3ZGRxd0RDSnlO
+                  ZXdEb3pJN3NNRFM3XzM1RkoydnRnaGZLUHFTLWhFd3JlZGtaNE1ORUg1dnRXU3F3
+                  NHRmZDFrQmNROExtRlZmM2hfV1FWZjVqQ0lGcEZNOV9MYnV6eWVmeU9IMENSLXlJ
+                  YlE0QXFleS1ZclA0YWJTdXF2VXBlMEFyVEdZS3pMWk5FZHhFVzliemxsYUVJaVNU
+                  MTRBNXAzam9CUVNOQmtLRUdPMVh2RTdSVnJ3T1kyemItWWFIRkxjU0gzdDRtMFlZ
+                  aVducFZ1RnBRZjExWVlqbTgzLXFEbHZuYUN5T19GQXBTMy1SRnhrVTZFVzRYcDZ3
+                  eVlxNDF1amxGVHp4Q1RnMExXeklqTGlyRm1VSGpKZUlhR3lVSzZ5TGpkYkhtR0Ns
+                  LW15T3FZR3hwNERybHVITHBkaWZHenhmQnd6OUM4MXNNbkFxYmNRWGMwcXdIMVdO
+                  al9uX0tMblJFdUhRWFBleDV2VmZ6eWRlZUZfNE93WExSdXZ1M3ZlM3Z3VldWamRP
+                  ZWN2a05nbkVFUDdocVhkbXpRbVlKZndxSGRwZnNSRExESDloOWpRcEI0LTNMRjg4
+                  U2NSa1RteFlNU291bFVqcHdia25hTWZQRVMtZkgtTjVwQXNqVE0wOVFTV0Y5NENE
+                  bHdZR1ZhZzY2UkdLcGdwU1ptMGF1dGNsSG1KOGVRMjRuRzNKdEF6bGNkVC0zNXNC
+                  TlFsZHRkYlhkRzFxb2ZlOUpUNE5iSll1VXdwemlhNnJYNGQ5NkRqdm1VdWpqanNl
+                  NjhCYkx2bzJQM1VyTkxUWDBjNmUtb3lHbzcwdURTN1lxb2ZIUUxhU05ORHRnZ3d1
+                  V1IyZFRVUDdLRkk5N29Qb0ZiX1JjS3BQVVU4cDZsTjJRYkVOYy00TWNleWJYVS1U
+                  ODR1ZnpqZkJkdHdMdkYtQ3d6Nk9lS1V1NnBPeVN2MGVnbFNJUWlmb3JPU3FGVl9y
+                  QWdvX3NuNDVHVVhKU0dNc0FFT0NXN0lQX0E4Y1hvaFpGbi1NNW1UTU83b01fSWN1
+                  Q0dVclNuREV2X3NNdXFLdFk0cExLbHRMT2tCTXVHU292Mm1DVHBmQjVnVnBvaGZf
+                  UzBaUW9CWlV2UDkwU3ZLUVRuTG12QnZnVTd3OVVmY1dRTzBrNUZZSjNfREZxNHVL
+                  VWJpNXB5cFVCT0txd0Zla3ljLXZXVGRPTGdLOW40ZkdUcjlzOG9ZejczdC1tVXZ5
+                  a3pfdkRzWWFpWHZQbkd3My00SDhVWllXZy1GSHJfSHlLTlFQNklGSTVGdEFneW5s
+                  QjF6SEQ2a0xXbGtGaWdfb0FjdXJ6enE3WXJJaUlOcnZFUzFUZUgwRXBwczVjZHpF
+                  WWh0M3ZHNFMtQTJqcE5PN1pJUklzUmFUMHkxbFBOLVZEdWJxOHBFZmhyX1B0ZVM0
+                  T21zNGNvLWxiOUJNR1BmeEp0cVRDUWJGSnJLTFBDbDJKNk5VVGtnTy0zVlgzUkIw
+                  Rk9uUmdWRl96aVQ0amF1UFFxZDRsQ3BOMEl2S2RCb29BWGtYNzkxU2JjbmJoMUhS
+                  cFlhblNVZENiZmZ5MGg3NTJ1MldmV3JjSUVDa29GWkRqelUtbG04bnF0OTZnS1ZH
+                  OFpHejF1bGhIZzVfVVIxVnlZNElROVBjNHVCTk1yazRUVThNRjF6R1RsalhnT25t
+                  UVZld0tPWmtkcFB4eWhGdExtalUzeWtoejBKMm9oMzJpaVhpbHFFeVQyQjM2Nzhz
+                  NHF3NHNkalNTdXdCWXZZZmtRNl80SnIzNnNrUm5CQ1ZLa21mdlFtbld4S3NheWQ2
+                  WnRPcllwZ1hjTlRfOUpYXzE5RFZiekdYbW1zTExONzRPQWg0QjZUVXciLCJ0YWci
+                  OiJnb1QzT0V0XzZ5eVJXdEtPdFJpUTdBIn0",
+              "signature": 
+                 "a9idqlHPlsfvg7IEKECf_XNeKKpU5jioicQTxvpQywpT8DM5M7sy0PfrOSEL4iKJ
+                  hGd32xQ-JwaIgT5RR0QwAM3cy15y0IMh-KkHh1H3Amsy2RIsi2jkZVpIN24OF0T4
+                  Wf6fXfuuXjBydT-PjIjQako2Lsic-nKAJukm0f3uwHxGXN3JGlIzi4_QrYeRjI4V
+                  b9ymaZW6soF1VaDqXulfaL7RtN_B46-Yg_N8XK5XWuIW5PZ1ZEkYFaqGzPaoMi31
+                  ipA1vx-VlQdVxCATOx2uQOT-um6NJAlvAigyWn45CRM5ETXja_V8WkpDPlHH4A5G
+                  SEzKUGz3tYC85Agd0-Aoig"
+           },
+           "dac_request_dest_certificate": {
+              "kty": "RSA",
+              "kid": "cdmi.hos-a.fr_encrypt_public",
+              "key_ops": [
+                "wrapKey",
+                "unwrapKey",
+                "encrypt",
+                "decrypt"
+              ],
+              "n": 
+                 "uL7ANgD80H5sNqo3nHzovPRxgncQLhz0oQvGMVvULCkrYXMaXZ5sNv7fT6UdMSZi
+                  T-e0sthapmEqrpeV9RKHsiF3COGl2YndUHixpEkHp8y1ggcH6iTzoBsgXMZ7OLW-
+                  mJ2RW3rodT7k-tcozYYsTSM5egMPQSAKgt0nMnPmdNRnEyA2_NJ8Y7lNkEXyja0Q
+                  JLstzkP8-cKS0BkEquLQEMbZVRM6U5uG69cj1i9OWvuRzPoaATKyt6Cc4f6PUu9L
+                  OyCBUAs9dXsRrt3B8H1qe7io7FAAcOpcUDKDnLFXS1THc37DK_zEyKZcMttjCvEl
+                  Ovt-cIaokdnxJeggv9AFGQ",
+              "e": "AQAB",
+              "x5c": [
+                "MIIDMDCCAhigAwIBAgIBBDANBgkqhkiG9w0BAQsFADBCMQswCQYDVQQGEwJubDER
+                 MA8GA1UEChMIbGllc2RvbmsxDTALBgNVBAsTBGNkbWkxETAPBgNVBAMTCHJzYS1y
+                 b290MCAXDTE2MTAyNzEyNDUwMFoYDzk5OTkxMjMxMjM1OTU5WjA1MQswCQYDVQQG
+                 EwJmcjEOMAwGA1UEChMFaG9zLWExFjAUBgNVBAMTDWNkbWkuaG9zLWEuZnIwggEi
+                 MA0GCSqGSIb3DQEBAQUAA4IBDwAwggEKAoIBAQC4vsA2APzQfmw2qjecfOi89HGC
+                 dxAuHPShC8YxW9QsKSthcxpdnmw2/t9PpR0xJmJP57Sy2FqmYSqul5X1EoeyIXcI
+                 4aXZid1QeLGkSQenzLWCBwfqJPOgGyBcxns4tb6YnZFbeuh1PuT61yjNhixNIzl6
+                 Aw9BIAqC3Scyc+Z01GcTIDb80nxjuU2QRfKNrRAkuy3OQ/z5wpLQGQSq4tAQxtlV
+                 EzpTm4br1yPWL05a+5HM+hoBMrK3oJzh/o9S70s7IIFQCz11exGu3cHwfWp7uKjs
+                 UABw6lxQMoOcsVdLVMdzfsMr/MTIplwy22MK8SU6+35whqiR2fEl6CC/0AUZAgMB
+                 AAGjPDA6MAwGA1UdEwEB/wQCMAAwHQYDVR0OBBYEFBAIGICMR5H6KLKMlZAEhCCc
+                 KwE9MAsGA1UdDwQEAwIEMDANBgkqhkiG9w0BAQsFAAOCAQEAANYSSryUU6112pYM
+                 r83M3GWnjzu16B+4KgimZ8kbey94zNPdwmwQdSe0Xmg+1Otc6VUB40ouNnwK8efB
+                 aWBtXwCA7Nb715nTqo2+rn+X+A0mGrYaKkToPEe8ZYwDcOlOpNC9JFE+QgP9/CJa
+                 AaWrf95W+4kra2WnA4Bhqu2WWXnQkL47/nKcGVZgQAH+mVnxPaI0gELYdonXU/S2
+                 8HqxoyjpGL/vmyc46zUbxYsgx/jiE7J0fJVP6Yk/3dlNYCCpLtV8VmzFAQAeCcn8
+                 AWowFcd09a4SY09rn1MUv/rrvXpzflfn9j7PtRRFj2e/KhitmOH1zKDuYzREpUOu
+                 TDlPIQ==",
+                "MIIDQDCCAiigAwIBAgIBATANBgkqhkiG9w0BAQsFADBCMQswCQYDVQQGEwJubDER
+                 MA8GA1UEChMIbGllc2RvbmsxDTALBgNVBAsTBGNkbWkxETAPBgNVBAMTCHJzYS1y
+                 b290MCAXDTE2MTAyNzEyNDQwMFoYDzk5OTkxMjMxMjM1OTU5WjBCMQswCQYDVQQG
+                 EwJubDERMA8GA1UEChMIbGllc2RvbmsxDTALBgNVBAsTBGNkbWkxETAPBgNVBAMT
+                 CHJzYS1yb290MIIBIjANBgkqhkiG9w0BAQEFAAOCAQ8AMIIBCgKCAQEAsrUj46dx
+                 5ojlaZk7YtOL6e+Q6JoG7gVMaXkJn1Szlx9ND/8w4PeO1SQ2skukdOHAlQRmxdft
+                 zhccNTM5hmbcn8TAfWSYqQF1R7s78bVjtmat6AQP1vSgiyZ8Ak+iYZEq3c2zVyYQ
+                 HKKxWxmFZt1HT8/H/B3bXveXQcERKE+Tq66h8pqVcocQUtzRFsEYmv0bR1rghtoq
+                 H8nhB5xnebgVlXjApW+et2SE7r6Fjv1aAbGI89ouJ1gsMPeX56P8AUjacFtNKc44
+                 Obu6HRXY/jm6f2m1EUm84EUsJ+9b5+S2x4qPttJDfSCasWYYz4mFJ8MwmFiBGUwf
+                 geT2bUm6t7qqbQIDAQABoz8wPTAPBgNVHRMBAf8EBTADAQH/MB0GA1UdDgQWBBR+
+                 tEB2udkEXxX0k15GztF/4ol03jALBgNVHQ8EBAMCAQYwDQYJKoZIhvcNAQELBQAD
+                 ggEBAIjx1f9rJ2B+mDSA3L2GRhjrPRjfI6Un3Z51CeW9gO9PMQ5ws5pDJyB79dE/
+                 Q8Uf1e8pZyjchTsRa8GRdnKyndN2imayOVUvPoTd3/ZSmfkurcbj3I4VW8sjHP7C
+                 E8fmUS8Xprdpo2SxV7oneJC0vt5eyh8mgfJ/qSbwVaiXuH1Wxi6duAvdxddMXAxQ
+                 KPG1KKVM7CYfCdpX/HagCOHzcto+374zFqqnQ1Kx5rbgvxNSgm/PDDOMwP03+bbT
+                 R63KSK1VbdtLBuS4jgaPabwyxQz/FciwTu/HLOQn8TNqDWyoIbs+eQX2Mds2Apul
+                 8XH2+CakjBLMLL3Tlj2x+6tKR9o="
+                 ]
+              },
+           "dac_request_dest_uri": "https://cdmi.hos-a.fr:9001/dac/"
+        }
+
+    The DAC provider at hospital A will retrieve the signing key from the JOSE protected header, validate it using the included X.509 certificates, and then verify/decrypt. It creates the following (plain) DAC response. Note that it included the object decryption key.
+
+
+    .. code-block:: json
+
+        {
+           "dac_response_version": "1",
+           "dac_response_id": "73da04e1-2182-447e-8342-f4b9f06ec936",
+           "dac_applied_mask": "ALL_PERMS",
+           "dac_object_key": {
+              "kty": "oct",
+              "kid": "encryption_key_1",
+              "use": "enc",
+              "alg": "A256KW",
+              "k": "1mk_8n9GZJTLDUEuxBYT-9GO8bC_fR2qqt03rVSRFak"
+           },
+           "dac_response_headers": {
+              "CDMI-DAC-AuthInfo": "Key successfully obtained from KMS."
+           },
+           "dac_key_cache_expiry": "2017-04-06T14:42:47.393Z",
+           "dac_response_cache_expiry": "2017-04-06T14:42:47.393Z"
+        }
+
+    As before, DAC response will be JWE encrypted using the key in server_identity. The result will be:
+
+
+    .. code-block:: json
+
+        {
+           "dac_response": {
+              "protected": 
+                 "eyJraWQiOiJjZG1pLmhvcy1hLmZyX3NpZ25fcHJpdmF0ZSIsImp3ayI6IntcImt0
+                  eVwiOlwiUlNBXCIsXCJraWRcIjpcImNkbWkuaG9zLWEuZnJfc2lnbl9wcml2YXRl
+                  XCIsXCJrZXlfb3BzXCI6W1widmVyaWZ5XCIsXCJzaWduXCJdLFwiblwiOlwiblQ2
+                  Rjc1aVZGZkdQLXdramdneVhacFdvRWhxNmZTWkNfRENTYXNLLUdVdXdWaUhETUJG
+                  cXVreUM4ZmsxajNBY0JyTTlIZERIbnFrVzRfM2YzOVdZMlMtRFY5YjhkWWpRRHJl
+                  TDFfcHBNRVg2enJnN1hBWEJJa1ViT2h1dXJOTVNBNENlQXlCY2xqWUJpQ3dvTWxv
+                  aUNGb2RsbFYzUDZwekVLNjduTHNfYWVfTHVaUmRzaFhXakotYm9qQzZiNGhJcWVx
+                  UFh0dXBPekl5MDBKLVZydHNGUTBZaDN2dWRmbVVJTkZSTFl6c1lzY1Y3TVR4TUd5
+                  S1hIMXE0ekdHSHZmSlpTS0MxTEtYYk9Dc3JhaHVrUFVhY0tBSFBqbTNKaHpONTR6
+                  amVYTGxnaDZPT2x4X2Eza1V4YlBFTl8zYjhHTDhOVUhuWFljcUNjVDVXUUV2ZUZw
+                  OFlRXCIsXCJlXCI6XCJBUUFCXCIsXCJ4NWNcIjpbXCJNSUlETURDQ0FoaWdBd0lC
+                  QWdJQkFqQU5CZ2txaGtpRzl3MEJBUXNGQURCQ01Rc3dDUVlEVlFRR0V3SnViREVS
+                  TUE4R0ExVUVDaE1JYkdsbGMyUnZibXN4RFRBTEJnTlZCQXNUQkdOa2JXa3hFVEFQ
+                  QmdOVkJBTVRDSEp6WVMxeWIyOTBNQ0FYRFRFMk1UQXlOekV5TkRVd01Gb1lEems1
+                  T1RreE1qTXhNak0xT1RVNVdqQTFNUXN3Q1FZRFZRUUdFd0ptY2pFT01Bd0dBMVVF
+                  Q2hNRmFHOXpMV0V4RmpBVUJnTlZCQU1URFdOa2JXa3VhRzl6TFdFdVpuSXdnZ0Vp
+                  TUEwR0NTcUdTSWIzRFFFQkFRVUFBNElCRHdBd2dnRUtBb0lCQVFDZFBvWHZtSlVW
+                  OFkvN0NTT0NESmRtbGFnU0dycDlKa0w4TUpKcXdyNFpTN0JXSWNNd0VXcTZUSUx4
+                  K1RXUGNCd0dzejBkME1lZXFSYmovZC9mMVpqWkw0TlgxdngxaU5BT3Q0dlgrbWt3
+                  UmZyT3VEdGNCY0VpUlJzNkc2NnMweElEZ0o0RElGeVdOZ0dJTENneVdpSUlXaDJX
+                  VlhjL3FuTVFycnVjdXo5cDc4dTVsRjJ5RmRhTW41dWlNTHB2aUVpcDZvOWUyNms3
+                  TWpMVFFuNVd1MndWRFJpSGUrNTErWlFnMFZFdGpPeGl4eFhzeFBFd2JJcGNmV3Jq
+                  TVlZZTk4bGxJb0xVc3BkczRLeXRxRzZROVJwd29BYytPYmNtSE0zbmpPTjVjdVdD
+                  SG80NlhIOXJlUlRGczhRMy9kdndZdncxUWVkZGh5b0p4UGxaQVM5NFdueGhBZ01C
+                  QUFHalBEQTZNQXdHQTFVZEV3RUIvd1FDTUFBd0hRWURWUjBPQkJZRUZNWThmOW9h
+                  aXhYTkFWSW1Nby9heE9kN205clFNQXNHQTFVZER3UUVBd0lIZ0RBTkJna3Foa2lH
+                  OXcwQkFRc0ZBQU9DQVFFQWJPejR5akdLektpM0pVQTJ0WVVOeFhoQ1RKbnBVUGZB
+                  WDhRdGs5ZEJXTzZhVXNsSzJlTkh1TzZjL2tKMG0vKzR4LzJiczJlU0dISmRldU9w
+                  dzd3QmQwTDB6L1hUeStFVHRQM0k1TEovYzhNdmN6NTQyZCtMQUpXdlZtU1hIQU82
+                  QjZRZDJtSkJ5aGFMU3k2YWUxK3BwcmE5Yk1aYjFTVWVxc3ZtZ1R5Z2h2Y3NkVzky
+                  TUhBUHlxU1hxTmthaTNhNW5kbE14YjdqcWFhMzNCZkxTOHhVcE1FQ0wvaGJ4L0dH
+                  WXcxZXIzSUFCVDBCeG9JQXp0c0tHQTFUOWh2cnA4NCtFNjJhcnZrU1lHUk8zQmpu
+                  SGRHcGdnRUhRMmhGNkR1UFIvRGVyV2d2R0MyREN0cFNxVzJTTklaUFprb2tsZ3pE
+                  QnVXdVlHYjl4d1RWa0psWVRpSzFOdz09XCIsXCJNSUlEUURDQ0FpaWdBd0lCQWdJ
+                  QkFUQU5CZ2txaGtpRzl3MEJBUXNGQURCQ01Rc3dDUVlEVlFRR0V3SnViREVSTUE4
+                  R0ExVUVDaE1JYkdsbGMyUnZibXN4RFRBTEJnTlZCQXNUQkdOa2JXa3hFVEFQQmdO
+                  VkJBTVRDSEp6WVMxeWIyOTBNQ0FYRFRFMk1UQXlOekV5TkRRd01Gb1lEems1T1Rr
+                  eE1qTXhNak0xT1RVNVdqQkNNUXN3Q1FZRFZRUUdFd0p1YkRFUk1BOEdBMVVFQ2hN
+                  SWJHbGxjMlJ2Ym1zeERUQUxCZ05WQkFzVEJHTmtiV2t4RVRBUEJnTlZCQU1UQ0hK
+                  ellTMXliMjkwTUlJQklqQU5CZ2txaGtpRzl3MEJBUUVGQUFPQ0FROEFNSUlCQ2dL
+                  Q0FRRUFzclVqNDZkeDVvamxhWms3WXRPTDZlK1E2Sm9HN2dWTWFYa0puMVN6bHg5
+                  TkQvOHc0UGVPMVNRMnNrdWtkT0hBbFFSbXhkZnR6aGNjTlRNNWhtYmNuOFRBZldT
+                  WXFRRjFSN3M3OGJWanRtYXQ2QVFQMXZTZ2l5WjhBaytpWVpFcTNjMnpWeVlRSEtL
+                  eFd4bUZadDFIVDgvSC9CM2JYdmVYUWNFUktFK1RxNjZoOHBxVmNvY1FVdHpSRnNF
+                  WW12MGJSMXJnaHRvcUg4bmhCNXhuZWJnVmxYakFwVytldDJTRTdyNkZqdjFhQWJH
+                  STg5b3VKMWdzTVBlWDU2UDhBVWphY0Z0TktjNDRPYnU2SFJYWS9qbTZmMm0xRVVt
+                  ODRFVXNKKzliNStTMng0cVB0dEpEZlNDYXNXWVl6NG1GSjhNd21GaUJHVXdmZ2VU
+                  MmJVbTZ0N3FxYlFJREFRQUJvejh3UFRBUEJnTlZIUk1CQWY4RUJUQURBUUgvTUIw
+                  R0ExVWREZ1FXQkJSK3RFQjJ1ZGtFWHhYMGsxNUd6dEYvNG9sMDNqQUxCZ05WSFE4
+                  RUJBTUNBUVl3RFFZSktvWklodmNOQVFFTEJRQURnZ0VCQUlqeDFmOXJKMkIrbURT
+                  QTNMMkdSaGpyUFJqZkk2VW4zWjUxQ2VXOWdPOVBNUTV3czVwREp5Qjc5ZEUvUThV
+                  ZjFlOHBaeWpjaFRzUmE4R1Jkbkt5bmROMmltYXlPVlV2UG9UZDMvWlNtZmt1cmNi
+                  ajNJNFZXOHNqSFA3Q0U4Zm1VUzhYcHJkcG8yU3hWN29uZUpDMHZ0NWV5aDhtZ2ZK
+                  L3FTYndWYWlYdUgxV3hpNmR1QXZkeGRkTVhBeFFLUEcxS0tWTTdDWWZDZHBYL0hh
+                  Z0NPSHpjdG8rMzc0ekZxcW5RMUt4NXJiZ3Z4TlNnbS9QRERPTXdQMDMrYmJUUjYz
+                  S1NLMVZiZHRMQnVTNGpnYVBhYnd5eFF6L0ZjaXdUdS9ITE9RbjhUTnFEV3lvSWJz
+                  K2VRWDJNZHMyQXB1bDhYSDIrQ2FrakJMTUxMM1RsajJ4KzZ0S1I5bz1cIl19Iiwi
+                  YWxnIjoiUlMyNTYifQ",
+              "payload": 
+                 "eyJwcm90ZWN0ZWQiOiJleUpyYVdRaU9pSmpaRzFwTG1odmN5MWlMblZ6WDJWdVkz
+                  SjVjSFJmY0hWaWJHbGpJaXdpWVd4bklqb2lVbE5CTFU5QlJWQWlMQ0psYm1NaU9p
+                  SkJNalUyUjBOTkluMCIsImVuY3J5cHRlZF9rZXkiOiJLZ1lXVDVDOVBiN0FEOVZH
+                  bTczSDRQSkFJUHNnbTN2ampNbmZJcXZBOEFLOEtNREowMTlNQkVHeC1tTUpIQTBo
+                  dGhyb1F0UXA3NklDR09GLXJaNnBxajNTYm1iNFNUc3FhUjQ5aTN2Y2x1dUhRSlZM
+                  WVNOVklWOHBJYzZLbllDWFNGMzNldHlIZ0p0bFZjXzE2RTIyUGxEVE9IWjhPRzZz
+                  dklWa1o1cktnLVNGS1ZZbVlWeC05UC04NU1ueThRMkYtR3VBcDNiOHVZZzhFNXdx
+                  Z1AwY2NHYVNjZF82cFUzdk83aUZGWlVLLV8ycHlzQWdRMlo3Zkl0a0lSWnVPdFFf
+                  RkpNaThLcFdKc3lMNFNDanZSNkxFSVBIekdTMUtkTmNEVTVrU28yc3pkanQ0WENH
+                  Sk9WSkc4dFhfWmZRTjh6RzdpTktJcXhiTVYwRUZVOWRjUzBkeWciLCJpdiI6Im9n
+                  Z3hKM3g4YjBhb2xlSDQiLCJjaXBoZXJ0ZXh0IjoiLWhkM1A3UGM5emtpQ0hhYnda
+                  ZVhWU29rYmNXcmdqQ1QyU0FZaFFGYzNMNFY4b2ZLYVNYR3UtazF3T014OHhZY1FH
+                  Slo4Mk12b2tEUXNGRnZaQjBNUG9hdEljQWtmTms0VURqREcxNi1zVGc3QURKeV9p
+                  TkdmZ1dkUy1XU3QxWW1PZW5HaXBYNEZWM3ZyNU9URlE4X3hCRHdYSHRiU05KX3Jy
+                  RlVWX2R3TnJQdUdiSlYzSXhOYi01RFJ1Rkl1Z0ptY0JXelJYRW1LeUEyZEdZTG1V
+                  eEF3WFpWT18wYm1KVkxzZzlKa1puczU3YXNqR1Fna0c4ZzhCNDlnTEl0QWRFQXpJ
+                  SFlrNTVpUkRvQk9WRnhGR284Vlc1ZFNrM05ldi1mZ1JxYzFDZEdodEZuTnlzUjUy
+                  akhtMFprMzRoeTJRLWZVNnNTVXBwMU5vVmw3YTd1NWMxdEVZSGRNVU9fWWtHV0g0
+                  dFIxeWdmbG94dFY3ODRMYXdObGNCYlV6NFpvWXFKeXg2amEzdGxHaUpxaWdLZ043
+                  WENTT0R6RXF0QVRQeXBITnVfYXJHRm9LNmk3cGdKZXcwYUxMQWJQOFA0SFJHTVZ6
+                  Q1V6dktDbDdKYS1XTE81U1UwS0ViLVhJZGdHX195a005WTJqUVQzdi1MUjNNRG1q
+                  WlE0ZDM4cG9BS1lfSHJCWDg1Z1dMQXFzY3MyRHhwRTlIZm9xaXk0T2tscVlaa3Js
+                  MUpNT1dTQVZkWWNqckhjc3Y3VjZGSUJGV2Vjc1Nwb185ZUsxOCIsInRhZyI6IkJ6
+                  NFZZeHdtNFkyU1Y4bDVUckMwUEEifQ",
+              "signature": 
+                 "RjUCI3Q_zfBJyeHjYfldsd6MppSDNUAIzC77lsbM1MiKfLDi8oN0999gpByS7Sx6
+                  kCXqsNkV4T0z_qaqy4UY9JrdjMRTNFPXJMwhqbBem-s6dJT6VquF3GBQTU8wb4OK
+                  5E8rGvTcWw-Hd0SfpjGoJtgv5RmpzfVgdvANZcJfST-rOra3EnPitOf8dJ95Db3t
+                  78mEbMfqdoobk1Dnc39DvpnzD61TIoxWoZj3UGcBcvNPsl2XijS6yZlgAsrQbGnX
+                  xWx-PCwEACZoVekzt-YV5QUFH2Jqb1pGeUUCwoFv1ON90iXVusIdWWnJO51gSKwg
+                  i80ZxOSSBwF6b9WIeXHe5g"
+           },
+           "dac_response_dest_certificate": {
+              "kty": "RSA",
+              "kid": "cdmi.hos-b.us_encrypt_public",
+              "key_ops": [
+                 "wrapKey",
+                 "unwrapKey",
+                 "encrypt",
+                 "decrypt"
+              ],
+              "n": 
+                 "oQMQkY85UzwO7K6H0QQNfAiRMN3ZfhK0aXEKx7YwvrCU9IKOquZ1OYZ9Cv8556_8
+                  E8yZm02JDWOBOaSsGHU835jvXf12f4MywKGWj5FtIGL-j9kXF6SWq3zuLVYlXpMI
+                  KsJngHMVFca_-ZhZ2vLsrnDR1aCNEC48gR26ewp6WX1ptnSc1W4x3Mj-ONMVzxVE
+                  7XNlwYysTgDtonmTQD-YG6_KhhAPx0YowMbUWv_cMQvXsi7MMDyZn6fxfq4zQmQ2
+                  V5RtUy5msd6K3beDzS4LmZhsJmjU7YnhOj0pZby4Zckm43npjXPAuwPhzK2OW7qb
+                  fkv0qm4rsFWUcuNh8lBsDw",
+              "e": "AQAB",
+              "x5c": [
+                 "MIIDMDCCAhigAwIBAgIBBTANBgkqhkiG9w0BAQsFADBCMQswCQYDVQQGEwJubDER
+                  MA8GA1UEChMIbGllc2RvbmsxDTALBgNVBAsTBGNkbWkxETAPBgNVBAMTCHJzYS1y
+                  b290MCAXDTE2MTAyNzEyNDUwMFoYDzk5OTkxMjMxMjM1OTU5WjA1MQswCQYDVQQG
+                  EwJ1czEOMAwGA1UEChMFaG9zLWIxFjAUBgNVBAMTDWNkbWkuaG9zLWIudXMwggEi
+                  MA0GCSqGSIb3DQEBAQUAA4IBDwAwggEKAoIBAQChAxCRjzlTPA7srofRBA18CJEw
+                  3dl+ErRpcQrHtjC+sJT0go6q5nU5hn0K\/znnr\/wTzJmbTYkNY4E5pKwYdTzfmO
+                  9d\/XZ\/gzLAoZaPkW0gYv6P2RcXpJarfO4tViVekwgqwmeAcxUVxr\/5mFna8uy
+                  ucNHVoI0QLjyBHbp7CnpZfWm2dJzVbjHcyP440xXPFUTtc2XBjKxOAO2ieZNAP5g
+                  br8qGEA\/HRijAxtRa\/9wxC9eyLswwPJmfp\/F+rjNCZDZXlG1TLmax3ordt4PN
+                  LguZmGwmaNTtieE6PSllvLhlySbjeemNc8C7A+HMrY5bupt+S\/SqbiuwVZRy42H
+                  yUGwPAgMBAAGjPDA6MAwGA1UdEwEB\/wQCMAAwHQYDVR0OBBYEFH7NJvMIfTQtZn
+                  nyiIdLNkjCgwSIMAsGA1UdDwQEAwIEMDANBgkqhkiG9w0BAQsFAAOCAQEAdiADIv
+                  0v09SUDcPL+BKysvchn\/Sgx5KBu7n9KFwE31Dhx2zvT6ruL8kXdekPH9cfrDafW
+                  6I\/vnbzAVj02i5pM2cHayj13fTOWSVwpcQuvkoIF9eVIWONkemMMf7M7jpTw07z
+                  7S2T5usaDmMNpqj8y5pRpQo3PnBVxpEZJ0XaSdfuiHtVLDq8gDZCq6Hc2tt7JM3W
+                  njnQgs+1lSGRuqWOcpmVONIoqvhiolNDZV35Z7puRwqck1N2f1qyHHGBWXfCN9U4
+                  ci6q1BnWBIFV+hURge8NSbpqawolaNueUbTcKjN3JsMC4ZxhMF9rN3uuPn+UAYkA
+                  yQkcSmGSMM07wcAkMg==",
+                 "MIIDQDCCAiigAwIBAgIBATANBgkqhkiG9w0BAQsFADBCMQswCQYDVQQGEwJubDER
+                  MA8GA1UEChMIbGllc2RvbmsxDTALBgNVBAsTBGNkbWkxETAPBgNVBAMTCHJzYS1y
+                  b290MCAXDTE2MTAyNzEyNDQwMFoYDzk5OTkxMjMxMjM1OTU5WjBCMQswCQYDVQQG
+                  EwJubDERMA8GA1UEChMIbGllc2RvbmsxDTALBgNVBAsTBGNkbWkxETAPBgNVBAMT
+                  CHJzYS1yb290MIIBIjANBgkqhkiG9w0BAQEFAAOCAQ8AMIIBCgKCAQEAsrUj46dx
+                  5ojlaZk7YtOL6e+Q6JoG7gVMaXkJn1Szlx9ND\/8w4PeO1SQ2skukdOHAlQRmxdf
+                  tzhccNTM5hmbcn8TAfWSYqQF1R7s78bVjtmat6AQP1vSgiyZ8Ak+iYZEq3c2zVyY
+                  QHKKxWxmFZt1HT8\/H\/B3bXveXQcERKE+Tq66h8pqVcocQUtzRFsEYmv0bR1rgh
+                  toqH8nhB5xnebgVlXjApW+et2SE7r6Fjv1aAbGI89ouJ1gsMPeX56P8AUjacFtNK
+                  c44Obu6HRXY\/jm6f2m1EUm84EUsJ+9b5+S2x4qPttJDfSCasWYYz4mFJ8MwmFiB
+                  GUwfgeT2bUm6t7qqbQIDAQABoz8wPTAPBgNVHRMBAf8EBTADAQH\/MB0GA1UdDgQ
+                  WBBR+tEB2udkEXxX0k15GztF\/4ol03jALBgNVHQ8EBAMCAQYwDQYJKoZIhvcNAQ
+                  ELBQADggEBAIjx1f9rJ2B+mDSA3L2GRhjrPRjfI6Un3Z51CeW9gO9PMQ5ws5pDJy
+                  B79dE\/Q8Uf1e8pZyjchTsRa8GRdnKyndN2imayOVUvPoTd3\/ZSmfkurcbj3I4V
+                  W8sjHP7CE8fmUS8Xprdpo2SxV7oneJC0vt5eyh8mgfJ\/qSbwVaiXuH1Wxi6duAv
+                  dxddMXAxQKPG1KKVM7CYfCdpX\/HagCOHzcto+374zFqqnQ1Kx5rbgvxNSgm\/PD
+                  DOMwP03+bbTR63KSK1VbdtLBuS4jgaPabwyxQz\/FciwTu\/HLOQn8TNqDWyoIbs
+                  +eQX2Mds2Apul8XH2+CakjBLMLL3Tlj2x+6tKR9o="
+              ]
+           }
+        }
+
+    The CDMI server at Hospital B can now decrypt this message, process the access control decision, and use the object key to decrypt the encrypted object:
+
+    .. code-block:: http
+
+        HTTP/1.1 200 OK
+        Content-Type: text/plain
+        Content-Length: 33
+
+        This is an unencrypted text file.
 
 
 

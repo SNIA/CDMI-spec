@@ -20,7 +20,7 @@ A CDMI client may access log data by creating a logging queue that indicates the
 
 If multiple logging queues are defined, each logging queue shall get the log entry for a subscribed event. If no logging queues are defined that subscribe to a given log message or class of log messages, these messages do not have to be retained by the cloud storage system.
 
-
+.. _ref_object_logging:
 
 Object Logging
 ************************
