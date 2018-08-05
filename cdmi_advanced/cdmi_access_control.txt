@@ -1,0 +1,409 @@
+.. _clause_cdmi_access_control:
+
+Access Control
+==============
+
+
+Overview
+********
+CDMI access control is based around Access Control Lists (ACLs) that are stored as object metadata. When a client requests to perform an operation against a CDMI object, the CDMI server shall validate the client's identity and credentials against the object ACL to determine if the operation is allowed. This request assumes that the CDMI server is trusted and capable of making these access control decisions.
+
+:numref:`fig_NonDelegatedAccessControl` illustrates an ACL-based access control request:
+ 
+ 
+.. _fig_NonDelegatedAccessControl:
+
+.. figure:: /images/Non-Delegated_Access_Control.*
+    :align:  center
+    :figwidth: 100%
+   
+    Non-delegated (ACL-based) access control data flow
+
+When an access control decision needs to be made by a third party (such as by the originating CDMI server in :numref:`fig_NonDelegatedAccessControl`), access control is delegated. When ``cdmi_dac_uri`` and ``cdmi_dac_certificate`` object metadata is present, as specified in :numref:`clause %s <ref_support_for_storage_system_metadata>`, Delegated Access Control  (DAC) shall be used.
+
+An example of an object with DAC metadata is shown below:
+
+.. code-block:: json
+
+    {
+      "objectType": "application/cdmi-object",
+      "objectName": "MyObject.txt",
+      "capabilitiesURI": "/cdmi_capabilities/dataobject/",
+      "objectID": "0000000800182ADB37303732323136662D343564622D3462",
+      "mimetype": "text/plain",
+      "metadata": {
+        "cdmi_size": "33",
+        "cdmi_ctime": "2017-04-05T11:01:25",
+        "cdmi_atime": "2017-04-05T11:44:28",
+        "cdmi_dac_uri": "https://cloud.example.com/dac/",
+        "cdmi_dac_certificate": {
+          "kty": "EC",
+          "x": "goqhRgM4hyEh1p-fD1oU15QAgdKXsBZTQ_0B-IgSz6M",
+          "y": "cd8RTm8uLTGblIzioAzv8dzIkM85c08o23eksJrDt2Y",
+          "crv": "P-256"
+        }
+      },
+      "valueTransferEncoding": "utf-8",
+      "valueRange": "33",
+      "value": "This is an unencrypted text file."
+    }
+
+The process by which objects are federated between systems is outside the scope of access control delegation and involves how objects are replicated, synchronized, mirrored, or migrated between CDMI servers. These processes are typically under the control of policies or external policy management systems. Federation is typically performed by third-party systems that use CDMI features including notification, serialization, and the preservation of globally unique object identifiers, which forms the basis for client-transparent interoperability.
+
+.. _ref_delegated_access_control:
+
+Delegated Access Control (DAC)
+******************************
+
+A cloud storage system may implement support for DAC, which is indicated by the presence of the cdmi_dac system-wide capability.
+
+DAC enables requests for operations against an object to be allowed or denied by a third-party DAC provider, in addition to ACL access control. When required by object metadata, DAC access control verification shall be performed after ACL evaluation, but before ACL enforcement, as the DAC provider may overrule local ACL evaluation results. When an encrypted object is accessed, the DAC provider may provide the decryption key. The decryption key enables access to encrypted objects, even if the CDMI server cannot access the keys directly.
+
+Clients often have different degrees to which they trust the CDMI server with which they are interacting. Table :numref:`tbl_access_modes_for_dac` describes the four ways that DAC shall interact with stored objects.
+
+
+
+.. _tbl_access_modes_for_dac:
+
+.. list-table:: Access Modes for DAC
+    :header-rows: 1
+    :widths: auto
+    :align: center 
+
+    * - Mode of Access	
+      - Degree of Trust
+
+    * - Client-side decryption	
+      - CDMI server is not trusted with keys or to make delegated access control decisions.
+      
+        1.	Client requests encrypted object from CDMI Server
+        2.	Client receives ciphertext from the CDMI Server
+        3.	Client is responsible for getting decryption keys out of band
+        4.	Client verifies signatures (if present)
+        5.	Client verifies correct object
+        6.	Client decrypts object
+
+        This mode of access does not use any functionality indicated by the ``cdmi_dac capability`` and is supported by all CDMI servers.
+
+    * - Client-side decryption with DAC
+      - CDMI server is not trusted with keys and is used to establish an opaque channel of communication between the client and the DAC provider for key delivery.
+        
+        1.	Client requests encrypted object from the CDMI Server, and  includes custom DAC headers specifying information required for secure delivery of decryption key
+        2.	Client receives ciphertext from the CDMI Server, along with custom DAC header from the DAC provider for the decryption key 
+        3.	Client is extracts decryption key from DAC provider headers
+        4.	Client verifies signatures (if present)
+        5.	Client verifies correct object
+        6.	Client decrypts object
+        
+        This mode of access requires the cdmi_dac capability but does not require encrypted object support.
+        
+        In this mode, data is exchanged between the client and the DAC provider using one or more "CDMI-DAC-" headers, as described in :numref:`clause %s <ref_client_header_passthrough>`.
+    * - Direct Client DAC
+      - CDMI server is not trusted with keys, and client establishes channel of communication between the client and the DAC provider for key delivery.
+
+        1.	Client requests encrypted object from CDMI Server
+        2.	Client receives ciphertext from CDMI Server
+        3.	Client sends DAC request directly to DAC Provider
+        4.	Client receive DAC response directly from DAC Provider
+        5.	Client verifies signatures (if present)
+        6.	Client verifies correct object
+        7.	Client decrypts object
+ 
+        This mode of access requires the cdmi_dac capability but does not require encrypted object support.
+    * - Server-side decryption with DAC
+      - CDMI server is trusted with keys and to delegate access control decisions. DAC message exchange is used to get the decryption keys to decrypt the contents of the object, and keys are not revealed to the client.
+
+        1.	Client requests encrypted object from CDMI Server
+        2.	CDMI server contacts the DAC Provider to determine access control decision and gets decryption keys, where the keys are not revealed to the client.
+        3.	CDMI server verifies signatures (if present)
+        4.	CDMI server verifies correct object
+        5.	CDMI server decrypts object
+        6.	Client receives plaintext
+
+        This mode of access requires DAC and encrypted object support.
+    * - Plaintext objects with DAC
+      - CDMI server is trusted with plaintext and to not bypass delegated access control decisions.
+
+        1.	Client requests non-encrypted object from CDMI Server
+        2.	CDMI server contacts DAC provider to determine access control decision
+        3.	CDMI server verifies signatures (if present)
+        4.	CDMI server verifies correct object
+        5.	Client receives plaintext
+
+        This mode of access requires DAC support.
+
+The ``cdmi_dac_uri`` metadata item indicates where delegated access control requests shall be submitted, and the ``cdmi_dac_certificate`` metadata item indicates how securely communication with the delegated access control provider shall be established. Both of these metadata items shall be present for DAC to be enabled for a given object.
+
+DAC requests are submitted to a DAC provider using two typical methods:
+
+- **Direct** - The DAC request shall be submitted directly to the absolute URI specified in the ``cdmi_dac_uri metadata`` item. This approach requires the host specified in the URI to be accessible from the CDMI server, and for the CDMI server making the request to have sufficient permissions to PUT the DAC request to that location.
+- **Indirect** - The DAC request shall be sent to the DAC provider using an indirect route. Indirect routing is useful when the ``cdmi_dac_uri`` does not specify a host. An example of indirect routing is when the ``cdmi_dac_uri`` contains a mailto URI; the Internet mail system is then responsible for delivering the DAC request.
+
+  In other cases, the certificate included with the DAC request (taken from the ``cdmi_dac_certificate`` metadata) may be used by intermediary CDMI servers to determine the further routing of the DAC request. For example, DAC requests using a E.U.-issued certificate can be forwarded to a different intermediary CDMI server to those requests using a U.S.-issued certificate. How certificate fields are used to determine routing is not defined in this International Standard.
+  
+Both direct and indirect routing may be synchronous or asynchronous. If a DAC response is not received within the CDMI server or client timeout windows, the client request may time out; however a subsequent request may be processed locally if the DAC response allows response caching. When the CDMI server times out while waiting for a DAC response, it shall return an HTTP status code of ``504 Gateway Timeout``.
+
+
+
+.. _ref_delegated_access_control_message_exchange:
+
+
+Delegated Access Control Message Exchange
+*****************************************
+
+When a client requests to access or modify an object containing DAC metadata on a CDMI server that supports DAC, the CDMI server shall create and send a DAC request as specified in :numref:`clause %s <ref_dac_request>`. Upon receiving a DAC response as specified in :numref:`clause %s <ref_dac_response>`, the CDMI server shall allow or deny the operation based on the contents of the response.
+
+Figure :numref:`fig_DAC_Flow_NonEncrypted` provides an example of access control delegation for a non-encrypted object. The black solid lines show indirect routing, and gray dashed lines show direct routing.
+
+
+.. _fig_DAC_Flow_NonEncrypted:
+
+.. figure:: /images/DAC_Flow_NonEncrypted.*
+    :align:  center
+    :figwidth: 100%
+   
+    Delegated access control data flow example for non-encrypted object
+ 
+
+For non-encrypted objects, an originating client indicates that DAC is requested by including the DAC metadata items. It is important to emphasize that for non-encrypted objects, DAC cannot be guaranteed to be enforced, as when an object with DAC metadata is accessed from a CDMI server that does not support DAC; only ACL-based access control shall be evaluated.
+
+Figure :numref:`fig_DAC_Flow_Encrypted` provides a second example of access control delegation for an encrypted object. The black solid lines show indirect routing, and gray dashed lines show direct routing.
+
+
+.. _fig_DAC_Flow_Encrypted:
+
+.. figure:: /images/DAC_Flow_Encrypted.*
+    :align:  center
+    :figwidth: 100%
+   
+    Delegated access control data flow example for encrypted object
+
+For encrypted objects, as access to the decryption keys are provided in the DAC response, the plaintext is inaccessible unless the CDMI server supports DAC.
+
+When the DAC provider processes the DAC request, if the operation is allowed and the key is requested by the CDMI server, the object key, if present, shall be obtained and sent back as part of the DAC response. Upon receiving the DAC response, the CDMI server shall extract the key to perform the client operation.
+
+
+
+.. _ref_client_header_passthrough:
+
+Client Header Passthrough
+*************************
+
+The Delegated Access Control extension provides facilities to allow client-provided HTTP request headers to be passed through to the DAC provider, and for the DAC provider to pass HTTP response headers back to the client. These headers are identified by the "``CDMI-DAC-``" prefix.
+
+The contents and full names of these headers are not defined in this International Standard. However, it is anticipated that these headers shall be used to allow the client to provide additional information that may be required for the access control decision-making process, for audit purposes, or for secure key exchange.
+
+For example, when an operation is allowed by a DAC provider, the object key may be encrypted using the public key from a client-provided certificate (verified by the DAC provider), which is included in a "``CDMI-DAC-``" request header, with the encrypted object key being sent back to the client in a "``CDMI-DAC-``" response header. In this scenario, the CDMI server cannot decrypt the ciphertext but can securely pass on the encrypted object key to the client. The client can then use its private key to decrypt the response header to get the object key, which can then be used to decrypt the object.
+
+.. _ref_dac_request:
+
+DAC Request
+***********
+When a CDMI server that supports DAC needs to contact the DAC provider as specified in the DAC metadata, it shall construct a DAC request, as specified below:
+
+
+
+.. _tbl_dac_request:
+
+.. list-table:: DAC Request
+    :header-rows: 1
+    :widths: auto
+    :align: center 
+
+    * - Field Name	
+      - Type	
+      - Description	
+      - Requirement
+
+    * - dac_request_version	
+      - JSON String	
+      - Indicates the version of the DAC request. This field shall be set to the value "``1``".
+      - Mandatory
+    * - dac_request_id	
+      - JSON String	
+      - Contains a system-specified identifier that is used to match up the corresponding DAC response. This identifier shall be unique within the window that multiple DAC responses may be received.	
+      - Mandatory
+    * - server_identity	
+      - JSON Object	
+      - A JSON object, containing a JWE JWK which shall include a public key that is used to submit a DAC response, and should contains a X.509 certificate or certificate chain used to verify the identity of the CDMI server that is generating the DAC request.
+
+        This ensures that only the CDMI Server that generated the DAC request can read the DAC response.	
+      - Mandatory
+    * - client_identity	
+      - JSON Object	
+      - A JSON object containing the following JSON entities:
+
+        JSON String, "``acl_name``", containing the ACL name of the client requesting the operation.
+
+        JSON Array, "``acl_group``", containing the ACL group(s) of the client requesting the operation. 	
+      - Optional
+    * - acl_effective_mask	
+      - JSON String	
+      - A text or hexadecimal string representation of the ACE mask determined by ACL evaluation for the requested operation, as defined in :numref:`clause %s <ref_ace_bit_masks>`.	      
+      - Mandatory
+    * - client_headers	
+      - JSON Object	
+      - A JSON object containing a JSON string for each HTTP header in the operation request that starts with "``CDMI-DAC-``", where the JSON string name is the header name, and the JSON string value is the header value.
+
+        These headers can be used for tunneling information from the client to the DAC provider.	
+      - Mandatory
+    * - cdmi_objectID	
+      - JSON String	
+      - Contains the object ID of the object the operation is performed against.	
+      - Mandatory
+    * - cdmi_enc_key_id	
+      - JSON String	
+      - Contains the encryption key identifier (for example, a KMIP identifier) for the symmetric key that is used to encrypt and decrypt the object, which is used to indicate that the CDMI server is requesting the encryption key. 
+      - Optional
+    * - cdmi_operation	
+      - JSON String	
+      - Contains a string indicating which operation is being requested to be performed against the object.
+
+        The following operations are defined:
+
+        - "``cdmi_read``"
+        - "``cdmi_modify``"
+        - "``cdmi_delete``"	
+      - Mandatory
+    * - dac_response_uri	
+      - JSON String	
+      - An optional URI that specifies where to send the DAC response. This URI is required for asynchronous DAC requests, such as when sent via email URIs.
+
+        If this field is omitted, the DAC response shall be based on the context of the request, for example, as a message body returned for the request PUT when using HTTPS, or an email reply when using a mailto URI.	
+      - Optional
+
+An example of a DAC request is shown below:
+
+.. code-block:: json
+
+    {
+       "dac_request_version": "1",
+       "dac_request_id": "037130fa-da72-44f0-8a31-62073263ac95",
+       "server_identity": {
+          "kty": "EC",
+          "x": "joyfi05KEI3hcOhJeOfny_TWsZ9FFS1zUydFQhm3G78",
+          "y": "Nsk3jX1ph0FH8APR2k0XSu6pDZYyF7f_Okplf7hZ_8k",
+          "crv": "P-256"
+       },
+       "client_identity": {
+          "acl_name": "anonymous",
+          "acl_group": ["users"]
+       },
+       "acl_effective_mask": "READ_ALL",
+       "client_headers": {
+          "cdmi-dac-header1": "This is a test header"
+       },
+       "cdmi_objectID": "0000000800182ADB37303732323136662D343564622D3462",
+       "cdmi_operation": "cdmi_read"
+    }
+
+    
+.. _ref_packaged_dac_request:    
+ 
+Packaged DAC Request
+********************
+
+The above JSON (DAC request) shall be encrypted in JWE format, where the recipient is the public key of the DAC provider certificate (as specified in the DAC object ``cdmi_dac_certificate`` metadata), and is JWS signed using the private key of the CDMI server that corresponds to the server identity certificate included in the DAC request. The certificate of the DAC provider from the object is then attached:
+
+
+.. _tbl_packaged_dac_request:
+
+.. list-table:: Packaged DAC Request
+    :header-rows: 1
+    :widths: auto
+    :align: center 
+
+    * - Field Name	
+      - Type	
+      - Description	
+      - Requirement
+    * - dac_request	
+      - JSON Object	
+      - JOSE encrypted and signed request	
+      - Mandatory
+    * - dac_request_dest_certificate	
+      - JSON Object	
+      - The cdmi_dac_certificate metadata value, which is used to indicate where the DAC request is being sent via indirect routing.
+      - Mandatory
+    * - dac_request_dest_uri	
+      - JSON String	
+      - The ``cdmi_dac_uri`` metadata value, which is used to indicate where the DAC request is being sent via direct routing, or used to indicate the first location when being sent via indirect routing.	
+      - Mandatory
+
+An example of a packaged DAC request is shown below [#]_:
+
+
+.. [#] Decrypt with ``"d": "NnU0IEyV4JSyLoKwIzKN1FAxDvL6qqawAHlPkpwBMSY"``.
+
+
+.. code-block:: json
+
+    {
+       "dac_request": {
+          "protected": 
+             "eyJqd2siOiJ7XCJrdHlcIjpcIkVDXCIsXCJ4XCI6XCJqb3lmaTA1S0VJM2hjT2hK
+              ZU9mbnlfVFdzWjlGRlMxelV5ZEZRaG0zRzc4XCIsXCJ5XCI6XCJOc2szalgxcGgw
+              Rkg4QVBSMmswWFN1NnBEWll5RjdmX09rcGxmN2haXzhrXCIsXCJjcnZcIjpcIlAt
+              MjU2XCJ9IiwiYWxnIjoiRVMyNTYifQ",
+          "payload": 
+             "eyJwcm90ZWN0ZWQiOiJleUpoYkdjaU9pSkZRMFJJTFVWVElpd2laVzVqSWpvaVFU
+              STFOa2REVFNJc0ltVndheUk2ZXlKcmRIa2lPaUpGUXlJc0luZ2lPaUpuUkZOek1F
+              cFRXbU5VVVRsWGVGWXRiRXhSVTJ4elFsY3lXazFvTm1kb1JrcDJTVmt4TWt4d1dW
+              TlJJaXdpZVNJNklsTkZNV1pXWkVkalZtdGtPVVZCVmpaVGMyeE9NVzQyUkdsdlpV
+              dHVZV3BLWmpsdWVFOVljRlpoYmtFaUxDSmpjbllpT2lKUUxUSTFOaUo5ZlEiLCJl
+              bmNyeXB0ZWRfa2V5IjoiIiwiaXYiOiJLRDlGRlBOcFh2cWNIYTdIIiwiY2lwaGVy
+              dGV4dCI6Im42NlpmUzBXRmhjN3ZzT3Rnc1o5SXJtWU5paDI4RDVzT1psTk96dEdO
+              TW5hakFRSGZTMGozcUhrMUxPME9IbFBYMnVfYXVWcVN2aDF2Z1IxSFlnOEl3TmFq
+              TFZfS29ZMndGXzlkaDRtWFJlVXA4R1hpbm05MFE0ZWZmY1BLRm1IcEo0dE94TTVS
+              VjlLN2VvdWNxSkxzczJKbHc1ZUJhOVQ5WjFyS1pvQmIxVURSLVVmRW9lQlNZRFA3
+              NUl1SEFRSWU4UW5qOW04QjFHb18tNTFPNndKb2d6cHh5Ulhpd3g2SWdoYlhSYmNX
+              MWQ5bVRtZkR3UFBoSE4zTUp1UGUxbVBpelNLWnJ3NWNQM21NZmhKWmNoT3gyZkZt
+              Q3NMME5zSkphQWo3WEs0elFiMGVBd0RSS1BzeTJ6MnZCZzFQT1lhUHppOVphNjRK
+              RHgyZ3hWRTA2Y0xERGx3TXY4dW9CbFU1TVdyZF9YRGdScUZsSFl1T19aZEtxQkRp
+              MVQ1SW5HeDc2YzdCcmVObzFIbnVqV200M0FsanpPRmIyTHBhdU5PQnlETl9oVXFi
+              WGRISTZOWnZBUDU0MzVteHZDRi1SYUpMZGxFUENNeGhneXNFdy1oRGxoQmtFYUpf
+              U0JtZUZtem5ITGFkZUNDYzI3cWNuOUlZVlZBMHZMZVY2N2xzbnZMY3VyOHI0OFlt
+              SXRmZGNZbFVOLTh2c0xhSlZzbHhMSzc0VjdjdWNhbFNubWJvYktWTVV6TnZuU29K
+              NHpldXBYZzItbl92WnIwbkZlSUFWelIxZmJvUVA0c1F4bXNSUWJNY2d4bmpSM21E
+              eTJsQzY5dFN1TDJGYm1qUnZiYWM3XzFRa01CIiwidGFnIjoiNWlRcGVTdTlfb00y
+              X2UtSTM3NjJpQSJ9",
+          "signature": 
+             "rGz9Cku3csTIJ_p3qmHzUrPSLb1ZSD3ZlfaJDw0F-dNmJs6sgzizFC_jf5VgDVuo
+              GT-wH2b2zVuP_O1HDcKPDQ"
+       },
+       "dac_request_dest_certificate": {
+          "kty": "EC",
+          "x": "goqhRgM4hyEh1p-fD1oU15QAgdKXsBZTQ_0B-IgSz6M",
+          "y": "cd8RTm8uLTGblIzioAzv8dzIkM85c08o23eksJrDt2Y",
+          "crv": "P-256"
+       },
+       "dac_request_dest_uri": "https://cloud.example.com/dac/"
+    }
+    
+Once created, the packaged DAC request shall be submitted using the DAC request URI specified in the DAC object metadata, for example, as an HTTP PUT operation of type "``application/json``", or via an SMTP email. The ``dac_request_dest_certificate`` and ``dac_request_dest_uri`` may be used to route the request through intermediary hops, as needed.
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+

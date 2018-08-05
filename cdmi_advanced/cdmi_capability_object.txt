@@ -271,6 +271,21 @@ Cloud Storage System-Wide Capabilities
     * - cdmi_create_value_range_by_ID    
       - JSON String    
       - If present and "``true``", this capability indicates that the system allows a new data object’s value to be created with byte ranges through "``/cdmi_objectid/``".
+    * - cdmi_dac
+      - JSON String
+      - If present and "``true``", this capability indicates that the cloud storage system supports delegated access control.      
+    * - cdmi_dac_methods
+      - JSON Array of JSON Strings	
+      - If present, this capability contains a list of URI schemes supported for DAC URIs, as specified in the IANA URI Schemes registry.
+     
+        The following schemes shall be supported:
+        
+            - "https" – mandatory for all DAC implementations
+
+        The following schemes may be supported:
+
+            - "http" – optional for DAC implementations
+            - "mailto" – optional for DAC implementations
 
 
 .. raw:: latex
@@ -319,7 +334,12 @@ Storage System Metadata Capabilities
     * - cdmi_mcount     
       - JSON String    
       - If present and "``true``", this capability indicates that the cloud storage system shall generate a ``cdmi_mcount`` storage system metadata for each stored object.
-
+    * - cdmi_dac_uri
+      - JSON String
+      - If present and "``true``", this capability indicates that the cloud storage system supports delegated access control metadata.
+    * - cdmi_dac_certificate
+      - JSON String
+      - If present and "``true``", this capability indicates that the cloud storage system supports delegated access control metadata.
 
 .. raw:: latex
 

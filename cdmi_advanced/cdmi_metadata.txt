@@ -143,7 +143,8 @@ CDMI allows for nested containers and mandates that objects and subcontainers be
 
 
 
-
+.. _ref_ace_bit_masks:
+      
 ACE Mask Bits
 -------------
 
@@ -623,6 +624,22 @@ After an object has been created, the storage system metadata, as described in :
     * - cdmi_acl
       - JSON Array of JSON Objects
       - Standard ACL metadata. If not specified when the object is created, this metadata shall be filled in by the system.
+      - Optional
+
+    * - cdmi_dac_uri
+      - JSON String	
+      - Contains the URI used to submit a DAC request for the data object.
+
+        URI schemes supported is defined in the ``cdmi_dac_methods capability``.
+
+        Both ``cdmi_dac_certificate`` and ``cdmi_dac_uri`` shall be included for delegated access control to be enabled for a given object.	
+      - Optional
+      
+    * - cdmi_dac_certificate	
+      - JSON Object	
+      - A JSON object, containing a JWE JWK which shall include a public key that is used to submit a DAC request for the data object, and should contains a X.509 certificate or certificate chain used to verify the identity of the DAC provider.
+      
+        Both ``cdmi_dac_certificate`` and ``cdmi_dac_uri`` shall be included for delegated access control to be enabled for a given object.	
       - Optional
 
 
