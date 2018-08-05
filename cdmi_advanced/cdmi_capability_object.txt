@@ -350,7 +350,11 @@ Storage System Metadata Capabilities
       - JSON String    
       - If present and "``true``", this capability indicates that the cloud storage system shall generate a ``cdmi_mcount`` storage system metadata for each stored object.
 
-
+    * - cdmi_enc_signature	
+      - JSON String	
+      - If present and "``true``", this capability indicates that the cloud storage system shall generate a ``cdmi_signature`` storage system metadata for each stored object when a corresponding ``sign_id`` data system metadata item is present.
+      
+      
 .. raw:: latex
 
   \newpage
@@ -590,6 +594,26 @@ Data System Metadata Capabilities
 
         When present, the cdmi_authentication_methods data system metadata shall be supported for all domains.
 
+
+    * - cdmi_enc_key_id	
+      - JSON String	
+      - When the cloud storage system supports the ``cdmi_enc_key_id`` data system metadata as defined in :numref:`clause %s <ref_support_for_data_system_metadata>`, the ``cdmi_enc_key_id`` capability shall be present and set to the string value "``true``". When this capability is absent, or present and set to the string value "``false``", ``cdmi_enc_key_id`` data system metadata shall not be used.
+    
+    * - cdmi_enc_value_sign_id	
+      - JSON String	
+      - When the cloud storage system supports the ``cdmi_enc_value_sign_id`` data system metadata as defined in :numref:`clause %s <ref_support_for_data_system_metadata>`, the ``cdmi_enc_value_sign_id`` capability shall be present and set to the string value "``true``". When this capability is absent, or present and set to the string value "``false``", ``cdmi_enc_value_sign_id`` data system metadata shall not be used.
+
+    * - cdmi_enc_value_verify_id	
+      - JSON String	
+      - When the cloud storage system supports the ``cdmi_enc_value_verify_id`` data system metadata as defined in :numref:`clause %s <ref_support_for_data_system_metadata>`, the ``cdmi_enc_value_verify_id`` capability shall be present and set to the string value "``true``". When this capability is absent, or present and set to the string value "``false``", ``cdmi_enc_value_verify_id`` data system metadata shall not be used.
+
+    * - cdmi_enc_object_sign_id	
+      - JSON String	
+      - When the cloud storage system supports the ``cdmi_enc_object_sign_id`` data system metadata as defined in :numref:`clause %s <ref_support_for_data_system_metadata>`, the ``cdmi_enc_object_sign_id`` capability shall be present and set to the string value "``true``". When this capability is absent, or present and set to the string value "``false``", ``cdmi_enc_object_sign_id`` data system metadata shall not be used.
+      
+    * - cdmi_enc_object_verify_id	
+      - JSON String	
+      - When the cloud storage system supports the ``cdmi_enc_object_verify_id`` data system metadata as defined in :numref:`clause %s <ref_support_for_data_system_metadata>`, the ``cdmi_enc_object_verify_id`` capability shall be present and set to the string value "``true``". When this capability is absent, or present and set to the string value "``false``", ``cdmi_enc_object_verify_id`` data system metadata shall not be used.
 
 .. raw:: latex
 
