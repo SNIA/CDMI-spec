@@ -1,4 +1,4 @@
-.. _clause_encrypted_object:
+.. _clause_cdmi_encrypted_objects:
 
 Encrypted Objects
 =================
@@ -12,12 +12,12 @@ Encrypted object operations include the ability to encrypt, re-encrypt, and decr
 
 The CDMI International Standard does not specify the method by which keys are managed. Key management services are provided by an external key management system (KMS), and the use of the KMIP standard is given as an example of how a CDMI server interacts with an external KMS.
 
-CDMI objects can contain values that are encrypted. Operations against an encrypted CDMI object are only supported if the encrypted object value is a valid CMS or JWE JSON format. The CMS or JWE JSON object shall include an embedded mimetype of the encrypted object. For JWE, the "cty" header shall be used for this purpose.
+CDMI objects can contain values that are encrypted. Operations against an encrypted CDMI object are only supported if the encrypted object value is a valid CMS or JWE JSON format. The CMS or JWE JSON object shall include an embedded mimetype of the encrypted object. For JWE, the "``cty``" header shall be used for this purpose.
 
 
 Encryption Operations
 *********************
-The state transition diagram for encrypted objects is shown in Figure :numref:`fig_encrypted_object_state_transistions`:
+The state transition diagram for encrypted objects is shown in Figure   :numref:`fig_encrypted_object_state_transistions`:
 
 .. _fig_encrypted_object_state_transistions:
 
@@ -32,52 +32,52 @@ The following eight encryption operations are defined:
 Create a new encrypted object
 -----------------------------
 
-Client-encrypted objects shall be stored to a CDMI server using a standard HTTP or CDMI PUT operation, as described in clauses 6.2 and 8.2. The client shall indicate that an object is encrypted by specifying a mimetype of "application/cms" or "application/jose+json".
+Client-encrypted objects shall be stored to a CDMI server using a standard HTTP or CDMI PUT operation, as described in clauses   :numref:`ref_http_container_object_create` and   :numref:`ref_cdmi_data_object_create`. The client shall indicate that an object is encrypted by specifying a mimetype of "``application/cms``" or "``application/jose+json``".
 
-A client may register an encryption key, signing keys and/or verification keys with a Key Management System (KMS), and may indicate the Key IDs in cdmi_enc_key_id, cdmi_enc_value_sign_id, cdmi_enc_object_sign_id, cdmi_enc_value_verify_id, and/or cdmi_enc_object_verify_id metadata items. This allows the CDMI server to access the keys from the KMS on behalf of a client, when needed.
+A client may register an encryption key, signing keys and/or verification keys with a Key Management System (KMS), and may indicate the Key IDs in ``cdmi_enc_key_id``, ``cdmi_enc_value_sign_id``, ``cdmi_enc_object_sign_id``, ``cdmi_enc_value_verify_id``, and/or ``cdmi_enc_object_verify_id`` metadata items. This allows the CDMI server to access the keys from the KMS on behalf of a client, when needed.
 
 Creating an encrypted objects on a CDMI server does not require any encryption-specific capabilities to be supported, and is backwards compatible with earlier versions of the CDMI standard. This permits encrypted objects to be stored and transferred by CDMI servers that do not support encryption-specific functionality.
 
 Delete an encrypted object
 --------------------------
 
-Encrypted objects shall be deleted using a standard HTTP or CDMI DELETE operation, as described in clauses 6.5 and 8.5. Any client with sufficient permissions shall be permitted to delete an encrypted object, regardless of if they can access the decryption keys.
+Encrypted objects shall be deleted using a standard HTTP or CDMI DELETE operation, as described in  :numref:`clause %s <ref_http_container_object_delete>` and  :numref:`clause %s <ref_cdmi_data_object_delete>`. Any client with sufficient permissions shall be permitted to delete an encrypted object, regardless of if they can access the decryption keys.
 
 Encrypt an unencrypted object
 -----------------------------
 
-Existing unencrypted objects shall be encrypted in-place by performing a CDMI PUT operation, as described in clause 8.4, that changes the object mimetype to "application/cms" or "application/jose+json" and specifies a cdmi_enc_key_id metadata item. The client may also specify a cdmi_enc_value_sign_id and/or cdmi_enc_value_verify_id metadata item to indicate that the object is to be signed, and to provide signature verification information.
+Existing unencrypted objects shall be encrypted in-place by performing a CDMI PUT operation, as described in  :numref:`clause %s <ref_cdmi_data_object_update>`, that changes the object mimetype to "``application/cms``" or "``application/jose+json``" and specifies a ``cdmi_enc_key_id`` metadata item. The client may also specify a ``cdmi_enc_value_sign_id`` and/or ``cdmi_enc_value_verify_id`` metadata item to indicate that the object is to be signed, and to provide signature verification information.
 
-The CDMI Server shall use the client's credentials (which are included in HTTP headers, and are out of scope of this International Standard) to retreive the encryption and signing keys, and encryption and signing algorithm information from the KMS, and shall use the keys to encrypt and sign the value of the object. The mimetype of the encrypted value is stored in the CMS wrapper, or in a "cty" field of the JWE JSON.
+The CDMI Server shall use the client's credentials (which are included in HTTP headers, and are out of scope of this International Standard) to retreive the encryption and signing keys, and encryption and signing algorithm information from the KMS, and shall use the keys to encrypt and sign the value of the object. The mimetype of the encrypted value is stored in the CMS wrapper, or in a "``cty``" field of the JWE JSON.
 
 Decrypt an encrypted object
 ---------------------------
 
-Existing encrypted objects shall be decrypted in-place by performing a CDMI PUT operation, as described in clause 8.4, that changes the object mimetype from "application/cms" or "application/jose+json" to the original mimetype as specified in the CMS wrapper, or in the "cty" field of the JWE JSON. Specifying any other fields or metadata shall return a 400 Bad Request result code.
+Existing encrypted objects shall be decrypted in-place by performing a CDMI PUT operation, as described in  :numref:`clause %s <ref_cdmi_data_object_update>`, that changes the object mimetype from "``application/cms``" or "``application/jose+json``" to the original mimetype as specified in the CMS wrapper, or in the "``cty``" field of the JWE JSON. Specifying any other fields or metadata shall return a ````400 Bad Request```` result code.
 
 The CDMI Server shall use the client's credentials (which are included in HTTP headers, and are out of scope of this International Standard) to retreive the encryption, signing and verification keys, and encryption, signing and verification algorithm information from the KMS, and shall use the keys to decrypt and verify the encrypted value and user metadata included in the object.
 
 Re-encrypt an encrypted object
 ------------------------------
 
-Existing encrypted objects shall be re-encrypted in-place by performing a CDMI PUT operation, as described in clause 8.4, that retains the object mimetype of "application/cms" or "application/jose+json", or changes the object mimetype from "application/cms" to "application/jose+json", or vice-versa. The client shall also specify a new cdmi_enc_key_id, cdmi_enc_value_sign_id and/or cdmi_enc_value_verify_id metadata item to indicate the new key(s) to be used. Specifying any other fields or metadata shall return a 400 Bad Request result code.
+Existing encrypted objects shall be re-encrypted in-place by performing a CDMI PUT operation, as described in  :numref:`clause %s <ref_cdmi_data_object_update>`, that retains the object mimetype of "``application/cms``" or "``application/jose+json``", or changes the object mimetype from "``application/cms``" to "``application/jose+json``", or vice-versa. The client shall also specify a new ``cdmi_enc_key_id``, ``cdmi_enc_value_sign_id`` and/or ``cdmi_enc_value_verify_id`` metadata item to indicate the new key(s) to be used. Specifying any other fields or metadata shall return a ``400 Bad Request`` result code.
 
 The CDMI Server shall use the client's credentials (which are included in HTTP headers, and are out of scope of this International Standard) to retreive both the original encryption and signing keys using the original metadata values, and the new encryption and signing keys using the new metadata values from the KMS, and shall use these keys to decrypt, verify, encrypt and sign the value of the object, as needed.
 
-If an encrypted object does not have an existing cdmi_enc_key_id metadata item, does not have a "kid" header, and no keys are associated with the Object ID, the specified metadata shall be added to the object, and no re-encryption operation shall be performed.
+If an encrypted object does not have an existing ``cdmi_enc_key_id`` metadata item, does not have a "``kid``" header, and no keys are associated with the Object ID, the specified metadata shall be added to the object, and no re-encryption operation shall be performed.
 
 Access ciphertext of an encrypted object
 ----------------------------------------
 
-The ciphertext content of an encrypted object shall be read by performing an HTTP GET operation, as described in clause 6.3, with an Accept header value of "application/cms" or "application/jose+json", depending on the mimetype of the encrypted object.
+The ciphertext content of an encrypted object shall be read by performing an HTTP GET operation, as described in  :numref:`clause %s <http_data_object_read>`, with an Accept header value of "``application/cms``" or "``application/jose+json``", depending on the mimetype of the encrypted object.
 
-The ciphertext content of an encrypted object shall also be read by performing a CDMI GET operation, as described in clause 8.3.
+The ciphertext content of an encrypted object shall also be read by performing a CDMI GET operation, as described in  :numref:`clause %s <cdmi_data_object_read>`.
 
 
 Access plaintext of an encrypted object
 ---------------------------------------
 
-The plaintext value of an encrypted object shall be read by performing an HTTP GET operation, as described in clause 6.3, with an Accept header value other than "application/cms" or "application/jose+json", typically "*/*. Object plaintext cannot be transparently accessed using a CDMI GET.
+The plaintext value of an encrypted object shall be read by performing an HTTP GET operation, as described in   :numref:`clause %s <http_data_object_read>`, with an Accept header value other than "``application/cms``" or "``application/jose+json``", typically "``*/*``". Object plaintext cannot be transparently accessed using a CDMI GET.
 
 The CDMI Server shall use the client's credentials (which are included in HTTP headers, and are out of scope of this International Standard) to retreive the encryption, signing and verification keys, and encryption, signing and verification algorithm information from the KMS, and shall use the keys to decrypt and verify the encrypted value included in the object.
 
@@ -86,7 +86,7 @@ When an encrypted object is decrypted for access, the plaintext shall not be ret
 Update plaintext of an encrypted object
 ---------------------------------------
 
-The plaintext value of an encrypted object shall be modified by performing an HTTP PUT operation, as described in clause 6.4, with an Content-Type header value other than "application/cms" or "application/jose+json", typically "*/*"., depending on the mimetype of the encrypted object. Object plaintext cannot be transparently modified using a CDMI GET.
+The plaintext value of an encrypted object shall be modified by performing an HTTP PUT operation, as described in   :numref:`clause %s <http_data_object_update>`, with an Content-Type header value other than "``application/cms``" or "``application/jose+json``", typically "``*/*``"., depending on the mimetype of the encrypted object. Object plaintext cannot be transparently modified using a CDMI GET.
 
 The CDMI Server shall use the client's credentials (which are included in HTTP headers, and are out of scope of this International Standard) to retreive the encryption, signing and verification keys, and encryption, signing and verification algorithm information from the KMS, and shall use the keys to decrypt and verify the encrypted value, update the value, and re-encrypt/re-sign the updated value.
 
@@ -101,6 +101,7 @@ Example Uses of Encrypted Objects
 *********************************
 
 Encrypted objects can be used with CDMI systems in the following ways:
+
 -	**Passthrough** – A client may store an encrypted object in any format in a CDMI server, with the ciphertext being accessible to the server and to other authorized clients. No access to the plaintext is provided. Passthrough use is compatible with all CDMI systems and is useful when the clients manage all security-related operations and want to protect against potentially untrustworthy clouds.
 -	**Server-side encryption and signing** – A client may instruct a CDMI server that supports encrypted object operations to take an existing CDMI object and encrypt or encrypt and sign it in place into CMS or JWE JSON representation, where the value of the object is persistently stored from that point on in an encrypted format. Server-side encryption and signing is useful when clients trust the CDMI server and want to increase object security without having to re-upload the data.
 -	**Server-side decryption** – A client may instruct a CDMI server that supports encrypted object operations to take an existing CDMI object and decrypt it in place from a CMS or JWE JSON representation, where the value of the object is persistently stored from that point on in a decrypted format. Server-side decryption is useful when a client trusts the CDMI server and wants to decrease object security without having to re-upload the data.
@@ -111,7 +112,7 @@ Encrypted objects can be used with CDMI systems in the following ways:
 KMS Integration
 ***************
 
-The encryption key is obtained from the KMS using a unique identifier that is stored in the cdmi_enc_key_id metadata item associated with the encrypted object. If this metadata item is not present, the CDMI object ID shall be used to locate the key.
+The encryption key is obtained from the KMS using a unique identifier that is stored in the ``cdmi_enc_key_id`` metadata item associated with the encrypted object. If this metadata item is not present, the CDMI object ID shall be used to locate the key.
 
 When a client requests that an operation be performed that requires accessing the key for the object, the CDMI server evaluates the credentials provided by the client to determine if the client is authorized to perform the requested operation. If the operation is permitted, the CDMI server retrieves the key from the KMS to complete the requested operation. To retrieve the key, the client may be required to provide additional information in the HTTP request that the CDMI server can then use to authenticate to the KMS.
 
@@ -124,18 +125,20 @@ CMS Format
 Any valid CMS-formatted data can be stored to a CDMI server. However, encrypted object operations are only defined for the following subset of valid CMS-formatted data.
 
 For encryption operations, the CDMI server shall support the following:
--	EnvelopedData
--	EncryptedContentInfo
--	contentEncryptionAlgorithm value listed in the cdmi_cms_encryption capability of that CDMI server
+
+-	``EnvelopedData``
+-	``EncryptedContentInfo``
+-	``contentEncryptionAlgorithm`` value listed in the ``cdmi_cms_encryption`` capability of that CDMI server
 
 For signature operations, the CDMI server shall support the following:
--	AuthenticatedData
--	SignedData
--	digestAlgorithms value listed in the cdmi_cms_digest capability of that CDMI server
--	SignerInfo
--	signatureAlgorithm value listed in the cdmi_cms_signature capability of that CDMI server
 
-The following CMS-formatted data may be ignored: recipientInfos
+-	``AuthenticatedData``
+-	``SignedData``
+-	``digestAlgorithms`` value listed in the ``cdmi_cms_digest`` capability of that CDMI server
+-	``SignerInfo``
+-	``signatureAlgorithm`` value listed in the ``cdmi_cms_signature`` capability of that CDMI server
+
+The following CMS-formatted data may be ignored: ``recipientInfos``
 
 JOSE Format
 ***********
@@ -143,34 +146,41 @@ JOSE Format
 Any valid JWE-formatted data can be stored to a CDMI server. However, encrypted object operations are only defined for the following subset of valid JWE-formatted data.
 
 For encryption operations, the CDMI server shall support the following:
+
 -	JWE with Direct Encryption (Symmetric Key from KMS)
 -	JWE with Key Encryption (Public Key from KMS) 
 
 For signature operations, the CDMI server shall support the following:
+
 -	JWS RSA (Private Key from KMS)
 -	JWS ECDSA (Private Key from KMS)
 -	JWS HMAC-SHA2 (Symmetric Key from KMS)
 
-The following CMSJOSE-formatted data may be ignored: Multiple recipients and multiple signatures
+The following JOSE-formatted data may be ignored: Multiple recipients and multiple signatures
+
+
+.. _ref_cdmi_encrypted_objects_signature_verification:
 
 Signature/Digest Verification
 *****************************
 
 If a signature is present as part of the CMS or JWE JSON value, the CDMI server shall verify that the signature of the value is valid before allowing plaintext access or modification.
 
-If a whole-object signature is present, the CDMI server shall verify that the signature contained in the cdmi_enc_signature metadata item is valid before allowing any read operations for the object. Write operations are permitted for an object with an invalid or unverifiable whole-object signature.
+If a whole-object signature is present, the CDMI server shall verify that the signature contained in the ``cdmi_enc_signature`` metadata item is valid before allowing any read operations for the object. Write operations are permitted for an object with an invalid or unverifiable whole-object signature.
 
-When present, a whole-object signature shall be attached as a "cdmi_enc_signature" metadata item in JWS compact format, with the second field (the JWS payload field) replaced with an empty string as described in Appendix F of RFC 7515.
+When present, a whole-object signature shall be attached as a "``cdmi_enc_signature``" metadata item in JWS compact format, with the second field (the JWS payload field) replaced with an empty string as described in Appendix F of RFC 7515.
 
 For signature creation and verification, payload field shall be computed using the following process:
 
-1. Create a serialized representation of the CDMI object, as described in clause 15
+1. Create a serialized representation of the CDMI object, as described in  :numref:`clause %s <clause_cdmi_serialization>`
 2. Remove the following metadata items, if present:
-   - cdmi_atime
-   - cdmi_acount
-   - cdmi_enc_signature
-   - Any \*_provided metadata items
+
+   - ``cdmi_atime``
+   - ``cdmi_acount``
+   - ``cdmi_enc_signature``
+   - Any ``*_provided`` metadata items
 3. Sort all JSON objects in the serialized CDMI object according to the following rules:
+
     - Within each JSON object, name/value pair entries shall be sorted lexicographically by name
     - Within each JSON array, the initial order shall be preserved
 4. Remove all JSON whitespace
@@ -178,12 +188,12 @@ For signature creation and verification, payload field shall be computed using t
 
 Error Handling
 **************
-If a decryption or signature validation operation is requested against a CDMI object containing an invalid CMS or JWE JSON representation, an HTTP status code of 500 Internal Error shall be returned to the client.
+If a decryption or signature validation operation is requested against a CDMI object containing an invalid CMS or JWE JSON representation, an HTTP status code of ``500 Internal Error`` shall be returned to the client.
 
-If a decryption or signature validation operation is requested against a CDMI object containing a valid CMS or JWE JSON representation that uses an unsupported algorithm or feature, an HTTP status code of 501 Not Implemented shall be returned to the client.
+If a decryption or signature validation operation is requested against a CDMI object containing a valid CMS or JWE JSON representation that uses an unsupported algorithm or feature, an HTTP status code of ``501 Not Implemented`` shall be returned to the client.
 
-If a decryption or signature validation operation is requested against a CDMI object containing a valid CMS or JWE JSON representation, but the required keys are temporarily unavailable given the credentials presented, an HTTP status code of 408 Request Timeout shall be returned to the client.
+If a decryption or signature validation operation is requested against a CDMI object containing a valid CMS or JWE JSON representation, but the required keys are temporarily unavailable given the credentials presented, an HTTP status code of ``408 Request Timeout`` shall be returned to the client.
 
-If a decryption or signature validation operation is requested against a CDMI object containing a valid CMS or JWE JSON representation, but the required keys are unavailable given the credentials presented, an HTTP status code of 401 Unauthorized shall be returned to the client.
+If a decryption or signature validation operation is requested against a CDMI object containing a valid CMS or JWE JSON representation, but the required keys are unavailable given the credentials presented, an HTTP status code of ``401 Unauthorized`` shall be returned to the client.
 
-If a decryption or signature validation operation is requested against a CDMI object containing a valid CMS or JWE JSON representation, valid keys are available, and signature verification fails, an HTTP status code of 403 Forbidden shall be returned to the client.
+If a decryption or signature validation operation is requested against a CDMI object containing a valid CMS or JWE JSON representation, valid keys are available, and signature verification fails, an HTTP status code of ``403 Forbidden`` shall be returned to the client.

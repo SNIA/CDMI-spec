@@ -13,4 +13,4 @@ In CDMI 1.0.2, basic HTTP operations were described as "Non-CDMI" operations to 
 
 A CDMI implementation that supports data objects shall include support for basic data object HTTP operations corresponding with the CDMI capabilities that are published by the implementation. Capabilities allow a client to discover which operations (such as create, update, delete, etc.) are supported and are described in :numref:`clause %s <clause_cdmi_container_object>`.
 
-Ciphertext representation of encrypted objects are created, accessed, and updated by explicitelyspecifying a MIME type "application/cms" or "application/jose+json". Otherwise, a plaintext representation is created, accessed, and updated. For more details on encrypted updates, see :numref:`clause %s <clause_encrypted_object>`.
+Ciphertext representation of encrypted objects are created, accessed, and updated by explicitelyspecifying a MIME type "``application/cms``" or "``application/jose+json``". Otherwise, a plaintext representation is created, accessed, and updated. For more details on encrypted updates, see :numref:`clause %s <clause_cdmi_encrypted_objects>`.

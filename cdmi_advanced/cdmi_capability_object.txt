@@ -273,34 +273,34 @@ Cloud Storage System-Wide Capabilities
       - If present and "``true``", this capability indicates that the system allows a new data object’s value to be created with byte ranges through "``/cdmi_objectid/``".
     * - cdmi_enc_cms 
       - JSON String
-      - If present and "true", this capability indicates that the cloud storage system supports operations against the contents of CMS encrypted objects.
+      - If present and "``true``", this capability indicates that the cloud storage system supports operations against the contents of CMS encrypted objects.
     * - cdmi_enc_jwe 
       - JSON String
-      - If present and "true", this capability indicates that the cloud storage system supports operations against the contents of JWE encrypted objects.
+      - If present and "``true``", this capability indicates that the cloud storage system supports operations against the contents of JWE encrypted objects.
     * - cdmi_enc_inplace 
       - JSON String
-      - If present and "true", this capability indicates that the cloud storage system supports operations to encrypt and decrypt objects in place, including updates.
+      - If present and "``true``", this capability indicates that the cloud storage system supports operations to encrypt and decrypt objects in place, including updates.
     * - cdmi_enc_access 
       - JSON String
-      - If present and "true", this capability indicates that the cloud storage system supports operations to decrypt objects on access.
+      - If present and "``true``", this capability indicates that the cloud storage system supports operations to decrypt objects on access.
     * - cdmi_cms_encryption 
       - JSON Array of JSON Strings
-      - If present, this capability lists which CMS ContentEncryptionAlgorithmIdentifier encryption algorithms are supported for operations against the contents of CMS encrypted objects.
+      - If present, this capability lists which CMS ``ContentEncryptionAlgorithmIdentifier`` encryption algorithms are supported for operations against the contents of CMS encrypted objects.
     * - cdmi_cms_digest 
       - JSON Array of JSON Strings
-      - If present, this capability lists which CMS MessageAuthenticationCodeAlgorithm digest algorithms are supported for operations against the contents of CMS encrypted objects.
+      - If present, this capability lists which CMS ``MessageAuthenticationCodeAlgorithm`` digest algorithms are supported for operations against the contents of CMS encrypted objects.
     * - cdmi_cms_signature 
       - JSON Array of JSON Strings
-      - If present, this capability lists which CMS SignatureAlgorithmIdentifier signature algorithms are supported for operations against the contents of CMS encrypted objects.
+      - If present, this capability lists which CMS ``SignatureAlgorithmIdentifier`` signature algorithms are supported for operations against the contents of CMS encrypted objects.
     * - cdmi_jwe_enc 
       - JSON Array of JSON Strings
-      - If present, this capability lists which JOSE "enc" encryption algorithms are supported for operations against the contents of JWE encrypted objects, as defined in :rfc:`7518`.
+      - If present, this capability lists which JOSE "``enc``" encryption algorithms are supported for operations against the contents of JWE encrypted objects, as defined in :rfc:`7518`.
     * - cdmi_jwe_alg 
       - JSON Array of JSON Strings
-      - If present, this capability lists which JOSE "alg" encryption algorithms are supported for operations against the contents ofJWE encrypted objects, as defined in :rfc:`7518`.
+      - If present, this capability lists which JOSE "``alg``" encryption algorithms are supported for operations against the contents ofJWE encrypted objects, as defined in :rfc:`7518`.
     * - cdmi_jws_alg 
       - JSON Array of JSON Strings
-      - If present, this capability lists which JOSE "alg" encryption algorithms are supported for operations against the contents of JWS signatures, as defined in :rfc:`7518`.
+      - If present, this capability lists which JOSE "``alg``" encryption algorithms are supported for operations against the contents of JWS signatures, as defined in :rfc:`7518`.
            
 
 .. raw:: latex

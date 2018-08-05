@@ -104,13 +104,13 @@ The request message body fields for updating a data object using CDMI are shown 
         * This field shall be stored as part of the data object.
         * This mimetype field value shall be converted to lower case before being stored. 
 
-		If this field is set to "application/cms" or "application/jose+json", the CDMI server shall encrypt or reencrypt the value of the object in place, using the keyspecifid by the "cdmi_enc_key_id" metadata item. If the "cdmi_enc_key_id" metadata item is not present, the object ID shall be used as the key identifier. The mimetype of the plaintext shall be stored in the CMS or JWE JSON representation.
+		If this field is set to "``application/cms``" or "``application/jose+json``", the CDMI server shall encrypt or reencrypt the value of the object in place, using the key specified by the "``cdmi_enc_key_id``" metadata item. If the "``cdmi_enc_key_id``" metadata item is not present, the object ID shall be used as the key identifier. The mimetype of the plaintext shall be stored in the CMS or JWE JSON representation.
 
-		If a "cdmi_enc_value_sign_id" metadata item is present, the encrypted object shall also be signed.
+		If a "``cdmi_enc_value_sign_id``" metadata item is present, the encrypted object shall also be signed.
 
-		If this field is changed from "application/cms" or "application/jose+json" to any other mimetype, the CDMI server shall decrypt the value of the object in place, replacing the specified mimetype with the mimetype of the encrypted object, if stored as part of the encrypted object.
+		If this field is changed from "``application/cms``" or "``application/jose+json``" to any other mimetype, the CDMI server shall decrypt the value of the object in place, replacing the specified mimetype with the mimetype of the encrypted object, if stored as part of the encrypted object.
 
-		For more details on encrypted objects, see `clause %s <clause_encrypted_object>`.
+		For more details on encrypted objects, see :numref:`clause %s <clause_cdmi_encrypted_objects>`.
       - Optional
     * - metadata
       - JSON Object

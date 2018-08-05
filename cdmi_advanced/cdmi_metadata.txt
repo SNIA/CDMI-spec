@@ -626,7 +626,7 @@ After an object has been created, the storage system metadata, as described in :
       - Optional
     * - cdmi_enc_signature
       - JSON Object
-      - Contains JWS compact serialization of a signature for the entire object (value and metadata). See `clause %s <clause_encrypted_object>` for more details.
+      - Contains JWS compact serialization of a signature for the entire object (value and metadata). See :numref:`clause %s <ref_cdmi_encrypted_objects_signature_verification>` for more details.
       - Optional
 
 .. _ref_support_for_data_system_metadata:

@@ -129,4 +129,4 @@ The representations in this clause are shown using JSON notation. Both clients a
 
 Encrypted Objects
 -----------------
-CDMI data object operations only permit management operations and access to the ciphertext of encrypted objects. For more details on encrypted objects, see `clause %s <clause_encrypted_object>`.
+CDMI data object operations only permit management operations and access to the ciphertext of encrypted objects. For more details on encrypted objects, see :numref:`clause %s <clause_cdmi_encrypted_objects>`.
