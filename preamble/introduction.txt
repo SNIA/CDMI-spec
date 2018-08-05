@@ -87,6 +87,9 @@ This document is organized as follows:
     * - :numref:`Clause %s <clause_cdmi_query_queues>`
       - Query Queues
       - Describes how CDMI clients may efficiently discover what content matches a given set of metadata query criteria or full-content search criteria
+    * - :numref:`Clause %s <clause_cdmi_encrypted_objects>`
+      - Encrypted Objects
+      - Describes how to work with transparently encrypted objects
     * - Annex :numref:`section_cdmi_annexes`
       - (informative) Extensions
       - Provides informative vendor extensions. Each extension is added to the standard when at least two vendors implement the extension.
