@@ -624,7 +624,10 @@ After an object has been created, the storage system metadata, as described in :
       - JSON Array of JSON Objects
       - Standard ACL metadata. If not specified when the object is created, this metadata shall be filled in by the system.
       - Optional
-
+    * - cdmi_enc_signature
+      - JSON Object
+      - Contains JWS compact serialization of a signature for the entire object (value and metadata). See `clause %s <clause_encrypted_object>` for more details.
+      - Optional
 
 .. _ref_support_for_data_system_metadata:
 
@@ -778,8 +781,27 @@ Data system metadata (see :numref:`tbl_data_system_metadata`  is inherited from 
 
         Supported authentication method values are indicated by the cdmi_authentication_methods capability.
       - 
-
-
+    * - cdmi_enc_key_id
+      - JSON String
+      - Contains a unique key identifier (e.g. KMIP Identifier) for the symmetric key used to encrypt and decrypt the object.
+      - Optional
+    * - cdmi_enc_value_sign_id
+      - JSON String
+      - Contains a unique key identifier (e.g. KMIP Identifier) for the private key used for signing the value of the object.
+      - Optional
+    * - cdmi_enc_value_verify_id
+      - JSON String
+      - Contains a unique key identifier (e.g. KMIP Identifier) for the public key or certificate chain used for verifying the signature of the value of the object.
+      - Optional
+    * - cdmi_enc_object_sign_id
+      - JSON String
+      - Contains a unique key identifier (e.g. KMIP Identifier) for the private key used for signing the entire object.
+      - Optional
+    * - cdmi_enc_object_verify_id
+      - JSON String
+      - Contains a unique key identifier (.e.g. KMIP Identifier) for the public key or certificate chain used for verifying the signature of the entire object.
+      - Optional
+      
 .. _ref_support_for_provided_data_system_metadata:
 
 Support for Provided Data System Metadata
