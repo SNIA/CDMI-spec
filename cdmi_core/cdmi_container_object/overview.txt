@@ -122,7 +122,7 @@ The following optional container-specific data system metadata may be provided (
       - The number of bytes that is reported via exported protocols (e.g., the device may be thin provisioned). This number may limit ``cdmi_size``.
       - Optional
 
-Container metadata may also include arbitrary user-supplied metadata, storage system metadata, and data system metadata as described in :numref:`Clause %s <clause_cdmi_metadata>` 
+Container metadata may also include arbitrary user-supplied metadata, storage system metadata, and data system metadata as described in :numref:`Clause %s <clause_cdmi_metadata>`.
 
 Container Object Access Control
 -------------------------------
