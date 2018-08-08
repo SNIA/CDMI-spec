@@ -70,7 +70,6 @@ The HTTP request headers for creating a CDMI data object using CDMI are shown in
 
 .. list-table:: Request Headers for Creating a CDMI Data Object using CDMI
     :header-rows: 1
-    :widths: 20 10 55 15
     :align: center 
 
     * - Header
@@ -112,7 +111,6 @@ The request message body fields for creating a data object using CDMI are shown 
 .. list-table:: Request Message Body - Create a Data Object using CDMI
     :class: longtable
     :header-rows: 1
-    :widths: 20 10 55 15
     :align: center 
 
     * - Field Name
@@ -227,7 +225,6 @@ The HTTP response headers for creating a data object using CDMI are shown in :nu
 
 .. list-table:: Response Headers - Create a Data Object using CDMI
     :header-rows: 1
-    :widths: 20 10 55 15
     :align: center 
 
     * - Header
@@ -259,7 +256,6 @@ The response message body fields for creating a data object using CDMI are shown
 .. list-table:: Response Message Body - Create a Data Object using CDMI
     :class: longtable
     :header-rows: 1
-    :widths: 20 10 55 15
     :align: center 
 
     * - Field Name
@@ -341,7 +337,6 @@ The HTTP status codes that occur when creating a data object using CDMI are desc
 
 .. list-table:: HTTP Status Codes - Create a Data Object using CDMI 
     :header-rows: 1
-    :widths: 30 70
     :align: center 
 
     * - HTTP Status
