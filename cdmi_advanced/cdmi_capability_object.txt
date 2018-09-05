@@ -404,7 +404,7 @@ Data System Metadata Capabilities
       - JSON String    
       - If present and "``true``", the CDMI server supports both the ``cdmi_retention_id`` and ``cdmi_retention_period`` data system metadata as defined in :numref:`ref_support_for_data_system_metadata`. 
     * - cdmi_data_autodelete     
-      - JSON String    
+      - JSON String
       - If present and "``true``", the CDMI server supports the ``cdmi_data_autodelete`` data system metadata as defined in :numref:`ref_support_for_data_system_metadata`. 
     * - cdmi_data_holds     
       - JSON String    
@@ -414,94 +414,61 @@ Data System Metadata Capabilities
 
           \vspace*{1ex}
 
-        When a cloud storage system supports holds for the purpose of making data immutable, the system-wide capability of ``cdmi_security_immutability`` 
-        specified in :numref:`tbl_system_wide_capabilities` of :numref:`ref_cloud_storage_system-wide_capabilities` shall be present and set to "``true``".
+        When a cloud storage system supports holds for the purpose of making data immutable, the system-wide capability of ``cdmi_security_immutability`` specified in :numref:`tbl_system_wide_capabilities` of :numref:`ref_cloud_storage_system-wide_capabilities` shall be present and set to "``true``".
     * - cdmi_encryption     
       - JSON Array of JSON Strings    
-      - When the CDMI server supports the cdmi_encryption data system metadata as defined in :numref:`ref_support_for_data_system_metadata`, 
-        the cdmi_encryption capability shall be present and set to one or more values described in the cdmi_encryption data system metadata section in :numref:`ref_support_for_data_system_metadata`.
+      - If present, the CDMI server supports the ``cdmi_encryption`` data system metadata as defined in :numref:`ref_support_for_data_system_metadata`.
       
         .. raw:: latex
 
           \vspace*{1ex}
 
-        When this capability is absent, or present and is an empty JSON array, cdmi_encryption data system metadata 
-        shall not be used. 
+        When present, this capability shall contain one or more JSON strings, each string corresponding to an algorithm/mode/length value as described in the ``cdmi_encryption`` data system metadata section in :numref:`ref_support_for_data_system_metadata`.
       
         .. raw:: latex
 
           \vspace*{1ex}
 
-        When a cloud storage system supports at-rest encryption, the system-wide capability of cdmi_security_encryption specified in :numref:`tbl_system_wide_capabilities` of :numref:`ref_cloud_storage_system-wide_capabilities` shall be present and set to "``true``".
+        When a cloud storage system supports at-rest encryption, the system-wide capability of ``cdmi_security_encryption`` specified in :numref:`tbl_system_wide_capabilities` of :numref:`ref_cloud_storage_system-wide_capabilities` shall be present and set to "``true``".
     * - cdmi_geographic_placement    
       - JSON String    
-      - When the CDMI server supports the cdmi_geographic_placement data system metadata as defined in :numref:`ref_support_for_data_system_metadata`, the cdmi_geographic_placement capability shall be present and set to the string value "``true``".
-      
-        .. raw:: latex
-
-          \vspace*{1ex}
-
-        When this capability is absent, or present and set to 
-        the string value "``false``", cdmi_geographic_placement data system metadata shall not be used. 
+      - If present and "``true``", the CDMI server supports the ``cdmi_geographic_placement`` data system metadata as defined in :numref:`ref_support_for_data_system_metadata`.
     * - cdmi_immediate_redundancy    
       - JSON String    
-      - When the CDMI server supports the cdmi_immediate_redundancy data system metadata as defined in :numref:`ref_support_for_data_system_metadata`,
-        the cdmi_immediate_redundancy capability shall be present and set to a positive numeric string representing the maximum value that the server supports. 
+      - If present, the CDMI server supports the ``cdmi_immediate_redundancy`` data system metadata as defined in :numref:`ref_support_for_data_system_metadata`.
       
         .. raw:: latex
 
           \vspace*{1ex}
 
-        When this capability is absent, or present and set to an empty string value "", cdmi_immediate_redundancy data system metadata shall not be used. 
+        When present, this capability shall contain a string set to a positive numeric string representing the maximum value that the server supports. 
     * - cdmi_infrastructure_redundancy    
       - JSON String    
-      - When the CDMI server supports the cdmi_infrastructure_redundancy data system metadata as defined in :numref:`ref_support_for_data_system_metadata`, 
-        the cdmi_infrastructure_redundancy capability shall be present and set to a positive numeric string representing the maximum value that the server supports.
+      - If present, the CDMI server supports the ``cdmi_infrastructure_redundancy`` data system metadata as defined in :numref:`ref_support_for_data_system_metadata`. 
       
         .. raw:: latex
 
           \vspace*{1ex}
 
-        When this capability is absent, or present and set to an empty string value "", cdmi_infrastructure_redundancy data system metadata shall not be used. 
+        When present, this capability shall contain a string set to a positive numeric string representing the maximum value that the server supports.
     * - cdmi_latency     
       - JSON String    
-      - When the CDMI server supports the cdmi_latency data system metadata as defined in :numref:`ref_support_for_data_system_metadata`, 
-        the cdmi_latency capability shall be present and set to the string value "``true``".
-      
-        .. raw:: latex
-
-          \vspace*{1ex}
-
-        When this capability is absent, or present and set to the string value "``false``", cdmi_latency data system metadata shall not be used.
+      - If present and "``true``", the CDMI server supports the ``cdmi_latency`` data system metadata as defined in :numref:`ref_support_for_data_system_metadata`. 
     * - cdmi_RPO     
       - JSON String    
-      - When the CDMI server supports the cdmi_RPO data system metadata as defined in :numref:`ref_support_for_data_system_metadata`, 
-        the cdmi_RPO capability shall be present and set to the string value "``true``".
-      
-        .. raw:: latex
-
-          \vspace*{1ex}
-
-        When this capability is absent, or present and 
-        set to the string value "``false``", cdmi_RPO data system metadata shall not be used. 
+      - If present and "``true``", the CDMI server supports the cdmi_RPO data system metadata as defined in :numref:`ref_support_for_data_system_metadata`.
     * - cdmi_RTO     
       - JSON String    
-      - When the CDMI server supports the ``cdmi_RTO`` data system metadata as defined in :numref:`ref_support_for_data_system_metadata`, the ``cdmi_RTO`` capability shall be present and set to the string value "``true``".
-      
-        .. raw:: latex
-
-          \vspace*{1ex}
-
-        When this capability is absent, or present and set to the string value "``false``", ``cdmi_RTO`` data system metadata shall not be used.
+      - If present and "``true``", the CDMI server supports the ``cdmi_RTO`` data system metadata as defined in :numref:`ref_support_for_data_system_metadata`
     * - cdmi_sanitization_method     
       - JSON Array of JSON Strings    
-      - When the CDMI server supports the ``cdmi_sanitization_method`` data system metadata as defined in :numref:`ref_support_for_data_system_metadata`, the ``cdmi_sanitization_method`` capability shall be present and set to one or more values described in the ``cdmi_sanitization_method`` data system metadata section in :numref:`ref_support_for_data_system_metadata`.
+      - If present, the CDMI server supports the ``cdmi_sanitization_method`` data system metadata as defined in :numref:`ref_support_for_data_system_metadata`.
       
         .. raw:: latex
 
           \vspace*{1ex}
 
-        When this capability is absent, or present and is an empty JSON array, ``cdmi_sanitization_method`` data system metadata shall not be used. 
+        When present, this capability shall contain one or more JSON strings, each string corresponding to a sanitization method as described in the ``cdmi_sanitization_method`` data system metadata section in :numref:`ref_support_for_data_system_metadata`.
       
         .. raw:: latex
 
@@ -510,61 +477,22 @@ Data System Metadata Capabilities
         When a cloud storage system supports sanitization, the system-wide capability of ``cdmi_security_sanitization`` specified in :numref:`tbl_system_wide_capabilities` of :numref:`ref_cloud_storage_system-wide_capabilities` shall be present and set to "``true``".
     * - cdmi_throughput     
       - JSON String    
-      - When the CDMI server supports the cdmi_throughput data system metadata as defined in :numref:`ref_support_for_data_system_metadata`, the cdmi_throughput capability shall be present and set to the string value "``true``".
-      
-        .. raw:: latex
-
-          \vspace*{1ex}
-
-        When this capability is absent, or present and set to the string value "``false``", cdmi_throughput data system metadata shall not be used. 
+      - If present and "``true``", the CDMI server supports the cdmi_throughput data system metadata as defined in :numref:`ref_support_for_data_system_metadata`. 
     * - cdmi_value_hash     
       - JSON Array of JSON Strings    
-      - When the CDMI server supports the cdmi_value_hash data system metadata as defined in :numref:`ref_support_for_data_system_metadata`, the cdmi_value_hash capability shall be present and set to one or more values described in the cdmi_value_hash data system metadata section in :numref:`ref_support_for_data_system_metadata`.
+      - If present, the CDMI server supports the cdmi_value_hash data system metadata as defined in :numref:`ref_support_for_data_system_metadata`.
       
         .. raw:: latex
 
           \vspace*{1ex}
 
-        When this capability is absent, or present and is an empty JSON array, cdmi_value_hash data system metadata shall not be used. 
+        When present, this capability shall contain one or more JSON strings, each string corresponding to an algorithm/length value as described in the ``cdmi_value_hash`` data system metadata section in :numref:`ref_support_for_data_system_metadata`.
       
         .. raw:: latex
 
           \vspace*{1ex}
 
-        When a cloud storage system supports value hashing, the system-wide capability of cdmi_security_data_integrity specified in :numref:`tbl_system_wide_capabilities` of :numref:`ref_cloud_storage_system-wide_capabilities` shall be present and set to "``true``". 
-    * - cdmi_authentication_methods    
-      - JSON Array of JSON Strings    
-      - If present, this capability contains a list of server-supported authentication methods that are supported by a domain. 
-        The following values for authentication method strings are defined: 
-
-        * "anonymous" - Absence of authentication supported 
-        * "basic" - HTTP basic authentication supported (:rfc:`2617`) 
-        * "digest" - HTTP digest authentication supported (:rfc:`2617`) 
-        * "krb5" - Kerberos authentication supported, using the Kerberos domain specified in the CDMI domain (:rfc:`4559`) 
-        * "x509" - certificate-based authentication via TLS (:rfc:`5246`) 
-      
-        .. raw:: latex
-
-          \vspace*{1ex}
-
-        The following values are examples of other widely used authentication methods that may be supported by a CDMI server: 
-
-        * "s3" - S3 API signed header authentication supported 
-        * "openstack" - OpenStack Identity API header authentication supported
-      
-        .. raw:: latex
-
-          \vspace*{1ex}
-
-        Interoperability with these authentication methods are not defined by this international standard. 
-        Servers may include other authentication methods not included in the above list. In these cases, it is up to the CDMI client and CDMI server to ensure interoperability. 
-      
-        .. raw:: latex
-
-          \vspace*{1ex}
-
-        When present, the cdmi_authentication_methods data system metadata shall be supported for all domains.
-
+        When a cloud storage system supports value hashing, the system-wide capability of ``cdmi_security_data_integrity`` specified in :numref:`tbl_system_wide_capabilities` of :numref:`ref_cloud_storage_system-wide_capabilities` shall be present and set to "``true``". 
 
 .. raw:: latex
 
@@ -587,7 +515,6 @@ Data Object Capabilities
     :class: longtable
     :header-rows: 1
     :align: center 
-
 
     * - Capability Name    
       - Type    
@@ -616,8 +543,6 @@ Data Object Capabilities
     * - cdmi_delete_dataobject     
       - JSON String    
       - If present and "``true``", this capability indicates that the CDMI server shall support the ability to delete the object. 
-
-
 
 .. raw:: latex
 
@@ -735,8 +660,6 @@ Container Capabilities
       - JSON String    
       - If present and "``true``", this capability indicates that the container allows a new data object’s value to be created with byte ranges.
 
-
-
 .. raw:: latex
 
   \newpage
@@ -795,8 +718,29 @@ Domain Object Capabilities
     * - cdmi_deserialize_domain    
       - JSON String    
       - If present and "``true``", this capability indicates that the CDMI server shall support the ability to deserialize serialized domains and associated serialized children into the domain.
+    * - cdmi_authentication_methods    
+      - JSON Array of JSON Strings    
+      - If present, the CDMI server supports authentication methods that are supported by a domain.
+      
+        .. raw:: latex
 
+          \vspace*{1ex}
 
+        When present, this capability shall contain one or more of the following JSON strings: 
+
+        * "anonymous" - Absence of authentication supported 
+        * "basic" - HTTP basic authentication supported (:rfc:`2617`) 
+        * "digest" - HTTP digest authentication supported (:rfc:`2617`) 
+        * "krb5" - Kerberos authentication supported, using the Kerberos domain specified in the CDMI domain (:rfc:`4559`) 
+        * "x509" - certificate-based authentication via TLS (:rfc:`5246`) 
+        * "s3" - S3 API signed header authentication supported 
+        * "openstack" - OpenStack Identity API header authentication supported
+      
+        .. raw:: latex
+
+          \vspace*{1ex}
+
+        Interoperability with these authentication methods are not defined by this international standard. Servers may include other authentication methods not included in the above list. In these cases, it is up to the CDMI client and CDMI server to ensure interoperability.
 
 .. raw:: latex
 
@@ -909,7 +853,7 @@ The HTTP request headers for reading a CDMI capabilities object using CDMI are s
       - Requirement
     * - Accept    
       - Header String    
-      - "application/cdmi-capability" or a consistent value as per clause :numref:`ref_content-type_negotiation`    
+      - "``application/cdmi-capability``" or a consistent value as per clause :numref:`ref_content-type_negotiation`    
       - Optional
 
 Request Message Body 
@@ -940,7 +884,7 @@ The HTTP response headers for reading a CDMI capabilities object using CDMI are 
       - Requirement
     * - Content-Type    
       - Header String    
-      - "application/cdmi-capability"    
+      - "``application/cdmi-capability``"    
       - Mandatory
 
 Response Message Body
@@ -998,13 +942,7 @@ The response message body fields for reading a CDMI capabilities object using CD
 
           \vspace*{1ex}
 
-        Capabilities in the "/cdmi_capabilities/" object are system-wide capabilities. Capabilities found in children objects under "/cdmi_capabilities/" correspond to the capabilities of a specific subset of objects.
-      
-        .. raw:: latex
-
-          \vspace*{1ex}
-
-        Each capability is expressed as a JSON string.    
+        Capabilities in the "``/cdmi_capabilities/``" object are system-wide capabilities. Capabilities found in children objects under "``/cdmi_capabilities/``" correspond to the capabilities of a specific subset of objects.
       - Mandatory
     * - childrenrange    
       - JSON String     
@@ -1077,12 +1015,12 @@ EXAMPLE 1: GET to the root container capabilities URI to read all fields of the 
             "parentURI": "/",
             "parentID": "00007E7F0010128E42D87EE34F5A6560",
             "capabilities": {
-                "cdmi_domains": "``true``",
-                "cdmi_export_nfs": "``true``",
-                "cdmi_export_iscsi": "``true``",
-                "cdmi_queues": "``true``",
-                "cdmi_notification": "``true``",
-                "cdmi_query": "``true``",
+                "cdmi_domains": "true",
+                "cdmi_export_nfs": "true",
+                "cdmi_export_iscsi": "true",
+                "cdmi_queues": "true",
+                "cdmi_notification": "true",
+                "cdmi_query": "true",
                 "cdmi_metadata_maxsize": "4096",
                 "cdmi_metadata_maxitems": "1024"
             },
@@ -1113,12 +1051,12 @@ EXAMPLE 2: GET to the root container capabilities URI to read the capabilities a
          
         {
             "capabilities": {
-                "cdmi_domains": "``true``",
-                "cdmi_export_nfs": "``true``",
-                "cdmi_export_iscsi": "``true``",
-                "cdmi_queues": "``true``",
-                "cdmi_notification": "``true``",
-                "cdmi_query": "``true``",
+                "cdmi_domains": "true",
+                "cdmi_export_nfs": "true",
+                "cdmi_export_iscsi": "true",
+                "cdmi_queues": "true",
+                "cdmi_notification": "true",
+                "cdmi_query": "true",
                 "cdmi_metadata_maxsize": "4096",
                 "cdmi_metadata_maxitems": "1024"
             },
@@ -1130,7 +1068,7 @@ EXAMPLE 2: GET to the root container capabilities URI to read the capabilities a
             ]
         }
 
-EXAMPLE 3: GET to the root container capabilities URI to read the first two children of the container:
+EXAMPLE 3: GET to the root container capabilities URI to read the first two children contained within a domain:
 
     .. code-block:: http
 
