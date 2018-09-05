@@ -635,12 +635,16 @@ When specified, data system metadata provides guidelines to the cloud storage sy
 
 Data system metadata (see :numref:`tbl_data_system_metadata`  is inherited from parent objects to any children. If a child explicitly contains data system metadata, the metadata value of the child data system metadata shall override the metadata value of the parent data system metadata. 
 
+.. tabularcolumns:: |>{\raggedright\arraybackslash}\Y{0.29}
+                    |>{\raggedright\arraybackslash}\Y{0.09}
+                    |>{\raggedright\arraybackslash}\Y{0.48}
+                    |>{\raggedright\arraybackslash}\Y{0.14}|
 
 .. _tbl_data_system_metadata:
 
 .. list-table:: Data System Metadata
+    :class: longtable
     :header-rows: 1
-    :widths: auto
     :align: center 
 
     * - Metadata Name
