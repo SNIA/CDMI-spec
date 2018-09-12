@@ -3,127 +3,27 @@
 Exported Protocols
 ==================
 
-
 Overview
 ********
 
-CDMI containers are accessible not only via CDMI as a data path, but also via other protocols as well. This access is especially useful for using CDMI as the storage interface for a cloud computing environment, as :numref:`fig_cdmi_and_occi_in_an_integrated_cloud_computing_environment` shows.
+Container objects can be exported via multiple storage protocols. This is specified by adding an export field to the container object. Each container object export field has a set of well-defined items that include: 
 
+* zero or more export types, which specifies the export protocol;
+* for each export type, the identity of the container as standardized by the export protocol;
+* for each export type, the domain of the protocol name server for the clients being served;
+* for each export type, the list of who may mount that container via that protocol, identified as standardized by that protocol or optionally by leveraging the name mapping protocol (see :numref:`ref_mapping_names_from_cdmi_to_another_protocol`) and specifying CDMI user or groupnames;
+* for each export type, required protocol-specific export parameters;
+* for each export type, optional protocol-specific export parameters; and
+* for each export type, export control parameters.
 
-.. _fig_cdmi_and_occi_in_an_integrated_cloud_computing_environment:
+All cloud storage systems shall support the storage of the export field. The ability to export containers via a specified protocol is determined by the presence or absence of a ``cdmi_export_<protocol>`` system wide capabilities, which are listed in :numref:`ref_cloud_storage_system`. The ability to export a specific container via a specified protocol is indicated by the ``cdmi_export_<protocol>`` capability in the specified container.
 
-.. figure:: /images/missing.*
-    :align:  center
-    :figwidth: 100%
-   
-    CDMI and OCCI in an Integrated Cloud Computing Environment
-   
+Container object exports are represented as a JSON object, containing zero or more named protocol exports.
 
-The exported protocols from CDMI containers may be used by the virtual machines in the cloud computing environment as virtual disks on each guest as shown. The cloud computing infrastructure management is shown as implementing both an Open Cloud Computer Interface (OCCI) and CDMI interfaces. With the internal knowledge of the network and the virtual machine manager's mapping of drives, this infrastructure may associate the CDMI containers to the guests using the appropriate exported protocol. 
+EXAMPLE 1: CDMI Container Exports
 
-To support exported protocols and improve their interoperability with CDMI, CDMI provides a type of exported protocol that contains information obtained via the OCCI interface. In addition, OCCI provides a type of storage that corresponds to a CDMI container that is exported with a specific type of protocol used by OCCI. A client of both interfaces performs operations that align the architectures, including the following:
+  .. code-block:: json
 
-
-* The client creates a CDMI container through the CDMI interface and exports it as an OCCI export protocol type. The CDMI container object ID is returned as a result.
-* The client creates a virtual machine through the OCCI interface and attaches a storage volume of type CDMI using the object ID and protocol type. The OCCI virtual machine ID is returned as a result.
-* The client updates the export protocol structure of the CDMI container object with the OCCI virtual machine ID to allow the virtual machine access to the container.
-* The client starts the virtual machine through the OCCI interface.
-
-
-
-
-Exported Protocol Structure
-***************************
-
-The export of a container, via data path protocols other than CDMI, is accomplished by creating or updating a container and supplying one or more export protocol structures, one for each such protocol. In this international standard, all such protocols are referred to as foreign protocols. The implementation of foreign protocols shall be indicated by "true" values for system-wide capabilities in :numref:`ref_cloud_storage_systemwide_capabilities` that shall always begin with "cdmi_export\_".
-
-An export protocol structure includes
-
-
-* the protocol being used;
-* the identity of the container as standardized by the protocol;
-* the internet domain of the protocol name server for the clients being served; 
-* the list of who may mount that container via that protocol, identified as standardized by that protocol or optionally by leveraging the name mapping protocol (see :numref:`ref_mapping_names_from_cdmi_to_another_protocol`) and specifying CDMI user or groupnames;
-* required export parameters for the protocol;
-* optional export parameters for the protocol; and
-* export control parameters.
-
-
-This international standard defines JSON export structures for several well known foreign protocols. All depend on the following user and groupname mapping feature in the case that multi-protocol access to the container is desired. However, name mapping is not required if CDMI is used only to provision containers to be used exclusively by foreign protocols.
-
-Implementations that support authenticated and authorized access to CDMI objects via both CDMI and foreign protocols need a way to support the setting of security on a per-object basis. The numerous methods of doing this include:
-
-
-* Defining or adopting a security scheme and mapping all requests into that scheme. CDMI implementations that adopt this scheme shall use a name mapping technique to accomplish it, as (a) this mapping is easier for administrators to manage than straight id-to-id mapping, and (b) it is desired that interoperable CDMI implementations behave similarly in this respect. This means that the name of the principal in an incoming request is mapped to the name of a principal in the security domain, and that principal’s id is acquired and used in the authorization procedure.
-* Allowing each protocol to set its own security, which implies that an object might be accessible to a given user via one protocol but not another.
-* Using the security scheme of the last protocol that was used to set permissions on the object. This method also requires mapping the principal in the incoming request to a principal in the security domain of the object. As in the first case, the server shall use a name mapping procedure to obtain the id that is used to authorize the user against the desired object’s ACL.
-
-
-CDMI does not mandate which method shall be used. It does, however, specify how users and groups shall be mapped between protocols.
-
-
-
-Mapping Names from CDMI to Another Protocol
--------------------------------------------
-
-Clients wishing to restrict exports via foreign protocols to mounting only by certain users and groups may be required to provide user and groupname mapping information to the server. This mapping information is also required if access to the container is desired by multiple protocols, e.g., both CDMI and NFS. The mapping is done as follows.
-
-#. When a network share on a CDMI container is created, the server should use the appropriate mechanism, e.g., Powershell WmiClass.Create( ) on the Windows platform or /etc/exports on Unix, to limit permitted mounts of the share from other servers, as specified in the "hosts" line of the "exports" property. The syntax of the hosts line follows the syntax of /etc/exports in the Linux operating system, as encoded in a JSON string. If the CDMI server is unable to limit mounts as specified by the hosts line, an error shall result, but the success or failure of the operation depends on the implementation.
-#. When any request requiring the use of a CDMI principal name comes in via a foreign protocol, the foreign domain controller to which the foreign server belongs shall be queried for the principal name corresponding to the user id given in the request. Failure to procure the principal name shall cause the original request to fail.
-#. The usermap list for that protocol shall be searched, in order, for an entry matching the username gotten from the foreign domain controller (see :numref:`ref_user_and_groupname_mapping_syntax_and_evaluation_rules`  for details on the search). If no match is found, the request shall be denied. The search results may be kept in the same cache entry as the information from the preceding step.
-#. The CDMI principal name gotten from the first matching usermap entry during this search is then used to authorize the user request via the security mechanism of the protocol whose security governs access to the object.
-
-
-Capabilities
-------------
-
-
-The following capabilities describe the supported operations that can be performed on an existing container:
-
-
-* The system-wide capability to export via a given protocol is indicated by the cdmi_<protocol>_export capability in the system-level metadata (e.g., "cdmi_nfs_export", when set to "true", indicates the ability of the system to export containers via NFS). If false or not set, attempts to export containers via the given protocol shall fail.
-* Support for the ability to export an existing container object via a given foreign protocol is indicated by the cdmi_<protocol>_export capability in the specified container. The default shall be "true" if this capability is unset.
-
-
-
-Domains
--------
-
-
-The internet domain name corresponding to each export shall be given as a JSON-formatted string in the "domain" child of the protocol export specification. If it is not present, it shall be assumed that the domain is the same as that of the server hosting the CDMI implementation.
-
-
-Caching
--------
-
-
-The lookup to a foreign domain controller can be quite expensive, especially for stateless protocols such as NFS v3, in which it can be theoretically required for nearly every operation. It shall be permissible to cache the results of this lookup. The recommended lifetime of a username cache entry is 30 minutes. Implementations should use this value or less when possible. Servers shall flush this cache whenever a change is made to the exports metadata concerning the protocol being cached. A client may request that the cache be flushed by reading in the usermap data for one or more protocols and writing them back without change. Servers shall flush their username mapping caches, as part of the rewrite operation, for any protocol for which the usermap information has been changed or reset.
-
-For authorization by group to operate via a foreign protocol, a similar mapping exercise must be performed. Multiple lookups to the foreign domain controller may be required to get all the groupnames for a given user (e.g., it is common for an NFS user to be a member of several groups). A groupname cache may be used to mitigate the cost of these lookups. The recommended lifetime of a groupname cache entry is 12 hours. Implementations should use this value or less when possible. Clients may force a flush of the cache by reading in and resetting the group map information. Servers shall immediately flush their groupname mapping cache, as part of the rewrite operation, for any protocol for which the group map information has been changed or reset.
-
-
-Groups
-------
-
-
-Groupname mapping for each foreign protocol shall be specified in a groupname field of the foreign protocol export specification. Its syntax is identical to the syntax for the username field.
-
-
-The mapping information is only required on the container being exported.
-
-
-
-Synopsis
---------
-
-.. code-block:: http
-
-    PUT /MyContainer HTTP/1.1
-    Host: cloud.example.com
-    Accept: application/cdmi-container
-    Content-Type: application/cdmi-container
-    X-CDMI-Specification-Version: 1.0
-    
     {
         "exports" : {
             "nfs" : {<BR>
@@ -156,28 +56,44 @@ Synopsis
         }
     }
 
-The following shows the response. 
+The meaning, use, and permitted values for the fields associated with each export type are described later in this section.
 
-.. code-block:: http
+Container Object Exports Addressing
+-----------------------------------
 
-    HTTP/1.1 200 OK
-    Content-Type: application/cdmi-container
-    X-CDMI-Specification-Version: 1.0
-    
-    {
-        "objectURI" : "/Containers/MyContainer/",
-        "objectID" : "00007E7F00100C435125A61B4C289455",
-        "objectName" : "MyContainer/",
-        "parentURI" : "/Containers/",
-        "parentID" : "00007E7F0010D538DEEE8E38399E2815",
-        "domainURI" : "/cdmi_domains/MyDomain/",
-        "capabilitiesURI" : "/cdmi_capabilities/container/",
-        "completionStatus" : "Complete",
-        "metadata" : { 
-    			... 
-    		},
-        "exports" : { <exports as listed in request> }
-    }
+Container object exports are addressed in CDMI in two ways:
+
+* by name (e.g. ``http://cloud.example.com/container/?exports``); and
+* by ID (e.g. ``http://cloud.example.com/cdmi_objectid/00007ED900104E1D14771DC67C27BF8B/?exports``).
+
+See :numref:`ref_cdmi_container_object_overview` for more detials on container object addressing.
+
+Container Object Exports Fields
+-------------------------------
+
+The export of a container, via data path protocols other than CDMI, is accomplished by creating or updating a container and supplying one or more export protocol structures, one for each such protocol. In this international standard, all such protocols are referred to as foreign protocols.
+
+This international standard defines JSON export structures for several well known foreign protocols. All depend on the following user and groupname mapping feature in the case that multi-protocol access to the container is desired. However, name mapping is not required if an external domain is used, or if CDMI is used only to provision containers to be used exclusively by foreign protocols.
+
+Implementations that support authenticated and authorized access to CDMI objects via both CDMI and foreign protocols need a way to support the setting of security on a per-object basis. The numerous methods of doing this include:
+
+* Defining or adopting a security scheme and mapping all requests into that scheme. CDMI implementations that adopt this scheme shall use a name mapping technique to accomplish it, as (a) this mapping is easier for administrators to manage than straight id-to-id mapping, and (b) it is desired that interoperable CDMI implementations behave similarly in this respect. This means that the name of the principal in an incoming request is mapped to the name of a principal in the security domain, and that principal’s id is acquired and used in the authorization procedure.
+* Allowing each protocol to set its own security, which implies that an object might be accessible to a given user via one protocol but not another.
+* Using the security scheme of the last protocol that was used to set permissions on the object. This method also requires mapping the principal in the incoming request to a principal in the security domain of the object. As in the first case, the server shall use a name mapping procedure to obtain the id that is used to authorize the user against the desired object’s ACL.
+
+CDMI does not mandate which method shall be used. It does, however, specify how users and groups shall be mapped between protocols.
+
+Mapping Names from CDMI to Another Protocol
+-------------------------------------------
+
+Clients wishing to restrict exports via foreign protocols to mounting only by certain users and groups may be required to provide user and groupname mapping information to the server. This mapping information is also required if access to the container is desired by multiple protocols, e.g., both CDMI and NFS. The mapping is done as follows.
+
+#. When a network share on a CDMI container is created, the server should use the appropriate mechanism, e.g., Powershell WmiClass.Create( ) on the Windows platform or /etc/exports on Unix, to limit permitted mounts of the share from other servers, as specified in the "hosts" line of the "exports" property. The syntax of the hosts line follows the syntax of /etc/exports in the Linux operating system, as encoded in a JSON string. If the CDMI server is unable to limit mounts as specified by the hosts line, an error shall result, but the success or failure of the operation depends on the implementation.
+#. When any request requiring the use of a CDMI principal name comes in via a foreign protocol, the foreign domain controller to which the foreign server belongs shall be queried for the principal name corresponding to the user id given in the request. Failure to procure the principal name shall cause the original request to fail.
+#. The usermap list for that protocol shall be searched, in order, for an entry matching the username gotten from the foreign domain controller (see :numref:`ref_user_and_groupname_mapping_syntax_and_evaluation_rules`  for details on the search). If no match is found, the request shall be denied. The search results may be kept in the same cache entry as the information from the preceding step.
+#. The CDMI principal name gotten from the first matching usermap entry during this search is then used to authorize the user request via the security mechanism of the protocol whose security governs access to the object.
+
+Groupname mapping for each foreign protocol shall be specified in a groupname field of the foreign protocol export specification. Its syntax is identical to the syntax for the username field.
 
 Administrative Users
 --------------------
@@ -188,11 +104,9 @@ By default, the following users shall be considered "root", or administrative us
 * Administrator (Windows/AD/CIFS), and 
 * the domain owner (CDMI). 
 
-
 Servers shall automatically map these users to the root user of the target protocol unless otherwise instructed by the usermaps. 
 
 As an automatic mapping does not meet strict security standards, servers shall override these built-in entries with any usermap entries that apply to one or more root users. 
-
 
 #. In the following example, root gets mapped to nobody, and everyone else is mapped to a user of the same name in the NFS domain and the CDMI domain.
 
@@ -223,6 +137,17 @@ As an automatic mapping does not meet strict security standards, servers shall o
             }
         }
 
+Mapping Domains from CDMI to Another Protocol
+---------------------------------------------
+
+The internet domain name corresponding to each export shall be given as a JSON-formatted string in the "domain" child of the protocol export specification. If it is not present, it shall be assumed that the domain is the same as that of the server hosting the CDMI implementation.
+
+User and Domain Mapping Caching
+-------------------------------
+
+The lookup to a foreign domain controller can be quite expensive, especially for stateless protocols such as NFS v3, in which it can be theoretically required for nearly every operation. It shall be permissible to cache the results of this lookup. The recommended lifetime of a username cache entry is 30 minutes. Implementations should use this value or less when possible. Servers shall flush this cache whenever a change is made to the exports metadata concerning the protocol being cached. A client may request that the cache be flushed by reading in the usermap data for one or more protocols and writing them back without change. Servers shall flush their username mapping caches, as part of the rewrite operation, for any protocol for which the usermap information has been changed or reset.
+
+For authorization by group to operate via a foreign protocol, a similar mapping exercise must be performed. Multiple lookups to the foreign domain controller may be required to get all the groupnames for a given user (e.g., it is common for an NFS user to be a member of several groups). A groupname cache may be used to mitigate the cost of these lookups. The recommended lifetime of a groupname cache entry is 12 hours. Implementations should use this value or less when possible. Clients may force a flush of the cache by reading in and resetting the group map information. Servers shall immediately flush their groupname mapping cache, as part of the rewrite operation, for any protocol for which the group map information has been changed or reset.
 
 Permissions Mapping
 -------------------
@@ -231,7 +156,7 @@ The permissions sets of file-serving protocols, unfortunately, do not map on a o
 
 As there are a number of possible ways to coordinate the permissions/ACLs and CDMI ACLs, this international specification does not mandate a particular method. However, all mappings of user and groupnames between domains shall use the name mapping mechanism specified in :numref:`ref_user_and_groupname_mapping_syntax_and_evaluation_rules`.
 
-
+.. _ref_user_and_groupname_mapping_syntax_and_evaluation_rules:
 
 User and Groupname Mapping Syntax and Evaluation Rules
 ------------------------------------------------------
@@ -257,41 +182,6 @@ Evaluation of the name mapping list shall proceed in order; once a match is made
 
 If no matches are found on the match list, the result is system dependent. However, it is recommended that servers either deny access altogether or map the user in question to the equivalent of "anonymous" on the destination protocol. It is also recommended that an entry be devoted to the special user "EVERYONE@".
 
-
-
-
-
-Discovering and Mounting Containers via Foreign Protocols
-*********************************************************
-
-Clients need a way to discover exported containers that may be available for mounting. Discovering containers is done via a GET operation to the "exports" member of a container. 
-
-Synopsis:
----------
-
-To read all exports for an existing container object, the following request shall be performed:
-
-    GET <root URI>/<ContainerName>/<TheContainerName>/?exports
-
-To read selected exports for an existing container object, the following request shall be performed:
-
-    GET <root URI>/<ContainerName>/<TheContainerName>/?exports:protocol=<protocol>,user=<user>,verbose="false"
-
-Where:
-
-
-* <root URI> is the path to the CDMI cloud.
-* <ContainerName> is zero or more intermediate containers.
-* <TheContainerName> is the name specified for the topmost container for which exports are available.
-* <protocol> is the name of a protocol to which query results should be restricted. This parameter is optional; if it is omitted or a value of "all" is given, information about all protocols shall be returned, subject to additional filtering.
-* <user> is the login name of a CDMI user who wishes to mount the share. This parameter is optional and defaults to the owner of the container. When non-empty, servers shall filter the returned export list to include only exports which may be mounted given the restrictions in the protocol export structures.
-* <verbose> is an optional parameter indicating a desire for maximum information about the exports. When present, it shall have the values "true" or "false". The default is "false". When true, the server should return additional information about the container, as contained in its "exports" member. The amount of said information that is returned is implementation dependent, as server implementors need to be able to balance the needs of their clients against various security considerations.
-
-
-
-
-
-
 NFS Exported Protocol
 *********************
 
@@ -299,14 +189,14 @@ To export a container via NFS, the information required is exactly what the serv
 
 Required members of the protocol structure for NFS are described in :numref:`tbl_required_members_of_the_nfs_protocol_structure`.
 
+.. tabularcolumns:: |>{\raggedright\arraybackslash}\Y{0.20}
+                    |>{\raggedright\arraybackslash}\Y{0.80}|
 
 .. _tbl_required_members_of_the_nfs_protocol_structure:
 
-.. list-table:: .*
+.. list-table:: Required members of the NFS protocol structure
     :header-rows: 1
-    :widths: auto
     :align: center 
-
 
     * - Member
       - Description
@@ -324,14 +214,14 @@ Required members of the protocol structure for NFS are described in :numref:`tbl
 
 Optional export parameters for NFS are described in :numref:`tbl_optional_nfs_export_parameters`.
 
+.. tabularcolumns:: |>{\raggedright\arraybackslash}\Y{0.20}
+                    |>{\raggedright\arraybackslash}\Y{0.80}|
 
 .. _tbl_optional_nfs_export_parameters:
 
 .. list-table:: .*
     :header-rows: 1
-    :widths: auto
     :align: center 
-
 
     * - Parameter
       - Description
@@ -449,6 +339,32 @@ For more detail on the use of the OCCI export protocol structure attributes, see
 
 OCCI Exported Protocol
 **********************
+
+
+
+Container objects can be exported via multiple protocols. This is especially useful when CDMI is being used as a storage interface in a cloud computing environemnt, as illustrated in  :numref:`fig_cdmi_and_occi_in_an_integrated_cloud_computing_environment` below.
+
+.. _fig_cdmi_and_occi_in_an_integrated_cloud_computing_environment:
+
+.. figure:: /images/missing.*
+    :align:  center
+    :figwidth: 100%
+   
+    CDMI and OCCI in an Integrated Cloud Computing Environment
+
+In this example, CDMI containers may also be used as virtual disks by virtual machines in the cloud computing environemnt. The cloud computing infrastructure management is shown as implementing both an Open Cloud Computer Interface (OCCI) and CDMI interfaces. With the internal knowledge of the network and the virtual machine manager's mapping of drives, this infrastructure may associate the CDMI containers to the guests using the appropriate exported protocol. 
+
+
+To support exported protocols and improve their interoperability with CDMI, CDMI provides a type of exported protocol that contains information obtained via the OCCI interface. In addition, OCCI provides a type of storage that corresponds to a CDMI container that is exported with a specific type of protocol used by OCCI. A client of both interfaces performs operations that align the architectures, including the following:
+
+
+* The client creates a CDMI container through the CDMI interface and exports it as an OCCI export protocol type. The CDMI container object ID is returned as a result.
+* The client creates a virtual machine through the OCCI interface and attaches a storage volume of type CDMI using the object ID and protocol type. The OCCI virtual machine ID is returned as a result.
+* The client updates the export protocol structure of the CDMI container object with the OCCI virtual machine ID to allow the virtual machine access to the container.
+* The client starts the virtual machine through the OCCI interface.
+
+
+
 
 CDMI defines an export protocol structure for the Open Cloud Computing Interface (:numref:`ref_occi`) as follows:
 
