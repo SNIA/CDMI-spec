@@ -733,8 +733,8 @@ Domain Object Capabilities
         * "digest" - HTTP digest authentication supported (:rfc:`2617`) 
         * "krb5" - Kerberos authentication supported, using the Kerberos domain specified in the CDMI domain (:rfc:`4559`) 
         * "x509" - certificate-based authentication via TLS (:rfc:`5246`) 
-        * "s3" - S3 API signed header authentication supported 
-        * "openstack" - OpenStack Identity API header authentication supported
+        * "s3" - S3 API signed header authentication supported [#]_
+        * "openstack" - OpenStack Identity API header authentication supported [#]_
       
         .. raw:: latex
 
@@ -742,6 +742,9 @@ Domain Object Capabilities
 
         Interoperability with these authentication methods are not defined by this international standard. Servers may include other authentication methods not included in the above list. In these cases, it is up to the CDMI client and CDMI server to ensure interoperability.
 
+.. [#] See https://docs.aws.amazon.com/AmazonS3/latest/dev/RESTAuthentication.html#ConstructingTheAuthenticationHeader
+.. [#] See https://developer.openstack.org/api-ref/identity/v3/#authentication-and-token-management
+        
 .. raw:: latex
 
   \newpage
