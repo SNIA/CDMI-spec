@@ -6,8 +6,6 @@ CDMI Preamble
 
 .. toctree::
 
-   usage
-   disclaimer
    introduction
    scope
    normative_references
