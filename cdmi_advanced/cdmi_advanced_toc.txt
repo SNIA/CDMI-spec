@@ -17,7 +17,6 @@ CDMI Advanced
   cdmi_retention
   cdmi_scope
   cdmi_results
-  cdmi_logging
   cdmi_notifications
   cdmi_query_queues
   
