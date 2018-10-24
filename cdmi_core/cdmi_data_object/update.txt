@@ -140,12 +140,13 @@ The request message body fields for updating a data object using CDMI are shown 
       - Optional [#b]_
     * - valuetransferencoding
       - JSON String
-      - The value transfer encoding used for the data object value. Two value transfer encodings are defined:
+      - The value transfer encoding used for the data object value. Three value transfer encodings are defined:
 
-        * "``utf-8``" indicates that the data object contains a valid UTF-8 string and shall be transported as a UTF-8 string in the value field.
+        * "``utf-8``" indicates that the data object contains a valid UTF-8 string and shall be transported as a UTF-8 string in the value field. If the contents of the data object value field are set or updated to any value other than a valid UTF-8 string, an HTTP status code of 400 Bad Request shall be returned to the client.
         * "``base64``" indicates that the data object may contain arbitrary binary sequence and shall be transported as a base 64 encoded string in the value field. Setting the contents of the data object value field to any value other than a valid base 64 string shall result in an HTTP status code of ``400 Bad Request`` being returned to the client.
+        * "``json``" indicates that the data object contains a valid JSON object and shall be transported as a JSON object in the value field. If the contents of the data object value field are set or updated to any value other than a valid JSON object, an HTTP status code of 400 Bad Request shall be returned to the client.
 
-        This field shall only be included when updating a data object by value. 
+        This field shall only be included when updating a data object by value.
 
         * If this field is not included and multi-part MIME is not being used, the existing value of "``valuetransferencoding``" shall be left unchanged.
         * If this field is not included and multi-part MIME is being used, the value of "``utf-8``" shall be assigned as the field value if the "``Content-Type``" header of the second and all subsequent MIME parts includes the charset parameter as defined in RFC 2046 of "``utf-8``" (e.g., "``;charset=utf-8``"). Otherwise, the value of "``base64``" shall be assigned as the field value. This field applies only to the encoding of the value when represented in JSON; the "``Content-Transfer-Encoding``" header of the part specifies the encoding of the value within a multi-part MIME request, as defined in RFC 2045.
@@ -159,6 +160,7 @@ The request message body fields for updating a data object using CDMI are shown 
         * If this field is not included and multi-part MIME is being used, the contents of the second and subsequent MIME parts shall be assigned to the corresponding byte ranges of the field value.
         * If the valuetransferencoding field indicates UTF-8 encoding, the value shall be a UTF-8 string escaped using the JSON escaping rules described in :rfc:`4627`.
         * If the valuetransferencoding field indicates base 64 encoding, the value shall be first encoded using the base 64 encoding rules described in :rfc:`4648`.
+        * If the valuetransferencoding field indicates JSON encoding, the value field shall contain a valid JSON object.
         * If a value range was specified in the request, the new data shall be inserted at the location specified by the range. Any resulting gaps between ranges shall be treated as if zeros had been written and shall be included when calculating the size of the value. When storing a range, the value shall be encoded using base 64, and the valuetransferencoding field shall be set to "``base64``".
       - Optional [#b]_
 
