@@ -208,10 +208,11 @@ The response message body fields for reading a CDMI data object using CDMI are s
       - Mandatory
     * - valuetransferencoding
       - JSON  String
-      - The value transfer encoding used for the data object value. Two value transfer encodings are defined:
+      - The value transfer encoding used for the data object value. Three value transfer encodings are defined:
 
         * "``utf-8``" indicates that the data object contains a valid UTF-8 string, and it shall be transported as a UTF-8 string in the value field.
         * "``base64``" indicates that the data object may contain arbitrary binary sequences, and it shall be transported as a base 64-encoded string in the value field.
+        * "``json``" indicates that the data object contains a valid JSON object, and the value field shall contain a valid JSON object.
       - Mandatory
     * - value
       - JSON String
@@ -219,6 +220,7 @@ The response message body fields for reading a CDMI data object using CDMI are s
 
         * If the valuetransferencoding field indicates UTF-8 encoding, the value field shall contain a UTF-8 string using JSON escaping rules described in :rfc:`4627`.
         * If the valuetransferencoding field indicates base 64 encoding, the value field shall contain a base 64-encoded string as described in :rfc:`4648`.
+        * If the valuetransferencoding field indicates JSON encoding, the value field shall contain a valid JSON object.
         * The value field shall not be provided when using multi-part MIME.
         * The value field shall only be provided when the completionStatus field contains "``Complete``".
         * When reading a value, zeros shall be returned for any gaps resulting from non-contiguous writes.
@@ -511,4 +513,26 @@ EXAMPLE 7: GET to the data object URI to read the metadata and multiple byte ran
        <4 bytes of binary data>
        
        --gc0p4Jq0M2Yt08j34c0p--
+
+EXAMPLE 8: GET to the data object URI to read the value and valuetransferencoding fields of a data object storing JSON data:
+
+   .. code-block:: http
+
+      GET /cdmi_objectid/0000706D0010374085EF1A5C7018D774?valuetransferencoding;value HTTP/1.1
+      Host: cloud.example.com
+      Accept: application/cdmi-object
+
+   The following shows the response.
+
+   .. code-block:: http
+   
+      Content-Type: application/cdmi-object
+
+      {
+         "valuetransferencoding" : "json"
+         "value" : {
+            "test" : "value"
+            }
+      }
+
 

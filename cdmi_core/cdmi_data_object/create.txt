@@ -186,13 +186,14 @@ The request message body fields for creating a data object using CDMI are shown 
       - Optional [#a]_
     * - valuetransferencoding
       - JSON String
-      - The value transfer encoding used for the data object value. Two value transfer encodings are defined.
+      - The value transfer encoding used for the data object value. Three value transfer encodings are defined.
         
           * "``utf-8``" indicates that the data object contains a valid UTF-8 string, and it shall be transported as a UTF-8 string in the value field.
           * "``base64``" indicates that the data object may contain arbitrary binary sequences, and it shall be transported as a base 64-encoded string in the value field. Setting the contents of the data object value field to any value other than a valid base 64 string shall result in an HTTP status code of ``400 Bad Request`` being returned to the client.
+          * "``json``" indicates that the data object contains a valid JSON object, and the ``value`` field shall be a JSON object containing valid JSON data. If the contents of the ``value`` field are set to any value other than a valid JSON object, an HTTP status code of ``400 Bad Request`` shall be returned to the client.
           * This field shall only be included when creating a data object by value.
           * If this field is not included and multi-part MIME is not being used, the value of "``utf-8``" shall be assigned as the field value.
-          * If this field is not included and multi-part MIME is being used, the value of "``utf-8``" shall be assigned as the field value if the Content-Type header of the second and all MIME parts includes the charset parameter as defined in RFC 2046 of "``utf-8``" (e.g., "``;charset=utf-8``"). Otherwise, the value of "``base64``" shall be assigned as the field value. This field applies only to the encoding of the value when represented in JSON; the ``Content-Transfer-Encoding`` header of the part specifies the encoding of the value within a multi-part MIME request, as defined in :rfc:`2045`.
+          * If this field is not included and multi-part MIME is being used, the value of "``utf-8``" shall be assigned as the field value if the Content-Type header of the second and all MIME parts includes the charset parameter as defined in RFC 2046 of "``utf-8``" (e.g., "``;charset=utf-8``"). Otherwise, the value of "``base64``" shall be assigned as the field value. This field applies only to the encoding of the value when represented in CDMI; the ``Content-Transfer-Encoding`` header of the part specifies the encoding of the value within a multi-part MIME request, as defined in :rfc:`2045`.
           * This field shall be stored as part of the object.
       - Optional [#a]_
     * - value
@@ -203,6 +204,7 @@ The request message body fields for creating a data object using CDMI are shown 
           * If this field is not included and multi-part MIME is being used, the contents of the second MIME part shall be assigned as the field value.
           * If the ``valuetransferencoding`` field indicates UTF-8 encoding, the value shall be a UTF-8 string escaped using the JSON escaping rules described in :rfc:`4627`.
           * If the ``valuetransferencoding`` field indicates base 64 encoding, the value shall be first encoded using the base 64 encoding rules described in :rfc:`4648`.
+          * If the ``valuetransferencoding`` field indicates JSON encoding, the value shall contain a valid JSON object.
       - Optional [#a]_
 
 .. [#a] Only one of these fields shall be specified in any given operation. Except for value, these fields shall not be stored. If more than one of these fields is supplied, the server shall respond with an HTTP status code of ``400 Bad Request``.
@@ -474,20 +476,20 @@ EXAMPLE 3: PUT to the container URI the data object name and binary contents usi
        Content-Type: application/cdmi-object 
 
        {
-        "objectType": "application/cdmi-object", 
-        "objectID": "00007ED900103ADE9DE3A8D1CF5436A3", 
-        "objectName": "MyDataObject.txt", 
-        "parentURI": "/MyContainer/", 
-        "parentID" : "00007E7F00102E230ED82694DAA975D2", 
-        "domainURI": "/cdmi_domains/MyDomain/", 
-        "capabilitiesURI": "/cdmi_capabilities/dataobject/", 
-        "completionStatus": "Complete", 
-        "mimetype": "application/octet-stream", 
-        "metadata": {
-           "cdmi_size": "37",
-           "colour": "blue",
-           ...
-           }
+          "objectType": "application/cdmi-object", 
+          "objectID": "00007ED900103ADE9DE3A8D1CF5436A3", 
+          "objectName": "MyDataObject.txt", 
+          "parentURI": "/MyContainer/", 
+          "parentID" : "00007E7F00102E230ED82694DAA975D2", 
+          "domainURI": "/cdmi_domains/MyDomain/", 
+          "capabilitiesURI": "/cdmi_capabilities/dataobject/", 
+          "completionStatus": "Complete", 
+          "mimetype": "application/octet-stream", 
+          "metadata": {
+             "cdmi_size": "37",
+             "colour": "blue",
+             ...
+          }
        }
 
 
@@ -505,10 +507,10 @@ EXAMPLE 4: PUT to the container URI the data object name and binary contents usi
        Content-Length: 82
 
        {
-        "domainURI": "/cdmi_domains/MyDomain/",
-        "metadata": {
-            "colour": "blue"
-        }
+          "domainURI": "/cdmi_domains/MyDomain/",
+          "metadata": {
+              "colour": "blue"
+          }
        }
        
        --gc0p4Jq0M2Yt08j34c0p
@@ -529,24 +531,61 @@ EXAMPLE 4: PUT to the container URI the data object name and binary contents usi
        Content-Type: application/cdmi-object 
 
        {
-        "objectType": "application/cdmi-object", 
-        "objectID": "00007ED900103ADE9DE3A8D1CF5436A3", 
-        "objectName": "MyDataObject.txt", 
-        "parentURI": "/MyContainer/", 
-        "parentID" : "00007E7F00102E230ED82694DAA975D2", 
-        "domainURI": "/cdmi_domains/MyDomain/", 
-        "capabilitiesURI": "/cdmi_capabilities/dataobject/", 
-        "completionStatus": "Complete", 
-        "mimetype": "application/octet-stream", 
-        "metadata": {
-            "cdmi_size": "37",
-            "colour": "blue",
-            ...
+          "objectType": "application/cdmi-object", 
+          "objectID": "00007ED900103ADE9DE3A8D1CF5436A3", 
+          "objectName": "MyDataObject.txt", 
+          "parentURI": "/MyContainer/", 
+          "parentID" : "00007E7F00102E230ED82694DAA975D2", 
+          "domainURI": "/cdmi_domains/MyDomain/", 
+          "capabilitiesURI": "/cdmi_capabilities/dataobject/", 
+          "completionStatus": "Complete", 
+          "mimetype": "application/octet-stream", 
+          "metadata": {
+              "cdmi_size": "37",
+              "colour": "blue",
+          }
+      }
+
+EXAMPLE 5: PUT to the container URI the data object name and JSON contents:
+
+   .. code-block:: http
+
+      PUT /MyContainer/MyDataObject.txt HTTP/1.1 Host: cloud.example.com
+      Accept: application/cdmi-object Content-Type: application/cdmi-object X-CDMI-Specification-Version: 1.1
+
+      {
+        "mimetype" : "text/plain",
+        "metadata" : { },
+        "valuetransferencoding" : "json"
+        "value" : {
+            "test" : "value"
         }
-       }
+      }
+
+   The following shows the response.
+
+   .. code-block:: http
+
+       HTTP/1.1 201 Created 
+       Content-Type: application/cdmi-object 
+
+       {
+          "objectType": "application/cdmi-object", 
+          "objectID": "0000706D0010374085EF1A5C7018D774", 
+          "objectName": "MyDataObject.txt",
+          "parentURI": "/MyContainer/",
+          "parentID" : "00007ED90010067404EDED32860C086A",
+          "domainURI": "/cdmi_domains/MyDomain/",
+          "capabilitiesURI": "/cdmi_capabilities/dataobject/",
+          "completionStatus": "Complete",
+          "mimetype": "text/plain",
+          "metadata": {
+               "cdmi_size": "21"
+          }
+      }
 
 	   
-EXAMPLE 5: PUT to the container URI to create an encrypted object:
+EXAMPLE 6: PUT to the container URI to create an encrypted object:
 
 	.. code-block:: http
 	
@@ -569,7 +608,7 @@ EXAMPLE 5: PUT to the container URI to create an encrypted object:
 	
 		HTTP/1.1 201 Created
 
-EXAMPLE 6: PUT to the container URI to create an encrypted object:
+EXAMPLE 7: PUT to the container URI to create an encrypted object:
 
 	.. code-block:: http
 		
