@@ -9,6 +9,8 @@ The provisions of the referenced specifications other than ISO/IEC, IEC, ISO, an
 
 .. todo:: find a better way of keeping a bibliography.
 
+.. _ref_ieee_1003:
+
 .. glossary::
 
     ISO 3166

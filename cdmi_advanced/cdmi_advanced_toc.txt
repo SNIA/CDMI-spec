@@ -13,10 +13,10 @@ CDMI Advanced
   cdmi_snapshots
   cdmi_serialization
   cdmi_metadata
+  cdmi_access_control
   cdmi_retention
   cdmi_scope
   cdmi_results
-  cdmi_logging
   cdmi_notifications
   cdmi_query_queues
   cdmi_encrypted_objects

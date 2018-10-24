@@ -1,0 +1,654 @@
+.. _clause_access_control:
+
+Access Control
+==============
+
+.. _ref_access_control:
+
+Access Control Lists
+********************
+
+Access control comprises the mechanisms by which various types of access to objects are authorized and permitted or denied. CDMI™ uses the well-known mechanism of an Access Control List (ACL) as defined in the NFSv4 standard (see :rfc:`3530`). ACLs are lists of permissions-granting or permissions-denying entries called Access Control Entries (ACEs). 
+
+
+ACL and ACE Structure
+---------------------
+
+An ACL is an ordered list of ACEs. The two types of ACEs in CDMI are ``ALLOW`` and ``DENY``. An ``ALLOW`` ACE grants some form of access to a principal. Principals are either users or groups and are represented by identifiers. A ``DENY`` ACE denies access of some kind to a principal. For instance, a ``DENY`` ACE may deny the ability to write the metadata or ACL of an object but may remain silent on other forms of access. In that case, if another ACE ALLOWs write access to the object, the principal is allowed to write the object's data, but nothing else. 
+
+ACEs are composed of four fields: ``type``, ``who``, ``flags`` and ``access_mask``, as per :rfc:`3530`. The ``type``, ``flags``, and ``access_mask`` shall be specified as either unsigned integers in hex string representation or as a comma-delimited list of bit mask string form values taken from :ref:`tbl_ace_types`, :ref:`tbl_ace_flags`, and :ref:`tbl_ace_bit_masks`.
+
+ACE Types
+---------
+
+:numref:`tbl_ace_types` defines the following ACE types, as specified in section 5.11.1 of :rfc:`3530`.
+
+.. tabularcolumns:: |>{\raggedright\arraybackslash}\Y{0.10}
+                    |>{\raggedright\arraybackslash}\Y{0.45}
+                    |>{\raggedright\arraybackslash}\Y{0.30}
+                    |>{\raggedright\arraybackslash}\Y{0.15}|
+
+.. _tbl_ace_types:
+
+.. list-table:: ACE Types
+    :header-rows: 1
+    :class: longtable
+    :align: center 
+
+    * - String Form
+      - Description
+      - Constant
+      - Bit Mask
+    * - "``ALLOW``"
+      - Allow access rights for a principal
+      - "``CDMI_ACE_ACCESS_ALLOW``"
+      - 0x00000000
+    * - "``DENY``"
+      - Deny access rights for a principal
+      - "``CDMI_ACE_ACCESS_DENY``"
+      - 0x00000001
+    * - "``AUDIT``"
+      - Generate an audit record when the principal attempts to exercise the specified access rights
+      - "``CDMI_ACE_SYSTEM_AUDIT``"
+      - 0x00000002
+
+
+The reason that the string forms may be safely abbreviated is that they are local to the ACE structure type, as opposed to constants, which are relatively global in scope.
+
+The client is responsible for ordering the ACEs in an ACL. The server shall not enforce any ordering and shall store and evaluate the ACEs in the order given by the client.
+
+ACE Who
+-------
+
+The special "``who``" identifiers need to be understood universally, rather than in the context of a particular external security domain (see :ref:`tbl_who_identifiers`). Some of these identifiers may not be understood when a CDMI client accesses the server, but they may have meaning when a local process accesses the file. The ability to display and modify these permissions is permitted over CDMI, even if none of the access methods on the server understands the identifiers.
+
+.. tabularcolumns:: |>{\raggedright\arraybackslash}\Y{0.20}
+                    |>{\raggedright\arraybackslash}\Y{0.80}|
+
+.. _tbl_who_identifiers:
+
+.. list-table:: Who Identifiers
+    :header-rows: 1
+    :class: longtable
+    :align: center 
+
+    * - Who
+      - Description
+    * - "``OWNER@``"
+      - The owner of the file
+    * - "``GROUP@``"
+      - The group associated with the file
+    * - "``EVERYONE@``"
+      - The world
+    * - "``ANONYMOUS@``"
+      - Access without authentication
+    * - "``AUTHENTICATED@``"
+      - Any authenticated user (opposite of "``ANONYMOUS@``")
+    * - "``ADMINISTRATOR@``"
+      - A user with administrative status, e.g., "``root``"
+    * - "``ADMINUSERS@``"
+      - A group whose members are given administrative status
+
+To avoid name conflicts, these special identifiers are distinguished by an appended "``@``" (with no domain name).
+
+ACE Flags
+---------
+
+CDMI allows for nested containers and mandates that objects and subcontainers be able to inherit access permissions from their parent containers. However, it is not enough to simply inherit all permissions from the parent; it might be desirable, for example, to have different default permissions on child objects and subcontainers of a given container. The flags in :numref:`tbl_ace_flags` govern this behavior. 
+
+.. tabularcolumns:: |>{\raggedright\arraybackslash}\Y{0.23}
+                    |>{\raggedright\arraybackslash}\Y{0.32}
+                    |>{\raggedright\arraybackslash}\Y{0.30}
+                    |>{\raggedright\arraybackslash}\Y{0.15}|
+
+.. _tbl_ace_flags:
+
+.. list-table:: ACE Flags 
+    :header-rows: 1
+    :class: longtable
+    :align: center 
+
+    * - String Form
+      - Description
+      - Constant
+      - Bit Mask
+    * - "``NO_FLAGS``"
+      - No flags are set
+      - "``CDMI_ACE_FLAGS_NONE``"
+      - 0x00000000
+    * - "``OBJECT_INHERIT``"
+      - An ACE on which "``OBJECT_INHERIT``" is set is inherited by objects as an effective ACE: "``OBJECT_INHERIT``" is cleared on the child object. When the ACE is inherited by a container, "``OBJECT_INHERIT``" is retained for the purpose of inheritance, and additionally, "``INHERIT_ONLY``" is set. 
+      - "``CDMI_ACE_FLAGS_
+        OBJECT_INHERIT_ACE``"
+      - 0x00000001
+    * - "``CONTAINER_INHERIT``"
+      - An ACE on which "``CONTAINER_INHERIT``" is set is inherited by a subcontainer as an effective ACE. Both "``INHERIT_ONLY``" and "``CONTAINER_INHERIT``" are cleared on the child container. 
+      - "``CDMI_ACE_FLAGS_
+        CONTAINER_INHERIT_ACE``"
+      - 0x00000002
+    * - "``NO_PROPAGATE``"
+      - An ACE on which "``NO_PROPAGATE``" is set is not inherited by any objects or subcontainers. It applies only to the container on which it is set. 
+      - "``CDMI_ACE_FLAGS_
+        NO_PROPAGATE_ACE``"
+      - 0x00000004
+    * - "``INHERIT_ONLY``"
+      - An ACE on which "``INHERIT_ONLY``" is set is propagated to children during ACL inheritance as specified by "``OBJECT_INHERIT``" and "``CONTAINER_INHERIT``". The ACE is ignored when evaluating access to the container on which it is set and is always ignored when set on objects. 
+      - "``CDMI_ACE_FLAGS_
+        INHERIT_ONLY_ACE``"
+      - 0x00000008
+    * - "``IDENTIFIER_GROUP``"
+      - An ACE on which "``IDENTIFIER_GROUP``" is set indicates that the "``who``" refers to a group identifier.
+      - "``CDMI_ACE_FLAGS_
+        IDENTIFIER_GROUP``"
+      - 0x00000040
+    * - "``INHERITED``"
+      - An ACE on which "``INHERITED``" is set indicates that this ACE is inherited from a parent directory. A server that supports automatic inheritance will place this flag on any ACEs inherited from the parent directory when creating a new object.
+      - "``CDMI_ACE_FLAGS_
+        INHERITED_ACE``"
+      - 0x00000080
+
+ACE Mask Bits
+-------------
+
+The mask field of an ACE contains a 32 bit mask, as specified in section 5.11.2 of :rfc:`3530`. 
+
+.. tabularcolumns:: |>{\raggedright\arraybackslash}\Y{0.23}
+                    |>{\raggedright\arraybackslash}\Y{0.32}
+                    |>{\raggedright\arraybackslash}\Y{0.30}
+                    |>{\raggedright\arraybackslash}\Y{0.15}|
+
+.. _tbl_ace_bit_masks:
+
+.. list-table:: ACE Bit Masks 
+    :header-rows: 1
+    :class: longtable
+    :align: center 
+
+    * - String Form
+      - Description
+      - Constant
+      - Bit Mask
+    * - "``READ_OBJECT``"
+      - If true, indicates permission to read the value of an object. 
+      
+        .. raw:: latex
+
+          \vspace*{1ex}
+
+        If false: 
+
+        * A CDMI GET that requests all fields shall return all permitted fields with the value field excluded. 
+        * A CDMI GET that requests specific fields shall return requested permitted fields with the value field excluded. 
+        * A CDMI GET for only the value field shall return an HTTP status code of ``403 Forbidden``. 
+        * A non-CDMI GET shall return an HTTP status code of ``403 Forbidden``.
+
+      - "``CDMI_ACE_READ_OBJECT``"
+      - 0x00000001
+    * - "``LIST_CONTAINER``"
+      - If true, indicates permission to list the children of an object. 
+      
+        .. raw:: latex
+
+          \vspace*{1ex}
+
+        If false: 
+
+        * A CDMI GET that requests all fields shall return all permitted fields with the children field and childrenrange field excluded. 
+        * A CDMI GET that requests specific fields shall return the requested permitted fields with the children field and childrenrange field excluded. 
+        * A CDMI GET for only the children field and/or childrenrange field shall return an HTTP status code of ``403 Forbidden``.
+
+      - "``CDMI_ACE_LIST_CONTAINER``"
+      - 0x00000001
+    * - "``WRITE_OBJECT``"
+      - If true, indicates permission to modify the value of an object 
+      
+        .. raw:: latex
+
+          \vspace*{1ex}
+
+        If false, a PUT that requests modification of the value of an object shall return an HTTP status code of ``403 Forbidden``.
+      - "``CDMI_ACE_WRITE_OBJECT``"
+      - 0x00000002
+    * - "``ADD_OBJECT``"
+      - If true, indicates permission to add a new child data object or queue object. 
+      
+        .. raw:: latex
+
+          \vspace*{1ex}
+
+        If false, a PUT or POST that requests creation of a new child data object or new queue object shall return an HTTP status code of ``403 Forbidden``.
+      - "``CDMI_ACE_ADD_OBJECT``"
+      - 0x00000002
+    * - "``APPEND_DATA``"
+      - If true, indicates permission to append data to the value of a data object. 
+      
+        .. raw:: latex
+
+          \vspace*{1ex}
+
+        If "``APPEND_DATA``" is true and "``WRITE_OBJECT``" is false, a PUT that requests modification of any existing part of the value of an object shall return an HTTP status code of ``403 Forbidden``.
+      - "``CDMI_ACE_APPEND_DATA``"
+      - 0x00000004
+    * - "``ADD_SUBCONTAINER``"
+      - If true, indicates permission to create a child container object or domain object. 
+      
+        .. raw:: latex
+
+          \vspace*{1ex}
+
+        If false, a PUT that requests creation of a new child container object or new domain object shall return an HTTP status code of ``403 Forbidden``.
+      - "``CDMI_ACE_ADD_
+        SUBCONTAINER``"
+      - 0x00000004
+    * - "``READ_METADATA``"
+      - If true, indicates permission to read the metadata of an object. 
+      
+        .. raw:: latex
+
+          \vspace*{1ex}
+
+        If false: 
+
+        * A CDMI GET that requests all fields shall return all permitted fields with the metadata field excluded. 
+        * A CDMI GET that requests specific fields shall return the requested permitted fields with the metadata field excluded. 
+        * A CDMI GET for only the metadata field shall return an HTTP status code of ``403 Forbidden``.
+
+      - "``CDMI_ACE_READ_METADATA``"
+      - 0x00000008
+    * - "``WRITE_METADATA``"
+      - If true, indicates permission to modify the metadata of an object.
+      
+        .. raw:: latex
+
+          \vspace*{1ex}
+
+        If false, a CDMI PUT that requests modification of the metadata field of an object shall return an HTTP status code of ``403 Forbidden``.
+      - "``CDMI_ACE_WRITE_METADATA``"
+      - 0x00000010
+    * - "``EXECUTE``"
+      - If true, indicates permission to execute an object.
+      - "``CDMI_ACE_EXECUTE``"
+      - 0x00000020
+    * - "``TRAVERSE_
+        CONTAINER``"
+      - If true, indicates permission to traverse a container object or domain object.
+      
+        .. raw:: latex
+
+          \vspace*{1ex}
+
+        If false, all operations against all children below the container shall return an HTTP status code of ``403 Forbidden``.
+      - "``CDMI_ACE_TRAVERSE_
+        CONTAINER``"
+      - 0x00000020
+    * - "``DELETE_OBJECT``"
+      - If true, indicates permission to delete a child data object or child queue object from a container object. 
+      
+        .. raw:: latex
+
+          \vspace*{1ex}
+
+        If false, all DELETE operations shall return an HTTP status code of ``403 Forbidden``.
+      - "``CDMI_ACE_DELETE_OBJECT``"
+      - 0x00000040
+    * - "``DELETE_
+        SUBCONTAINER``"
+      - If true, indicates permission to delete a child container object from a container object or to delete a child domain object from a domain object. 
+      
+        .. raw:: latex
+
+          \vspace*{1ex}
+
+        If false, all DELETE operations shall return an HTTP status code of ``403 Forbidden``.
+      - "``CDMI_ACE_DELETE_
+        SUBCONTAINER``"
+      - 0x00000040
+    * - "``READ_ATTRIBUTES``"
+      - If true, indicates permission to read the attribute fields [#a]_ of an object. 
+      
+        .. raw:: latex
+
+          \vspace*{1ex}
+
+        If false: 
+
+        * A CDMI GET that requests all fields shall return all non-attribute fields and shall not return any attribute fields. 
+        * A CDMI GET that requests at least one non-attribute field shall only return the requested non-attribute fields. 
+        * A CDMI GET that requests only non-attribute fields shall return an HTTP status code of ``403 Forbidden``. 
+
+      - "``CDMI_ACE_READ_
+        ATTRIBUTES``"
+      - 0x00000080
+    * - "``WRITE_ATTRIBUTES``"
+      - If true, indicates permission to change attribute fields[#a]_ of an object. 
+      
+        .. raw:: latex
+
+          \vspace*{1ex}
+
+        If false, a CDMI PUT that requests modification of any non-attribute field shall return an HTTP status code of ``403 Forbidden``.
+      - "``CDMI_ACE_WRITE_
+        ATTRIBUTES``"
+      - 0x00000100
+    * - "``WRITE_RETENTION``"
+      - If true, indicates permission to change retention attributes of an object. 
+      
+        .. raw:: latex
+
+          \vspace*{1ex}
+
+        If false, a CDMI PUT that requests modification of any non-hold retention metadata items shall return an HTTP status code of ``403 Forbidden``.
+      - "``CDMI_ACE_WRITE_
+        RETENTION``"
+      - 0x00000200
+    * - "``WRITE_RETENTION_
+        HOLD``"
+      - If true, indicates permission to change retention hold attributes of an object. 
+      
+        .. raw:: latex
+
+          \vspace*{1ex}
+
+        If false, a CDMI PUT that requests modification of any retention hold metadata items shall return an HTTP status code of ``403 Forbidden``.
+      - "``CDMI_ACE_WRITE_
+        RETENTION_HOLD``"
+      - 0x00000400
+    * - "``DELETE``"
+      - If true, indicates permission to delete an object. 
+      
+        .. raw:: latex
+
+          \vspace*{1ex}
+
+        If false, all DELETE operations shall return an HTTP status code of ``403 Forbidden``.
+      - "``CDMI_ACE_DELETE``"
+      - 0x00010000
+    * - "``READ_ACL``"
+      - If true, indicates permission to read the ACL of an object. 
+      
+        .. raw:: latex
+
+          \vspace*{1ex}
+
+        If false: 
+
+        * A CDMI GET that requests all metadata items shall return all permitted metadata items with the "``cdmi_acl``" metadata item excluded. 
+        * A CDMI GET that requests specific metadata items shall return the requested permitted metadata items with the "``cdmi_acl``" metadata item excluded. 
+        * A CDMI GET for only the cdmi_acl metadata item shall return an HTTP status code of ``403 Forbidden``.
+
+        If "``READ_ACL``" is true and "``READ_METADATA``" is false, then to read the ACL, a client CDMI GET for only the "``cdmi_acl``" metadata item shall be permitted.
+      - "``CDMI_ACE_READ_ACL``"
+      - 0x00020000
+    * - "``WRITE_ACL``"
+      - If true, indicates permission to write the ACL of an object.
+      
+        .. raw:: latex
+
+          \vspace*{1ex}
+
+        If false: 
+
+        * If "``WRITE_ACL``" is false, a CDMI PUT that requests modification of the "``cdmi_acl``" metadata item shall return an HTTP status code of ``403 Forbidden``. 
+        * If "``WRITE_ACL``" is true and "WRITE_METADATA" is false, then to write the ACL, a client CDMI PUT for only the "``cdmi_acl``" metadata item shall be permitted. 
+
+      - "``CDMI_ACE_WRITE_ACL``"
+      - 0x00040000
+    * - "``WRITE_OWNER``"
+      - If true, indicates permission to change the owner of an object. 
+      
+        .. raw:: latex
+
+          \vspace*{1ex}
+
+        If false: 
+
+        * If "``WRITE_OWNER``" is false, a CDMI PUT that requests modification of the "``cdmi_owner``" metadata item shall return an HTTP status code of ``403 Forbidden``. 
+        * If "``WRITE_OWNER``" is true and "``WRITE_METADATA``" is false, then to write the owner, a client CDMI PUT for only the "``cdmi_owner``" metadata item shall be permitted. 
+
+      - "``CDMI_ACE_WRITE_OWNER``"
+      - 0x00080000
+    * - "``SYNCHRONIZE``"
+      - If true, indicates permission to access an object locally at the server with synchronous reads and writes.
+      - "``CDMI_ACE_SYNCHRONIZE``"
+      - 0x00100000
+
+..  [#a] The value fields, children fields, and metadata field are considered to be non-attribute fields. All other fields are considered to be attribute fields. 
+
+Implementations shall use the correct string form to display permissions, if the object type is known. If the object type is unknown, the "object" version of the string shall be used.
+
+ACL Evaluation
+--------------
+
+When evaluating whether access to a particular object O by a principal P is to be granted, the server shall traverse the object's logical ACL (its ACL after processing inheritance from parent containers) in list order, using a temporary permissions bitmask m, initially empty (all zeroes).
+
+
+* If the object still does not contain an ACL, the algorithm terminates and access is denied for all users and groups. This condition is not expected, as CDMI implementations should require an inheritable default ACL on all root containers.
+* ACEs that do not refer to the principal P requesting the operation are ignored.
+* If an ACE is encountered that denies access to P for any of the requested mask bits, access is denied and the algorithm terminates.
+* If an ACE is encountered that allows access to P, the permissions mask m for the operation is XORed with the permissions mask from the ACE. If m is sufficient for the operation, access is granted and the algorithm terminates.
+* If the end of the ACL list is reached and permission has neither been granted nor explicitly denied, access is denied and the algorithm terminates, unless the object is a container root. In this case, the server shall:
+
+   - allow access to the container owner, "``ADMINISTRATOR@``", and any member of "``ADMINUSERS@``"; and 
+   - log an event indicating what has happened.
+
+When permission for the desired access is not explicitly given, even "``ADMINISTRATOR@``" and equivalents are denied for objects that aren't container roots. When an admin needs to access an object in such an instance, the root container shall be accessed and its inheritable ACEs changed in a way as to allow access to the original object. The resulting log entry then provides an audit trail for the access.
+
+When a root container is created and no ACL is supplied, the server shall place an ACL containing the following ACEs on the container:
+
+.. code-block:: none
+
+    "cdmi_acl": 
+    [
+        {
+            "acetype": "ALLOW",
+            "identifier": "OWNER@",
+            "aceflags": "OBJECT_INHERIT, CONTAINER_INHERIT",
+            "acemask": "ALL_PERMS"
+        },
+        {
+            "acetype": "ALLOW",
+            "identifier": "AUTHENTICATED@",
+            "aceflags": "OBJECT_INHERIT, CONTAINER_INHERIT",
+            "acemask": "READ"
+        }
+    ]
+
+As ACLs are storage system metadata, they are stored and retrieved through the metadata field included in a PUT or GET request. The syntax is as follows, using the constant strings from :ref:`tbl_ace_types`, :ref:`tbl_ace_flags`, and :ref:`tbl_ace_bit_masks`:
+
+.. code-block:: bnf
+
+    ACL = { ACE [, ACE ...] }
+    ACE = { acetype , identifier , aceflags , acemask }
+    acetype = uint_t | acetypeitem
+    identifier  = utf8string_t
+    aceflags    = uint_t | aceflagsstring
+    acemask     = uint_t | acemaskstring
+
+    acetypeitem = aceallowedtype | acedeniedtype | aceaudittype
+    aceallowedtype = "CDMI_ACE_ACCESS_ALLOWED_TYPE" | 0x0
+    acedeniedtype  = "CDMI_ACE_ACCESS_DENIED_TYPE" | 0x01
+    aceaudittype   = "CDMI_ACE_SYSTEM_AUDIT_TYPE" | 0x02
+     
+    aceflagsstring = aceflagsitem [| aceflagsitem ...]
+    aceflagsitem   = aceobinherititem | acecontinherititem | acenopropagateitem | aceinheritonlyitem
+     
+    aceobinherititem   = "CDMI_ACE_OBJECT_INHERIT_ACE" | 0x01
+    acecontinherititem = "CDMI_ACE_CONTAINER_INHERIT_ACE" | 0x02
+    acenopropagateitem = "CDMI_ACE_NO_PROPAGATE_INHERIT_ACE" | 0x04
+    aceinheritonlyitem = "CDMI_ACE_INHERIT_ONLY_ACE" | 0x08
+     
+    acemaskstring  =   acemaskitem [| acemaskitem ...]
+    acemaskitem    =   acereaditem | acewriteitem | aceappenditem | acereadmetaitem | acewritemetaitem | acedeleteitem | acedelselfitem | acereadaclitem | acewriteaclitem | aceexecuteitem | acereadattritem | acewriteattritem | aceretentionitem
+
+    acereaditem       = "CDMI_ACE_READ_OBJECT" | "CDMI_ACE_LIST_CONTAINER" | 0x01 
+    acewriteitem      = "CDMI_ACE_WRITE_OBJECT" | "CDMI_ACE_ADD_OBJECT" | 0x02 
+    aceappenditem     = "CDMI_ACE_APPEND_DATA" |  "CDMI_ACE_ADD_SUBCONTAINER" |  0x04 
+    acereadmetaitem   = "CDMI_ACE_READ_METADATA" | 0x08
+    acewritemetaitem  = "CDMI_ACE_WRITE_METADATA" | 0x10
+    acedeleteitem     = "CDMI_ACE_DELETE_OBJECT" | "CDMI_ACE_DELETE_SUBCONTAINER" | 0x40 
+    acedelselfitem    = "CDMI_ACE_DELETE" | 0x10000 
+    acereadaclitem    = "CDMI_ACE_READ_ACL" | 0x20000 
+    acewriteaclitem   = "CDMI_ACE_WRITE_ACL" | 0x40000 
+    aceexecuteitem    = "CDMI_ACE_EXECUTE" | 0x80000
+    acereadattritem   = "CDMI_ACE_READ_ATTRIBUTES" | 0x00080
+    acewriteattritem  = "CDMI_ACE_WRITE_ATTRIBUTES" | 0x00100
+    aceretentionitem  = "CDMI_ACE_SET_RETENTION" | 0x10000000
+
+When ACE masks are presented in numeric format, they shall, at all times, be specified in hexadecimal notation with a leading "``0x``". This format allows both servers and clients to quickly determine which of the two forms of a given constant is being used. When masks are presented in string format, they shall be converted to numeric format and then evaluated using standard bitwise operators.
+
+When an object is created, no ACL is supplied, and an ACL is not inherited from the parent container (or there is no parent container), the server shall place an ACL containing the following ACEs on the object: 
+
+.. code-block:: none
+
+    "cdmi_acl": 
+    [
+        {
+            "acetype": "ALLOW",
+            "identifier": "OWNER@",
+            "aceflags": "OBJECT_INHERIT, CONTAINER_INHERIT",
+            "acemask": "ALL_PERMS"
+        }
+    ]
+
+Example ACE Mask Expressions
+----------------------------
+
+Example 1:
+
+   .. code-block:: none
+
+        "READ_ALL" | 0x02
+
+   evaluates to 0x09 | 0x02 == 0x0
+
+
+Example 2:
+
+    .. code-block:: none
+
+        0x001F07FF
+
+    evaluates to 0x001F07FF == "ALL_PERMS"
+
+
+Example 3:
+
+    .. code-block:: none
+
+        "RW_ALL" | DELETE
+
+    evaluates to 0x000601DF | 0x00100000 == 0x000701DF
+
+
+Canonical Format for ACE Hexadecimal Quantities
+-----------------------------------------------
+
+ACE mask expressions may be evaluated and converted to a string hexadecimal value before transmission in a CDMI JSON body. Applications or utilities that display them to users should convert them into a text expression before display and accept user input in text format as well. 
+
+The following technique should be used to decompose masks into strings. A table of masks and string equivalents should be maintained and ordered from greatest to least:
+
+.. tabularcolumns:: |>{\raggedright\arraybackslash}\Y{0.20}
+                    |>{\raggedright\arraybackslash}\Y{0.40}
+                    |>{\raggedright\arraybackslash}\Y{0.40}|
+
+.. _tbl_ace_strings:
+
+.. list-table:: ACE Bit Mask/String
+    :header-rows: 1
+    :class: longtable
+    :align: center 
+
+    * - Hex Form
+      - Object String Form
+      - Container String Form
+    * - 0x001F07FF
+      - "``ALL_PERMS``"
+      - "``ALL_PERMS``"
+    * - 0x0006006F
+      - "``RW_ALL``"
+      - "``RW_ALL``"
+    * - 0x0000001F
+      - "``RW``"
+      - "``RW``"
+    * -
+      - ...
+      - ...
+    * - 0x00000002
+      - "``WRITE_OBJECT``"
+      - "``ADD_OBJECT``"
+    * - 0x00000001
+      - "``READ_OBJECT``"
+      - "``LIST_CONTAINER``"
+
+Given an access mask M, the following is repeated until M == 0:
+
+#. Select the highest mask m from the table such that M & m == m.
+#. If the object is a container, select the string from the 3rd column; otherwise, select the string from the 2nd column.
+#. Bitwise subtract m from M, i.e., set M = M xor m.
+#. The complete textual representation is then all the selected strings concatenated with "``, ``" between them, e.g., "``ALL_PERMS, WRITE_OWNER``". The strings should appear in the order they are selected.
+
+A similar technique should be used for all other sets of hex/string equivalents.
+
+This algorithm, properly coded, requires only one (often partial) pass through the corresponding string equivalents table.
+
+JSON Format for ACLs
+--------------------
+
+ACE flags and masks are members of a 32-bit quantity that is widely understood in its hexadecimal representations. The JSON data format does not support hexadecimal integers, however. For this reason, all hexadecimal integers in CDMI ACLs shall be represented as quoted strings containing a leading "``0x``".
+
+ACLs containing one or more ACEs shall be represented in JSON as follows:
+
+.. code-block:: none
+
+    {
+        "cdmi_acl" : [
+            {
+                "acetype" : "0xnn",
+                "identifier" : "<user-or-group-name>",
+                "aceflags" : "0xnn",
+                "acemask" : "0xnn"
+            },
+            {
+                "acetype" : "0xnn",
+                "identifier" : "<user-or-group-name>",
+                "aceflags" : "0xnn",
+                "acemask" : "0xnn"
+            } 
+        ]
+    }
+
+    ACEs in such an ACL shall be evaluated in order as they appear. 
+
+EXAMPLE 1: An example of an ACL embedded in a response to a GET request is as follows:
+
+.. code-block:: http
+
+    HTTP/1.1 200 OK
+    Content-Type: application/cdmi-object
+    X-CDMI-Specification-Version: 1.1
+     
+    {
+        "objectType" : "/application/cdmi-object",
+        "objectID" : "00007ED9001086A99CC6487FEE373D82",
+        "objectName" : "MyDataItem.txt",
+        "parentURI" : "/MyContainer/",
+        "domainURI" : "/cdmi_domains/MyDomain/",
+        "capabilitiesURI" : "/cdmi_capabilities/dataobject/",
+        "completionStatus" : "Complete",
+        "mimetype" : "text/plain",
+        "metadata" : {
+            "cdmi_size" : "17",
+            "cdmi_acl" : [
+                {
+                    "acetype" : "0x00",
+                    "identifier" : "EVERYONE@",
+                    "aceflags" : "0x00",
+                    "acemask" : "0x00020089"
+                } 
+            ],
+            ... 
+        },
+        "valuerange" : "0-16",
+        "value" : "Hello CDMI World!" 
+    }
+
