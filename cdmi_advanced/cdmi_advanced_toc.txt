@@ -19,6 +19,6 @@ CDMI Advanced
   cdmi_logging
   cdmi_notifications
   cdmi_query_queues
-  cdmi_access_control
+  cdmi_delegated_access_control
   
   
