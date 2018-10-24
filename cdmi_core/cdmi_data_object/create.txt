@@ -583,3 +583,68 @@ EXAMPLE 5: PUT to the container URI the data object name and JSON contents:
                "cdmi_size": "21"
           }
       }
+
+	   
+EXAMPLE 6: PUT to the container URI to create an encrypted object:
+
+	.. code-block:: http
+	
+		PUT /MyContainer/MyEncryptedObject.txt HTTP/1.1
+		Host: cloud.example.com
+		Content-Type: application/cdmi-object
+
+		{
+		 "mimetype" : "application/cms",
+		 "metadata" : {
+		 "cdmi_enc_key_id" : "testkey"
+		 },
+		 "valuetransferencoding" : "base64"
+		 "value" : "<CMS Encrypted Object in Base64>"
+		}
+
+	The following shows the response:
+
+	.. code-block:: http
+	
+		HTTP/1.1 201 Created
+
+EXAMPLE 7: PUT to the container URI to create an encrypted object:
+
+	.. code-block:: http
+		
+		PUT /MyContainer/MyEncryptedObject2.txt HTTP/1.1
+		Host: cloud.example.com
+		Content-Type: application/cdmi-object
+
+		{
+		 "mimetype" : "application/jose+json",
+		 "metadata" : {
+		 "cdmi_enc_key_id" : "77c7e2b8-6e13-45cf-8672-617b5b45243a"
+		 },
+		 "valuetransferencoding" : "json",
+		 "value" : {
+		 "protected": "eyJhbGciOiJkaXIiLCJraWQiOiI3N2M3ZTJi
+					   OC02ZTEzLTQ1Y2YtODY3Mi02MTdiNWI0NTI0
+					   M2EiLCJlbmMiOiJBMTI4R0NNIn0",
+		 "iv": "refa467QzzKx6QAB",
+		 "ciphertext": "JW_i_f52hww_ELQPGaYyeAB6HYGcR559l9T
+						YnSovc23XJoBcW29rHP8yZOZG7YhLpT1bjF
+						uvZPjQS-m0IFtVcXkZXdH_lr_FrdYt9HRUY
+						kshtrMmIUAyGmUnd9zMDB2n0cRDIHAzFVeJ
+						UDxkUwVAE7_YGRPdcqMyiBoCO-FBdE-Nceb
+						4h3-FtBP-c_BIwCPTjb9o0SbdcdREEMJMyZ
+						BH8ySWMVi1gPD9yxi-aQpGbSv_F9N4IZAxs
+						cj5g-NJsUPbjk29-s7LJAGb15wEBtXphVCg
+						yy53CoIKLHHeJHXex45Uz9aKZSRSInZI-wj
+						sY0yu3cT4_aQ3i1o-tiE-F8Ios61EKgyIQ4
+						CWao8PFMj8TTnp",
+		 "tag": "vbb32Xvllea2OtmHAdccRQ",
+		 "cty": "text/plain"
+		 }
+		}
+
+	The following shows the response:
+
+	.. code-block:: http
+		
+		HTTP/1.1 201 Created

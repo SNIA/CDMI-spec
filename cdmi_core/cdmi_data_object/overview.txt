@@ -127,3 +127,7 @@ Data Object Representations
 ---------------------------
 
 The representations in this clause are shown using JSON notation. Both clients and servers shall support UTF-8 JSON representation. The request and response body JSON fields may be specified or returned in any order, with the exception that, if present, for data objects, the "``valuerange``" and "``value``" fields shall appear last and in that order. 
+
+Encrypted Objects
+-----------------
+CDMI data object operations only permit management operations and access to the ciphertext of encrypted objects. For more details on encrypted objects, see :numref:`clause %s <clause_cdmi_encrypted_objects>`.

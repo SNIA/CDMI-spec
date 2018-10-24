@@ -311,6 +311,36 @@ Cloud Storage System-Wide Capabilities
     * - cdmi_create_value_range_by_ID    
       - JSON String    
       - If present and "``true``", the CDMI server supports a new data object’s value to be created with byte ranges through "``/cdmi_objectid/``".
+    * - cdmi_enc_cms 
+      - JSON String
+      - If present and "``true``", the CDMI server supports operations against the contents of CMS encrypted objects.
+    * - cdmi_enc_jwe 
+      - JSON String
+      - If present and "``true``", the CDMI server supports operations against the contents of JWE encrypted objects.
+    * - cdmi_enc_inplace 
+      - JSON String
+      - If present and "``true``", the CDMI server supports operations to encrypt and decrypt objects in place, including updates.
+    * - cdmi_enc_access 
+      - JSON String
+      - If present and "``true``", the CDMI server supports operations to decrypt objects on access.
+    * - cdmi_cms_encryption 
+      - JSON Array of JSON Strings
+      - If present, this capability lists which CMS ``ContentEncryptionAlgorithmIdentifier`` encryption algorithms are supported for operations against the contents of CMS encrypted objects.
+    * - cdmi_cms_digest 
+      - JSON Array of JSON Strings
+      - If present, this capability lists which CMS ``MessageAuthenticationCodeAlgorithm`` digest algorithms are supported for operations against the contents of CMS encrypted objects.
+    * - cdmi_cms_signature 
+      - JSON Array of JSON Strings
+      - If present, this capability lists which CMS ``SignatureAlgorithmIdentifier`` signature algorithms are supported for operations against the contents of CMS encrypted objects.
+    * - cdmi_jwe_enc 
+      - JSON Array of JSON Strings
+      - If present, this capability lists which JOSE "``enc``" encryption algorithms are supported for operations against the contents of JWE encrypted objects, as defined in :rfc:`7518`.
+    * - cdmi_jwe_alg 
+      - JSON Array of JSON Strings
+      - If present, this capability lists which JOSE "``alg``" encryption algorithms are supported for operations against the contents ofJWE encrypted objects, as defined in :rfc:`7518`.
+    * - cdmi_jws_alg 
+      - JSON Array of JSON Strings
+      - If present, this capability lists which JOSE "``alg``" encryption algorithms are supported for operations against the contents of JWS signatures, as defined in :rfc:`7518`.
     * - cdmi_valuetransferencoding_json    
       - JSON String    
       - If present and "``true``", the CDMI server supports JSON value transfer encodings.
@@ -368,7 +398,11 @@ Storage System Metadata Capabilities
       - JSON String    
       - If present and "``true``", the CDMI server shall generate a ``cdmi_mcount`` storage system metadata for each stored object.
 
-
+    * - cdmi_enc_signature	
+      - JSON String	
+      - If present and "``true``", this capability indicates that the cloud storage system shall generate a ``cdmi_signature`` storage system metadata for each stored object when a corresponding ``sign_id`` data system metadata item is present.
+      
+      
 .. raw:: latex
 
   \newpage
@@ -496,6 +530,26 @@ Data System Metadata Capabilities
           \vspace*{1ex}
 
         When a cloud storage system supports value hashing, the system-wide capability of ``cdmi_security_data_integrity`` specified in :numref:`tbl_system_wide_capabilities` of :numref:`ref_cloud_storage_system-wide_capabilities` shall be present and set to "``true``". 
+
+    * - cdmi_enc_key_id	
+      - JSON String	
+      - When the cloud storage system supports the ``cdmi_enc_key_id`` data system metadata as defined in :numref:`clause %s <ref_support_for_data_system_metadata>`, the ``cdmi_enc_key_id`` capability shall be present and set to the string value "``true``". When this capability is absent, or present and set to the string value "``false``", ``cdmi_enc_key_id`` data system metadata shall not be used.
+    
+    * - cdmi_enc_value_sign_id	
+      - JSON String	
+      - When the cloud storage system supports the ``cdmi_enc_value_sign_id`` data system metadata as defined in :numref:`clause %s <ref_support_for_data_system_metadata>`, the ``cdmi_enc_value_sign_id`` capability shall be present and set to the string value "``true``". When this capability is absent, or present and set to the string value "``false``", ``cdmi_enc_value_sign_id`` data system metadata shall not be used.
+
+    * - cdmi_enc_value_verify_id	
+      - JSON String	
+      - When the cloud storage system supports the ``cdmi_enc_value_verify_id`` data system metadata as defined in :numref:`clause %s <ref_support_for_data_system_metadata>`, the ``cdmi_enc_value_verify_id`` capability shall be present and set to the string value "``true``". When this capability is absent, or present and set to the string value "``false``", ``cdmi_enc_value_verify_id`` data system metadata shall not be used.
+
+    * - cdmi_enc_object_sign_id	
+      - JSON String	
+      - When the cloud storage system supports the ``cdmi_enc_object_sign_id`` data system metadata as defined in :numref:`clause %s <ref_support_for_data_system_metadata>`, the ``cdmi_enc_object_sign_id`` capability shall be present and set to the string value "``true``". When this capability is absent, or present and set to the string value "``false``", ``cdmi_enc_object_sign_id`` data system metadata shall not be used.
+      
+    * - cdmi_enc_object_verify_id	
+      - JSON String	
+      - When the cloud storage system supports the ``cdmi_enc_object_verify_id`` data system metadata as defined in :numref:`clause %s <ref_support_for_data_system_metadata>`, the ``cdmi_enc_object_verify_id`` capability shall be present and set to the string value "``true``". When this capability is absent, or present and set to the string value "``false``", ``cdmi_enc_object_verify_id`` data system metadata shall not be used.
 
 .. raw:: latex
 

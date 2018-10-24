@@ -160,7 +160,10 @@ Which storage system metadata is supported by the CDMI server defined in :numref
 
         This metadata value can be updated by users with appropriate permissions.
       - Optional
-
+    * - cdmi_enc_signature
+      - JSON Object
+      - Contains JWS compact serialization of a signature for the entire object (value and metadata). See :numref:`clause %s <ref_cdmi_encrypted_objects_signature_verification>` for more details.
+      - Optional
 
 .. _ref_support_for_data_system_metadata:
 
@@ -435,7 +438,26 @@ Which data system metadata is supported by the CDMI server defined in :numref:`r
 
         Supported authentication method values are indicated by the cdmi_authentication_methods capability.
       - Optional
-
+    * - cdmi_enc_key_id
+      - JSON String
+      - Contains a unique key identifier (e.g. KMIP Identifier) for the symmetric key used to encrypt and decrypt the object.
+      - Optional
+    * - cdmi_enc_value_sign_id
+      - JSON String
+      - Contains a unique key identifier (e.g. KMIP Identifier) for the private key used for signing the value of the object.
+      - Optional
+    * - cdmi_enc_value_verify_id
+      - JSON String
+      - Contains a unique key identifier (e.g. KMIP Identifier) for the public key or certificate chain used for verifying the signature of the value of the object.
+      - Optional
+    * - cdmi_enc_object_sign_id
+      - JSON String
+      - Contains a unique key identifier (e.g. KMIP Identifier) for the private key used for signing the entire object.
+      - Optional
+    * - cdmi_enc_object_verify_id
+      - JSON String
+      - Contains a unique key identifier (.e.g. KMIP Identifier) for the public key or certificate chain used for verifying the signature of the entire object.
+      - Optional
 
 .. _ref_support_for_provided_data_system_metadata:
 

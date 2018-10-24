@@ -19,4 +19,4 @@ CDMI Advanced
   cdmi_results
   cdmi_notifications
   cdmi_query_queues
-  
+  cdmi_encrypted_objects

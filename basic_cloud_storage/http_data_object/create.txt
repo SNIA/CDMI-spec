@@ -135,3 +135,36 @@ EXAMPLE 1: PUT to the container URI the data object name and contents.
 
        HTTP/1.1 201 Created
 
+EXAMPLE 2: Put to the container URI to create an encrypted object:
+
+	.. code-block:: http
+	
+		PUT /MyContainer/MyEncryptedObject.txt HTTP/1.1
+		Host: cloud.example.com
+		Content-Type: application/cms
+		Content-Length: 1425
+
+		<CMS Encrypted Object>
+
+	The following shows the response:
+
+	.. code-block:: http
+
+		HTTP/1.1 201 Created
+
+EXAMPLE 3: PUT to the container URI to create an encrypted object:
+
+	.. code-block: http
+	
+		PUT /MyContainer/MyEncryptedObject2.txt HTTP/1.1
+		Host: cloud.example.com
+		Content-Type: application/jose+json
+		Content-Length: 1425
+		
+		<JWE Encrypted Object JSON>
+
+	The following shows the response:
+
+	.. code-block:: http
+
+		HTTP/1.1 201 Created
