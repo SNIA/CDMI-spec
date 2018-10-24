@@ -73,6 +73,7 @@ The encoding of the data transported in the data object value field depends on t
 
 * If the value transfer encoding of the object is set to "``utf-8``", the data stored in the value of the data object shall be a valid UTF-8 string and shall be transported as a UTF-8 string in the value field.
 * If the value transfer encoding of the object is set to "``base64``", the data stored in the value of the data object can contain arbitrary binary sequences, and it shall be transported as a base 64-encoded string in the value field.
+* If the value transfer encoding of the object is set to "``json``", the data stored in the value of the data object shall contain a valid JSON object, and the value field shall contain a valid JSON object. The JSON stored and returned shall be semantically equivalent but may not be syntactically identical. For example, whitespace outside of JSON-quoted strings may be removed or added by either client libraries or by the server. This means that the number of bytes sent may not be the same as the number of bytes stored.
 
 Specific ranges of the value of a data object may be accessed by specifying a byte range after the value field name. 
 

@@ -506,6 +506,8 @@ CDMI 2.x clients shall not include the ``X-CDMI-Specification-Version`` custom h
 
 CDMI 2.x servers may use the presence of the ``X-CDMI-Specification-Version`` custom header from a CDMI 1.x client to down-negotiate to CDMI 1.x.
 
+CDMI 2.x servers may support the "json" value transfer encoding. Data objects with a value transfer encoding of json shall be accessible to CDMI 1.x clients with a value transfer encoding of UTF-8.
+
 See the CDMI 1.1.1 Specification for more details on backwards compatiblity.
 
 *****************

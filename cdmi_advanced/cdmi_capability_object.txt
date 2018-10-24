@@ -341,7 +341,9 @@ Cloud Storage System-Wide Capabilities
     * - cdmi_jws_alg 
       - JSON Array of JSON Strings
       - If present, this capability lists which JOSE "``alg``" encryption algorithms are supported for operations against the contents of JWS signatures, as defined in :rfc:`7518`.
-           
+    * - cdmi_valuetransferencoding_json    
+      - JSON String    
+      - If present and "``true``", the CDMI server supports JSON value transfer encodings.
 
 .. raw:: latex
 
@@ -788,8 +790,8 @@ Domain Object Capabilities
         * "digest" - HTTP digest authentication supported (:rfc:`2617`) 
         * "krb5" - Kerberos authentication supported, using the Kerberos domain specified in the CDMI domain (:rfc:`4559`) 
         * "x509" - certificate-based authentication via TLS (:rfc:`5246`) 
-        * "s3" - S3 API signed header authentication supported [#]_
-        * "openstack" - OpenStack Identity API header authentication supported [#]_
+        * "s3" - S3 API signed header authentication supported 
+        * "openstack" - OpenStack Identity API header authentication supported
       
         .. raw:: latex
 
@@ -797,9 +799,6 @@ Domain Object Capabilities
 
         Interoperability with these authentication methods are not defined by this international standard. Servers may include other authentication methods not included in the above list. In these cases, it is up to the CDMI client and CDMI server to ensure interoperability.
 
-.. [#] See https://docs.aws.amazon.com/AmazonS3/latest/dev/RESTAuthentication.html#ConstructingTheAuthenticationHeader
-.. [#] See https://developer.openstack.org/api-ref/identity/v3/#authentication-and-token-management
-        
 .. raw:: latex
 
   \newpage
