@@ -96,6 +96,8 @@ A list of fields, separated by a semicolon ";" may be specified, allowing multip
 
 When a client provides fields that are not defined in this international standard or deserializes an object containing fields that are not defined in this international standard, these fields shall be stored as part of the object but shall not be interpreted.
 
+.. _ref_container_metadata:
+
 Container Object Metadata
 -------------------------
 
