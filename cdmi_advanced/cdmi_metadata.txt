@@ -525,6 +525,8 @@ For each metadata item in a data system, there is an actual value that the cloud
       - Contains a list of authentication methods enabled for the domain. See ``cdmi_authentication_methods`` in :numref:`ref_support_for_data_system_metadata` for the format.
       - Optional
 
+.. _ref_support_for_user_metadata:
+
 Support for User Metadata
 *************************
 
