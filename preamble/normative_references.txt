@@ -84,7 +84,7 @@ The provisions of the referenced specifications other than ISO/IEC, IEC, ISO, an
 
     RFC 6068
          The 'mailto' URI Scheme - see :rfc:`6068`
-         
+
 	RFC 5652
 		 Cryptographic Message Syntac (CMS) - see :rfc:`5652`
 		 

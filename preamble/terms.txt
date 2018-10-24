@@ -120,18 +120,18 @@ For the purposes of this document, the following terms and definitions apply.
     iSCSI
          Internet Small Computer Systems Interface (see :rfc:`3720`)
 
-    JOSE
-         Javascript Object Signing and Encryption
-         
-    JWE
-         JSON Web Encryption
-    
-    JWK
-         JSON Web Key
-         
-    JWS
-         JSON Web Signing
-     
+	JOSE
+		 JavaScript Object Signing and Encryption
+		 
+	JWA
+		 JSON Web Algorithm
+		 
+	JWE	
+		 JSON Web Encryption
+		 
+	JWS	
+		 JSON Web Signing
+
     JSON
          JavaScript Object Notation
 
