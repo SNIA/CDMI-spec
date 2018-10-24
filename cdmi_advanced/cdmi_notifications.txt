@@ -10,16 +10,16 @@ A cloud storage system may optionally implement notification functionality. The 
 
 Notification queues allow CDMI clients to efficiently discover what changes have occurred to the system. As queue data is persistent, no session state needs to be retained by the client. If different notification queues are used for different clients, then each client operates independently from the others (e.g., a storage management application may use a notification queue to keep its database current without having to do full scans of a container to discover what data objects have been added, modified, or removed).
 
-When a client wishes to receive notifications, it may first check if the system is capable of providing notifications by checking for the presence of the cdmi_notification capability in the root container capabilities. If this capability is not present, creating a notification queue shall be successful, but no notifications shall be enqueued into the notification queue.
+When a client wishes to receive notifications, it may first check if the system is capable of providing notifications by checking for the presence of the ``cdmi_notification`` capability in the root container capabilities. If this capability is not present, creating a notification queue shall be successful, but no notifications shall be enqueued into the notification queue.
 
 To create a notification queue, the client creates a regular CDMI queue and adds metadata instructing the storage system to treat the queue as a notification queue. This added metadata also instructs the system about what types of notifications shall be generated and what information shall be included with each notification.
 
 After the notification queue is created, all subsequent matching events after the queue creation time shall result in notification results being enqueued into the queue. CDMI does not mandate any specific ordering of events, and clients must be able to handle events that arrive out of order.
 
 Required Metadata
-*****************
+-----------------
 
-When creating a notification queue, the metadata described in :numref:`tbl_required_metadata_for_a_notification_queue` shall be provided. Attempts to change metadata in this table shall result in an HTTP status code of ``403 Forbidden``. After a notification queue has been created, with the exception of cdmi_queue_type, the metadata items in this table cannot be changed. ``cdmi_queue_type`` can only be removed, indicating to the system that the notification queue shall no longer receive notifications and shall be treated as a regular CDMI queue object. 
+When creating a notification queue, the metadata described in :numref:`tbl_required_metadata_for_a_notification_queue` shall be provided. Attempts to change metadata in this table shall result in an HTTP status code of ``403 Forbidden``. After a notification queue has been created, with the exception of ``cdmi_queue_type``, the metadata items in this table cannot be changed. ``cdmi_queue_type`` can only be removed, indicating to the system that the notification queue shall no longer receive notifications and shall be treated as a regular CDMI queue object. 
 
 .. tabularcolumns:: |>{\raggedright\arraybackslash}\Y{0.29}
                     |>{\raggedright\arraybackslash}\Y{0.09}
@@ -89,61 +89,60 @@ When creating a notification queue, the metadata described in :numref:`tbl_requi
 
 EXAMPLE 1: The metadata associated with a notification queue is as follows:
 
-    .. code-block:: json
+  .. code-block:: json
 
-        {
-            "metadata" : {
-                "cdmi_queue_type" : "cdmi_notification_queue",
-                "cdmi_notification_events" : [
-                    "cdmi_create_complete",
-                    "cdmi_read",
-                    "cdmi_modify_complete",
-                    "cdmi_delete" 
-                ],
-                "cdmi_scope_specification" : [
-                    {
-                        "domainURI" : "== /cdmi_domains/MyDomain/",
-                        "parentURI" : "starts /sandbox",
-                        "metadata" : {
-                            "cdmi_size" : ">+100000" 
-                        } 
-                    } 
-                ],
-                "cdmi_results_specification" : {
-                    "cdmi_event" : "",
-                    "cdmi_event_result" : "",
-                    "cdmi_event_time" : "",
-                    "objectID" : "",
-                    "metadata" : {
-                        "cdmi_size" : "" 
-                    } 
-                } 
-            } 
-        }
+      {
+          "metadata" : {
+              "cdmi_queue_type" : "cdmi_notification_queue",
+              "cdmi_notification_events" : [
+                  "cdmi_create_complete",
+                  "cdmi_read",
+                  "cdmi_modify_complete",
+                  "cdmi_delete" 
+              ],
+              "cdmi_scope_specification" : [
+                  {
+                      "domainURI" : "== /cdmi_domains/MyDomain/",
+                      "parentURI" : "starts /sandbox",
+                      "metadata" : {
+                          "cdmi_size" : ">+100000" 
+                      } 
+                  } 
+              ],
+              "cdmi_results_specification" : {
+                  "cdmi_event" : "",
+                  "cdmi_event_result" : "",
+                  "cdmi_event_time" : "",
+                  "objectID" : "",
+                  "metadata" : {
+                      "cdmi_size" : "" 
+                  } 
+              } 
+          } 
+      }
 
-    When notification results are stored in a notification queue, each enqueued value shall consist of a JSON object of MIME type "application/json". This JSON object contains the specified values requested in the cdmi_results_specification of the notification queue metadata.
-
+When notification results are stored in a notification queue, each enqueued value shall consist of a JSON object of MIME type "application/json". This JSON object contains the specified values requested in the cdmi_results_specification of the notification queue metadata.
 
 EXAMPLE 2: A notification result JSON object is as follows:
 
-    .. code-block:: json
+  .. code-block:: json
 
-        {
-            "cdmi_event" : "cdmi_read",
-            "cdmi_event_result" : "200 OK",
-            "cdmi_event_time" : "2010-11-15T13:12:52.342324Z",
-            "objectID" : "00007E7F0010EB9092B29F6CD6AD6824",
-            "metadata" : {
-                "cdmi_size" : "108263" 
-            } 
-        }
+      {
+          "cdmi_event" : "cdmi_read",
+          "cdmi_event_result" : "200 OK",
+          "cdmi_event_time" : "2010-11-15T13:12:52.342324Z",
+          "objectID" : "00007E7F0010EB9092B29F6CD6AD6824",
+          "metadata" : {
+              "cdmi_size" : "108263" 
+          } 
+      }
 
 Objects shall only be included in the notification results if the user who created the notification queue is able to read the matching object.
 
-If the administrator created the notification queue, then all matching objects that the administrator is allowed to read are included in the results. If user "jdoe" created the notification queue, then only matching objects that "jdoe" is allowed to read are included in the results.
+If the administrator created the notification queue, then all matching objects that the administrator is allowed to read are included in the results. If user "``jdoe``" created the notification queue, then only matching objects that "``jdoe``" is allowed to read are included in the results.
 
 System-created metadata
-***********************
+-----------------------
 
 :numref:`tbl_notification_status_metadata` describes the system-created metadata that provides details on the status of the notification queue.
 
@@ -171,7 +170,7 @@ System-created metadata
         * Processing - Indicates that the notification queue is scanning for results; 
         * Halted - Indicates that new notifications will no longer be enqueued;
         * Current - Indicates that the notification queue contained all notifications that can be found at this time; and
-        * Error - Indicates that the notification queue metadata is not valid, or other errors were encountered that prevented notification messages from being enqueued. Arbitrary vendor-defined text may follow the string "Error". 
+        * Error - Indicates that the notification queue metadata is not valid, or other errors were encountered that prevented notification messages from being enqueued. Arbitrary vendor-defined text may follow the string "``Error``". 
 
         If this metadata item does not exist, then notifications have not yet started being enqueued.
       - Mandatory

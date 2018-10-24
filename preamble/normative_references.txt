@@ -9,6 +9,8 @@ The provisions of the referenced specifications other than ISO/IEC, IEC, ISO, an
 
 .. todo:: find a better way of keeping a bibliography.
 
+.. _ref_ieee_1003:
+
 .. glossary::
 
     ISO 3166
@@ -83,20 +85,23 @@ The provisions of the referenced specifications other than ISO/IEC, IEC, ISO, an
     RFC 6068
          The 'mailto' URI Scheme - see :rfc:`6068`
          
+	RFC 5652
+		 Cryptographic Message Syntac (CMS) - see :rfc:`5652`
+		 
     RFC 6208
          Cloud Data Management Interface (CDMI) Media Types - see :rfc:`6208`
 
     RFC 6839
          Additional Media Type Structured Syntax Suffixes - see :rfc:`6839`
 
-    RFC 7515
-         JSON Web Signature (JWS) - see :rfc:`7515`
-         
-    RFC 7516
-         JSON Web Encryption (JWE) - see :rfc:`7516`
-         
-    RFC 7517
-         JSON Web Key (JWK) - see :rfc:`7517`
-         
+	RFC 7515
+		 JSON Web Signatures - see :rfc:`7515`
+		 
+	RFC 7516
+		 JSON Web Encryption - see :rfc:`7516`
+
+	RFC 7518
+		 JSON Web Algorithms - see :rfc:`7518`
+		 
     SNIA TLS
          TLS Specification for Storage Systems, version 1.0 - https://snia.org/tech_activities/standards/curr_standards/tls

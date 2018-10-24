@@ -483,7 +483,7 @@ Reserved Characters
 The name of CDMI data objects, container objects, queue objects, domain objects and capability objects shall not contain the "``/``" or "``?``" characters, as these characters are reserved for delimiters.
 
 
-.. _time_representations:
+.. _ref_time_representations:
 
 ********************
 Time Representations

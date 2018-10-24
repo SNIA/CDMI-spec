@@ -3,26 +3,28 @@
 Query Queues
 ============
 
-
 Overview
 ********
 
 A cloud storage system may optionally implement metadata and/or full-text query functionality. The implementation of query is indicated by the presence of the cloud storage system-wide capabilities for query and requires support for CDMI™ queues.
 
-Query queues allow CDMI clients to efficiently discover what content matches a given set of metadata query criteria or full-content search criteria. Clients create or update a query queue by specifying metadata that defines the matching criteria (known as the query scope), along with what results should be returned for matching objects (known as the query results). The cloud service shall then perform the query using the content existing at the time the query is being processed, storing the query results in the query queue. As query results are found, they are added to the queue, and when the query is complete, the cdmi_query_status metadata of the queue is changed to indicate that the query has completed. Any matching objects created or modified while the query is being performed may or may not be included in the query results (e.g., as a consequence of eventual consistency).
+Query queues allow CDMI clients to efficiently discover what content matches a given set of metadata query criteria or full-content search criteria. Clients create or update a query queue by specifying metadata that defines the matching criteria (known as the query scope), along with what results should be returned for matching objects (known as the query results). The cloud service shall then perform the query using the content existing at the time the query is being processed, storing the query results in the query queue. As query results are found, they are added to the queue, and when the query is complete, the ``cdmi_query_status`` metadata of the queue is changed to indicate that the query has completed. Any matching objects created or modified while the query is being performed may or may not be included in the query results (e.g., as a consequence of eventual consistency).
 
 When a client wishes to perform queries, it may first check if the system is capable of providing query functionality by checking for the presence of the cdmi_query capability in the root container capabilities. If this capability is not present, creating a query queue shall be successful, but no query results shall be enqueued into the query queue.
 
-When creating a query queue, the metadata described in :numref:`tbl_required_metadata_for_a_query_queue` shall be provided. Attempts to change metadata in this table shall result in an HTTP status code of ``403 Forbidden``. After a query queue has been created, with the exception of cdmi_queue_type, the metadata items in this table cannot be changed. If the value of cdmi_queue_type is changed from "cdmi_query_queue", this change indicates to the system that an in-process query shall be stopped, the query queue shall no longer receive query results, and the query queue shall be treated as a regular CDMI queue object. To start a new query with an existing queue, the value of the cdmi_queue_type shall be changed back to "cdmi_query_queue". This international standard does not define a mechanism to pause a running query or resume a stopped query.
+When creating a query queue, the metadata described in :numref:`tbl_required_metadata_for_a_query_queue` shall be provided. Attempts to change metadata in this table shall result in an HTTP status code of ``403 Forbidden``. After a query queue has been created, with the exception of ``cdmi_queue_type``, the metadata items in this table cannot be changed. If the value of ``cdmi_queue_type`` is changed from "``cdmi_query_queue``", this change indicates to the system that an in-process query shall be stopped, the query queue shall no longer receive query results, and the query queue shall be treated as a regular CDMI queue object. To start a new query with an existing queue, the value of the ``cdmi_queue_type`` shall be changed back to "``cdmi_query_queue``". This international standard does not define a mechanism to pause a running query or resume a stopped query.
 
+.. tabularcolumns:: |>{\raggedright\arraybackslash}\Y{0.29}
+                    |>{\raggedright\arraybackslash}\Y{0.09}
+                    |>{\raggedright\arraybackslash}\Y{0.48}
+                    |>{\raggedright\arraybackslash}\Y{0.14}|
 
 .. _tbl_required_metadata_for_a_query_queue:
 
-.. list-table:: .*
+.. list-table:: Required Metadata for a Query Queue
     :header-rows: 1
-    :widths: auto
+    :class: longtable
     :align: center 
-
 
     * - Metadata Name
       - Type
@@ -30,19 +32,18 @@ When creating a query queue, the metadata described in :numref:`tbl_required_met
       - Requirement
     * - cdmi_queue_type
       - JSON String
-      - The queue type indicates how the cloud storage system shall manage the queue object. The type of cdmi_query_queue is defined for query queues.
+      - The queue type indicates how the cloud storage system shall manage the queue object. The type of "``cdmi_query_queue``" is defined for query queues.
       - Mandatory
     * - cdmi_scope_specification
       - JSON Array of JSON Objects
-      - The scope specification determines which objects are included in the query results. This scope specification is similar to a "WHERE" clause in SQL-like languages. To query all objects, specify an empty JSON array. See :numref:`scope_specification`  for how to construct a scope specification.
+      - The scope specification determines which objects are included in the query results. This scope specification is similar to a "``WHERE``" clause in SQL-like languages. To query all objects, specify an empty JSON array. See :numref:`clause_cdmi_scope`  for how to construct a scope specification.
       - Mandatory
     * - cdmi_results_specification
       - JSON Object
-      - The results specification contains the JSON fields to be returned for each object that matches the query. This results specification is similar to a "SELECT" clause in SQL-like languages. See :numref:`ref_results_specification` for how to construct a results specification.
+      - The results specification contains the JSON fields to be returned for each object that matches the query. This results specification is similar to a "``SELECT``" clause in SQL-like languages. See :numref:`clause_cdmi_results` for how to construct a results specification.
       - Mandatory
 
-
-#.  An example of the metadata associated with a query queue is as follows:
+EXAMPLE 1: An example of the metadata associated with a query queue is as follows:
 
     .. code-block:: json
 
@@ -67,9 +68,9 @@ When creating a query queue, the metadata described in :numref:`tbl_required_met
             }
         }
 
-When results are stored in a query queue, each enqueued value shall consist of a JSON object of MIME type "application/json". This JSON object contains the specified values requested in the cdmi_results_specification of the query queue metadata. 
+When results are stored in a query queue, each enqueued value shall consist of a JSON object of MIME type "``application/json``". This JSON object contains the specified values requested in the ``cdmi_results_specification`` of the query queue metadata. 
 
-#.  An example of a query result JSON object is as follows:
+EXAMPLE 2: An example of a query result JSON object is as follows:
 
     .. code-block:: json
 
@@ -82,14 +83,17 @@ When results are stored in a query queue, each enqueued value shall consist of a
 
 :numref:`tbl_query_status_metadata` describes the system-created metadata that provides details on the status of the query queue.
 
+.. tabularcolumns:: |>{\raggedright\arraybackslash}\Y{0.29}
+                    |>{\raggedright\arraybackslash}\Y{0.09}
+                    |>{\raggedright\arraybackslash}\Y{0.48}
+                    |>{\raggedright\arraybackslash}\Y{0.14}|
 
 .. _tbl_query_status_metadata:
 
 .. list-table:: Query Status Metadata
     :header-rows: 1
-    :widths: auto
+    :class: longtable
     :align: center 
-
 
     * - Metadata Name
       - Type
@@ -98,20 +102,20 @@ When results are stored in a query queue, each enqueued value shall consist of a
     * - cdmi_query_status
       - JSON String
       - When present, this metadata item indicates the state of the query queue. Defined values are: 
+
         * Processing - Indicates that the query queue is scanning for results; 
         * Halted - Indicates that new query results will no longer be enqueued;
         * Current - Indicates that the query queue contained all query results that can be found at this time; and
-        * Error - Indicates that the query queue metadata was not valid, or other errors were encountered that prevented all query results from being enqueued. Arbitrary vendor-defined text may follow the string "Error".
+        * Error - Indicates that the query queue metadata was not valid, or other errors were encountered that prevented all query results from being enqueued. Arbitrary vendor-defined text may follow the string "``Error``".
       - Mandatory
 
 Objects shall only be included in the query results if the user who created the query queue is able to read the matching objects or metadata.
 
-#. If the administrator created the query queue, then all matching objects that the administrator is allowed to read are included in the results. If user "jdoe" created the query queue, then only matching objects that "jdoe" is allowed to read are included in the results.
-
+NOTE: If the administrator created the query queue, then all matching objects that the administrator is allowed to read are included in the results. If user "``jdoe``" created the query queue, then only matching objects that "``jdoe``" is allowed to read are included in the results.
 
 Extending CDMI Query
 ********************
 
 An implementor of a CDMI server may extend CDMI query by adding vendor-specific matching expressions. When an implementor adds vendor-specific metadata fields, these fields shall be queried using the standard query queue functionality. 
 
-An implementor of a CDMI server may extend CDMI query by allowing the creation of vendor-specific query queues with a type other than cdmi_query_queue. 
+An implementor of a CDMI server may extend CDMI query by allowing the creation of vendor-specific query queues with a type other than "``cdmi_query_queue``". 

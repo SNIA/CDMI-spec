@@ -41,9 +41,9 @@ Examples
 
 Each field inside a scope specification JSON object represents a condition that shall be met for a field. 
 
-#.  A query to find all objects belonging to the domain /cdmi_domains/MyDomain/ is structured as follows: 
+EXAMPLE 1: A query to find all objects belonging to the domain "``/cdmi_domains/MyDomain/``" is structured as follows: 
 
-    .. code-block:: json
+    .. code-block:: none
 
         [
             {
@@ -52,9 +52,9 @@ Each field inside a scope specification JSON object represents a condition that 
         ]
 
 
-#.  To query for all objects belonging to the domain /cdmi_domains/MyDomain/ AND are also located within the container MyContainer, the scope specification is structured as follows: 
+EXAMPLE 2: To query for all objects belonging to the domain "``/cdmi_domains/MyDomain/``" AND are also located within the container "``MyContainer``", the scope specification is structured as follows: 
 
-    .. code-block:: json
+    .. code-block:: none
 
         [
             {
@@ -63,9 +63,9 @@ Each field inside a scope specification JSON object represents a condition that 
             }
         ]
 
-#.  To query for all objects created within a certain time range, the scope specification is structured as follows:
+EXAMPLE 3: To query for all objects created within a certain time range, the scope specification is structured as follows:
 
-    .. code-block:: json
+    .. code-block:: none
 
         [
             {
@@ -81,9 +81,9 @@ Each field inside a scope specification JSON object represents a condition that 
 When multiple matching expressions are specified for a given field or metadata item, all matching expression must evaluate true for an object to be considered a query result.
 
 
-#.  To query for all objects that belong to the domain MyDomain OR are located within the container MyContainer, the query is structured as follows: 
+EXAMPLE 4: To query for all objects that belong to the domain "``MyDomain``" OR are located within the container "``MyContainer``", the query is structured as follows: 
 
-    .. code-block:: json
+    .. code-block:: none
 
         [
             {
@@ -96,9 +96,9 @@ When multiple matching expressions are specified for a given field or metadata i
 
 Queries may match on any field within an object that a cloud storage system is capable of returning as a result of an object GET.
 
-#.  To query metadata items, the metadata object is included as an object within the query request. This query is shown as follows:
+EXAMPLE 5: To query metadata items, the metadata object is included as an object within the query request. This query is shown as follows:
 
-    .. code-block:: json
+    .. code-block:: none
 
         [
             {
@@ -110,10 +110,9 @@ Queries may match on any field within an object that a cloud storage system is c
 
 This approach allows matching against arbitrarily nested metadata structures. When a JSON object is included in the scope specification, matches are performed within that object, and when a JSON array is included in the scope specification, matches are performed within that array. Matching against the contents of arrays of objects is indicated by having an object within the array, as illustrated in Example 5. 
 
+EXAMPLE 6: To query all objects with an ACE associated with the user "``jdoe``": 
 
-#.  To query all objects with an ACE associated with the user "jdoe": 
-
-    .. code-block:: http
+    .. code-block:: none
 
         [
             {
@@ -127,12 +126,9 @@ This approach allows matching against arbitrarily nested metadata structures. Wh
             }
         ]
 
-To query the value of objects, the value field is included within the query request. Values are always represented using base 64 encoding in queries. 
+EXAMPLE 7: To query the value of objects, the value field is included within the query request. Values are always represented using base 64 encoding in queries. 
 
-
-#.  This query is shown as follows:
-
-    .. code-block:: json
+    .. code-block:: none
 
         {
            [
@@ -142,157 +138,133 @@ To query the value of objects, the value field is included within the query requ
            ]
         }
 
-Query against the value of objects is optional and is indicated by the presence of the cdmi_query_value capability.
+Query against the value of objects is optional and is indicated by the presence of the "``cdmi_query_value``" capability.
 
 Query Matching Expressions
 **************************
 
-:numref:`tbl_query_matching_expressions` defines the query matching expressions.
+Query matching expressions are structured as "<operator>" or "<operator><sp><constant>", and are defined in :numref:`tbl_query_matching_expressions`.
 
+.. tabularcolumns:: |>{\raggedright\arraybackslash}\Y{0.30}
+                    |>{\raggedright\arraybackslash}\Y{0.70}|
 
 .. _tbl_query_matching_expressions:
 
-.. list-table:: .*
+.. list-table:: Query Matching Expressions
     :header-rows: 1
-    :widths: auto
+    :class: longtable
     :align: center 
-
 
     * - Matching Expression
       - Description
-    * - "field" : "*"
+    * - "``field``" : "``*``"
       - The exists matching expression tests for the existence of the field. If the field is present, even if empty, the condition shall be considered to be met.
-    * - "field" : "!*"
+    * - "``field``" : "``!*``"
       - The not exists matching expression tests for the non-existence of the field. If the field is absent, the condition shall be considered to be met.
-    * - "field" : "== constant"
-      - The equals matching expression tests for the equality of the value of the field and a specified constant value. The equality test is case sensitive. 
-
-        The leading space after the "==" and before the constant value is not included in the comparison. If the constant value matches the value of the field, the condition shall be considered to be met.
-    * - "field" : "#== constant"
+    * - "``field``" : "``== constant``"
+      - The equals matching expression tests for the equality of the value of the field and a specified constant value. The equality test is case sensitive. If the constant value matches the value of the field, the condition shall be considered to be met.
+    * - "``field``" : "``#== constant``"
       - The numeric equals matching expression tests for the numeric equality of the value of the field and a specified constant value.
-
-        Numeric constant strings shall be processed according to the JSON number representation described in :rfc:`4627`. A numeric matching expression shall be considered to be non-matching against a non-numeric field value.
-    * - "field" : "!= constant"
-      - The not equals matching expression tests for the non-equality of the value of the field and a specified constant value. The not-equals test is case sensitive. 
-
-        The leading space character after the "!=" and before the constant value is not included in the comparison. If the constant value does not match the value of the field, the condition shall be considered to be met.
-
-        If the matching expression starts with a "#" character (e.g., "#!="), the value of the field is considered to be numeric for the purposes of comparison. Numeric constant strings shall be processed according to the JSON number representation described in :rfc:`4627`. A numeric matching expression shall be considered to be non-matching against a non-numeric field value.
-    * - "field" : "> constant"
-      - The greater than matching expression tests if the value of the field is lexicographically greater than a specified constant value. The greater than test is case sensitive. 
-
-        The leading space character after the ">" and before the constant value is not included in the comparison. 
-
-        If the constant value is greater than the value of the field, the condition shall be considered to be met. 
-    * - "field" : "#> constant"
+    * - "``field``" : "``!= constant``"
+      - The not equals matching expression tests for the non-equality of the value of the field and a specified constant value. The not-equals test is case sensitive. If the constant value does not match the value of the field, the condition shall be considered to be met.
+    * - "``field``" : "``#!= constant``"
+      - The numeric equals matching expression tests for non-equality of the numeric equality of the value of the field and a specified constant value.
+    * - "``field``" : "``> constant``"
+      - The greater than matching expression tests if the value of the field is lexicographically greater than a specified constant value. The greater than test is case sensitive. If the constant value is greater than the value of the field, the condition shall be considered to be met. 
+    * - "``field``" : "``#> constant``"
       - The numeric greater than matching expression tests if the numeric value of the field is greater than a specified constant value. 
-
-        Numeric constant strings shall be processed according to the JSON number representation described in :rfc:`4627`. A numeric matching expression shall be considered to be non-matching against a non-numeric field value.
-    * - "field" : ">= constant"
-      - The greater than or equals to matching expression tests if the value of the field is lexicographically greater than or equal to a specified constant value. The greater than or equals to test is case sensitive. 
-
-        The leading space character after the ">=" and before the constant value is not included in the comparison. 
-
-        If the constant value is greater than or equal to the value of the field, the condition shall be considered to be met.
-    * - "field" : "#>= constant"
+    * - "``field``" : "``>= constant``"
+      - The greater than or equals to matching expression tests if the value of the field is lexicographically greater than or equal to a specified constant value. The greater than or equals to test is case sensitive. If the constant value is greater than or equal to the value of the field, the condition shall be considered to be met.
+    * - "``field``" : "``#>= constant``"
       - The numeric greater than or equals to matching expression tests if the numeric value of the field is greater than or equal to a specified constant value. 
-
-        Numeric constant strings shall be processed according to the JSON number representation described in :rfc:`4627`. A numeric matching expression shall be considered to be non-matching against a non-numeric field value.
-    * - "field" : "< constant"
-      - The less than operator tests if the value of the field is lexicographically less than a specified constant value. The less than test is case sensitive. 
-
-        The leading space character after the "<" and before the constant value is not included in the comparison. 
-
-        If the constant value is less than the value of the field, the condition shall be considered to be met.
-    * - "field" : "#< constant"
+    * - "``field``" : "``< constant``"
+      - The less than operator tests if the value of the field is lexicographically less than a specified constant value. The less than test is case sensitive. If the constant value is less than the value of the field, the condition shall be considered to be met.
+    * - "``field``" : "``#< constant``"
       - The numeric less than operator tests if the numeric value of the field is less than a specified constant value.
-
-        Numeric constant strings shall be processed according to the JSON number representation described in :rfc:`4627`. A numeric matching expression shall be considered to be non-matching against a non-numeric field value.
-    * - "field" : "<= constant"
-      - The less than or equals to matching expression tests if the value of the field is lexicographically less than or equal to a specified constant value. The less than or equal test is case sensitive. 
-
-        The leading space character after the "<=" and before the constant value is not included in the comparison. 
-
-        If the constant value is less than or equal to the value of the field, the condition shall be considered to be met.
-    * - "field" : "#<= constant"
+    * - "``field``" : "``<= constant``"
+      - The less than or equals to matching expression tests if the value of the field is lexicographically less than or equal to a specified constant value. The less than or equal test is case sensitive. If the constant value is less than or equal to the value of the field, the condition shall be considered to be met.
+    * - "``field``" : "``#<= constant``"
       - The numeric less than or equals to matching expression tests if the numeric value of the field is less than or equal to a specified constant value.
-
-        Numeric constant strings shall be processed according to the JSON number representation described in :rfc:`4627`. A numeric matching expression shall be considered to be non-matching against a non-numeric field value.
-    * - "field" : "starts constant"
-      - The starts with matching expression tests if the field value starts with a specified constant value. 
-
-        The leading space character after the "starts" and before the constant value is not included in the comparison. The starts with test is case sensitive. 
-
-        If the constant value is equal to the start of the value of the field, the condition shall be considered to be met. 
-    * - "field" : "!starts constant" 
-      - The not starts with matching expression tests if the field value does not start with a specified constant value. 
-
-        The leading space character after the "!starts" and before the constant value is not included in the comparison. The not starts with test is case sensitive. 
-
-        If the constant value is not equal to the start of the value of the field, the condition shall be considered to be met. 
-    * - "field" : "ends constant"
-      - The ends with matching expression tests if the field value ends with a specified constant value. 
-
-        The leading space character after the "ends" and before the constant value is not included in the comparison. The ends with test is case sensitive. 
-
-        If the constant value is equal to the end of the value of the field, the condition shall be considered to be met.
-    * - "field" : "!ends constant" 
-      - The not ends with matching expression tests if the field value does not end with a specified constant value. 
-
-        The leading space character after the "!ends" and before the constant value is not included in the comparison. The not ends with test is case sensitive. 
-
-        If the constant value is not equal to the end of the value of the field, the condition shall be considered to be met. 
-    * - "field" : "contains constant" 
-      - The contains matching expression tests if the field value contains a specified constant value. 
-
-        The leading space character after the "contains" and before the constant value is not included in the comparison. The contains test is case sensitive. 
-
-        If the constant value is found as a substring within the value of the field, the condition shall be considered to be met. The contains operator is only supported if the cdmi_query_contains capability is present. 
-    * - "field" : "!contains constant"
-      - The not contains matching expression tests if the field value does not contain a specified constant value. 
-
-        The leading space character after the "!contains" and before the constant value is not included in the comparison. The not contains test is case sensitive. 
-
-        If the constant value is not found as a substring within the value of the field, the condition shall be considered to be met. The not contains operator is only supported if the cdmi_query_contains capability is present. 
-    * - "field" : "tag constant"
+    * - "``field``" : "``starts constant``"
+      - The starts with matching expression tests if the field value starts with a specified constant value. If the constant value is equal to the start of the value of the field, the condition shall be considered to be met. 
+    * - "``field``" : "``!starts constant``" 
+      - The not starts with matching expression tests if the field value does not start with a specified constant value. If the constant value is not equal to the start of the value of the field, the condition shall be considered to be met. 
+    * - "``field``" : "``ends constant``"
+      - The ends with matching expression tests if the field value ends with a specified constant value. If the constant value is equal to the end of the value of the field, the condition shall be considered to be met.
+    * - "``field``" : "``!ends constant``" 
+      - The not ends with matching expression tests if the field value does not end with a specified constant value. If the constant value is not equal to the end of the value of the field, the condition shall be considered to be met. 
+    * - "``field``" : "``contains constant``" 
+      - The contains matching expression tests if the field value contains a specified constant value. If the constant value is found as a substring within the value of the field, the condition shall be considered to be met. The contains operator is only supported if the "``cdmi_query_contains``" capability is present. 
+    * - "``field``" : "``!contains constant``"
+      - The not contains matching expression tests if the field value does not contain a specified constant value. If the constant value is not found as a substring within the value of the field, the condition shall be considered to be met. The not contains operator is only supported if the "``cdmi_query_contains``" capability is present. 
+    * - "``field``" : "``tag constant``"
       - The tag matching expression tests if the field value contains a specified constant tag value. 
+      
+        .. raw:: latex
 
-        The leading space character after the "tag" and before the constant value is not included in the comparison. The tag test is not case sensitive. 
+          \vspace*{1ex}
 
-        If the constant value is found as a tag substring within the value of the field, the condition shall be considered to be met. Tag substrings start at the beginning of the value or a ",", and end at the next "," or the end of the string. Whitespace before and after "," characters shall be stripped for the purpose of comparisons. 
+        The leading space character after the "``tag``" and before the constant value is not included in the comparison. The tag test is not case sensitive. 
+      
+        .. raw:: latex
 
-        Tag matching expressions are only supported if the cdmi_query_tags capability is present.
-    * - "field" : "!tag constant" 
+          \vspace*{1ex}
+
+        If the constant value is found as a tag substring within the value of the field, the condition shall be considered to be met. Tag substrings start at the beginning of the value or a "``,``", and end at the next "``,``" or the end of the string. Whitespace before and after "``,``" characters shall be stripped for the purpose of comparisons. 
+
+        Tag matching expressions are only supported if the "``cdmi_query_tags``" capability is present.
+    * - "``field``" : "``!tag constant``" 
       - The not tag matching expression tests if the field value does not contain a specified constant tag value. 
+      
+        .. raw:: latex
 
-        The leading space character after the "!tag" and before the constant value is not included in the comparison. The not tag test is not case sensitive. 
+          \vspace*{1ex}
 
-        If the constant value is not found as a tag substring within the value of the field, the condition shall be considered to be met. Tag substrings start at the beginning of the value or a ",", and end at the next "," or the end of the string. Whitespace before and after "," characters shall be stripped for the purpose of comparisons. 
+        The leading space character after the "``!tag``" and before the constant value is not included in the comparison. The not tag test is not case sensitive. 
+      
+        .. raw:: latex
 
-        Tag matching expressions are only supported if the cdmi_query_tags capability is present. 
-    * - "field" : "=~ constant"
-      - The regular expression matching expression tests if the field value matches a specified constant regular expression value. 
+          \vspace*{1ex}
 
-        The leading space character after the "=~" and before the constant value is not included in the comparison. If the regular expression evaluates to true against the value, the condition shall be considered to be met. 
+        If the constant value is not found as a tag substring within the value of the field, the condition shall be considered to be met. Tag substrings start at the beginning of the value or a "``,``", and end at the next "``,``" or the end of the string. Whitespace before and after "``,``" characters shall be stripped for the purpose of comparisons. 
 
-        Regular expression strings shall be processed according to the POSIX Extended Regular Expression (ERE) standard, as specified in :numref:`ieee_std_1003.1`  
+        Tag matching expressions are only supported if the "``cdmi_query_tags``" capability is present. 
+    * - "``field``" : "``=~ constant``"
+      - The regular expression matching expression tests if the field value matches a specified constant regular expression value. If the regular expression evaluates to true against the value, the condition shall be considered to be met. 
+      
+        .. raw:: latex
 
-        Regex matching expressions are only supported if the cdmi_query_regex capability is present.
-    * - "field" : "!~ constant"
-      - The not regular expression matching expression tests if the field value does not match a specified constant regular expression value. 
+          \vspace*{1ex}
 
-        The leading space character after the "!~" and before the constant value is not included in the comparison. If the regular expression evaluates to false against the value, the condition shall be considered to be met. 
+        Regular expression strings shall be processed according to the POSIX Extended Regular Expression (ERE) standard, as specified in :ref:`IEEE 1003.1 <ref_ieee_1003>`. 
+      
+        .. raw:: latex
 
-        Regular expression strings shall be processed according to the POSIX Extended Regular Expression (ERE) standard, as specified in :numref:`ref_ieee_std_1003.1`. 
+          \vspace*{1ex}
 
-        Regex matching expressions are only supported if the cdmi_query_regex capability is present. 
+        Regex matching expressions are only supported if the "``cdmi_query_regex``" capability is present.
+    * - "``field``" : "``!~ constant``"
+      - The not regular expression matching expression tests if the field value does not match a specified constant regular expression value. If the regular expression evaluates to false against the value, the condition shall be considered to be met. 
+      
+        .. raw:: latex
 
+          \vspace*{1ex}
+
+        Regular expression strings shall be processed according to the POSIX Extended Regular Expression (ERE) standard, as specified in :ref:`IEEE 1003.1 <ref_ieee_1003>`. 
+      
+        .. raw:: latex
+
+          \vspace*{1ex}
+
+        Regex matching expressions are only supported if the "``cdmi_query_regex``" capability is present. 
+
+Numeric constant strings shall be processed according to the JSON number representation described in :rfc:`4627`. A numeric matching expression shall be considered to be non-matching against a non-numeric field value.
 
 All fields in objects that are not included in the scope specification shall be ignored for the purpose of matching objects.
 
-When a URI is used as the constant for the equals and not equals operators against the parentURI, domainURI, and capabilitiesURI, either a URI by path or URI by object ID can be specified and are considered interchangeable. 
+When a URI is used as the constant for the equals and not equals operators against the ``parentURI``, ``domainURI``, and ``capabilitiesURI``, either a URI by path or URI by object ID can be specified and are considered interchangeable. 
 
-#.  In a query to find all objects belonging to a specific domain, the following two query scopes are considered identical: 
+EXAMPLE 1: In a query to find all objects belonging to a specific domain, the following two query scopes are considered identical: 
 
     .. code-block:: json
 
@@ -312,7 +284,7 @@ When a URI is used as the constant for the equals and not equals operators again
             } 
         ] 
 
-#.  Likewise, a query to find all objects with a given parent container would have two equivalent forms: 
+EXAMPLE 2: Likewise, a query to find all objects with a given parent container would have two equivalent forms: 
 
     .. code-block:: json
 
@@ -332,5 +304,5 @@ When a URI is used as the constant for the equals and not equals operators again
             } 
         ]
 
-If an object ID is used in a query scope in the objectID field or the parentID field, all object IDs shall be processed such that they are case insensitive.
+If an object ID is used in a query scope in the ``objectID`` field or the ``parentID`` field, all object IDs shall be processed such that they are case insensitive.
 
