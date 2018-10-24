@@ -1,7 +1,7 @@
-.. _clause_cdmi_access_control:
+.. _clause_cdmi_delegated_access_control:
 
-Access Control
-==============
+Delegated Access Control
+========================
 
 
 Overview
