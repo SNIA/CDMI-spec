@@ -80,7 +80,7 @@ Every CDMI object (excluding capability objects) includes a server-generated "``
 
 .. _fig_HierarchyofCapabilities:
 
-.. figure:: /images/HierarchyofCapabilities.*
+.. figure:: /images/HierarchyofCapabilities.pdf
     :align:  center
     :figwidth: 100%
    
