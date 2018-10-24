@@ -73,6 +73,22 @@ For the purposes of this document, the following terms and definitions apply.
     DSaaS
          delivery of virtualized storage and data services on demand over a network, based on a request for a given service level that hides limits to scalability, is either self-provisioned or provisionless, and is billed based on consumption
 
+    delegated access control
+    DAC
+         the process of delegating an access control decision to a third party
+         
+    delegated access control provider
+    DAC provider
+         a third-party system that is capable of making access control decisions
+         
+    delegated access control request
+    DAC request
+         a request made to a DAC provider for an access control decision
+         
+    delegated access control response
+    DAC response
+         a response from a DAC provider indicating the result of a request for an access control decision
+         
     domain
          a shared user authorization database that contains users, groups, and their security policies and associated accounting information
 
@@ -98,6 +114,9 @@ For the purposes of this document, the following terms and definitions apply.
          Typically, IaaS is either self-provisioned or provisionless and is billed based on consumption.
 
 
+    intermediary CDMI server
+         a CDMI server that is capable of forwarding DAC requests and responses
+         
     iSCSI
          Internet Small Computer Systems Interface (see :rfc:`3720`)
 

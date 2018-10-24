@@ -160,6 +160,21 @@ Which storage system metadata is supported by the CDMI server defined in :numref
 
         This metadata value can be updated by users with appropriate permissions.
       - Optional
+    * - cdmi_dac_uri
+      - JSON String	
+      - Contains the URI used to submit a DAC request for the data object.
+
+        URI schemes supported is defined in the ``cdmi_dac_methods capability``.
+
+        Both ``cdmi_dac_certificate`` and ``cdmi_dac_uri`` shall be included for delegated access control to be enabled for a given object.	
+      - Optional
+      
+    * - cdmi_dac_certificate	
+      - JSON Object	
+      - A JSON object, containing a JWE JWK which shall include a public key that is used to submit a DAC request for the data object, and should contains a X.509 certificate or certificate chain used to verify the identity of the DAC provider.
+      
+        Both ``cdmi_dac_certificate`` and ``cdmi_dac_uri`` shall be included for delegated access control to be enabled for a given object.	
+      - Optional
     * - cdmi_enc_signature
       - JSON Object
       - Contains JWS compact serialization of a signature for the entire object (value and metadata). See :numref:`clause %s <ref_cdmi_encrypted_objects_signature_verification>` for more details.

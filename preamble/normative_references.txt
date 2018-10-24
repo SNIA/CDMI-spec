@@ -82,6 +82,9 @@ The provisions of the referenced specifications other than ISO/IEC, IEC, ISO, an
     RFC 5246
          The Transport Layer Security (TLS) Protocol Version 1.2 - see :rfc:`5246`
 
+    RFC 6068
+         The 'mailto' URI Scheme - see :rfc:`6068`
+
 	RFC 5652
 		 Cryptographic Message Syntac (CMS) - see :rfc:`5652`
 		 
