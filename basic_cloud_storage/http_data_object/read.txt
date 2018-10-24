@@ -44,7 +44,6 @@ The HTTP request header for reading a CDMI data object using HTTP is shown in :n
 
 .. list-table:: Request Header - Read a CDMI Data Object using HTTP
     :header-rows: 1
-    :widths: 20 10 55 15
     :align: center
     
     * - Header
@@ -55,18 +54,18 @@ The HTTP request header for reading a CDMI data object using HTTP is shown in :n
       - Header String
       - A valid ranges-specifier (see :rfc:`2616` Section 14.35.1)
       - Optional
-	* - Accept
-	  - Header String
-	  - "\*/\*" or a value as per :numref:`clause %s <_ref_content-type_negotiation>` "Content-type negotiation".
-	  
-	    If the object has a mimetype of "application/cms" or "application/jose+json", and the mimetype "application/cms" or "application/jose+json" is included in the Accept mimetype, the CDMI server shall return the CMS or JOSE value in the response message body. 
-	  
-	    Otherwise, the decrypted plaintext shall be returned in the response message body, along with the encapsulated mimetype in the Content-Type response header. If decryption is not possible, an error result code shall be returned. (See:numref:`clause %s <clause_cdmi_encrypted_objects>` – Encrypted Objects) 
-	  
-	    If the Accept mimetype list includes "\*/\*" before "application/cms" and/or "application/jose+json", the server will first try to return the decrypted plaintext, and shall return the CMS or JOSE value when decryption fails. 
-	  
-	    If the Accept mimetype list excludes "\*/\*", decrypted plaintext shall only be returned if the encapsulated mimetype is included in the Accept mimetype list. 
-	  - Optional
+    * - Accept
+      - Header String
+      - "\*/\*" or a value as per :numref:`clause %s <_ref_content-type_negotiation>` "Content-type negotiation".
+      
+        If the object has a mimetype of "application/cms" or "application/jose+json", and the mimetype "application/cms" or "application/jose+json" is included in the Accept mimetype, the CDMI server shall return the CMS or JOSE value in the response message body. 
+      
+        Otherwise, the decrypted plaintext shall be returned in the response message body, along with the encapsulated mimetype in the Content-Type response header. If decryption is not possible, an error result code shall be returned. (See:numref:`clause %s <clause_cdmi_encrypted_objects>` – Encrypted Objects) 
+      
+        If the Accept mimetype list includes "\*/\*" before "application/cms" and/or "application/jose+json", the server will first try to return the decrypted plaintext, and shall return the CMS or JOSE value when decryption fails. 
+      
+        If the Accept mimetype list excludes "\*/\*", decrypted plaintext shall only be returned if the encapsulated mimetype is included in the Accept mimetype list. 
+      - Optional
 		
 Request Message Body
 --------------------
@@ -88,7 +87,6 @@ The HTTP response headers for reading a data object using HTTP are shown in :num
 
 .. list-table:: Response Headers - Read a CDMI Data Object using HTTP
     :header-rows: 1
-    :widths: 20 10 55 15
     :align: center
     
     * - Header
@@ -126,7 +124,6 @@ The HTTP status codes that occur when reading a data object using HTTP are descr
 
 .. list-table:: HTTP Status Codes - Read a CDMI Data Object using HTTP
     :header-rows: 1
-    :widths: 30 70
     :align: center 
 
     * - HTTP Status
@@ -152,14 +149,14 @@ Examples
 
 EXAMPLE 1: GET to the data object URI to read the value of the data object:
 
-   .. code-block:: http
+   .. code-block:: none
 
        GET /MyContainer/MyDataObject.txt HTTP/1.1
        Host: cloud.example.com 
 
    The following shows the response.
 
-   .. code-block:: http
+   .. code-block:: none
    
        HTTP/1.1 200 OK
        Content-Type: text/plain
@@ -169,7 +166,7 @@ EXAMPLE 1: GET to the data object URI to read the value of the data object:
 
 EXAMPLE 2: GET to the data object URI to read the first 11 bytes of the value of the data object:
 
-   .. code-block:: http
+   .. code-block:: none
 
        GET /MyContainer/MyDataObject.txt HTTP/1.1
        Host: cloud.example.com 
@@ -177,7 +174,7 @@ EXAMPLE 2: GET to the data object URI to read the first 11 bytes of the value of
 
    The following shows the response.
 
-   .. code-block:: http
+   .. code-block:: none
    
        HTTP/1.1 206 Partial Content
        Content-Type: text/plain
@@ -189,7 +186,7 @@ EXAMPLE 2: GET to the data object URI to read the first 11 bytes of the value of
 	   
 EXAMPLE 3: GET to the data object URI to always return the ciphertext of an encrypted object:
 
-	.. code-block:: http
+	.. code-block:: none
 
 		GET /MyContainer/MyEncryptedObject.txt HTTP/1.1
 		Host: cloud.example.com
@@ -197,7 +194,7 @@ EXAMPLE 3: GET to the data object URI to always return the ciphertext of an encr
 
 	The following shows the response:
 
-	.. code-block:: http
+	.. code-block:: none
 
 		HTTP/1.1 200 OK
 		Content-Type: application/cms
@@ -207,7 +204,7 @@ EXAMPLE 3: GET to the data object URI to always return the ciphertext of an encr
 
 EXAMPLE 4: GET to the data object URI to read the plaintext of an encrypted object, if possible; otherwise, get the ciphertext:
 
-	.. code-block:: http
+	.. code-block:: none
 
 		GET /MyContainer/MyEncryptedObject.txt HTTP/1.1
 		Host: cloud.example.com
@@ -216,7 +213,7 @@ EXAMPLE 4: GET to the data object URI to read the plaintext of an encrypted obje
 
 	The following shows the response:	  
 
-	.. code-block:: http
+	.. code-block:: none
 
 		HTTP/1.1 200 OK
 		Content-Type: text/plain
@@ -226,7 +223,7 @@ EXAMPLE 4: GET to the data object URI to read the plaintext of an encrypted obje
 
 EXAMPLE 5: GET to the data object URI to read the plaintext of an encrypted object:
 
-	.. code-block:: http
+	.. code-block:: none
 
 		GET /MyContainer/MyEncryptedObject.txt HTTP/1.1
 		Host: cloud.example.com
@@ -234,7 +231,7 @@ EXAMPLE 5: GET to the data object URI to read the plaintext of an encrypted obje
 
 	The following shows the response:
 
-   .. code-block:: http
+   .. code-block:: none
 
 		HTTP/1.1 200 OK
 		Content-Type: text/plain
