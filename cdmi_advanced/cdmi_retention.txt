@@ -29,6 +29,8 @@ CDMI retention management is comprised of three management disciplines: retentio
 * After the CDMI retention time criteria have been met and all holds have been released, CDMI retention and holds shall no longer be a reason to prohibit object deletion. 
 * Once the retention period has started or if holds exist, changes to the object data and metadata shall not be allowed, with the exception of extensions to the retention and hold data system metadata. The retention data system metadata may be added or the retention period extended, and the hold data system metadata may be added or extended with additional holds. Any other attempt to modify the object shall return an error.
 
+.. _cdmi_retention:
+
 CDMI Retention
 **************
 
@@ -51,7 +53,7 @@ When copying objects with a retention policy, retention properties shall not be 
 
 .. _fig_object_retention:
 
-.. figure:: /images/missing.*
+.. figure:: /images/cdmi_retention.pdf
     :align:  center
     :figwidth: 100%
    
@@ -131,6 +133,8 @@ EXAMPLE 3: Decrease the duration of retention on an existing object under retent
         HTTP/1.1 403 Forbidden
 
 
+.. _cdmi_hold:
+
 CDMI Hold
 *********
 
@@ -149,7 +153,7 @@ A CDMI client may place an object on hold by adding a hold identifier to the ``c
 
 .. _fig_object_hold:
 
-.. figure:: /images/missing.*
+.. figure:: /images/cdmi_retention_hold.pdf
     :align:  center
     :figwidth: 100%
    
@@ -160,7 +164,7 @@ A CDMI client may place an object on hold by adding a hold identifier to the ``c
 
 .. _fig_object_hold_on_object_with_retention:
 
-.. figure:: /images/missing.*
+.. figure:: /images/cdmi_retention_hold_with_retention.pdf
     :align:  center
     :figwidth: 100%
    
@@ -171,7 +175,7 @@ A CDMI client may place an object on hold by adding a hold identifier to the ``c
 
 .. _fig_object_with_multiple_holds:
 
-.. figure:: /images/missing.*
+.. figure:: /images/cdmi_retention_multiple_holds.pdf
     :align:  center
     :figwidth: 100%
    
