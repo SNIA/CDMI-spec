@@ -21,7 +21,7 @@ The state transition diagram for encrypted objects is shown in Figure   :numref:
 
 .. _fig_encrypted_object_state_transistions:
 
-.. figure:: /images/Encrypted_Object_State_Transistions.*
+.. figure:: /images/cdmi_encrypted_states.pdf
     :align:  center
     :figwidth: 100%
    

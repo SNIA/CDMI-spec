@@ -13,7 +13,7 @@ CDMI access control is based around Access Control Lists (ACLs) that are stored 
  
 .. _fig_NonDelegatedAccessControl:
 
-.. figure:: /images/Non-Delegated_Access_Control.*
+.. figure:: /images/cdmi_dac_non_delegated.pdf
     :align:  center
     :figwidth: 100%
    
