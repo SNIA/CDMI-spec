@@ -63,11 +63,14 @@ Clients often have different degrees to which they trust the CDMI server with wh
 
 
 
+.. tabularcolumns:: |>{\raggedright\arraybackslash}\Y{0.40}
+                    |>{\raggedright\arraybackslash}\Y{0.60}|
+
 .. _tbl_access_modes_for_dac:
 
 .. list-table:: Access Modes for DAC
+    :class: longtable
     :header-rows: 1
-    :widths: auto
     :align: center 
 
     * - Mode of Access	
@@ -158,7 +161,7 @@ Figure :numref:`fig_DAC_Flow_NonEncrypted` provides an example of access control
 
 .. _fig_DAC_Flow_NonEncrypted:
 
-.. figure:: /images/DAC_Flow_NonEncrypted.*
+.. figure:: /images/cdmi_dac_non_encrypted.pdf
     :align:  center
     :figwidth: 100%
    
@@ -172,7 +175,7 @@ Figure :numref:`fig_DAC_Flow_Encrypted` provides a second example of access cont
 
 .. _fig_DAC_Flow_Encrypted:
 
-.. figure:: /images/DAC_Flow_Encrypted.*
+.. figure:: /images/cdmi_dac_encrypted.pdf
     :align:  center
     :figwidth: 100%
    
