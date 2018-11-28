@@ -336,7 +336,7 @@ Container objects can be exported via multiple protocols. This is especially use
 
 .. _fig_cdmi_and_occi_in_an_integrated_cloud_computing_environment:
 
-.. figure:: /images/missing.*
+.. figure:: /images/cdmi_exports_occi.pdf
     :align:  center
     :figwidth: 100%
    

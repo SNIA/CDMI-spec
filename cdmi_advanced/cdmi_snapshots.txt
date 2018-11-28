@@ -10,7 +10,7 @@ A snapshot is a point-in-time copy (image) of a container and all of its content
 
 .. _fig_snapshot_container_structure:
 
-.. figure:: /images/SnapshotOperation.png
+.. figure:: /images/cdmi_snapshots.pdf
     :align:  center
     :figwidth: 100%
    
