@@ -496,7 +496,7 @@ EXAMPLE 11: PUT to the data object URI to encrypt an existing object:
         PUT /MyContainer/MyDataObject.txt HTTP/1.1
         Host: cloud.example.com
         Content-Type: application/cdmi-object
-        X-CDMI-Specification-Version: 1.1
+
         {
          "mimetype" : "application/cms",
          "metadata" : {
@@ -517,7 +517,7 @@ EXAMPLE 12: PUT to the data object URI to decrypt an existing encrypted object:
         PUT /MyContainer/MyEncryptedObject.txt HTTP/1.1
         Host: cloud.example.com
         Content-Type: application/cdmi-object
-        X-CDMI-Specification-Version: 1.1
+
         {
          "mimetype" : "text/plain"
         }
