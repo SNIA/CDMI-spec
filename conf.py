@@ -186,11 +186,14 @@ latex_elements = {
     \addto\captionsenglish{\renewcommand{\partname}{Section}}
     \addto\captionsenglish{\renewcommand{\chaptername}{Clause}}
     \addto\captionsenglish{\renewcommand{\appendixname}{Annex}}
+    \usepackage{chngcntr}
+    \counterwithout{figure}{chapter}
+    \counterwithout{table}{chapter}
 
     % Clear pages before new section
     \usepackage{titlesec}
     \newcommand{\sectionbreak}{\clearpage}
-    
+
     % Change the page headers
     \makeatletter
     \fancypagestyle{normal}{
