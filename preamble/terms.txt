@@ -7,46 +7,34 @@ For the purposes of this document, the following terms and definitions apply.
 
 .. glossary::
 
-    Access Control List
-    ACL
+    Access Control List (ACL)
          a persistent list, commonly composed of Access Control Entries (ACEs), that enumerates the rights of principals (users and groups) to access resources
-
 
     API
          Application Programming Interface
 
-
     CDMI™
          Cloud Data Management Interface
-
 
     CDMI capabilities
          an object that describes what operations are supported for a given cloud or cloud object
 
          the mimetype for this object is application/cdmi-capability.
 
-
-
     CDMI container
          an object that stores zero or more children objects and associated metadata
 
          The mimetype for this object is application/cdmi-container.
-
-
 
     CDMI data object
          an object that stores an array of bytes (value) and associated metadata
 
          The mimetype for this object is application/cdmi-object.
 
-
-
     CDMI domain
          an object that stores zero or more children domains and associated metadata describing object administrative ownership
 
          The mimetype for this object is application/cdmi-domain.
-
-
 
     CDMI object
          one of CDMI capabilities, CDMI container, CDMI data object, CDMI domain, or CDMI queue
@@ -55,7 +43,6 @@ For the purposes of this document, the following terms and definitions apply.
          an object that stores a first-in, first-out set of values and associated metadata
 
          The mimetype for this object is application/cdmi-queue.
-
 
     CIFS
          Common Internet File System
@@ -69,24 +56,25 @@ For the purposes of this document, the following terms and definitions apply.
     CRUD
          create, retrieve, update, delete
 
-    Data Storage as a Service
-    DSaaS
+    current data object version
+         the most recent version of a version-enabled data object
+
+    data object version
+         either the current data object version or an historical data object version
+
+    Data Storage as a Service (DSaaS)
          delivery of virtualized storage and data services on demand over a network, based on a request for a given service level that hides limits to scalability, is either self-provisioned or provisionless, and is billed based on consumption
 
-    delegated access control
-    DAC
+    delegated access control (DAC)
          the process of delegating an access control decision to a third party
          
-    delegated access control provider
-    DAC provider
+    delegated access control provider (DAC provider)
          a third-party system that is capable of making access control decisions
          
-    delegated access control request
-    DAC request
+    delegated access control request (DAC request)
          a request made to a DAC provider for an access control decision
          
-    delegated access control response
-    DAC response
+    delegated access control response (DAC response)
          a response from a DAC provider indicating the result of a request for an access control decision
          
     domain
@@ -104,15 +92,16 @@ For the purposes of this document, the following terms and definitions apply.
     FCoE
          Fibre Channel over Ethernet
 
+    historical data object version
+         a non-current state of a version-enabled data object
+
     HTTP
          HyperText Transfer Protocol
 
-    Infrastructure as a Service
-    IaaS
+    Infrastructure as a Service (IaaS)
          delivery over a network of an appropriately configured virtual computing environment, based on a request for a given service level
 
          Typically, IaaS is either self-provisioned or provisionless and is billed based on consumption.
-
 
     intermediary CDMI server
          a CDMI server that is capable of forwarding DAC requests and responses
@@ -120,17 +109,17 @@ For the purposes of this document, the following terms and definitions apply.
     iSCSI
          Internet Small Computer Systems Interface (see :rfc:`3720`)
 
-	JOSE
-		 JavaScript Object Signing and Encryption
-		 
-	JWA
-		 JSON Web Algorithm
-		 
-	JWE	
-		 JSON Web Encryption
-		 
-	JWS	
-		 JSON Web Signing
+    JOSE
+         JavaScript Object Signing and Encryption
+         
+    JWA
+         JSON Web Algorithm
+         
+    JWE 
+         JSON Web Encryption
+         
+    JWS 
+         JSON Web Signing
 
     JSON
          JavaScript Object Notation
@@ -162,28 +151,23 @@ For the purposes of this document, the following terms and definitions apply.
     OCCI
          Open Cloud Computing Interface (see [OCCI]_)
 
-    Platform as a Service
-    PaaS
+    Platform as a Service (PaaS)
          delivery over a network of a virtualized programming environment, consisting of an application deployment stack based on a virtual computing environment
 
          Typically, PaaS is based on IaaS, is either self-provisioned or provisionless, and is billed based on consumption.
 
-
     POSIX
          Portable Operating System Interface (see `IEEE Std 1003.1`)
-
 
     private cloud
          delivery of SaaS, PaaS, IaaS, and/or DaaS to a restricted set of customers, usually within a single organization
 
          Private clouds are created due to issues of trust.
 
-
     public cloud
          delivery of SaaS, PaaS, IaaS, and/or DaaS to, in principle, a relatively unrestricted set of customers
 
-    Representational State Transfer
-    REST
+    Representational State Transfer (REST)
          a specific set of principles for defining, addressing, and interacting with resources addressable by URIs (see [REST]_)
 
     RPO
@@ -198,15 +182,16 @@ For the purposes of this document, the following terms and definitions apply.
     SNMP
          Simple Network Management Protocol
 
-    Software as a Service
-    SaaS
+    Software as a Service (SaaS)
          delivery over a network, on demand, of the use of an application
 
          technology that allocates the physical capacity of a volume or file system as applications write data, rather than pre-allocating all the physical capacity at the time of provisioning
 
-    Uniform Resource Identifier
-    URI
+    Uniform Resource Identifier (URI)
          compact sequence of characters that identifies an abstract or physical resource (see :rfc:`3986`)
+
+    version-enabled data object
+         a CDMI data object with versioning enabled
 
     VIM
          Vendor Interface Module
