@@ -420,9 +420,23 @@ Storage System Metadata Capabilities
       - If present and "``true``", the CDMI server supports delegated access control metadata.
     * - cdmi_enc_signature	
       - JSON String	
-      - If present and "``true``", this capability indicates that the cloud storage system shall generate a ``cdmi_signature`` storage system metadata for each stored object when a corresponding ``sign_id`` data system metadata item is present.
-      
-      
+      - If present and "``true``", the CDMI server shall generate a ``cdmi_signature`` storage system metadata for each stored object when a corresponding ``sign_id`` data system metadata item is present.
+    * - cdmi_version_object
+      - JSON String
+      - If present and "``true``", the CDMI server shall generate a ``cdmi_version_object`` storage system metadata for each version-enabled data object and data object version.
+    * - cdmi_version_current
+      - JSON String
+      - If present and "``true``", the CDMI server shall generate a ``cdmi_version_current`` storage system metadata for each version-enabled data object and data object version.
+    * - cdmi_version_oldest
+      - JSON Array of JSON Strings
+      - If present and "``true``", the CDMI server shall generate a ``cdmi_version_oldest`` storage system metadata for each version-enabled data object and data object version.
+    * - cdmi_version_parent
+      - JSON String
+      - If present and "``true``", the CDMI server shall generate a ``cdmi_version_parent`` storage system metadata for each data object version that has a previous version.
+    * - cdmi_version_children
+      - JSON Array of JSON Strings
+      - If present and "``true``", the CDMI server shall generate a ``cdmi_version_children`` storage system metadata for each data object version.
+
 .. raw:: latex
 
   \newpage
@@ -570,6 +584,28 @@ Data System Metadata Capabilities
     * - cdmi_enc_object_verify_id	
       - JSON String	
       - When the cloud storage system supports the ``cdmi_enc_object_verify_id`` data system metadata as defined in :numref:`clause %s <ref_support_for_data_system_metadata>`, the ``cdmi_enc_object_verify_id`` capability shall be present and set to the string value "``true``". When this capability is absent, or present and set to the string value "``false``", ``cdmi_enc_object_verify_id`` data system metadata shall not be used.
+
+    * - cdmi_versioning 
+      - JSON array of JSON strings
+      - If present, this capability indicates that the cloud storage system shall support versioning of data objects and contains a list of which versioning behaviors are supported. The following values are defined:
+
+        * "value" indicates that the system shall support the versioning of the object value.
+        * "user" indicates that the system shall support the versioning of the object value and user metadata.
+        * "all" indicates that the system shall support the versioning of all updates made to a data object.
+
+        When present, the system shall support the following storage system metadata: ``cdmi_version_object``, ``cdmi_version_current``, ``cdmi_version_oldest``, ``cdmi_version_parent``, and ``cdmi_version_children`` as indicated by the corresponding storage system metadata capabilities.
+
+    * - cdmi_versions_count 
+      - JSON String
+      - If present, this capability specifies the maximum number of historical versions that may be specified. If absent, restrictions on the number of historical versions specified shall be ignored.
+
+    * - cdmi_version_age 
+      - JSON String
+      - If present, this capability specifies the maximum age of historical versions that may be specified. If absent, restrictions on the age of historical versions specified shall be ignored.
+
+    * - cdmi_versions_size 
+      - JSON String
+      - If present, this capability specifies the maximum total size of historical versions that may be specified. If absent, restrictions on the size of historical versions specified shall be ignored.
 
 .. raw:: latex
 
