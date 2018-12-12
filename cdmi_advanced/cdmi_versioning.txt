@@ -1,0 +1,76 @@
+.. _clause_cdmi_versioning:
+
+Data Object Versions
+====================
+
+Overview
+********
+
+Version-enabled data objects allow the previous state of a data object to be retained when an update is performed. In a non-version-enabled data object, each update changes the state of the object, and the previous state is lost. This state change is shown in :numref:`fig_updates_to_a_nonversionenabled_data_object`.
+
+.. _fig_updates_to_a_nonversionenabled_data_object:
+
+.. figure:: /images/cdmi_versioning_non_versioned_update.pdf
+    :align:  center
+    :figwidth: 100%
+   
+    Updates to a Non-Version-Enabled Data Object
+
+When a data object has versioning enabled, each update creates a new "current version" with the same contents of the version-enabled data object, and the previous current version becomes a historical version. All versions can be accessed via separate URIs and are immutable. The version-enabled data object continues to be mutable and has the same behaviors to clients as a non-version-enabled data object. This behavior is shown in :numref:`fig_updates_to_a_versionenabled_data_object` from the perspective of a client.
+
+.. _fig_updates_to_a_versionenabled_data_object:
+
+.. figure:: /images/cdmi_versioning_versioned_update.pdf
+    :align:  center
+    :figwidth: 100%
+   
+    Updates to a Version-Enabled Data Object
+
+Using this approach, CDMI clients that are not aware of versioning can continue to access version-enabled data objects the same way as non-version-enabled data objects, while CDMI clients that are aware of versioning can access and manage the immutable versions associated with the version-enabled data object.
+
+Versioning is enabled for a data object by adding a data system metadata item that indicates that versioning is desired.
+
+Version-enabled data objects and all associated versions contain additional storage system metadata items. These metadata items allow a client to discover the versions that are associated with a version-enabled data object and to iterate through these versions. 
+
+The maximum number of versions to be retained, maximum age of versions to be retained, and the maximum space that can be consumed by versions is controlled by data system metadata.
+
+When a data object is version enabled, it always contains at least one version, the "current version". The current version has the same contents as the version-enabled data object but has a different identifier (URI and Object Identifier) and is immutable. When a version-enabled data object is changed, a new current version is created, and the previous current version becomes a historical version.
+
+Versioning has multiple client use cases:
+
+* Clients that need to preserve all data written to a data object over time can use versions to retain all updates made to a data object.
+* Clients can restore the contents of a historical version by copying it to the version-enabled data object.
+* Clients that retrieve a large data object across multiple parallel or sequential transactions or that need to be able to resume a retrieval at a later time can retrieve the URI for the current version of the data object. Clients can then use that URI to retrieve the data object itself. As the current version is immutable and retains its identifier, even if an update occurs (where the current version becomes a historical version), the client will always receive the same results and will not receive a mixture of the older and newer data object contents.
+* Clients can iterate through historical versions to detect where concurrent updates have occurred and can access any overwritten data.
+* Distributed CDMI implementations can also use versions to merge concurrent changes made on different, eventually consistent nodes without resulting in data loss.
+
+Traversing Version-Enabled Data Objects
+***************************************
+
+Version-enabled data objects have multiple metadata items that allow a client to traverse through the data object versions.
+
+When a client enables versioning for a data object, the following metadata items shall be added to the version-enabled data object:
+
+* a ``cdmi_version_object`` metadata item that contains the URI to the corresponding version-enabled data object. This metadata item allows a client to detect that a given object is a version-enabled data object and not a data object version.
+* a ``cdmi_version_current`` field that contains the URI to the current version of the version-enabled data object.
+* a ``cdmi_version_oldest`` field that contains the URI of one or more of the oldest versions. More than one version can exist in this metadata item as explained in :numref:`ref_23.3_concurrent_updates_and_version-enabled_data_objects`.
+
+Each data object version shall contain the above three fields, with the same values as found in the version-enabled data object. Each data object version shall also contain the following two fields:
+
+* a ``cdmi_version_parent`` field that contains the URI of the previous version. If the data object version does not have a parent, this field is omitted.
+* ``cdmi_version_children`` field that contains the URIs of the versions created by modifying this version. If the data object version does not have any children, this metadata item shall be empty.
+
+To visualize how these fields allow a client to traverse data object versions, the linkages between the version-enabled data object and data object versions in the final state of :numref:`fig_updates_to_a_versionenabled_data_object` is shown in :numref:`fig_versioned_linkages`.
+
+.. _fig_versioned_linkages:
+
+.. figure:: /images/cdmi_versioning_versioned_linkages.pdf
+    :align:  center
+    :figwidth: 100%
+   
+    Linkages Between a Version-Enabled Data Object and Data Object Versions
+
+A client accessing the version-enabled data object (/b.txt) can traverse to the current version and to the oldest version.
+
+A client accessing a data object version can traverse to the version-enabled data object, to the current version, to the parent version, to child versions, and to the oldest version.
+
