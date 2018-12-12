@@ -21,3 +21,4 @@ CDMI Advanced
   cdmi_query_queues
   cdmi_encrypted_objects
   cdmi_delegated_access_control
+  cdmi_versioning
