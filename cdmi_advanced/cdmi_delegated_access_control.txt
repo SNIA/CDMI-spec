@@ -21,6 +21,10 @@ CDMI access control is based around Access Control Lists (ACLs) that are stored 
 
 When an access control decision needs to be made by a third party (such as by the originating CDMI server in :numref:`fig_NonDelegatedAccessControl`), access control is delegated. When ``cdmi_dac_uri`` and ``cdmi_dac_certificate`` object metadata is present, as specified in :numref:`clause %s <ref_support_for_storage_system_metadata>`, Delegated Access Control  (DAC) shall be used.
 
+.. raw:: latex
+
+  \newpage
+
 An example of an object with DAC metadata is shown below:
 
 .. code-block:: json
@@ -170,6 +174,10 @@ Figure :numref:`fig_DAC_Flow_NonEncrypted` provides an example of access control
 
 For non-encrypted objects, an originating client indicates that DAC is requested by including the DAC metadata items. It is important to emphasize that for non-encrypted objects, DAC cannot be guaranteed to be enforced, as when an object with DAC metadata is accessed from a CDMI server that does not support DAC; only ACL-based access control shall be evaluated.
 
+.. raw:: latex
+
+  \newpage
+
 Figure :numref:`fig_DAC_Flow_Encrypted` provides a second example of access control delegation for an encrypted object. The black solid lines show indirect routing, and gray dashed lines show direct routing.
 
 
@@ -204,13 +212,16 @@ DAC Request
 ***********
 When a CDMI server that supports DAC needs to contact the DAC provider as specified in the DAC metadata, it shall construct a DAC request, as specified below:
 
-
+.. tabularcolumns:: |>{\raggedright\arraybackslash}\Y{0.29}
+                    |>{\raggedright\arraybackslash}\Y{0.09}
+                    |>{\raggedright\arraybackslash}\Y{0.48}
+                    |>{\raggedright\arraybackslash}\Y{0.14}|
 
 .. _tbl_dac_request:
 
 .. list-table:: DAC Request
+    :class: longtable
     :header-rows: 1
-    :widths: auto
     :align: center 
 
     * - Field Name	
@@ -242,7 +253,7 @@ When a CDMI server that supports DAC needs to contact the DAC provider as specif
       - Optional
     * - acl_effective_mask	
       - JSON String	
-      - A text or hexadecimal string representation of the ACE mask determined by ACL evaluation for the requested operation, as defined in :numref:`clause %s <ref_ace_bit_masks>`.	      
+      - A text or hexadecimal string representation of the ACE mask determined by ACL evaluation for the requested operation, as defined in :numref:`ref_ace_mask_bits`.	      
       - Mandatory
     * - client_headers	
       - JSON Object	
@@ -308,12 +319,16 @@ Packaged DAC Request
 
 The above JSON (DAC request) shall be encrypted in JWE format, where the recipient is the public key of the DAC provider certificate (as specified in the DAC object ``cdmi_dac_certificate`` metadata), and is JWS signed using the private key of the CDMI server that corresponds to the server identity certificate included in the DAC request. The certificate of the DAC provider from the object is then attached:
 
+.. tabularcolumns:: |>{\raggedright\arraybackslash}\Y{0.29}
+                    |>{\raggedright\arraybackslash}\Y{0.09}
+                    |>{\raggedright\arraybackslash}\Y{0.48}
+                    |>{\raggedright\arraybackslash}\Y{0.14}|
 
 .. _tbl_packaged_dac_request:
 
 .. list-table:: Packaged DAC Request
+    :class: longtable
     :header-rows: 1
-    :widths: auto
     :align: center 
 
     * - Field Name	
@@ -395,12 +410,16 @@ When a DAC provider receives a DAC request, it shall decrypt the request using i
 
 To indicate the result of the DAC request to the requesting CDMI server, the DAC provider shall construct a DAC response, as specified below:
 
+.. tabularcolumns:: |>{\raggedright\arraybackslash}\Y{0.29}
+                    |>{\raggedright\arraybackslash}\Y{0.09}
+                    |>{\raggedright\arraybackslash}\Y{0.48}
+                    |>{\raggedright\arraybackslash}\Y{0.14}|
 
 .. _tbl_dac_response:
 
 .. list-table:: DAC Response
+    :class: longtable
     :header-rows: 1
-    :widths: auto
     :align: center 
 
     * - Field Name	
@@ -417,7 +436,7 @@ To indicate the result of the DAC request to the requesting CDMI server, the DAC
       - Mandatory
     * - dac_applied_mask	
       - JSON String	
-      - A text or hexadecimal string representation of the ACE mask that shall be used, as defined in :numref:`clause %s <ref_ace_bit_masks>`.	
+      - A text or hexadecimal string representation of the ACE mask that shall be used, as defined in :numref:`ref_ace_mask_bits`.	
       - Mandatory
     * - dac_object_key	
       - JSON Object	
@@ -449,7 +468,7 @@ To indicate the result of the DAC request to the requesting CDMI server, the DAC
       - JSON String	
       - Indicates a URI to a CDMI queue where audit logging messages associated with the operations shall be submitted.
 
-        When present, audit logging messages shall be generated for receiving the response, performing the operation, and determining when to purge the key (see :numref:`clause %s <ref_object_logging>`).	
+        When present, audit logging messages shall be generated for receiving the response, performing the operation, and determining when to purge the key. The format of these audit messages is not defined by this International Standard.
         
       - Optional
 
@@ -475,11 +494,16 @@ The above JSON (DAC response) shall be encrypted in JWE format where the recipie
 
 The certificate of the CDMI server is then attached:
 
+.. tabularcolumns:: |>{\raggedright\arraybackslash}\Y{0.29}
+                    |>{\raggedright\arraybackslash}\Y{0.09}
+                    |>{\raggedright\arraybackslash}\Y{0.48}
+                    |>{\raggedright\arraybackslash}\Y{0.14}|
+
 .. _tbl_packaged_dac_response:
 
 .. list-table:: Packaged DAC Response
+    :class: longtable
     :header-rows: 1
-    :widths: auto
     :align: center 
 
     * - Field Name	
