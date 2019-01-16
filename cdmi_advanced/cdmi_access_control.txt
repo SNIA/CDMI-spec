@@ -147,6 +147,8 @@ CDMI allows for nested containers and mandates that objects and subcontainers be
         INHERITED_ACE``"
       - 0x00000080
 
+.. _ref_ace_mask_bits:
+
 ACE Mask Bits
 -------------
 
