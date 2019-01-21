@@ -50,7 +50,7 @@ master_doc = 'index'
 
 # General information about the project.
 project = 'CDMI V2.0.0a Specification'
-copyright = '2018, SNIA'
+copyright = '2019, SNIA'
 author = 'SNIA'
 
 licensetext = codecs.open('license.md', encoding='utf-8').read()
@@ -199,7 +199,7 @@ latex_elements = {
     \fancypagestyle{normal}{
         \fancyhf{}
         \fancyhead[LE,LO]{{\py@HeaderFamily Cloud Data Management Interface \version}}
-        \fancyfoot[LE,LO]{{\py@HeaderFamily \copyright \  SNIA 2018 - All rights reserved}}
+        \fancyfoot[LE,LO]{{\py@HeaderFamily \copyright \  SNIA 2019}}
         \fancyfoot[CE,CO]{{\py@HeaderFamily SNIA Working Draft}}
         \fancyfoot[RE,RO]{{\py@HeaderFamily\thepage}}
         }
