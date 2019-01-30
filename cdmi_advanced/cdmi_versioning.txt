@@ -132,6 +132,253 @@ Both of these data structures are equivalent, with the only difference being whi
 Capabilities for Version-Enabled Data Objects
 *********************************************
 
-The relationship between version-enabled data objects, data object versions, and capabilities is shown in :numref:`ref_version_to_capabilityuri_relationships`.
+The relationship between version-enabled data objects, data object versions, and capabilities is shown in :numref:`fig_versioning_capabilities`.
 
+.. _fig_versioning_capabilities:
+
+.. figure:: /images/cdmi_versioning_capabilities.pdf
+    :align:  center
+    :figwidth: 100%
+
+    Version to ``capabilityURI`` Relationships
+
+Data object versions are immutable but may be deleted by a client or by the system, depending on the data system metadata specified.
+
+Updates Triggering Version Creation
+***********************************
+
+If versioning is enabled by setting the value of the ``cdmi_versions`` metadata item in the version-enabled data object to "``value``", the following updates will trigger the creation of a new version:
+
+* changing the ``mimetype``,
+* changing the ``value``, or
+* changing the ``valuetransferencoding``.
+
+If versioning is enabled by setting the value of the ``cdmi_versions`` metadata item in the version-enabled data object to "``user``", the following updates will trigger the creation of a new version:
+
+* changing the ``mimetype``,
+* changing the ``value``,
+* changing the ``valuetransferencoding``, or
+* adding, modifying, or removing user metadata.
+
+If versioning is enabled by setting the value of the ``cdmi_versions`` metadata item in the version-enabled data object to "``all``", then all updates to the data object will trigger the creation of a new version.
+
+While ACLs for historical versions are left unchanged, the effective ACL, owner, and domain of historical versions shall be the ACL, owner, and domain of the current version-enabled data object. This means that changing the ACL of a versioned data object also overrides the historical version ACL for all previous versions.
+
+Modifications performed with the ``X-CDMI-Partial`` header shall not trigger the creation of a new version until the ``completionStatus`` is changed from "``Processing``" to "``Complete``".
+
+Operations against Version-Enabled Data Objects
+***********************************************
+
+Moving a version-enabled data object within a system is considered to be an update to the ``name`` and/or ``parentURI`` fields.
+
+Moving a version-enabled data object between systems moves all data object versions associated with the version-enabled data object and preserves all identifiers. If the destination name and/or URI are different, the move is considered to be an update to the ``name`` and/or ``parentURI`` fields.
+
+Copying a version-enabled data object shall only copy the current version of the version-enabled data object. Versions of the version-enabled data object are not copied.
+
+Deleting a version-enabled data object shall also delete all versions associated with that version-enabled data object.
+
+Disabling versioning for a version-enabled data object shall preserve all versions. Previously existing versioning metadata shall remain present while versioning is disabled. Re-enabling versioning for a data object that previously was version-enabled shall result in the creation of a new current version.
+
+If a version-enabled data object is placed under retention or hold, the retention behaviors of the version-enabled data object shall be applied to the data object versions.
+
+No additional notifications are defined for version-enabled data objects. When a version-enabled data object is updated, an additional creation notification message shall be generated for the created data object version. Likewise, when a data object version is accessed or deleted, a notification message is generated. If a limited number, size, or age for versions is requested and a change to a version-enabled data object results in a version being automatically deleted, then the system shall generate a corresponding deletion notification message for the deleted data object version.
+
+Operations against Data Object Versions
+***************************************
+
+A data object version is presented to the client as a standard CDMI data object.
+
+Moving, copying over, deserializing over, and updating a data object version shall not be permitted and shall result in an HTTP status code of ``403 Forbidden``.
+
+Copying a data object version is permitted. For example, to promote a version to become the current version of a version-enabled data object, the URI of the data object version is used in the copy field when performing an update to the URI of the version-enabled data object. Updates can also be performed as part of the copy operation.
+
+Deleting a historical data object version shall be permitted if the client has ACL permissions to delete the version-enabled data object and the version-enabled data object.
+
+Deleting the current version of a version-enabled data object shall revert the current version to the current version's parent. If there is no parent version, deleting the current version shall result in an HTTP status code of ``403 Forbidden``.
+
+When an intermediate historical version is deleted, the parent and children metadata items of the parent and all child data object versions of the data object version being deleted must be updated. 
+
+In a version chain "C" -> "B" -> "A", where "C" is the newest and "A" is the oldest, deleting version "B" shall produce the following results:
+
+* The ``cdmi_version_parent`` metadata item of "C" is set to the URI contained in the ``cdmi_version_parent`` metadata item of "B".
+* The URI of "B" in the ``cdmi_version_children`` metadata item of "A" is replaced with the URIs contained in the ``cdmi_version_children`` metadata item of "B".
+
+In pseudocode, the above translates to:
+
+    .. code-block:: none
+
+            C->cdmi_version_parent = B->cdmi_version_parent
+
+            A->cdmi_version_children[B] = B->cdmi_version_children
+
+            Delete B
+
+If the oldest version of a version-enabled data object is deleted and there are two or more children of that version, both of the children of the deleted oldest version will become the new oldest version.
+
+When accessing a data object version, the ``cdmi_acount`` and ``cdmi_atime`` of the data object version shall be updated if present.
+
+When accessing a historical version of a version-enabled data object, the ACL, owner, and domainURI of the version-enabled data object shall be in effect.
+
+Standard notification messages are sent when data object versions are accessed and deleted.
+
+Query of Data Object Versions
+*****************************
+
+As data object versions are regular CDMI objects, they will be included in query results unless explicitly excluded.
+
+Querying for data object versions is performed by including the scope:
+
+    .. code-block:: none
+
+            "metadata" : {
+                "cdmi_version_children" : "*"
+            }
+
+Querying for version-enabled data objects (but not their versions) is performed by including the scope:
+
+    .. code-block:: none
+
+            "metadata" : {
+                "cdmi_versioning" : "*"
+            }
+
+Querying for non-versioned data objects with no versions is performed by including the scope:
+
+    .. code-block:: none
+
+            "metadata" : {
+                "cdmi_version_current" : "!*"
+            }
+
+Querying for non-versioned data objects with versions is performed by including the scope:
+
+    .. code-block:: none
+
+            "metadata" : {
+                "cdmi_versioning" : "!*",
+                "cdmi_version_current" : "*"
+            }
+
+Version-Enabled Data Object Serialization
+*****************************************
+
+Serializing a version-enabled data object shall serialize the data object, the versioning-related metadata, the current version, and all historical versions. The current version and all historical versions shall be serialized as data objects contained within a JSON array. These data objects shall replace the contents of the value field of the serialized representation of the version-enabled data object.
+
+EXAMPLE 1: A version-enabled data object with three versions is serialized.
+
+.. code-block:: none
+
+        {
+            "objectType" : "application/cdmi-object",
+            "objectID" : "00007ED900100DA32EC94351F8970400",
+            "objectName" : "MyVersionedDataObject.txt",
+            "parentURI" : "/MyContainer/",
+            "parentID" : "00007E7F00102E230ED82694DAA975D2", 
+            "domainURI" : "/cdmi_domains/MyDomain/", 
+            "capabilitiesURI" : "/cdmi_capabilities/dataobject/", 
+            "completionStatus" : "Complete", 
+            "mimetype" : "text/plain", 
+            "metadata" : {
+                "cdmi_size" : "33",
+                "cdmi_versioning" : "user",
+                "cdmi_version_object" : "/cdmi_objectid/00007ED900100DA32EC94351F8970400",
+                "cdmi_version_current" : "/cdmi_objectid/00007ED90010F077F4EB1C99C87524CC",
+                "cdmi_version_oldest" : [
+                    "/cdmi_objectid/00007ED90010512EB55A9304EAC5D4AA"
+                ],
+
+                ...
+            },
+            "value" : [
+                {
+                    "objectType" : "application/cdmi-object",
+                    "objectID" : "00007ED90010F077F4EB1C99C87524CC",
+                    "objectName" : "MyVersionedDataObject.txt",
+                    "parentURI" : "/MyContainer/",
+                    "parentID" : "00007E7F00102E230ED82694DAA975D2", 
+                    "domainURI" : "/cdmi_domains/MyDomain/", 
+                    "capabilitiesURI" : "/cdmi_capabilities/dataobject/dataobject_version/", 
+                    "completionStatus" : "Complete", 
+                    "mimetype" : "text/plain", 
+                    "metadata" : {
+                        "cdmi_size" : "33",
+                        "cdmi_version_object" : "/cdmi_objectid/00007ED900100DA32EC94351F8970400",
+                        "cdmi_version_current" : "/cdmi_objectid/00007ED90010F077F4EB1C99C87524CC",
+                        "cdmi_version_oldest" : [
+                            "/cdmi_objectid/00007ED90010512EB55A9304EAC5D4AA"
+                        ],
+                        "cdmi_version_parent" : "/cdmi_objectid/00007ED9001005192891EEBE599D94BB",
+                        "cdmi_version_children" : [ ],
+
+                        ... 
+                    },
+                    "valuerange" : "0-32", 
+                    "valuetransferencoding" : "utf-8", 
+                    "value" : "Third version of this Data Object"
+                },
+                {
+                    "objectType" : "application/cdmi-object",
+                    "objectID" : "00007ED9001005192891EEBE599D94BB",
+                    "objectName" : "MyVersionedDataObject.txt",
+                    "parentURI" : "/MyContainer/",
+                    "parentID" : "00007E7F00102E230ED82694DAA975D2", 
+                    "domainURI" : "/cdmi_domains/MyDomain/", 
+                    "capabilitiesURI" : "/cdmi_capabilities/dataobject/dataobject_version/", 
+                    "completionStatus" : "Complete", 
+                    "mimetype" : "text/plain", 
+                    "metadata" : {
+                        "cdmi_size" : "34",
+                        "cdmi_version_object" : "/cdmi_objectid/00007ED900100DA32EC94351F8970400",
+                        "cdmi_version_current" : "/cdmi_objectid/00007ED90010F077F4EB1C99C87524CC",
+                        "cdmi_version_oldest" : [
+                            "/cdmi_objectid/00007ED90010512EB55A9304EAC5D4AA"
+                        ],
+                        "cdmi_version_parent" : "/cdmi_objectid/00007ED90010512EB55A9304EAC5D4AA",
+                        "cdmi_version_children" : [
+                            "/cdmi_objectid/00007ED90010F077F4EB1C99C87524CC"
+                        ],
+
+                        ... 
+                    },
+                    "valuerange" : "0-33", 
+                    "valuetransferencoding" : "utf-8", 
+                    "value" : "Second version of this Data Object"
+                },
+                {
+                    "objectType" : "application/cdmi-object",
+                    "objectID" : "00007ED90010512EB55A9304EAC5D4AA",
+                    "objectName" : "MyVersionedDataObject.txt",
+                    "parentURI" : "/MyContainer/",
+                    "parentID" : "00007E7F00102E230ED82694DAA975D2", 
+                    "domainURI" : "/cdmi_domains/MyDomain/", 
+                    "capabilitiesURI" : "/cdmi_capabilities/dataobject/dataobject_version/", 
+                    "completionStatus" : "Complete", 
+                    "mimetype" : "text/plain", 
+                    "metadata" : {
+                        "cdmi_size" : "33",
+                        "cdmi_version_object" : "/cdmi_objectid/00007ED900100DA32EC94351F8970400",
+                        "cdmi_version_current" : "/cdmi_objectid/00007ED90010F077F4EB1C99C87524CC",
+                        "cdmi_version_oldest" : [
+                            "/cdmi_objectid/00007ED90010512EB55A9304EAC5D4AA"
+                        ],
+                        "cdmi_version_children" : [
+                            "/cdmi_objectid/00007ED9001005192891EEBE599D94BB"
+                        ],
+
+                        ... 
+                    },
+                    "valuerange" : "0-32", 
+                    "valuetransferencoding" : "utf-8", 
+                    "value" : "First version of this Data Object"
+                }
+            ]
+        }
+
+Serializing a non-version-enabled data object that has versions shall serialize the data object, the versioning-related metadata, and all historical versions. The contents of the value field of the data object, the current version, and all historical versions serialized as data objects shall be contained within a JSON array. These data objects shall replace the contents of the value field of the serialized representation of the version-enabled data object.
+
+Deserializing either a version-enabled data object or a non-version-enabled data object with versions shall restore the data object and all serialized versions.
+
+Serializing and deserializing a data object version shall not be permitted.
+
+Attempting to deserialize a serialized version-enabled data object or non-version-enabled data object with versions onto a system that does not support versions shall result in an HTTP status code of ``400 Bad Request``. This error code results because a CDMI system that does not support versions expects a JSON string for the value field of a serialized data object, not a JSON array.
 
