@@ -9,11 +9,15 @@ The CDMI protocol enables CDMI-aware clients to store and retrieve structured me
 
 Due to limitations associated with HTTP headers, certain restrictions must be placed on metadata that is accessible via headers.
 
-Changes to CDMI 1.1
--------------------
+Changes to Specification
+------------------------
 
-1. Add a new row at end of table :numref:`tbl_http_data_object_create_request_headers` in :numref:`ref_http_data_object_create`.
-    
+Add a new row at end of table :numref:`tbl_http_data_object_create_request_headers` in :numref:`ref_http_data_object_create`:
+
+.. raw:: latex
+
+  \noindent\rule[0.5ex]{\linewidth}{1pt}
+
 .. tabularcolumns:: |>{\raggedright\arraybackslash}\Y{0.20}
                     |>{\raggedright\arraybackslash}\Y{0.10}
                     |>{\raggedright\arraybackslash}\Y{0.55}
@@ -27,18 +31,31 @@ Changes to CDMI 1.1
       - Type
       - Description
       - Requirement
-    * - x-*-meta-*
+    * - x-\*-meta-\*
       - Header String
       - If the "cdmi_header_metadata" capability is present, for each request header matching the pattern ``"x-*-meta-*"``, a new user metadata item shall be created, with the metadata name set to the header field-name, and the metadata value set to the header field-value.
       
+        .. raw:: latex
+
+          \vspace*{1ex}
+
         If the number of headers, the length of any of the headers, or the total size of the headers exceeds the limits specified in RFC 2616, or specified by the ``cdmi_header_metadata_maxitems``, ``cdmi_header_metadata_maxsize``, or the ``cdmi_header_metadata_maxtotalsize`` capabilities, a ``400 Bad Request`` shall be returned to the client.
       - Conditional
 
-2. Add new example at end of :numref:`ref_http_data_object_create`.
+.. raw:: latex
 
-EXAMPLE N: PUT to the container URI the data object name, contents, and metadata:
+  \noindent\rule[0.5ex]{\linewidth}{1pt}
+  \vspace*{2ex}
 
-  .. code-block: http
+Add new example at end of :numref:`ref_http_data_object_create`:
+
+.. raw:: latex
+
+  \noindent\rule[0.5ex]{\linewidth}{1pt}
+
+EXAMPLE 4: PUT to the container URI the data object name, contents, and metadata:
+
+  .. code-block:: http
   
     PUT /MyContainer/MyDataObject.txt HTTP/1.1
     Host: cloud.example.com
@@ -55,7 +72,16 @@ EXAMPLE N: PUT to the container URI the data object name, contents, and metadata
 
     HTTP/1.1 201 Created
 
-2. After :numref:`ref_http_data_object_create`, add a new clause "Inspect a Data Object using HTTP".
+.. raw:: latex
+
+  \noindent\rule[0.5ex]{\linewidth}{1pt}
+  \vspace*{2ex}
+
+After :numref:`ref_http_data_object_create`, add a new clause "Inspect a Data Object using HTTP":
+
+.. raw:: latex
+
+  \noindent\rule[0.5ex]{\linewidth}{1pt}
 
 Synopsis
 --------
@@ -101,7 +127,7 @@ The HTTP response headers for checking for the presence of a data object using H
 
 .. _tbl_http_data_object_inspect_response_headers:
 
-.. list-table:: Request Headers - Create a CDMI Data Object using HTTP
+.. list-table:: Response Headers - Inspect a Data Object using HTTP
     :header-rows: 1
     :align: center
 
@@ -117,14 +143,497 @@ The HTTP response headers for checking for the presence of a data object using H
       - Header String
       - The server shall respond with the URI that the reference redirects to if the object is a reference.
       - Conditional
-    * - x-*-meta-*
+    * - x-\*-meta-\*
       - Header String
       - If the ``"cdmi_header_metadata"`` capability is present, for each user metadata item in the "metadata" field with a metadata name that is a case-insensitive match to the pattern ``"x-*-meta-*"``, a corresponding response header shall be returned to the client where the header field-name shall be the metadata item name, and the header field-value shall be the metadata item value.
-        
+      
+        .. raw:: latex
+
+          \vspace*{1ex}
+
         If a header value to be return is not conformant with RFC 2616, the server may omit the field from the response headers.
       - Conditional
 
+Response Message Body
+---------------------
 
-More to add here...
+No response body shall be provded, as per RFC 2616.
 
-Note that "x-*-meta-*", the stars are being removed.
+Response Status
+---------------
+
+The HTTP status codes that occur when checking the presence of a data object using HTTP are described in :numref:`tbl_http_data_object_inspect_response_status`. 
+
+.. tabularcolumns:: |>{\raggedright\arraybackslash}\Y{0.30}
+                    |>{\raggedright\arraybackslash}\Y{0.70}|
+
+.. _tbl_http_data_object_inspect_response_status:
+
+.. list-table:: HTTP Status Codes - Inspect a Data Object using HTTP
+    :header-rows: 1
+    :align: center
+
+    * - HTTP Status
+      - Description
+    * - ``200 OK``
+      - The queue object content was returned in the response.
+    * - ``302 Found``
+      - The resource is a reference to another resource.
+    * - ``400 Bad Request``
+      - The request contains invalid parameters or field names.
+    * - ``401 Unauthorized``
+      - The authentication credentials are missing or invalid.
+    * - ``403 Forbidden``
+      - The client lacks the proper authorization to perform this request.
+    * - ``404 Not Found``
+      - The resource was not found at the specified URI.
+
+Example
+-------
+
+EXAMPLE 1: HEAD to the data object URI to check for the presence of a data object with header metadata:
+
+   .. code-block:: http
+
+      HEAD /MyContainer/MyDataObject.txt HTTP/1.1
+      Host: cloud.example.com
+
+   The following shows the response:
+
+   .. code-block:: http
+
+      HTTP/1.1 200 OK
+      Content-Type: text/plain
+      Content-Length: 37
+      X-CDMI-Meta-Colour: Yellow
+      X-Object-Meta-Shape: Square
+
+.. raw:: latex
+
+  \noindent\rule[0.5ex]{\linewidth}{1pt}
+  \vspace*{2ex}
+
+Add a new row at end of table :numref:`tbl_http_data_object_readresponse_headers` in :numref:`http_data_object_read`:
+
+.. raw:: latex
+
+  \noindent\rule[0.5ex]{\linewidth}{1pt}
+
+.. tabularcolumns:: |>{\raggedright\arraybackslash}\Y{0.20}
+                    |>{\raggedright\arraybackslash}\Y{0.10}
+                    |>{\raggedright\arraybackslash}\Y{0.55}
+                    |>{\raggedright\arraybackslash}\Y{0.15}|
+
+.. list-table::
+    :header-rows: 1
+    :align: center
+
+    * - Header
+      - Type
+      - Description
+      - Requirement
+    * - x-\*-meta-\*
+      - Header String
+      - If the ``"cdmi_header_metadata"`` capability is present, for each user metadata item in the "metadata" field with a metadata name that is a case-insensitive match to the pattern ``"x-*-meta-*"``, a corresponding response header shall be returned to the client where the header field-name shall be the metadata item name, and the header field-value shall be the metadata item value.
+      
+        .. raw:: latex
+
+          \vspace*{1ex}
+
+        If a header value to be return is not conformant with RFC 2616, the server may omit the field from the response headers.
+      - Conditional
+
+.. raw:: latex
+
+  \noindent\rule[0.5ex]{\linewidth}{1pt}
+  \vspace*{2ex}
+
+Add new example at end of :numref:`http_data_object_read`:
+
+.. raw:: latex
+
+  \noindent\rule[0.5ex]{\linewidth}{1pt}
+
+EXAMPLE 6: GET to the data object URI to read the value of the data object with header metadata:
+
+  .. code-block:: http
+  
+    GET /MyContainer/MyDataObject.txt HTTP/1.1
+    Host: cloud.example.com
+
+  The following shows the response:
+
+  .. code-block:: http
+
+    HTTP/1.1 200 OK
+    Content-Type: text/plain
+    Content-Length: 37
+    X-CDMI-Meta-Colour: Yellow
+    X-Object-Meta-Shape: Square
+
+    This is the Value of this Data Object
+
+.. raw:: latex
+
+  \noindent\rule[0.5ex]{\linewidth}{1pt}
+  \vspace*{2ex}
+
+Add a new row at end of table :numref:`tbl_http_data_object_updaterequest_headers` in :numref:`http_data_object_update`:
+
+.. raw:: latex
+
+  \noindent\rule[0.5ex]{\linewidth}{1pt}
+
+.. tabularcolumns:: |>{\raggedright\arraybackslash}\Y{0.20}
+                    |>{\raggedright\arraybackslash}\Y{0.10}
+                    |>{\raggedright\arraybackslash}\Y{0.55}
+                    |>{\raggedright\arraybackslash}\Y{0.15}|
+
+.. list-table:: 
+    :header-rows: 1
+    :align: center
+
+    * - Header
+      - Type
+      - Description
+      - Requirement
+    * - x-\*-meta-\*
+      - Header String
+      - If the ``"cdmi_header_metadata"`` capability is present, for each request header matching the pattern ``"x-*-meta-*"``, a new user metadata item shall be created, or an existing metadata item shall be updated, with the metadata name set to the header field-name, and the metadata value set to the header field- value.
+
+        .. raw:: latex
+
+          \vspace*{1ex}
+
+        If a metadata item already exists where the metadata name and the header field-name differ only in case, the existing metadata item value shall be updated.
+
+        .. raw:: latex
+
+          \vspace*{1ex}
+
+        If an empty header field-value is specified, the corresponding metadata item shall be removed from the object.
+
+        .. raw:: latex
+
+          \vspace*{1ex}
+
+        If the number of headers, the length of any of the headers, or the total size of the headers exceeds the limits specified in RFC 2616, or specified by the ``cdmi_header_metadata_maxitems``, ``cdmi_header_metadata_maxsize``, or the ``cdmi_header_metadata_maxtotalsize`` capabilities, a ``400 Bad Request`` shall be returned to the client.
+      - Conditional
+
+.. raw:: latex
+
+  \noindent\rule[0.5ex]{\linewidth}{1pt}
+  \vspace*{2ex}
+
+Add new example at end of :numref:`http_data_object_update`:
+
+.. raw:: latex
+
+  \noindent\rule[0.5ex]{\linewidth}{1pt}
+
+EXAMPLE 3: PUT to the data object URI to update the value and metadata of the data object:
+
+  .. code-block:: http
+  
+    PUT /MyContainer/MyDataObject.txt HTTP/1.1
+    Host: cloud.example.com
+    Content-Type: text/plain;charset=utf-8
+    X-CDMI-Meta-Colour: Green
+    Content-Length: 41
+    
+    This is the new Value of this Data Object
+
+  The following shows the response:
+
+  .. code-block:: http
+
+    HTTP/1.1 204 No Content
+
+.. raw:: latex
+
+  \noindent\rule[0.5ex]{\linewidth}{1pt}
+  \vspace*{2ex}
+
+Add a new table to Request Headers section in :numref:`ref_http_container_object_create`:
+
+.. raw:: latex
+
+  \noindent\rule[0.5ex]{\linewidth}{1pt}
+
+.. tabularcolumns:: |>{\raggedright\arraybackslash}\Y{0.20}
+                    |>{\raggedright\arraybackslash}\Y{0.10}
+                    |>{\raggedright\arraybackslash}\Y{0.55}
+                    |>{\raggedright\arraybackslash}\Y{0.15}|
+
+.. list-table:: Request Headers - Create a Container Object using HTTP
+    :header-rows: 1
+    :align: center 
+
+    * - Header
+      - Type
+      - Description
+      - Requirement
+    * - x-\*-meta-\*
+      - Header String
+      - If the "cdmi_header_metadata" capability is present, for each request header matching the pattern ``"x-*-meta-*"``, a new user metadata item shall be created, with the metadata name set to the header field-name, and the metadata value set to the header field-value.
+      
+        .. raw:: latex
+
+          \vspace*{1ex}
+
+        If the number of headers, the length of any of the headers, or the total size of the headers exceeds the limits specified in RFC 2616, or specified by the ``cdmi_header_metadata_maxitems``, ``cdmi_header_metadata_maxsize``, or the ``cdmi_header_metadata_maxtotalsize`` capabilities, a ``400 Bad Request`` shall be returned to the client.
+      - Conditional
+
+.. raw:: latex
+
+  \noindent\rule[0.5ex]{\linewidth}{1pt}
+  \vspace*{2ex}
+
+Add new example at end of :numref:`ref_http_container_object_create`:
+
+.. raw:: latex
+
+  \noindent\rule[0.5ex]{\linewidth}{1pt}
+
+EXAMPLE 2: PUT to the URI the container object name and metadata:
+
+  .. code-block:: http
+  
+    PUT /MyContainer/ HTTP/1.1
+    Host: cloud.example.com
+    X-CDMI-Meta-Colour: Yellow
+
+  The following shows the response:
+
+  .. code-block:: http
+
+    HTTP/1.1 201 Created
+
+.. raw:: latex
+
+  \noindent\rule[0.5ex]{\linewidth}{1pt}
+  \vspace*{2ex}
+
+After :numref:`ref_http_container_object_create`, add a new clause "Inspect a Container Object using HTTP":
+
+.. raw:: latex
+
+  \noindent\rule[0.5ex]{\linewidth}{1pt}
+
+Synopsis
+--------
+
+To check for the presence of a container object, the following request shall be performed:
+
+* ``HEAD <root URI>/<ContainerName>/<TheContainerName>/``
+
+Where:
+
+* ``<root URI>`` is the path to the CDMI cloud.
+* ``<ContainerName>`` is zero or more intermediate containers that already exist, with one slash (i.e., ``"/"``) between each pair of container names.
+* ``<TheContainerName>`` is the name specified for the container object to be checked.
+
+The container object shall also also be able to be checked at ``<root URI>/cdmi_objectid/<objectID>``.
+
+Capabilities
+------------
+
+The following capabilities describe the supported operations that may be performed when reading an existing container object:
+
+* Support for the ability to read the metadata of an existing conatiner object is indicated by the presence of the ``cdmi_read_metadata`` capability in the specified container object.
+
+Request Headers
+---------------
+
+Request headers may be provided as per RFC 2616.
+
+Request Message Body 
+--------------------
+
+A request message body shall not be provided.
+
+Response Headers 
+----------------
+
+The HTTP response headers for checking for the presence of a CDMI container object using HTTP are shown in :numref:`tbl_http_container_object_inspect_response_headers`.
+
+.. tabularcolumns:: |>{\raggedright\arraybackslash}\Y{0.20}
+                    |>{\raggedright\arraybackslash}\Y{0.10}
+                    |>{\raggedright\arraybackslash}\Y{0.55}
+                    |>{\raggedright\arraybackslash}\Y{0.15}|
+
+.. _tbl_http_container_object_inspect_response_headers:
+
+.. list-table:: Response Headers - Inspect a Container Object using HTTP
+    :header-rows: 1
+    :align: center
+
+    * - Header
+      - Type
+      - Description
+      - Requirement
+    * - Content-Type
+      - Header String
+      - ``"application/cdmi-container"``
+      - Mandatory
+    * - Location
+      - Header String
+      - The server shall respond with the URI that the reference redirects to if the object is a reference.
+      - Conditional
+    * - x-\*-meta-\*
+      - Header String
+      - If the ``"cdmi_header_metadata"`` capability is present, for each user metadata item in the "metadata" field with a metadata name that is a case-insensitive match to the pattern ``"x-*-meta-*"``, a corresponding response header shall be returned to the client where the header field-name shall be the metadata item name, and the header field-value shall be the metadata item value.
+      
+        .. raw:: latex
+
+          \vspace*{1ex}
+
+        If a header value to be return is not conformant with RFC 2616, the server may omit the field from the response headers.
+      - Conditional
+
+Response Message Body
+---------------------
+
+No response body shall be provded, as per RFC 2616.
+
+Response Status
+---------------
+
+The HTTP status codes that occur when checking the presence of a container object using HTTP are described in :numref:`tbl_http_container_object_inspect_response_status`. 
+
+.. tabularcolumns:: |>{\raggedright\arraybackslash}\Y{0.30}
+                    |>{\raggedright\arraybackslash}\Y{0.70}|
+
+.. _tbl_http_container_object_inspect_response_status:
+
+.. list-table:: HTTP Status Codes - Inspect a Container Object using HTTP
+    :header-rows: 1
+    :align: center
+
+    * - HTTP Status
+      - Description
+    * - ``200 OK``
+      - The queue object content was returned in the response.
+    * - ``302 Found``
+      - The resource is a reference to another resource.
+    * - ``400 Bad Request``
+      - The request contains invalid parameters or field names.
+    * - ``401 Unauthorized``
+      - The authentication credentials are missing or invalid.
+    * - ``403 Forbidden``
+      - The client lacks the proper authorization to perform this request.
+    * - ``404 Not Found``
+      - The resource was not found at the specified URI.
+
+Example
+-------
+
+EXAMPLE 1: HEAD to the container object URI to check for the presence of a container object with header metadata:
+
+   .. code-block:: http
+
+      HEAD /MyContainer/ HTTP/1.1
+      Host: cloud.example.com
+
+   The following shows the response:
+
+   .. code-block:: http
+
+      HTTP/1.1 200 OK
+      Content-Type: application/cdmi-container
+      X-CDMI-Meta-Colour: Yellow
+
+.. raw:: latex
+
+  \noindent\rule[0.5ex]{\linewidth}{1pt}
+  \vspace*{2ex}
+
+Replace contents of :numref:`ref_http_container_object_read` with:
+
+.. raw:: latex
+
+  \noindent\rule[0.5ex]{\linewidth}{1pt}
+
+Synopsis
+--------
+
+Reading a container object using HTTP is not defined by this version of this international standard. :numref:`ref_cdmi_container_object_read` describes how to read a container object using CDMI.
+
+A server implementation is free to respond to HTTP GETs for Container Objects in any way that conforms with RFC 2616.
+
+If container object metadata items matching the pattern ``"x-*-meta-*"`` are present, these metadata items shall be returned as response headers as per :numref:`ref_cdmi_container_object_read`.
+
+.. raw:: latex
+
+  \noindent\rule[0.5ex]{\linewidth}{1pt}
+  \vspace*{2ex}
+
+Replace contents of :numref:`ref_http_container_object_update` with:
+
+.. raw:: latex
+
+  \noindent\rule[0.5ex]{\linewidth}{1pt}
+
+Synopsis
+--------
+
+Updating a container object using HTTP is not defined by this version of this international standard. Clause :numref:`ref_cdmi_container_object_update` describes how to update a container object using CDMI.
+
+A server implementation is free to respond to HTTP PUTs for existing Container Objects in any way that conforms with RFC 2616.
+
+If container object metadata items matching the pattern ``"x-*-meta-*"`` are present, these metadata items shall be returned as response headers as per :numref:`ref_cdmi_container_object_update`.
+
+.. raw:: latex
+
+  \noindent\rule[0.5ex]{\linewidth}{1pt}
+  \vspace*{2ex}
+
+Add new rows to end of :numref:`tbl_system_wide_capabilities` in :numref:`ref_cloud_storage_system-wide_capabilities`:
+
+.. raw:: latex
+
+  \noindent\rule[0.5ex]{\linewidth}{1pt}
+
+.. tabularcolumns:: |>{\raggedright\arraybackslash}\Y{0.35}
+                    |>{\raggedright\arraybackslash}\Y{0.15}
+                    |>{\raggedright\arraybackslash}\Y{0.50}|
+
+.. list-table::
+    :class: longtable
+    :header-rows: 1
+    :align: center 
+
+    * - Capability Name    
+      - Type    
+      - Definition
+    * - cdmi_header_metadata
+      - JSON String    
+      - If present and ``"true"``, this capability indicates that the cloud storage system supports header-visible metadata.
+    * - cdmi_header_metadata_maxitems
+      - JSON String    
+      - If present, this capability indicates the maximum number of user-defined header metadata items supported per object. If absent, there is no additional limit placed on the number of user-defined metadata items.
+    * - cdmi_header_metadata_maxsize
+      - JSON String    
+      - If present, this capability indicates the maximum size, in bytes, of each user-defined header metadata item. If absent, there is no additional limit placed on the size of user-defined metadata items.
+    * - cdmi_header_metadata_maxtotalsize
+      - JSON String    
+      - If present, this capability indicates the maximum size, in bytes, of all user-defined header metadata per object. If absent, there is no additional limit placed on the size of user-defined metadata.
+
+.. raw:: latex
+
+  \noindent\rule[0.5ex]{\linewidth}{1pt}
+  \vspace*{2ex}
+
+Add to end of :numref:`ref_support_for_user_metadata`:
+
+.. raw:: latex
+
+  \noindent\rule[0.5ex]{\linewidth}{1pt}
+
+If metadata items with a name is a case-insensitive match to the pattern ``"x-*-meta-*"`` are created or updated through a CDMI request, the following conditions shall be true, or else a ``400 Bad Request`` result code shall be returned to the client:
+
+* The metadata name shall be a valid HTTP header field-name
+* The metadata value that is a valid HTTP header field-value
+* The number of matching headers shall not exceed the limits specified by RFC 2616, and shall not exceed the number specified in the ``cdmi_header_metadata_maxitems`` capability.
+* The size of each matching header shall not exceed the limits specified by RFC 2616, and shall not exceed the number specified in the ``cdmi_header_metadata_maxsize`` capability.
+* The total size of all of the matching headers shall not exceed the limits specified by RFC 2616, and shall not exceed the number specified in the ``cdmi_header_metadata_maxtotalsize`` capability.
