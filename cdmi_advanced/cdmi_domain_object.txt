@@ -150,7 +150,7 @@ Domain Object Representations
 
 The representations in this clause are shown using JSON notation. Both clients and servers shall support UTF-8 JSON representation. The request and response body JSON fields may be specified or returned in any order, with the exception that, if present, for domain objects, the childrenrange and children fields shall appear last and in that order.
 
-
+.. _ref_domain_object_summaries:
 
 Domain Object Summaries
 ***********************
@@ -203,9 +203,9 @@ EXAMPLE 3: If a domain were created on July 4, 2009, and at noon on July 10, the
 
 The information in :numref:`tbl_contents_of_domain_summary_objects` shall be present within the contents of each domain summary object, which are in JSON representation.
 
-.. tabularcolumns:: |>{\raggedright\arraybackslash}\Y{0.29}
+.. tabularcolumns:: |>{\raggedright\arraybackslash}\Y{0.38}
                     |>{\raggedright\arraybackslash}\Y{0.09}
-                    |>{\raggedright\arraybackslash}\Y{0.48}
+                    |>{\raggedright\arraybackslash}\Y{0.39}
                     |>{\raggedright\arraybackslash}\Y{0.14}|
 
 .. _tbl_contents_of_domain_summary_objects:
@@ -344,9 +344,9 @@ The domain membership container may also contain subcontainers with data objects
 
 :numref:`tbl_required_settings_for_domain_member_user_objects` lists the domain settings that shall be present within each domain member user object.
 
-.. tabularcolumns:: |>{\raggedright\arraybackslash}\Y{0.29}
+.. tabularcolumns:: |>{\raggedright\arraybackslash}\Y{0.38}
                     |>{\raggedright\arraybackslash}\Y{0.09}
-                    |>{\raggedright\arraybackslash}\Y{0.48}
+                    |>{\raggedright\arraybackslash}\Y{0.39}
                     |>{\raggedright\arraybackslash}\Y{0.14}|
 
 .. _tbl_required_settings_for_domain_member_user_objects:
@@ -395,9 +395,9 @@ The domain membership container may also contain subcontainers with data objects
 
 :numref:`tbl_required_settings_for_domain_member_delegation_objects` lists the domain settings that shall be present within each domain member delegation object.
 
-.. tabularcolumns:: |>{\raggedright\arraybackslash}\Y{0.29}
+.. tabularcolumns:: |>{\raggedright\arraybackslash}\Y{0.38}
                     |>{\raggedright\arraybackslash}\Y{0.09}
-                    |>{\raggedright\arraybackslash}\Y{0.48}
+                    |>{\raggedright\arraybackslash}\Y{0.39}
                     |>{\raggedright\arraybackslash}\Y{0.14}|
 
 .. _tbl_required_settings_for_domain_member_delegation_objects:
