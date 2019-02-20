@@ -595,6 +595,8 @@ A similar technique should be used for all other sets of hex/string equivalents.
 
 This algorithm, properly coded, requires only one (often partial) pass through the corresponding string equivalents table.
 
+.. _ref_acl_json_format:
+
 JSON Format for ACLs
 --------------------
 
