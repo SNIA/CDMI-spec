@@ -10,4 +10,5 @@
     ext_expire_ace
     ext_group_storage_metadata
     ext_header_metadata
+    ext_immediate_query
  

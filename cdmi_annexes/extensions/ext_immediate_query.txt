@@ -1,0 +1,70 @@
+
+Immediate Query
+***************
+
+Overview
+--------
+
+CDMI provides a query mechanism based around the concept of persistance. A query queue is created, metadata is specified that defines the query operation, the query is performed asynchronously, and results are populated in the queue and then read by the client as separate operations.
+
+This architecture, while providing significant value, is complex for clients that do not need to persist the results of a query. Specifically, a client must: a) asynchronously poll the query queue to determine when results are present and when the query has completed, and b) delete the queue when results are no longer needed.
+
+To provide a simpler interface for simple queries where a small number of results are expected and persistence is not required, the TWG has proposed the following approach to allow query queues to optionally not be persistent, with the results being returned immediately as the response to the initial query queue creation.
+
+In addition, functionality that permits results to be returned immediately has been added to creating asynchronous query queues.
+
+Changes to Specification
+------------------------
+
+Modify existing ``"cdmi_query"`` entry in :numref:`tbl_system_wide_capabilities` in :numref:`ref_cloud_storage_system-wide_capabilities`:
+
+.. raw:: latex
+
+  \noindent\rule[0.5ex]{\linewidth}{1pt}
+
+.. tabularcolumns:: |>{\raggedright\arraybackslash}\Y{0.35}
+                    |>{\raggedright\arraybackslash}\Y{0.15}
+                    |>{\raggedright\arraybackslash}\Y{0.50}|
+
+.. list-table:: 
+    :header-rows: 1
+    :align: center 
+
+    * - Capability Name
+      - Type
+      - Definition
+    * - cdmi_query
+      - JSON String
+      - If present and "``true``", the CDMI server supports persistent query queues.
+
+.. raw:: latex
+
+  \noindent\rule[0.5ex]{\linewidth}{1pt}
+  \vspace*{2ex}
+
+Add a new row at end of table :numref:`tbl_system_wide_capabilities` in :numref:`ref_cloud_storage_system-wide_capabilities`:
+
+.. raw:: latex
+
+  \noindent\rule[0.5ex]{\linewidth}{1pt}
+
+.. tabularcolumns:: |>{\raggedright\arraybackslash}\Y{0.35}
+                    |>{\raggedright\arraybackslash}\Y{0.15}
+                    |>{\raggedright\arraybackslash}\Y{0.50}|
+
+.. list-table:: 
+    :header-rows: 1
+    :align: center 
+
+    * - Capability Name
+      - Type
+      - Definition
+    * - cdmi_query_immediate
+      - JSON String
+      - If present and "``true``", the CDMI server supports immediate query queues.
+
+.. raw:: latex
+
+  \noindent\rule[0.5ex]{\linewidth}{1pt}
+  \vspace*{2ex}
+
