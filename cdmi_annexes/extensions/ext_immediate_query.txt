@@ -68,3 +68,158 @@ Add a new row at end of table :numref:`tbl_system_wide_capabilities` in :numref:
   \noindent\rule[0.5ex]{\linewidth}{1pt}
   \vspace*{2ex}
 
+Replace the first paragraph of Overview section in :numref:`clause_cdmi_query_queues` with:
+
+.. raw:: latex
+
+  \noindent\rule[0.5ex]{\linewidth}{1pt}
+
+A cloud storage system may optionally implement metadata and/or full-text query functionality. The implementation of query is indicated by the presence of the cloud storage system-wide capabilities for query and requires support for CDMI queues when persisting query results.
+
+.. raw:: latex
+
+  \noindent\rule[0.5ex]{\linewidth}{1pt}
+  \vspace*{2ex}
+
+Replace the third paragraph of Overview section in :numref:`clause_cdmi_query_queues` with:
+
+.. raw:: latex
+
+  \noindent\rule[0.5ex]{\linewidth}{1pt}
+
+When a client wishes to perform queries, it shall first determine if the system is capable of providing query functionality by checking to see if the ``cdmi_query`` or ``cdmi_query_immediate`` capabilities are present in the root container capabilities. If these capabilities are not present and queues are supported, creating a query queue shall be successful, but no query results shall be enqueued into the query queue.
+
+.. raw:: latex
+
+  \noindent\rule[0.5ex]{\linewidth}{1pt}
+  \vspace*{2ex}
+
+Modify existing ``"cdmi_queue_type"`` entry in :numref:`tbl_required_metadata_for_a_query_queue` in :numref:`clause_cdmi_query_queues`:
+
+.. raw:: latex
+
+  \noindent\rule[0.5ex]{\linewidth}{1pt}
+
+.. tabularcolumns:: |>{\raggedright\arraybackslash}\Y{0.29}
+                    |>{\raggedright\arraybackslash}\Y{0.09}
+                    |>{\raggedright\arraybackslash}\Y{0.48}
+                    |>{\raggedright\arraybackslash}\Y{0.14}|
+
+.. _tbl_required_metadata_for_a_query_queue:
+
+.. list-table:: Required Metadata for a Query Queue
+    :header-rows: 1
+    :class: longtable
+    :align: center 
+
+    * - Metadata Name
+      - Type
+      - Description
+      - Requirement
+    * - cdmi_queue_type
+      - JSON String
+      - The queue type indicates how the cloud storage system shall manage the queue object. The defined values are:
+
+        * ``"cdmi_query_queue"`` – Perform an asynchronous query, which may return none, some, or all results in the request response body. A new queue object shall be created.
+        * ``"cdmi_query_immediate"`` – Perform a synchronous query, returning all matching results in the request response body. The query queue object may not be accessible and shall be automatically deleted when the query completes.
+      - Mandatory
+
+.. raw:: latex
+
+  \noindent\rule[0.5ex]{\linewidth}{1pt}
+  \vspace*{2ex}
+
+Add new clause "Immediate Queries" to end of :numref:`clause_cdmi_query_queues`:
+
+.. raw:: latex
+
+  \noindent\rule[0.5ex]{\linewidth}{1pt}
+
+If ``"cdmi_query_immediate"`` is specified in ``cdmi_queue_type``, all query results shall be immediately returned in the response body as shown in the following example.
+
+EXAMPLE 3: Perform an Immediate Query:
+
+    .. code-block:: http
+
+        PUT /MyContainer/myQuery HTTP/1.1
+        Host: cloud.example.com
+        Accept: application/cdmi-queue
+        Content-Type: application/cdmi-queue
+
+        {
+           "metadata" : {
+                "cdmi_queue_type" : "cdmi_query_immediate",
+                "cdmi_scope_specification" : [
+                    {
+                        "domainURI" : "== /cdmi_domains/MyDomain/",
+                        "parentURI" : "starts /sandbox",
+                        "metadata" : {
+                            "cdmi_size" : "#> 100000"
+                        }
+                    }
+                ],
+                "cdmi_results_specification" : {
+                    "objectID" : "",
+                    "metadata" : {
+                         "cdmi_size" : ""
+                    }
+                }
+            }
+        }
+
+The following shows the response.
+
+    .. code-block:: http
+
+        HTTP/1.1 201 Created
+        Content-Type: application/cdmi-queue
+        Location: http://cloud.example.com/MyContainer/myQuery
+         
+        {
+             "objectType" : "application/cdmi-queue",
+             "objectID" : "00007E7F00104BE66AB53A9572F9F51E",
+             "objectName" : "myQuery",
+             "parentURI " : "/MyContainer/",
+             "parentID" : "0000706D0010B84FAD185C425D8B537E",
+             "domainURI" : "/cdmi_domains/MyDomain/",
+             "capabilitiesURI" : "/cdmi_capabilities/queue/",
+             "completionStatus" : "Complete",
+             "metadata" : {
+                  "cdmi_queue_type" : "cdmi_query_immediate",
+                  "cdmi_scope_specification" : [
+                      {
+                          "domainURI" : "== /cdmi_domains/MyDomain/",
+                          "parentURI" : "starts /sandbox",
+                          "metadata" : {
+                              "cdmi_size" : "#> 100000"
+                          }
+                      }
+                  ],
+                  "cdmi_results_specification" : {
+                        "objectID" : "",
+                        "metadata" : {
+                             "cdmi_size" : ""
+                        }
+                  }
+              },
+             "queueValues" : "0-0",
+             "mimetype": [ "application/json" ],
+             "valuerange": [ "0-111" ],
+             "valuetransferencoding": [ "base64" ],
+             "value": "ew0KCQkJIm9iamVjdElEIiA6ICIwMDAwN0U3RjAwMTBFQjkwOTJ
+                       CMjlGNkNENkFENjgyNCIsDQoJCQkibWV0YWRhdGEiIDogew0KCQ
+                       kJCSJjZG1pX3NpemUiIDogIjEwODI2MyINCgkJCX0NCgkJfQ0K"
+        }
+     
+Where the value of the above base64 encoded value is:
+
+EXAMPLE 1: An example of the metadata associated with a query queue is as follows:
+
+    .. code-block:: json
+
+        {
+            "objectID" : "00007E7F0010EB9092B29F6CD6AD6824",
+            "metadata" : {
+                "cdmi_size" : "108263"
+            }
+        }
