@@ -34,9 +34,56 @@ Canonical data may be deserialized back into the cloud by creating a new data ob
 
 The destination may or may not exist previously. If not, a create operation is performed. If a container object already exists, an update operation with serialized children shall update the container object and all children. If the serialized container object does not contain children, only the container object is updated. Data objects are recreated as specified in the canonical format, including all metadata and the data object ID.
 
-* If the user who is deserializing a serialized data object has the ``cross_domain`` privilege and has not specified a ``domainURI`` as part of the deserialize operation, the original ``domainURIs`` from the serialized object shall be used. If any of the specified ``domainURIs`` are not valid in the context of the storage system on which the deserialization operation is being performed, the entire deserialize operation shall fail.
-* If the user who is deserializing a serialized object specifies a ``domainURI`` as part of the deserialize operation, the ``domainURI`` of every object being deserialized shall be set to the specified ``domainURI``. To specify a ``domainURI`` other than the ``domainURI`` of the parent, the user shall have the ``cross_domain privilege``. If the user does not have the ``cross_domain`` privilege and specifies a ``domainURI`` other than the ``domainURI`` of the parent, an HTTP status code of ``400 Bad Request`` shall be returned.
-* If the user who is deserializing a serialized object does not specify a ``domainURI`` and does not have the ``cross_domain`` privilege, then the deserialization operation shall only be successful if all objects have the same ``domainURI`` as the parent object on which the deserialization operation is being performed.
+.. tabularcolumns:: |>{\raggedright\arraybackslash}\Y{0.20}
+                    |>{\raggedright\arraybackslash}\Y{0.20}
+                    |>{\raggedright\arraybackslash}\Y{0.60}|
+
+.. _tbl_serialize_import:
+
+.. list-table:: Serialization Import Behaviour
+    :header-rows: 1
+    :class: longtable
+    :align: center 
+
+    * - User has ``cross_domain``
+      - User specifies ``domainURI``
+      - Description
+    * - No
+      - No
+      - The ``domainURI`` of the parent object shall match the ``domainURI`` in each seralized object being deserialized.
+      
+        .. raw:: latex
+
+          \vspace*{1ex}
+
+        If the ``domainURI`` in any serialize object does not match the ``domainURI`` of the parent object, the entire deserialize operation shall fail, and an HTTP status code of ``400 Bad Request`` shall be returned.
+    * - No
+      - Yes
+      - The specified ``domainURI`` shall be used, overriding the original ``domainURI`` in each serialized object being deserialized.
+      
+        .. raw:: latex
+
+          \vspace*{1ex}
+
+        If a ``domainURI`` other than the ``domainURI`` of the parent is specified, the entire deserialize operation shall fail, and an HTTP status code of ``400 Bad Request`` shall be returned.
+    * - Yes
+      - No
+      - The original ``domainURI`` in each serialized object being deserialized shall be used.
+      
+        .. raw:: latex
+
+          \vspace*{1ex}
+
+        If any of the original ``domainURI`` in each serialized object being deserialized is not valid in the context of the storage system on which the deserialization operation is being performed, the entire deserialize operation shall fail, and an HTTP status code of ``400 Bad Request`` shall be returned.
+    * - Yes
+      - Yes
+      - The specified ``domainURI`` shall be used, overriding the original ``domainURI`` in each serialized object being deserialized.
+      
+        .. raw:: latex
+
+          \vspace*{1ex}
+
+        If a ``domainURI`` that is specified is not valid in the context of the storage system on which the deserialization operation is being performed, the entire deserialize operation shall fail, and an HTTP status code of ``400 Bad Request`` shall be returned.
 
 Deserialization operations shall restore all metadata from the specified source. If the original provider of the serialized data-supported vendor extensions is through custom metadata keys and values, then these customized requirements shall be restored when deserialized. However, the custom metadata keys and values may be treated as user metadata (preserved, but not interpreted) by the destination provider. Preservation allows custom data requirements to move between clouds without losing this information.
 
