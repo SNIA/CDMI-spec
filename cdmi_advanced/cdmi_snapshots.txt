@@ -23,4 +23,47 @@ A snapshot operation is requested using the container update operation (see :num
 
 A snapshot may be accessed in the same way that any other CDMI™ object is accessed. An important use of a snapshot is to allow the contents of the source container to be restored to their values at a previous point in time using a CDMI copy operation. 
 
- 
+Example
+-------
+
+EXAMPLE 1: PUT to an existing container to create a snapshot:
+
+   .. code-block:: http
+
+       PUT /MyContainer/ HTTP/1.1
+       Host: cloud.example.com
+       Content-Type: application/cdmi-container
+
+       {
+          "snapshot" : "MySnapshot"
+       }
+
+   The following shows the response.
+
+   .. code-block:: http
+   
+       HTTP/1.1 201 Created
+
+
+Deleting a Snapshot
+*******************
+
+A snapshot can be deleted by performing a CDMI container delete operation on the corresponding child container in the ``cdmi_snapshots`` container, or by performing a CDMI container delete operation on the snapshot Object ID.
+
+Example
+-------
+
+EXAMPLE 1: DELETE to an existing snapshot:
+
+   .. code-block:: http
+
+       DELETE /MyContainer/cdmi_snapshots/MySnapshot HTTP/1.1
+       Host: cloud.example.com
+
+   The following shows the response.
+
+   .. code-block:: http
+   
+       HTTP/1.1 204 No Content
+
+
