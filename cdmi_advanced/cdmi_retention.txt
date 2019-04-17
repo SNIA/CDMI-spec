@@ -3,8 +3,8 @@
 Retention and Hold Management
 =============================
 
-Introduction
-************
+Overview
+********
 
 A cloud storage system may optionally implement retention management disciplines into the system management functionality of the cloud-based storage system. The implementation of retention and hold capabilities is indicated by the presence of the cloud storage system-wide capabilities for retention and hold capabilities.
 

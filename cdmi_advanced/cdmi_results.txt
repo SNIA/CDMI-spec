@@ -3,8 +3,8 @@
 Results Specification
 =====================
 
-Introduction
-************
+Overview
+********
 
 CDMI™ provides a standardized mechanism to define subsets of object contents. This mechanism is known as a CDMI results specification. Results specifications are typically used to provide a CDMI client with a way to indicate on what subset of the contents of CDMI objects it intends to retrieve or operate.
 
