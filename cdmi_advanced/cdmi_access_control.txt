@@ -631,7 +631,6 @@ EXAMPLE 1: An example of an ACL embedded in a response to a GET request is as fo
 
     HTTP/1.1 200 OK
     Content-Type: application/cdmi-object
-    X-CDMI-Specification-Version: 1.1
      
     {
         "objectType" : "/application/cdmi-object",
