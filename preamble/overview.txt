@@ -3,9 +3,9 @@
 Overview of Cloud Storage
 =========================
 
-************
-Introduction
-************
+********
+Overview
+********
 
 When discussing cloud storage and standards, it is important to distinguish the various resources that are being offered as services. These resources are exposed to clients as functional interfaces (i.e., data paths) and are managed by management interfaces (i.e., control paths). This international standard explores the various types of interfaces that are part of cloud services today and shows how they are related. This international standard defines a model for the interfaces that may be mapped to the various cloud services and a model that forms the basis for cloud storage interfaces into the future.
 
