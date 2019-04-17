@@ -550,8 +550,10 @@ EXAMPLE 5: PUT to the container URI the data object name and JSON contents:
 
    .. code-block:: http
 
-      PUT /MyContainer/MyDataObject.txt HTTP/1.1 Host: cloud.example.com
-      Accept: application/cdmi-object Content-Type: application/cdmi-object X-CDMI-Specification-Version: 1.1
+      PUT /MyContainer/MyDataObject.txt HTTP/1.1
+      Host: cloud.example.com
+      Accept: application/cdmi-object
+      Content-Type: application/cdmi-object
 
       {
         "mimetype" : "text/plain",
