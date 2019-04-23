@@ -12,7 +12,7 @@ Due to limitations associated with HTTP headers, certain restrictions must be pl
 Changes to Specification
 ------------------------
 
-Add a new row at end of table :numref:`tbl_http_data_object_create_request_headers` in :numref:`ref_http_data_object_create`:
+Add a new row at end of table :numref:`tbl_http_data_object_create_request_headers` in :numref:`%s <ref_http_data_object_create>`:
 
 .. raw:: latex
 
@@ -47,7 +47,7 @@ Add a new row at end of table :numref:`tbl_http_data_object_create_request_heade
   \noindent\rule[0.5ex]{\linewidth}{1pt}
   \vspace*{2ex}
 
-Add new example at end of :numref:`ref_http_data_object_create`:
+Add new example at end of :numref:`%s <ref_http_data_object_create>`:
 
 .. raw:: latex
 
@@ -77,7 +77,7 @@ EXAMPLE 4: PUT to the container URI the data object name, contents, and metadata
   \noindent\rule[0.5ex]{\linewidth}{1pt}
   \vspace*{2ex}
 
-After :numref:`ref_http_data_object_create`, add a new clause "Inspect a Data Object using HTTP":
+After :numref:`%s <ref_http_data_object_create>`, add a new clause "Inspect a Data Object using HTTP":
 
 .. raw:: latex
 
@@ -213,7 +213,7 @@ EXAMPLE 1: HEAD to the data object URI to check for the presence of a data objec
   \noindent\rule[0.5ex]{\linewidth}{1pt}
   \vspace*{2ex}
 
-Add a new row at end of table :numref:`tbl_http_data_object_readresponse_headers` in :numref:`http_data_object_read`:
+Add a new row at end of table :numref:`tbl_http_data_object_readresponse_headers` in :numref:`%s <http_data_object_read>`:
 
 .. raw:: latex
 
@@ -248,7 +248,7 @@ Add a new row at end of table :numref:`tbl_http_data_object_readresponse_headers
   \noindent\rule[0.5ex]{\linewidth}{1pt}
   \vspace*{2ex}
 
-Add new example at end of :numref:`http_data_object_read`:
+Add new example at end of :numref:`%s <http_data_object_read>`:
 
 .. raw:: latex
 
@@ -278,7 +278,7 @@ EXAMPLE 6: GET to the data object URI to read the value of the data object with 
   \noindent\rule[0.5ex]{\linewidth}{1pt}
   \vspace*{2ex}
 
-Add a new row at end of table :numref:`tbl_http_data_object_updaterequest_headers` in :numref:`http_data_object_update`:
+Add a new row at end of table :numref:`tbl_http_data_object_updaterequest_headers` in :numref:`%s <http_data_object_update>`:
 
 .. raw:: latex
 
@@ -325,7 +325,7 @@ Add a new row at end of table :numref:`tbl_http_data_object_updaterequest_header
   \noindent\rule[0.5ex]{\linewidth}{1pt}
   \vspace*{2ex}
 
-Add new example at end of :numref:`http_data_object_update`:
+Add new example at end of :numref:`%s <http_data_object_update>`:
 
 .. raw:: latex
 
@@ -354,7 +354,7 @@ EXAMPLE 3: PUT to the data object URI to update the value and metadata of the da
   \noindent\rule[0.5ex]{\linewidth}{1pt}
   \vspace*{2ex}
 
-Add a new table to Request Headers section in :numref:`ref_http_container_object_create`:
+Add a new table to Request Headers in :numref:`%s <ref_http_container_object_create>`:
 
 .. raw:: latex
 
@@ -389,7 +389,7 @@ Add a new table to Request Headers section in :numref:`ref_http_container_object
   \noindent\rule[0.5ex]{\linewidth}{1pt}
   \vspace*{2ex}
 
-Add new example at end of :numref:`ref_http_container_object_create`:
+Add new example at end of :numref:`%s <ref_http_container_object_create>`:
 
 .. raw:: latex
 
@@ -414,7 +414,7 @@ EXAMPLE 2: PUT to the URI the container object name and metadata:
   \noindent\rule[0.5ex]{\linewidth}{1pt}
   \vspace*{2ex}
 
-After :numref:`ref_http_container_object_create`, add a new clause "Inspect a Container Object using HTTP":
+After :numref:`%s <ref_http_container_object_create>`, add a new sub-clause "Inspect a Container Object using HTTP":
 
 .. raw:: latex
 
@@ -548,7 +548,7 @@ EXAMPLE 1: HEAD to the container object URI to check for the presence of a conta
   \noindent\rule[0.5ex]{\linewidth}{1pt}
   \vspace*{2ex}
 
-Replace contents of :numref:`ref_http_container_object_read` with:
+Replace contents of :numref:`%s <ref_http_container_object_read>` with:
 
 .. raw:: latex
 
@@ -557,18 +557,18 @@ Replace contents of :numref:`ref_http_container_object_read` with:
 Synopsis
 --------
 
-Reading a container object using HTTP is not defined by this version of this international standard. :numref:`ref_cdmi_container_object_read` describes how to read a container object using CDMI.
+Reading a container object using HTTP is not defined by this version of this international standard. :numref:`%s <ref_cdmi_container_object_read>` describes how to read a container object using CDMI.
 
 A server implementation is free to respond to HTTP GETs for Container Objects in any way that conforms with RFC 2616.
 
-If container object metadata items matching the pattern ``"x-*-meta-*"`` are present, these metadata items shall be returned as response headers as per :numref:`ref_cdmi_container_object_read`.
+If container object metadata items matching the pattern ``"x-*-meta-*"`` are present, these metadata items shall be returned as response headers as per :numref:`%s <ref_cdmi_container_object_read>`.
 
 .. raw:: latex
 
   \noindent\rule[0.5ex]{\linewidth}{1pt}
   \vspace*{2ex}
 
-Replace contents of :numref:`ref_http_container_object_update` with:
+Replace contents of :numref:`%s <ref_http_container_object_update>` with:
 
 .. raw:: latex
 
@@ -577,18 +577,18 @@ Replace contents of :numref:`ref_http_container_object_update` with:
 Synopsis
 --------
 
-Updating a container object using HTTP is not defined by this version of this international standard. Clause :numref:`ref_cdmi_container_object_update` describes how to update a container object using CDMI.
+Updating a container object using HTTP is not defined by this version of this international standard. Clause :numref:`%s <ref_cdmi_container_object_update>` describes how to update a container object using CDMI.
 
 A server implementation is free to respond to HTTP PUTs for existing Container Objects in any way that conforms with RFC 2616.
 
-If container object metadata items matching the pattern ``"x-*-meta-*"`` are present, these metadata items shall be returned as response headers as per :numref:`ref_cdmi_container_object_update`.
+If container object metadata items matching the pattern ``"x-*-meta-*"`` are present, these metadata items shall be returned as response headers as per :numref:`%s <ref_cdmi_container_object_update>`.
 
 .. raw:: latex
 
   \noindent\rule[0.5ex]{\linewidth}{1pt}
   \vspace*{2ex}
 
-Add new rows to end of :numref:`tbl_system_wide_capabilities` in :numref:`ref_cloud_storage_system-wide_capabilities`:
+Add new rows to end of :numref:`tbl_system_wide_capabilities` in :numref:`%s <ref_cloud_storage_system-wide_capabilities>`:
 
 .. raw:: latex
 
@@ -624,7 +624,7 @@ Add new rows to end of :numref:`tbl_system_wide_capabilities` in :numref:`ref_cl
   \noindent\rule[0.5ex]{\linewidth}{1pt}
   \vspace*{2ex}
 
-Add to end of :numref:`ref_support_for_user_metadata`:
+Add to end of :numref:`%s <ref_support_for_user_metadata>`:
 
 .. raw:: latex
 

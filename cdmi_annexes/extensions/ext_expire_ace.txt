@@ -9,7 +9,7 @@ A common trait of cloud storage services is the ability to share an object with 
 Changes to Specification
 ------------------------
 
-Insert into :numref:`ref_acl_evaluation`:
+Insert into :numref:`%s <ref_acl_evaluation>`:
 
     After the bullet item:
     
@@ -19,7 +19,7 @@ Insert into :numref:`ref_acl_evaluation`:
 
     * ACEs that have an expiration value less than the current time are ignored.
 
-Change :numref:`ref_acl_evaluation`:
+Change :numref:`%s <ref_acl_evaluation>`:
 
     Original text:
 
@@ -33,17 +33,17 @@ Change :numref:`ref_acl_evaluation`:
 
         ACE = { acetype , identifier , aceflags , acemask , acetime, expiration }
 
-Insert into :numref:`ref_acl_evaluation` after "``acemask = uint_t | acemaskstring``":
+Insert into :numref:`%s <ref_acl_evaluation>` after "``acemask = uint_t | acemaskstring``":
 
     .. code-block:: bnf
 
         expiration = uint_t
 
-Insert into :numref:`ref_acl_evaluation` after "When ACE masks...":
+Insert into :numref:`%s <ref_acl_evaluation>` after "When ACE masks...":
 
-    When ACE expiration is presented in string format, it shall be specified in ISO-8601 point-in-time format as described in :numref:`ref_time_representations`.
+    When ACE expiration is presented in string format, it shall be specified in ISO-8601 point-in-time format as described in :numref:`%s <ref_time_representations>`.
 
-Insert a new section after :numref:`ref_acl_json_format`:
+Insert a new sub-clause after :numref:`%s <ref_acl_json_format>`:
 
-   An ACE may have an optional expiration associated with it. The expiration is a point-in-time value, in ISO-8601 point-in-time format, as described in :numref:`ref_time_representations`, which specifies that the ACE is no longer valid and shall be ignored after the time specified. 
+   An ACE may have an optional expiration associated with it. The expiration is a point-in-time value, in ISO-8601 point-in-time format, as described in :numref:`%s <ref_time_representations>`, which specifies that the ACE is no longer valid and shall be ignored after the time specified. 
 

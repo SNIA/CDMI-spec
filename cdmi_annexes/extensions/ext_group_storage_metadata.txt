@@ -12,7 +12,7 @@ This extension defines a new storage system metadata item, ``cdmi_group``, that 
 Changes to Specification
 ------------------------
 
-Add a new row at end of table :numref:`tbl_capabilities_for_data_system_metadata` in :numref:`ref_data_system_metadata_capabilities`:
+Add a new row at end of table :numref:`tbl_capabilities_for_data_system_metadata` in :numref:`%s <ref_data_system_metadata_capabilities>`:
 
 .. raw:: latex
 
@@ -38,7 +38,7 @@ Add a new row at end of table :numref:`tbl_capabilities_for_data_system_metadata
   \noindent\rule[0.5ex]{\linewidth}{1pt}
   \vspace*{2ex}
 
-Add a new row below ``"cdmi_owner"`` in :numref:`tbl_storage_system_metadata` of :numref:`ref_support_for_storage_system_metadata`:
+Add a new row below ``"cdmi_owner"`` in :numref:`tbl_storage_system_metadata` of :numref:`%s <ref_support_for_storage_system_metadata>`:
 
 .. raw:: latex
 

@@ -28,7 +28,7 @@ Add new terms to :numref:`Clause %s <clause_terms>`:
   \noindent\rule[0.5ex]{\linewidth}{1pt}
   \vspace*{2ex}
 
-Add table entries to end of :numref:`tbl_contents_of_domain_summary_objects` in :numref:`ref_domain_object_summaries`:
+Add table entries to end of :numref:`tbl_contents_of_domain_summary_objects` in :numref:`%s <ref_domain_object_summaries>`:
 
 .. raw:: latex
 

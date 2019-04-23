@@ -1,7 +1,7 @@
 .. _annex_extensions:
 
-(Informative) Extensions
-========================
+Extensions
+==========
 
 .. toctree::
 

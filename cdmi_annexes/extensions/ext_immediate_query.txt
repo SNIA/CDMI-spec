@@ -16,7 +16,7 @@ In addition, functionality that permits results to be returned immediately has b
 Changes to Specification
 ------------------------
 
-Modify existing ``"cdmi_query"`` entry in :numref:`tbl_system_wide_capabilities` in :numref:`ref_cloud_storage_system-wide_capabilities`:
+Modify existing ``"cdmi_query"`` entry in :numref:`tbl_system_wide_capabilities` in :numref:`%s <ref_cloud_storage_system-wide_capabilities>`:
 
 .. raw:: latex
 
@@ -42,7 +42,7 @@ Modify existing ``"cdmi_query"`` entry in :numref:`tbl_system_wide_capabilities`
   \noindent\rule[0.5ex]{\linewidth}{1pt}
   \vspace*{2ex}
 
-Add a new row at end of table :numref:`tbl_system_wide_capabilities` in :numref:`ref_cloud_storage_system-wide_capabilities`:
+Add a new row at end of table :numref:`tbl_system_wide_capabilities` in :numref:`%s <ref_cloud_storage_system-wide_capabilities>`:
 
 .. raw:: latex
 
@@ -68,7 +68,7 @@ Add a new row at end of table :numref:`tbl_system_wide_capabilities` in :numref:
   \noindent\rule[0.5ex]{\linewidth}{1pt}
   \vspace*{2ex}
 
-Replace the first paragraph of Overview section in :numref:`clause_cdmi_query_queues` with:
+Replace the first paragraph of Overview in :numref:`clause %s <clause_cdmi_query_queues>` with:
 
 .. raw:: latex
 
@@ -81,7 +81,7 @@ A cloud storage system may optionally implement metadata and/or full-text query 
   \noindent\rule[0.5ex]{\linewidth}{1pt}
   \vspace*{2ex}
 
-Replace the third paragraph of Overview section in :numref:`clause_cdmi_query_queues` with:
+Replace the third paragraph of Overview in :numref:`clause %s <clause_cdmi_query_queues>` with:
 
 .. raw:: latex
 
@@ -94,7 +94,7 @@ When a client wishes to perform queries, it shall first determine if the system 
   \noindent\rule[0.5ex]{\linewidth}{1pt}
   \vspace*{2ex}
 
-Modify existing ``"cdmi_queue_type"`` entry in :numref:`tbl_required_metadata_for_a_query_queue` in :numref:`clause_cdmi_query_queues`:
+Modify existing ``"cdmi_queue_type"`` entry in :numref:`tbl_required_metadata_for_a_query_queue` in :numref:`%s <clause_cdmi_query_queues>`:
 
 .. raw:: latex
 
@@ -129,7 +129,7 @@ Modify existing ``"cdmi_queue_type"`` entry in :numref:`tbl_required_metadata_fo
   \noindent\rule[0.5ex]{\linewidth}{1pt}
   \vspace*{2ex}
 
-Add new clause "Immediate Queries" to end of :numref:`clause_cdmi_query_queues`:
+Add new clause "Immediate Queries" to end of :numref:`%s <clause_cdmi_query_queues>`:
 
 .. raw:: latex
 
