@@ -53,7 +53,7 @@ When a client enables versioning for a data object, the following metadata items
 
 * a ``cdmi_version_object`` metadata item that contains the URI to the corresponding version-enabled data object. This metadata item allows a client to detect that a given object is a version-enabled data object and not a data object version.
 * a ``cdmi_version_current`` field that contains the URI to the current version of the version-enabled data object.
-* a ``cdmi_version_oldest`` field that contains the URI of one or more of the oldest versions. More than one version can exist in this metadata item as explained in :numref:`clause_cdmi_versioning_concurrent_updates`.
+* a ``cdmi_version_oldest`` field that contains the URI of one or more of the oldest versions. More than one version can exist in this metadata item as explained in :numref:`%s <clause_cdmi_versioning_concurrent_updates>`.
 
 Each data object version shall contain the above three fields, with the same values as found in the version-enabled data object. Each data object version shall also contain the following two fields:
 

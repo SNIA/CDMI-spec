@@ -10,7 +10,7 @@ Queue objects are similar to data objects, only with first-in, first-out access 
 
 If a cloud storage system supports queues, the ``cdmi_queues`` system-wide capability shall be present. The ability to create a queue object is determiend by the presence or absence of the ``cdmi_create_queue`` and ``cdmi_post_queue`` capabilities in the parent container, and by the ``cdmi_post_queue_by_ID`` system-wide capability for creation by ID.
 
-A queue object writer POSTs data into a queue object, and a queue object reader GETs value(s) from the queue object and subsequently deletes the value(s) to acknowledge receipt of the value(s) that it received. Queues provides a simple mechanism for one or more writers to send data to a single reader in a reliable way. If supported by the cloud storage system, cloud clients create the queue objects by using the mechanism described in :numref:`ref_cdmi_container_object_create_post_queue` and this clause.
+A queue object writer POSTs data into a queue object, and a queue object reader GETs value(s) from the queue object and subsequently deletes the value(s) to acknowledge receipt of the value(s) that it received. Queues provides a simple mechanism for one or more writers to send data to a single reader in a reliable way. If supported by the cloud storage system, cloud clients create the queue objects by using the mechanism described in :numref:`%s <ref_cdmi_container_object_create_post_queue>` and this clause.
 
 FIXME - Add diagram (Issue #120)
 
@@ -159,7 +159,7 @@ To create a new queue object, the following request shall be performed:
 
 * ``PUT <root URI>/<ContainerName>/<QueueName>``
 
-To create a new queue object by ID, see :numref:`ref_cdmi_container_object_create_post_queue`.
+To create a new queue object by ID, see :numref:`%s <ref_cdmi_container_object_create_post_queue>`.
 
 Where:
 
@@ -587,7 +587,7 @@ The HTTP request headers for reading a CDMI queue object using CDMI are shown in
       - Requirement
     * - Accept
       - Header String
-      - "``application/cdmi-queue``", "``multipart/mixed``", or a consistent value as per clause :numref:`ref_content-type_negotiation`
+      - "``application/cdmi-queue``", "``multipart/mixed``", or a consistent value as defined in :numref:`%s <ref_content-type_negotiation>`
       
         .. raw:: latex
 
@@ -1068,7 +1068,7 @@ The request message body fields for updating a queue object using CDMI are shown
       - JSON String
       - URI of a source serialized queue object that shall be copied into the existing destination queue object.
 
-        * If the destination queue object URI and the source serialized queue object URI both do not specify individual fields, the destination queue object shall be replaced with the contents of the serialized source queue object, with the exception that the destination queue values shall be preserved. See :numref:`ref_cdmi_queue_object_enqueue` to deserailize enqueued items. 
+        * If the destination queue object URI and the source serialized queue object URI both do not specify individual fields, the destination queue object shall be replaced with the contents of the serialized source queue object, with the exception that the destination queue values shall be preserved. See :numref:`%s <ref_cdmi_queue_object_enqueue>` to deserailize enqueued items. 
         * If the destination queue object URI or the source serialized queue object URI specifies individual fields, only the fields specified shall be used to update the destination queue object. If specified fields are not present in the source, these fields shall be ignored. If the value field is specified, it shall be ignored.  
         * If the destination queue object URI and the source serialized queue object URI both specify fields, an HTTP status code of ``400 Bad Request`` shall be returned to the client.
 
@@ -1078,7 +1078,7 @@ The request message body fields for updating a queue object using CDMI are shown
       - JSON String
       - URI of a source CDMI queue object that shall be copied into the existing destination queue object.
 
-        * If the destination queue object URI and the copy source queue object URI both do not specify individual fields, the destination queue object shall be replaced with the source queue object, with the exception that the destination queue values shall be preserved. See :numref:`ref_cdmi_queue_object_enqueue` to copy enqueued items. 
+        * If the destination queue object URI and the copy source queue object URI both do not specify individual fields, the destination queue object shall be replaced with the source queue object, with the exception that the destination queue values shall be preserved. See :numref:`%s <ref_cdmi_queue_object_enqueue>` to copy enqueued items. 
         * If the destination queue object URI or the copy source queue object URI specifies individual fields, only the fields specified shall be used to update the destination queue object. If specified fields are not present in the source, these fields shall be ignored. If the value field is specified, it shall be ignored.  
         * If the destination queue object URI and the copy source queue object URI both specify fields, an HTTP status code of ``400 Bad Request`` shall be returned to the client. 
 
@@ -1088,7 +1088,7 @@ The request message body fields for updating a queue object using CDMI are shown
       - JSON String
       - A data object serialized as specified in :rfc:`4648` that shall be copied into the existing destination queue object.
 
-        * If the destination queue object URI does not specify individual fields, the destination queue object shall be replaced with the contents of the serialized source queue object, with the exception that the destination queue values shall be preserved. See :numref:`ref_cdmi_queue_object_enqueue` to deserailize enqueued items. 
+        * If the destination queue object URI does not specify individual fields, the destination queue object shall be replaced with the contents of the serialized source queue object, with the exception that the destination queue values shall be preserved. See :numref:`%s <ref_cdmi_queue_object_enqueue>` to deserailize enqueued items. 
         * If the destination queue object URI specifies individual fields, only the fields specified shall be used to update the destination queue object. If specified fields are not present in the source, these fields shall be ignored. If the value field is specified, it shall be ignored.  
 
         If there are insufficient permissions update the queue object at the destination URI, the update shall return an HTTP status code of ``400 Bad Request``, and the destination queue object shall not be updated.
@@ -1348,7 +1348,7 @@ The HTTP request headers for enqueuing a new CDMI queue object value using CDMI 
 
           \vspace*{1ex}
 
-        If "``multipart/mixed``", the first part shall contain a body of content-type "``application/cdmi-queue``", and the subsequent parts shall contain the queue values as described in :numref:`ref_cdmi_data_object_read`.
+        If "``multipart/mixed``", the first part shall contain a body of content-type "``application/cdmi-queue``", and the subsequent parts shall contain the queue values as described in :numref:`%s <ref_cdmi_data_object_read>`.
       - Mandatory
 
 Request Message Body
@@ -1683,7 +1683,7 @@ Where:
 * ``<count>`` is the number of values, starting from the oldest, to be removed from the queue object. If more queue object entries are requested to be deleted than exist in the queue object, the count shall be considered equal to the number of entries in the queue object.
 * ``<range>`` is the lowest to highest numbers as found in the queueValues field that are to be removed from the queue object. The first range value shall be smaller or equal to the lowest queue value. If the first range value is smaller than the lowest queue value, the lowest existing queue value shall be used. If the first range value is larger than the lowest queue value, an HTTP status code of ``400 Bad Request`` shall be returned to the client. If the second range value is higher than the highest existing queue value, the highest existing queue value shall be used, which allows for idempotent queue value deletion.
 
-The "?value" suffix at the end of the queue resource URI shall be included to distinguish the deletion of the oldest value from the deletion of the queue object itself, as described in :numref:`delete_a_queue_object_using_cdmi` (which deletes all enqueued values).
+The "?value" suffix at the end of the queue resource URI shall be included to distinguish the deletion of the oldest value from the deletion of the queue object itself, as described in :numref:`%s <ref_cdmi_queue_object_delete>` (which deletes all enqueued values).
 
 Capability 
 ----------

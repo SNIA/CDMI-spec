@@ -56,7 +56,7 @@ EXAMPLE 1: CDMI Container Exports
         }
     }
 
-The meaning, use, and permitted values for the fields associated with each export type are described later in this section.
+The meaning, use, and permitted values for the fields associated with each export type are described later in this clause.
 
 Container Object Exports Addressing
 -----------------------------------
@@ -66,7 +66,7 @@ Container object exports are addressed in CDMI in two ways:
 * by name (e.g. ``http://cloud.example.com/container/?exports``); and
 * by ID (e.g. ``http://cloud.example.com/cdmi_objectid/00007ED900104E1D14771DC67C27BF8B/?exports``).
 
-See :numref:`ref_cdmi_container_object_overview` for more detials on container object addressing.
+See :numref:`%s <ref_cdmi_container_object_overview>` for more detials on container object addressing.
 
 Container Object Exports Fields
 -------------------------------
@@ -90,7 +90,7 @@ Clients wishing to restrict exports via foreign protocols to mounting only by ce
 
 #. When a network share on a CDMI container is created, the server should use the appropriate mechanism, e.g., Powershell ``WmiClass.Create( )`` on the Windows platform or ``/etc/exports`` on Unix, to limit permitted mounts of the share from other servers, as specified in the "``hosts``" line of the "``exports``" property. The syntax of the hosts line follows the syntax of ``/etc/exports`` in the Linux operating system, as encoded in a JSON string. If the CDMI server is unable to limit mounts as specified by the hosts line, an error shall result, but the success or failure of the operation depends on the implementation.
 #. When any request requiring the use of a CDMI principal name comes in via a foreign protocol, the foreign domain controller to which the foreign server belongs shall be queried for the principal name corresponding to the user id given in the request. Failure to procure the principal name shall cause the original request to fail.
-#. The usermap list for that protocol shall be searched, in order, for an entry matching the username gotten from the foreign domain controller (see :numref:`ref_user_and_groupname_mapping_syntax_and_evaluation_rules`  for details on the search). If no match is found, the request shall be denied. The search results may be kept in the same cache entry as the information from the preceding step.
+#. The usermap list for that protocol shall be searched, in order, for an entry matching the username gotten from the foreign domain controller (see :numref:`%s <ref_user_and_groupname_mapping_syntax_and_evaluation_rules>` for details on the search). If no match is found, the request shall be denied. The search results may be kept in the same cache entry as the information from the preceding step.
 #. The CDMI principal name gotten from the first matching usermap entry during this search is then used to authorize the user request via the security mechanism of the protocol whose security governs access to the object.
 
 Groupname mapping for each foreign protocol shall be specified in a groupname field of the foreign protocol export specification. Its syntax is identical to the syntax for the username field.
@@ -155,7 +155,7 @@ Permissions Mapping
 
 The permissions sets of file-serving protocols, unfortunately, do not map on a one-to-one basis to each other. NFSv4 ACLs, Windows ACLs, POSIX ACLs, NFSv3 perms and object-based capabilities all are capable of representing security conditions that the others are not, except NFSv3, which is the least expressive. The primary area of concern is in representing the possibly rich set of permissions in a CDMI ACL in a more restricted perms-based system, such as NFSv3, for display to users. 
 
-As there are a number of possible ways to coordinate the permissions/ACLs and CDMI ACLs, this international specification does not mandate a particular method. However, all mappings of user and groupnames between domains shall use the name mapping mechanism specified in :numref:`ref_user_and_groupname_mapping_syntax_and_evaluation_rules`.
+As there are a number of possible ways to coordinate the permissions/ACLs and CDMI ACLs, this international specification does not mandate a particular method. However, all mappings of user and groupnames between domains shall use the name mapping mechanism specified in :numref:`%s <ref_user_and_groupname_mapping_syntax_and_evaluation_rules>`.
 
 .. _ref_user_and_groupname_mapping_syntax_and_evaluation_rules:
 

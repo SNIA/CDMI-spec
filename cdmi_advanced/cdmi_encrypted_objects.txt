@@ -32,7 +32,7 @@ The following eight encryption operations are defined:
 Create a new encrypted object
 -----------------------------
 
-Client-encrypted objects shall be stored to a CDMI server using a standard HTTP or CDMI PUT operation, as described in clauses   :numref:`ref_http_container_object_create` and   :numref:`ref_cdmi_data_object_create`. The client shall indicate that an object is encrypted by specifying a mimetype of "``application/cms``" or "``application/jose+json``".
+Client-encrypted objects shall be stored to a CDMI server using a standard HTTP or CDMI PUT operation, as described in clauses :numref:`%s <ref_http_container_object_create>` and :numref:`%s <ref_cdmi_data_object_create>`. The client shall indicate that an object is encrypted by specifying a mimetype of "``application/cms``" or "``application/jose+json``".
 
 A client may register an encryption key, signing keys and/or verification keys with a Key Management System (KMS), and may indicate the Key IDs in ``cdmi_enc_key_id``, ``cdmi_enc_value_sign_id``, ``cdmi_enc_object_sign_id``, ``cdmi_enc_value_verify_id``, and/or ``cdmi_enc_object_verify_id`` metadata items. This allows the CDMI server to access the keys from the KMS on behalf of a client, when needed.
 

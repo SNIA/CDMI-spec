@@ -253,7 +253,7 @@ When a CDMI server that supports DAC needs to contact the DAC provider as specif
       - Optional
     * - acl_effective_mask	
       - JSON String	
-      - A text or hexadecimal string representation of the ACE mask determined by ACL evaluation for the requested operation, as defined in :numref:`ref_ace_mask_bits`.	      
+      - A text or hexadecimal string representation of the ACE mask determined by ACL evaluation for the requested operation, as defined in :numref:`%s <ref_ace_mask_bits>`.	      
       - Mandatory
     * - client_headers	
       - JSON Object	
@@ -436,7 +436,7 @@ To indicate the result of the DAC request to the requesting CDMI server, the DAC
       - Mandatory
     * - dac_applied_mask	
       - JSON String	
-      - A text or hexadecimal string representation of the ACE mask that shall be used, as defined in :numref:`ref_ace_mask_bits`.	
+      - A text or hexadecimal string representation of the ACE mask that shall be used, as defined in :numref:`%s <ref_ace_mask_bits>`.	
       - Mandatory
     * - dac_object_key	
       - JSON Object	

@@ -36,11 +36,11 @@ When creating a query queue, the metadata described in :numref:`tbl_required_met
       - Mandatory
     * - cdmi_scope_specification
       - JSON Array of JSON Objects
-      - The scope specification determines which objects are included in the query results. This scope specification is similar to a "``WHERE``" clause in SQL-like languages. To query all objects, specify an empty JSON array. See :numref:`clause_cdmi_scope`  for how to construct a scope specification.
+      - The scope specification determines which objects are included in the query results. This scope specification is similar to a "``WHERE``" clause in SQL-like languages. To query all objects, specify an empty JSON array. See :numref:`Clause %s <clause_cdmi_scope>`  for how to construct a scope specification.
       - Mandatory
     * - cdmi_results_specification
       - JSON Object
-      - The results specification contains the JSON fields to be returned for each object that matches the query. This results specification is similar to a "``SELECT``" clause in SQL-like languages. See :numref:`clause_cdmi_results` for how to construct a results specification.
+      - The results specification contains the JSON fields to be returned for each object that matches the query. This results specification is similar to a "``SELECT``" clause in SQL-like languages. See :numref:`Clause %s <clause_cdmi_results>` for how to construct a results specification.
       - Mandatory
 
 EXAMPLE 1: An example of the metadata associated with a query queue is as follows:
