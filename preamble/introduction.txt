@@ -2,9 +2,6 @@
 
     \clearpage
 
-
-Introduction
-
 This Cloud Data Management Interface (CDMI™) international standard is intended for application developers who are implementing or using cloud storage. It documents how to access cloud storage and to manage the data stored there.
 
 This document is organized as follows:
@@ -78,9 +75,6 @@ This document is organized as follows:
     * - :numref:`Clause %s <clause_cdmi_results>`
       - Results Specification
       - Provides a standardized mechanism to define subsets of CDMI object contents
-    * - :numref:`Clause %s <clause_cdmi_logging>`
-      - Logging
-      - Describes CDMI functional logging for object functions, security events, data management events, and queues
     * - :numref:`Clause %s <clause_cdmi_notifications>`
       - Notification Queues
       - Describes how CDMI clients may efficiently discover what changes have occurred to the system
@@ -90,9 +84,12 @@ This document is organized as follows:
     * - :numref:`Clause %s <clause_cdmi_encrypted_objects>`
       - Encrypted Objects
       - Describes how to work with transparently encrypted objects
-    * - Annex :numref:`section_cdmi_annexes`
-      - (informative) Extensions
+    * - :numref:`Clause %s <clause_cdmi_delegated_access_control>`
+      - Delegated Access Control
+      - Describes how to delegate access control to external systems
+    * - :numref:`Clause %s <clause_cdmi_versioning>`
+      - Data Object Versions
+      - Describes how to work with versioned data objects
+    * - :numref:`Clause %s <annex_extensions>`
+      - Extensions
       - Provides informative vendor extensions. Each extension is added to the standard when at least two vendors implement the extension.
-    * - \ 
-      - Bibliography
-      - Provides informative references that may contain additional useful information
