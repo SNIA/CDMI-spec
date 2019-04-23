@@ -166,6 +166,7 @@ latex_elements = {
     'inputenc': '',
     'utf8extra': '',
 
+    'printindex': '',
     'preamble': r'''
 
     % Set fonts
@@ -182,15 +183,15 @@ latex_elements = {
     \usepackage{colortbl}
     \protected\def\sphinxstyletheadfamily {\cellcolor{lightgray}\sffamily}
 
-    % Change Latex's Part/Chapter/Appendix to ISO's Section/Clause/Annex
-    \addto\captionsenglish{\renewcommand{\partname}{Section}}
+    % Change Latex's Part/Chapter/Appendix to ISO's Part/Clause/Annex
+    \addto\captionsenglish{\renewcommand{\partname}{Part}}
     \addto\captionsenglish{\renewcommand{\chaptername}{Clause}}
     \addto\captionsenglish{\renewcommand{\appendixname}{Annex}}
     \usepackage{chngcntr}
     \counterwithout{figure}{chapter}
     \counterwithout{table}{chapter}
 
-    % Clear pages before new section
+    % Clear pages before new Part
     \usepackage{titlesec}
     \newcommand{\sectionbreak}{\clearpage}
 
