@@ -56,7 +56,7 @@ The HTTP request header for reading a CDMI data object using HTTP is shown in :n
       - Optional
     * - Accept
       - Header String
-      - "\*/\*" or a value as per :numref:`clause %s <_ref_content-type_negotiation>` "Content-type negotiation".
+      - "\*/\*" or a value as described in:`%s <ref_content-type_negotiation>` "Content-type negotiation".
       
         If the object has a mimetype of "application/cms" or "application/jose+json", and the mimetype "application/cms" or "application/jose+json" is included in the Accept mimetype, the CDMI server shall return the CMS or JOSE value in the response message body. 
       
