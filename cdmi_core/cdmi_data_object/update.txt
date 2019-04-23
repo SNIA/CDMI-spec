@@ -57,8 +57,8 @@ The HTTP request headers for updating a CDMI data object using CDMI are shown in
       - Header String
       - "``application/cdmi-object``" or "``multipart/mixed``"
 
-        * If multipart/mixed is specified, the body shall consist of at least two MIME parts, where the first part shall contain a body of content-type "``application/cdmi-object``" and the second and subsequent parts shall contain one or more byte ranges of the value as described in Section 8.7. 
-        * If multiple byte ranges are included and the "``Content-Range``" header is omitted for a part, the data in the part shall be appended to the data in the preceding part, with the first part having a byte offset of zero.
+          * If "``multipart/mixed``" is specified, the body shall consist of at least two MIME parts, where the first part shall contain a body of content-type "``application/cdmi-object``", and the second and subsequent parts shall contain one or more byte ranges of the value. 
+          * If multiple byte ranges are included and the ``Content-Range`` header is omitted for a part, the data in the part shall be appended to the data in the preceding part, with the first part having a byte offset of zero.
       - Mandatory
     * - X-CDMI-Partial
       - Header String
