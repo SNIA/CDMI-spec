@@ -10,7 +10,7 @@ To create a new data object in a specified container, the following request shal
 
 * ``POST <root URI>/<ContainerName>/``
 
-To create a new data object where the data object does not belong to a container and is only accessible by ID (see :numref:`ref_object_model_for_cdmi`), the following request shall be performed:
+To create a new data object where the data object does not belong to a container and is only accessible by ID (see :numref:`%s <ref_object_model_for_cdmi>`), the following request shall be performed:
 
 * ``POST <root URI>/cdmi_objectid/``
 
@@ -89,13 +89,13 @@ The HTTP request headers for creating a new CDMI data object using CDMI are show
       - Requirement
     * - Accept
       - Header String
-      - "``application/cdmi-object``" or a consistent value as per clause :numref:`ref_content-type_negotiation` 
+      - "``application/cdmi-object``" or a consistent value as described in :numref:`%s <ref_content-type_negotiation>` 
       - Optional
     * - Content-Type
       - Header String
       - "``application/cdmi-object``" or "``multipart/mixed``"
 
-          * If "``multipart/mixed``" is specified, the body shall consist of at least two MIME parts, where the first part shall contain a body of content-type "``application/cdmi-object``", and the second and subsequent parts shall contain one or more byte ranges of the value as described in :numref:`ref_http_data_object_create`.
+          * If "``multipart/mixed``" is specified, the body shall consist of at least two MIME parts, where the first part shall contain a body of content-type "``application/cdmi-object``", and the second and subsequent parts shall contain one or more byte ranges of the value.
           * If multiple byte ranges are included and the ``Content-Range`` header is omitted for a part, the data in the part shall be appended to the data in the preceding part, with the first part having a byte offset of zero.
       - Mandatory
     * - X-CDMI-Partial

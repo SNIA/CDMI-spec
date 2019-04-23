@@ -74,7 +74,7 @@ The HTTP request headers for creating a CDMI container object using CDMI are sho
       - Requirement
     * - Accept
       - Header String
-      - "application/cdmi-container" or a consistent value as per clause :numref:`ref_content-type_negotiation` 
+      - "application/cdmi-container" or a consistent value described in :numref:`%s <ref_content-type_negotiation>` 
       - Optional
     * - Content-Type
       - Header String
@@ -122,11 +122,11 @@ The request message body fields for creating a container object using CDMI are s
       - Optional
     * - exports
       - JSON Object
-      - A structure for each protocol enabled for this container object (see :numref:`ref_exported_protocols`). This field shall not be included when referencing a container object. 
+      - A structure for each protocol enabled for this container object (see :numref:`Clause %s <clause_cdmi_exports>`). This field shall not be included when referencing a container object. 
       - Optional
     * - deserialize
       - JSON String
-      - URI of a CDMI data object that shall be deserialized to create the new container object, including all child objects inside the source serialized data object (see :numref:`ref_serialization/deserialization`).
+      - URI of a CDMI data object that shall be deserialized to create the new container object, including all child objects inside the source serialized data object (see :numref:`Clause %s <clause_cdmi_serialization>`).
       
         .. raw:: latex
 
@@ -281,11 +281,11 @@ The response message body fields for creating a CDMI container object using CDMI
       - Mandatory
     * - exports
       - JSON Object
-      - A structure for each protocol that is enabled for this container object. See :numref:`ref_exported_protocols`.
+      - A structure for each protocol that is enabled for this container object. See :numref:`Clause %s <clause_cdmi_exports>`.
       - Optional [#b]_
     * - snapshots
       - JSON Array of JSON Strings
-      - URI(s) of the snapshot container objects. See :numref:`ref_cdmi_snapshots`.
+      - URI(s) of the snapshot container objects. See :numref:`Clause %s <clause_cdmi_snapshots>`.
       - Optional [#b]_
     * - childrenrange
       - JSON String 

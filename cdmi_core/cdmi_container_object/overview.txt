@@ -53,7 +53,7 @@ Container objects are addressed in CDMI in two ways:
 
 Every container object has a single, globally-unique object ID that remains constant for the life of the object. Each container object may also have one or more URI addresses that allow the container object to be accessed.
 
-When a container object is addressed via more than one unique URIs, all operations may be performed through any of these URIs. For example, a container object may be accessible via multiple virtual hosting paths, where ``http://cloud.example.com/users/snia/cdmi/`` is also accessible through ``http://snia.example.com/cdmi/``. Conflicting writes via different paths shall be managed the same way that conflicting writes via one path are managed, via the principle of eventual consistency (see :numref:`ref_cdmi_container_object_create`).
+When a container object is addressed via more than one unique URIs, all operations may be performed through any of these URIs. For example, a container object may be accessible via multiple virtual hosting paths, where ``http://cloud.example.com/users/snia/cdmi/`` is also accessible through ``http://snia.example.com/cdmi/``. Conflicting writes via different paths shall be managed the same way that conflicting writes via one path are managed, via the principle of eventual consistency (see :numref:`%s <ref_cdmi_container_object_create>`).
 
 Following the URI conventions for hierarchical paths, container URIs shall consist of one or more container names that are separated by forward slashes ("``/``") and that end with a forward slash ("``/``"). 
 

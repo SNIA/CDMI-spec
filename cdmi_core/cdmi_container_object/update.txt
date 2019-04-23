@@ -23,7 +23,7 @@ Where:
 Delayed Completion of Snapshot
 ------------------------------
 
-If the creation of a snapshot (see :numref:`ref_cdmi_snapshots`) is requested by including a snapshot field in the request message body, the server may return an HTTP status code of ``202 Accepted``. Such a response has the following implications:
+If the creation of a snapshot (see :numref:`Clause %s <clause_cdmi_snapshots>`) is requested by including a snapshot field in the request message body, the server may return an HTTP status code of ``202 Accepted``. Such a response has the following implications:
 
 * With an HTTP status code of ``202 Accepted``, the server implies that the following checks have passed:
 
@@ -165,7 +165,7 @@ The request message body fields for updating a container object using CDMI are s
       - Optional [#a]_
     * - exports
       - JSON Object
-      - A structure for each protocol that is enabled for this container object (see :numref:`exported_protocols` . If an exported protocol is added or changed, the PUT operation only returns after the export operation has completed.
+      - A structure for each protocol that is enabled for this container object (see :numref:`Clause %s <clause_cdmi_exports>`). If an exported protocol is added or changed, the PUT operation only returns after the export operation has completed.
       - Optional
 
 .. [#a] Only one of these fields shall be specified in any given operation. Except for value, these fields shall not be stored.

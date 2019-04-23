@@ -6,11 +6,11 @@ Create (POST) a New Queue Object using CDMI
 Synopsis
 --------
 
-To create a new queue object (see :numref:`clause_cdmi_queue_object`) in a specified container where the name of the queue object is a server-assigned object identifier, the following request shall be performed:
+To create a new queue object (see :numref:`Clause %s <clause_cdmi_queue_object>`) in a specified container where the name of the queue object is a server-assigned object identifier, the following request shall be performed:
 
 * ``POST <root URI>/<ContainerName>/``
 
-To create a new queue object where the queue object does not belong to a container and is only accessible by ID (see :numref:`ref_object_model_for_cdmi`), the following request shall be performed:
+To create a new queue object where the queue object does not belong to a container and is only accessible by ID (see :numref:`%s <ref_object_model_for_cdmi>`), the following request shall be performed:
 
 * ``POST <root URI>/cdmi_objectid/``
 
@@ -87,7 +87,7 @@ The HTTP request headers for creating a new CDMI queue object using CDMI are sho
       - Requirement
     * - Accept
       - Header String
-      - "``application/cdmi-object``" or a consistent value as per clause :numref:`ref_content-type_negotiation` 
+      - "``application/cdmi-object``" or a consistent value as described in :numref:`%s <ref_content-type_negotiation>` 
       - Optional
     * - Content-Type
       - Header String
