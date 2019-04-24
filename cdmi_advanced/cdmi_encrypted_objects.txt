@@ -71,7 +71,7 @@ Access ciphertext of an encrypted object
 
 The ciphertext content of an encrypted object shall be read by performing an HTTP GET operation, as described in  :numref:`clause %s <http_data_object_read>`, with an Accept header value of "``application/cms``" or "``application/jose+json``", depending on the mimetype of the encrypted object.
 
-The ciphertext content of an encrypted object shall also be read by performing a CDMI GET operation, as described in  :numref:`clause %s <cdmi_data_object_read>`.
+The ciphertext content of an encrypted object shall also be read by performing a CDMI GET operation, as described in  :numref:`clause %s <ref_cdmi_data_object_read>`.
 
 
 Access plaintext of an encrypted object
