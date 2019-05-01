@@ -1086,7 +1086,13 @@ The request message body fields for updating a queue object using CDMI are shown
       - Optional [#b]_
     * - deserializevalue
       - JSON String
-      - A data object serialized as specified in :rfc:`4648` that shall be copied into the existing destination queue object.
+      - A queue object serialized as specified in :rfc:`4648`. 
+      
+        .. raw:: latex
+
+          \vspace*{1ex}
+
+        The object ID of the serialized queue object shall match the object ID of the destination queue object. Otherwise, the server shall return an HTTP status code of ``400 Bad Request``.
 
         * If the destination queue object URI does not specify individual fields, the destination queue object shall be replaced with the contents of the serialized source queue object, with the exception that the destination queue values shall be preserved. See :numref:`%s <ref_cdmi_queue_object_enqueue>` to deserailize enqueued items. 
         * If the destination queue object URI specifies individual fields, only the fields specified shall be used to update the destination queue object. If specified fields are not present in the source, these fields shall be ignored. If the value field is specified, it shall be ignored.  
