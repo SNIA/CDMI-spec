@@ -26,12 +26,34 @@ Where:
 Capabilities
 ------------
 
-The following capabilities describe the supported operations that may be performed when updating an existing data object:
+Capabilities that indicate which operations are supported are shown in :numref:`tbl_cdmi_data_object_update_capabilities`.
 
-* Support for the ability to modify the metadata of an existing data object is indicated by the presence of the ``cdmi_modify_metadata`` capability in the specified object.
-* Support for the ability to modify the value of an existing data object and/or MIME type is indicated by the presence of the ``cdmi_modify_value`` capability in the specified object.
-* Support for the ability to modify the value of an existing data object in specified byte ranges is indicated by the presence of the ``cdmi_modify_value_range`` capability in the specified object.
-* Support for the ability to modify an existing data object using multi-part MIME is indicated by the presence of the ``cdmi_multipart_mime`` system-wide capability.
+.. tabularcolumns:: |>{\raggedright\arraybackslash}\Y{0.35}
+                    |>{\raggedright\arraybackslash}\Y{0.20}
+                    |>{\raggedright\arraybackslash}\Y{0.45}|
+
+.. _tbl_cdmi_data_object_update_capabilities:
+
+.. list-table:: Capabilities - Update a CDMI Data Object using CDMI
+    :class: longtable
+    :header-rows: 1
+    :align: center 
+
+    * - Capability
+      - Location
+      - Description
+    * - cdmi_modify_metadata
+      - Parent Container
+      - Ability to modify the metadata of an existing data object
+    * - cdmi_modify_value
+      - Parent Container
+      - Ability to modify the value of an existing data object
+    * - cdmi_modify_value_range
+      - Parent Container
+      - Ability to modify a sub-range of the value of an existing data object
+    * - cdmi_multipart_mime
+      - System Wide Capability
+      - Ability to modify a data object using multi-part MIME
 
 Request Headers
 ---------------
@@ -46,6 +68,7 @@ The HTTP request headers for updating a CDMI data object using CDMI are shown in
 .. _tbl_cdmi_data_object_update_request_headers:
 
 .. list-table:: Request Headers - Update a CDMI Data Object using CDMI
+    :class: longtable
     :header-rows: 1
     :align: center 
 
@@ -102,13 +125,25 @@ The request message body fields for updating a data object using CDMI are shown 
         * This field shall be stored as part of the data object.
         * This mimetype field value shall be converted to lower case before being stored. 
 
-		If this field is set to "``application/cms``" or "``application/jose+json``", the CDMI server shall encrypt or reencrypt the value of the object in place, using the key specified by the "``cdmi_enc_key_id``" metadata item. If the "``cdmi_enc_key_id``" metadata item is not present, the object ID shall be used as the key identifier. The mimetype of the plaintext shall be stored in the CMS or JWE JSON representation.
+        If this field is set to "``application/cms``" or "``application/jose+json``", the CDMI server shall encrypt or reencrypt the value of the object in place, using the key specified by the "``cdmi_enc_key_id``" metadata item. If the "``cdmi_enc_key_id``" metadata item is not present, the object ID shall be used as the key identifier. The mimetype of the plaintext shall be stored in the CMS or JWE JSON representation.
+      
+        .. raw:: latex
 
-		If a "``cdmi_enc_value_sign_id``" metadata item is present, the encrypted object shall also be signed.
+          \vspace*{1ex}
 
-		If this field is changed from "``application/cms``" or "``application/jose+json``" to any other mimetype, the CDMI server shall decrypt the value of the object in place, replacing the specified mimetype with the mimetype of the encrypted object, if stored as part of the encrypted object.
+        If a "``cdmi_enc_value_sign_id``" metadata item is present, the encrypted object shall also be signed.
+      
+        .. raw:: latex
 
-		For more details on encrypted objects, see :numref:`clause %s <clause_cdmi_encrypted_objects>`.
+          \vspace*{1ex}
+
+        If this field is changed from "``application/cms``" or "``application/jose+json``" to any other mimetype, the CDMI server shall decrypt the value of the object in place, replacing the specified mimetype with the mimetype of the encrypted object, if stored as part of the encrypted object.
+      
+        .. raw:: latex
+
+          \vspace*{1ex}
+
+        For more details on encrypted objects, see :numref:`clause %s <clause_cdmi_encrypted_objects>`.
       - Optional
     * - metadata
       - JSON Object
@@ -124,7 +159,13 @@ The request message body fields for updating a data object using CDMI are shown 
       - Optional
     * - deserialize
       - JSON String
-      - URI of a serialized CDMI data object that shall be deserialized to update an existing data object. The object ID of the serialized data object shall match the object ID of the destination data object.
+      - The URL of a data object serialized as specified in RFC 4648.
+      
+        .. raw:: latex
+
+          \vspace*{1ex}
+
+        The object ID of the serialized data object shall match the object ID of the destination data object. Otherwise, the server shall return an HTTP status code of ``400 Bad Request``.
       - Optional [#b]_
     * - copy
       - JSON String
@@ -144,7 +185,13 @@ The request message body fields for updating a data object using CDMI are shown 
       - Optional [#b]_
     * - deserializevalue
       - JSON String
-      - A data object serialized as specified in :rfc:`4648`. The object ID of the serialized data object shall match the object ID of the destination data object.
+      - A data object serialized as specified in :rfc:`4648`. 
+      
+        .. raw:: latex
+
+          \vspace*{1ex}
+
+        The object ID of the serialized data object shall match the object ID of the destination data object. Otherwise, the server shall return an HTTP status code of ``400 Bad Request``.
       - Optional [#b]_
     * - valuetransferencoding
       - JSON String
@@ -171,7 +218,7 @@ The request message body fields for updating a data object using CDMI are shown 
         * If the valuetransferencoding field indicates JSON encoding, the value field shall contain a valid JSON object.
         * If a value range was specified in the request, the new data shall be inserted at the location specified by the range. Any resulting gaps between ranges shall be treated as if zeros had been written and shall be included when calculating the size of the value. When storing a range, the value shall be encoded using base 64, and the valuetransferencoding field shall be set to "``base64``".
       - Optional [#b]_
-	  
+    
 
 .. [#b] Only one of these fields shall be specified in any given operation. Except for value, these fields shall not be stored. If more than one of these fields is supplied, the server shall respond with an HTTP status code of ``400 Bad Request``.
 
@@ -245,7 +292,7 @@ Examples
 
 EXAMPLE 1: PUT to the data object URI to set new field values:
 
-   .. code-block:: http
+   .. code-block:: none
 
        PUT /MyContainer/MyDataObject.txt HTTP/1.1
        Host: cloud.example.com
@@ -262,14 +309,14 @@ EXAMPLE 1: PUT to the data object URI to set new field values:
 
    The following shows the response.
 
-   .. code-block:: http
+   .. code-block:: none
    
        HTTP/1.1 204 No Content 
 
 
 EXAMPLE 2: PUT to the data object URI to set a new MIME type:
 
-   .. code-block:: http
+   .. code-block:: none
 
        PUT /MyContainer/MyDataObject.txt?mimetype HTTP/1.1
        Host: cloud.example.com
@@ -281,14 +328,14 @@ EXAMPLE 2: PUT to the data object URI to set a new MIME type:
 
    The following shows the response.
 
-   .. code-block:: http
+   .. code-block:: none
        
        HTTP/1.1 204 No Content 
 
 
 EXAMPLE 3: PUT to the data object URI to update a range of the value:
 
-   .. code-block:: http
+   .. code-block:: none
 
        PUT /MyContainer/MyDataObject.txt?value:21-24 HTTP/1.1
        Host: cloud.example.com
@@ -300,7 +347,7 @@ EXAMPLE 3: PUT to the data object URI to update a range of the value:
 
    The following shows the response.
 
-   .. code-block:: http
+   .. code-block:: none
    
        HTTP/1.1 204 No Content
 
@@ -312,7 +359,7 @@ When updating a value without specifying a value transfer encoding, the client m
 
 EXAMPLE 4: PUT to the data object URI to replace all metadata with new metadata:
 
-   .. code-block:: http
+   .. code-block:: none
 
        PUT /MyContainer/MyDataObject.txt?metadata HTTP/1.1
        Host: cloud.example.com
@@ -327,14 +374,14 @@ EXAMPLE 4: PUT to the data object URI to replace all metadata with new metadata:
 
    The following shows the response.
 
-   .. code-block:: http
+   .. code-block:: none
    
        HTTP/1.1 204 No Content
 
 
 EXAMPLE 5: PUT to the data object URI to add a new metadata item while preserving existing metadata:
 
-   .. code-block:: http
+   .. code-block:: none
 
        PUT /MyContainer/MyDataObject.txt?metadata:shape HTTP/1.1
        Host: cloud.example.com
@@ -348,14 +395,14 @@ EXAMPLE 5: PUT to the data object URI to add a new metadata item while preservin
 
    The following shows the response.
 
-   .. code-block:: http
+   .. code-block:: none
    
        HTTP/1.1 204 No Content
 
 
 EXAMPLE 6: PUT to the data object URI to replace just one metadata item with a new value:
 
-   .. code-block:: http
+   .. code-block:: none
 
        PUT /MyContainer/MyDataObject.txt?metadata:colour HTTP/1.1
        Host: cloud.example.com
@@ -369,14 +416,14 @@ EXAMPLE 6: PUT to the data object URI to replace just one metadata item with a n
 
    The following shows the response.
 
-   .. code-block:: http
+   .. code-block:: none
 
        HTTP/1.1 204 No Content
 
 
 EXAMPLE 7: Delete a single metadata item:
 
-   .. code-block:: http
+   .. code-block:: none
 
        PUT /MyContainer/MyDataObject.txt?metadata:colour HTTP/1.1 
        Host: cloud.example.com 
@@ -388,14 +435,14 @@ EXAMPLE 7: Delete a single metadata item:
 
    The following shows the response. 
 
-   .. code-block:: http
+   .. code-block:: none
    
        HTTP/1.1 204 No Content
 
 
 EXAMPLE 8: Add, update, and delete metadata items. Assume a starting condition where the object has a metadata item "colour" with value "green" and a metadata item "shape" with value "round" and does not have a metadata item "size". After the update, "colour" has value "red", "shape" is deleted, and "size" has been added with value "10". 
 
-   .. code-block:: http
+   .. code-block:: none
 
        PUT /MyContainer/MyDataObject.txt?metadata:colour;metadata:shape;metadata:size HTTP/1.1
        
@@ -411,14 +458,14 @@ EXAMPLE 8: Add, update, and delete metadata items. Assume a starting condition w
 
    The following shows the response. 
 
-   .. code-block:: http
+   .. code-block:: none
    
     HTTP/1.1 204 No Content
 
 
 EXAMPLE 9: PUT to the data object URI to set new field values and the binary contents using multi-part MIME:
 
-   .. code-block:: http
+   .. code-block:: none
 
        PUT /MyContainer/MyDataObject.txt HTTP/1.1 
        Host: cloud.example.com 
@@ -445,14 +492,14 @@ EXAMPLE 9: PUT to the data object URI to set new field values and the binary con
 
    The following shows the response.
    
-   .. code-block:: http
+   .. code-block:: none
    
        HTTP/1.1 204 No Content 
 
 
 EXAMPLE 10: PUT to the data object URI to replace just one metadata item and update multiple byte ranges within the binary contents of the data object using multi-part MIME:
 
-   .. code-block:: http
+   .. code-block:: none
 
        PUT /MyContainer/BinaryObject.txt?metadata:colour HTTP/1.1 
        Host: cloud.example.com 
@@ -483,7 +530,7 @@ EXAMPLE 10: PUT to the data object URI to replace just one metadata item and upd
 
    The following shows the response.
 
-   .. code-block:: http
+   .. code-block:: none
    
        HTTP/1.1 204 No Content
 
@@ -491,7 +538,7 @@ EXAMPLE 10: PUT to the data object URI to replace just one metadata item and upd
        
 EXAMPLE 11: PUT to the data object URI to encrypt an existing object:
 
-    .. code-block:: http
+    .. code-block:: none
    
         PUT /MyContainer/MyDataObject.txt HTTP/1.1
         Host: cloud.example.com
@@ -506,7 +553,7 @@ EXAMPLE 11: PUT to the data object URI to encrypt an existing object:
 
     The following shows the response:
 
-    .. code-block:: http
+    .. code-block:: none
 
         HTTP/1.1 204 No Content
 
@@ -524,6 +571,6 @@ EXAMPLE 12: PUT to the data object URI to decrypt an existing encrypted object:
         
     The following shows the response:
 
-    .. code-block:: http
+    .. code-block:: none
         
         HTTP/1.1 204 No Content
