@@ -18,15 +18,31 @@ Where:
 * ``<DataObjectName>`` is the name of the data object to be deleted.
 * ``<DataObjectID>`` is the ID of the data object to be deleted.
 
-Capability
-----------
+Capabilities
+------------
 
-The following capability describes the supported operations that may be performed when deleting an existing data object:
+Capabilities that indicate which operations are supported are shown in :numref:`tbl_cdmi_data_object_delete_capabilities`.
 
-* Support for the ability to delete an existing data object is indicated by the presence of the ``cdmi_delete_dataobject`` capability in the specified object.
+.. tabularcolumns:: |>{\raggedright\arraybackslash}\Y{0.35}
+                    |>{\raggedright\arraybackslash}\Y{0.20}
+                    |>{\raggedright\arraybackslash}\Y{0.45}|
 
-Request Header
---------------
+.. _tbl_cdmi_data_object_delete_capabilities:
+
+.. list-table:: Capabilities - Delete a CDMI Data Object using CDMI
+    :class: longtable
+    :header-rows: 1
+    :align: center 
+
+    * - Capability
+      - Location
+      - Description
+    * - cdmi_delete_dataobject
+      - Parent Container
+      - Ability to delete an existing data object
+
+Request Headers
+---------------
 
 Request headers may be provided as per :rfc:`2616`.
 
@@ -57,7 +73,6 @@ Response Status
 
 .. list-table:: HTTP Status Codes - Delete a CDMI Data Object using CDMI
     :header-rows: 1
-    :widths: 30 70
     :align: center 
 
     * - HTTP Status
@@ -80,26 +95,26 @@ Example
 
 EXAMPLE 1: DELETE by data object URI:
 
-   .. code-block:: http
+   .. code-block:: none
 
        DELETE /MyContainer/MyDataObject.txt HTTP/1.1
        Host: cloud.example.com
 
    The following shows the response.
 
-   .. code-block:: http
+   .. code-block:: none
    
        HTTP/1.1 204 No Content 
 
 EXAMPLE 2: DELETE by data object ID:
 
-   .. code-block:: http
+   .. code-block:: none
 
        DELETE /cdmi_objectid/00007ED90010D891022876A8DE0BC0FD HTTP/1.1
        Host: cloud.example.com
 
    The following shows the response.
 
-   .. code-block:: http
+   .. code-block:: none
    
        HTTP/1.1 204 No Content 

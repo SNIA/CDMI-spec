@@ -30,12 +30,34 @@ Where:
 Capabilities 
 ------------
 
-The following capabilities describe the supported operations that may be performed when reading an existing data object:
+Capabilities that indicate which operations are supported are shown in :numref:`tbl_cdmi_data_object_read_capabilities`.
 
-* Support for the ability to read the metadata of an existing data object is indicated by the presence of the ``cdmi_read_metadata`` capability in the specified object.
-* Support for the ability to read the value of an existing data object is indicated by the presence of the ``cdmi_read_value capability`` in the specified object. 
-* Support for the ability to read the value of an existing data object in specific byte ranges is indicated by the presence of the ``cdmi_read_value_range capability`` in the specified object.
-* Support for the ability to read a data object using multi-part MIME is indicated by the presence of the ``cdmi_multipart_mime`` system-wide capability.
+.. tabularcolumns:: |>{\raggedright\arraybackslash}\Y{0.35}
+                    |>{\raggedright\arraybackslash}\Y{0.20}
+                    |>{\raggedright\arraybackslash}\Y{0.45}|
+
+.. _tbl_cdmi_data_object_read_capabilities:
+
+.. list-table:: Capabilities - Read a CDMI Data Object using CDMI
+    :class: longtable
+    :header-rows: 1
+    :align: center 
+
+    * - Capability
+      - Location
+      - Description
+    * - cdmi_read_metadata
+      - Parent Container
+      - Ability to read the metadata of an existing data object
+    * - cdmi_read_value
+      - Parent Container
+      - Ability to read the value of an existing data object
+    * - cdmi_read_value_range
+      - Parent Container
+      - Ability to read a sub-range of the value of an existing data object
+    * - cdmi_multipart_mime
+      - System Wide Capability
+      - Ability to read a data object using multi-part MIME
 
 Request Headers
 ---------------
@@ -271,7 +293,7 @@ Examples
 
 EXAMPLE 1: GET to the data object URI to read all fields of the data object:
 
-   .. code-block:: http
+   .. code-block:: none
 
        GET /MyContainer/MyDataObject.txt HTTP/1.1
        Host: cloud.example.com
@@ -279,7 +301,7 @@ EXAMPLE 1: GET to the data object URI to read all fields of the data object:
 
    The following shows the response.
 
-   .. code-block:: http
+   .. code-block:: none
    
        HTTP/1.1 200 OK
        Content-Type: application/cdmi-object
@@ -305,7 +327,7 @@ EXAMPLE 1: GET to the data object URI to read all fields of the data object:
 
 EXAMPLE 2: GET to the data object URI by ID to read all fields of the data object:
 
-   .. code-block:: http
+   .. code-block:: none
 
        GET /cdmi_objectid/00007ED90010D891022876A8DE0BC0FD HTTP/1.1
        Host: cloud.example.com 
@@ -313,7 +335,7 @@ EXAMPLE 2: GET to the data object URI by ID to read all fields of the data objec
 
    The following shows the response.
 
-   .. code-block:: http
+   .. code-block:: none
    
        HTTP/1.1 200 OK
        Content-Type: application/cdmi-object
@@ -338,7 +360,7 @@ EXAMPLE 2: GET to the data object URI by ID to read all fields of the data objec
 
 EXAMPLE 3: GET to the data object URI to read the value and mimetype fields of the data object:
 
-  .. code-block:: http
+  .. code-block:: none
 
      GET /MyContainer/MyDataObject.txt?value;mimetype HTTP/1.1
      Host: cloud.example.com
@@ -346,7 +368,7 @@ EXAMPLE 3: GET to the data object URI to read the value and mimetype fields of t
 
   The following shows the response.
 
-  .. code-block:: http
+  .. code-block:: none
 
      HTTP/1.1 200 OK
      Content-Type: application/cdmi-object
@@ -359,7 +381,7 @@ EXAMPLE 3: GET to the data object URI to read the value and mimetype fields of t
 
 EXAMPLE 4: GET to the data object URI to read the first 11 bytes of the value of the data object:
 
-   .. code-block:: http
+   .. code-block:: none
 
        GET /MyContainer/MyDataObject.txt?valuerange;value:0-10 HTTP/1.1
        Host: cloud.example.com
@@ -367,7 +389,7 @@ EXAMPLE 4: GET to the data object URI to read the first 11 bytes of the value of
 
    The following shows the response.
 
-   .. code-block:: http
+   .. code-block:: none
    
        HTTP/1.1 200 OK
        Content-Type: application/cdmi-object
@@ -380,7 +402,7 @@ EXAMPLE 4: GET to the data object URI to read the first 11 bytes of the value of
 
 EXAMPLE 5: GET to the data object URI to read the data object using multi-part MIME:
 
-   .. code-block:: http
+   .. code-block:: none
 
        GET /MyContainer/MyDataObject.txt HTTP/1.1 
        Host: cloud.example.com 
@@ -388,7 +410,7 @@ EXAMPLE 5: GET to the data object URI to read the data object using multi-part M
 
    The following shows the response.
 
-   .. code-block:: http
+   .. code-block:: none
    
        HTTP/1.1 200 OK 
        Content-Type: multipart/mixed; boundary=gc0p4Jq0M2Yt08j34c0p
@@ -426,7 +448,7 @@ EXAMPLE 5: GET to the data object URI to read the data object using multi-part M
 
 EXAMPLE 6: GET to the data object URI to read the data object using multi-part MIME, with optional content-lengths for the parts:
 
-   .. code-block:: http
+   .. code-block:: none
 
        GET /MyContainer/MyDataObject.txt HTTP/1.1 
        Host: cloud.example.com 
@@ -434,7 +456,7 @@ EXAMPLE 6: GET to the data object URI to read the data object using multi-part M
 
    The following shows the response.
 
-   .. code-block:: http
+   .. code-block:: none
    
        HTTP/1.1 200 OK 
        Content-Type: multipart/mixed; boundary=gc0p4Jq0M2Yt08j34c0p
@@ -474,7 +496,7 @@ EXAMPLE 6: GET to the data object URI to read the data object using multi-part M
    
 EXAMPLE 7: GET to the data object URI to read the metadata and multiple byte ranges of the binary contents using multi-part MIME:
 
-   .. code-block:: http
+   .. code-block:: none
 
        GET /MyContainer/MyDataObject.txt?metadata;value:0-10;value:21-24 HTTP/1.1 
        Host: cloud.example.com 
@@ -482,7 +504,7 @@ EXAMPLE 7: GET to the data object URI to read the metadata and multiple byte ran
 
    The following shows the response.
 
-   .. code-block:: http
+   .. code-block:: none
    
        HTTP/1.1 200 OK 
        Content-Type: multipart/mixed; boundary=gc0p4Jq0M2Yt08j34c0p
@@ -516,7 +538,7 @@ EXAMPLE 7: GET to the data object URI to read the metadata and multiple byte ran
 
 EXAMPLE 8: GET to the data object URI to read the value and valuetransferencoding fields of a data object storing JSON data:
 
-   .. code-block:: http
+   .. code-block:: none
 
       GET /cdmi_objectid/0000706D0010374085EF1A5C7018D774?valuetransferencoding;value HTTP/1.1
       Host: cloud.example.com
@@ -524,7 +546,7 @@ EXAMPLE 8: GET to the data object URI to read the value and valuetransferencodin
 
    The following shows the response.
 
-   .. code-block:: http
+   .. code-block:: none
    
       Content-Type: application/cdmi-object
 
@@ -537,7 +559,7 @@ EXAMPLE 8: GET to the data object URI to read the value and valuetransferencodin
 
 EXAMPLE 9: GET to the data object URI to read a newly-created data object with a current version:
 
-   .. code-block:: http
+   .. code-block:: none
 
       GET /MyContainer/MyVersionedDataObject.txt HTTP/1.1
       Host: cloud.example.com
@@ -545,7 +567,7 @@ EXAMPLE 9: GET to the data object URI to read a newly-created data object with a
 
    The following shows the response.
 
-   .. code-block:: http
+   .. code-block:: none
    
       Content-Type: application/cdmi-object
 
@@ -577,7 +599,7 @@ EXAMPLE 9: GET to the data object URI to read a newly-created data object with a
 
 EXAMPLE 10: GET to the data object URI to read a data object with two historical versions:
 
-   .. code-block:: http
+   .. code-block:: none
 
       GET /MyContainer/MyVersionedDataObject.txt HTTP/1.1
       Host: cloud.example.com
@@ -585,7 +607,7 @@ EXAMPLE 10: GET to the data object URI to read a data object with two historical
 
    The following shows the response.
 
-   .. code-block:: http
+   .. code-block:: none
    
       Content-Type: application/cdmi-object
 
@@ -617,7 +639,7 @@ EXAMPLE 10: GET to the data object URI to read a data object with two historical
 
 EXAMPLE 11: GET to the URI of a data object version:
 
-   .. code-block:: http
+   .. code-block:: none
 
       GET /cdmi_objectid/00007ED9001005192891EEBE599D94BB HTTP/1.1
       Host: cloud.example.com
@@ -625,7 +647,7 @@ EXAMPLE 11: GET to the URI of a data object version:
 
    The following shows the response.
 
-   .. code-block:: http
+   .. code-block:: none
    
       Content-Type: application/cdmi-object
 
