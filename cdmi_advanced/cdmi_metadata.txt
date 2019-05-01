@@ -405,7 +405,7 @@ Which data system metadata is supported by the CDMI server defined in :numref:`%
       - Optional
     * - cdmi_sanitization_method
       - JSON String
-      - If this data system metadata item is present and not an empty string, it indicates that the client is requesting that the system use a specific sanitization method to delete data such that the data is unrecoverable after an update or delete operation. Supported sanitization method values are provided by the cdmi_sanitization_method capability. 
+      - If this data system metadata item is present and not an empty string, it indicates that the client is requesting that the system use a specific sanitization method to delete data such that the data is unrecoverable after an update or delete operation. Supported sanitization method values are provided by the ``cdmi_sanitization_method`` capability. 
       
         .. raw:: latex
 
