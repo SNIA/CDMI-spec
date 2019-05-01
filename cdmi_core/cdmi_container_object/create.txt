@@ -166,7 +166,7 @@ The request message body fields for creating a container object using CDMI are s
       - Optional [#a]_
     * - deserializevalue
       - JSON String
-      - A container object serialized as specified in :rfc:`4648`. The object ID of the serialized container object shall match the object ID of the destination container object.
+      - A container object serialized as specified in :rfc:`4648`.
       - Optional [#a]_
 
 .. [#a] Only one of these fields shall be specified in any given operation. Except for value, these fields shall not be stored. If more than one of these fields is supplied, the server shall respond with an HTTP status code of ``400 Bad Request``.

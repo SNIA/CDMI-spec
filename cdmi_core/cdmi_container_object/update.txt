@@ -125,7 +125,13 @@ The request message body fields for updating a container object using CDMI are s
       - Optional
     * - deserialize
       - JSON String
-      - URI of a CDMI container object that shall be deserialized to update an existing container object. The object ID of the serialized container object shall match the object ID of the destination container object. 
+      - The URL of a container object serialized as specified in RFC 4648.
+      
+        .. raw:: latex
+
+          \vspace*{1ex}
+
+        The object ID of the serialized container object shall match the object ID of the destination container object. Otherwise, the server shall return an HTTP status code of ``400 Bad Request``.
 
         * If the serialized container object does not contain children, the update is applied only to the container object, and any existing children are left as is. 
         * If the serialized container object does contain children, then creates, updates, and deletes are recursively applied for each child, depending on the differences between the provided serialized state and the current state of the child.
