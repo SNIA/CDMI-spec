@@ -153,7 +153,7 @@ The request message body fields for creating a new data object using CDMI are sh
       - Optional
     * - deserialize
       - JSON String
-      - URI of a serialized CDMI data object that shall be deserialized to create the new data object
+      - URI of a CDMI data object with a value that contains a data object serialized as specified in :numref:`Clause %s <clause_cdmi_serialization>`. The serialized data object shall be deserialized to create the new data object.
       - Optional [#a]_
     * - serialize
       - JSON String
@@ -186,7 +186,7 @@ The request message body fields for creating a new data object using CDMI are sh
       - Optional [#a]_
     * - deserializevalue
       - JSON String
-      - A data object serialized as specified in :rfc:`4648`.
+      - A data object serialized as specified in :numref:`Clause %s <clause_cdmi_serialization>` and encoded using base 64 encoding rules described in :rfc:`4648`, that shall be deserialized to create the new data object.
 
           * If multi-part MIME is being used and this field contains the value of the MIME boundary parameter, the contents of the second MIME part shall be assigned as the field value. 
           * If the serialized data object in the second MIME part does not include a value field, the contents of the third MIME part shall be assigned as the field value of the value field.
