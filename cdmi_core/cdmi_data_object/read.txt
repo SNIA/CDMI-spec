@@ -47,13 +47,13 @@ Capabilities that indicate which operations are supported are shown in :numref:`
       - Location
       - Description
     * - cdmi_read_metadata
-      - Parent Container
+      - Data Object
       - Ability to read the metadata of an existing data object
     * - cdmi_read_value
-      - Parent Container
+      - Data Object
       - Ability to read the value of an existing data object
     * - cdmi_read_value_range
-      - Parent Container
+      - Data Object
       - Ability to read a sub-range of the value of an existing data object
     * - cdmi_multipart_mime
       - System Wide Capability

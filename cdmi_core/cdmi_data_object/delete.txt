@@ -38,7 +38,7 @@ Capabilities that indicate which operations are supported are shown in :numref:`
       - Location
       - Description
     * - cdmi_delete_dataobject
-      - Parent Container
+      - Data Object
       - Ability to delete an existing data object
 
 Request Headers
