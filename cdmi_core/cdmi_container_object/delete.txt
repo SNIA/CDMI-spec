@@ -21,9 +21,25 @@ Where:
 Capability 
 ----------
 
-The following capability describes the supported operations that may be performed when deleting an existing container object:
+Capabilities that indicate which operations are supported are shown in :numref:`tbl_cdmi_container_object_delete_capabilities`.
 
-* Support for the ability to delete an existing container object is indicated by the presence of the ``cdmi_delete_container`` capability in the specified container object.
+.. tabularcolumns:: |>{\raggedright\arraybackslash}\Y{0.35}
+                    |>{\raggedright\arraybackslash}\Y{0.20}
+                    |>{\raggedright\arraybackslash}\Y{0.45}|
+
+.. _tbl_cdmi_container_object_delete_capabilities:
+
+.. list-table:: Capabilities - Delete a CDMI Container Object using CDMI
+    :class: longtable
+    :header-rows: 1
+    :align: center 
+
+    * - Capability
+      - Location
+      - Description
+    * - cdmi_delete_container
+      - Container Object
+      - Ability to delete an existing container object
 
 Request Header
 --------------

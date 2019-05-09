@@ -40,16 +40,44 @@ The client performs GET operations to the URI to track the progress of the opera
 
 When the final result of the create operation is an error, the URI is created with the completionStatus field set to the error message. It is the client's responsibility to delete the URI after the error has been noted.
 
+.. raw:: latex
+
+          \newpage
+
 Capabilities 
 ------------
 
-The following capabilities describe the supported operations that may be performed when creating a new container object:
+Capabilities that indicate which operations are supported are shown in :numref:`tbl_cdmi_container_object_create_capabilities`.
 
-* Support for the ability to create a new container object is indicated by the presence of the ``cdmi_create_container`` capability in the parent container object.
-* If the object being created in the parent container object is a reference, support for that ability is indicated by the presence of the ``cdmi_create_reference`` capability in the parent container object.
-* If the new container object is a copy of an existing container object, support for the ability to copy is indicated by the presence of the ``cdmi_copy_container`` capability in the parent container object.
-* If the new container object is the destination of a move, support for the ability to move the container object is indicated by the presence of the ``cdmi_move_container`` capability in the parent container object.
-* If the new container object is the destination of a deserialize operation, support for the ability to deserialize the source data object serialization of a container object is indicated by the presence of the ``cdmi_deserialize_container`` capability in the parent container object.
+.. tabularcolumns:: |>{\raggedright\arraybackslash}\Y{0.35}
+                    |>{\raggedright\arraybackslash}\Y{0.20}
+                    |>{\raggedright\arraybackslash}\Y{0.45}|
+
+.. _tbl_cdmi_container_object_create_capabilities:
+
+.. list-table:: Capabilities - Create a CDMI Container Object using CDMI
+    :class: longtable
+    :header-rows: 1
+    :align: center 
+
+    * - Capability
+      - Location
+      - Description
+    * - cdmi_create_container
+      - Parent Container
+      - Ability to create a new container object
+    * - cdmi_create_reference
+      - Parent Container
+      - Ability to create a new reference
+    * - cdmi_copy_container
+      - Parent Container
+      - Ability to create a container object that is a copy of another container object
+    * - cdmi_move_container
+      - Parent Container
+      - Ability to move a container object from another location
+    * - cdmi_deserialize_container
+      - Parent Container
+      - Ability to create a container object that is deserialized from the contents of the PUT or the contents of a data object
 
 Request Headers
 ---------------

@@ -40,14 +40,38 @@ The client performs GET operations to the snapshot URI to track the progress of 
 
 When the final result of the snapshot operation is an error, the snapshot URI is created with the "``completionStatus``" field set to the error message. It is the client's responsibility to delete the URI after the error has been noted.
 
+.. raw:: latex
+
+          \newpage
+
 Capabilities 
 ------------
 
-The following capabilities describe the supported operations that may be performed when updating an existing container object:
+Capabilities that indicate which operations are supported are shown in :numref:`tbl_cdmi_container_object_update_capabilities`.
 
-* Support for the ability to modify the metadata of an existing container object is indicated by the presence of the ``cdmi_modify_metadata`` capability in the specified container object.
-* Support for the ability to snapshot the contents of an existing container object is indicated by the presence of the ``cdmi_snapshot`` capability in the specified container object.
-* Support for the ability to add an exported protocol to an existing container object is indicated by the presence of the ``cdmi_export_<protocol>`` capabilities for the specified container object.
+.. tabularcolumns:: |>{\raggedright\arraybackslash}\Y{0.35}
+                    |>{\raggedright\arraybackslash}\Y{0.20}
+                    |>{\raggedright\arraybackslash}\Y{0.45}|
+
+.. _tbl_cdmi_container_object_update_capabilities:
+
+.. list-table:: Capabilities - Update a CDMI Container Object using CDMI
+    :class: longtable
+    :header-rows: 1
+    :align: center 
+
+    * - Capability
+      - Location
+      - Description
+    * - cdmi_modify_metadata
+      - Container Object
+      - Ability to modify the metadata of an existing container object
+    * - cdmi_snapshot
+      - Container Object
+      - Ability to create a new snapshot of an existing container object
+    * - cdmi_export_<protocol>
+      - Container Object
+      - Ability to add and modify exports for an existing container object
 
 Request Headers
 ---------------
@@ -176,6 +200,9 @@ The request message body fields for updating a container object using CDMI are s
 
 .. [#a] Only one of these fields shall be specified in any given operation. Except for value, these fields shall not be stored.
 
+.. raw:: latex
+
+          \newpage
 
 Response Header
 ---------------
