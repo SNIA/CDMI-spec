@@ -135,11 +135,11 @@ The request message body fields for creating a container object using CDMI are s
       - JSON Object
       - Metadata for the container object
 
-           * If this field is included when deserializing, serializing, copying, or moving a container object, the value provided in this field shall replace the metadata from the source URI. 
-           * If this field is not included when deserializing, serializing, copying, or moving a container object, the metadata from the source URI shall be used. 
-           * If this field is included when creating a new container object by specifying a value, the value provided in this field shall be used as the metadata. 
-           * If this field is not included when creating a new container object by specifying a value, an empty JSON object (i.e., "``{}``") shall be assigned as the field value. 
-           * This field shall not be included when referencing a container object.
+          * If this field is included, the contents of the JSON object provided in this field shall be used as container object metadata. 
+          * If this field is included when deserializing, serializing, copying, or moving a container object, the contents of the JSON object provided in this field shall be used as object metadata instead of the metadata from the source URI. 
+          * If this field is not included, no user-specified metadata shall be added to the object. 
+          * If this field is not included when deserializing, serializing, copying, or moving a container object, metadata from the source URI shall be used. 
+          * This field shall not be included when creating a reference to a container object.
       - Optional
     * - domainURI
       - JSON String

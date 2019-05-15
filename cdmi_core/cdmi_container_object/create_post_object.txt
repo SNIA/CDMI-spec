@@ -186,11 +186,11 @@ The request message body fields for creating a new data object using CDMI are sh
       - JSON Object
       - Metadata for the data object
 
-          * If this field is included when deserializing, serializing, copying, or moving a data object, the value provided in this field shall replace the metadata from the source URI. 
-          * If this field is not included when deserializing, serializing, copying, or moving a data object, the metadata from the source URI shall be used. 
-          * If this field is included when creating a new data object by specifying a value, the value provided in this field shall be used as the metadata. 
-          * If this field is not included when creating a new data object by specifying a value, an empty JSON object (i.e., "``{}``") shall be assigned as the field value. 
-          * This field shall not be included when referencing a data object.
+          * If this field is included, the contents of the JSON object provided in this field shall be used as data object metadata. 
+          * If this field is included when deserializing, serializing, copying, or moving a data object, the contents of the JSON object provided in this field shall be used as object metadata instead of the metadata from the source URI. 
+          * If this field is not included, no user-specified metadata shall be added to the object. 
+          * If this field is not included when deserializing, serializing, copying, or moving a data object, metadata from the source URI shall be used. 
+          * This field shall not be included when creating a reference to a data object.
       - Optional
     * - domainURI
       - JSON String
