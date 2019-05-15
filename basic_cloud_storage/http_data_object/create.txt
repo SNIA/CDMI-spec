@@ -22,11 +22,28 @@ After it is created, the data object shall also be accessible at ``<root URI>/cd
 Capabilities
 ------------
 
-The following capabilities describe the supported operations that may be performed when creating a new data object:
+Capabilities that indicate which operations are supported are shown in :numref:`tbl_http_data_object_create_capabilities`.
 
-* Support for the ability to create a new data object is indicated by the presence of the ``cdmi_create_dataobject`` capability in the parent container.
-* Support for the ability to create the value of a new data object in specified byte ranges is indicated by the presence of the ``cdmi_create_value_range`` capability in the parent container.
+.. tabularcolumns:: |>{\raggedright\arraybackslash}\Y{0.35}
+                    |>{\raggedright\arraybackslash}\Y{0.20}
+                    |>{\raggedright\arraybackslash}\Y{0.45}|
 
+.. _tbl_http_data_object_create_capabilities:
+
+.. list-table:: Capabilities - Create a CDMI Data Object using HTTP
+    :class: longtable
+    :header-rows: 1
+    :align: center 
+
+    * - Capability
+      - Location
+      - Description
+    * - cdmi_create_dataobject
+      - Parent Container
+      - Ability to create a new data object
+    * - cdmi_create_value_range
+      - Parent Container
+      - Ability to create a data object using a specified byte range
 
 Request Headers
 ---------------
@@ -120,7 +137,7 @@ Example
 
 EXAMPLE 1: PUT to the container URI the data object name and contents.
 
-   .. code-block:: http
+   .. code-block:: none
 
       PUT /MyContainer/MyDataObject.txt HTTP/1.1
       Host: cloud.example.com
@@ -131,13 +148,13 @@ EXAMPLE 1: PUT to the container URI the data object name and contents.
 
    The following shows the response:
 
-   .. code-block:: http
+   .. code-block:: none
 
        HTTP/1.1 201 Created
 
 EXAMPLE 2: Put to the container URI to create an encrypted object:
 
-	.. code-block:: http
+	.. code-block:: none
 	
 		PUT /MyContainer/MyEncryptedObject.txt HTTP/1.1
 		Host: cloud.example.com
@@ -148,13 +165,13 @@ EXAMPLE 2: Put to the container URI to create an encrypted object:
 
 	The following shows the response:
 
-	.. code-block:: http
+	.. code-block:: none
 
 		HTTP/1.1 201 Created
 
 EXAMPLE 3: PUT to the container URI to create an encrypted object:
 
-	.. code-block: http
+	.. code-block: none
 	
 		PUT /MyContainer/MyEncryptedObject2.txt HTTP/1.1
 		Host: cloud.example.com
@@ -165,6 +182,6 @@ EXAMPLE 3: PUT to the container URI to create an encrypted object:
 
 	The following shows the response:
 
-	.. code-block:: http
+	.. code-block:: none
 
 		HTTP/1.1 201 Created

@@ -1,9 +1,7 @@
 .. _http_data_object_read:
-
-    
+ 
 Read a Data Object using HTTP
 *****************************
-
 
 Synopsis
 --------
@@ -24,11 +22,28 @@ Where:
 Capabilities
 ------------
 
-The following capabilities describe the supported operations that may be performed when reading an existing data object:
+Capabilities that indicate which operations are supported are shown in :numref:`tbl_http_data_object_read_capabilities`.
 
-* Support for the ability to read the value of an existing data object is indicated by the presence of the ``cdmi_read_value capability`` in the specified object. Any read from a specific byte location not previously written to by a create or update operation shall return zero for the byte value.
-* Support for the ability to read the value of an existing data object in specific byte ranges is indicated by the presence of the ``cdmi_read_value_range`` capability in the specified object. Any read from a specific byte location within the value range specified not previously written to by a create or update operation shall return zero for the byte value.
+.. tabularcolumns:: |>{\raggedright\arraybackslash}\Y{0.35}
+                    |>{\raggedright\arraybackslash}\Y{0.20}
+                    |>{\raggedright\arraybackslash}\Y{0.45}|
 
+.. _tbl_http_data_object_read_capabilities:
+
+.. list-table:: Capabilities - Read a CDMI Data Object using HTTP
+    :class: longtable
+    :header-rows: 1
+    :align: center 
+
+    * - Capability
+      - Location
+      - Description
+    * - cdmi_read_value
+      - Data Object
+      - Ability to read the value of an existing data object
+    * - cdmi_read_value_range
+      - Data Object
+      - Ability to read a sub-range of the value of an existing data object
 
 Request Header
 --------------
@@ -223,18 +238,19 @@ EXAMPLE 4: GET to the data object URI to read the plaintext of an encrypted obje
 
 EXAMPLE 5: GET to the data object URI to read the plaintext of an encrypted object:
 
-	.. code-block:: none
+  .. code-block:: none
 
-		GET /MyContainer/MyEncryptedObject.txt HTTP/1.1
-		Host: cloud.example.com
-		<Header credentials used to authenticate and access the decryption key>
+    GET /MyContainer/MyEncryptedObject.txt HTTP/1.1
+    Host: cloud.example.com
+    <Header credentials used to authenticate and access the decryption key>
 
-	The following shows the response:
+  The following shows the response:
 
-   .. code-block:: none
+  .. code-block:: none
 
-		HTTP/1.1 200 OK
-		Content-Type: text/plain
-		Content-Length: 252
+    HTTP/1.1 200 OK
+    Content-Type: text/plain
+    Content-Length: 252
 
-		<Decrypted contents of Encrypted Value>
+    <Decrypted contents of Encrypted Value>
+

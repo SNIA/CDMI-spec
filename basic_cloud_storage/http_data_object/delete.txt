@@ -22,10 +22,25 @@ Where:
 Capability 
 -----------
 
-The following capability describes the supported operations that may be performed when deleting an existing data object:
+Capabilities that indicate which operations are supported are shown in :numref:`tbl_http_data_object_delete_capabilities`.
 
-* Support for the ability to delete an existing data object is indicated by the presence of the ``cdmi_delete_dataobject`` capability in the specified object.
+.. tabularcolumns:: |>{\raggedright\arraybackslash}\Y{0.35}
+                    |>{\raggedright\arraybackslash}\Y{0.20}
+                    |>{\raggedright\arraybackslash}\Y{0.45}|
 
+.. _tbl_http_data_object_delete_capabilities:
+
+.. list-table:: Capabilities - Delete a CDMI Data Object using HTTP
+    :class: longtable
+    :header-rows: 1
+    :align: center 
+
+    * - Capability
+      - Location
+      - Description
+    * - cdmi_delete_dataobject
+      - Data Object
+      - Ability to delete an existing data object
 
 Request Headers 
 ---------------
@@ -87,14 +102,14 @@ Example
 
 EXAMPLE 1: DELETE to the data object URI:
 
-   .. code-block:: http
+   .. code-block:: none
    
        DELETE /MyContainer/MyDataObject.txt HTTP/1.1
        Host: cloud.example.com
 
    The following shows the response.
 
-   .. code-block:: http
+   .. code-block:: none
    
        HTTP/1.1 204 No Content
 
