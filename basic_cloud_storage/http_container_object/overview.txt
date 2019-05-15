@@ -4,7 +4,7 @@
 Overview
 ********
 
-Container objects are the fundamental grouping mechanism of stored data within CDMI and are analogous to directories in a file system. Each container object has zero or more child objects. 
+Container objects is the fundamental grouping mechanism for stored data within CDMI, and is analogous to directories in a file system. Each container object has zero or more child objects. 
 
 Following the URI conventions for hierarchical paths, container URIs shall consist of one or more container names that are separated by forward slashes ("/") and that end with a forward slash ("/"). 
 
