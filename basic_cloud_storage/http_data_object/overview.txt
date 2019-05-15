@@ -3,7 +3,7 @@
 Overview
 ********
 
-Data objects are the fundamental storage components within CDMI™ and are analogous to files in a file system.
+Data objects is the fundamental storage components within CDMI™, and is analogous to files in a file system.
 
 As CDMI builds on top of, and is compatible with, the HTTP standard (:rfc:`2616`), this allows unmodified HTTP clients to communicate with a CDMI server. This also allows CDMI operations to coexist with other HTTP-based storage protocols, such as WebDAV, S3, and OpenStack Swift. 
 
