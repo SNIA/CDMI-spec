@@ -3,6 +3,28 @@
 Metadata
 ========
 
+.. _ref_metadata:
+
+Overview
+***********************************
+
+CDMI metadata allows for additional information to be associated with stored objects. JSON objects, strings and arrays are used to transfer metadata in CDMI operations, which allows for metadata to be hierachical. CDMI servers may place a restriction on the number of metadata items, maximum size per metadata item, and total size of metadata items, as specified in the ``cdmi_metadata_maxitems``, ``cdmi_metadata_maxsize``, and ``cdmi_metadata_maxtotalsize`` capabilities. CDMI servers shall not place a restriction on the depth of the metadata hierarchy and number of array items, outside of the above restrictions.
+
+When objects are created, object metadata is created according to the following process:
+
+1. Metadata items specified in the create operation are added, overriding pre-existing metadata items
+2. Storage System metadata items are added to the object, overriding pre-existing metadata items subject to the restrictions described in :numref:`ref_support_for_storage_system_metadata`
+
+When objects are updated, object metadata is updated according to the following process:
+
+1. Existing metadata items are deleted, changed and/or added, as specified in the update operation
+2. Storage System metadata items are updated for the object, overriding pre-existing metadata items subject to the restrictions described in :numref:`ref_support_for_storage_system_metadata`
+
+When objects are read, object metadata is returned according to the following process:
+
+1. Data System Metadata items is inherited from the parent container
+2. Metadata items stored with the object are returned, overriding any inherited Data System Metadata items
+
 .. _ref_support_for_storage_system_metadata:
 
 Support for Storage System Metadata
