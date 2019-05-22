@@ -62,7 +62,6 @@ The HTTP request headers for updating a CDMI data object using HTTP are shown in
 
 .. list-table:: Request Headers - Update a CDMI Data Object using HTTP
     :header-rows: 1
-    :widths: 20 10 55 15
     :align: center 
 
     * - Header
@@ -71,17 +70,24 @@ The HTTP request headers for updating a CDMI data object using HTTP are shown in
       - Requirement
     * - Content-Type
       - Header String
-      - The content type of the data to be stored as a data object. The value specified here shall be used in the mimetype field of the CDMI data object.
-      - Mandatory
+      - The content type of the data to be stored as a data object. The value specified here shall be converted to lower case and stored in the mimetype field of the CDMI data object. 
+        
+        * If the content type includes the charset parameter as defined in :rfc:`2047` of "``utf-8`` (e.g., "``;charset=utf-8``"), the valuetransferencoding field of the CDMI data object shall be set to "``utf-8``". Otherwise, the valuetransferencoding field of the CDMI data object shall be set to "``base64``".
+        * If not specified, the existing mimetype field value shall be preserved.
+      - Optional
     * - Content-Range
       - Header String
       - A valid ranges-specifier (see :rfc:`2616` Section 14.35.1)
       - Optional
     * - X-CDMI-Partial
       - Header String
-      - "true". Indicates that the object is in the process of being updated and has not yet been fully updated. When set, the completionStatus field shall be set to "Processing".
-        
-        If the completionStatus field had previously been set to "Processing" by including this header in a create or update, the next update without this field shall change the completionStatus field back to "Complete". X-CDMI-Partial works across CDMI and non-CDMI operations.
+      - Indicates that the operation is part of a series of updates and has not yet been fully created. When set to "``true``", the ``completionStatus`` field shall be set to "``Processing``". ``X-CDMI-Partial`` works across CDMI and non-CDMI operations.
+
+        .. raw:: latex
+
+          \vspace*{1ex}
+
+        If the completionStatus field had previously been set to "``Processing``" by including this header in a create or update, the next update without this field shall change the completionStatus field back to "``Complete``".
       - Optional
 
 
@@ -105,7 +111,6 @@ The HTTP response header for updating a data object using HTTP is shown in :numr
 
 .. list-table:: Response Header - Update a CDMI Data Object using HTTP
     :header-rows: 1
-    :widths: 20 10 55 15
     :align: center 
 
 
@@ -136,7 +141,6 @@ The HTTP status codes that occur when updating a data object using HTTP are desc
 
 .. list-table:: HTTP Status Codes - Update a CDMI Data Object using HTTP
     :header-rows: 1
-    :widths: 30 70
     :align: center 
 
     * - HTTP Status
