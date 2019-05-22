@@ -42,7 +42,7 @@ Capabilities that indicate which operations are supported are shown in :numref:`
       - Parent Container
       - Ability to create a new data object
     * - cdmi_create_value_range
-      - Parent Container
+      - System Wide Capability
       - Ability to create a data object using a specified byte range
 
 Request Headers
@@ -59,7 +59,6 @@ The HTTP request headers for creating a CDMI data object using HTTP are shown in
 
 .. list-table:: Request Headers - Create a CDMI Data Object using HTTP
     :header-rows: 1
-    :widths: 20 10 55 15
     :align: center
 
     * - Header
@@ -113,7 +112,6 @@ The HTTP status codes that occur when creating a data object using HTTP are desc
 
 .. list-table:: HTTP Status Codes - Create a Data Object using HTTP
     :header-rows: 1
-    :widths: 30 70
     :align: center
 
     * - HTTP Status
