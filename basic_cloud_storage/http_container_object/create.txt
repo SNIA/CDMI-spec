@@ -21,12 +21,28 @@ After it is created, the container object shall also be accessible at ``<root UR
 The presence of a trailing slash at the end of the HTTP PUT URI indicates that a container object is being created and distinguishes it from a request to create a data object.
 
 
-Capability
-----------
+Capabilities
+------------
 
-The following capability describes the supported operations that may be performed when creating a new container object:
+Capabilities that indicate which operations are supported are shown in :numref:`tbl_http_container_object_create_capabilities`.
 
-* Support for the ability to create a new container object is indicated by the presence of the ``cdmi_create_container`` capability in the parent container object.
+.. tabularcolumns:: |>{\raggedright\arraybackslash}\Y{0.35}
+                    |>{\raggedright\arraybackslash}\Y{0.20}
+                    |>{\raggedright\arraybackslash}\Y{0.45}|
+
+.. _tbl_http_container_object_create_capabilities:
+
+.. list-table:: Capabilities - Create a CDMI Container Object using HTTP
+    :class: longtable
+    :header-rows: 1
+    :align: center 
+
+    * - Capability
+      - Location
+      - Description
+    * - cdmi_create_container
+      - Parent Container
+      - Ability to create a new data object
 
 
 Request Headers 
@@ -85,13 +101,13 @@ Example
 
 EXAMPLE 1: PUT to the URI the container object name:
 
-   .. code-block:: http
+   .. code-block:: none
 
        PUT /MyContainer/ HTTP/1.1
        Host: cloud.example.com
 
    The following shows the response.
 
-   .. code-block:: http
+   .. code-block:: none
    
        HTTP/1.1 201 Created
