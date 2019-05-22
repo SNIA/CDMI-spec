@@ -159,7 +159,7 @@ The request message body fields for creating a data object using CDMI are shown 
           * If this field is not included and multi-part MIME is not being used, the value of "``text/plain``" shall be assigned as the field value.
           * If this field is not included and multi-part MIME is being used, the value of the ``Content-Type`` header of the second MIME part shall be assigned as the field value.
           * This field shall be stored as part of the data object.
-          * This MIME type value shall be converted to lower case before being stored. 
+          * This field field value shall be converted to lower case before being stored. 
       - Optional
     * - metadata
       - JSON Object

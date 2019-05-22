@@ -127,7 +127,7 @@ The request message body fields for updating a data object using CDMI are shown 
         * This field may be included when updating by value, deserializing, and copying a data object.
         * If this field is not included, the existing value of the mimetype field shall be left unchanged.
         * This field shall be stored as part of the data object.
-        * This mimetype field value shall be converted to lower case before being stored. 
+        * This field field value shall be converted to lower case before being stored. 
 
         If this field is set to "``application/cms``" or "``application/jose+json``", the CDMI server shall encrypt or reencrypt the value of the object in place, using the key specified by the "``cdmi_enc_key_id``" metadata item. If the "``cdmi_enc_key_id``" metadata item is not present, the object ID shall be used as the key identifier. The mimetype of the plaintext shall be stored in the CMS or JWE JSON representation.
       
