@@ -180,7 +180,7 @@ The request message body fields for creating a new data object using CDMI are sh
           * If this field is not included and multi-part MIME is not being used, the value of "``text/plain``" shall be assigned as the field value.
           * If this field is not included and multi-part MIME is being used, the value of the ``Content-Type`` header of the second MIME part shall be assigned as the field value.
           * This field shall be stored as part of the data object.
-          * This MIME type value shall be converted to lower case before being stored. 
+          * This field field value shall be converted to lower case before being stored. 
       - Optional
     * - metadata
       - JSON Object
@@ -425,7 +425,7 @@ Examples
 
 EXAMPLE 1: POST to the container object URI the data object contents:
 
-  .. code-block:: http
+  .. code-block:: none
 
       POST /MyContainer/ HTTP/1.1
       Host: cloud.example.com
@@ -442,7 +442,7 @@ EXAMPLE 1: POST to the container object URI the data object contents:
 
 The following shows the response.
 
-  .. code-block:: http
+  .. code-block:: none
 
       HTTP/1.1 201 Created
       Content-Type: application/cdmi-object
@@ -465,7 +465,7 @@ The following shows the response.
 
 EXAMPLE 2: POST to the object ID URI the data object contents:
 
-  .. code-block:: http
+  .. code-block:: none
 
       POST /cdmi_objectid/ HTTP/1.1 
       Host: cloud.example.com 
@@ -480,7 +480,7 @@ EXAMPLE 2: POST to the object ID URI the data object contents:
 
 The following shows the response.
 
-  .. code-block:: http
+  .. code-block:: none
 
       HTTP/1.1 201 Created 
       Location: http://cloud.example.com/cdmi_objectid/00007ED900104E1D14771DC67C27BF8B
@@ -508,7 +508,7 @@ The following shows the response.
 
 EXAMPLE 3: POST to the object ID URI the data object fields and binary contents using multi-part MIME:
 
-  .. code-block:: http
+  .. code-block:: none
 
       POST /cdmi_objectid/ HTTP/1.1 
       Host: cloud.example.com 
@@ -535,7 +535,7 @@ EXAMPLE 3: POST to the object ID URI the data object fields and binary contents 
 
 The following shows the response.
 
-  .. code-block:: http
+  .. code-block:: none
 
       HTTP/1.1 201 Created
       Location: http://cloud.example.com/cdmi_objectid/00007ED90010C2414303B5C6D4F83170
