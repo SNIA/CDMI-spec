@@ -24,7 +24,6 @@ Where:
 Capabilities
 ------------
 
-
 Capabilities that indicate which operations are supported are shown in :numref:`tbl_http_data_object_update_capabilities`.
 
 .. tabularcolumns:: |>{\raggedright\arraybackslash}\Y{0.35}
@@ -47,6 +46,9 @@ Capabilities that indicate which operations are supported are shown in :numref:`
     * - cdmi_modify_value_range
       - Data Object
       - Ability to modify a sub-range of the value of an existing data object
+    * - cdmi_object_access_by_ID
+      - System Wide Capability
+      - Ability to access the object by ID
 
 Request Headers
 ---------------
@@ -61,6 +63,7 @@ The HTTP request headers for updating a CDMI data object using HTTP are shown in
 .. _tbl_http_data_object_updaterequest_headers:
 
 .. list-table:: Request Headers - Update a CDMI Data Object using HTTP
+    :class: longtable
     :header-rows: 1
     :align: center 
 

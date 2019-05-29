@@ -44,6 +44,9 @@ Capabilities that indicate which operations are supported are shown in :numref:`
     * - cdmi_read_value_range
       - Data Object
       - Ability to read a sub-range of the value of an existing data object
+    * - cdmi_object_access_by_ID
+      - System Wide Capability
+      - Ability to access the object by ID
 
 Request Header
 --------------
