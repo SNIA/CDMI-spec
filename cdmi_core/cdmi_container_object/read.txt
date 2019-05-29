@@ -55,6 +55,9 @@ Capabilities that indicate which operations are supported are shown in :numref:`
     * - cdmi_list_children_range
       - Container Object
       - Ability to list a specific range of children of an existing container object
+    * - cdmi_object_access_by_ID
+      - System Wide Capability
+      - Ability to access the object by ID
 
 Request Headers
 ---------------
