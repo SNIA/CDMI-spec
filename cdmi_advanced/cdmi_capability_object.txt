@@ -824,7 +824,7 @@ Domain Object Capabilities
       - If present and "``true``", this capability indicates that the CDMI server shall support the ability to deserialize a serialized domain object into the domain object as an update.
     * - cdmi_copy_domain     
       - JSON String    
-      - If present and "``true``", this capability indicates that the CDMI server shall support the ability to copy the domain (via PUT)  to another URI.
+      - If present and "``true``", this capability indicates that the CDMI server shall support the ability to copy the domain (via PUT) to another URI.
     * - cdmi_deserialize_domain    
       - JSON String    
       - If present and "``true``", this capability indicates that the CDMI server shall support the ability to deserialize serialized domains and associated serialized children into the domain.
@@ -938,7 +938,25 @@ Where:
 Capabilities 
 ------------
 
-No capabilities are associated with reading a capability object.
+Capabilities that indicate which operations are supported are shown in :numref:`tbl_cdmi_capability_object_read_capabilities`.
+
+.. tabularcolumns:: |>{\raggedright\arraybackslash}\Y{0.35}
+                    |>{\raggedright\arraybackslash}\Y{0.20}
+                    |>{\raggedright\arraybackslash}\Y{0.45}|
+
+.. _tbl_cdmi_capability_object_read_capabilities:
+
+.. list-table:: Capabilities - Read a CDMI Capabilities Object using CDMI
+    :class: longtable
+    :header-rows: 1
+    :align: center 
+
+    * - Capability
+      - Location
+      - Description
+    * - cdmi_object_access_by_ID
+      - System Wide Capability
+      - Ability to access the object by ID
 
 Request Headers
 ---------------

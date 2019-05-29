@@ -497,11 +497,32 @@ Delayed completion shall not be supported for creating domain objects.
 Capabilities 
 ------------
 
-The following capabilities describe the supported operations that may be performed when creating a new domain:
 
-* Support for the ability to create a new domain object is indicated by the presence of the ``cdmi_create_domain capability`` in the parent domain.
-* If the new domain object is a copy of an existing domain object, support for the ability to copy is indicated by the presence of the ``cdmi_copy_domain capability`` in the source domain.
-* If the new domain is the destination of a deserialize operation, support for the ability to deserialize the source data object serialization of a domain is indicated by the presence of the ``cdmi_deserialize_domain`` capability in the parent domain. 
+Capabilities that indicate which operations are supported are shown in :numref:`tbl_cdmi_domain_object_create_capabilities`.
+
+.. tabularcolumns:: |>{\raggedright\arraybackslash}\Y{0.35}
+                    |>{\raggedright\arraybackslash}\Y{0.20}
+                    |>{\raggedright\arraybackslash}\Y{0.45}|
+
+.. _tbl_cdmi_domain_object_create_capabilities:
+
+.. list-table:: Capabilities - Create a CDMI Domain Object using CDMI
+    :class: longtable
+    :header-rows: 1
+    :align: center 
+
+    * - Capability
+      - Location
+      - Description
+    * - cdmi_create_domain
+      - Parent Container
+      - Ability to create a new domain object
+    * - cdmi_copy_domain
+      - Parent Container
+      - Ability to create a domain object that is a copy of another domain object
+    * - cdmi_deserialize_domain
+      - Parent Container
+      - Ability to create a domain object that is deserialized from the contents of the PUT or the contents of another data object
 
 Request Headers
 ---------------
@@ -558,10 +579,10 @@ The request message body fields for creating a domain object using CDMI are show
       - JSON Object
       - Metadata for the domain object
 
-        * If this field is included when deserializing, serializing, copying, or moving a domain object, the value provided in this field shall replace the metadata from the source URI. 
-        * If this field is not included when deserializing, serializing, copying, or moving a domain object, the metadata from the source URI shall be used. 
-        * If this field is included when creating a new domain object by specifying a value, the value provided in this field shall be used as the metadata. 
-        * If this field is not included when creating a new domain object by specifying a value, an empty JSON object (i.e., "``{}``") shall be assigned as the field value.
+        * If this field is included, the contents of the JSON object provided in this field shall be used as domain object metadata. 
+        * If this field is included when deserializing, serializing, copying, or moving a domain object, the contents of the JSON object provided in this field shall be used as object metadata instead of the metadata from the source URI. 
+        * If this field is not included, no user-specified metadata shall be added to the object. 
+        * If this field is not included when deserializing, serializing, copying, or moving a domain object, metadata from the source URI shall be used. 
       - Optional
     * - copy
       - JSON String
@@ -789,10 +810,31 @@ Where:
 Capabilities 
 ------------
 
-The following capabilities describe the supported operations that may be performed when reading an existing domain:
+Capabilities that indicate which operations are supported are shown in :numref:`tbl_cdmi_domain_object_read_capabilities`.
 
-* Support for the ability to read the metadata of an existing domain object is indicated by the presence of the ``cdmi_read_metadata`` capability in the specified domain.
-* Support for the ability to list the children of an existing domain object is indicated by the presence of the ``cdmi_list_children`` capability in the specified domain.
+.. tabularcolumns:: |>{\raggedright\arraybackslash}\Y{0.35}
+                    |>{\raggedright\arraybackslash}\Y{0.20}
+                    |>{\raggedright\arraybackslash}\Y{0.45}|
+
+.. _tbl_cdmi_domain_object_read_capabilities:
+
+.. list-table:: Capabilities - Read a CDMI Domain Object using CDMI
+    :class: longtable
+    :header-rows: 1
+    :align: center 
+
+    * - Capability
+      - Location
+      - Description
+    * - cdmi_read_metadata
+      - Domain Object
+      - Ability to read the metadata of an existing domain object
+    * - cdmi_list_children
+      - Domain Object
+      - Ability to list the children of an existing domain object
+    * - cdmi_object_access_by_ID
+      - System Wide Capability
+      - Ability to access the object by ID
 
 Request Headers
 ---------------
@@ -1073,9 +1115,28 @@ Delayed completion shall not be supported for creating domain objects.
 Capability
 ----------
 
-The following capability describes the supported operations that may be performed when updating an existing domain:
+Capabilities that indicate which operations are supported are shown in :numref:`tbl_cdmi_domain_object_update_capabilities`.
 
-* Support for the ability to modify the metadata of an existing domain object is indicated by the presence of the ``cdmi_modify_metadata`` capability in the specified domain.
+.. tabularcolumns:: |>{\raggedright\arraybackslash}\Y{0.35}
+                    |>{\raggedright\arraybackslash}\Y{0.20}
+                    |>{\raggedright\arraybackslash}\Y{0.45}|
+
+.. _tbl_cdmi_domain_object_update_capabilities:
+
+.. list-table:: Capabilities - Update a CDMI Domain Object using CDMI
+    :class: longtable
+    :header-rows: 1
+    :align: center 
+
+    * - Capability
+      - Location
+      - Description
+    * - cdmi_modify_metadata
+      - Domain Object
+      - Ability to modify the metadata of an existing domain object
+    * - cdmi_object_access_by_ID
+      - System Wide Capability
+      - Ability to access the object by ID
 
 Request Headers
 ---------------
@@ -1282,9 +1343,28 @@ Where:
 Capability
 ----------
 
-The following capability describes the supported operations that may be performed when deleting an existing domain:
+Capabilities that indicate which operations are supported are shown in :numref:`tbl_cdmi_domain_object_delete_capabilities`.
 
-* Support for the ability to delete an existing domain object is indicated by the presence of the ``cdmi_delete_domain`` capability in the specified domain.
+.. tabularcolumns:: |>{\raggedright\arraybackslash}\Y{0.35}
+                    |>{\raggedright\arraybackslash}\Y{0.20}
+                    |>{\raggedright\arraybackslash}\Y{0.45}|
+
+.. _tbl_cdmi_domain_object_delete_capabilities:
+
+.. list-table:: Capabilities - Delete a CDMI Domain Object using CDMI
+    :class: longtable
+    :header-rows: 1
+    :align: center 
+
+    * - Capability
+      - Location
+      - Description
+    * - cdmi_delete_domain
+      - Domain Object
+      - Ability to delete an existing domain object
+    * - cdmi_object_access_by_ID
+      - System Wide Capability
+      - Ability to access the object by ID
 
 Request Headers
 ---------------
