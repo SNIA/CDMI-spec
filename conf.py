@@ -141,6 +141,8 @@ latex_contents = r'''
     \pagenumbering{arabic}
 '''
 
+latex_use_xindy = False
+
 latex_defns = Template(r'''
     \def\licensepage{
         \pagestyle{normal}
@@ -167,8 +169,7 @@ latex_elements = {
     'utf8extra': '',
 
     'printindex': '',
-    'preamble': r'''
-
+    'fontpkg': r'''
     % Set fonts
     \usepackage{fontspec}
     \setsansfont{Arial}
@@ -179,6 +180,11 @@ latex_elements = {
     \usepackage{scrextend}
     \changefontsizes[10pt]{9pt}
 
+    ''',
+
+    'preamble': r'''
+
+
     % Make table headers lightgray
     \usepackage{colortbl}
     \protected\def\sphinxstyletheadfamily {\cellcolor{lightgray}\sffamily}
@@ -187,9 +193,32 @@ latex_elements = {
     \addto\captionsenglish{\renewcommand{\partname}{Part}}
     \addto\captionsenglish{\renewcommand{\chaptername}{Clause}}
     \addto\captionsenglish{\renewcommand{\appendixname}{Annex}}
+    \addto\captionsenglish{\renewcommand{\figurename}{Figure}} 
     \usepackage{chngcntr}
     \counterwithout{figure}{chapter}
     \counterwithout{table}{chapter}
+    
+    % Change the tables of content/figure/table
+    \usepackage{tocloft}
+    \message{figure}
+    \newlength{\myfiglen}
+    \renewcommand{\cftfigpresnum}{\figurename\enspace}
+      \renewcommand{\cftfigaftersnum}{:}
+      \settowidth{\myfiglen}{\cftfigpresnum\cftfigaftersnum}
+      \addtolength{\cftfignumwidth}{\myfiglen}
+    \message{table}
+    \newlength{\mytablen}
+    \renewcommand{\cfttabpresnum}{\tablename\enspace}
+      \renewcommand{\cfttabaftersnum}{:}
+      \settowidth{\mytablen}{\cfttabpresnum\cfttabaftersnum}
+      \addtolength{\cfttabnumwidth}{\mytablen}
+    \message{chapter}
+    \newlength{\mychaplen}
+    \renewcommand{\cftchappresnum}{\chaptername\enspace}
+      \renewcommand{\cftchapaftersnum}{:}
+      \settowidth{\mychaplen}{\cftchappresnum\cftchapaftersnum}
+      \addtolength{\cftchapnumwidth}{\mychaplen}
+
 
     % Clear pages before new Part
     \usepackage{titlesec}
