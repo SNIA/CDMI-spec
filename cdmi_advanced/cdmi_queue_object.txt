@@ -91,7 +91,7 @@ Specific ranges of the value of a queue object may be accessed by specifying a b
 
 Because a byte range of a UTF-8 string is often not a valid UTF-8 string, the response to a range request shall always be transported in the value field as a base 64-encoded string.
 
-Byte ranges are specified as single, inclusive byte ranges as per Section 14.35.1 of :rfc:`2616`.
+Byte ranges are specified as single, inclusive byte ranges as per Section 14.35.1 of RFC 2616 :cite:`rfc2616`.
 
 If read access to any of the requested fields is not permitted by the object ACL, only the permitted fields shall be returned. If no requested fields are permitted to be read, an HTTP status code of ``403 Forbidden`` shall be returned to the client. 
 
@@ -99,9 +99,9 @@ If write access to any of the requested fields is not permitted by the object AC
 
 When a client provides or includes deserialization fields that are not defined in this international standard, these fields shall be stored as part of the object.
 
-The value of a queue object may also be specified and retrieved using multi-part MIME, where the CDMI JSON is transferred in the first MIME part and the raw queue values are transferred in the subsequent MIME parts. Each MIME part, including any header fields, shall conform to :rfc:`2045`, :rfc:`2046`, and :rfc:`2616`, and the length of each part may optionally be specified by a Content-Length header in addition to the MIME boundary delimiter.
+The value of a queue object may also be specified and retrieved using multi-part MIME, where the CDMI JSON is transferred in the first MIME part and the raw queue values are transferred in the subsequent MIME parts. Each MIME part, including any header fields, shall conform to RFC 2045 :cite:`rfc2045`, RFC 2046 :cite:`rfc2046`, and RFC 2616 :cite:`rfc2616`, and the length of each part may optionally be specified by a Content-Length header in addition to the MIME boundary delimiter.
 
-Multiple non-overlapping ranges of the value of a queue object may also be accessed or updated in a multi-part MIME operation by transferring one MIME part for each range of the value. The byte ranges for these operations shall be specified as per Section 14.35.1 of :rfc:`2616`.
+Multiple non-overlapping ranges of the value of a queue object may also be accessed or updated in a multi-part MIME operation by transferring one MIME part for each range of the value. The byte ranges for these operations shall be specified as per Section 14.35.1 of RFC 2616 :cite:`rfc2616`.
 
 Multi-part MIME enables the efficient transfer of binary data alongside CDMI object metadata without incurring the overhead of the UTF-8 or Base64 encoding and validation required to represent binary data in JSON.
 
@@ -324,7 +324,7 @@ The request message body fields for creating a queue object using CDMI are shown
       - Optional [#a]_
     * - deserializevalue
       - JSON String
-      - A queue object serialized as specified in :numref:`Clause %s <clause_cdmi_serialization>` and encoded using base 64 encoding rules described in :rfc:`4648`, that shall be deserialized to create the new queue object.
+      - A queue object serialized as specified in :numref:`Clause %s <clause_cdmi_serialization>` and encoded using base 64 encoding rules described in RFC 4648 :cite:`rfc4648`, that shall be deserialized to create the new queue object.
       - Optional [#a]_
 
 .. [#a] Only one of these fields shall be specified in any given operation. Except for value, these fields shall not be stored. If more than one of these fields is supplied, the server shall respond with an HTTP status code of ``400 Bad Request``.
@@ -807,8 +807,8 @@ The response message body fields for reading a CDMI queue object using CDMI are 
       - The oldest enqueued queue object values
 
         * The values in the JSON array are returned in order from oldest to newest.
-        * If the ``valuetransferencoding`` field indicates UTF-8 encoding, the corresponding value field shall contain a UTF-8 string using JSON escaping rules described in :rfc:`4627`.
-        * If the ``valuetransferencoding`` field indicates base 64 encoding, the corresponding value field shall contain a base 64-encoded string as described in RFC :rfc:`4648`.
+        * If the ``valuetransferencoding`` field indicates UTF-8 encoding, the corresponding value field shall contain a UTF-8 string using JSON escaping rules described in RFC 4627 :cite:`rfc4627`.
+        * If the ``valuetransferencoding`` field indicates base 64 encoding, the corresponding value field shall contain a base 64-encoded string as described in RFC RFC 4648 :cite:`rfc4648`.
         * If the ``valuetransferencoding`` field indicates JSON encoding, the corresponding value field shall contain a JSON object.
         * The value field shall not be provided when using multi-part MIME.
         * The value field shall only be provided when the completionStatus field contains "``Complete``".
@@ -1152,7 +1152,7 @@ The request message body fields for updating a queue object using CDMI are shown
       - Optional [#b]_
     * - deserializevalue
       - JSON String
-      - A queue object serialized as specified in :numref:`Clause %s <clause_cdmi_serialization>` and encoded using base 64 encoding rules described in :rfc:`4648`, that shall be deserialized to update the existing queue object.  
+      - A queue object serialized as specified in :numref:`Clause %s <clause_cdmi_serialization>` and encoded using base 64 encoding rules described in RFC 4648 :cite:`rfc4648`, that shall be deserialized to update the existing queue object.  
       
         .. raw:: latex
 
@@ -1196,7 +1196,7 @@ The HTTP response header for updating a CDMI queue object using CDMI is shown in
 Response Message Body 
 ---------------------
 
-A response body may be provided as per :rfc:`2616`.
+A response body may be provided as per RFC 2616 :cite:`rfc2616`.
 
 Response Status
 ---------------
@@ -1320,22 +1320,22 @@ Capabilities that indicate which operations are supported are shown in :numref:`
 Request Header
 --------------
 
-Request headers may be provided as per :rfc:`2616`.
+Request headers may be provided as per RFC 2616 :cite:`rfc2616`.
 
 Request Message Body
 --------------------
 
-A request body may be provided as per :rfc:`2616`.
+A request body may be provided as per RFC 2616 :cite:`rfc2616`.
 
 Response Headers 
 ----------------
 
-Response headers may be provided as per :rfc:`2616`.
+Response headers may be provided as per RFC 2616 :cite:`rfc2616`.
 
 Response Message Body 
 ---------------------
 
-A response body may be provided as per :rfc:`2616`.
+A response body may be provided as per RFC 2616 :cite:`rfc2616`.
 
 Response Status
 ---------------
@@ -1515,7 +1515,7 @@ The request message body fields for enqueuing a new queue object value using CDM
           * "``base64``" indicates that the queue object value may contain arbitrary binary sequences, and shall be transported as a base 64 encoded string in the value field. Setting the contents of the queue object value field to any value other than a valid base 64 string shall result in an HTTP status code of ``400 Bad Request`` being returned to the client.
           * "``json``" indicates that the queue object value contains a valid JSON object, and the value field shall contain a JSON object. Setting the contents of the queue object value field to any value other than a valid JSOM object shall result in an HTTP status code of ``400 Bad Request`` being returned to the client.
           * If this field is not included and multi-part MIME is not being used, the value of "``utf-8``" shall be assigned as the field value.
-          * If this field is not included and multi-part MIME is being used, the value of "``utf-8``" shall be assigned as the field value if the "``Content-Type``" header of the corresponding MIME part includes the charset parameter as defined in RFC 2046 of "``utf-8``" (e.g., "``;charset=utf-8``"). Otherwise, the value of "``base64``" shall be assigned as the field value. This field applies only to the encoding of the value when represented in JSON; the "``Content-Transfer-Encoding``" header of the part specifies the encoding of the value within a multi-part MIME request, as defined in :rfc:`2045`.
+          * If this field is not included and multi-part MIME is being used, the value of "``utf-8``" shall be assigned as the field value if the "``Content-Type``" header of the corresponding MIME part includes the charset parameter as defined in RFC 2046 of "``utf-8``" (e.g., "``;charset=utf-8``"). Otherwise, the value of "``base64``" shall be assigned as the field value. This field applies only to the encoding of the value when represented in JSON; the "``Content-Transfer-Encoding``" header of the part specifies the encoding of the value within a multi-part MIME request, as defined in RFC 2045 :cite:`rfc2045`.
           * This field shall be stored as part of the object.
       - Optional
     * - value
@@ -1523,8 +1523,8 @@ The request message body fields for enqueuing a new queue object value using CDM
       - Data to be enqueued into the queue object.
 
           * If this field is not included and multi-part MIME is being used, the contents of the MIME parts shall be assigned as the field value.
-          * If the corresponding valuetransferencoding field indicates UTF-8 encoding, the value shall be a UTF-8 string escaped using the JSON escaping rules described in :rfc:`4627`.
-          * If the corresponding valuetransferencoding field indicates base 64 encoding, the value shall be first encoded using the base 64 encoding rules as described in :rfc:`4648`.
+          * If the corresponding valuetransferencoding field indicates UTF-8 encoding, the value shall be a UTF-8 string escaped using the JSON escaping rules described in RFC 4627 :cite:`rfc4627`.
+          * If the corresponding valuetransferencoding field indicates base 64 encoding, the value shall be first encoded using the base 64 encoding rules as described in RFC 4648 :cite:`rfc4648`.
           * If the corresponding valuetransferencoding field indicates JSON encoding, the value shall contain a JSON object.
       - Optional [#c]_
 
@@ -1533,12 +1533,12 @@ The request message body fields for enqueuing a new queue object value using CDM
 Response Headers 
 ----------------
 
-Response headers may be provided as per :rfc:`2616`.
+Response headers may be provided as per RFC 2616 :cite:`rfc2616`.
 
 Response Message Body 
 ---------------------
 
-A response body may be provided as per :rfc:`2616`.
+A response body may be provided as per RFC 2616 :cite:`rfc2616`.
 
 Response Status
 ---------------
@@ -1824,22 +1824,22 @@ Capabilities that indicate which operations are supported are shown in :numref:`
 Request Header
 --------------
 
-Request headers may be provided as per :rfc:`2616`.
+Request headers may be provided as per RFC 2616 :cite:`rfc2616`.
 
 Request Message Body
 --------------------
 
-A request body may be provided as per :rfc:`2616`.
+A request body may be provided as per RFC 2616 :cite:`rfc2616`.
 
 Response Headers 
 ----------------
 
-Response headers may be provided as per :rfc:`2616`.
+Response headers may be provided as per RFC 2616 :cite:`rfc2616`.
 
 Response Message Body 
 ---------------------
 
-A response body may be provided as per :rfc:`2616`.
+A response body may be provided as per RFC 2616 :cite:`rfc2616`.
 
 Response Status
 ---------------

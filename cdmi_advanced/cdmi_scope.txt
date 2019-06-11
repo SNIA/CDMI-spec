@@ -236,7 +236,7 @@ Query matching expressions are structured as "<operator>" or "<operator><sp><con
 
           \vspace*{1ex}
 
-        Regular expression strings shall be processed according to the POSIX Extended Regular Expression (ERE) standard, as specified in :ref:`IEEE 1003.1 <ref_ieee_1003>`. 
+        Regular expression strings shall be processed according to the POSIX Extended Regular Expression (ERE) standard, as specified in IEEE 1003.1-2017 :cite:`ieee1003.1`. 
       
         .. raw:: latex
 
@@ -250,7 +250,7 @@ Query matching expressions are structured as "<operator>" or "<operator><sp><con
 
           \vspace*{1ex}
 
-        Regular expression strings shall be processed according to the POSIX Extended Regular Expression (ERE) standard, as specified in :ref:`IEEE 1003.1 <ref_ieee_1003>`. 
+        Regular expression strings shall be processed according to the POSIX Extended Regular Expression (ERE) standard, as specified in IEEE 1003.1-2017 :cite:`ieee1003.1`. 
       
         .. raw:: latex
 
@@ -258,7 +258,7 @@ Query matching expressions are structured as "<operator>" or "<operator><sp><con
 
         Regex matching expressions are only supported if the "``cdmi_query_regex``" capability is present. 
 
-Numeric constant strings shall be processed according to the JSON number representation described in :rfc:`4627`. A numeric matching expression shall be considered to be non-matching against a non-numeric field value.
+Numeric constant strings shall be processed according to the JSON number representation described in RFC 4627 :cite:`rfc4627`. A numeric matching expression shall be considered to be non-matching against a non-numeric field value.
 
 All fields in objects that are not included in the scope specification shall be ignored for the purpose of matching objects.
 

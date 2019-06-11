@@ -19,7 +19,7 @@ Where:
 
 The data object shall be accessible as a child of the container with a server-assigned name and shall also be accessible at ``<root URI>/cdmi_objectid/<objectID>``.
 
-HTTP POST to a container is used to enable CDMI servers to support :rfc:`1867` form-based file uploading. When implementing :rfc:`1867`, the CDMI server-assigned name may be the user-provided file name.
+HTTP POST to a container is used to enable CDMI servers to support RFC 1867 :cite:`rfc1867` form-based file uploading. When implementing RFC 1867 :cite:`rfc1867`, the CDMI server-assigned name may be the user-provided file name.
 
 
 
@@ -82,7 +82,7 @@ The HTTP request header for creating a new CDMI data object using HTTP is shown 
       - Header String
       - The content type of the data to be stored as a data object. The value specified here shall be converted to lower case and stored in the mimetype field of the CDMI data object.
 
-        * If the content type includes the charset parameter as defined in :rfc:`2047` of "``utf-8`` (e.g., "``;charset=utf-8``"), the valuetransferencoding field of the CDMI data object shall be set to "``utf-8``". Otherwise, the valuetransferencoding field of the CDMI data object shall be set to "``base64``".
+        * If the content type includes the charset parameter as defined in RFC 2047 :cite:`rfc2047` of "``utf-8`` (e.g., "``;charset=utf-8``"), the valuetransferencoding field of the CDMI data object shall be set to "``utf-8``". Otherwise, the valuetransferencoding field of the CDMI data object shall be set to "``base64``".
         * If not specified, the mimetype field shall be set to "``application/octet-stream``".
       - Optional
     * - X-CDMI-Partial
@@ -132,7 +132,7 @@ The HTTP response header for creating a new CDMI data object using HTTP is shown
 Response Message Body 
 ---------------------
 
-A response body may be provided as per :rfc:`2616`.
+A response body may be provided as per RFC 2616 :cite:`rfc2616`.
 
 
 Response Status 

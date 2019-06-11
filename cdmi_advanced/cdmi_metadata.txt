@@ -142,7 +142,7 @@ Which storage system metadata is supported by the CDMI server defined in :numref
       - Optional
     * - cdmi_hash
       - JSON String
-      - The hash of the value of the object, encoded using Base16 encoding rules described in :rfc:`4648`. This metadata field shall be present when the "``cdmi_value_hash``" data system metadata for the object or a parent object indicates that the value of the object should be hashed.
+      - The hash of the value of the object, encoded using Base16 encoding rules described in RFC 4648 :cite:`rfc4648`. This metadata field shall be present when the "``cdmi_value_hash``" data system metadata for the object or a parent object indicates that the value of the object should be hashed.
       
         .. raw:: latex
 

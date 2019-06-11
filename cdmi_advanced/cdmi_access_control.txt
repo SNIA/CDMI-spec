@@ -8,7 +8,7 @@ Access Control
 Access Control Lists
 ********************
 
-Access control comprises the mechanisms by which various types of access to objects are authorized and permitted or denied. CDMI™ uses the well-known mechanism of an Access Control List (ACL) as defined in the NFSv4 standard (see :rfc:`3530`). ACLs are lists of permissions-granting or permissions-denying entries called Access Control Entries (ACEs). 
+Access control comprises the mechanisms by which various types of access to objects are authorized and permitted or denied. CDMI™ uses the well-known mechanism of an Access Control List (ACL) as defined in the NFSv4 standard (see RFC 3530 :cite:`rfc3530`). ACLs are lists of permissions-granting or permissions-denying entries called Access Control Entries (ACEs). 
 
 
 ACL and ACE Structure
@@ -16,12 +16,12 @@ ACL and ACE Structure
 
 An ACL is an ordered list of ACEs. The two types of ACEs in CDMI are ``ALLOW`` and ``DENY``. An ``ALLOW`` ACE grants some form of access to a principal. Principals are either users or groups and are represented by identifiers. A ``DENY`` ACE denies access of some kind to a principal. For instance, a ``DENY`` ACE may deny the ability to write the metadata or ACL of an object but may remain silent on other forms of access. In that case, if another ACE ALLOWs write access to the object, the principal is allowed to write the object's data, but nothing else. 
 
-ACEs are composed of four fields: ``type``, ``who``, ``flags`` and ``access_mask``, as per :rfc:`3530`. The ``type``, ``flags``, and ``access_mask`` shall be specified as either unsigned integers in hex string representation or as a comma-delimited list of bit mask string form values taken from :ref:`tbl_ace_types`, :ref:`tbl_ace_flags`, and :ref:`tbl_ace_bit_masks`.
+ACEs are composed of four fields: ``type``, ``who``, ``flags`` and ``access_mask``, as per RFC 3530 :cite:`rfc3530`. The ``type``, ``flags``, and ``access_mask`` shall be specified as either unsigned integers in hex string representation or as a comma-delimited list of bit mask string form values taken from :ref:`tbl_ace_types`, :ref:`tbl_ace_flags`, and :ref:`tbl_ace_bit_masks`.
 
 ACE Types
 ---------
 
-:numref:`tbl_ace_types` defines the following ACE types, as specified in section 5.11.1 of :rfc:`3530`.
+:numref:`tbl_ace_types` defines the following ACE types, as specified in section 5.11.1 of RFC 3530 :cite:`rfc3530`.
 
 .. tabularcolumns:: |>{\raggedright\arraybackslash}\Y{0.10}
                     |>{\raggedright\arraybackslash}\Y{0.45}
@@ -152,7 +152,7 @@ CDMI allows for nested containers and mandates that objects and subcontainers be
 ACE Mask Bits
 -------------
 
-The mask field of an ACE contains a 32 bit mask, as specified in section 5.11.2 of :rfc:`3530`. 
+The mask field of an ACE contains a 32 bit mask, as specified in section 5.11.2 of RFC 3530 :cite:`rfc3530`. 
 
 .. tabularcolumns:: |>{\raggedright\arraybackslash}\Y{0.23}
                     |>{\raggedright\arraybackslash}\Y{0.32}

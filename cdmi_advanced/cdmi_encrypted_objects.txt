@@ -184,7 +184,7 @@ For signature creation and verification, payload field shall be computed using t
     - Within each JSON object, name/value pair entries shall be sorted lexicographically by name
     - Within each JSON array, the initial order shall be preserved
 4. Remove all JSON whitespace
-5. Base64 URL encode, according to the JWS :rfc:`7515`
+5. Base64 URL encode, according to the JWS RFC 7515 :cite:`rfc7515`
 
 Error Handling
 **************

@@ -83,11 +83,11 @@ Specific ranges of the value of a data object may be accessed by specifying a by
 
 Because a byte range of a UTF-8 string is often not a valid UTF-8 string, the response to a range request shall always be transported in the value field as a base 64-encoded string. Likewise, when updating a range of bytes within the value of a data object, the contents of the value field shall be transported as a base 64-encoded string.
 
-Byte ranges are specified as single inclusive byte ranges as per Section 14.35.1 of :rfc:`2616`.
+Byte ranges are specified as single inclusive byte ranges as per Section 14.35.1 of RFC 2616 :cite:`rfc2616`.
 
-The value of a data object may also be specified and retrieved using multi-part MIME, where the CDMI JSON is transferred in the first MIME part, and the raw object value is transferred in the second MIME part. Each MIME part, including any header fields, shall conform to :rfc:`2045`, :rfc:`2046`, and :rfc:`2616`. The length of each part may optionally be specified by a Content-Length header in addition to the MIME boundary delimiter.
+The value of a data object may also be specified and retrieved using multi-part MIME, where the CDMI JSON is transferred in the first MIME part, and the raw object value is transferred in the second MIME part. Each MIME part, including any header fields, shall conform to RFC 2045 :cite:`rfc2045`, RFC 2046 :cite:`rfc2046`, and RFC 2616 :cite:`rfc2616`. The length of each part may optionally be specified by a Content-Length header in addition to the MIME boundary delimiter.
 
-Multiple non-overlapping ranges of the value of a data object may also be accessed or updated in a multi-part MIME operation by transferring one MIME part for each range of the value. The byte ranges for these operations shall be specified as per Section 14.35.1 of :rfc:`2616`.
+Multiple non-overlapping ranges of the value of a data object may also be accessed or updated in a multi-part MIME operation by transferring one MIME part for each range of the value. The byte ranges for these operations shall be specified as per Section 14.35.1 of RFC 2616 :cite:`rfc2616`.
 
 Multi-part MIME enables the efficient transfer of binary data alongside CDMI object metadata without incurring the overhead of the UTF-8 or Base64 encoding and validation required to represent binary data in JSON.
 

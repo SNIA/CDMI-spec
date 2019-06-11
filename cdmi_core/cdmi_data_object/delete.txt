@@ -47,22 +47,22 @@ Capabilities that indicate which operations are supported are shown in :numref:`
 Request Headers
 ---------------
 
-Request headers may be provided as per :rfc:`2616`.
+Request headers may be provided as per RFC 2616 :cite:`rfc2616`.
 
 Request Message Body 
 --------------------
 
-A request body may be provided as per :rfc:`2616`.
+A request body may be provided as per RFC 2616 :cite:`rfc2616`.
 
 Response Headers 
 ----------------
 
-Response headers may be provided as per :rfc:`2616`.
+Response headers may be provided as per RFC 2616 :cite:`rfc2616`.
 
 Response Message Body 
 ---------------------
 
-A response body may be provided as per :rfc:`2616`.
+A response body may be provided as per RFC 2616 :cite:`rfc2616`.
 
 Response Status
 ---------------

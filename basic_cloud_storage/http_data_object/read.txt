@@ -70,7 +70,7 @@ The HTTP request header for reading a CDMI data object using HTTP is shown in :n
       - Requirement
     * - Range
       - Header String
-      - A valid ranges-specifier (see :rfc:`2616` Section 14.35.1)
+      - A valid ranges-specifier (see RFC 2616 :cite:`rfc2616` Section 14.35.1)
       - Optional
     * - Accept
       - Header String

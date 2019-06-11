@@ -82,7 +82,7 @@ When creating a notification queue, the metadata described in :numref:`tbl_requi
 
         * cdmi_event - Indicates the event as specified in the "``cdmi_notification_events``" field that triggered the notification;
         * cdmi_event_result - Indicates the status result of the event that triggered the notification. The status is the same as the status that was returned over the HTTP request, i.e., ``200 OK``, ``404 Not Found``, etc.;
-        * cdmi_event_time - Indicates the time of the event that triggered the notification. The time will be formatted in ISO-8601 time (see :numref:`%s <ref_time_representations>` and :numref:`ref_iso_8601:2004`); and
+        * cdmi_event_time - Indicates the time of the event that triggered the notification. The time will be formatted in ISO-8601 time (see :numref:`%s <ref_time_representations>` and ISo 8601-1:2019 :cite:`iso8601-1`); and
         * cdmi_event_user - Indicates the principal (ACL name) of the user that caused the event that triggered the notification. If the system triggered the event, the name will be left as an empty string. 
       - Mandatory
 
