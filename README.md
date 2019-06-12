@@ -66,6 +66,15 @@ Sphinx
 8. From the Mac Terminal, run `sudo port select --set sphinx py36-sphinx` to set python 3.6 as the default for Sphinx
 9. From the Mac Terminal, run `sudo port install py36-sphinxcontrib-bibtex` to install the bibtex bibliography extension to sphinx
 
+The following additional pacakges may be required:
+
+* sudo port install py36-sphinxcontrib-qthelp
+* sudo port install py36-sphinxcontrib-serializinghtml
+* sudo port install py36-sphinxcontrib-htmlhelp
+* sudo port install py36-sphinxcontrib-jsmath
+* sudo port install py36-sphinxcontrib-devhelp
+* sudo port install py36-sphinxcontrib-applehelp
+
 Sphinx with LaTeX
 -----------------
 
