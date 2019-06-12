@@ -217,7 +217,7 @@ The response message body fields for reading a CDMI container object using CDMI 
       - Mandatory
     * - children
       - JSON Array of JSON Strings
-      - Names of the children objects in the container object. When a client uses a child name in a request URI or a header URI, the client shall escape reserved characters  according to :rfc:`3986`, e.g., a "``%``" character in a child name shall be replaced with "``%25``". 
+      - Names of the children objects in the container object. When a client uses a child name in a request URI or a header URI, the client shall escape reserved characters  according to RFC 3986 :cite:`rfc3986`, e.g., a "``%``" character in a child name shall be replaced with "``%25``". 
 
         * Children that are container objects shall have "``/``" appended to the child name.
         * Children that are references shall have "``?``" appended to the child name.

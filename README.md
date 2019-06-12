@@ -18,7 +18,7 @@ Sphinx
    https://www.python.org/downloads/windows/
    Tested with Python 3.6.5
 
-2. From the Windows command line, run: `pip install sphinx`
+2. From the Windows command line, run: `pip install sphinx sphinxcontrib-bibtex`
    This should also pull in any dependencies
 
 Sphinx with LaTeX
@@ -64,6 +64,7 @@ Sphinx
 6. From the Mac Terminal, run `sudo port install py36-sphinx` to install sphinx
 7. From the Mac Terminal, run `sudo port select --set python python36` to set python 3.6 as default
 8. From the Mac Terminal, run `sudo port select --set sphinx py36-sphinx` to set python 3.6 as the default for Sphinx
+9. From the Mac Terminal, run `sudo port install py36-sphinxcontrib-bibtex` to install the bibtex bibliography extension to sphinx
 
 Sphinx with LaTeX
 -----------------

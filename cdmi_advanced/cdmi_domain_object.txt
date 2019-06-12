@@ -79,7 +79,7 @@ Individual fields within a domain object may be accessed by specifying the field
 
     ``http://cloud.example.com/cdmi_domains/myDomain/?children:0-2``
 
-Children ranges are specified in a way that is similar to byte ranges as per Section 14.35.1 of :rfc:`2616`. A client can determine the number of children present by requesting the childrenrange field without requesting a range of children.
+Children ranges are specified in a way that is similar to byte ranges as per Section 14.35.1 of RFC 2616 :cite:`rfc2616`. A client can determine the number of children present by requesting the childrenrange field without requesting a range of children.
 
 A list of fields separated by a semicolon ";" may be specified, allowing multiple fields to be accessed in a single request. 
 
@@ -291,7 +291,7 @@ The information in :numref:`tbl_contents_of_domain_summary_objects` shall be pre
       - Optional
     * - cdmi_summary_charge
       - JSON String
-      - An ISO 4217 currency code (see :numref:`ref_iso_4217:2008`) that is followed or preceded by a numeric value and separated by a space, where the numeric value represents the closing charge in the indicated currency for the use of the service associated with the domain over the summary time period
+      - An ISO 4217 currency code (see :cite:`iso4217`) that is followed or preceded by a numeric value and separated by a space, where the numeric value represents the closing charge in the indicated currency for the use of the service associated with the domain over the summary time period
       - Optional
     * - cdmi_summary_kwhours
       - JSON String
@@ -604,7 +604,7 @@ The request message body fields for creating a domain object using CDMI are show
       - Optional [#a]_
     * - deserializevalue
       - JSON String
-      - A domain object serialized as specified in :numref:`Clause %s <clause_cdmi_serialization>` and encoded using base 64 encoding rules described in :rfc:`4648`, that shall be deserialized to create the new domain object, including all child objects.
+      - A domain object serialized as specified in :numref:`Clause %s <clause_cdmi_serialization>` and encoded using base 64 encoding rules described in RFC 4648 :cite:`rfc4648`, that shall be deserialized to create the new domain object, including all child objects.
       - Optional [#a]_
 
 .. [#a] Only one of these fields shall be specified in any given operation. Except for value, these fields shall not be stored. If more than one of these fields is supplied, the server shall respond with an HTTP status code of ``400 Bad Request``.
@@ -1223,7 +1223,7 @@ The request message body fields for updating a domain object using CDMI are show
       - Optional [#b]_
     * - deserializevalue
       - JSON String
-      - A domain object serialized as specified in :numref:`Clause %s <clause_cdmi_serialization>` and encoded using base 64 encoding rules described in :rfc:`4648`, that shall be deserialized to update the existing domain object.
+      - A domain object serialized as specified in :numref:`Clause %s <clause_cdmi_serialization>` and encoded using base 64 encoding rules described in RFC 4648 :cite:`rfc4648`, that shall be deserialized to update the existing domain object.
       
         .. raw:: latex
 
@@ -1265,7 +1265,7 @@ The HTTP response header for updating a CDMI domain object using CDMI is shown i
 Response Message Body 
 ---------------------
 
-A response body may be provided as per :rfc:`2616`.
+A response body may be provided as per RFC 2616 :cite:`rfc2616`.
 
 Response Status
 ---------------
@@ -1369,22 +1369,22 @@ Capabilities that indicate which operations are supported are shown in :numref:`
 Request Headers
 ---------------
 
-Request headers may be provided as per :rfc:`2616`.
+Request headers may be provided as per RFC 2616 :cite:`rfc2616`.
 
 Request Message Body
 --------------------
 
-A request body may be provided as per :rfc:`2616`.
+A request body may be provided as per RFC 2616 :cite:`rfc2616`.
 
 Response Headers 
 ----------------
 
-Response headers may be provided as per :rfc:`2616`.
+Response headers may be provided as per RFC 2616 :cite:`rfc2616`.
 
 Response Message Body 
 ---------------------
 
-A response body may be provided as per :rfc:`2616`.
+A response body may be provided as per RFC 2616 :cite:`rfc2616`.
 
 Response Status
 ---------------

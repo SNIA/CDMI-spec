@@ -243,8 +243,8 @@ The response message body fields for reading a CDMI data object using CDMI are s
       - JSON String
       - The data object value
 
-        * If the valuetransferencoding field indicates UTF-8 encoding, the value field shall contain a UTF-8 string using JSON escaping rules described in :rfc:`4627`.
-        * If the valuetransferencoding field indicates base 64 encoding, the value field shall contain a base 64-encoded string as described in :rfc:`4648`.
+        * If the valuetransferencoding field indicates UTF-8 encoding, the value field shall contain a UTF-8 string using JSON escaping rules described in RFC 4627 :cite:`rfc4627`.
+        * If the valuetransferencoding field indicates base 64 encoding, the value field shall contain a base 64-encoded string as described in RFC 4648 :cite:`rfc4648`.
         * If the valuetransferencoding field indicates JSON encoding, the value field shall contain a valid JSON object.
         * The value field shall not be provided when using multi-part MIME.
         * The value field shall only be provided when the completionStatus field contains "``Complete``".

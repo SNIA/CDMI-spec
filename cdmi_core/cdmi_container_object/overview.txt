@@ -86,7 +86,7 @@ Individual fields within a container object may be accessed by specifying the fi
 
         ``http://cloud.example.com/container/?children:0-2``
 
-Children ranges are specified in a way that is similar to byte ranges as per Section 14.35.1 of :rfc:`2616`. A client can determine the number of children present by requesting the childrenrange field without requesting a range of children.
+Children ranges are specified in a way that is similar to byte ranges as per Section 14.35.1 of RFC 2616 :cite:`rfc2616`. A client can determine the number of children present by requesting the childrenrange field without requesting a range of children.
 
 A list of fields, separated by a semicolon ";" may be specified, allowing multiple fields to be accessed in a single request. 
 

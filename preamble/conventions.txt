@@ -83,7 +83,7 @@ In request and response body tables, the Requirement column contains one of the 
 Key Word Requirements
 *********************
 
-In this international standard, the key words in :numref:`tbl_key_word_requirements` shall be interpreted as described in :rfc:`2119`.
+In this international standard, the key words in :numref:`tbl_key_word_requirements` shall be interpreted as described in RFC 2119 :cite:`rfc2119`.
 
 .. _tbl_key_word_requirements:
 

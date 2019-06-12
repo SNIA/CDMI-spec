@@ -390,7 +390,7 @@ For more detail on using the OCCI export protocol structure attributes, see :num
 iSCSI Exported Protocol
 ***********************
 
-CDMI defines the export of a container using the iSCSI protocol (see :rfc:`3720`). Each container is exported as a single SCSI Logical Unit as a Logical Unit Number (LUN). One or more iSCSI initiators import the LUN through an iSCSI target node and port using one or more iSCSI network portals (IP addresses). 
+CDMI defines the export of a container using the iSCSI protocol (see RFC 3720 :cite:`rfc3720`). Each container is exported as a single SCSI Logical Unit as a Logical Unit Number (LUN). One or more iSCSI initiators import the LUN through an iSCSI target node and port using one or more iSCSI network portals (IP addresses). 
 
 The export is described by the presence of an export field structure on the container that specifies the
 
@@ -469,7 +469,7 @@ EXAMPLE 8: iSCSI Export Modification
 WebDAV Exported Protocol
 ************************
 
-CDMI defines an export protocol structure for the WebDAV standard as follows (see :rfc:`4918`): 
+CDMI defines an export protocol structure for the WebDAV standard as follows (see RFC 4918 :cite:`rfc4918`): 
 
 * The protocol is "``Network/WebDAV``".
 * The path of the WebDAV mount point is as presented to clients (including server host name).

@@ -7,101 +7,64 @@ The following documents, in whole or in part, are normatively referenced in this
 
 The provisions of the referenced specifications other than ISO/IEC, IEC, ISO, and ITU documents, as identified in this clause, are valid within the context of this international standard. The reference to such a specification within this international standard does not give it any further status within ISO/IEC. In particular, it does not give the referenced specifications the status of an international standard. 
 
-.. todo:: find a better way of keeping a bibliography.
+ISO 3166:2013, *Codes for the representation of names of countries and their subdivisions (Parts 1, 2 and 3)* - see :cite:`iso3166-1,iso3166-2,iso3166-3`
 
-.. _ref_ieee_1003:
+ISO 4217:2015, *Codes for the representation of currencies and funds* - see :cite:`iso4217`
 
-.. glossary::
+ISO 8601:2019, *Data elements and interchange formats – Information interchange – Representation of dates and times* - see :cite:`iso8601-1,iso8601-2`
 
-    ISO 3166
-         Codes for the representation of names of countries and their subdivisions (Parts 1, 2 and 3) 
+ISO/IEC 9594-8:2017, *Information technology – Open Systems Interconnection – The Directory: Public-key and attribute certificate frameworks*
 
-    ISO 4217:2008
-         Codes for the representation of currencies and funds
+ISO 14721:2012, *Space data and information transfer systems – Open archival information system (OAIS) – Reference model* - see :cite:`iso14721`
 
-    ISO 8601:2004
-         Data elements and interchange formats – Information interchange – Representation of dates and times
+ISO/IEC 14776-414:2009, *SCSI Architecture Model - 4 (SAM-4)* - see :cite:`isoiec14776-414`
 
-    ISO/IEC 9594-8:2008
-         Information technology – Open Systems Interconnection – The Directory: Public-key and attribute certificate frameworks
+ISO/IEC 27040:2015, *Information technology – Security techniques – Storage security* - see :cite:`isoiec27040`
 
-    ISO 14701:2012
-         Space data and information transfer systems – Open archival information system (OAIS) – Reference model
+IEEE 1003.1-2017, *IEEE Standard for Information Technology--Portable Operating System Interface (POSIX(R)) Base Specifications, Issue 7* - see :cite:`ieee1003.1`
 
-    ISO/IEC 14776-414
-         SCSI Architecture Model - 4 (SAM-4)
+RFC 1867, *Form-based File Upload in HTML* - see :cite:`rfc1867`
 
-    ISO/IEC DIS 27040
-         Information technology – Security techniques – Storage security
+RFC 2045, *Multipurpose Internet Mail Extensions (MIME) Part One: Format of Internet Message Bodies* - see :cite:`rfc2045`
 
-    IEEE Std 1003.1
-         2004, POSIX ERE, The Open Group, Base Specifications Issue 6 - http://www.unix.org/version3/ieee_std.html
+RFC 2046, *Multipurpose Internet Mail Extensions (MIME) Part Two: Media Types* - see :cite:`rfc2046`
 
-    RFC 1867
-         Form-based File Upload in HTML - see :rfc:`1867`
+RFC 2119, *Key Words for Use in RFCs to Indicate Requirement Levels* - see :cite:`rfc2119`
 
-    RFC 2045
-         Multipurpose Internet Mail Extensions (MIME) Part One: Format of Internet Message Bodies - see :rfc:`2045`
+RFC 2578, *Structure of Management Information Version 2 (SMIv2)* - see :cite:`rfc2578`
 
-    RFC 2046
-         Multipurpose Internet Mail Extensions (MIME) Part Two: Media Types - see :rfc:`2046`
+RFC 2616, *Hypertext Transfer Protocol – HTTP/1.1* - see :cite:`rfc2616`
 
-    RFC 2119
-         Key Words for Use in RFCs to Indicate Requirement Levels - see :rfc:`2119`
+RFC 2617, *HTTP Authentication: Basic and Digest Access Authentication* - see :cite:`rfc2617`
 
-    RFC 2578
-         Structure of Management Information Version 2 (SMIv2) - see :rfc:`2578`
+RFC 3280, *Internet X.509 Public Key Infrastructure Certificate and Certificate Revocation List (CRL) Profile* - see :cite:`rfc3280`
 
-    RFC 2616
-         Hypertext Transfer Protocol – HTTP/1.1 - see :rfc:`2616`
+RFC 3530, *Network File System (NFS) Version 4 Protocol* - see :cite:`rfc3530`
 
-    RFC 2617
-         HTTP Authentication: Basic and Digest Access Authentication - see :rfc:`2617`
+RFC 3720, *Internet Small Computer Systems Interface (iSCSI)* - see :cite:`rfc3720`
 
-    RFC 3280
-         Internet X.509 Public Key Infrastructure Certificate and Certificate Revocation List (CRL) Profile - see :rfc:`3280`
+RFC 3986, *Uniform Resource Identifier (URI): Generic Syntax* - see :cite:`rfc3986`
 
-    RFC 3530
-         Network File System (NFS) Version 4 Protocol - see :rfc:`3530`
+RFC 4627, *The Application/JSON Media Type for JavaScript Object Notation (JSON)* - see :cite:`rfc4627` 
 
-    RFC 3720
-         Internet Small Computer Systems Interface (iSCSI) - see :rfc:`3720`
+RFC 4648, *The Base16, Base32, and Base64 Data Encodings* - see :cite:`rfc4648`
 
-    RFC 3986
-         Uniform Resource Identifier (URI): Generic Syntax - see :rfc:`3986`
+RFC 4918, *HTTP Extensions for Web Distributed Authoring and Versioning (WebDAV)* - see :cite:`rfc4918`
 
-    RFC 4627
-         The Application/JSON Media Type for JavaScript Object Notation (JSON) - see :rfc:`4627` 
+RFC 5246, *The Transport Layer Security (TLS) Protocol Version 1.2* - see :cite:`rfc5246`
 
-    RFC 4648
-         The Base16, Base32, and Base64 Data Encodings - see :rfc:`4648`
+RFC 6068, *The 'mailto' URI Scheme* - see :cite:`rfc6068`
 
-    RFC 4918
-         HTTP Extensions for Web Distributed Authoring and Versioning (WebDAV) - see :rfc:`4918`
+RFC 5652, *Cryptographic Message Syntac (CMS)* - see :cite:`rfc5652`
 
-    RFC 5246
-         The Transport Layer Security (TLS) Protocol Version 1.2 - see :rfc:`5246`
+RFC 6208, *Cloud Data Management Interface (CDMI) Media Types* - see :cite:`rfc6208`
 
-    RFC 6068
-         The 'mailto' URI Scheme - see :rfc:`6068`
+RFC 6839, *Additional Media Type Structured Syntax Suffixes* - see :cite:`rfc6839`
 
-	RFC 5652
-		 Cryptographic Message Syntac (CMS) - see :rfc:`5652`
-		 
-    RFC 6208
-         Cloud Data Management Interface (CDMI) Media Types - see :rfc:`6208`
+RFC 7515, *JSON Web Signatures* - see :cite:`rfc7515`
 
-    RFC 6839
-         Additional Media Type Structured Syntax Suffixes - see :rfc:`6839`
+RFC 7516, *JSON Web Encryption* - see :cite:`rfc7516`
 
-	RFC 7515
-		 JSON Web Signatures - see :rfc:`7515`
-		 
-	RFC 7516
-		 JSON Web Encryption - see :rfc:`7516`
+RFC 7518, *JSON Web Algorithms* - see :cite:`rfc7518`
 
-	RFC 7518
-		 JSON Web Algorithms - see :rfc:`7518`
-		 
-    SNIA TLS
-         TLS Specification for Storage Systems, version 1.0 - https://snia.org/tech_activities/standards/curr_standards/tls
+SNIA TLS, *TLS Specification for Storage Systems, version 1.0.1* - see :cite:`snia-tls`

@@ -440,7 +440,7 @@ To indicate the result of the DAC request to the requesting CDMI server, the DAC
       - Mandatory
     * - dac_object_key	
       - JSON Object	
-      - The key for the object in JWK format (See :rfc:`7517`). This key is only disclosed when ``cdmi_enc_key_id`` is included in the DAC request and the DAC provider allows access. 	
+      - The key for the object in JWK format (See RFC 7517 :cite:`rfc7517`). This key is only disclosed when ``cdmi_enc_key_id`` is included in the DAC request and the DAC provider allows access. 	
       - Optional
     * - dac_response_headers	
       - JSON Object	

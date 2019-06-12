@@ -107,7 +107,7 @@ For the purposes of this document, the following terms and definitions apply.
          a CDMI server that is capable of forwarding DAC requests and responses
          
     iSCSI
-         Internet Small Computer Systems Interface (see :rfc:`3720`)
+         Internet Small Computer Systems Interface (see RFC 3720 :cite:`rfc3720`)
 
     JOSE
          JavaScript Object Signing and Encryption
@@ -131,13 +131,13 @@ For the purposes of this document, the following terms and definitions apply.
          Logical Unit Number (see `ISO/IEC 14776-414`)
 
     metadata
-         data about other data (see :numref:`ref_iso_14701:2012`)
+         data about other data (see :cite:`iso14721`)
 
     MIME
-         Multipurpose Internet Mail Extensions (see :rfc:`2045`)
+         Multipurpose Internet Mail Extensions (see RFC 2045 :cite:`rfc2045`)
 
     NFS
-         Network File System (see :rfc:`3530`)
+         Network File System (see RFC 3530 :cite:`rfc3530`)
 
     object
          an entity that has an object ID, has a unique URI, and contains state
@@ -149,7 +149,7 @@ For the purposes of this document, the following terms and definitions apply.
          a globally-unique value assigned at creation time to identify an object
 
     OCCI
-         Open Cloud Computing Interface (see [OCCI]_)
+         Open Cloud Computing Interface (see :cite:`occi`)
 
     Platform as a Service (PaaS)
          delivery over a network of a virtualized programming environment, consisting of an application deployment stack based on a virtual computing environment
@@ -168,7 +168,7 @@ For the purposes of this document, the following terms and definitions apply.
          delivery of SaaS, PaaS, IaaS, and/or DaaS to, in principle, a relatively unrestricted set of customers
 
     Representational State Transfer (REST)
-         a specific set of principles for defining, addressing, and interacting with resources addressable by URIs (see [REST]_)
+         a specific set of principles for defining, addressing, and interacting with resources addressable by URIs (see :cite:`restthesis`)
 
     RPO
          recovery point objective
@@ -188,7 +188,7 @@ For the purposes of this document, the following terms and definitions apply.
          technology that allocates the physical capacity of a volume or file system as applications write data, rather than pre-allocating all the physical capacity at the time of provisioning
 
     Uniform Resource Identifier (URI)
-         compact sequence of characters that identifies an abstract or physical resource (see :rfc:`3986`)
+         compact sequence of characters that identifies an abstract or physical resource (see RFC 3986 :cite:`rfc3986`)
 
     version-enabled data object
          a CDMI data object with versioning enabled
@@ -200,7 +200,7 @@ For the purposes of this document, the following terms and definitions apply.
          presentation of resources as if they are physical, when in fact, they are decoupled from the underlying physical resources
 
     WebDAV
-         Web Distributed Authoring and Versioning (see :rfc:`4918`)
+         Web Distributed Authoring and Versioning (see RFC 4918 :cite:`rfc4918`)
 
     XAM
          eXtensible Access Method (see [INCITS 464-2010]_)
