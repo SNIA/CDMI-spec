@@ -68,12 +68,12 @@ Sphinx
 
 The following additional pacakges may be required:
 
-* sudo port install py36-sphinxcontrib-qthelp
-* sudo port install py36-sphinxcontrib-serializinghtml
-* sudo port install py36-sphinxcontrib-htmlhelp
-* sudo port install py36-sphinxcontrib-jsmath
-* sudo port install py36-sphinxcontrib-devhelp
-* sudo port install py36-sphinxcontrib-applehelp
+* `sudo port install py36-sphinxcontrib-qthelp`
+* `sudo port install py36-sphinxcontrib-serializinghtml`
+* `sudo port install py36-sphinxcontrib-htmlhelp`
+* `sudo port install py36-sphinxcontrib-jsmath`
+* `sudo port install py36-sphinxcontrib-devhelp`
+* `sudo port install py36-sphinxcontrib-applehelp`
 
 Sphinx with LaTeX
 -----------------
