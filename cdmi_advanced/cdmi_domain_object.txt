@@ -12,7 +12,15 @@ If a cloud storage system supports domains, the ``cdmi_domains`` system-wide cap
 
 A cloud storage system may include a hierarchy of domains that provide access to domain-related information within a CDMI context. This domain hierarchy is a series of CDMI objects that correspond to parent and child domains, with each domain corresponding to logical groupings of objects that are to be managed together. Domain measurement information about objects that are associated with each domain flow up to parent domains, facilitating billing and management operations that are typical for a cloud storage environment.
 
-FIXME - Add diagram (Issue #96)
+:numref:`fig_hierarchyofdomains` shows the hierarchy of domains and shows how the domainURI links data objects, container objects and queue objects into the domain hierachy. 
+
+.. _fig_hierarchyofdomains:
+
+.. figure:: /images/cdmi_domains_hierachy.pdf
+    :align:  center
+    :figwidth: 100%
+   
+    Hierarchy of Domains
 
 Each CDMI domain object is represented as a JSON object, containing one or more "fields". For example, the "``metadata``" field contains metadata items.
 
