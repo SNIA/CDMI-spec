@@ -76,7 +76,7 @@ Capability Object Fields
 
 Every CDMI object (excluding capability objects) includes a server-generated "``capabilitiesURI``" field that contains the URI of the capabilities object that describes which operations are permitted for that CDMI object.
 
-:numref:`fig_hierarchyofcapabilities` (shown on the next page) shows the hierarchy of capabilities and shows how the capabilitiesURI links data objects and container objects into the capabilities tree. 
+:numref:`fig_hierarchyofcapabilities` (shown on the next page) shows the hierarchy of capabilities and shows how the capabilitiesURI links data objects, container objects, queue objects and domain objects into the capabilities tree. 
 
 .. _fig_HierarchyofCapabilities:
 
