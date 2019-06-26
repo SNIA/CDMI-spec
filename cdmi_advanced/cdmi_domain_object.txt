@@ -45,7 +45,7 @@ The meaning, use, and permitted values of each field is described in each operat
 Domain Object Addressing
 ------------------------
 
-Domain objects are created in a special ``cdmi_domains`` container, found in the root URI for the cloud storage system. If the ``cdmi_create_domain`` capability is present for the URI of a given domain, then the cloud storage system supports the ability to create child domains under the URI. 
+Domain objects are created as children of a special ``cdmi_domains`` container object, which is present in the root URI for the cloud storage system when domains are supported. The ``cdmi_domains`` container object is system-generated, read-only, cannot be deleted, and only permits the creation of children domain objects, as indicated by the presence of the ``cdmi_create_domain`` capability. The ability to create a sub-domain under an existing domain object is indicated by the presence of the ``cdmi_create_domain`` capability for a given domain object.
 
 Domain objects are addressed in CDMI in two ways: 
 
