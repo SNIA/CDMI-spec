@@ -72,7 +72,7 @@ Domain objects may also be nested.
 
         ``http://cloud.example.com/cdmi_domains/myDomain/subDomain/``
 
-A nested domain has a parent domain object, shall be included in the children field of the parent domain object, and shall inherit <FIXME> from its parent domain. 
+A sub-domain has a parent domain object, shall be included in the children field of the parent domain object, and shall inherit Domain Membership from its parent domain (if not specified in the sub-domain). 
 
 Domain Object Fields
 --------------------
