@@ -339,6 +339,8 @@ If the charge value is provided, the value is for the operational cost (excludin
 
 Domain summary information may be extended by vendors to include additional metadata or domain reports beyond the metadata items specified by this international standard, as long as the field names for those metadata items do not begin with "``cdmi_``".
 
+.. _cdmi_domain_object_membership:
+
 Domain Object Membership
 ************************
 

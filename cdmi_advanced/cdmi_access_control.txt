@@ -5,10 +5,55 @@ Access Control
 
 .. _ref_access_control:
 
+Overview
+********
+
+Access control defines the mechanisms by which access to objects are permitted or denied. The CDMI International Standard supports the following options for access control:
+
+* No access control
+* Access Control List (ACL) based access control (See :numref:`%s <ref_access_control_lists>`)
+* Domain based access control (See :numref:`%s <ref_domain_usage_in_access_control>`)
+* Delegated access control (See Clause :numref:`%s <clause_cdmi_delegated_access_control>`)
+* Vendor-defined access control
+* Combinations of the above
+
+Access Control Flow
+-------------------
+
+:numref:`fig_access_control_flow` (see next page) illustrates the control flow for access control in a typical CDMI implementation. 
+
+.. _fig_access_control_flow:
+
+.. figure:: /images/cdmi_access_control_flow.pdf
+    :align:  center
+    :figwidth: 100%
+   
+    Access Control Flow
+
+1. The CDMI client initiates a CDMI operation by sending a CDMI request to a CDMI server. As part of the request, the CDMI client includes information about its identity and information to prove this identity (credentials). The method by which these credentials are presented and formatted is not specified in this International Standard, however, some guidance is provided in :numref:`%s <ref_overview_authentication>`.
+2. If the CDMI server supports Domains (see Clause :numref:`%s <clause_cdmi_domain_object>`), the CDMI server looks up the domain associated with the object the CDMI operation is being performed against. If the CDMI system does not support domains, steps 2 - 8 are skipped.
+3. The CDMI server obtains required information about the domain associated with the object.
+4. Domain Information is returned for further use.
+5. Domain information is used to resolve CDMI client credentials.
+6. If the Domain is configured to delegate identity resolution to an external system (such as Active Directory), credentials are sent to this external system for resolution.
+7. If the Domain is configured to use local membership, credentials are compared against the configured domain members (see :numref:`%s <cdmi_domain_object_membership>`).
+8. The resolved principle (user, group, indication of validity) is returned for further use.
+9. If the CDMI server supports Delegated Access Control (DAC) (see Clause :numref:`%s <clause_cdmi_delegated_access_control>`), the CDMI server looks up DAC metadata associated with the object the CDMI operation is being performed against. If the CDMI system does not support DAC, steps 10-14 are skipped.
+10. The CDMI server obtains DAC metadata associated with the object.
+11. DAC metadata is returned for further use.
+12. If DAC metadata is present and indicates that DAC is to be used, the specified delegation is performed.
+13. The external DAC provider is contacted.
+14. The DAC response is returned for further use.
+
+FIXME
+
+
 Access Control Lists
 ********************
 
-Access control comprises the mechanisms by which various types of access to objects are authorized and permitted or denied. CDMI™ uses the well-known mechanism of an Access Control List (ACL) as defined in the NFSv4 standard (see RFC 3530 :cite:`rfc3530`). ACLs are lists of permissions-granting or permissions-denying entries called Access Control Entries (ACEs). 
+.. _ref_access_control_lists:
+
+CDMI uses the well-known mechanism of an Access Control List (ACL) as defined in the NFSv4 standard (see RFC 3530 :cite:`rfc3530`). ACLs are lists of permissions-granting or permissions-denying entries called Access Control Entries (ACEs). 
 
 
 ACL and ACE Structure
