@@ -427,9 +427,9 @@ The response message body fields for creating a CDMI queue object using CDMI are
       - JSON String
       - A string indicating the percentage of completion if the object is still in the process of bewing created or updated by another operation.
 
-        * When the value of completionStatus is "``Processing``", this field, if provided, shall indicate the percentage of completion as a numeric integer value from "``0``" through "``100``". 
-        * When the value of completionStatus is "``Complete``", this field, if provided, shall contain the value "``100``". 
-        * When the value of completionStatus is "``Error``", this field, if provided, may contain any integer value from "``0``" through "``100``".
+        * When the value of ``completionStatus`` is "``Processing``", this field, if provided, shall indicate the percentage of completion as a numeric integer value from "``0``" through "``100``". 
+        * When the value of ``completionStatus`` is "``Complete``", this field, if provided, shall contain the value "``100``". 
+        * When the value of ``completionStatus`` is "``Error``", this field, if provided, may contain any integer value from "``0``" through "``100``".
       - Optional
     * - metadata
       - JSON Object
@@ -459,7 +459,7 @@ The HTTP status codes that occur when creating a queue object using CDMI are des
     * - ``201 Created``
       - The new queue object was created.
     * - ``202 Accepted``
-      - The queue object is in the process of being created. The CDMI client should monitor the completionStatus and percentComplete fields to determine the current status of the operation.
+      - The queue object is in the process of being created. The CDMI client should monitor the ``completionStatus`` and ``percentComplete`` fields to determine the current status of the operation.
     * - ``400 Bad Request``
       - The request contains invalid parameters or field names.
     * - ``401 Unauthorized``
@@ -755,9 +755,9 @@ The response message body fields for reading a CDMI queue object using CDMI are 
       - JSON String
       - A string indicating the percentage of completion if the object is still in the process of bewing created or updated by another operation.
 
-        * When the value of completionStatus is "``Processing``", this field, if provided, shall indicate the percentage of completion as a numeric integer value from 0 through 100. 
-        * When the value of completionStatus is "``Complete``", this field, if provided, shall contain the value "``100``". 
-        * When the value of completionStatus is "``Error``", this field, if provided, may contain any integer value from "``0``" through "``100``".
+        * When the value of ``completionStatus`` is "``Processing``", this field, if provided, shall indicate the percentage of completion as a numeric integer value from 0 through 100. 
+        * When the value of ``completionStatus`` is "``Complete``", this field, if provided, shall contain the value "``100``". 
+        * When the value of ``completionStatus`` is "``Error``", this field, if provided, may contain any integer value from "``0``" through "``100``".
       - Optional
     * - metadata
       - JSON Object
@@ -774,13 +774,13 @@ The response message body fields for reading a CDMI queue object using CDMI are 
       - JSON String
       - The range of designators for enqueued values. Every enqueued value shall be assigned a unique, monotonically-incrementing positive integer designator, starting from 0. If no values are enqueued, an empty string shall be returned. If values are enqueued, the lowest designator, followed by a hyphen ("``-``"), followed by the highest designator shall be returned.
 
-        * This field shall only be provided when completionStatus is "``Complete``" and when one or more values are enqueued.
+        * This field shall only be provided when ``completionStatus`` is "``Complete``" and when one or more values are enqueued.
       - Mandatory
     * - mimetype
       - JSON Array of JSON Strings
       - MIME types for each queue object value
         * The MIME types of the values are returned, each corresponding to the value in the same position in the JSON array.
-        * This field shall only be provided when completionStatus is "``Complete``" and when one or more values are enqueued.
+        * This field shall only be provided when ``completionStatus`` is "``Complete``" and when one or more values are enqueued.
       - Optional
     * - valuerange
       - JSON Array of JSON Strings
@@ -788,7 +788,7 @@ The response message body fields for reading a CDMI queue object using CDMI are 
 
         * The value ranges of the values are returned, each corresponding to the value in the same position in the JSON array.
         * If a specific value range has been requested, the entry in the valuerange field shall correspond to the bytes requested. If the request extends beyond the end of the value, the valuerange field shall indicate the smaller byte range returned.
-        * This field shall only be provided when completionStatus is "``Complete``" and when one or more values are enqueued.
+        * This field shall only be provided when ``completionStatus`` is "``Complete``" and when one or more values are enqueued.
       - Optional
     * - valuetransferencoding
       - JSON Array of JSON Strings
@@ -800,7 +800,7 @@ The response message body fields for reading a CDMI queue object using CDMI are 
         
         The value transfer encodings are returned, each corresponding to the value in the same position in the JSON array.
 
-        * This field shall only be provided when completionStatus is "``Complete``" and when one or more values are enqueued.
+        * This field shall only be provided when ``completionStatus`` is "``Complete``" and when one or more values are enqueued.
       - Optional
     * - value
       - JSON Array of JSON Strings
@@ -811,7 +811,7 @@ The response message body fields for reading a CDMI queue object using CDMI are 
         * If the ``valuetransferencoding`` field indicates base 64 encoding, the corresponding value field shall contain a base 64-encoded string as described in RFC RFC 4648 :cite:`rfc4648`.
         * If the ``valuetransferencoding`` field indicates JSON encoding, the corresponding value field shall contain a JSON object.
         * The value field shall not be provided when using multi-part MIME.
-        * The value field shall only be provided when the completionStatus field contains "``Complete``".
+        * The value field shall only be provided when the ``completionStatus`` field contains "``Complete``".
       - Conditional
 
 If individual fields are specified in the GET request, only these fields are returned in the result body. Optional fields that are requested but do not exist are omitted from the result body.
