@@ -46,7 +46,7 @@ Typographical Conventions
 
 All code text and HTTP status codes are shown in a fixed-width font, as follows:
 
-.. code-block:: http
+.. code-block:: none
 
     PUT /MyContainer/MyDataObject.txt HTTP/1.1
     Host: cloud.example.com
