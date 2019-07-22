@@ -346,9 +346,9 @@ The response message body fields for creating a data object using CDMI are shown
       - JSON String
       - A string indicating the percentage of completion if the object is still in the process of bewing created or updated by another operation.
 
-        * When the value of completionStatus is "``Processing``", this field, if provided, shall indicate the percentage of completion as a numeric integer value from "``0``" through "``100``". 
-        * When the value of completionStatus is "``Complete``", this field, if provided, shall contain the value "``100``". 
-        * When the value of completionStatus is "``Error``", this field, if provided, may contain any integer value from "``0``" through "``100``".
+        * When the value of ``completionStatus`` is "``Processing``", this field, if provided, shall indicate the percentage of completion as a numeric integer value from "``0``" through "``100``". 
+        * When the value of ``completionStatus`` is "``Complete``", this field, if provided, shall contain the value "``100``". 
+        * When the value of ``completionStatus`` is "``Error``", this field, if provided, may contain any integer value from "``0``" through "``100``".
       - Optional
     * - mimetype
       - JSON String
@@ -380,7 +380,7 @@ The HTTP status codes that occur when creating a data object using CDMI are desc
     * - ``201 Created``
       - The new data object was created.
     * - ``202 Accepted``
-      - The data object is in the process of being created. The CDMI client should monitor the completionStatus and percentComplete fields to determine the current status of the operation.
+      - The data object is in the process of being created. The CDMI client should monitor the ``completionStatus`` and ``percentComplete`` fields to determine the current status of the operation.
     * - ``400 Bad Request``
       - The request contains invalid parameters or field names.
     * - ``401 Unauthorized``

@@ -204,9 +204,9 @@ The response message body fields for reading a CDMI data object using CDMI are s
       - JSON String
       - A string indicating the percentage of completion if the object is still in the process of bewing created or updated by another operation.
 
-        * When the value of completionStatus is "``Processing``", this field, if provided, shall indicate the percentage of completion as a numeric integer value from 0 through 100. 
-        * When the value of completionStatus is "``Complete``", this field, if provided, shall contain the value "``100``". 
-        * When the value of completionStatus is "``Error``", this field, if provided, may contain any integer value from "``0``" through "``100``".
+        * When the value of ``completionStatus`` is "``Processing``", this field, if provided, shall indicate the percentage of completion as a numeric integer value from 0 through 100. 
+        * When the value of ``completionStatus`` is "``Complete``", this field, if provided, shall contain the value "``100``". 
+        * When the value of ``completionStatus`` is "``Error``", this field, if provided, may contain any integer value from "``0``" through "``100``".
       - Optional
     * - mimetype
       - JSON String
@@ -247,7 +247,7 @@ The response message body fields for reading a CDMI data object using CDMI are s
         * If the valuetransferencoding field indicates base 64 encoding, the value field shall contain a base 64-encoded string as described in RFC 4648 :cite:`rfc4648`.
         * If the valuetransferencoding field indicates JSON encoding, the value field shall contain a valid JSON object.
         * The value field shall not be provided when using multi-part MIME.
-        * The value field shall only be provided when the completionStatus field contains "``Complete``".
+        * The value field shall only be provided when the ``completionStatus`` field contains "``Complete``".
         * When reading a value, zeros shall be returned for any gaps resulting from non-contiguous writes.
       - Conditional
 
@@ -272,7 +272,7 @@ The HTTP status codes that occur when reading a data object using CDMI are descr
     * - ``200 OK``
       - The data object content was returned in the response.
     * - ``202 Accepted``
-      - The data object is in the process of being created. The CDMI client should monitor the completionStatus and percentComplete fields to determine the current status of the operation.
+      - The data object is in the process of being created. The CDMI client should monitor the ``completionStatus`` and ``percentComplete`` fields to determine the current status of the operation.
     * - ``302 Found``
       - The resource is a reference to another resource.
     * - ``400 Bad Request``
