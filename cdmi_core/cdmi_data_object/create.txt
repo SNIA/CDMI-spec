@@ -158,7 +158,6 @@ The request message body fields for creating a data object using CDMI are shown 
           * This field may be included when creating by value or when deserializing, serializing, copying, and moving a data object.
           * If this field is not included and multi-part MIME is not being used, the value of "``text/plain``" shall be assigned as the field value.
           * If this field is not included and multi-part MIME is being used, the value of the ``Content-Type`` header of the second MIME part shall be assigned as the field value.
-          * This field shall be stored as part of the data object.
           * This field field value shall be converted to lower case before being stored. 
       - Optional
     * - metadata
@@ -228,7 +227,6 @@ The request message body fields for creating a data object using CDMI are shown 
           * This field shall only be included when creating a data object by value.
           * If this field is not included and multi-part MIME is not being used, the value of "``utf-8``" shall be assigned as the field value.
           * If this field is not included and multi-part MIME is being used, the value of "``utf-8``" shall be assigned as the field value if the Content-Type header of the second and all MIME parts includes the charset parameter as defined in RFC 2046 of "``utf-8``" (e.g., "``;charset=utf-8``"). Otherwise, the value of "``base64``" shall be assigned as the field value. This field applies only to the encoding of the value when represented in CDMI; the ``Content-Transfer-Encoding`` header of the part specifies the encoding of the value within a multi-part MIME request, as defined in RFC 2045 :cite:`rfc2045`.
-          * This field shall be stored as part of the object.
       - Optional [#a]_
     * - value
       - JSON String

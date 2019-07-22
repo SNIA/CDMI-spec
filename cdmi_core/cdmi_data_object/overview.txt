@@ -64,7 +64,7 @@ A list of unique fields, separated by a semicolon "``;``" may be specified, allo
 
         ``https://cloud.example.com/dataobject?value;metadata``
 
-When a client provides fields that are not defined in this international standard or deserializes an object containing fields that are not defined in this international standard, these fields shall be stored as part of the object but shall not be interpreted.
+When a client provides fields that are not defined in this international standard or deserializes an object containing fields that are not defined in this international standard, these fields shall be persisted, but shall not be interpreted.
 
 Data Object Value
 -----------------
