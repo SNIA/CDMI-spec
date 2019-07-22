@@ -335,6 +335,8 @@ To ensure both security and interoperability, all CDMI implementations:
 
 When TLS is used to secure HTTP, the client and server typically perform some form of entity authentication. However, the specific nature of this entity authentication depends on the cipher suite negotiated; a cipher suite specifies the encryption algorithm and digest algorithm to use on a TLS connection. A very common scenario involves using server-side certificates, which the client trusts, as the basis for unidirectional entity authentication. It is possible that mutual authentication involving both client-side and server-side certificates may be required.
 
+.. _ref_overview_authentication:
+
 Client Authentication
 *********************
 
