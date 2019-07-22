@@ -215,7 +215,7 @@ Where the value of the above base64 encoded value is:
 
 EXAMPLE 1: An example of the metadata associated with a query queue is as follows:
 
-    .. code-block:: json
+    .. code-block:: none
 
         {
             "objectID" : "00007E7F0010EB9092B29F6CD6AD6824",

@@ -55,7 +55,7 @@ Add new example at end of :numref:`%s <ref_http_data_object_create>`:
 
 EXAMPLE 4: PUT to the container URI the data object name, contents, and metadata:
 
-  .. code-block:: http
+  .. code-block:: none
   
     PUT /MyContainer/MyDataObject.txt HTTP/1.1
     Host: cloud.example.com
@@ -68,7 +68,7 @@ EXAMPLE 4: PUT to the container URI the data object name, contents, and metadata
 
   The following shows the response:
 
-  .. code-block:: http
+  .. code-block:: none
 
     HTTP/1.1 201 Created
 
@@ -193,14 +193,14 @@ Example
 
 EXAMPLE 1: HEAD to the data object URI to check for the presence of a data object with header metadata:
 
-   .. code-block:: http
+   .. code-block:: none
 
       HEAD /MyContainer/MyDataObject.txt HTTP/1.1
       Host: cloud.example.com
 
    The following shows the response:
 
-   .. code-block:: http
+   .. code-block:: none
 
       HTTP/1.1 200 OK
       Content-Type: text/plain
@@ -256,14 +256,14 @@ Add new example at end of :numref:`%s <http_data_object_read>`:
 
 EXAMPLE 6: GET to the data object URI to read the value of the data object with header metadata:
 
-  .. code-block:: http
+  .. code-block:: none
   
     GET /MyContainer/MyDataObject.txt HTTP/1.1
     Host: cloud.example.com
 
   The following shows the response:
 
-  .. code-block:: http
+  .. code-block:: none
 
     HTTP/1.1 200 OK
     Content-Type: text/plain
@@ -333,7 +333,7 @@ Add new example at end of :numref:`%s <http_data_object_update>`:
 
 EXAMPLE 3: PUT to the data object URI to update the value and metadata of the data object:
 
-  .. code-block:: http
+  .. code-block:: none
   
     PUT /MyContainer/MyDataObject.txt HTTP/1.1
     Host: cloud.example.com
@@ -345,7 +345,7 @@ EXAMPLE 3: PUT to the data object URI to update the value and metadata of the da
 
   The following shows the response:
 
-  .. code-block:: http
+  .. code-block:: none
 
     HTTP/1.1 204 No Content
 
@@ -397,7 +397,7 @@ Add new example at end of :numref:`%s <ref_http_container_object_create>`:
 
 EXAMPLE 2: PUT to the URI the container object name and metadata:
 
-  .. code-block:: http
+  .. code-block:: none
   
     PUT /MyContainer/ HTTP/1.1
     Host: cloud.example.com
@@ -405,7 +405,7 @@ EXAMPLE 2: PUT to the URI the container object name and metadata:
 
   The following shows the response:
 
-  .. code-block:: http
+  .. code-block:: none
 
     HTTP/1.1 201 Created
 
@@ -530,14 +530,14 @@ Example
 
 EXAMPLE 1: HEAD to the container object URI to check for the presence of a container object with header metadata:
 
-   .. code-block:: http
+   .. code-block:: none
 
       HEAD /MyContainer/ HTTP/1.1
       Host: cloud.example.com
 
    The following shows the response:
 
-   .. code-block:: http
+   .. code-block:: none
 
       HTTP/1.1 200 OK
       Content-Type: application/cdmi-container
