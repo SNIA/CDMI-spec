@@ -69,7 +69,7 @@ The HTTP request headers for creating a CDMI data object using HTTP are shown in
       - Header String
       - The content type of the data to be stored as a data object. The value specified here shall be converted to lower case and stored in the mimetype field of the CDMI data object. 
         
-        * If the content type includes the charset parameter as defined in RFC 2047 :cite:`rfc2047` of "``utf-8`` (e.g., "``;charset=utf-8``"), the valuetransferencoding field of the CDMI data object shall be set to "``utf-8``". Otherwise, the valuetransferencoding field of the CDMI data object shall be set to "``base64``".
+        * If the content type includes the charset parameter as defined in RFC 2616 :cite:`rfc2616` of "``utf-8`` (e.g., "``;charset=utf-8``"), the valuetransferencoding field of the CDMI data object shall be set to "``utf-8``". Otherwise, the valuetransferencoding field of the CDMI data object shall be set to "``base64``".
         * If not specified, the mimetype field shall be set to "``application/octet-stream``".
       - Optional
     * - X-CDMI-Partial
