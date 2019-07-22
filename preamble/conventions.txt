@@ -85,33 +85,23 @@ Key Word Requirements
 
 In this international standard, the key words in :numref:`tbl_key_word_requirements` shall be interpreted as described in RFC 2119 :cite:`rfc2119`.
 
+.. tabularcolumns:: |>{\raggedright\arraybackslash}\Y{0.30}
+                    |>{\raggedright\arraybackslash}\Y{0.70}|
+
 .. _tbl_key_word_requirements:
 
-.. table:: Key Word Requirements
-    :align: center
+.. list-table:: Key Word Requirements
+    :class: longtable
+    :header-rows: 1
+    :align: center 
 
-    +--------------------+--------------------------------------------------------------------------------------------------------------------------------+
-    | Key Words          | Description                                                                                                                    |
-    +====================+================================================================================================================================+
-    | | shall            | An action described with any of these key words is unconditionally required.                                                   |
-    | | must             |                                                                                                                                |
-    | | required         |                                                                                                                                |
-    +--------------------+--------------------------------------------------------------------------------------------------------------------------------+
-    | | shall not        | An action described with either of these key word phrases is unconditionally prohibited.                                       |
-    | | must not         |                                                                                                                                |
-    +--------------------+--------------------------------------------------------------------------------------------------------------------------------+
-    | | should           | Valid reasons may exist in specific circumstances to ignore a particular action described with either of these key words,      |
-    | | recommended      | but the full implications must be understood and carefully weighed before choosing a different course.                         |
-    +--------------------+--------------------------------------------------------------------------------------------------------------------------------+
-    | | should not       | Valid reasons may exist in specific circumstances to accept a particular action described by either of these key word phrases, |
-    | | not recommended  | but the full implications should be understood and the case carefully weighed before implementing any action described with    |
-    |                    | these key words.                                                                                                               |
-    +--------------------+--------------------------------------------------------------------------------------------------------------------------------+
-    | | may              | An action described with either of these key words is truly optional. One vendor may choose to include the option because      |
-    | | optional         | a particular marketplace requires it or because the vendor feels that it enhances the product, while another vendor may omit   |
-    |                    | the same option. An implementation which does not include a particular option must be prepared to interoperate with another    |
-    |                    | implementation which does include the option, though perhaps with reduced functionality. Likewise, an implementation which     |
-    |                    | does include a particular option must be prepared to interoperate with another implementation which does not include the       |
-    |                    | option (except, of course, for the feature the option provides).                                                               |
-    +--------------------+--------------------------------------------------------------------------------------------------------------------------------+
-    
+    * - shall / must / required
+      - An action described with any of these key words is unconditionally required.
+    * - shall not / must not
+      - An action described with either of these key word phrases is unconditionally prohibited.
+    * - should / recommend
+      - Valid reasons may exist in specific circumstances to ignore a particular action described with either of these key words, but the full implications must be understood and carefully weighed before choosing a different course.
+    * - should not / not recommended
+      - Valid reasons may exist in specific circumstances to accept a particular action described by either of these key word phrases, but the full implications should be understood and the case carefully weighed before implementing any action described with these key words.
+    * - may / optional
+      - An action described with either of these key words is truly optional. One vendor may choose to include the option because a particular marketplace requires it or because the vendor feels that it enhances the product, while another vendor may omit the same option. An implementation which does not include a particular option must be prepared to interoperate with another implementation which does include the option, though perhaps with reduced functionality. Likewise, an implementation which does include a particular option must be prepared to interoperate with another implementation which does not include the option (except, of course, for the feature the option provides).
