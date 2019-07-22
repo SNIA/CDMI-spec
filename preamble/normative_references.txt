@@ -19,7 +19,11 @@ ISO 14721:2012, *Space data and information transfer systems – Open archival i
 
 ISO/IEC 14776-414:2009, *SCSI Architecture Model - 4 (SAM-4)* - see :cite:`isoiec14776-414`
 
+ISO/IEC 17788:2014, *Information technology -- Cloud computing -- Overview and vocabulary* - see :cite:`isoiec17788`
+
 ISO/IEC 27040:2015, *Information technology – Security techniques – Storage security* - see :cite:`isoiec27040`
+
+ISO/IEC Directives, Part 2, Rules for the structure and drafting of International Standards, 6th edition, 2011* - see :cite:`isoiecpart2`
 
 IEEE 1003.1-2017, *IEEE Standard for Information Technology--Portable Operating System Interface (POSIX(R)) Base Specifications, Issue 7* - see :cite:`ieee1003.1`
 
