@@ -566,7 +566,7 @@ EXAMPLE 11: PUT to the data object URI to encrypt an existing object:
 
 EXAMPLE 12: PUT to the data object URI to decrypt an existing encrypted object:
 
-    .. code-block: http
+    .. code-block: none
     
         PUT /MyContainer/MyEncryptedObject.txt HTTP/1.1
         Host: cloud.example.com
