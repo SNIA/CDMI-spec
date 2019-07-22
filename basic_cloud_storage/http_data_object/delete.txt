@@ -81,7 +81,6 @@ Response Status
 
 .. list-table:: HTTP Status Codes - Delete a CDMI Data Object using HTTP
     :header-rows: 1
-    :widths: 30 70
     :align: center 
 
     * - HTTP Status
