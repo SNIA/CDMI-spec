@@ -446,7 +446,7 @@ The following shows the response.
 
       HTTP/1.1 201 Created
       Content-Type: application/cdmi-object
-      Location: https://cloud.example.com/MyContainer/00007ED900104E1D14771DC67C27BF8B 
+      Location: http://cloud.example.com/MyContainer/00007ED900104E1D14771DC67C27BF8B 
        
       {
           "objectType" : "application/cdmi-object",
@@ -483,7 +483,7 @@ The following shows the response.
   .. code-block:: none
 
       HTTP/1.1 201 Created 
-      Location: https://cloud.example.com/cdmi_objectid/00007ED900104E1D14771DC67C27BF8B
+      Location: http://cloud.example.com/cdmi_objectid/00007ED900104E1D14771DC67C27BF8B
       Content-Type: application/cdmi-object 
        
       {

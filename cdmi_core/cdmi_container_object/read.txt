@@ -291,8 +291,8 @@ EXAMPLE 1: GET to the container object URI to read all the fields of the contain
             "OCCI/iSCSI": {
                 "identifier": "00007E7F00104BE66AB53A9572F9F51E",
                 "permissions": [
-                    "https://example.com/compute/0/",
-                    "https://example.com/compute/1/"
+                    "http://example.com/compute/0/",
+                    "http://example.com/compute/1/"
                 ]
             },
                 "Network/NFSv4" : {
