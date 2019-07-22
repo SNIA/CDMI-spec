@@ -14,7 +14,7 @@ Access control defines the mechanisms by which access to objects are permitted o
 * Access Control List (ACL) based access control (See :numref:`%s <ref_access_control_lists>`)
 * Domain based access control (See :numref:`%s <ref_domain_usage_in_access_control>`)
 * Delegated access control (See Clause :numref:`%s <clause_cdmi_delegated_access_control>`)
-* Vendor-defined access control
+* Vendor-defined access control extensions
 * Combinations of the above
 
 Access Control Flow
@@ -31,27 +31,40 @@ Access Control Flow
     Access Control Flow
 
 1. The CDMI client initiates a CDMI operation by sending a CDMI request to a CDMI server. As part of the request, the CDMI client includes information about its identity and information to prove this identity (credentials). The method by which these credentials are presented and formatted is not specified in this International Standard, however, some guidance is provided in :numref:`%s <ref_overview_authentication>`.
-2. If the CDMI server supports Domains (see Clause :numref:`%s <clause_cdmi_domain_object>`), the CDMI server looks up the domain associated with the object the CDMI operation is being performed against. If the CDMI system does not support domains, steps 2 - 8 are skipped.
+2. If the CDMI server supports Domains (see Clause :numref:`%s <clause_cdmi_domain_object>`), the CDMI server obtains the domain associated with the object the CDMI operation is being performed against. If the CDMI system does not support domains, steps 2 - 8 are skipped.
 3. The CDMI server obtains required information about the domain associated with the object.
 4. Domain Information is returned for further use.
 5. Domain information is used to resolve CDMI client credentials.
 6. If the Domain is configured to delegate identity resolution to an external system (such as Active Directory), credentials are sent to this external system for resolution.
 7. If the Domain is configured to use local membership, credentials are compared against the configured domain members (see :numref:`%s <cdmi_domain_object_membership>`).
 8. The resolved principle (user, group, indication of validity) is returned for further use.
-9. If the CDMI server supports Delegated Access Control (DAC) (see Clause :numref:`%s <clause_cdmi_delegated_access_control>`), the CDMI server looks up DAC metadata associated with the object the CDMI operation is being performed against. If the CDMI system does not support DAC, steps 10-14 are skipped.
-10. The CDMI server obtains DAC metadata associated with the object.
-11. DAC metadata is returned for further use.
-12. If DAC metadata is present and indicates that DAC is to be used, the specified delegation is performed.
-13. The external DAC provider is contacted.
-14. The DAC response is returned for further use.
 
-FIXME
+9. If the CDMI server supports ACLs (see :numref:`%s <ref_access_control_lists>`), the CDMI server evaluates the object ACL. If the CDMI system does not support ACLs, steps 9 - 15 are skipped.
+10. The CDMI ACL processing subsystem obtains the ACL for the object.
+11. The CDMI server obtains ACL metadata associated with the object.
+12. If the object is in a container, the CDMI server obtains ACL metadata for parent containers.
+13. The obtained ACL metadata is returned for further use.
+14. The CDMI ACL processing subsystem evaluates the resolved principals against the resolved ACL.
+15. The evaluated permission mask is returned for further use.
 
+16. If the CDMI server supports Delegated Access Control (DAC) (see Clause :numref:`%s <clause_cdmi_delegated_access_control>`), the CDMI server obtains DAC metadata associated with the object the CDMI operation is being performed against. If the CDMI system does not support DAC, steps 16 - 22 are skipped.
+17. The CDMI server obtains DAC metadata associated with the object.
+18. DAC metadata is returned for further use.
+
+19. If DAC metadata is present and indicates that DAC is to be used, the specified delegation is performed.
+20. The external DAC provider is contacted, including the evaluated Object permission mask.
+21. If a valid DAC response is received, the dac_applied_mask replaces the evaluated Object permission mask.
+22. The DAC results and Object permission mask is returned for further use.
+
+23. The Object permission mask is used to determine if the requested operation is permitted.
+24. The operation is permitted or denied, and the corresponding response returend to the CDMI Client.
+
+Steps 2 - 8, 9 - 15, and 16 - 18 can be performed in parallel.
+
+.. _ref_access_control_lists:
 
 Access Control Lists
 ********************
-
-.. _ref_access_control_lists:
 
 CDMI uses the well-known mechanism of an Access Control List (ACL) as defined in the NFSv4 standard (see RFC 3530 :cite:`rfc3530`). ACLs are lists of permissions-granting or permissions-denying entries called Access Control Entries (ACEs). 
 
@@ -701,4 +714,5 @@ EXAMPLE 1: An example of an ACL embedded in a response to a GET request is as fo
         "valuerange" : "0-16",
         "value" : "Hello CDMI World!" 
     }
+
 
