@@ -685,7 +685,7 @@ ACLs containing one or more ACEs shall be represented in JSON as follows:
 
 EXAMPLE 1: An example of an ACL embedded in a response to a GET request is as follows:
 
-.. code-block:: http
+.. code-block:: none
 
     HTTP/1.1 200 OK
     Content-Type: application/cdmi-object

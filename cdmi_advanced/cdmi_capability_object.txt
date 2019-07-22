@@ -14,7 +14,7 @@ Each CDMI capability object is represented as a JSON object, containing one or m
 
 EXAMPLE 1: CDMI Capability Object
 
-  .. code-block:: json
+  .. code-block:: none
 
     {
       "objectType": "application/cdmi-capability",

@@ -320,7 +320,7 @@ The information in :numref:`tbl_contents_of_domain_summary_objects` shall be pre
 
 EXAMPLE 4: An example of a daily domain summary object is as follows:
 
-    .. code-block:: json
+    .. code-block:: none
 
         {
             "cdmi_domainURI" : "/cdmi_domains/MyDomain/",
@@ -452,7 +452,7 @@ The domain membership container may also contain subcontainers with data objects
 
 EXAMPLE 1: An example of a domain membership object for a user is as follows:
 
-    .. code-block:: json
+    .. code-block:: none
 
         {
             "cdmi_member_enabled" : "true",
@@ -471,7 +471,7 @@ EXAMPLE 1: An example of a domain membership object for a user is as follows:
 
 EXAMPLE 2: An example of a domain membership object for a delegation is as follows:
 
-    .. code-block:: json
+    .. code-block:: none
 
         {
             "cdmi_member_enabled" : "true",

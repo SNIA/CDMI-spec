@@ -12,7 +12,7 @@ Each JSON object within the results specification represents a set of fields tha
 
 The results JSON object shall be constructed using the same structure as is used for CDMI objects. To show this, assume the following result from a CDMI GET for a data object:
 
-.. code-block:: http
+.. code-block:: none
 
         HTTP/1.1 200 OK
         Content-Type: application/cdmi-object
@@ -42,7 +42,7 @@ Each field inside a results specification JSON object indicates that the field s
 
 EXAMPLE 1: The following results specification requests that the ``objectID`` and ``cdmi_size`` metadata fields be returned in the results:
 
-    .. code-block:: json
+    .. code-block:: none
 
         {
             "cdmi_results_specification" : {
@@ -56,7 +56,7 @@ EXAMPLE 1: The following results specification requests that the ``objectID`` an
 
 EXAMPLE 2: If an object is matched, the result JSON is enqueued as follows:
 
-    .. code-block:: json
+    .. code-block:: none
 
         {
             "objectID" : "00007E7F0010EB9092B29F6CD6AD6824",
@@ -70,7 +70,7 @@ For most common use cases, clients request either the ``objectID``, the ``object
 
 EXAMPLE 3: To request all metadata items be returned for each matching object, the following ``cdmi_results_specification`` shall be used: 
 
-    .. code-block:: json
+    .. code-block:: none
 
         {
             "cdmi_results_specification" : {
@@ -81,7 +81,7 @@ EXAMPLE 3: To request all metadata items be returned for each matching object, t
 
 EXAMPLE 4: To request all fields and all metadata items be returned for each matching object, the following ``cdmi_results_specification`` shall be used:
 
-    .. code-block:: json
+    .. code-block:: none
 
         {
             "cdmi_results_specification" : "" 

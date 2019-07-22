@@ -89,7 +89,7 @@ When creating a notification queue, the metadata described in :numref:`tbl_requi
 
 EXAMPLE 1: The metadata associated with a notification queue is as follows:
 
-  .. code-block:: json
+  .. code-block:: none
 
       {
           "metadata" : {
@@ -125,7 +125,7 @@ When notification results are stored in a notification queue, each enqueued valu
 
 EXAMPLE 2: A notification result JSON object is as follows:
 
-  .. code-block:: json
+  .. code-block:: none
 
       {
           "cdmi_event" : "cdmi_read",

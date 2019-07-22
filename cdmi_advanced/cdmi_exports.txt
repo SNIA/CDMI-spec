@@ -24,7 +24,7 @@ Container object exports are represented as a JSON object, containing zero or mo
 
 EXAMPLE 1: CDMI Container Exports
 
-  .. code-block:: json
+  .. code-block:: none
 
     {
         "exports" : {

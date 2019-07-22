@@ -12,7 +12,7 @@ Each JSON object within the scope specification represents a set of conditions t
 
 Each JSON object is constructed using the same structure that CDMI objects use. To show this structure, assume the following result from a CDMI GET for a data object:
 
-.. code-block:: http
+.. code-block:: none
 
     HTTP/1.1 200 OK
     Content-Type: application/cdmi-object
@@ -266,7 +266,7 @@ When a URI is used as the constant for the equals and not equals operators again
 
 EXAMPLE 1: In a query to find all objects belonging to a specific domain, the following two query scopes are considered identical: 
 
-    .. code-block:: json
+    .. code-block:: none
 
         [
             {
@@ -276,7 +276,7 @@ EXAMPLE 1: In a query to find all objects belonging to a specific domain, the fo
 
     and 
 
-    .. code-block:: json
+    .. code-block:: none
     
         [
             {
@@ -286,7 +286,7 @@ EXAMPLE 1: In a query to find all objects belonging to a specific domain, the fo
 
 EXAMPLE 2: Likewise, a query to find all objects with a given parent container would have two equivalent forms: 
 
-    .. code-block:: json
+    .. code-block:: none
 
         [
             {
@@ -296,7 +296,7 @@ EXAMPLE 2: Likewise, a query to find all objects with a given parent container w
 
     and 
 
-    .. code-block:: json
+    .. code-block:: none
     
         [
             {

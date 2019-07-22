@@ -28,7 +28,7 @@ Example
 
 EXAMPLE 1: PUT to an existing container to create a snapshot:
 
-   .. code-block:: http
+   .. code-block:: none
 
        PUT /MyContainer/ HTTP/1.1
        Host: cloud.example.com
@@ -40,7 +40,7 @@ EXAMPLE 1: PUT to an existing container to create a snapshot:
 
    The following shows the response.
 
-   .. code-block:: http
+   .. code-block:: none
    
        HTTP/1.1 201 Created
 
@@ -55,14 +55,14 @@ Example
 
 EXAMPLE 1: DELETE to an existing snapshot:
 
-   .. code-block:: http
+   .. code-block:: none
 
        DELETE /MyContainer/cdmi_snapshots/MySnapshot HTTP/1.1
        Host: cloud.example.com
 
    The following shows the response.
 
-   .. code-block:: http
+   .. code-block:: none
    
        HTTP/1.1 204 No Content
 

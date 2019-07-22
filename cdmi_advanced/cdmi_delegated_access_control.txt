@@ -27,7 +27,7 @@ When an access control decision needs to be made by a third party (such as by th
 
 An example of an object with DAC metadata is shown below:
 
-.. code-block:: json
+.. code-block:: none
 
     {
       "objectType": "application/cdmi-object",
@@ -288,7 +288,7 @@ When a CDMI server that supports DAC needs to contact the DAC provider as specif
 
 An example of a DAC request is shown below:
 
-.. code-block:: json
+.. code-block:: none
 
     {
        "dac_request_version": "1",
@@ -354,7 +354,7 @@ An example of a packaged DAC request is shown below [#]_:
 .. [#] Decrypt with ``"d": "NnU0IEyV4JSyLoKwIzKN1FAxDvL6qqawAHlPkpwBMSY"``.
 
 
-.. code-block:: json
+.. code-block:: none
 
     {
        "dac_request": {
@@ -474,7 +474,7 @@ To indicate the result of the DAC request to the requesting CDMI server, the DAC
 
 An example of a DAC response is shown below:
 
-.. code-block:: json
+.. code-block:: none
 
     {
        "dac_response_version": "1",
@@ -527,7 +527,7 @@ An example of a packaged DAC response is shown below [#]_:
 
 .. [#] Decrypt with "d": "huCoV1iC24rZ3uF5q-1HHlGb2UcC6Ue9oNezEQNzUB8"
 
-.. code-block:: json
+.. code-block:: none
 
     {
        "dac_response": {
@@ -600,7 +600,7 @@ EXAMPLE 1: GET ciphertext of encrypted object with delegated access control
 
     The following CDMI operation is performed against an encrypted CDMI object with delegated access control metadata:
 
-    .. code-block:: http
+    .. code-block:: none
 
         GET /MyContainer/MyEncryptedObject.txt HTTP/1.1
         Host: cloud.example.com
@@ -609,7 +609,7 @@ EXAMPLE 1: GET ciphertext of encrypted object with delegated access control
     The CDMI server verifies local access controls and determines that the request can proceed. The following DAC request is generated:
 
 
-    .. code-block:: json
+    .. code-block:: none
     
         {
            "dac_request_version": "1",
@@ -635,7 +635,7 @@ EXAMPLE 1: GET ciphertext of encrypted object with delegated access control
     The DAC provider verifies, decryptes and processes the request and returns the following DAC response:
 
 
-    .. code-block:: json
+    .. code-block:: none
 
         {
            "dac_response_version": "1",
@@ -650,7 +650,7 @@ EXAMPLE 1: GET ciphertext of encrypted object with delegated access control
     
     Since the operation is allowed by the DAC provider, the following response is sent:
     
-    .. code-block:: http
+    .. code-block:: none
         
         HTTP/1.1 200 OK
         Content-Type: application/jose+json
@@ -663,7 +663,7 @@ EXAMPLE 2: GET ciphertext of encrypted object with passthrough key access
 
     The following CDMI operation is performed against an encrypted CDMI object with delegated access control metadata:
 
-    .. code-block:: http
+    .. code-block:: none
 
         GET /MyContainer/MyEncryptedObject.txt HTTP/1.1
         Host: cloud.example.com
@@ -676,7 +676,7 @@ EXAMPLE 2: GET ciphertext of encrypted object with passthrough key access
     To demonstrate the power of such custom headers: the ``CDMI-DAC-N`` request header could contain a cell phone number. The matching response header would then contain a password-based encryption of the object key, while the password will be delivered via a message to the cell phone. It is up to the vendor to come up with and implement such mechanisms.
 
 
-    .. code-block:: json
+    .. code-block:: none
     
         {
            "dac_request_version": "1",
@@ -704,7 +704,7 @@ EXAMPLE 2: GET ciphertext of encrypted object with passthrough key access
     The DAC provider processes the request, obtains the object decryption key and embeds it as a dac_response_header, then returns the following DAC response:
 
 
-    .. code-block:: json
+    .. code-block:: none
     
         {
            "dac_response_version": "1",
@@ -719,7 +719,7 @@ EXAMPLE 2: GET ciphertext of encrypted object with passthrough key access
         
     Since the operation is allowed by the DAC provider, the following response is sent:
 
-    .. code-block:: http
+    .. code-block:: none
 
         HTTP/1.1 200 OK
         Content-Type: application/jose+json
@@ -736,7 +736,7 @@ EXAMPLE 3: GET plaintext of encrypted object with delegated access control
 
     The following CDMI operation is performed against an encrypted CDMI object with delegated access control metadata:
 
-    .. code-block:: http
+    .. code-block:: none
 
         GET /MyContainer/MyEncryptedObject.txt HTTP/1.1
         Host: cloud.example.com
@@ -745,7 +745,7 @@ EXAMPLE 3: GET plaintext of encrypted object with delegated access control
 
     The CDMI server verifies local access controls and determines that the request can proceed. The following DAC request is generated:
 
-    .. code-block:: json
+    .. code-block:: none
 
         {
            "dac_request_version": "1",
@@ -771,7 +771,7 @@ EXAMPLE 3: GET plaintext of encrypted object with delegated access control
     The DAC provider processes the request, obtains the object decryption key and returns the following DAC response:
 
 
-    .. code-block:: json
+    .. code-block:: none
 
         {
            "dac_response_version": "1",
@@ -794,7 +794,7 @@ EXAMPLE 3: GET plaintext of encrypted object with delegated access control
     Since the operation is allowed by the DAC provider and the key is provided, the object is decrypted by the CDMI server and the following response is sent:
 
 
-    .. code-block:: http
+    .. code-block:: none
 
         HTTP/1.1 200 OK
         Content-Type: text/plain
@@ -806,7 +806,7 @@ EXAMPLE 4: RSA Example
 
     In this example, there are two hospitals (A and B), that both have CDMI servers, and federate objects between them. At some point, the following encrypted object has been made at hospital A. It containts a cdmi_dac_certificate and cdmi_dac_uri that indicate how access can be requested at hospital A. The cerificate contains a 2048-bit RSA encryption key, with a matching X.509 certification chain that can be used to verify the certificate.
 
-    .. code-block:: json
+    .. code-block:: none
 
         {
            "objectType": "application/cdmi-object",
@@ -893,7 +893,7 @@ EXAMPLE 4: RSA Example
     This encrypted object has been federated to the CDMI server at hospital B. Now, one of its clients wants to transparently access the plaintext of this object by performing the following operation:
 
     
-    .. code-block:: http
+    .. code-block:: none
 
         GET /cdmi/MyContainer/MyEncryptedObject.txt HTTP/1.1
         Host: cdmi.hos-b.us:9002
@@ -903,7 +903,7 @@ EXAMPLE 4: RSA Example
     DAC request:
 
 
-    .. code-block:: json
+    .. code-block:: none
 
         {
            "dac_request_version": "1",
@@ -978,7 +978,7 @@ EXAMPLE 4: RSA Example
     This plain DAC request will be JWE encrypted using the key found in the object’s ``cdmi_dac_certificate`` (key id ‘cdmi.hos-a.fr_encrypt_public’). Then it will be JWS signed using hospital B’s private signing key. Since this signing key is not equal to the encryption key (in ``server_identity``) it is embedded in the JOSE protected header of the JWS (note: Base64 decode of the protected header reveals the signing key; Base64 decode of the payload reveals the JWE.)
     
     
-    .. code-block:: json
+    .. code-block:: none
 
         {
            "dac_request": {
@@ -1209,7 +1209,7 @@ EXAMPLE 4: RSA Example
     The DAC provider at hospital A will retrieve the signing key from the JOSE protected header, validate it using the included X.509 certificates, and then verify/decrypt. It creates the following (plain) DAC response. Note that it included the object decryption key.
 
 
-    .. code-block:: json
+    .. code-block:: none
 
         {
            "dac_response_version": "1",
@@ -1232,7 +1232,7 @@ EXAMPLE 4: RSA Example
     As before, DAC response will be JWE encrypted using the key in server_identity. The result will be:
 
 
-    .. code-block:: json
+    .. code-block:: none
 
         {
            "dac_response": {
@@ -1388,7 +1388,7 @@ EXAMPLE 4: RSA Example
 
     The CDMI server at Hospital B can now decrypt this message, process the access control decision, and use the object key to decrypt the encrypted object:
 
-    .. code-block:: http
+    .. code-block:: none
 
         HTTP/1.1 200 OK
         Content-Type: text/plain
