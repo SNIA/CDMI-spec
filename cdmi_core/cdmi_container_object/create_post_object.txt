@@ -375,9 +375,9 @@ The response message body fields for creating a new CDMI data object using CDMI 
       - JSON String
       - A string indicating the percentage of completion if the object is still in the process of bewing created or updated by another operation.
 
-        * When the value of completionStatus is "``Processing``", this field, if provided, shall indicate the percentage of completion as a numeric integer value from "``0``" through "``100``". 
-        * When the value of completionStatus is "``Complete``", this field, if provided, shall contain the value "``100``". 
-        * When the value of completionStatus is "``Error``", this field, if provided, may contain any integer value from "``0``" through "``100``".
+        * When the value of ``completionStatus`` is "``Processing``", this field, if provided, shall indicate the percentage of completion as a numeric integer value from "``0``" through "``100``". 
+        * When the value of ``completionStatus`` is "``Complete``", this field, if provided, shall contain the value "``100``". 
+        * When the value of ``completionStatus`` is "``Error``", this field, if provided, may contain any integer value from "``0``" through "``100``".
       - Optional
     * - mimetype
       - JSON String
@@ -408,7 +408,7 @@ Response Status
     * - ``201 Created``
       - The new data object was created.
     * - ``202 Accepted``
-      - The data object is in the process of being created. The CDMI client should monitor the completionStatus and percentComplete fields to determine the current status of the operation.
+      - The data object is in the process of being created. The CDMI client should monitor the ``completionStatus`` and ``percentComplete`` fields to determine the current status of the operation.
     * - ``400 Bad Request``
       - The request contains invalid parameters or field names.
     * - ``401 Unauthorized``
@@ -446,7 +446,7 @@ The following shows the response.
 
       HTTP/1.1 201 Created
       Content-Type: application/cdmi-object
-      Location: http://cloud.example.com/MyContainer/00007ED900104E1D14771DC67C27BF8B 
+      Location: https://cloud.example.com/MyContainer/00007ED900104E1D14771DC67C27BF8B 
        
       {
           "objectType" : "application/cdmi-object",
@@ -483,7 +483,7 @@ The following shows the response.
   .. code-block:: none
 
       HTTP/1.1 201 Created 
-      Location: http://cloud.example.com/cdmi_objectid/00007ED900104E1D14771DC67C27BF8B
+      Location: https://cloud.example.com/cdmi_objectid/00007ED900104E1D14771DC67C27BF8B
       Content-Type: application/cdmi-object 
        
       {

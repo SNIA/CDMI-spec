@@ -194,9 +194,9 @@ The response message body fields for reading a CDMI container object using CDMI 
       - JSON String
       - A string indicating the percentage of completion if the object is still in the process of bewing created or updated by another operation.
 
-        * When the value of completionStatus is "``Processing``", this field, if provided, shall indicate the percentage of completion as a numeric integer value from 0 through 100. 
-        * When the value of completionStatus is "``Complete``", this field, if provided, shall contain the value "``100``". 
-        * When the value of completionStatus is "``Error``", this field, if provided, may contain any integer value from "``0``" through "``100``".
+        * When the value of ``completionStatus`` is "``Processing``", this field, if provided, shall indicate the percentage of completion as a numeric integer value from 0 through 100. 
+        * When the value of ``completionStatus`` is "``Complete``", this field, if provided, shall contain the value "``100``". 
+        * When the value of ``completionStatus`` is "``Error``", this field, if provided, may contain any integer value from "``0``" through "``100``".
       - Optional
     * - metadata
       - JSON Object
@@ -291,8 +291,8 @@ EXAMPLE 1: GET to the container object URI to read all the fields of the contain
             "OCCI/iSCSI": {
                 "identifier": "00007E7F00104BE66AB53A9572F9F51E",
                 "permissions": [
-                    "http://example.com/compute/0/",
-                    "http://example.com/compute/1/"
+                    "https://example.com/compute/0/",
+                    "https://example.com/compute/1/"
                 ]
             },
                 "Network/NFSv4" : {

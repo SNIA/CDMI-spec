@@ -35,10 +35,10 @@ In response to a create operation for a container object, the server may return 
 
 The client performs GET operations to the URI to track the progress of the operation. In response, the server returns two fields in its response body to indicate progress. 
 
-* A mandatory completionStatus text field contains either "``Processing``", "``Complete``", or an error string starting with the value "``Error``".
-* An optional percentComplete field contains the percentage that the accepted PUT has completed (0 to 100). GET does not return any children for the container object when completionStatus is not "``Complete``".
+* A mandatory ``completionStatus`` text field contains either "``Processing``", "``Complete``", or an error string starting with the value "``Error``".
+* An optional ``percentComplete`` field contains the percentage that the accepted PUT has completed (0 to 100). GET does not return any children for the container object when ``completionStatus`` is not "``Complete``".
 
-When the final result of the create operation is an error, the URI is created with the completionStatus field set to the error message. It is the client's responsibility to delete the URI after the error has been noted.
+When the final result of the create operation is an error, the URI is created with the ``completionStatus`` field set to the error message. It is the client's responsibility to delete the URI after the error has been noted.
 
 .. raw:: latex
 
@@ -297,9 +297,9 @@ The response message body fields for creating a CDMI container object using CDMI
       - JSON String
       - A string indicating the percentage of completion if the object is still in the process of bewing created or updated by another operation.
 
-        * When the value of completionStatus is "``Processing``", this field, if provided, shall indicate the percentage of completion as a numeric integer value from "``0``" through "``100``". 
-        * When the value of completionStatus is "``Complete``", this field, if provided, shall contain the value "``100``". 
-        * When the value of completionStatus is "``Error``", this field, if provided, may contain any integer value from "``0``" through "``100``".
+        * When the value of ``completionStatus`` is "``Processing``", this field, if provided, shall indicate the percentage of completion as a numeric integer value from "``0``" through "``100``". 
+        * When the value of ``completionStatus`` is "``Complete``", this field, if provided, shall contain the value "``100``". 
+        * When the value of ``completionStatus`` is "``Error``", this field, if provided, may contain any integer value from "``0``" through "``100``".
       - Optional
     * - metadata
       - JSON Object
@@ -344,7 +344,7 @@ Response Status
     * - ``201 Created``      
       - The new container object was created.
     * - ``202 Accepted``
-      - The container is in the process of being created. The CDMI client should monitor the completionStatus and percentComplete fields to determine the current status of the operation.
+      - The container is in the process of being created. The CDMI client should monitor the ``completionStatus`` and ``percentComplete`` fields to determine the current status of the operation.
     * - ``400 Bad Request``
       - The request contains invalid parameters or field names.
     * - ``401 Unauthorized``
