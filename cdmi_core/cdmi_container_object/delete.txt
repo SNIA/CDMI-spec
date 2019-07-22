@@ -98,26 +98,26 @@ Example
 
 EXAMPLE 1: DELETE to the container object URI:
 
-   .. code-block:: http
+   .. code-block:: none
 
         DELETE /MyContainer/ HTTP/1.1
         Host: cloud.example.com
 
    The following shows the response.
 
-   .. code-block:: http
+   .. code-block:: none
         
         HTTP/1.1 204 No Content
 
 EXAMPLE 2: DELETE by container object ID:
 
-   .. code-block:: http
+   .. code-block:: none
 
        DELETE /cdmi_objectid/00007ED900104E1D14771DC67C27BF8B/ HTTP/1.1
        Host: cloud.example.com
 
    The following shows the response.
 
-   .. code-block:: http
+   .. code-block:: none
    
        HTTP/1.1 204 No Content 

@@ -17,7 +17,7 @@ Each CDMI container object is represented as a JSON object, containing one or mo
 
 EXAMPLE 1: CDMI Container Object
 
-  .. code-block:: json
+  .. code-block:: none
 
     {
         "objectType" : "application/cdmi-container",
@@ -48,12 +48,12 @@ Container Object Addressing
 
 Container objects are addressed in CDMI in two ways:
 
-* by name (e.g. ``http://cloud.example.com/container/``); and
-* by ID (e.g. ``http://cloud.example.com/cdmi_objectid/00007ED900104E1D14771DC67C27BF8B/``).
+* by name (e.g. ``https://cloud.example.com/container/``); and
+* by ID (e.g. ``https://cloud.example.com/cdmi_objectid/00007ED900104E1D14771DC67C27BF8B/``).
 
 Every container object has a single, globally-unique object ID that remains constant for the life of the object. Each container object may also have one or more URI addresses that allow the container object to be accessed.
 
-When a container object is addressed via more than one unique URIs, all operations may be performed through any of these URIs. For example, a container object may be accessible via multiple virtual hosting paths, where ``http://cloud.example.com/users/snia/cdmi/`` is also accessible through ``http://snia.example.com/cdmi/``. Conflicting writes via different paths shall be managed the same way that conflicting writes via one path are managed, via the principle of eventual consistency (see :numref:`%s <ref_cdmi_container_object_create>`).
+When a container object is addressed via more than one unique URIs, all operations may be performed through any of these URIs. For example, a container object may be accessible via multiple virtual hosting paths, where ``https://cloud.example.com/users/snia/cdmi/`` is also accessible through ``https://snia.example.com/cdmi/``. Conflicting writes via different paths shall be managed the same way that conflicting writes via one path are managed, via the principle of eventual consistency (see :numref:`%s <ref_cdmi_container_object_create>`).
 
 Following the URI conventions for hierarchical paths, container URIs shall consist of one or more container names that are separated by forward slashes ("``/``") and that end with a forward slash ("``/``"). 
 
@@ -67,7 +67,7 @@ Containers may also be nested.
 
     EXAMPLE 2: The following URI represents a nested container:
 
-        ``http://cloud.example.com/container/subcontainer/``
+        ``https://cloud.example.com/container/subcontainer/``
 
 A nested container has a parent container object, shall be included in the children field of the parent container object, and shall inherit data system metadata and ACLs from its parent container. 
 
@@ -80,11 +80,11 @@ Individual fields within a container object may be accessed by specifying the fi
 
     EXAMPLE 3: The following URI returns just the children field in the response body:
 
-        ``http://cloud.example.com/container/?children``
+        ``https://cloud.example.com/container/?children``
 
     EXAMPLE 4: By specifying a range after the children field name, specific ranges of the children field may be accessed. 
 
-        ``http://cloud.example.com/container/?children:0-2``
+        ``https://cloud.example.com/container/?children:0-2``
 
 Children ranges are specified in a way that is similar to byte ranges as per Section 14.35.1 of RFC 2616 :cite:`rfc2616`. A client can determine the number of children present by requesting the childrenrange field without requesting a range of children.
 
@@ -92,7 +92,7 @@ A list of fields, separated by a semicolon ";" may be specified, allowing multip
 
     EXAMPLE 5: The following URI would return the children and metadata fields in the response body:
 
-        ``http://cloud.example.com/container/?children;metadata``
+        ``https://cloud.example.com/container/?children;metadata``
 
 When a client provides fields that are not defined in this international standard or deserializes an object containing fields that are not defined in this international standard, these fields shall be stored as part of the object but shall not be interpreted.
 

@@ -361,7 +361,7 @@ Example
 
 EXAMPLE 1: POST to the container object URI the queue object contents:
 
-    .. code-block:: http
+    .. code-block:: none
 
         POST /MyContainer/ HTTP/1.1
         Host: cloud.example.com
@@ -373,11 +373,11 @@ EXAMPLE 1: POST to the container object URI the queue object contents:
 
 The following shows the response.
 
-    .. code-block:: http
+    .. code-block:: none
 
         HTTP/1.1 201 Created
         Content-Type: application/cdmi-queue 
-        Location: http://cloud.example.com/MyContainer/00007ED900104E1D14771DC67C27BF8B
+        Location: https://cloud.example.com/MyContainer/00007ED900104E1D14771DC67C27BF8B
          
         {
             "objectType" : "application/cdmi-queue",

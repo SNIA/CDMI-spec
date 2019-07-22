@@ -249,7 +249,6 @@ Response Status
 .. _tbl_cdmi_container_object_update_response_status:
 
 .. list-table:: HTTP Status Codes - Update a Container Object using CDMI
-    :class: longtable
     :header-rows: 1
     :align: center 
 
@@ -278,7 +277,7 @@ Examples
 
 EXAMPLE 1: PUT to the container object URI to replace all metadata with new metadata:
 
-   .. code-block:: http
+   .. code-block:: none
 
         PUT /MyContainer/ HTTP/1.1
         Host: cloud.example.com
@@ -293,14 +292,14 @@ EXAMPLE 1: PUT to the container object URI to replace all metadata with new meta
 
    The following shows the response.
 
-   .. code-block:: http
+   .. code-block:: none
 
         HTTP/1.1 204 No Content
 
         
 EXAMPLE 2: PUT to the container object URI to set a new exported protocol value:
 
-   .. code-block:: http
+   .. code-block:: none
 
         PUT /MyContainer/?exports HTTP/1.1
         Host: cloud.example.com
@@ -321,6 +320,6 @@ EXAMPLE 2: PUT to the container object URI to set a new exported protocol value:
 
    The following shows the response.
 
-   .. code-block:: http
+   .. code-block:: none
 
         HTTP/1.1 204 No Content

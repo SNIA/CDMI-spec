@@ -237,7 +237,6 @@ Response Status
 .. _tbl_cdmi_container_object_read_response_status:
 
 .. list-table:: HTTP Status Codes - Read a Container Object using CDMI
-    :class: longtable
     :header-rows: 1
     :align: center 
 
@@ -263,7 +262,7 @@ Examples
 
 EXAMPLE 1: GET to the container object URI to read all the fields of the container object:
 
-   .. code-block:: http
+   .. code-block:: none
 
         GET /MyContainer/ HTTP/1.1
         Host: cloud.example.com
@@ -271,7 +270,7 @@ EXAMPLE 1: GET to the container object URI to read all the fields of the contain
 
    The following shows the response.
    
-   .. code-block:: http
+   .. code-block:: none
 
         HTTP/1.1 200 OK
         Content-Type: application/cdmi-container
@@ -292,8 +291,8 @@ EXAMPLE 1: GET to the container object URI to read all the fields of the contain
             "OCCI/iSCSI": {
                 "identifier": "00007E7F00104BE66AB53A9572F9F51E",
                 "permissions": [
-                    "http://example.com/compute/0/",
-                    "http://example.com/compute/1/"
+                    "https://example.com/compute/0/",
+                    "https://example.com/compute/1/"
                 ]
             },
                 "Network/NFSv4" : {
@@ -313,7 +312,7 @@ EXAMPLE 1: GET to the container object URI to read all the fields of the contain
 
 EXAMPLE 2: GET to the container object URI to read parentURI and children of the container object:
 
-   .. code-block:: http
+   .. code-block:: none
 
         GET /MyContainer/?parentURI;children HTTP/1.1
         Host: cloud.example.com
@@ -321,7 +320,7 @@ EXAMPLE 2: GET to the container object URI to read parentURI and children of the
 
    The following shows the response.
    
-   .. code-block:: http
+   .. code-block:: none
 
         HTTP/1.1 200 OK
         Content-Type: application/cdmi-container
@@ -339,7 +338,7 @@ EXAMPLE 2: GET to the container object URI to read parentURI and children of the
 
 EXAMPLE 3: GET to the container object URI to read children 0..2 and childrenrange of the container object:
 
-   .. code-block:: http
+   .. code-block:: none
 
         GET /MyContainer/?childrenrange;children:0-2 HTTP/1.1
         Host: cloud.example.com
@@ -347,7 +346,7 @@ EXAMPLE 3: GET to the container object URI to read children 0..2 and childrenran
 
    The following shows the response.
    
-   .. code-block:: http
+   .. code-block:: none
 
         HTTP/1.1 200 OK
         Content-Type: application/cdmi-container
@@ -363,7 +362,7 @@ EXAMPLE 3: GET to the container object URI to read children 0..2 and childrenran
 
 EXAMPLE 4: GET to the container object by ID to read children 0..2 and childrenrange of the container object: 
 
-   .. code-block:: http
+   .. code-block:: none
 
         GET /cdmi_objectid/0000706D0010B84FAD185C425D8B537E/?childrenrange;children:0-2 HTTP/1.1 
         Host: cloud.example.com 
@@ -371,7 +370,7 @@ EXAMPLE 4: GET to the container object by ID to read children 0..2 and childrenr
 
    The following shows the response.
    
-   .. code-block:: http
+   .. code-block:: none
 
         HTTP/1.1 200 OK 
         Content-Type: application/cdmi-container

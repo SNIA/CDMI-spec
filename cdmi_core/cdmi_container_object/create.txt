@@ -335,7 +335,6 @@ Response Status
 .. _tbl_cdmi_container_object_create_response_status:
 
 .. list-table:: HTTP Status Codes - Create a CDMI Container Object using CDMI
-    :class: longtable
     :header-rows: 1
     :align: center 
 
@@ -362,7 +361,7 @@ Example
 
 EXAMPLE 1: PUT to the URI the container object name and metadata:
 
-   .. code-block:: http
+   .. code-block:: none
 
     PUT /MyContainer/ HTTP/1.1
     Host: cloud.example.com
@@ -377,8 +376,8 @@ EXAMPLE 1: PUT to the URI the container object name and metadata:
            "OCCI/iSCSI": {
             "identifier": "00007E7F00104BE66AB53A9572F9F51E",
             "permissions": [
-                "http://example.com/compute/0/",
-                "http://example.com/compute/1/"
+                "https://example.com/compute/0/",
+                "https://example.com/compute/1/"
             ]
         },
             "Network/NFSv4" : {
@@ -390,7 +389,7 @@ EXAMPLE 1: PUT to the URI the container object name and metadata:
 
    The following shows the response.
 
-   .. code-block:: http 
+   .. code-block:: none 
    
     HTTP/1.1 201 Created
     Content-Type: application/cdmi-container
