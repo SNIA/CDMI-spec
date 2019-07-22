@@ -90,7 +90,7 @@ The HTTP request headers for updating a CDMI data object using HTTP are shown in
 
           \vspace*{1ex}
 
-        If the completionStatus field had previously been set to "``Processing``" by including this header in a create or update, the next update without this field shall change the completionStatus field back to "``Complete``".
+        If the ``completionStatus`` field had previously been set to "``Processing``" by including this header in a create or update, the next update without this field shall change the ``completionStatus`` field back to "``Complete``".
       - Optional
 
 
