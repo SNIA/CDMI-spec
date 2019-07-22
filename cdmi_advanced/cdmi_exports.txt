@@ -65,8 +65,8 @@ Container Object Exports Addressing
 
 Container object exports are addressed in CDMI in two ways:
 
-* by name (e.g. ``http://cloud.example.com/container/?exports``); and
-* by ID (e.g. ``http://cloud.example.com/cdmi_objectid/00007ED900104E1D14771DC67C27BF8B/?exports``).
+* by name (e.g. ``https://cloud.example.com/container/?exports``); and
+* by ID (e.g. ``https://cloud.example.com/cdmi_objectid/00007ED900104E1D14771DC67C27BF8B/?exports``).
 
 See :numref:`%s <ref_cdmi_container_object_overview>` for more detials on container object addressing.
 
@@ -380,8 +380,8 @@ EXAMPLE 5: OCCI Export
         "identifier": "00007E7F00104BE66AB53A9572F9F51E",
         "permissions": 
             [
-                "http://example.com/compute/0/",
-                "http://example.com/compute/1/"
+                "https://example.com/compute/0/",
+                "https://example.com/compute/1/"
             ]
         }
 

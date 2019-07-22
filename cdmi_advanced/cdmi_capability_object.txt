@@ -52,12 +52,12 @@ Capability Object Addressing
 
 Capability objects are addressed in CDMI in two ways:
 
-* by name (e.g. ``http://cloud.example.com/cdmi_capabilities/``); and
-* by ID (e.g. ``http://cloud.example.com/cdmi_objectid/00007E7F00104BE66AB53A9572F9F51E/``).
+* by name (e.g. ``https://cloud.example.com/cdmi_capabilities/``); and
+* by ID (e.g. ``https://cloud.example.com/cdmi_objectid/00007E7F00104BE66AB53A9572F9F51E/``).
 
 Every capability object has a single, globally-unique object ID that remains constant for the life of the object. Each capability object may also have one or more URI addresses that allow the capability object to be accessed.
 
-When a capability object is addressed via more than one unique URIs, all operations may be performed through any of these URIs. For example, a capability object may be accessible via multiple virtual hosting paths, where ``http://cloud.example.com/users/snia/cdmi/cdmi_capabilities/`` is also accessible through ``http://snia.example.com/cdmi/cdmi_cabilities/``.
+When a capability object is addressed via more than one unique URIs, all operations may be performed through any of these URIs. For example, a capability object may be accessible via multiple virtual hosting paths, where ``https://cloud.example.com/users/snia/cdmi/cdmi_capabilities/`` is also accessible through ``https://snia.example.com/cdmi/cdmi_cabilities/``.
 
 Following the URI conventions for hierarchical paths, capability URIs shall consist of one or more capability names that are separated by forward slashes ("``/``") and that end with a forward slash ("``/``"). 
 
@@ -67,7 +67,7 @@ Capabiltiies may also be nested.
 
     EXAMPLE 2: The following URI represents a nested capability:
 
-        ``http://cloud.example.com/cdmi_capabilities/container/``
+        ``https://cloud.example.com/cdmi_capabilities/container/``
 
 A nested capability has a parent capability object, and shall be included in the children field of the parent capability object. 
 
@@ -1123,7 +1123,7 @@ Examples
 
 EXAMPLE 1: GET to the root container capabilities URI to read all fields of the container:
 
-    .. code-block:: http
+    .. code-block:: none
 
         GET /cdmi_capabilities/ HTTP/1.1
         Host: cloud.example.com
@@ -1131,7 +1131,7 @@ EXAMPLE 1: GET to the root container capabilities URI to read all fields of the 
 
     The following shows the response.
 
-    .. code-block:: http
+    .. code-block:: none
 
         HTTP/1.1 200 OK
         Content-Type: application/cdmi-capability
@@ -1164,7 +1164,7 @@ EXAMPLE 1: GET to the root container capabilities URI to read all fields of the 
         
 EXAMPLE 2: GET to the root container capabilities URI to read the capabilities and children of the container:
 
-    .. code-block:: http
+    .. code-block:: none
 
         GET /cdmi_capabilities/?capabilities;children HTTP/1.1
         Host: cloud.example.com
@@ -1172,7 +1172,7 @@ EXAMPLE 2: GET to the root container capabilities URI to read the capabilities a
 
     The following shows the response.
 
-    .. code-block:: http
+    .. code-block:: none
 
         HTTP/1.1 200 OK
         Content-Type: application/cdmi-capability
@@ -1198,7 +1198,7 @@ EXAMPLE 2: GET to the root container capabilities URI to read the capabilities a
 
 EXAMPLE 3: GET to the root container capabilities URI to read the first two children contained within a domain:
 
-    .. code-block:: http
+    .. code-block:: none
 
         GET /cdmi_capabilities/?childrenrange;children:0-1 HTTP/1.1
         Host: cloud.example.com
@@ -1206,7 +1206,7 @@ EXAMPLE 3: GET to the root container capabilities URI to read the first two chil
 
     The following shows the response.
 
-    .. code-block:: http
+    .. code-block:: none
 
         HTTP/1.1 200 OK
         Content-Type: application/cdmi-capability
