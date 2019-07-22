@@ -83,10 +83,12 @@ In request and response body tables, the Requirement column contains one of the 
 Key Word Requirements
 *********************
 
-In this international standard, the key words in :numref:`tbl_key_word_requirements` shall be interpreted as described in RFC 2119 :cite:`rfc2119`.
+In this International Standard, the key words in :numref:`tbl_key_word_requirements` shall be interpreted as described in ISO/IEC Directives, Part 2. [FIXME]
 
-.. tabularcolumns:: |>{\raggedright\arraybackslash}\Y{0.30}
-                    |>{\raggedright\arraybackslash}\Y{0.70}|
+.. tabularcolumns:: |>{\raggedright\arraybackslash}\Y{0.15}
+                    |>{\raggedright\arraybackslash}\Y{0.20}
+                    |>{\raggedright\arraybackslash}\Y{0.40}
+                    |>{\raggedright\arraybackslash}\Y{0.25}|
 
 .. _tbl_key_word_requirements:
 
@@ -95,13 +97,66 @@ In this international standard, the key words in :numref:`tbl_key_word_requireme
     :header-rows: 1
     :align: center 
 
-    * - shall / must / required
-      - An action described with any of these key words is unconditionally required.
-    * - shall not / must not
-      - An action described with either of these key word phrases is unconditionally prohibited.
-    * - should / recommend
-      - Valid reasons may exist in specific circumstances to ignore a particular action described with either of these key words, but the full implications must be understood and carefully weighed before choosing a different course.
-    * - should not / not recommended
-      - Valid reasons may exist in specific circumstances to accept a particular action described by either of these key word phrases, but the full implications should be understood and the case carefully weighed before implementing any action described with these key words.
-    * - may / optional
-      - An action described with either of these key words is truly optional. One vendor may choose to include the option because a particular marketplace requires it or because the vendor feels that it enhances the product, while another vendor may omit the same option. An implementation which does not include a particular option must be prepared to interoperate with another implementation which does include the option, though perhaps with reduced functionality. Likewise, an implementation which does include a particular option must be prepared to interoperate with another implementation which does not include the option (except, of course, for the feature the option provides).
+    * - Key words
+      - Denotes
+      - Description
+      - Equivalent expressions (for exception cases only)
+    * - shall
+      - requirement
+      - An action that is unconditionally required.
+        
+        * Do not use must as an alternative to shall.
+        * To express a direct instruction, for example, when referring to steps to be taken in a test method, use the imperative mood in English.
+        * EXAMPLE: Switch on the recorder.
+      - * is to
+        * is required to
+        * it is required that
+        * has to
+        * only ... is permitted
+        * it is necessary
+    * - shall not
+      - requirement
+      - An action that is unconditionally prohibited.
+      
+        .. raw:: latex
+
+          \vspace*{1ex}
+
+        Do not use may not instead of shall not to express a prohibition.
+      - * is not allowed [permitted] [acceptable] [permissible]
+        * is required to be not
+        * is required that ... be not
+        * is not to be
+    * - should
+      - recommendation
+      - An action that is recommended when choosing among several possibilities, or an action that is preferred but not necessarily required.
+      - * it is recommended that
+        * ought to
+    * - should not
+      - recommendation
+      - An action or certain possibility or course of action that is deprecated but not prohibited.
+      - * it is not recommended that
+        * ought not to
+    * - may
+      - permission
+      - An action that indicates what is allowed within the limits of the document.
+      
+        .. raw:: latex
+
+          \vspace*{1ex}
+
+        Do not use possible or can in this context. May signifies permission expressed by the document, whereas can refers to the ability of a user of the document or to a possibility open to him or her.
+      - * is permitted
+        * is allowed
+        * is permissible
+    * - need not
+      - permission
+      - An action that indicates what is not required within the limits of the document.
+      
+        .. raw:: latex
+
+          \vspace*{1ex}
+
+        Do not use impossible in this context.
+      - * it is not required that
+        * no ... is required
