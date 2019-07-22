@@ -92,8 +92,8 @@ The HTTP request headers for creating a CDMI container object using CDMI are sho
 .. _tbl_cdmi_container_object_create_request_headers:
 
 .. list-table:: Request Headers - Create a Container Object using CDMI
+    :class: longtable
     :header-rows: 1
-    :widths: 20 10 55 15
     :align: center 
 
     * - Header
@@ -124,7 +124,6 @@ The request message body fields for creating a container object using CDMI are s
 .. list-table:: Request Message Body - Create a Container Object using CDMI
     :class: longtable
     :header-rows: 1
-    :widths: 20 10 55 15
     :align: center 
 
     * - Field Name
@@ -212,8 +211,8 @@ The HTTP response headers for creating a CDMI container object using CDMI are sh
 .. _tbl_cdmi_container_object_create_response_headers:
 
 .. list-table:: Response Headers - Create a Container Object using CDMI
+    :class: longtable
     :header-rows: 1
-    :widths: 20 10 55 15
     :align: center 
 
     * - Header
@@ -244,7 +243,6 @@ The response message body fields for creating a CDMI container object using CDMI
 .. list-table:: Response Message Body - Create a Container Object using CDMI 
     :class: longtable
     :header-rows: 1
-    :widths: 20 10 55 15
     :align: center 
 
     * - Field Name
@@ -337,8 +335,8 @@ Response Status
 .. _tbl_cdmi_container_object_create_response_status:
 
 .. list-table:: HTTP Status Codes - Create a CDMI Container Object using CDMI
+    :class: longtable
     :header-rows: 1
-    :widths: 30 70
     :align: center 
 
 

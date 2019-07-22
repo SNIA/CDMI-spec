@@ -72,8 +72,8 @@ The HTTP request headers for reading a CDMI container object using CDMI are show
 .. _tbl_cdmi_container_object_read_request_headers:
 
 .. list-table:: Request Headers - Read a Container Object using CDMI  
+    :class: longtable
     :header-rows: 1
-    :widths: 20 10 55 15
     :align: center 
 
     * - Header
@@ -103,8 +103,8 @@ The HTTP response headers for reading a CDMI container object using CDMI are sho
 .. _tbl_cdmi_container_object_read_response_headers:
 
 .. list-table:: Response Headers - Read a Container Object using CDMI
+    :class: longtable
     :header-rows: 1
-    :widths: 20 10 55 15
     :align: center 
 
     * - Header
@@ -135,7 +135,6 @@ The response message body fields for reading a CDMI container object using CDMI 
 .. list-table:: Response Message Body - Read a Container Object using CDMI 
     :class: longtable
     :header-rows: 1
-    :widths: 20 10 55 15
     :align: center 
 
     * - Field Name
@@ -238,8 +237,8 @@ Response Status
 .. _tbl_cdmi_container_object_read_response_status:
 
 .. list-table:: HTTP Status Codes - Read a Container Object using CDMI
+    :class: longtable
     :header-rows: 1
-    :widths: 30 70
     :align: center 
 
     * - HTTP Status
