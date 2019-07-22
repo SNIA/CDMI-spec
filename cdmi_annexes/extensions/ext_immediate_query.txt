@@ -139,7 +139,7 @@ If ``"cdmi_query_immediate"`` is specified in ``cdmi_queue_type``, all query res
 
 EXAMPLE 3: Perform an Immediate Query:
 
-    .. code-block:: http
+    .. code-block:: none
 
         PUT /MyContainer/myQuery HTTP/1.1
         Host: cloud.example.com
@@ -169,11 +169,11 @@ EXAMPLE 3: Perform an Immediate Query:
 
 The following shows the response.
 
-    .. code-block:: http
+    .. code-block:: none
 
         HTTP/1.1 201 Created
         Content-Type: application/cdmi-queue
-        Location: http://cloud.example.com/MyContainer/myQuery
+        Location: https://cloud.example.com/MyContainer/myQuery
          
         {
              "objectType" : "application/cdmi-queue",
