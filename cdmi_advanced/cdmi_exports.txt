@@ -390,7 +390,7 @@ For more detail on using the OCCI export protocol structure attributes, see :num
 iSCSI Exported Protocol
 ***********************
 
-CDMI defines the export of a container using the iSCSI protocol (see RFC 3720 :cite:`rfc3720`). Each container is exported as a single SCSI Logical Unit as a Logical Unit Number (LUN). One or more iSCSI initiators import the LUN through an iSCSI target node and port using one or more iSCSI network portals (IP addresses). 
+CDMI defines the export of a container using the iSCSI protocol (see RFC 7143 :cite:`rfc7143`). Each container is exported as a single SCSI Logical Unit as a Logical Unit Number (LUN). One or more iSCSI initiators import the LUN through an iSCSI target node and port using one or more iSCSI network portals (IP addresses). 
 
 The export is described by the presence of an export field structure on the container that specifies the
 

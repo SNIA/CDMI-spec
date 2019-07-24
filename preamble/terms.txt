@@ -107,7 +107,7 @@ For the purposes of this document, the following terms and definitions apply.
          a CDMI server that is capable of forwarding DAC requests and responses
          
     iSCSI
-         Internet Small Computer Systems Interface (see RFC 3720 :cite:`rfc3720`)
+         Internet Small Computer Systems Interface (see RFC 7143 :cite:`rfc7143`)
 
     JOSE
          JavaScript Object Signing and Encryption

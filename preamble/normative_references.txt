@@ -45,7 +45,7 @@ RFC 3280, *Internet X.509 Public Key Infrastructure Certificate and Certificate 
 
 RFC 3530, *Network File System (NFS) Version 4 Protocol* - see :cite:`rfc3530`
 
-RFC 3720, *Internet Small Computer Systems Interface (iSCSI)* - see :cite:`rfc3720`
+RFC 7143, *Internet Small Computer System Interface (iSCSI) Protocol (Consolidated)* - see :cite:`rfc7143`
 
 RFC 3986, *Uniform Resource Identifier (URI): Generic Syntax* - see :cite:`rfc3986`
 
