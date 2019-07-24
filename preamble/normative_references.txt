@@ -23,7 +23,7 @@ ISO/IEC 17788:2014, *Information technology -- Cloud computing -- Overview and v
 
 ISO/IEC 27040:2015, *Information technology – Security techniques – Storage security* - see :cite:`isoiec27040`
 
-ISO/IEC Directives, Part 2, Rules for the structure and drafting of International Standards, 6th edition, 2011* - see :cite:`isoiecpart2`
+ISO/IEC Directives, Part 2, Rules for the structure and drafting of International Standards, 6th edition, 2011* - see :cite:`isoiecdirectives-2`
 
 IEEE 1003.1-2017, *IEEE Standard for Information Technology--Portable Operating System Interface (POSIX(R)) Base Specifications, Issue 7* - see :cite:`ieee1003.1`
 
