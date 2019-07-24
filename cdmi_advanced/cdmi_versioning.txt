@@ -125,7 +125,7 @@ In the sequence shown in :numref:`fig_concurrent_updates_to_a_versionenabled_dat
    
     Linkages for Nested Updates
 
-In the sequence shown in Figure 16, both the "Second" and "Third" updates are performed against the "First" state. As the "Second" update completes last, it becomes the current version. In this example, historical version ``501`` would have two children, versions ``502`` and ``503``. Both versions ``502`` and ``503`` would have the same parent ``501``.
+In the sequence shown in these figures, both the "Second" and "Third" updates are performed against the "First" state. As the "Second" update completes last, it becomes the current version. In this example, historical version ``501`` would have two children, versions ``502`` and ``503``. Both versions ``502`` and ``503`` would have the same parent ``501``.
 
 Both of these data structures are equivalent, with the only difference being which update completed last.
 

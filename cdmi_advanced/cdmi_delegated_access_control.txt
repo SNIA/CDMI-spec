@@ -63,7 +63,7 @@ A cloud storage system may implement support for DAC, which is indicated by the 
 
 DAC enables requests for operations against an object to be allowed or denied by a third-party DAC provider, in addition to ACL access control. When required by object metadata, DAC access control verification shall be performed after ACL evaluation, but before ACL enforcement, as the DAC provider may overrule local ACL evaluation results. When an encrypted object is accessed, the DAC provider may provide the decryption key. The decryption key enables access to encrypted objects, even if the CDMI server cannot access the keys directly.
 
-Clients often have different degrees to which they trust the CDMI server with which they are interacting. Table :numref:`tbl_access_modes_for_dac` describes the four ways that DAC shall interact with stored objects.
+Clients often have different degrees to which they trust the CDMI server with which they are interacting. :numref:`tbl_access_modes_for_dac` describes the four ways that DAC shall interact with stored objects.
 
 
 
@@ -160,7 +160,7 @@ Delegated Access Control Message Exchange
 
 When a client requests to access or modify an object containing DAC metadata on a CDMI server that supports DAC, the CDMI server shall create and send a DAC request as specified in :numref:`clause %s <ref_dac_request>`. Upon receiving a DAC response as specified in :numref:`clause %s <ref_dac_response>`, the CDMI server shall allow or deny the operation based on the contents of the response.
 
-Figure :numref:`fig_DAC_Flow_NonEncrypted` provides an example of access control delegation for a non-encrypted object. The black solid lines show indirect routing, and gray dashed lines show direct routing.
+:numref:`fig_DAC_Flow_NonEncrypted` provides an example of access control delegation for a non-encrypted object. The black solid lines show indirect routing, and gray dashed lines show direct routing.
 
 
 .. _fig_DAC_Flow_NonEncrypted:
@@ -178,7 +178,7 @@ For non-encrypted objects, an originating client indicates that DAC is requested
 
   \newpage
 
-Figure :numref:`fig_DAC_Flow_Encrypted` provides a second example of access control delegation for an encrypted object. The black solid lines show indirect routing, and gray dashed lines show direct routing.
+:numref:`fig_DAC_Flow_Encrypted` provides a second example of access control delegation for an encrypted object. The black solid lines show indirect routing, and gray dashed lines show direct routing.
 
 
 .. _fig_DAC_Flow_Encrypted:

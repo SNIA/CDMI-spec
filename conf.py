@@ -191,10 +191,10 @@ latex_elements = {
     \protected\def\sphinxstyletheadfamily {\cellcolor{lightgray}\sffamily}
 
     % Change Latex's Part/Chapter/Appendix to ISO's Part/Clause/Annex
-    \addto\captionsenglish{\renewcommand{\partname}{Part}}
-    \addto\captionsenglish{\renewcommand{\chaptername}{Clause}}
-    \addto\captionsenglish{\renewcommand{\appendixname}{Annex}}
-    \addto\captionsenglish{\renewcommand{\figurename}{Figure}} 
+    \addto\captionsenglish{\renewcommand{\partname}{Part~}}
+    \addto\captionsenglish{\renewcommand{\chaptername}{Clause~}}
+    \addto\captionsenglish{\renewcommand{\appendixname}{Annex~}}
+    \addto\captionsenglish{\renewcommand{\figurename}{Figure\enspace}} 
     \usepackage{chngcntr}
     \counterwithout{figure}{chapter}
     \counterwithout{table}{chapter}
@@ -203,19 +203,19 @@ latex_elements = {
     \usepackage{tocloft}
     \message{figure}
     \newlength{\myfiglen}
-    \renewcommand{\cftfigpresnum}{\figurename\enspace}
+    \renewcommand{\cftfigpresnum}{\figurename}
       \renewcommand{\cftfigaftersnum}{:}
       \settowidth{\myfiglen}{\cftfigpresnum\cftfigaftersnum}
       \addtolength{\cftfignumwidth}{\myfiglen}
     \message{table}
     \newlength{\mytablen}
-    \renewcommand{\cfttabpresnum}{\tablename\enspace}
+    \renewcommand{\cfttabpresnum}{\tablename}
       \renewcommand{\cfttabaftersnum}{:}
       \settowidth{\mytablen}{\cfttabpresnum\cfttabaftersnum}
       \addtolength{\cfttabnumwidth}{\mytablen}
     \message{chapter}
     \newlength{\mychaplen}
-    \renewcommand{\cftchappresnum}{\chaptername\enspace}
+    \renewcommand{\cftchappresnum}{\chaptername}
       \renewcommand{\cftchapaftersnum}{:}
       \settowidth{\mychaplen}{\cftchappresnum\cftchapaftersnum}
       \addtolength{\cftchapnumwidth}{\mychaplen}
