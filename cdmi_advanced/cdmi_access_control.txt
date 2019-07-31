@@ -20,7 +20,7 @@ Access control defines the mechanisms by which access to objects are permitted o
 Access Control Flow
 -------------------
 
-:numref:`fig_access_control_flow` (see next page) illustrates the control flow for access control in a typical CDMI implementation. 
+:numref:`fig_access_control_flow` (see next page) illustrates the control flow for access control in an example CDMI implementation. As every aspect of access control is optional within a CDMI server, each different implementations will typically implement appropriate subsets of the below illustrated access control flow, in a manner approprate to the internal architecture of their implementation. 
 
 .. _fig_access_control_flow:
 
@@ -59,7 +59,7 @@ Access Control Flow
 23. The Object permission mask is used to determine if the requested operation is permitted.
 24. The operation is permitted or denied, and the corresponding response returend to the CDMI Client.
 
-Steps 2 - 8, 9 - 15, and 16 - 18 can be performed in parallel.
+Steps 2 - 8, 9 - 15, and 16 - 18 may be performed in parallel.
 
 .. _ref_access_control_lists:
 
