@@ -1,9 +1,9 @@
 .. _clause_terms:
 
-Terms and definitions
-===============================
+Terms, acronyms, and definitions
+================================
 
-For the purposes of this document, the following terms and definitions apply.
+For the purposes of this document, the terms and definitions given in Rec. ITU-T Y.3500 | ISO/IEC 17788:2014 and the following apply.
 
 .. glossary::
 
@@ -19,22 +19,22 @@ For the purposes of this document, the following terms and definitions apply.
     CDMI capabilities
          an object that describes what operations are supported for a given cloud or cloud object
 
-         the mimetype for this object is application/cdmi-capability.
+         The mimetype for this object is ``application/cdmi-capability``.
 
     CDMI container
          an object that stores zero or more children objects and associated metadata
 
-         The mimetype for this object is application/cdmi-container.
+         The mimetype for this object is ``application/cdmi-container``.
 
     CDMI data object
          an object that stores an array of bytes (value) and associated metadata
 
-         The mimetype for this object is application/cdmi-object.
+         The mimetype for this object is ``application/cdmi-object``.
 
     CDMI domain
          an object that stores zero or more children domains and associated metadata describing object administrative ownership
 
-         The mimetype for this object is application/cdmi-domain.
+         The mimetype for this object is ``application/cdmi-domain``.
 
     CDMI object
          one of CDMI capabilities, CDMI container, CDMI data object, CDMI domain, or CDMI queue
@@ -42,7 +42,7 @@ For the purposes of this document, the following terms and definitions apply.
     CDMI queue
          an object that stores a first-in, first-out set of values and associated metadata
 
-         The mimetype for this object is application/cdmi-queue.
+         The mimetype for this object is ``application/cdmi-queue``.
 
     CIFS
          Common Internet File System
@@ -63,7 +63,7 @@ For the purposes of this document, the following terms and definitions apply.
          either the current data object version or an historical data object version
 
     Data Storage as a Service (DSaaS)
-         delivery of virtualized storage and data services on demand over a network, based on a request for a given service level that hides limits to scalability, is either self-provisioned or provisionless, and is billed based on consumption
+         delivery of appropriately configured virtual storage and related data services over a network, based on a request for a given service level
 
     delegated access control (DAC)
          the process of delegating an access control decision to a third party
@@ -81,7 +81,6 @@ For the purposes of this document, the following terms and definitions apply.
          a shared user authorization database that contains users, groups, and their security policies and associated accounting information
 
          Each CDMI object belongs to a single domain, and each domain provides user mapping and accounting information.
-
 
     eventual consistency
          a behavior of transactional systems that does not provide immediate consistency guarantees to provide enhanced system availability and tolerance to network partitioning 

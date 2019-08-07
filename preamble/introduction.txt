@@ -2,7 +2,7 @@
 
     \clearpage
 
-This Cloud Data Management Interface (CDMI™) international standard is intended for application developers who are implementing or using cloud storage. It documents how to access cloud storage and to manage the data stored there.
+This Cloud Data Management Interface (CDMI™) International Standard is intended for application developers who are implementing or using cloud storage. It documents how to access cloud storage and to manage the data stored there.
 
 This document is organized as follows:
 
@@ -32,7 +32,7 @@ This document is organized as follows:
       - Describes the conventions used in presenting the interfaces and the typographical conventions used in this document
     * - :numref:`Clause %s <clause_overview_of_cloud_storage>`
       - Overview of Cloud Storage
-      - Provides a brief overview of cloud storage and details the philosophy behind this international standard as a model for the operations
+      - Provides a brief overview of cloud storage and details the philosophy behind this International Standard as a model for the operations
     * - :numref:`Clause %s <clause_http_data_object>`
       - Data Object Resource Operations using HTTP
       - Provides the normative standard of data object resource operations using HTTP
@@ -56,7 +56,7 @@ This document is organized as follows:
       - Provides the normative standard of capability object resource operations using CDMI
     * - :numref:`Clause %s <clause_cdmi_exports>`
       - Exported Protocols
-      - Discusses how virtual machines in the cloud computing environment may use the exported protocols from CDMI containers
+      - Discusses how virtual machines in the cloud computing environment can use the exported protocols from CDMI containers
     * - :numref:`Clause %s <clause_cdmi_snapshots>`
       - Snapshots
       - Discusses how snapshots are accessed under CDMI containers

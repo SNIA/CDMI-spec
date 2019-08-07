@@ -7,9 +7,9 @@ Overview of Cloud Storage
 Overview
 ********
 
-When discussing cloud storage and standards, it is important to distinguish the various resources that are being offered as services. These resources are exposed to clients as functional interfaces (i.e., data paths) and are managed by management interfaces (i.e., control paths). This international standard explores the various types of interfaces that are part of cloud services today and shows how they are related. This international standard defines a model for the interfaces that may be mapped to the various cloud services and a model that forms the basis for cloud storage interfaces into the future.
+When discussing cloud storage and standards, it is important to distinguish the various resources that are being offered as services. These resources are exposed to clients as functional interfaces (i.e., data paths) and are managed by management interfaces (i.e., control paths). This International Standard explores the various types of interfaces that are part of cloud services today and shows how they are related. This International Standard defines a model for the interfaces that can be mapped to the various cloud services and a model that forms the basis for cloud storage interfaces into the future.
 
-Another important concept in this international standard is that of metadata. When managing large amounts of data with differing requirements, metadata is a convenient mechanism to express those requirements in such a way that underlying data services may differentiate their treatment of the data to meet those requirements.
+Another important concept in this International Standard is that of metadata. When managing large amounts of data with differing requirements, metadata is a convenient mechanism to express those requirements in such a way that underlying data services can differentiate their treatment of the data to meet those requirements.
 
 The appeal of cloud storage is due to some of the same attributes that define other cloud services: pay as you go, the illusion of infinite capacity (elasticity), and the simplicity of use/management. It is therefore important that any interface for cloud storage support these attributes, while allowing for a multitude of business use cases.
 
@@ -25,9 +25,9 @@ Thus, cloud storage is simply the delivery of virtualized storage on demand. The
 Data Storage as a Service
 *************************
 
-By abstracting data storage behind a set of service interfaces and delivering it on demand, a wide range of actual cloud services and implementations are possible. The only type of storage that is excluded from this definition is that which is delivered in fixed-capacity increments instead of based on demand. 
+By abstracting data storage behind a set of service interfaces and delivering it on demand, a wide range of actual cloud services and implementations are possible. The only type of storage that is excluded from this definition is that which is delivered in fixed-capacity increments instead of that which is based on demand. 
 
-An important part of any DaaS system is the support of legacy clients. Support is accommodated with existing standard protocols such as iSCSI (and others) for block and CIFS/NFS or WebDAV for file network storage, as shown in :numref:`fig_legacydsis`.
+An important part of any DaaS system is the support of legacy clients. Support is accommodated with existing standard protocols such as iSCSI (and others) for block network storage and CIFS/NFS or WebDAV for file network storage, as shown in :numref:`fig_legacydsis`.
 
 .. _fig_LegacyDSIs:
 
@@ -35,13 +35,13 @@ An important part of any DaaS system is the support of legacy clients. Support i
     :align:  center
     :figwidth: 100%
    
-    Existing Data Storage Interface Standards
+    Existing data storage interface standards
 
-The difference between the purchase of a dedicated appliance and that of cloud storage is not the functional interface, but the fact that the storage is delivered on demand. The customer pays for either what they actually use or what they have allocated for use. In the case of block storage, a Logical Unit Number (LUN), or virtual volume, is the granularity of allocation. For file protocols, a file system is the unit of granularity. In either case, the actual storage space may be thin provisioned and billed for based on actual usage. Data services, such as compression and deduplication, may be used to further reduce the actual space consumed.
+The difference between purchasing a dedicated appliance or purchasing cloud storage is not the functional interface, but the fact that the storage is delivered on demand. Customers pay for either what they actually use or what they have allocated for use. For block storage, a Logical Unit Number (LUN), or virtual volume, is the granularity of allocation. For file protocols, a file system is the unit of granularity. In either case, the actual storage space may be thin-provisioned and billed for based on actual usage. Data services, such as compression and deduplication, can be used to further reduce the actual space consumed.
 
-Managing this storage is typically done out of band for these standard data storage interfaces, either through an API, or more commonly, through an administrative browser-based user interface. This out-of-band interface may be used to invoke other data services as well (e.g., snapshot and cloning).
+Managing this storage is typically done out of band for these standard data storage interfaces, either through an API, or more commonly, through an administrative browser-based user interface. This out-of-band interface can be used to invoke other data services as well (e.g., snapshots or cloning).
 
-In this model, the underlying storage space exposed by the out-of-band interfaces is abstracted and exposed using the notion of a container. A container is not only a useful abstraction for storage space, but also serves as a grouping of the data stored in it and a point of control for applying data services in the aggregate.
+In this model, the underlying storage space that has been exposed by the out-of-band interfaces is abstracted and exposed using the notion of a container. A container is not only a useful abstraction for storage space, but also serves as a grouping of the data stored in it and a point of control for applying data services in the aggregate.
 
 Each data object is created, retrieved, updated, and deleted as a separate resource. In this type of interface, a container, if used, is a simple grouping of data objects for convenience. Nothing prevents the concept of containers from being hierarchical, although any given implementation might support only a single level (see :numref:`fig_crud`).
 
@@ -51,37 +51,39 @@ Each data object is created, retrieved, updated, and deleted as a separate resou
     :align:  center
     :figwidth: 100%
     
-    Storage Interfaces for Object Storage Client Data
+    Storage interfaces for object storage client data
 
-Data Management for Cloud Storage
+Data management for cloud storage
 *********************************
 
 Many of the initial implementations of cloud storage focused on a kind of best effort quality of storage service and ignored most other types of data services. To address the needs of enterprise applications with cloud storage, however, there is an increasing need to offer better quality of service and to deploy additional data services.
 
-Cloud storage may lose its abstraction and simplicity benefits if new data services that require complex management are added. Cloud storage customers are likely to resist new demands on their time (e.g., setting up backup schedules through dedicated interfaces, deploying data services individually for stored objects).
+Cloud storage can lose its abstraction and simplicity benefits if new data services that require complex management are added. Cloud storage customers are likely to resist new demands on their time (e.g., setting up backup schedules through dedicated interfaces, deploying data services individually for stored objects).
 
-By supporting metadata in a cloud storage interface and prescribing how the storage system and data system metadata is interpreted to meet the requirements of the data, the simplicity required by the cloud storage model may be maintained while still addressing the requirements of enterprise applications and their data.
+By supporting metadata in a cloud storage interface and prescribing how the storage system and data system metadata is interpreted to meet the requirements of the data, the simplicity required by the cloud storage model can be maintained while still addressing the requirements of enterprise applications and their data.
 
-User metadata is retained by the cloud and may be used to find the data objects and containers by performing a query for specific metadata values. The schema for this metadata may be determined by each application, domain, or user. For more information on support for user metadata, see :numref:`%s <ref_support_for_user_metadata>`.
+User metadata is retained by the cloud and can be used to find the data objects and containers by performing a query for specific metadata values. The schema for this metadata may be determined by each application, domain, or user. For more information on support for user metadata, see :numref:`%s <ref_support_for_user_metadata>`.
 
 Storage system metadata is produced/interpreted by the cloud service provider and basic storage functions (e.g., modification and access statistics, access control). For more information on support for storage system metadata, see :numref:`%s <ref_support_for_storage_system_metadata>`.
 
-Data system metadata is interpreted by the cloud service provider as data requirements that control the operation of underlying data services for that data. It may apply to an aggregation of data objects in a container or to individual data objects, if the cloud service provider supports this level of granularity. For more information on support for data system metadata, see :numref:`%s <ref_support_for_data_system_metadata>`.
+Data system metadata is interpreted by the cloud service provider as data requirements that control the operation of underlying data services for that data. Depending on the level of granularity supported by the cloud, data system metadata may apply to an aggregation of data objects in a container or to individual data objects, if the cloud service provider supports this level of granularity. For more information on support for data system metadata, see :numref:`%s <ref_support_for_data_system_metadata>`.
 
 .. _ref_data_and_container_management:
 
-Data and Container Management
+Data and container management
 *****************************
 
-There is no reason that managing data and managing containers should involve different interfaces. Therefore, the use of metadata is extended from applying to individual objects to applying to containers of objects as well. Thus, any data placed into a container inherits the data system metadata of the container into which it was placed. When creating a new container within an existing container, the new container would similarly inherit the metadata settings of its parent's data system metadata. After an object is created, the data system metadata may be overridden at the container or individual object level, as desired.
+There is no reason that managing data and managing containers should involve different interfaces. Therefore, the use of metadata is extended from applying to individual objects to applying to containers of objects as well. Thus, any data placed into a container inherits the data system metadata of the container into which it was placed. When creating a new container within an existing container, the new container would similarly inherit the metadata settings of its parent's data system metadata. After an object is created, the data system metadata can be overridden at the container or individual object level, as desired.
 
-Even if the provided interface does not support setting metadata on individual objects, metadata may still be applied to the containers. In such a case, the interface does not provide a mechanism to override metadata that an individual object inherits from its parent container. For file-based interfaces that support extended attributes (e.g., CIFS, NFSv4), these extended attributes may be used to specify the data system metadata to override that specified for the container. 
+Even if the provided interface does not support setting metadata on individual objects, metadata can still be applied to the containers. In such a case, the interface does not provide a mechanism to override metadata that an individual object inherits from its parent container. For file-based interfaces that support extended attributes (e.g., CIFS, NFSv4), these extended attributes may be used to specify the data system metadata to override that specified for the container. 
 
 ********************************************
-Reference Model for Cloud Storage Interfaces
+Reference model for cloud storage interfaces
 ********************************************
 
 The cloud storage reference model is shown in :numref:`fig_reference_model_for_cloud_storage_interfaces`.
+
+Clients acting in the role of using a data storage interface Clients can be inside the storage cloud (i.e., providing storage resources to the cloud as well as consuming them) or outside the storage cloud (i.e., only consuming resources).
 
 .. _fig_reference_model_for_cloud_storage_interfaces:
 
@@ -89,13 +91,12 @@ The cloud storage reference model is shown in :numref:`fig_reference_model_for_c
     :align:  center
     :figwidth: 100%
     
-    Cloud Storage Reference Model
+    Cloud storage reference model
 
-This model shows multiple types of cloud data storage interfaces that are able to support both legacy and new applications. All of the interfaces allow storage to be provided on demand, drawn from a pool of resources. The storage capacity is drawn from a pool of storage capacity provided by storage services. The data services are applied to individual objects, as determined by the data system metadata. Metadata specifies the data requirements on the basis of individual objects or for groups of objects (containers). 
-
+This model shows multiple types of cloud data storage interfaces that are able to support both legacy and new applications. All of the interfaces allow storage to be provided on demand, drawn from a pool of resources. The storage capacity is drawn from a pool of storage capacity provided by storage services. The data services are applied to individual objects, as determined by the data system metadata. Metadata specifies the data requirements on the basis of individual objects or for groups of objects (containers).
 
 *******************************
-Cloud Data Management Interface
+Cloud data management interface
 *******************************
 
 The Cloud Data Management Interface (CDMI™) shown in :numref:`fig_reference_model_for_cloud_storage_interfaces` may be used to create, retrieve, update, and delete objects in a cloud. The features of the CDMI include functions that: 
@@ -104,14 +105,13 @@ The Cloud Data Management Interface (CDMI™) shown in :numref:`fig_reference_mo
 * manage containers and the data that is placed in them, and
 * allow metadata to be associated with containers and the objects they contain.
 
+This International Standard divides operations into two types: those that use a CDMI content type in the HTTP body and those that do not. While much of the same data is available via both types, providing both allows for CDMI-aware clients and non-CDMI-aware clients to interact with a CDMI provider. 
 
-This international standard divides operations into two types: those that use a CDMI content type in the HTTP body and those that do not. While much of the same data is available via both types, providing both allows for CDMI-aware clients and non-CDMI-aware clients to interact with a CDMI provider. 
+CDMI can also be used by administrative and management applications to manage containers, domains, security access, and monitoring/billing information, even for storage that is functionally accessible by legacy or proprietary protocols. The capabilities of the underlying storage and data services are exposed so that clients can understand what services the cloud service provider provides. 
 
-CDMI may also be used by administrative and management applications to manage containers, domains, security access, and monitoring/billing information, even for storage that is functionally accessible by legacy or proprietary protocols. The capabilities of the underlying storage and data services are exposed so that clients may understand what services the cloud service provider provides. 
+Conformant cloud service providers can support a subset of the CDMI, as long as they expose the limitations in the capabilities reported via the interface.
 
-Conformant cloud service providers may support a subset of the CDMI, as long as they expose the limitations in the capabilities reported via the interface.
-
-This international standard uses RESTful principles in the interface design where possible (see :cite:`restthesis`). 
+This International Standard uses RESTful principles in the interface design where possible (see :cite:`restthesis`). 
 
 CDMI defines both a means to manage the data as well as a means to store and retrieve the data. The means by which the storage and retrieval of data is achieved is termed a data path. The means by which the data is managed is termed a control path. CDMI specifies both a data path and control path interface. 
 
@@ -119,7 +119,7 @@ CDMI does not need to be used as the only data path and is able to manage cloud 
 
 Container metadata is used to configure the data requirements of the storage provided through the exported protocol (e.g., block protocol or file protocol) that the container exposes. When an implementation is based on an underlying file system to store data for a block protocol (e.g., iSCSI), the CDMI container provides a useful abstraction for representing the data system metadata for the data and the structures that govern the exported protocols. 
 
-A cloud service may also support domains that allow administrative ownership to be associated with stored objects. Domains allow this international standard to (among other things): 
+A cloud service may also support domains that allow administrative ownership to be associated with stored objects. Domains allow this International Standard to (among other things): 
 
 * determine how user credentials are mapped to principals used in an Access Control List (ACL),
 * allow granting of special cloud-related privileges, and
@@ -127,13 +127,13 @@ A cloud service may also support domains that allow administrative ownership to 
 
 Domains may also be hierarchical, allowing for corporate domains with multiple children domains for departments or individuals. The domain concept is also used to aggregate usage data that is used to bill, meter, and monitor cloud use.
 
-Finally, capabilities allow a client to discover the capabilities of a CDMI implementation. Requirements throughout this international standard shall be understood in the context of CDMI capabilities. Mandatory requirements on functionality that is conditioned on a CDMI capability shall not be interpreted to require implementation of that capability, but rather shall be interpreted to apply only to implementations that support the functionality required by that capability.
+Finally, capabilities allow a client to discover the capabilities of a CDMI implementation. Requirements throughout this International Standard shall be understood in the context of CDMI capabilities. Mandatory requirements on functionality that is conditioned on a CDMI capability shall not be interpreted to require implementation of that capability, but rather shall be interpreted to apply only to implementations that support the functionality required by that capability.
 
-For example, in :numref:`%s <ref_object_id>`, this international standard states, "Every cloud storage system shall allow object ID-based access to stored objects." This requirement shall be understood in the context that access by object ID is predicated on the presence of the ``cdmi_object_access_by_ID`` capability.
+For example, in :numref:`%s <ref_object_id>`, this International Standard states, "Every cloud storage system shall allow object ID-based access to stored objects." This requirement shall be understood in the context that access by object ID is predicated on the presence of the ``cdmi_object_access_by_ID`` capability.
 
 .. _ref_object_model_for_cdmi:
 
-Object Model for CDMI
+Object model for CDMI
 *********************
 
 The model for CDMI is shown in :numref:`fig_cdmi_object_model`.
@@ -145,7 +145,7 @@ The model for CDMI is shown in :numref:`fig_cdmi_object_model`.
     :align:  center
     :figwidth: 100%
     
-    CDMI Object Model
+    CDMI object model
 
 The five types of resources defined are shown in :numref:`tbl_types_of_resources_in_model`. The content type in any given operation is specific to each type of resource.
 
@@ -155,11 +155,11 @@ The five types of resources defined are shown in :numref:`tbl_types_of_resources
 
 .. _tbl_types_of_resources_in_model:
 
-.. list-table:: Types of Resources in the Model
+.. list-table:: Types of resources in the CDMI object model
     :header-rows: 1
     :align: center
 
-    * - Resource Type
+    * - Resource type
       - Description
       - Reference
     * - Data objects
@@ -178,9 +178,9 @@ The five types of resources defined are shown in :numref:`tbl_types_of_resources
       - Capability objects describe the functionality implemented by a CDMI server and are used by a client to discover supported functionality.
       - See :numref:`Clause %s <clause_cdmi_capability_object>`.
 
-For data storage operations, the client of the interface only needs to know about container objects and data objects. All data path implementations are required to support at least one level of containers (see :numref:`%s <ref_data_and_container_management>`). Using the CDMI object model (see :numref:`fig_cdmi_object_model`), the client may send a PUT via CDMI (see :numref:`fig_reference_model_for_cloud_storage_interfaces`) to the new container URI and create a new container with the specified name. Container metadata are optional and are expressed as a series of name-value pairs. After a container is created, a client may send a PUT to create a data object within the newly created container. A subsequent GET will fetch the data object, including the value field.
+For data storage operations, the client of the interface only needs to know about container objects and data objects. All data path implementations are required to support at least one level of containers (see :numref:`%s <ref_data_and_container_management>`). Using the CDMI object model (see :numref:`fig_cdmi_object_model`), the client can send a PUT via CDMI (see :numref:`fig_reference_model_for_cloud_storage_interfaces`) to the new container URI and create a new container with the specified name. Container metadata are optional and are expressed as a series of name-value pairs. After a container is created, a client can send a PUT to create a data object within the newly created container. A subsequent GET will fetch the data object, including the value field.
 
-Queue objects are also defined (see :numref:`fig_cdmi_object_model`) and provide in-order-first in-first-out access to enqueued objects. More information on queues may be found in :numref:`Clause %s <clause_cdmi_queue_object>`. 
+Queue objects are also defined (see :numref:`fig_cdmi_object_model`) and provide in-order-first in-first-out access to enqueued objects. More information on queues can be found in :numref:`Clause %s <clause_cdmi_queue_object>`. 
 
 CDMI defines two namespaces that can be used to access stored objects, a flat object ID namespace and a hierarchical path-based namespace. Support for objects accessed by object ID is indicated by the system-wide capability ``cdmi_object_access_by_ID``, and support for objects accessed by hierarchical path is indicated by the container capability cdmi_create_dataobject found on the root container (and any subcontainers).
 
@@ -196,16 +196,16 @@ CDMI defines mechanisms so that objects having only an object ID can be assigned
     :align:  center
     :figwidth: 100%
     
-    Object Transitions between Named and ID-only
+    Object transitions between named and ID-only
 
-CDMI Metadata
+CDMI metadata
 *************
 
 CDMI uses many different types of metadata, including HTTP metadata, data system metadata, user metadata, and storage system metadata.
 
-HTTP metadata is metadata that is related to the use of the HTTP protocol (e.g., Content-Length, Content-Type, etc.). HTTP metadata is not specifically related to this international standard but needs to be discussed to explain how CDMI uses the HTTP standard.
+HTTP metadata is metadata that is related to the use of the HTTP protocol (e.g., Content-Length, Content-Type, etc.). HTTP metadata is not specifically related to this International Standard but needs to be discussed to explain how CDMI uses the HTTP standard.
 
-CDMI data system metadata, user metadata, and storage system metadata is defined in the form of name- value pairs. Vendor-defined data system metadata and storage system metadata names shall begin with the reverse domain name of the vendor.
+CDMI data system metadata, user metadata, and storage system metadata is defined in the form of name-value pairs. Vendor-defined data system metadata and storage system metadata names shall begin with the reverse domain name of the vendor.
 
 Data system metadata is metadata that is specified by a CDMI client and is a component of objects. Data system metadata abstractly specifies the data requirements associated with data services that are deployed in the cloud storage system.
 
@@ -217,19 +217,19 @@ The matrix of the creation and consumption of storage system metadata is shown i
 
 .. _tbl_create_consume_storage_system_metadata:
 
-.. list-table:: Creation/Consumption of Storage System Metadata
+.. list-table:: Creation/consumption of storage system metadata
     :header-rows: 1
     :stub-columns: 1
     :widths: auto
     :align: center
     
     * - \ 
-      - Created by User 
-      - Created By System
-    * - Consumed by User
+      - Created by user 
+      - Created By system
+    * - Consumed by user
       - User metadata
       - Storage system metadata
-    * - Consumed by System
+    * - Consumed by system
       - Data system metadata
       - N/A
 
@@ -252,7 +252,7 @@ If containers are supported, they shall also be accessible by object ID. If the 
 * ``https://cloud.example.com/root/MyContainer/MyDataObject.txt``
 * ``https://cloud.example.com/root/cdmi_objectid/00006FFD0010AA33D8CEF9711E0835CA/MyDataObject.txt``
 
-CDMI Object ID Format
+CDMI object ID format
 *********************
 
 The CDMI Server shall create the object ID, which identifies an object. The object ID shall be globally unique and shall conform to the format defined in :numref:`tbl_objectid_format`. The native format of an object ID is a variable-length byte sequence and shall be a maximum length of 40 bytes. A client should treat object IDs as opaque byte strings. However, the object ID format is defined such that its integrity may be validated, and independent CDMI Servers may assign unique object ID values independently.
@@ -260,7 +260,6 @@ The CDMI Server shall create the object ID, which identifies an object. The obje
 .. _tbl_objectid_format:
 
 .. table:: Object ID Format
-
    
     +-----------------+---+---+-----------+-----------------+--------+---+---+---+---+----+-----+----+----+
     | 0               | 1 | 2 | 3         | 4               | 5      | 6 | 7 | 8 | 9 | 10 | ... | 38 | 39 |
@@ -295,9 +294,12 @@ The native format for an object ID is binary. When necessary, such as when inclu
 Security
 ********
 
+Security objectives
+*******************
+
 Security, in the context of CDMI, refers to the protective measures employed in managing and accessing data and storage. The specific objectives to be addressed by security include providing a mechanism that: 
 
-* assures that the communications between a CDMI client and server may not be read or modified by a third party; 
+* assures that the communications between a CDMI client and server cannot be read or modified by a third party; 
 * allows CDMI clients and servers to assure their identity; 
 * allows control of the actions a CDMI client is permitted to perform on a CDMI server; 
 * allows records to be generated for actions performed by a CDMI client on a CDMI server; 
@@ -305,7 +307,7 @@ Security, in the context of CDMI, refers to the protective measures employed in 
 * eliminates data in a controlled manner; and 
 * discovers the security capabilities of of a particular implementation. 
 
-Security measures within CDMI may be summarized as: 
+Security measures within CDMI are summarized as: 
 
 * transport security, 
 * user and entity authentication, 
@@ -317,23 +319,22 @@ Security measures within CDMI may be summarized as:
 * data at-rest encryption, and 
 * security capabilities. 
 
-With the exception of both the transport security and the security capabilities, which are mandatory to implement, the security measures may vary significantly from implementation to implementation.
+With the exception of both the transport security and the security capabilities, which are mandatory to implement, the security measures can vary significantly from implementation to implementation.
 
 When security is a concern, the CDMI client should begin with a series of security capability lookups (see :numref:`%s <ref_cloud_storage_system-wide_capabilities>`  to determine the exact nature of the security features that are available. Based on the values of these capabilities, a risk-based decision should be made as to whether the CDMI server should be used. This is particularly true when the data to be stored in the cloud storage is sensitive or regulated in a way that requires stored data to be protected (e.g., encrypted) or handled in a particular manner (e.g., full accountability and traceability of management and access).
 
-HTTP Security
+HTTP security
 *************
 
 HTTP is the mandatory transport mechanism for this version of CDMI. It is important to note that HTTP, by itself, offers no confidentiality or integrity protections. As CDMI is built on top of HTTP, HTTP over Transport Layer Security (TLS) (i.e., HTTPS) is the mechanism that is used to secure the communications between CDMI clients and servers. 
 
 To ensure both security and interoperability, all CDMI implementations:
 
-* shall implement the TLS protocol as described in "SNIA TLS Specification for Storage Systems" :cite:`snia-tls`; 
+* shall implement the TLS protocol as described in the latest version of the "SNIA TLS Specification for Storage Systems" :cite:`snia-tls`; with a six-month transition period for implementations. The TLS specification is updated when new vulnerabilities are found, and CDMI implementations shall support the latest specification within six months of its publication announcement;
 * shall support both HTTP over TLS and HTTP without TLS; and 
 * shall allow HTTP without TLS to be disabled.
 
-
-When TLS is used to secure HTTP, the client and server typically perform some form of entity authentication. However, the specific nature of this entity authentication depends on the cipher suite negotiated; a cipher suite specifies the encryption algorithm and digest algorithm to use on a TLS connection. A very common scenario involves using server-side certificates, which the client trusts, as the basis for unidirectional entity authentication. It is possible that mutual authentication involving both client-side and server-side certificates may be required.
+When TLS is used to secure HTTP, the client and server typically perform some form of entity authentication. However, the specific nature of this entity authentication depends on the cipher suite negotiated; a cipher suite specifies the encryption algorithm and digest algorithm to use on a TLS connection. A very common scenario involves using server-side certificates, which the client trusts, as the basis for unidirectional entity authentication. It is possible that mutual authentication involving both client-side and server-side certificates are required.
 
 .. _ref_overview_authentication:
 
@@ -342,24 +343,24 @@ Client Authentication
 
 A CDMI client shall comply with all security requirements for HTTP that apply to clients. 
 
-CDMI clients may be responsible for initiating user authentication for each CDMI operation that is performed. The CDMI server functions as the authenticator and receives and validates authentication credentials from the client.
+CDMI clients can be responsible for initiating user authentication for each CDMI operation that is performed. The CDMI server functions as the authenticator and receives and validates authentication credentials from the client.
 
 RFC 2616 :cite:`rfc2616` and RFC 2617 :cite:`rfc2617` define requirements for HTTP authentication, which generally starts with an HTTP client request. If the client request does not include an "Authorization" header and authentication is required, the server responds with an HTTP status code of ``401 Unauthorized`` and a WWW-Authenticate response header. The HTTP client shall then respond with the appropriate Authorization header in a subsequent request. The format of the WWW-Authenticate and Authorization headers varies depending on the type of authentication required.
 
 * 	HTTP basic authentication involves sending the user name and password in the clear, and it should only be used on a secure network or in conjunction with TLS.
-* 	HTTP digest authentication sends a secure digest of the user name and password (and other information such as a nonce value), and may be used on an insecure network without TLS.
+* 	HTTP digest authentication sends a secure digest of the user name and password (and other information such as a nonce value), and can be used on an insecure network without TLS.
 * 	HTTP status codes of ``401 Unauthorized`` should not include a choice of authentication.
 * 	HTTP basic authentication and/or HTTP digest authentication should be implemented.
 * 	Authentication credentials used with one type of HTTP authentication (i.e., basic or digest) should never be subsequently used with the other type of HTTP authentication.
 
 Once a user is authenticated, the provided principal name shall be mapped by the CDMI domain to a domain user (or used directly as the ACE "``who``" if domains are not supported). This mapping is then used to determine authorization.
 
-A CDMI server typically relies on an authentication service (local and/or external) to validate client credentials. Differing authentication schemes may be supported, including host-based authentication, Kerberos, PKI, or other; the authentication service is beyond the scope of this international standard.
+A CDMI server typically relies on an authentication service (local and/or external) to validate client credentials. Differing authentication schemes may be supported, including host-based authentication, Kerberos, PKI, or other; the authentication service is beyond the scope of this International Standard.
 
-Use of TLS
-**********
+Use of TLS and HTTP
+*******************
 
-Recommendations for using HTTP and TLS include:
+Recommendations for using HTTP and TLS are as follows:
 
 * 	A client connecting to a CMDI server using TLS should use TCP port 443, and a client connecting without TLS should use TCP port 80.
 * 	A client that fails to connect to a CDMI server on port 443 should retry without TLS on TCP port 80 if their security policy allows it.
