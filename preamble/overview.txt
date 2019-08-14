@@ -366,43 +366,43 @@ Recommendations for using HTTP and TLS are as follows:
 * 	A client that fails to connect to a CDMI server on port 443 should retry without TLS on TCP port 80 if their security policy allows it.
 * 	Servers may respond to HTTP requests on port 80 with an HTTP REDIRECT to the appropriate TLS URI (using port 443). Clients should honor such redirects in this situation.
 
-Further Information
+Further information
 *******************
 
 For further information pertaining to storage security techniques, see ISO 14701:2012. 
 
-************************
-Required HTTP Support 
-************************
+*********************
+Required HTTP support
+*********************
 
-RFC 2616 Support Requirements
+RFC 2616 support requirements
 *****************************
 
 A conformant implementation of CDMI shall also be a conformant implementation of RFC 2616 :cite:`rfc2616` (i.e., HTTP 1.1). The subclauses below list the sections of RFC 2616 :cite:`rfc2616` that shall be supported; however, this list is not comprehensive.
 
 .. _ref_content-type_negotiation:
 
-Content-Type Negotiation
+Content-Type negotiation
 ************************
 
 For CDMI operations, media types for CDMI objects are used as defined in RFC 6208 :cite:`rfc6208`. All CDMI representations follow the rules established for "application/json" as defined in RFC 4627 :cite:`rfc4627`. The use of the CDMI media types with the "+json" suffix shall be supported as defined in RFC 6839 :cite:`rfc6839`. 
 
-A client may optionally supply an HTTP Accept header, as per section 14.1 of RFC 2616 :cite:`rfc2616`. If a client is restricting the response to a specific CDMI media type, the corresponding media type shall be specified in the Accept header. Otherwise, the Accept header may contain "``*/*``" or a list of media types, or it may be omitted. 
+A client can optionally supply an HTTP Accept header, as per section 14.1 of RFC 2616 :cite:`rfc2616`. If a client is restricting the response to a specific CDMI media type, the corresponding media type shall be specified in the Accept header. Otherwise, the Accept header can contain "``*/*``" or a list of media types, or it may be omitted. 
 
 If a request body is present, the client shall include a Content-Type header, as per section 14.17 of RFC 2616 :cite:`rfc2616`. If the client does not provide a Content-Type header when required or provides a media type in the Content-Type header that does not match with the existing resource media type, the server shall return an HTTP status code of ``400 Bad Request``.
 
 If a response body is present, the server shall provide a ``Content-Type`` header. 
 
-This international standard may further qualify content negotiation (e.g., in :numref:`%s <ref_cdmi_container_object_read>`, the absence of a ``Content-Type`` header has a specific meaning).
+This International Standard may further qualify content negotiation (e.g., in :numref:`%s <ref_cdmi_container_object_read>`, the absence of a ``Content-Type`` header has a specific meaning).
 
-Range Support
+Range support
 *************
 
 The server shall support HTTP Range headers and partial content responses (see Section 14.16 of RFC 2616 :cite:`rfc2616`). 
 
 The values of the childrange, valuerange and queuerange fields are formatted based on the HTTP byte-range-resp-spec, as defined in clause 14.16 of RFC 2616 :cite:`rfc2616`.
 
-URI Escaping
+URI escaping
 ************
 
 Percent escaping of reserved characters specified in RFC 3986 :cite:`rfc3986` shall be applied to all text strings used in HTTP request URIs and HTTP header URIs. This includes user-supplied field names, metadata names, data object names, container object names, queue object names, and domain object names when used in HTTP request URIs and HTTP header URIs. 
@@ -439,13 +439,13 @@ The format and syntax of URIs are defined by RFC 3986 :cite:`rfc3986`.
 
 Every CDMI client shall maintain one or more root URIs that each correspond to a root container on the CDMI server. Since all URIs to CDMI containers end in a trailing slash, all root URIs will end in a trailing slash. 
 
-All URIs in this international standard are relative to the root URI unless otherwise noted. As a consequence, the algorithm used for calculating the resolved URI is as described in Section 5.2 of RFC 3986 :cite:`rfc3986`.
+All URIs in this International Standard are relative to the root URI unless otherwise noted. As a consequence, the algorithm used for calculating the resolved URI is as described in Section 5.2 of RFC 3986 :cite:`rfc3986`.
 
 :numref:`tbl_relative_uris_resolved_against_root_uris` shows how relative URIs are resolved against root URIs
 
 .. _tbl_relative_uris_resolved_against_root_uris:
 
-.. list-table:: Relative URIs Resolved Against Root URIs
+.. list-table:: Relative URIs resolved against root URIs
     :header-rows: 1
     :widths: 30 20 50
     :align: center
@@ -472,24 +472,22 @@ All URIs in this international standard are relative to the root URI unless othe
       - ``/container/testObject``
       - ``https://cloud.example.com/container/testObject``
 
-This international standard places no restrictions on root and relative URIs. All of the examples in this specification use a root URI of ``https://cloud.example.com/`` and return absolute path references as shown in the second line of :numref:`tbl_relative_uris_resolved_against_root_uris`.
+This International Standard places no restrictions on root and relative URIs. All of the examples in this specification use a root URI of ``https://cloud.example.com/`` and return absolute path references as shown in the second line of :numref:`tbl_relative_uris_resolved_against_root_uris`.
 
 * If the root URI is "``/``", the container located at the root URI shall omit the ``parentID`` field and shall return an empty string ("") for the value of the ``parentURI`` field. 
 * If the root URI is not "``/``" and the parent is a CDMI container, the container located at the root URI shall populate ``parentID`` field with the CDMI object ID of the CDMI container corresponding to the parent path component, and populate the ``parentURI`` field with the URI of the parent path component. 
 * If the root URI is not "``/``" and the parent is not a CDMI container, the container located at the root URI shall omit the ``parentID`` field, and populate the ``parentURI`` field with the URI of the parent path component. 
 * If the root URI is not "``/``" and the parent is not accessible, the server may omit the ``parentID`` field and return an empty string ("") for the value of the ``parentURI`` field.
 
-
-Reserved Characters
+Reserved characters
 *******************
 
 The name of CDMI data objects, container objects, queue objects, domain objects and capability objects shall not contain the "``/``" or "``?``" characters, as these characters are reserved for delimiters.
 
-
 .. _ref_time_representations:
 
 ********************
-Time Representations
+Time representations
 ********************
 
 Unless otherwise specified, all date/time values are in the ISO 8601:2004 extended representation ("``YYYY-MM-DDThh:mm:ss.ssssssZ``"). The full precision shall be specified, the sub-second separator shall be a "``.``", the "``Z``" UTC zone indicator shall be included, and all timestamps shall be in UTC time zone. The "``YYYY-MM-DDT24:00:00.000000Z``" hour shall not be used, and instead, it shall be represented as "``YYYY-MM-DDT00:00:00.000000Z``". 
@@ -497,24 +495,27 @@ Unless otherwise specified, all date/time values are in the ISO 8601:2004 extend
 Unless otherwise specified, all date/time intervals are in the ISO 8601:2004 start date/end date representation ("``YYYY-MM-DDThh:mm:ss.ssssssZ/YYYY-MM-DDThh:mm:ss.ssssssZ``"). The end date shall be equal to or later than the start date. The full precision shall be specified, the sub-second separator shall be a "``.``", the "``Z``" UTC zone indicator shall be included, and all timestamps shall be in UTC time zone. The "``YYYY-MM-DDT24:00:00.000000Z`` hour shall not be used, and instead, it shall be represented as "``YYYY-MM-DDT00:00:00.000000Z``". 
 
 ***********************
-Backwards Compatibility
+Backwards compatibility
 ***********************
 
 CDMI client and server implementations shall implement the following measures to ensure backwards compability with earlier versions of this Interational Standard.
 
-Specification Version Header
+See the CDMI 1.1.1 Specification for details on backwards compatiblity specific to the 1.x versions of CDMI.
+
+Specification version detection
+*******************************
+
+CDMI 2.x clients shall not include the ``X-CDMI-Specification-Version`` custom header. When a CDMI 2.x client performs an operation against a CDMI 1.x Server, the absence of this header shall result in an error response from the CDMI 1.x server. The client may use the presence of the ``X-CDMI-Specification-Version`` header in an error response as an indication to use CDMI 1.x (which mandates the use of this custom header), if supported.
+
+CDMI 2.x servers may use the presence of the ``X-CDMI-Specification-Version`` custom header from a CDMI 1.x client as an indication to use CDMI 1.x, if supported.
+
+JSON value transfer encoding
 ****************************
 
-CDMI 2.x clients shall not include the ``X-CDMI-Specification-Version`` custom header. When a CDMI 2.x client connects performs an operation against a CDMI 1.x Server, the absence of this header will result in an error response from the CDMI server. The client may use the presence of a ``X-CDMI-Specification-Version`` header in an error response as an indication to down-negotiate to CDMI 1.x.
-
-CDMI 2.x servers may use the presence of the ``X-CDMI-Specification-Version`` custom header from a CDMI 1.x client to down-negotiate to CDMI 1.x.
-
-CDMI 2.x servers may support the "json" value transfer encoding. Data objects with a value transfer encoding of json shall be accessible to CDMI 1.x clients with a value transfer encoding of UTF-8.
-
-See the CDMI 1.1.1 Specification for more details on backwards compatiblity.
+CDMI 2.x servers may support the "json" value transfer encoding. When a CDMI server supports both CDMI 2.x and CDMI 1.x, data objects with a value transfer encoding of json shall be made accessible to CDMI 1.x clients using a value transfer encoding of UTF-8, with the server adding in the required escaping.
 
 *****************
-Object References
+Object references
 *****************
 
 Object references are URIs within the cloud storage namespace that redirect to another URI within the same or another cloud storage namespace. References are similar to soft links in a file system. The cloud does not guarantee that the referenced URI will be valid after the time of creation.
