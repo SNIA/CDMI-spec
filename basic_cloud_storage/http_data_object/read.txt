@@ -1,6 +1,6 @@
 .. _http_data_object_read:
  
-Read a Data Object using HTTP
+Read a data object using HTTP
 *****************************
 
 Synopsis
@@ -30,7 +30,7 @@ Capabilities that indicate which operations are supported are shown in :numref:`
 
 .. _tbl_http_data_object_read_capabilities:
 
-.. list-table:: Capabilities - Read a CDMI Data Object using HTTP
+.. list-table:: Capabilities - Read a CDMI data object using HTTP
     :class: longtable
     :header-rows: 1
     :align: center 
@@ -60,7 +60,7 @@ The HTTP request header for reading a CDMI data object using HTTP is shown in :n
 
 .. _tbl_http_data_object_readrequest_header:
 
-.. list-table:: Request Header - Read a CDMI Data Object using HTTP
+.. list-table:: Request Header - Read a CDMI data object using HTTP
     :header-rows: 1
     :align: center
     
@@ -69,26 +69,26 @@ The HTTP request header for reading a CDMI data object using HTTP is shown in :n
       - Description
       - Requirement
     * - Range
-      - Header String
+      - Header string
       - A valid ranges-specifier (see RFC 2616 :cite:`rfc2616` Section 14.35.1)
       - Optional
     * - Accept
-      - Header String
+      - Header string
       - "\*/\*" or a value as described in: :numref:`%s <ref_content-type_negotiation>`.
       
-        * If the object has a mimetype of "application/cms" or "application/jose+json", and the mimetype "application/cms" or "application/jose+json" is included in the Accept mimetype, the CDMI server shall return the CMS or JOSE value in the response message body. 
+        * If the object has a mimetype of "``application/cms``" or "``application/jose+json``", and the mimetype "``application/cms``" or "``application/jose+json``" is included in the Accept header mimetype, the CDMI server shall return the CMS or JOSE value in the response message body. 
         * Otherwise, the decrypted plaintext shall be returned in the response message body, along with the encapsulated mimetype in the Content-Type response header. If decryption is not possible, an error result code shall be returned. (See :numref:`clause %s <clause_cdmi_encrypted_objects>` – Encrypted Objects) 
-        * If the Accept mimetype list includes "\*/\*" before "application/cms" and/or "application/jose+json", the server will first try to return the decrypted plaintext, and shall return the CMS or JOSE value when decryption fails. 
-        * If the Accept mimetype list excludes "\*/\*", decrypted plaintext shall only be returned if the encapsulated mimetype is included in the Accept mimetype list. 
+        * If the Accept header mimetype list includes "``\*/\*``" before "``application/cms``" and/or "``application/jose+json``", the server will first try to return the decrypted plaintext, and shall return the CMS or JOSE value when decryption fails. 
+        * If the Accept header mimetype list excludes "``\*/\*``", decrypted plaintext shall only be returned if the encapsulated mimetype is included in the Accept header mimetype list. 
       - Optional
 		
-Request Message Body
+Request message body
 --------------------
 
 A request body shall not be provided.
 
 
-Response Headers
+Response headers
 ----------------
 
 The HTTP response headers for reading a data object using HTTP are shown in :numref:`tbl_http_data_object_readresponse_headers`.
@@ -109,16 +109,16 @@ The HTTP response headers for reading a data object using HTTP are shown in :num
       - Description
       - Requirement
     * - Content-Type
-      - Header String
+      - Header string
       - The content type returned shall be the mimetype field in the data object.
       - Mandatory
     * - Location
-      - Header String
+      - Header string
       - The server shall respond with the URI that the reference redirects to if the object is a reference.
       - Conditional
 
 
-Response Message Body
+Response message body
 ---------------------
 
 When reading a data object using HTTP, the following applies:
@@ -127,7 +127,7 @@ When reading a data object using HTTP, the following applies:
 * When reading a value, zeros shall be returned for any gaps resulting from non-contiguous writes.
 
 
-Response Status
+Response status
 ---------------
 
 The HTTP status codes that occur when reading a data object using HTTP are described in :numref:`tbl_http_data_object_readresponse_status`.
@@ -137,7 +137,7 @@ The HTTP status codes that occur when reading a data object using HTTP are descr
 
 .. _tbl_http_data_object_readresponse_status:
 
-.. list-table:: HTTP Status Codes - Read a CDMI Data Object using HTTP
+.. list-table:: HTTP status codes - Read a CDMI data object using HTTP
     :header-rows: 1
     :align: center 
 

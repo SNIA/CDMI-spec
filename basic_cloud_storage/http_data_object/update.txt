@@ -1,9 +1,7 @@
 .. _http_data_object_update:
 
-    
-Update a Data Object using HTTP
+Update a data object using HTTP
 *******************************
-
 
 Synopsis
 --------
@@ -32,7 +30,7 @@ Capabilities that indicate which operations are supported are shown in :numref:`
 
 .. _tbl_http_data_object_update_capabilities:
 
-.. list-table:: Capabilities - Update a CDMI Data Object using HTTP
+.. list-table:: Capabilities - Update a CDMI data object using HTTP
     :class: longtable
     :header-rows: 1
     :align: center 
@@ -50,7 +48,7 @@ Capabilities that indicate which operations are supported are shown in :numref:`
       - System Wide Capability
       - Ability to access the object by ID
 
-Request Headers
+Request headers
 ---------------
 
 The HTTP request headers for updating a CDMI data object using HTTP are shown in :numref:`tbl_http_data_object_updaterequest_headers`. 
@@ -62,7 +60,7 @@ The HTTP request headers for updating a CDMI data object using HTTP are shown in
 
 .. _tbl_http_data_object_updaterequest_headers:
 
-.. list-table:: Request Headers - Update a CDMI Data Object using HTTP
+.. list-table:: Request headers - Update a CDMI data object using HTTP
     :class: longtable
     :header-rows: 1
     :align: center 
@@ -72,18 +70,18 @@ The HTTP request headers for updating a CDMI data object using HTTP are shown in
       - Description
       - Requirement
     * - Content-Type
-      - Header String
-      - The content type of the data to be stored as a data object. The value specified here shall be converted to lower case and stored in the mimetype field of the CDMI data object. 
+      - Header string
+      - The content type of the data to be stored as a data object. The value specified in this header shall be converted to lower case and stored in the ``mimetype`` field of the CDMI data object. 
         
-        * If the content type includes the charset parameter as defined in RFC 2616 :cite:`rfc2616` of "``utf-8`` (e.g., "``;charset=utf-8``"), the valuetransferencoding field of the CDMI data object shall be set to "``utf-8``". Otherwise, the valuetransferencoding field of the CDMI data object shall be set to "``base64``".
-        * If not specified, the existing mimetype field value shall be preserved.
+        * If the ``Content-Type`` header includes the charset parameter as defined in RFC 2616 :cite:`rfc2616` of "``utf-8`` (e.g., "``;charset=utf-8``"), the ``valuetransferencoding`` field of the CDMI data object shall be set to "``utf-8``". Otherwise, the ``valuetransferencoding`` field of the CDMI data object shall be set to "``base64``".
+        * If not specified, the existing ``mimetype`` field value shall be preserved.
       - Optional
     * - Content-Range
-      - Header String
+      - Header string
       - A valid ranges-specifier (see RFC 2616 :cite:`rfc2616` Section 14.35.1)
       - Optional
     * - X-CDMI-Partial
-      - Header String
+      - Header string
       - Indicates that the operation is part of a series of updates and has not yet been fully created. When set to "``true``", the ``completionStatus`` field shall be set to "``Processing``". ``X-CDMI-Partial`` works across CDMI and non-CDMI operations.
 
         .. raw:: latex
@@ -93,14 +91,12 @@ The HTTP request headers for updating a CDMI data object using HTTP are shown in
         If the ``completionStatus`` field had previously been set to "``Processing``" by including this header in a create or update, the next update without this field shall change the ``completionStatus`` field back to "``Complete``".
       - Optional
 
-
-Request Message Body
+Request message body
 --------------------
 
 The request message body contains the data to be stored in the value of the data object.
 
-
-Response Header
+Response header
 ---------------
 
 The HTTP response header for updating a data object using HTTP is shown in :numref:`tbl_http_data_object_updateresponse_header`. 
@@ -112,27 +108,25 @@ The HTTP response header for updating a data object using HTTP is shown in :numr
 
 .. _tbl_http_data_object_updateresponse_header:
 
-.. list-table:: Response Header - Update a CDMI Data Object using HTTP
+.. list-table:: Response header - Update a CDMI data object using HTTP
     :header-rows: 1
     :align: center 
-
 
     * - Header
       - Type
       - Description
       - Requirement
     * - Location
-      - Header String
+      - Header string
       - The server shall respond with the URI to which the reference redirects if the object is a reference.
       - Conditional
 
-Response Message Body 
+Response message body 
 ---------------------
 
 A response body may be provided as per RFC 2616 :cite:`rfc2616`.
 
-
-Response Status
+Response status
 ---------------
 
 The HTTP status codes that occur when updating a data object using HTTP are described in :numref:`tbl_http_data_object_updateresponse_status`. 
@@ -142,7 +136,7 @@ The HTTP status codes that occur when updating a data object using HTTP are desc
 
 .. _tbl_http_data_object_updateresponse_status:
 
-.. list-table:: HTTP Status Codes - Update a CDMI Data Object using HTTP
+.. list-table:: HTTP status codes - Update a CDMI data object using HTTP
     :header-rows: 1
     :align: center 
 
@@ -161,7 +155,7 @@ The HTTP status codes that occur when updating a data object using HTTP are desc
     * - ``404 Not Found``
       - The resource was not found at the specified URI.
     * - ``409 Conflict``
-      - The operation conflicts with a non-CDMI access protocol lock or may cause a state transition error on the server.
+      - The operation conflicts with a non-CDMI access protocol lock or has caused a state transition error on the server.
 
 
 Examples
