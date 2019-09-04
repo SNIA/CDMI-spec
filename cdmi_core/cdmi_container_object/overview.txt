@@ -43,7 +43,7 @@ EXAMPLE 1: CDMI Container Object
 
 The meaning, use, and permitted values of each field is described in each operation that creates, modifies or retreives CDMI container objects.
 
-Container Object Addressing
+Container object addressing
 ---------------------------
 
 Container objects are addressed in CDMI in two ways:
@@ -71,9 +71,9 @@ Containers may also be nested.
 
 A nested container has a parent container object, shall be included in the children field of the parent container object, and shall inherit data system metadata and ACLs from its parent container. 
 
-This model allows direct mapping between CDMI-managed cloud storage and file systems (e.g., NFSv4 or WebDAV). If a CDMI container object is exported as a file system, then the file system may make the CDMI metadata accessible via file system-specific mechanisms. As files and directories are created by the file system, they become visible through the CDMI interface acting as a data path. The mapping between file system constructs and CDMI data objects, container objects, and metadata is outside the scope of this international standard.
+This model allows direct mapping between CDMI-managed cloud storage and file systems (e.g., NFSv4 or WebDAV). If a CDMI container object is exported as a file system, then the file system may make the CDMI metadata accessible via file system-specific mechanisms. As files and directories are created by the file system, they become visible through the CDMI interface acting as a data path. The mapping between file system constructs and CDMI data objects, container objects, and metadata is outside the scope of this International Standard.
 
-Container Object Fields
+Container object fields
 -----------------------
 
 Individual fields within a container object may be accessed by specifying the field name after a question mark "``?``" appended to the end of the container object URI. 
@@ -94,11 +94,11 @@ A list of fields, separated by a semicolon ";" may be specified, allowing multip
 
         ``https://cloud.example.com/container/?children;metadata``
 
-When a client provides fields that are not defined in this international standard or deserializes an object containing fields that are not defined in this international standard, these fields shall be persisted, but shall not be interpreted.
+When a client provides fields that are not defined in this International Standard or deserializes an object containing fields that are not defined in this International Standard, these fields shall be persisted, but shall not be interpreted.
 
 .. _ref_container_metadata:
 
-Container Object Metadata
+Container object metadata
 -------------------------
 
 The following optional container-specific data system metadata may be provided (see :numref:`tbl_container_metadata`).
@@ -110,7 +110,7 @@ The following optional container-specific data system metadata may be provided (
 
 .. _tbl_container_metadata:
 
-.. list-table:: Container Metadata
+.. list-table:: Container metadata
     :class: longtable
     :header-rows: 1
     :align: center 
@@ -120,23 +120,23 @@ The following optional container-specific data system metadata may be provided (
       - Description
       - Requirement
     * - cdmi_assignedsize
-      - JSON String
+      - JSON string
       - The number of bytes that is reported via exported protocols (e.g., the device may be thin provisioned). This number may limit ``cdmi_size``.
       - Optional
 
 Container metadata may also include arbitrary user-supplied metadata, storage system metadata, and data system metadata as described in :numref:`Clause %s <clause_cdmi_metadata>`.
 
-Container Object Access Control
+Container object access control
 -------------------------------
 
 If read access to any of the requested fields is not permitted by the object ACL, only the permitted fields shall be returned. If no requested fields are permitted to be read, an HTTP status code of ``403 Forbidden`` shall be returned to the client. 
 
 If write access to any of the requested fields is not permitted by the object ACL, no updates shall be performed, and an HTTP status code of ``403 Forbidden`` shall be returned to the client.
 
-Reserved Container Object Names
+Reserved container object names
 -------------------------------
 
-This international standard defines reserved container names that should not be used by clients when creating new containers. These container names are reserved for use by this international standard, and if an attempt is made to create or delete them, an HTTP status code of ``400 Bad Request`` shall be returned to the client. 
+This International Standard defines reserved container names that should not be used by clients when creating new containers. These container names are reserved for use by this International Standard, and if an attempt is made to create or delete them, an HTTP status code of ``400 Bad Request`` shall be returned to the client. 
 
 Reserved container names defined in this specification include: 
 
@@ -146,9 +146,9 @@ Reserved container names defined in this specification include:
 * "``cdmi_snapshots`` "
 * "``cdmi_versions``"
 
-As additional names may be added in future versions of this international standard, server implementations shall prevent the creation of user-defined containers if the container name starts with "``cdmi_``". 
+As additional names may be added in future versions of this International Standard, server implementations shall prevent the creation of user-defined containers if the container name starts with "``cdmi_``". 
 
-Container Object Representations
+Container object representations
 --------------------------------
 
 The representations in this clause are shown using JSON notation. Both clients and servers shall support UTF-8 JSON representation. The request and response body JSON fields may be specified or returned in any order, with the exception that, if present, for container objects, the "``childrenrange``" and "``children``" fields shall appear last and in that order. 
