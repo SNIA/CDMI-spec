@@ -39,7 +39,7 @@ EXAMPLE 1: CDMI Data Object
 
 The meaning, use, and permitted values of each field is described in each operation that creates, modifies or retreives CDMI data objects.
 
-Data Object Addressing
+Data object addressing
 ----------------------
 
 Data objects are addressed in CDMI in two ways: 
@@ -49,22 +49,22 @@ Data objects are addressed in CDMI in two ways:
 
 Every data object has a single, globally-unique object identifier (ID) that remains constant for the life of the object. Each data object shall have one or more URI addresses that allow the object to be accessed. 
 
-Data Object Fields
+Data object fields
 ------------------
 
-Individual fields within a data object may be accessed by specifying the field name after a question mark "``?``" that is appended to the end of the data object URI. 
+Individual fields within a data object can be accessed by specifying the field name after a question mark "``?``" that is appended to the end of the data object URI. 
 
 	EXAMPLE 2: The following URI returns the value field in the response body:
 
 		``https://cloud.example.com/dataobject?value``
 
-A list of unique fields, separated by a semicolon "``;``" may be specified, allowing multiple fields to be accessed in a single request. 
+A list of unique fields, separated by a semicolon "``;``" can be specified, allowing multiple fields to be accessed in a single request. 
 
     EXAMPLE 3: The following URI returns the value and metadata fields in the response body:
 
         ``https://cloud.example.com/dataobject?value;metadata``
 
-When a client provides fields that are not defined in this international standard or deserializes an object containing fields that are not defined in this international standard, these fields shall be persisted, but shall not be interpreted.
+When a client provides fields that are not defined in this International Standard or deserializes an object containing fields that are not defined in this International Standard, these fields shall be persisted, but shall not be interpreted.
 
 Data Object Value
 -----------------
@@ -75,7 +75,7 @@ The encoding of the data transported in the data object value field depends on t
 * If the value transfer encoding of the object is set to "``base64``", the data stored in the value of the data object can contain arbitrary binary sequences, and it shall be transported as a base 64-encoded string in the value field.
 * If the value transfer encoding of the object is set to "``json``", the data stored in the value of the data object shall contain a valid JSON object, and the value field shall contain a valid JSON object. The JSON stored and returned shall be semantically equivalent but may not be syntactically identical. For example, whitespace outside of JSON-quoted strings may be removed or added by either client libraries or by the server. This means that the number of bytes sent may not be the same as the number of bytes stored.
 
-Specific ranges of the value of a data object may be accessed by specifying a byte range after the value field name. 
+Specific ranges of the value of a data object can be accessed by specifying a byte range after the value field name. 
 
     EXAMPLE 4: The following URI returns the first thousand bytes in the value field:
 
@@ -85,16 +85,16 @@ Because a byte range of a UTF-8 string is often not a valid UTF-8 string, the re
 
 Byte ranges are specified as single inclusive byte ranges as per Section 14.35.1 of RFC 2616 :cite:`rfc2616`.
 
-The value of a data object may also be specified and retrieved using multi-part MIME, where the CDMI JSON is transferred in the first MIME part, and the raw object value is transferred in the second MIME part. Each MIME part, including any header fields, shall conform to RFC 2045 :cite:`rfc2045`, RFC 2046 :cite:`rfc2046`, and RFC 2616 :cite:`rfc2616`. The length of each part may optionally be specified by a Content-Length header in addition to the MIME boundary delimiter.
+The value of a data object can also be specified and retrieved using multipart MIME, where the CDMI JSON is transferred in the first MIME part, and the raw object value is transferred in the second MIME part. Each MIME part, including any header fields, shall conform to RFC 2045 :cite:`rfc2045`, RFC 2046 :cite:`rfc2046`, and RFC 2616 :cite:`rfc2616`. The length of each part can optionally be specified by a Content-Length header in addition to the MIME boundary delimiter.
 
-Multiple non-overlapping ranges of the value of a data object may also be accessed or updated in a multi-part MIME operation by transferring one MIME part for each range of the value. The byte ranges for these operations shall be specified as per Section 14.35.1 of RFC 2616 :cite:`rfc2616`.
+Multiple non-overlapping ranges of the value of a data object can also be accessed or updated in a multipart MIME operation by transferring one MIME part for each range of the value. The byte ranges for these operations shall be specified as per Section 14.35.1 of RFC 2616 :cite:`rfc2616`.
 
-Multi-part MIME enables the efficient transfer of binary data alongside CDMI object metadata without incurring the overhead of the UTF-8 or Base64 encoding and validation required to represent binary data in JSON.
+Multipart MIME enables the efficient transfer of binary data alongside CDMI object metadata without incurring the overhead of the UTF-8 or Base64 encoding and validation required to represent binary data in JSON.
 
-Data Object Metadata
+Data object metadata
 --------------------
 
-Data object metadata may also include arbitrary user-supplied metadata, storage system metadata, and data system metadata, as specified in :numref:`Clause %s <clause_cdmi_metadata>`. Metadata shall be stored as a valid UTF-8 string. Binary data stored in user metadata shall be first encoded such that it can be contained in a UTF-8 string, with the use of base 64 encoding recommended.
+Data object metadata can also include arbitrary user-supplied metadata, storage system metadata, and data system metadata, as specified in :numref:`Clause %s <clause_cdmi_metadata>`. Metadata shall be stored as a valid UTF-8 string. Binary data stored in user metadata shall be first encoded such that it can be contained in a UTF-8 string, with the use of base 64 encoding recommended.
 
 Every data object has a parent object from which the data object inherits data system metadata that is not explicitly specified in the data object itself. 
 
@@ -102,14 +102,14 @@ Every data object has a parent object from which the data object inherits data s
 
         ``https://cloud.example.com/finance/budget.xls``
 
-Data Object Access Control
+Data object access control
 --------------------------
 
 If read access to any of the requested fields is not permitted by the object ACL, only the permitted fields shall be returned. If no requested fields are permitted to be read, an HTTP status code of ``403 Forbidden`` shall be returned to the client. 
 
 If write access to any of the requested fields is not permitted by the object ACL, no updates shall be performed, and an HTTP status code of ``403 Forbidden`` shall be returned to the client.
 
-Data Object Consistency
+Data object consistency
 -----------------------
 
 Writing to a data object is an atomic operation. 
@@ -117,17 +117,17 @@ Writing to a data object is an atomic operation.
 * If a client reads a data object simultaneously with a write to that same data object, the reading client shall get either the old version or the new version, but not a mixture of both. 
 * If a write is terminated due to errors, the contents of the data object shall be as if the write never occurred (i.e., writes are atomic in the face of errors). 
 
-Create and update timestamps that are returned in response to multiple client writes to a given object may indicate that a specific write is the newest (i.e., the write whose data is expected to be returned to subsequent reads until another write is processed). However, there is no guarantee that the write with the latest timestamp is the one whose data is returned on subsequent reads.
+Create and update timestamps that are returned in response to multiple client writes to a given object can indicate that a specific write is the newest (i.e., the write whose data is expected to be returned to subsequent reads until another write is processed). However, there is no guarantee that the write with the latest timestamp is the one whose data is returned on subsequent reads.
 
 Range writes can result in a gap in an object value that have had no data written to them. Reading from a gap in a data object value shall return zero for each byte read. 
 
-Implementations of this international standard shall provide the atomicity features described in this subclause for data objects that are accessed via CDMI. The atomicity properties of data objects that are accessed by protocols other than CDMI are outside the scope of this international standard.
+Implementations of this International Standard shall provide the atomicity features described in this subclause for data objects that are accessed via CDMI. The atomicity properties of data objects that are accessed by protocols other than CDMI are outside the scope of this International Standard.
 
-Data Object Representations
+Data object representations
 ---------------------------
 
-The representations in this clause are shown using JSON notation. Both clients and servers shall support UTF-8 JSON representation. The request and response body JSON fields may be specified or returned in any order, with the exception that, if present, for data objects, the "``valuerange``" and "``value``" fields shall appear last and in that order. 
+The representations in this clause are shown using JSON notation. Both clients and servers shall support UTF-8 JSON representation. The request and response body JSON fields can be specified or returned in any order, with the exception that, if present, for data objects, the "``valuerange``" and "``value``" fields shall appear last and in that order. 
 
-Encrypted Objects
+Encrypted objects
 -----------------
 CDMI data object operations only permit management operations and access to the ciphertext of encrypted objects. For more details on encrypted objects, see :numref:`clause %s <clause_cdmi_encrypted_objects>`.

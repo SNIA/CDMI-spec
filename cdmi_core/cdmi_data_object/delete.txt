@@ -1,6 +1,6 @@
 .. _ref_cdmi_data_object_delete:
 
-Delete a Data Object using CDMI
+Delete a data object using CDMI
 *******************************
 
 Synopsis
@@ -29,7 +29,7 @@ Capabilities that indicate which operations are supported are shown in :numref:`
 
 .. _tbl_cdmi_data_object_delete_capabilities:
 
-.. list-table:: Capabilities - Delete a CDMI Data Object using CDMI
+.. list-table:: Capabilities - Delete a CDMI data object using CDMI
     :class: longtable
     :header-rows: 1
     :align: center 
@@ -44,27 +44,27 @@ Capabilities that indicate which operations are supported are shown in :numref:`
       - System Wide Capability
       - Ability to access the object by ID
 
-Request Headers
+Request headers
 ---------------
 
-Request headers may be provided as per RFC 2616 :cite:`rfc2616`.
+Request headers can be provided as per RFC 2616 :cite:`rfc2616`.
 
-Request Message Body 
+Request message body 
 --------------------
 
-A request body may be provided as per RFC 2616 :cite:`rfc2616`.
+A request body can be provided as per RFC 2616 :cite:`rfc2616`.
 
-Response Headers 
+Response headers 
 ----------------
 
-Response headers may be provided as per RFC 2616 :cite:`rfc2616`.
+Response headers can be provided as per RFC 2616 :cite:`rfc2616`.
 
-Response Message Body 
+Response message body 
 ---------------------
 
-A response body may be provided as per RFC 2616 :cite:`rfc2616`.
+A response body can be provided as per RFC 2616 :cite:`rfc2616`.
 
-Response Status
+Response status
 ---------------
 
 :numref:`tbl_cdmi_data_object_delete_response_status` describes the HTTP status codes that occur when deleting a data object using CDMI. 
@@ -74,7 +74,7 @@ Response Status
 
 .. _tbl_cdmi_data_object_delete_response_status:
 
-.. list-table:: HTTP Status Codes - Delete a CDMI Data Object using CDMI
+.. list-table:: HTTP status codes - Delete a CDMI data object using CDMI
     :header-rows: 1
     :align: center 
 
@@ -91,7 +91,7 @@ Response Status
     * - ``404 Not Found``
       - The resource was not found at the specified URI.
     * - ``409 Conflict``
-      - The operation conflicts with a non-CDMIP access protocol lock or may cause a state transition error on the server or the data object may not be deleted.
+      - The operation conflicts with a non-CDMI access protocol lock or has caused a state transition error on the server or the data object cannot be deleted.
 
 Example
 --------
