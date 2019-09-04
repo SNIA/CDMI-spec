@@ -1,8 +1,7 @@
 .. _ref_http_container_object_delete:
 
-Delete a Container Object using HTTP
+Delete a container object using HTTP
 ************************************
-
 
 Synopsis
 --------
@@ -30,7 +29,7 @@ Capabilities that indicate which operations are supported are shown in :numref:`
 
 .. _tbl_http_container_object_delete_capabilities:
 
-.. list-table:: Capabilities - Delete a CDMI Container Object using HTTP
+.. list-table:: Capabilities - Delete a CDMI container object using HTTP
     :class: longtable
     :header-rows: 1
     :align: center 
@@ -45,38 +44,34 @@ Capabilities that indicate which operations are supported are shown in :numref:`
       - System Wide Capability
       - Ability to access the object by ID
 
-Request Headers 
+Request headers 
 ---------------
 
-Request headers may be provided as per RFC 2616 :cite:`rfc2616`.
+Request headers can be provided as per RFC 2616 :cite:`rfc2616`.
 
-
-Request Message Body 
+Request message body 
 --------------------
 
-A request body may be provided as per RFC 2616 :cite:`rfc2616`.
+A request body can be provided as per RFC 2616 :cite:`rfc2616`.
 
-
-Response Headers 
+Response headers 
 ----------------
 
-Response headers may be provided as per RFC 2616 :cite:`rfc2616`.
+Response headers can be provided as per RFC 2616 :cite:`rfc2616`.
 
-
-Response Message Body 
+Response message body 
 ---------------------
 
-A response body may be provided as per RFC 2616 :cite:`rfc2616`.
+A response body can be provided as per RFC 2616 :cite:`rfc2616`.
 
-
-Response Status
+Response status
 ---------------
 
 :numref:`tbl_http_container_object_delete_response_status` describes the HTTP status codes that occur when deleting a container object using HTTP.
 
 .. _tbl_http_container_object_delete_response_status:
 
-.. list-table:: HTTP Status Codes - Delete a CDMI Container Object using HTTP
+.. list-table:: HTTP status codes - Delete a CDMI container object using HTTP
     :header-rows: 1
     :align: center 
 
@@ -93,7 +88,7 @@ Response Status
     * - ``404 Not Found``
       - The resource was not found at the specified URI.
     * - ``409 Conflict``
-      - The operation conflicts with a non-CDMI access protocol lock or may cause a state transition error on the server.
+      - The operation conflicts with a non-CDMI access protocol lock or has caused a state transition error on the server.
 
 
 Example

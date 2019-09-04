@@ -1,6 +1,5 @@
 .. _ref_http_container_object_overview:
 
-
 Overview
 ********
 

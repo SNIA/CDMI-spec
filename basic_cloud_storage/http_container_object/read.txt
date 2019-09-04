@@ -1,6 +1,8 @@
 .. _ref_http_container_object_read:
 
-Read a Container Object using HTTP
+Read a container object using HTTP
 **********************************
 
-Reading a container object using HTTP is not defined by this version of this international standard. To read a container object using CDMI, see :numref:`%s <ref_cdmi_container_object_read>`.
+Reading a container object using HTTP is not defined by this version of this International Standard. A server is allowed to implement responses such as an Apache directory listing or an S3-style bucket listing.
+
+To read a container object using CDMI, see :numref:`%s <ref_cdmi_container_object_read>`.

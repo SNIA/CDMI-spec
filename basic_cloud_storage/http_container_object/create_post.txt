@@ -1,6 +1,6 @@
 .. _ref_http_container_object_create_post:
 
-Create (POST) a New Data Object using HTTP
+Create (POST) a new data object using HTTP
 ******************************************
 
 Synopsis
@@ -19,9 +19,7 @@ Where:
 
 The data object shall be accessible as a child of the container with a server-assigned name and shall also be accessible at ``<root URI>/cdmi_objectid/<objectID>``.
 
-HTTP POST to a container is used to enable CDMI servers to support RFC 1867 :cite:`rfc1867` form-based file uploading. When implementing RFC 1867 :cite:`rfc1867`, the CDMI server-assigned name may be the user-provided file name.
-
-
+HTTP POST to a container is used to enable CDMI servers to support RFC 1867 :cite:`rfc1867` form-based file uploading. When implementing RFC 1867 :cite:`rfc1867`, the CDMI server-assigned name can be set to, or derived from, the user-provided file name.
 
 Capabilities
 ------------
@@ -58,8 +56,8 @@ Capabilities that indicate which operations are supported are shown in :numref:`
       - System Wide Capability
       - Ability to create a data object using multi-part MIME
 
-Request Header 
---------------
+Request headers
+---------------
 
 The HTTP request header for creating a new CDMI data object using HTTP is shown in :numref:`tbl_http_data_object_create_request_header`.
 
@@ -70,7 +68,7 @@ The HTTP request header for creating a new CDMI data object using HTTP is shown 
 
 .. _tbl_http_data_object_create_request_header:
 
-.. list-table:: Request Header - Create a New Data Object using HTTP
+.. list-table:: Request Header - Create a new data object using HTTP
     :header-rows: 1
     :align: center 
 
@@ -91,15 +89,13 @@ The HTTP request header for creating a new CDMI data object using HTTP is shown 
       - Optional
 
 
-Request Message Body 
+Request message body 
 --------------------
 
 The message body shall contain the contents (value) of the data object to be created.
 
-
-
-Response Header
----------------
+Response headers
+----------------
 
 The HTTP response header for creating a new CDMI data object using HTTP is shown in :numref:`tbl_http_data_object_create_response_header`. 
 
@@ -110,7 +106,7 @@ The HTTP response header for creating a new CDMI data object using HTTP is shown
 
 .. _tbl_http_data_object_create_response_header:
 
-.. list-table:: Response Header - Create a New Data Object using HTTP
+.. list-table:: Response header - Create a new data object using HTTP
     :header-rows: 1
     :align: center 
 
@@ -119,7 +115,7 @@ The HTTP response header for creating a new CDMI data object using HTTP is shown
       - Description
       - Requirement
     * - Location
-      - Header String 
+      - Header string 
       - The unique absolute URI for the new data object as assigned by the system.
 
         .. raw:: latex
@@ -129,13 +125,12 @@ The HTTP response header for creating a new CDMI data object using HTTP is shown
         In the absence of file name information from the client, the system shall assign the URI in the form: ``http://host:port/<root URI>/<ContainerName>/<ObjectID>`` or ``https://host:port/<root URI>/<ContainerName>/<ObjectID>``.
       - Mandatory
 
-Response Message Body 
+Response message body 
 ---------------------
 
-A response body may be provided as per RFC 2616 :cite:`rfc2616`.
+A response body can be provided as per RFC 2616 :cite:`rfc2616`.
 
-
-Response Status 
+Response status 
 ---------------
 
 :numref:`tbl_http_data_object_createpost_response_status` describes the HTTP status codes that occur when creating a new data object using HTTP.
@@ -145,10 +140,9 @@ Response Status
 
 .. _tbl_http_data_object_createpost_response_status:
 
-.. list-table:: HTTP Status Codes - Create a New Data Object using HTTP
+.. list-table:: HTTP status codes - Create a new data object using HTTP
     :header-rows: 1
     :align: center 
-
 
     * - HTTP Status
       - Description

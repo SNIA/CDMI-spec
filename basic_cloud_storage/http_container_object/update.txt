@@ -1,6 +1,8 @@
 .. _ref_http_container_object_update:
 
-Update a Container Object using HTTP
+Update a container object using HTTP
 ************************************
 
-Updating a container object using HTTP is not defined by this version of this international standard. To update a container object using CDMI, see :numref:`%s <ref_cdmi_container_object_update>`.
+Updating a container object using HTTP is not defined by this version of this International Standard.
+
+To update a container object using CDMI, see :numref:`%s <ref_cdmi_container_object_update>`.

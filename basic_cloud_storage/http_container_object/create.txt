@@ -1,6 +1,6 @@
 .. _ref_http_container_object_create:
 
-Create a Container Object using HTTP
+Create a container object using HTTP
 ************************************
 
 Synopsis
@@ -32,7 +32,7 @@ Capabilities that indicate which operations are supported are shown in :numref:`
 
 .. _tbl_http_container_object_create_capabilities:
 
-.. list-table:: Capabilities - Create a CDMI Container Object using HTTP
+.. list-table:: Capabilities - Create a CDMI container object using HTTP
     :class: longtable
     :header-rows: 1
     :align: center 
@@ -44,39 +44,34 @@ Capabilities that indicate which operations are supported are shown in :numref:`
       - Parent Container
       - Ability to create a new data object
 
-
-Request Headers 
+Request headers 
 ---------------
 
-Request headers may be provided as per RFC 2616 :cite:`rfc2616`.
+Request headers can be provided as per RFC 2616 :cite:`rfc2616`.
 
-
-Request Message Body 
+Request message body 
 --------------------
 
 A request body shall not be provided.
 
-
-Response Headers 
+Response headers 
 ----------------
 
-Response headers may be provided as per RFC 2616 :cite:`rfc2616`.
+Response headers can be provided as per RFC 2616 :cite:`rfc2616`.
 
-
-Response Message Body 
+Response message body 
 ---------------------
 
-A response body may be provided as per RFC 2616 :cite:`rfc2616`.
+A response body can be provided as per RFC 2616 :cite:`rfc2616`.
 
-
-Response Status
+Response status
 ---------------
 
 :numref:`tbl_http_container_object_create_response_status` describes the HTTP status codes that occur when creating a container object using HTTP. 
 
 .. _tbl_http_container_object_create_response_status:
 
-.. list-table:: HTTP Status Codes - Create a Container Object using HTTP
+.. list-table:: HTTP status codes - Create a container object using HTTP
     :header-rows: 1
     :widths: 30 70
     :align: center 
@@ -94,7 +89,7 @@ Response Status
     * - ``404 Not Found``
       - The resource was not found at the specified URI.
     * - ``409 Conflict``
-      - The operation conflicts with a non-CDMI access protocol lock or may cause a state transition error on the server.
+      - The operation conflicts with a non-CDMI access protocol lock or has caused a state transition error on the server.
 
 Example
 -------
