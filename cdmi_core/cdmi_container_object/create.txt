@@ -64,19 +64,19 @@ Capabilities that indicate which operations are supported are shown in :numref:`
       - Location
       - Description
     * - cdmi_create_container
-      - Parent Container
+      - Parent container
       - Ability to create a new container object
     * - cdmi_create_reference
-      - Parent Container
+      - Parent container
       - Ability to create a new reference
     * - cdmi_copy_container
-      - Parent Container
+      - Parent container
       - Ability to create a container object that is a copy of another container object
     * - cdmi_move_container
-      - Parent Container
+      - Parent container
       - Ability to move a container object from another location
     * - cdmi_deserialize_container
-      - Parent Container
+      - Parent container
       - Ability to create a container object that is deserialized from the contents of the PUT or the contents of a data object
 
 Request headers
@@ -350,7 +350,7 @@ Response status
     :header-rows: 1
     :align: center 
 
-    * - HTTP Status
+    * - HTTP status
       - Description
     * - ``201 Created``      
       - The new container object was created.

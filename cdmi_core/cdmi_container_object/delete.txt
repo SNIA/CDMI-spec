@@ -1,6 +1,6 @@
 .. _ref_cdmi_container_object_delete:
 
-Delete a Container Object using CDMI
+Delete a container object using CDMI
 ************************************
 
 Synopsis
@@ -18,8 +18,8 @@ Where:
 * ``<TheContainerName>`` is the name of the container object to be deleted.
 * ``<ContainerObjectID>`` is the ID of the container object to be deleted.
 
-Capability 
-----------
+Capabilities 
+------------
 
 Capabilities that indicate which operations are supported are shown in :numref:`tbl_cdmi_container_object_delete_capabilities`.
 
@@ -29,7 +29,7 @@ Capabilities that indicate which operations are supported are shown in :numref:`
 
 .. _tbl_cdmi_container_object_delete_capabilities:
 
-.. list-table:: Capabilities - Delete a CDMI Container Object using CDMI
+.. list-table:: Capabilities - Delete a CDMI container object using CDMI
     :class: longtable
     :header-rows: 1
     :align: center 
@@ -38,33 +38,33 @@ Capabilities that indicate which operations are supported are shown in :numref:`
       - Location
       - Description
     * - cdmi_delete_container
-      - Container Object
+      - Container object
       - Ability to delete an existing container object
     * - cdmi_object_access_by_ID
-      - System Wide Capability
+      - System wide capability
       - Ability to access the object by ID
 
-Request Header
---------------
+Request headers
+---------------
 
-Request headers may be provided as per RFC 2616 :cite:`rfc2616`.
+Request headers can be provided as per RFC 2616 :cite:`rfc2616`.
 
-Request Message Body 
+Request message body 
 --------------------
 
-A request body may be provided as per RFC 2616 :cite:`rfc2616`.
+A request body can be provided as per RFC 2616 :cite:`rfc2616`.
 
-Response Headers 
+Response headers 
 ----------------
 
-Response headers may be provided as per RFC 2616 :cite:`rfc2616`.
+Response headers can be provided as per RFC 2616 :cite:`rfc2616`.
 
-Response Message Body 
+Response message body 
 ---------------------
 
-A response body may be provided as per RFC 2616 :cite:`rfc2616`.
+A response body can be provided as per RFC 2616 :cite:`rfc2616`.
 
-Response Status
+Response status
 ---------------
 
 :numref:`tbl_cdmi_container_object_delete_response_status` describes the HTTP status codes that occur when deleting a container object using CDMI. 
@@ -74,11 +74,11 @@ Response Status
 
 .. _tbl_cdmi_container_object_delete_response_status:
 
-.. list-table:: HTTP Status Codes - Delete a Container Object Using CDMI
+.. list-table:: HTTP status codes - Delete a container object using CDMI
     :header-rows: 1
     :align: center 
 
-    * - HTTP Status
+    * - HTTP status
       - Description
     * - ``204 No Content``
       - The container object was successfully deleted.
@@ -91,7 +91,7 @@ Response Status
     * - ``404 Not Found``
       - The resource was not found at the specified URI.
     * - ``409 Conflict``
-      - The operation conflicts with a non-CDMI access protocol lock or may cause a state transition error on the server.
+      - The operation conflicts with a non-CDMI access protocol lock or has caused a state transition error on the server.
 
 Example
 -------
