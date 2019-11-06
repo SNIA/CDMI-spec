@@ -1,6 +1,6 @@
 .. _clause_cdmi_encrypted_objects:
 
-Encrypted Objects
+Encrypted objects
 =================
 
 Overview
@@ -15,7 +15,7 @@ The CDMI International Standard does not specify the method by which keys are ma
 CDMI objects can contain values that are encrypted. Operations against an encrypted CDMI object are only supported if the encrypted object value is a valid CMS or JWE JSON format. The CMS or JWE JSON object shall include an embedded mimetype of the encrypted object. For JWE, the "``cty``" header shall be used for this purpose.
 
 
-Encryption Operations
+Encryption operations
 *********************
 The state transition diagram for encrypted objects is shown in :numref:`fig_encrypted_object_state_transistions`:
 
@@ -25,7 +25,7 @@ The state transition diagram for encrypted objects is shown in :numref:`fig_encr
     :align:  center
     :figwidth: 100%
    
-    Encrypted Object State Transistions
+    Encrypted object state transistions
     
 The following eight encryption operations are defined:
 
@@ -92,12 +92,12 @@ The CDMI Server shall use the client's credentials (which are included in HTTP h
 
 When an encrypted object is decrypted for update, the plaintext shall not be retained or cached by the CDMI server.
 
-Other CDMI Operations
+Other CDMI operations
 ---------------------
 
 Other operations specifed by this International Standard (such as copying, serializing, querying, etc) treat an encrypted value the same way as a non-encrypted value.
 
-Example Uses of Encrypted Objects
+Example uses of encrypted objects
 *********************************
 
 Encrypted objects can be used with CDMI systems in the following ways:
@@ -109,7 +109,7 @@ Encrypted objects can be used with CDMI systems in the following ways:
 -	**Cloud access decryption** – A CDMI server may automatically decrypt encrypted objects when it has access to the decryption keys. Cloud access decryption is useful for cloud-resident data processing performed by the CDMI server, such as virus scanning, query, and analytics.
 -	**Signature verification** – A CDMI server can automatically verify signatures that are attached to encrypted objects that include a signature. Signature verification is useful for detecting corruption or alteration before delivering data to a client.
 
-KMS Integration
+KMS integration
 ***************
 
 The encryption key is obtained from the KMS using a unique identifier that is stored in the ``cdmi_enc_key_id`` metadata item associated with the encrypted object. If this metadata item is not present, the CDMI object ID shall be used to locate the key.
@@ -120,8 +120,9 @@ The CDMI International Standard does not specify the mechanism by which the CDMI
 
 All keys are created and managed externally to the CDMI server, typically by the client or a system operating on behalf of the client. As a consequence, the CDMI server requires read-only access to the KMS. The CDMI server shall not cache keys.
 
-CMS Format
+CMS format
 **********
+
 Any valid CMS-formatted data can be stored to a CDMI server. However, encrypted object operations are only defined for the following subset of valid CMS-formatted data.
 
 For encryption operations, the CDMI server shall support the following:
@@ -140,7 +141,7 @@ For signature operations, the CDMI server shall support the following:
 
 The following CMS-formatted data may be ignored: ``recipientInfos``
 
-JOSE Format
+JOSE format
 ***********
 
 Any valid JWE-formatted data can be stored to a CDMI server. However, encrypted object operations are only defined for the following subset of valid JWE-formatted data.
@@ -161,7 +162,7 @@ The following JOSE-formatted data may be ignored: Multiple recipients and multip
 
 .. _ref_cdmi_encrypted_objects_signature_verification:
 
-Signature/Digest Verification
+Signature/digest verification
 *****************************
 
 If a signature is present as part of the CMS or JWE JSON value, the CDMI server shall verify that the signature of the value is valid before allowing plaintext access or modification.
@@ -186,8 +187,9 @@ For signature creation and verification, payload field shall be computed using t
 4. Remove all JSON whitespace
 5. Base64 URL encode, according to the JWS RFC 7515 :cite:`rfc7515`
 
-Error Handling
+Error handling
 **************
+
 If a decryption or signature validation operation is requested against a CDMI object containing an invalid CMS or JWE JSON representation, an HTTP status code of ``500 Internal Error`` shall be returned to the client.
 
 If a decryption or signature validation operation is requested against a CDMI object containing a valid CMS or JWE JSON representation that uses an unsupported algorithm or feature, an HTTP status code of ``501 Not Implemented`` shall be returned to the client.

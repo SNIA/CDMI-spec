@@ -1,6 +1,6 @@
 .. _clause_cdmi_exports:
 
-Exported Protocols
+Exported protocols
 ==================
 
 .. _ref_exports_overview:
@@ -22,7 +22,7 @@ All cloud storage systems shall support the storage of the export field. The abi
 
 Container object exports are represented as a JSON object, containing zero or more named protocol exports.
 
-EXAMPLE 1: CDMI Container Exports
+EXAMPLE 1: CDMI container exports
 
   .. code-block:: none
 
@@ -60,8 +60,8 @@ EXAMPLE 1: CDMI Container Exports
 
 The meaning, use, and permitted values for the fields associated with each export type are described later in this clause.
 
-Container Object Exports Addressing
------------------------------------
+Container object export addressing
+----------------------------------
 
 Container object exports are addressed in CDMI in two ways:
 
@@ -70,12 +70,12 @@ Container object exports are addressed in CDMI in two ways:
 
 See :numref:`%s <ref_cdmi_container_object_overview>` for more detials on container object addressing.
 
-Container Object Exports Fields
--------------------------------
+Container object export fields
+------------------------------
 
-The export of a container, via data path protocols other than CDMI, is accomplished by creating or updating a container and supplying one or more export protocol structures, one for each such protocol. In this international standard, all such protocols are referred to as foreign protocols.
+The export of a container, via data path protocols other than CDMI, is accomplished by creating or updating a container and supplying one or more export protocol structures, one for each such protocol. In this International standard, all such protocols are referred to as foreign protocols.
 
-This international standard defines JSON export structures for several well known foreign protocols. All depend on the following user and groupname mapping feature in the case that multi-protocol access to the container is desired. However, name mapping is not required if an external domain is used, or if CDMI is used only to provision containers to be used exclusively by foreign protocols.
+This International standard defines JSON export structures for several well known foreign protocols. All depend on the following user and groupname mapping feature in the case that multi-protocol access to the container is desired. However, name mapping is not required if an external domain is used, or if CDMI is used only to provision containers to be used exclusively by foreign protocols.
 
 Implementations that support authenticated and authorized access to CDMI objects via both CDMI and foreign protocols need a way to support the setting of security on a per-object basis. The numerous methods of doing this include:
 
@@ -87,7 +87,7 @@ CDMI does not mandate which method shall be used. It does, however, specify how 
 
 .. _ref_mapping_names:
 
-Mapping Names from CDMI to Another Protocol
+Mapping names from CDMI to another protocol
 -------------------------------------------
 
 Clients wishing to restrict exports via foreign protocols to mounting only by certain users and groups may be required to provide user and groupname mapping information to the server. This mapping information is also required if access to the container is desired by multiple protocols, e.g., both CDMI and NFS. The mapping is done as follows.
@@ -99,7 +99,7 @@ Clients wishing to restrict exports via foreign protocols to mounting only by ce
 
 Groupname mapping for each foreign protocol shall be specified in a groupname field of the foreign protocol export specification. Its syntax is identical to the syntax for the username field.
 
-Administrative Users
+Administrative users
 --------------------
 
 By default, the following users shall be considered "``root``", or administrative users, and equivalent to each other: 
@@ -114,7 +114,7 @@ As an automatic mapping does not meet strict security standards, servers shall o
 
 In the following example, root gets mapped to nobody, and everyone else is mapped to a user of the same name in the NFS domain and the CDMI domain.
 
-EXAMPLE 2: NFS Export User Mapping
+EXAMPLE 2: NFS export user mapping
 
    .. code-block:: none
 
@@ -142,12 +142,12 @@ EXAMPLE 2: NFS Export User Mapping
             }
         }
 
-Mapping Domains from CDMI to Another Protocol
+Mapping domains from CDMI to another protocol
 ---------------------------------------------
 
 The internet domain name corresponding to each export shall be given as a JSON-formatted string in the "``domain``" child of the protocol export specification. If it is not present, it shall be assumed that the domain is the same as that of the server hosting the CDMI implementation.
 
-User and Domain Mapping Caching
+User and domain mapping caching
 -------------------------------
 
 The lookup to a foreign domain controller can be quite expensive, especially for stateless protocols such as NFS v3, in which it can be theoretically required for nearly every operation. It shall be permissible to cache the results of this lookup. The recommended lifetime of a username cache entry is 30 minutes. Implementations should use this value or less when possible. Servers shall flush this cache whenever a change is made to the exports metadata concerning the protocol being cached. A client may request that the cache be flushed by reading in the usermap data for one or more protocols and writing them back without change. Servers shall flush their username mapping caches, as part of the rewrite operation, for any protocol for which the usermap information has been changed or reset.
@@ -156,16 +156,16 @@ For authorization by group to operate via a foreign protocol, a similar mapping 
 
 .. _ref_permissions_mapping:
 
-Permissions Mapping
+Permissions mapping
 -------------------
 
 The permissions sets of file-serving protocols, unfortunately, do not map on a one-to-one basis to each other. NFSv4 ACLs, Windows ACLs, POSIX ACLs, NFSv3 perms and object-based capabilities all are capable of representing security conditions that the others are not, except NFSv3, which is the least expressive. The primary area of concern is in representing the possibly rich set of permissions in a CDMI ACL in a more restricted perms-based system, such as NFSv3, for display to users. 
 
-As there are a number of possible ways to coordinate the permissions/ACLs and CDMI ACLs, this international specification does not mandate a particular method. However, all mappings of user and groupnames between domains shall use the name mapping mechanism specified in :numref:`%s <ref_user_and_groupname_mapping_syntax_and_evaluation_rules>`.
+As there are a number of possible ways to coordinate the permissions/ACLs and CDMI ACLs, this International specification does not mandate a particular method. However, all mappings of user and groupnames between domains shall use the name mapping mechanism specified in :numref:`%s <ref_user_and_groupname_mapping_syntax_and_evaluation_rules>`.
 
 .. _ref_user_and_groupname_mapping_syntax_and_evaluation_rules:
 
-User and Groupname Mapping Syntax and Evaluation Rules
+User and groupname mapping syntax and evaluation rules
 ------------------------------------------------------
 
 A BNF-style grammar for name mapping is as follows:
@@ -191,7 +191,7 @@ If no matches are found on the match list, the result is system dependent. Howev
 
 .. _ref_nfs_exported_protocol:
 
-NFS Exported Protocol
+NFS exported protocol
 *********************
 
 To export a container via NFS, the information required is exactly what the server implementation will use to do the export. Normally, this information is contained in the ``/etc/exports`` file on a server or the equivalent. Administrators should be aware that lines may be automatically added to that file for each CDMI container that is exported.
@@ -253,7 +253,7 @@ Optional export parameters for NFS are described in :numref:`tbl_optional_nfs_ex
 
 Other export parameters for NFS are not specified by the CDMI protocol but may be included in the export structure. These parameters include Linuxisms, such as "``sync``", "``no_wdelay``", "``insecure_locks``", and "``no_acl``", as well as any other parameters used by a given server operating system.  In all such cases, the parameter shall be specified as a JSON tuple in which "``true``" and "``false``" are explicitly called out for binary flags, and a JSON-formatted string or list is used for other parameters. 
 
-EXAMPLE 3: NFS Export Options
+EXAMPLE 3: NFS export options
 
    .. code-block:: none
 
@@ -270,7 +270,7 @@ EXAMPLE 3: NFS Export Options
 
 .. _ref_nfs_exports_control:
 
-Export Control
+Export control
 --------------
 
 Export control is accomplished with the use of a single member, named "``control``":
@@ -290,7 +290,7 @@ Users wishing to use optional and vendor-specific settings are responsible for d
 
 .. _ref_cifs_exported_protocol:
 
-CIFS Exported Protocol
+CIFS exported protocol
 **********************
 
 To export a container via CIFS, the information required is exactly what the server implementation will use to do the export. Where this information is contained on a server is implementation dependent. The server may add or delete lines automatically to and from that file for each CDMI container that is exported or unexported.
@@ -302,7 +302,7 @@ Required members of the protocol structure for CIFS are described in :numref:`tb
 
 .. _tbl_required_members_of_the_cifs_protocol_structure:
 
-.. list-table:: Required Members of the CIFS protocol structure
+.. list-table:: Required members of the CIFS protocol structure
     :header-rows: 1
     :align: center 
 
@@ -323,7 +323,7 @@ An optional export parameter is "``comment,``" which is often used as a user-fri
 
 Other export parameters for CIFS are not specified by the CDMI protocol but may be included in the export structure. These parameters include vendor settings such as "``forcegroup``", "``umask``", "``caching``", and "``oplocks``", as well as any other parameters used by a given server operating system.  In all such cases, the parameter shall be specified as a JSON tuple in which "``true``" and "``false``" are explicitly called out for binary flags, and a JSON-formatted string or list is used for other parameters. 
 
-EXAMPLE 4: CIFS Export
+EXAMPLE 4: CIFS export
 
    .. code-block:: none
 
@@ -343,7 +343,7 @@ For more detail on the use of the OCCI export protocol structure attributes, see
 
 .. _ref_occi_exported_protocol:
 
-OCCI Exported Protocol
+OCCI exported protocol
 **********************
 
 Container objects can be exported via multiple protocols. This is especially useful when CDMI is being used as a storage interface in a cloud computing environemnt, as illustrated in  :numref:`fig_cdmi_and_occi_in_an_integrated_cloud_computing_environment` below.
@@ -354,7 +354,7 @@ Container objects can be exported via multiple protocols. This is especially use
     :align:  center
     :figwidth: 100%
    
-    CDMI and OCCI in an Integrated Cloud Computing Environment
+    CDMI and OCCI in an integrated cloud computing environment
 
 In this example, CDMI containers may also be used as virtual disks by virtual machines in the cloud computing environemnt. The cloud computing infrastructure management is shown as implementing both an Open Cloud Computer Interface (OCCI) and CDMI interfaces. With the internal knowledge of the network and the virtual machine manager's mapping of drives, this infrastructure may associate the CDMI containers to the guests using the appropriate exported protocol. 
 
@@ -371,7 +371,7 @@ CDMI defines an export protocol structure for the Open Cloud Computing Interface
 * The identifier is the CDMI object ID.
 * A JSON array of URIs to OCCI compute resources shall have access (permissions) to the exported container.
 
-EXAMPLE 5: OCCI Export
+EXAMPLE 5: OCCI export
 
    .. code-block:: none
    
@@ -387,7 +387,7 @@ EXAMPLE 5: OCCI Export
 
 For more detail on using the OCCI export protocol structure attributes, see :numref:`%s <ref_exports_overview>`. Because the actual networking and access control is under the control of a hidden, common infrastructure that implements both OCCI and CDMI, the normal permission structure shall not be provided.
 
-iSCSI Exported Protocol
+iSCSI exported protocol
 ***********************
 
 CDMI defines the export of a container using the iSCSI protocol (see RFC 7143 :cite:`rfc7143`). Each container is exported as a single SCSI Logical Unit as a Logical Unit Number (LUN). One or more iSCSI initiators import the LUN through an iSCSI target node and port using one or more iSCSI network portals (IP addresses). 
@@ -401,12 +401,12 @@ The export is described by the presence of an export field structure on the cont
 
 The target identifier may be in ``iqn``, ``naa``, or ``eui`` format and shall have the target portal group tag appended in hexadecimal.
 
-Read Container
+Read container
 --------------
 
 All of the information in the export structure is returned:
 
-EXAMPLE 6: iSCSI Export
+EXAMPLE 6: iSCSI export
 
 .. code-block:: none
 
@@ -427,12 +427,12 @@ EXAMPLE 6: iSCSI Export
         }
     } 
 
-Create and Update Containers
+Create and update containers
 ----------------------------
 
 The following export field contents, when included in a container create or update, indicates that the container shall be exported via iSCSI. Support for either of these operations is indicated by the ``cdmi_export_iscsi`` capability on the parent container of the created container or of the existing container, respectively.
 
-EXAMPLE 7: iSCSI Export Creation
+EXAMPLE 7: iSCSI export creation
 
 .. code-block:: none
 
@@ -448,12 +448,12 @@ EXAMPLE 7: iSCSI Export Creation
 
 For these export creation operations, the CDMI implementation selects the IP portals, iSCSI target, logical unit number, and logical unit name; these are not supplied. Only the list of initiator identifiers that are to have access to the container are specified.
 
-Modify an Export
+Modify an export
 ----------------
 
 The following code modifies an export on an existing container. Support for this operation is indicated by the ``cdmi_export_iscsi`` on the parent container of the existing container. For this operation, only the current list of initiator identifiers that are to have access to the container are specified.
 
-EXAMPLE 8: iSCSI Export Modification
+EXAMPLE 8: iSCSI export modification
 
 .. code-block:: none
 
@@ -466,7 +466,7 @@ EXAMPLE 8: iSCSI Export Modification
         }
     }
 
-WebDAV Exported Protocol
+WebDAV exported protocol
 ************************
 
 CDMI defines an export protocol structure for the WebDAV standard as follows (see RFC 4918 :cite:`rfc4918`): 
@@ -475,7 +475,7 @@ CDMI defines an export protocol structure for the WebDAV standard as follows (se
 * The path of the WebDAV mount point is as presented to clients (including server host name).
 * The list of who may access the share is determined by the standard CDMI ACLs for each resource as exported via WebDAV.
 
-EXAMPLE 9: iSCSI Export
+EXAMPLE 9: WebDAV export
 
    .. code-block:: none
 
@@ -487,6 +487,6 @@ EXAMPLE 9: iSCSI Export
 
 In this example, the value "``domain``" in the permissions field indicates that user credentials should be mapped through the domain membership in the domain of the CDMI container being exported. 
 
-WebDAV supports locking, but it is up to implementations to support any locking of access through CDMI as a result, and the interaction between the two protocols is purposely not described in this international standard. 
+WebDAV supports locking, but it is up to implementations to support any locking of access through CDMI as a result, and the interaction between the two protocols is purposely not described in this International standard. 
 
 

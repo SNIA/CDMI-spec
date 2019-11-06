@@ -1,6 +1,6 @@
 .. _clause_cdmi_results:
 
-Results Specification
+Results specification
 =====================
 
 Overview

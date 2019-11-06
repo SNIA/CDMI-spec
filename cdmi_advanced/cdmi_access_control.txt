@@ -1,6 +1,6 @@
 .. _clause_access_control:
 
-Access Control
+Access control
 ==============
 
 .. _ref_access_control:
@@ -13,11 +13,11 @@ Access control defines the mechanisms by which access to objects are permitted o
 * No access control
 * Access Control List (ACL) based access control (See :numref:`%s <ref_access_control_lists>`)
 * Domain based access control (See :numref:`%s <ref_domain_usage_in_access_control>`)
-* Delegated access control (See Clause :numref:`%s <clause_cdmi_delegated_access_control>`)
+* Delegated access control (See clause :numref:`%s <clause_cdmi_delegated_access_control>`)
 * Vendor-defined access control extensions
 * Combinations of the above
 
-Access Control Flow
+Access control flow
 -------------------
 
 :numref:`fig_access_control_flow` (see next page) illustrates the control flow for access control in an example CDMI implementation. As every aspect of access control is optional within a CDMI server, each different implementations will typically implement appropriate subsets of the below illustrated access control flow, in a manner approprate to the internal architecture of their implementation. 
@@ -28,10 +28,10 @@ Access Control Flow
     :align:  center
     :figwidth: 100%
    
-    Access Control Flow
+    Access control flow
 
 1. The CDMI client initiates a CDMI operation by sending a CDMI request to a CDMI server. As part of the request, the CDMI client includes information about its identity and information to prove this identity (credentials). The method by which these credentials are presented and formatted is not specified in this International Standard, however, some guidance is provided in :numref:`%s <ref_overview_authentication>`.
-2. If the CDMI server supports Domains (see Clause :numref:`%s <clause_cdmi_domain_object>`), the CDMI server obtains the domain associated with the object the CDMI operation is being performed against. If the CDMI system does not support domains, steps 2 - 8 are skipped.
+2. If the CDMI server supports Domains (see clause :numref:`%s <clause_cdmi_domain_object>`), the CDMI server obtains the domain associated with the object the CDMI operation is being performed against. If the CDMI system does not support domains, steps 2 - 8 are skipped.
 3. The CDMI server obtains required information about the domain associated with the object.
 4. Domain Information is returned for further use.
 5. Domain information is used to resolve CDMI client credentials.
@@ -47,7 +47,7 @@ Access Control Flow
 14. The CDMI ACL processing subsystem evaluates the resolved principals against the resolved ACL.
 15. The evaluated permission mask is returned for further use.
 
-16. If the CDMI server supports Delegated Access Control (DAC) (see Clause :numref:`%s <clause_cdmi_delegated_access_control>`), the CDMI server obtains DAC metadata associated with the object the CDMI operation is being performed against. If the CDMI system does not support DAC, steps 16 - 22 are skipped.
+16. If the CDMI server supports Delegated Access Control (DAC) (see clause :numref:`%s <clause_cdmi_delegated_access_control>`), the CDMI server obtains DAC metadata associated with the object the CDMI operation is being performed against. If the CDMI system does not support DAC, steps 16 - 22 are skipped.
 17. The CDMI server obtains DAC metadata associated with the object.
 18. DAC metadata is returned for further use.
 
@@ -63,20 +63,20 @@ Steps 2 - 8, 9 - 15, and 16 - 18 may be performed in parallel.
 
 .. _ref_access_control_lists:
 
-Access Control Lists
+Access control lists
 ********************
 
 CDMI uses the well-known mechanism of an Access Control List (ACL) as defined in the NFSv4 standard (see RFC 3530 :cite:`rfc3530`). ACLs are lists of permissions-granting or permissions-denying entries called Access Control Entries (ACEs). 
 
 
-ACL and ACE Structure
+ACL and ACE structure
 ---------------------
 
 An ACL is an ordered list of ACEs. The two types of ACEs in CDMI are ``ALLOW`` and ``DENY``. An ``ALLOW`` ACE grants some form of access to a principal. Principals are either users or groups and are represented by identifiers. A ``DENY`` ACE denies access of some kind to a principal. For instance, a ``DENY`` ACE may deny the ability to write the metadata or ACL of an object but may remain silent on other forms of access. In that case, if another ACE ALLOWs write access to the object, the principal is allowed to write the object's data, but nothing else. 
 
 ACEs are composed of four fields: ``type``, ``who``, ``flags`` and ``access_mask``, as per RFC 3530 :cite:`rfc3530`. The ``type``, ``flags``, and ``access_mask`` shall be specified as either unsigned integers in hex string representation or as a comma-delimited list of bit mask string form values taken from :ref:`tbl_ace_types`, :ref:`tbl_ace_flags`, and :ref:`tbl_ace_bit_masks`.
 
-ACE Types
+ACE types
 ---------
 
 :numref:`tbl_ace_types` defines the following ACE types, as specified in section 5.11.1 of RFC 3530 :cite:`rfc3530`.
@@ -88,15 +88,15 @@ ACE Types
 
 .. _tbl_ace_types:
 
-.. list-table:: ACE Types
+.. list-table:: ACE types
     :header-rows: 1
     :class: longtable
     :align: center 
 
-    * - String Form
+    * - String form
       - Description
       - Constant
-      - Bit Mask
+      - Bit mask
     * - "``ALLOW``"
       - Allow access rights for a principal
       - "``CDMI_ACE_ACCESS_ALLOW``"
@@ -115,7 +115,7 @@ The reason that the string forms may be safely abbreviated is that they are loca
 
 The client is responsible for ordering the ACEs in an ACL. The server shall not enforce any ordering and shall store and evaluate the ACEs in the order given by the client.
 
-ACE Who
+ACE who
 -------
 
 The special "``who``" identifiers need to be understood universally, rather than in the context of a particular external security domain (see :ref:`tbl_who_identifiers`). Some of these identifiers may not be understood when a CDMI client accesses the server, but they may have meaning when a local process accesses the file. The ability to display and modify these permissions is permitted over CDMI, even if none of the access methods on the server understands the identifiers.
@@ -125,7 +125,7 @@ The special "``who``" identifiers need to be understood universally, rather than
 
 .. _tbl_who_identifiers:
 
-.. list-table:: Who Identifiers
+.. list-table:: Who identifiers
     :header-rows: 1
     :class: longtable
     :align: center 
@@ -149,7 +149,7 @@ The special "``who``" identifiers need to be understood universally, rather than
 
 To avoid name conflicts, these special identifiers are distinguished by an appended "``@``" (with no domain name).
 
-ACE Flags
+ACE flags
 ---------
 
 CDMI allows for nested containers and mandates that objects and subcontainers be able to inherit access permissions from their parent containers. However, it is not enough to simply inherit all permissions from the parent; it might be desirable, for example, to have different default permissions on child objects and subcontainers of a given container. The flags in :numref:`tbl_ace_flags` govern this behavior. 
@@ -161,15 +161,15 @@ CDMI allows for nested containers and mandates that objects and subcontainers be
 
 .. _tbl_ace_flags:
 
-.. list-table:: ACE Flags 
+.. list-table:: ACE flags 
     :header-rows: 1
     :class: longtable
     :align: center 
 
-    * - String Form
+    * - String form
       - Description
       - Constant
-      - Bit Mask
+      - Bit mask
     * - "``NO_FLAGS``"
       - No flags are set
       - "``CDMI_ACE_FLAGS_NONE``"
@@ -207,7 +207,7 @@ CDMI allows for nested containers and mandates that objects and subcontainers be
 
 .. _ref_ace_mask_bits:
 
-ACE Mask Bits
+ACE mask bits
 -------------
 
 The mask field of an ACE contains a 32 bit mask, as specified in section 5.11.2 of RFC 3530 :cite:`rfc3530`. 
@@ -219,15 +219,15 @@ The mask field of an ACE contains a 32 bit mask, as specified in section 5.11.2 
 
 .. _tbl_ace_bit_masks:
 
-.. list-table:: ACE Bit Masks 
+.. list-table:: ACE masks bits 
     :header-rows: 1
     :class: longtable
     :align: center 
 
-    * - String Form
+    * - String form
       - Description
       - Constant
-      - Bit Mask
+      - Bit mask
     * - "``READ_OBJECT``"
       - If true, indicates permission to read the value of an object. 
       
@@ -478,7 +478,7 @@ Implementations shall use the correct string form to display permissions, if the
 
 .. _ref_acl_evaluation:
 
-ACL Evaluation
+ACL evaluation
 --------------
 
 When evaluating whether access to a particular object O by a principal P is to be granted, the server shall traverse the object's logical ACL (its ACL after processing inheritance from parent containers) in list order, using a temporary permissions bitmask m, initially empty (all zeroes).
@@ -572,7 +572,7 @@ When an object is created, no ACL is supplied, and an ACL is not inherited from 
         }
     ]
 
-Example ACE Mask Expressions
+Example ACE mask expressions
 ----------------------------
 
 Example 1:
@@ -602,7 +602,7 @@ Example 3:
     evaluates to 0x000601DF | 0x00100000 == 0x000701DF
 
 
-Canonical Format for ACE Hexadecimal Quantities
+Canonical format for ACE hexadecimal quantities
 -----------------------------------------------
 
 ACE mask expressions may be evaluated and converted to a string hexadecimal value before transmission in a CDMI JSON body. Applications or utilities that display them to users should convert them into a text expression before display and accept user input in text format as well. 
@@ -615,14 +615,14 @@ The following technique should be used to decompose masks into strings. A table 
 
 .. _tbl_ace_strings:
 
-.. list-table:: ACE Bit Mask/String
+.. list-table:: ACE bit mask/string
     :header-rows: 1
     :class: longtable
     :align: center 
 
-    * - Hex Form
-      - Object String Form
-      - Container String Form
+    * - Hex form
+      - Object string form
+      - Container string form
     * - 0x001F07FF
       - "``ALL_PERMS``"
       - "``ALL_PERMS``"
@@ -655,7 +655,7 @@ This algorithm, properly coded, requires only one (often partial) pass through t
 
 .. _ref_acl_json_format:
 
-JSON Format for ACLs
+JSON format for ACLs
 --------------------
 
 ACE flags and masks are members of a 32-bit quantity that is widely understood in its hexadecimal representations. The JSON data format does not support hexadecimal integers, however. For this reason, all hexadecimal integers in CDMI ACLs shall be represented as quoted strings containing a leading "``0x``".

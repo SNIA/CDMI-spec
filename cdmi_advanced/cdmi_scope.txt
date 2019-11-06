@@ -1,6 +1,6 @@
 .. _clause_cdmi_scope:
 
-Scope Specification
+Scope specification
 ===================
 
 Overview
@@ -140,7 +140,7 @@ EXAMPLE 7: To query the value of objects, the value field is included within the
 
 Query against the value of objects is optional and is indicated by the presence of the "``cdmi_query_value``" capability.
 
-Query Matching Expressions
+Query matching expressions
 **************************
 
 Query matching expressions are structured as "<operator>" or "<operator><sp><constant>", and are defined in :numref:`tbl_query_matching_expressions`.
@@ -150,7 +150,7 @@ Query matching expressions are structured as "<operator>" or "<operator><sp><con
 
 .. _tbl_query_matching_expressions:
 
-.. list-table:: Query Matching Expressions
+.. list-table:: Query matching expressions
     :header-rows: 1
     :class: longtable
     :align: center 

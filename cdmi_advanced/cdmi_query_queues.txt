@@ -1,6 +1,6 @@
 .. _clause_cdmi_query_queues:
 
-Query Queues
+Query queues
 ============
 
 Overview
@@ -21,25 +21,25 @@ When creating a query queue, the metadata described in :numref:`tbl_required_met
 
 .. _tbl_required_metadata_for_a_query_queue:
 
-.. list-table:: Required Metadata for a Query Queue
+.. list-table:: Required metadata for a query queue
     :header-rows: 1
     :class: longtable
     :align: center 
 
-    * - Metadata Name
+    * - Metadata name
       - Type
       - Description
       - Requirement
     * - cdmi_queue_type
-      - JSON String
+      - JSON string
       - The queue type indicates how the cloud storage system shall manage the queue object. The type of "``cdmi_query_queue``" is defined for query queues.
       - Mandatory
     * - cdmi_scope_specification
-      - JSON Array of JSON Objects
+      - JSON array of JSON objects
       - The scope specification determines which objects are included in the query results. This scope specification is similar to a "``WHERE``" clause in SQL-like languages. To query all objects, specify an empty JSON array. See :numref:`Clause %s <clause_cdmi_scope>`  for how to construct a scope specification.
       - Mandatory
     * - cdmi_results_specification
-      - JSON Object
+      - JSON object
       - The results specification contains the JSON fields to be returned for each object that matches the query. This results specification is similar to a "``SELECT``" clause in SQL-like languages. See :numref:`Clause %s <clause_cdmi_results>` for how to construct a results specification.
       - Mandatory
 
@@ -90,17 +90,17 @@ EXAMPLE 2: An example of a query result JSON object is as follows:
 
 .. _tbl_query_status_metadata:
 
-.. list-table:: Query Status Metadata
+.. list-table:: Query status metadata
     :header-rows: 1
     :class: longtable
     :align: center 
 
-    * - Metadata Name
+    * - Metadata name
       - Type
       - Description
       - Requirement
     * - cdmi_query_status
-      - JSON String
+      - JSON string
       - When present, this metadata item indicates the state of the query queue. Defined values are: 
 
         * Processing - Indicates that the query queue is scanning for results; 
@@ -113,7 +113,7 @@ Objects shall only be included in the query results if the user who created the 
 
 NOTE: If the administrator created the query queue, then all matching objects that the administrator is allowed to read are included in the results. If user "``jdoe``" created the query queue, then only matching objects that "``jdoe``" is allowed to read are included in the results.
 
-Extending CDMI Query
+Extending CDMI query
 ********************
 
 An implementor of a CDMI server may extend CDMI query by adding vendor-specific matching expressions. When an implementor adds vendor-specific metadata fields, these fields shall be queried using the standard query queue functionality. 

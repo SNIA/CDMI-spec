@@ -1,6 +1,6 @@
 .. _clause_cdmi_retention:
 
-Retention and Hold Management
+Retention and hold management
 =============================
 
 Overview
@@ -16,7 +16,7 @@ Retention management may be applied to the following object types:
 * queue objects, and
 * container objects.
 
-Retention Management Disciplines
+Retention management disciplines
 ********************************
 
 CDMI retention, deletion, and hold management affect any CDMI client that creates or deletes CDMI objects, as these disciplines mandate how a cloud storage system manages CDMI objects when they are created and until they are deleted. 
@@ -31,7 +31,7 @@ CDMI retention management is comprised of three management disciplines: retentio
 
 .. _cdmi_retention:
 
-CDMI Retention
+CDMI retention
 **************
 
 Overview
@@ -48,7 +48,7 @@ When a CDMI client attempts to delete an object, the cloud storage system shall 
 
 When copying objects with a retention policy, retention properties shall not be transferred from the source CDMI object to the destination object, and the destination object shall not have a retention policy.
 
-:numref:`fig_object_retention` shows how to establish time-based retention with a retention identifier. The value of the object data system metadata for the retention period shall not be reduced.
+:numref:`fig_object_retention` shows how to establish time-based retention with a retention identifier. The value of the object data system metadata for the retention period shall not be reduced. Removing holds is outside the scope of the CDMI International Standard.
 
 
 .. _fig_object_retention:
@@ -57,7 +57,7 @@ When copying objects with a retention policy, retention properties shall not be 
     :align:  center
     :figwidth: 100%
    
-    Object Retention
+    Object retention
 
 A specific HTTP error code (403) shall be returned on operations to objects that are under retention period when the cloud storage system attempts to change or delete the object before the retention period criteria are met. 
 
@@ -132,7 +132,7 @@ EXAMPLE 3: Decrease the duration of retention on an existing object under retent
 
 .. _cdmi_hold:
 
-CDMI Hold
+CDMI hold
 *********
 
 Overview
@@ -142,7 +142,7 @@ CDMI hold enforces read-only data object access and prohibition of object deleti
 
 When copying objects that are on hold, hold properties shall not be transferred from the source CDMI object to the destination object, and the destination object shall not be on hold.
 
-Hold management uses a hold indicator to determine the time period(s) during which CDMI object revision (data and metadata) and deletion from the CDMI-based system shall be prohibited. CDMI hold criteria shall be specified by data system metadata, specifically, a hold criteria identifier that is a client-specified string that shall identify the holds and their order.
+Hold management uses a hold indicator to determine the time periods during which CDMI object revision (data and metadata) and deletion from the CDMI-based system shall be prohibited. CDMI hold criteria shall be specified by data system metadata, specifically, a hold criteria identifier that is a client-specified string that shall identify the holds and their order.
 
 A CDMI client may place an object on hold by adding a hold identifier to the ``cdmi_hold_id`` data system metadata item. When an object is on hold, CDMI clients shall be subject to failures or unexpected state changes on operations, which would otherwise be successful if the object was not on hold.
 
@@ -154,10 +154,10 @@ A CDMI client may place an object on hold by adding a hold identifier to the ``c
     :align:  center
     :figwidth: 100%
    
-    Object Hold
+    Object hold
    
 
-:numref:`fig_object_hold_on_object_with_retention` shows how to establish time-based retention with a retention identifier that has a hold placed on the object. The value of the object data system metadata for the retention period shall not be reduced, and the value of the object data system metadata for hold identifiers shall not permit holds to be removed. Removing holds is outside the scope of the CDMI international standard.
+:numref:`fig_object_hold_on_object_with_retention` shows how to establish time-based retention with a retention identifier that has a hold placed on the object. The value of the object data system metadata for the retention period shall not be reduced, and the value of the object data system metadata for hold identifiers shall not permit holds to be removed. Removing holds is outside the scope of the CDMI International Standard.
 
 .. _fig_object_hold_on_object_with_retention:
 
@@ -165,7 +165,7 @@ A CDMI client may place an object on hold by adding a hold identifier to the ``c
     :align:  center
     :figwidth: 100%
    
-    Object Hold on Object with Retention
+    Object hold on object with retention
    
 
 :numref:`fig_object_with_multiple_holds` shows how placing multiple holds on an object affects its read-only and deletion capability.
@@ -176,13 +176,13 @@ A CDMI client may place an object on hold by adding a hold identifier to the ``c
     :align:  center
     :figwidth: 100%
    
-    Object with Multiple Holds
+    Object with multiple holds
    
 
 A cloud storage system shall maintain an on-hold object in read-only mode with respect to the application access to data and metadata and shall prohibit deletion, either automated or explicit. 
 
 * CDMI clients shall tolerate these object on-hold failures or state changes.
-* Releases from hold are not part of this international standard and are typically performed out of band using an additionally secured non-CDMI mechanism provided by the implementation.
+* Releases from hold are not part of this International Standard and are typically performed out of band using an additionally secured non-CDMI mechanism provided by the implementation.
 
 A specific HTTP error code (403) shall be returned on operations to objects that are under a hold when the system attempts to change the object or attempts to delete the object before the hold is removed. This failure should be a an error to the application.
 
@@ -257,7 +257,7 @@ EXAMPLE 3: Add a second hold to an object under hold:
         HTTP/1.1 204 No Content
 
 
-CDMI Auto-deletion
+CDMI auto-deletion
 ******************
 
 Overview
@@ -289,7 +289,7 @@ EXAMPLE 1: Place an object under retention with autodelete:
         HTTP/1.1 204 No Content
 
   
-Retention Security Considerations
+Retention security considerations
 *********************************
 
 The accuracy and integrity of the retention start and elapsed times depend on the accuracy and integrity of the clock that is used to set their values. Equally important is the relative accuracy and security of the clock that determines if the retention period has elapsed when compared to the clock that sets the start time property. Relative time differences between these two clocks may lead to undesirable retention and deletion management behavior.

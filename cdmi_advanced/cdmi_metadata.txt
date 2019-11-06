@@ -27,7 +27,7 @@ When objects are read, object metadata is returned according to the following pr
 
 .. _ref_support_for_storage_system_metadata:
 
-Support for Storage System Metadata
+Support for storage system metadata
 ***********************************
 
 After an object has been created or updated, the storage system metadata, as described in :numref:`tbl_storage_system_metadata`, shall be generated or updated by the cloud storage system, and shall immediately be made available to a CDMI client in the metadata that is returned as a result of the create operation and any subsequent retrievals.
@@ -41,17 +41,17 @@ Which storage system metadata is supported by the CDMI server defined in :numref
 
 .. _tbl_storage_system_metadata:
 
-.. list-table:: Storage System Metadata
+.. list-table:: Storage system metadata
     :class: longtable
     :header-rows: 1
     :align: center 
 
-    * - Metadata Name
+    * - Metadata name
       - Type
       - Description
       - Requirement
     * - cdmi_size
-      - JSON String
+      - JSON string
       - The number of bytes consumed by the object.
       
         .. raw:: latex
@@ -61,7 +61,7 @@ Which storage system metadata is supported by the CDMI server defined in :numref
         This storage system metadata item is computed by the storage system, and any attempts to set or modify it will be ignored.
       - Optional
     * - cdmi_ctime
-      - JSON String
+      - JSON string
       - The time when the object was created, in  ISO-8601 point-in-time format, as described in :numref:`%s <ref_time_representations>`.
       
         .. raw:: latex
@@ -77,7 +77,7 @@ Which storage system metadata is supported by the CDMI server defined in :numref
         This metadata value can only be updated by a client if it has the "``backup_operator``" privilege. If a client does not have the backup operator privilege, updates of this metadata item shall be ignored.
       - Optional
     * - cdmi_atime
-      - JSON String
+      - JSON string
       - The time when the object was last accessed in ISO-8601 point-in-time format, as described in :numref:`%s <ref_time_representations>`. The access or modification of a child is not considered an access of a parent container (access/modify times do not propagate up the tree).
       
         .. raw:: latex
@@ -93,7 +93,7 @@ Which storage system metadata is supported by the CDMI server defined in :numref
         This metadata value can only be updated by a client if it has the "``backup_operator``" privilege. If a client does not have the backup operator privilege, updates of this metadata item shall be ignored.
       - Optional
     * - cdmi_mtime
-      - JSON String
+      - JSON string
       - The time when the object was last modified, in ISO-8601 point-in-time format, as described in :numref:`%s <ref_time_representations>`. The modification of a child is not considered a modification of a container object (modification times do not propagate up the tree).
       
         .. raw:: latex
@@ -109,7 +109,7 @@ Which storage system metadata is supported by the CDMI server defined in :numref
         This metadata value can only be updated by a client if it has the "``backup_operator``" privilege. If a client does not have the backup operator privilege, updates of this metadata item shall be ignored.
       - Optional
     * - cdmi_acount
-      - JSON String
+      - JSON string
       - The number of times that the object has been accessed since it was originally created. Accesses include all reads, writes, and lists.
       
         .. raw:: latex
@@ -125,7 +125,7 @@ Which storage system metadata is supported by the CDMI server defined in :numref
         This metadata value can only be updated by a client if it has the "``backup_operator``" privilege. If a client does not have the backup operator privilege, updates of this metadata item shall be ignored.
       - Optional
     * - cdmi_mcount
-      - JSON String
+      - JSON string
       - The number of times that the object has been modified since it was originally created. Modifications include all value and metadata changes. Modifications to metadata resulting from reads (such as updates to atime) do not count as a modification.
       
         .. raw:: latex
@@ -141,7 +141,7 @@ Which storage system metadata is supported by the CDMI server defined in :numref
         This metadata value can only be updated by a client if it has the "``backup_operator``" privilege. If a client does not have the backup operator privilege, updates of this metadata item shall be ignored.
       - Optional
     * - cdmi_hash
-      - JSON String
+      - JSON string
       - The hash of the value of the object, encoded using Base16 encoding rules described in RFC 4648 :cite:`rfc4648`. This metadata field shall be present when the "``cdmi_value_hash``" data system metadata for the object or a parent object indicates that the value of the object should be hashed.
       
         .. raw:: latex
@@ -151,7 +151,7 @@ Which storage system metadata is supported by the CDMI server defined in :numref
         This storage system metadata item is computed by the storage system, and any attempts to set or modify it will be ignored.
       - Optional
     * - cdmi_owner
-      - JSON String
+      - JSON string
       - The name of the principal that has owner privileges for the object.
       
         .. raw:: latex
@@ -167,7 +167,7 @@ Which storage system metadata is supported by the CDMI server defined in :numref
         This metadata value can be updated by users with appropriate permissions.
       - Optional
     * - cdmi_acl
-      - JSON Array of JSON Objects
+      - JSON array of JSON objects
       - Standard ACL metadata as described in :numref:`%s <ref_access_control>`.
       
         .. raw:: latex
@@ -183,7 +183,7 @@ Which storage system metadata is supported by the CDMI server defined in :numref
         This metadata value can be updated by users with appropriate permissions.
       - Optional
     * - cdmi_dac_uri
-      - JSON String	
+      - JSON string	
       - Contains the URI used to submit a DAC request for the data object.
 
         URI schemes supported is defined in the ``cdmi_dac_methods capability``.
@@ -192,19 +192,19 @@ Which storage system metadata is supported by the CDMI server defined in :numref
       - Optional
       
     * - cdmi_dac_certificate	
-      - JSON Object	
+      - JSON object	
       - A JSON object, containing a JWE JWK which shall include a public key that is used to submit a DAC request for the data object, and should contains a X.509 certificate or certificate chain used to verify the identity of the DAC provider.
       
         Both ``cdmi_dac_certificate`` and ``cdmi_dac_uri`` shall be included for delegated access control to be enabled for a given object.	
       - Optional
     * - cdmi_enc_signature
-      - JSON Object
-      - Contains JWS compact serialization of a signature for the entire object (value and metadata). See :numref:`Clause %s <ref_cdmi_encrypted_objects_signature_verification>` for more details.
+      - JSON object
+      - Contains JWS compact serialization of a signature for the entire object (value and metadata). See :numref:`clause %s <ref_cdmi_encrypted_objects_signature_verification>` for more details.
       - Optional
 
 .. _ref_support_for_data_system_metadata:
 
-Support for Data System Metadata
+Support for data system metadata
 ********************************
 
 When specified, data system metadata, as described in :numref:`tbl_data_system_metadata`, provides guidelines to the cloud storage system on how to provide storage data services for data managed through the CDMI interface.
@@ -220,17 +220,17 @@ Which data system metadata is supported by the CDMI server defined in :numref:`%
 
 .. _tbl_data_system_metadata:
 
-.. list-table:: Data System Metadata
+.. list-table:: Data system metadata
     :class: longtable
     :header-rows: 1
     :align: center 
 
-    * - Metadata Name
+    * - Metadata name
       - Type
       - Description
       - Requirement
     * - cdmi_data_redundancy
-      - JSON String
+      - JSON string
       - If this data system metadata item is present and set to a positive numeric string, it indicates that the client is requesting a desired number of complete copies.
       
         .. raw:: latex
@@ -240,7 +240,7 @@ Which data system metadata is supported by the CDMI server defined in :numref:`%
         Additional copies may be made to satisfy demand for the value. When this data system metadata item is absent, or is present and is not set to a positive numeric string, this data system metadata item shall not be used.
       - Optional
     * - cdmi_immediate_redundancy
-      - JSON String
+      - JSON string
       - If this data system metadata item is present and set to "``true``", it indicates that the client is requesting that at least the number of copies indicated in ``cdmi_data_redundancy`` contain the newly written value before the operation completes. This metadata is used to make sure that multiple copies of the data are written to permanent storage to prevent possible data loss. When this data system metadata item is absent, or is present and is not set to "``true``", this data system metadata item shall not be used. 
       
         .. raw:: latex
@@ -250,7 +250,7 @@ Which data system metadata is supported by the CDMI server defined in :numref:`%
         If the requested number of copies cannot be created within the HTTP timeout period, the transaction shall complete, but the ``cdmi_immediate_redundancy_provided`` data system metadata shall be set to "``false``".  
       - Optional
     * - cdmi_assignedsize
-      - JSON String
+      - JSON string
       - If this data system metadata item is present and set to a positive numeric string, it indicates that the client is specifying the size in bytes that is desired to be reported for a container object exported via other protocols (see :numref:`%s <ref_container_metadata>`). The system is not required to reserve this space and may thin-provision the requested space. Thus, the requested value may be greater than the actual storage space consumed. When this data system metadata item is absent, or is present and is not set to a positive numeric string, this data system metadata item shall not be used. 
       
         .. raw:: latex
@@ -260,7 +260,7 @@ Which data system metadata is supported by the CDMI server defined in :numref:`%
         This data system metadata item is only applied against container objects and is not inherited by child objects.
       - Optional
     * - cdmi_infrastructure_redundancy
-      - JSON String
+      - JSON string
       - If this data system metadata item is present and set to a positive numeric string, it indicates that the client is requesting a desired number of independent storage infrastructures supporting the multiple copies of data. This metadata is used to convey that, of the copies specified in ``cdmi_data_redundancy``, these copies shall be stored on this many separate infrastructures.
       
         .. raw:: latex
@@ -270,7 +270,7 @@ Which data system metadata is supported by the CDMI server defined in :numref:`%
         When this data system metadata item is absent, or is present and is not set to a positive numeric string, this data system metadata item shall not be used. 
       - Optional
     * - cdmi_data_dispersion
-      - JSON String
+      - JSON string
       - If this data system metadata item is present and set to a positive numeric string, it indicates that the client is requesting a minimum desired distance (in km) between the infrastructures supporting the multiple copies of data. This metadata is used to separate the (``cdmi_infrastructure_redundancy`` number of) infrastructures by a minimum geographic distance to prevent data loss due to site disasters.
       
         .. raw:: latex
@@ -280,7 +280,7 @@ Which data system metadata is supported by the CDMI server defined in :numref:`%
         When this data system metadata item is absent, or is present and is not set to a positive numeric string, this data system metadata item shall not be used.
       - Optional
     * - cdmi_geographic_placement
-      - JSON Array of JSON Strings
+      - JSON array of JSON strings
       - If this data system metadata item is present and set to zero or more geopolitical identifiers, it indicates that the client is requesting restrictions on the geographic regions where the object is permitted to be stored. Each geopolitical identifier shall be in the form of either a string containing a valid ISO 3166 country/country-subdivision code, which indicates that storage is permitted within that geopolitical region, or in the form of a string starting with the "``!``" character in front of a valid ISO 3166 country/country-subdivision code, which excludes that country/country-subdivision from the previous list of geopolitical regions. 
       
         .. raw:: latex
@@ -294,7 +294,7 @@ Which data system metadata is supported by the CDMI server defined in :numref:`%
         * When this data system metadata item is present and valid, but no available storage locations are permitted, the create, update, or deserialize operation shall fail with an HTTP status code of ``403 Forbidden.``
       - Optional
     * - cdmi_retention_id
-      - JSON String
+      - JSON string
       - If this data system metadata item is present and not an empty string, it indicates that the client is requesting that the string be used to tag a given object as being managed by a specific retention policy. This data system metadata item is not required to place an object under retention, but is useful when needing to be able to perform a query to find all objects under a specific retention policy.
       
         .. raw:: latex
@@ -304,7 +304,7 @@ Which data system metadata is supported by the CDMI server defined in :numref:`%
         When this data system metadata item is absent, or is present and an empty string, this data system metadata item shall not be used.
       - Optional
     * - cdmi_retention_period
-      - JSON String
+      - JSON string
       - If this data system metadata item is present and contains a valid ISO 8601:2004 time interval (as described in ), it indicates that the client is requesting that an object be placed under retention (see :numref:`%s <cdmi_retention>`). When this data system metadata item is absent, this data system metadata item shall not be used. When this data system metadata item is present but does not contain a valid ISO 8601:2004 time interval, the create, update, or deserialize operation shall fail with an HTTP status code of ``400 Bad Request``.
       
         .. raw:: latex
@@ -314,7 +314,7 @@ Which data system metadata is supported by the CDMI server defined in :numref:`%
         If this data system metadata item is updated and the new end date is before the current end date, the update operation shall fail with an HTTP status code of ``403 Forbidden``. 
       - Optional
     * - cdmi_retention_autodelete
-      - JSON String
+      - JSON string
       - If this data system metadata item is present and set to "``true``", it indicates that the client is requesting that an object under retention be automatically deleted when retention expires.
       
         .. raw:: latex
@@ -324,7 +324,7 @@ Which data system metadata is supported by the CDMI server defined in :numref:`%
         When this data system metadata item is absent, or is present and is not set to "``true``", this data system metadata item shall not be used.
       - Optional
     * - cdmi_hold_id
-      - JSON Array of JSON Strings
+      - JSON array of JSON strings
       - If this data system metadata item is present and not an empty array, it indicates that the client is requesting that an object be placed under hold (see :numref:`%s <cdmi_hold>`). Each string in the array shall contain a unique user-specified hold identifier. 
       
         .. raw:: latex
@@ -340,7 +340,7 @@ Which data system metadata is supported by the CDMI server defined in :numref:`%
         If this data system metadata item is updated, and a previously existing hold string has been removed or changed in the update, the update operation shall fail with an HTTP status code of ``403 Forbidden``. (See :numref:`%s <cdmi_hold>` concerning releasing holds.)
       - Optional
     * - cdmi_encryption
-      - JSON String
+      - JSON string
       - If this data system metadata item is present and not an empty string, it indicates that the client is requesting that the object be encrypted while at rest. If encrypted, all data and metadata related to the object shall be encrypted. Supported algorithm/mode/length values are provided by the ``cdmi_encryption`` capability. 
       
         .. raw:: latex
@@ -376,7 +376,7 @@ Which data system metadata is supported by the CDMI server defined in :numref:`%
 
       - Optional
     * - cdmi_value_hash 
-      - JSON String
+      - JSON string
       - If this data system metadata item is present and not an empty string, it indicates that the client is requesting that the system hash the object value using the hashing algorithm and length requested. The result of the hash shall be provided in the ``cdmi_hash`` storage system metadata item. Supported algorithm/length values are provided by the ``cdmi_value_hash`` storage system capability. 
       
         .. raw:: latex
@@ -406,7 +406,7 @@ Which data system metadata is supported by the CDMI server defined in :numref:`%
         * "``SHA256``" for SHA-2.
       - Optional
     * - cdmi_latency
-      - JSON String
+      - JSON string
       - If this data system metadata item is present and set to a positive numeric string, it indicates that the client is requesting a desired maximum time to first byte, in milliseconds. This metadata is the desired latency (in milliseconds) to the first byte of data, as measured from the edge of the cloud and factoring out any propagation latency between the client and the cloud. For example, this metadata may be used to determine, in an interoperable way, from what type of storage medium the data may be served.
       
         .. raw:: latex
@@ -416,7 +416,7 @@ Which data system metadata is supported by the CDMI server defined in :numref:`%
         When this data system metadata item is absent, or is present and is not set to a positive numeric string, this data system metadata item shall not be used.
       - Optional
     * - cdmi_throughput
-      - JSON String
+      - JSON string
       - If this data system metadata item is present and set to a positive numeric string, it indicates that the client is requesting a desired maximum data rate on retrieve, in bytes per second. This metadata is the desired bandwidth to the data, as measured from the edge of the cloud and factoring out any bandwidth capability between the client and the cloud. This metadata is used to stage the data in locations where there is sufficient bandwidth to accommodate a maximum usage.
       
         .. raw:: latex
@@ -426,7 +426,7 @@ Which data system metadata is supported by the CDMI server defined in :numref:`%
         When this data system metadata item is absent, or is present and is not set to a positive numeric string, this data system metadata item shall not be used. 
       - Optional
     * - cdmi_sanitization_method
-      - JSON String
+      - JSON string
       - If this data system metadata item is present and not an empty string, it indicates that the client is requesting that the system use a specific sanitization method to delete data such that the data is unrecoverable after an update or delete operation. Supported sanitization method values are provided by the ``cdmi_sanitization_method`` capability. 
       
         .. raw:: latex
@@ -448,7 +448,7 @@ Which data system metadata is supported by the CDMI server defined in :numref:`%
         Supported sanitization methods are defined as system-specific strings.
       - Optional
     * - cdmi_RPO
-      - JSON String
+      - JSON string
       - If this data system metadata item is present and set to a positive numeric string, it indicates that the client is requesting a largest acceptable duration in time between an update or create and when the object may be recovered, specified in seconds. This metadata is used to indicate the desired backup frequency from the primary copy or copies of the data to the secondary copy or copies. It is the maximum acceptable time period before a failure or disaster during which changes to data may be lost as a consequence of recovery.
       
         .. raw:: latex
@@ -458,7 +458,7 @@ Which data system metadata is supported by the CDMI server defined in :numref:`%
         When this data system metadata item is absent, or is present and is not set to a positive numeric string, this data system metadata item shall not be used. 
       - Optional
     * - cdmi_RTO
-      - JSON String
+      - JSON string
       - If this data system metadata item is present and set to a positive numeric string, it indicates that the client is requesting the largest acceptable duration in time to restore data, specified in seconds. This metadata is used to indicate the desired maximum acceptable duration to restore the primary copy or copies of the data from a secondary backup copy or copies.
       
         .. raw:: latex
@@ -468,27 +468,27 @@ Which data system metadata is supported by the CDMI server defined in :numref:`%
         When this data system metadata item is absent, or is present and is not set to a positive numeric string, this data system metadata item shall not be used.
       - Optional
     * - cdmi_enc_key_id
-      - JSON String
+      - JSON string
       - If this data system metadata item is present and not an empty string, it indicates that the client is requesting that the system associate with the object a key identifier (e.g. KMIP Identifier) for the symmetric key used to encrypt and decrypt the object.
       - Optional
     * - cdmi_enc_value_sign_id
-      - JSON String
+      - JSON string
       - If this data system metadata item is present and not an empty string, it indicates that the client is requesting that the system associate with the object a key identifier (e.g. KMIP Identifier) for the private key used for signing the value of the object.
       - Optional
     * - cdmi_enc_value_verify_id
-      - JSON String
+      - JSON string
       - If this data system metadata item is present and not an empty string, it indicates that the client is requesting that the system associate with the object a key identifier (e.g. KMIP Identifier) for the public key or certificate chain used for verifying the signature of the value of the object.
       - Optional
     * - cdmi_enc_object_sign_id
-      - JSON String
+      - JSON string
       - If this data system metadata item is present and not an empty string, it indicates that the client is requesting that the system associate with the object a key identifier (e.g. KMIP Identifier) for the private key used for signing the entire object.
       - Optional
     * - cdmi_enc_object_verify_id
-      - JSON String
+      - JSON string
       - If this data system metadata item is present and not an empty string, it indicates that the client is requesting that the system associate with the object a key identifier (.e.g. KMIP Identifier) for the public key or certificate chain used for verifying the signature of the entire object.
       - Optional
     * - cdmi_versioning
-      - JSON String
+      - JSON string
       - If this data system metadata item is present and not an empty string, it indicates that the client is requesting that versioning be enabled for the data object, and what level of versioning is requrested.
 
         * If set to the value "``value``", versions shall be created when the value is updated.
@@ -498,7 +498,7 @@ Which data system metadata is supported by the CDMI server defined in :numref:`%
         This data system metadata item shall not be present in data object versions.
       - Optional
     * - cdmi_versions_count
-      - JSON String
+      - JSON string
       - If this data system metadata item is present and not an empty string, it indicates that the client is requesting limits on the maximum number of historical versions to be retained.
 
         * If ``cdmi_versions_count`` is not present, no limits should be placed on the number of versions that are retained.
@@ -507,7 +507,7 @@ Which data system metadata is supported by the CDMI server defined in :numref:`%
         * If the number of historical versions exceeds the value specified, historical versions should be deleted from the oldest to the newest until the number of historical versions equals the value contained in ``cdmi_versions_count``.
       - Optional
     * - cdmi_versions_age
-      - JSON String
+      - JSON string
       - If this data system metadata item is present and not an empty string, it indicates that the client is requesting limits on the maximum age of the oldest historical version requested to be retained.
 
         * If ``cdmi_versions_age`` is not present, no limit should be placed on the age of versions that are retained.
@@ -515,7 +515,7 @@ Which data system metadata is supported by the CDMI server defined in :numref:`%
         * If the age of a historical version exceeds the value specified, that historical version should be deleted.
       - Optional
     * - cdmi_versions_size
-      - JSON String
+      - JSON string
       - If this data system metadata item is present and not an empty string, it indicates that the client is requesting limits on the maximum amount of space to be used to retain historical versions.
 
         * If ``cdmi_versions_size`` is not present, no limit should be placed on the size of versions that are retained.
@@ -525,7 +525,7 @@ Which data system metadata is supported by the CDMI server defined in :numref:`%
 
 .. _ref_support_for_provided_data_system_metadata:
 
-Support for Provided Data System Metadata
+Support for provided data system metadata
 *****************************************
 
 For each metadata item in a data system, there is an actual value that the cloud service is able to achieve at this time, as shown in :numref:`tbl_provided_values_of_data_systems_metadata_items`. Data system-provided metadata items are read only. Updates of these metadata items shall be ignored.
@@ -537,99 +537,99 @@ For each metadata item in a data system, there is an actual value that the cloud
 
 .. _tbl_provided_values_of_data_systems_metadata_items:
 
-.. list-table:: Provided Values of Data System Metadata
+.. list-table:: Provided values of data system metadata
     :class: longtable
     :header-rows: 1
     :align: center 
 
-    * - Metadata Name
+    * - Metadata name
       - Type
       - Description
       - Requirement
     * - cdmi_data_redundancy_provided
-      - JSON String
+      - JSON string
       - Contains the current number of complete copies of the data object at this time
       - Optional
     * - cdmi_immediate_redundancy_provided
-      - JSON String
+      - JSON string
       - If present and set to "``true``", indicates if immediate redundancy is provided for the object
       - Optional
     * - cdmi_infrastructure_redundancy_provided
-      - JSON String
+      - JSON string
       - Contains the current number of independent storage infrastructures supporting the data currently operating
       - Optional
     * - cdmi_data_dispersion_provided
-      - JSON String
+      - JSON string
       - Contains the current lowest distance (km) between any two infrastructures hosting the data
       - Optional
     * - cdmi_geographic_placement_provided
-      - JSON Array of JSON Strings
+      - JSON array of JSON strings
       - Contains an ISO-3166 identifier that corresponds to a geopolitical region where the object is stored
       - Optional
     * - cdmi_retention_period_provided
-      - JSON String
+      - JSON string
       - Contains an ISO-8601 time interval (as described in :numref:`%s <ref_time_representations>`) specifying the period the object is protected by retention
       - Optional
     * - cdmi_retention_autodelete_provided
-      - JSON String
+      - JSON string
       - Contains "``true``" if the object will automatically be deleted when retention expires
       - Optional
     * - cdmi_hold_id_provided
-      - JSON Array of JSON Strings
+      - JSON array of JSON strings
       - Contains the user-specified hold identifiers for active holds
       - Optional
     * - cdmi_encryption_provided
-      - JSON String
+      - JSON string
       - Contains the algorithm used for encryption, the mode of operation, and the key size. (See ``cdmi_encryption`` in :numref:`%s <ref_support_for_data_system_metadata>` for the format.)
       - Optional
     * - cdmi_value_hash_provided
-      - JSON String
+      - JSON string
       - Contains the algorithm and length being used to hash the object value. See ``cdmi_value_hash`` in :numref:`%s <ref_support_for_data_system_metadata>` for the format.
       - Optional
     * - cdmi_latency_provided
-      - JSON String
+      - JSON string
       - Contains the provided maximum time to first byte
       - Optional
     * - cdmi_throughput_provided 
-      - JSON String
+      - JSON string
       - Contains the provided maximum data rate on retrieve
       - Optional
     * - cdmi_sanitization_method_provided
-      - JSON String
+      - JSON string
       - Contains the sanitization method used. See ``cdmi_sanitization_method`` in :numref:`%s <ref_support_for_data_system_metadata>` for the format.
       - Optional
     * - cdmi_RPO_provided
-      - JSON String
+      - JSON string
       - Contains the provided duration, in seconds, between an update and when the update may be recovered
       - Optional
     * - cdmi_RTO_provided
-      - JSON String
+      - JSON string
       - Contains the provided duration, in seconds, to restore data
       - Optional
     * - cdmi_authentication_methods_provided
-      - JSON Array of JSON Strings
+      - JSON array of JSON strings
       - Contains a list of authentication methods enabled for the domain. See ``cdmi_authentication_methods`` in :numref:`%s <ref_support_for_data_system_metadata>` for the format.
       - Optional
     * - cdmi_versioning_provided
-      - JSON String
+      - JSON string
       - Contains the value "``value``", "``user``", or "``all``" if versioning is enabled for the data object.
       - Optional
     * - cdmi_versions_count_provided
-      - JSON String
+      - JSON string
       - Contains the maximum number of historical versions that will be retained.
       - Optional
     * - cdmi_versions_age_provided
-      - JSON String
+      - JSON string
       - Contains the oldest age of a historical version that will be retained, in seconds before the current time.
       - Optional
     * - cdmi_versions_size_provided
-      - JSON String
+      - JSON string
       - Contains the maximum amount of space that can be used to retain historical versions, in bytes.
       - Optional
 
 .. _ref_support_for_user_metadata:
 
-Support for User Metadata
+Support for user metadata
 *************************
 
 All CDMI objects that support metadata shall permit the inclusion of arbitrary user-defined metadata items, with the restriction that the name of a user-defined metadata item shall not start with the prefix "``cdmi\_``".
@@ -638,7 +638,7 @@ All CDMI objects that support metadata shall permit the inclusion of arbitrary u
 * The maximum size of each user-defined metadata item is specified by the capability cdmi_metadata_maxsize.
 * The maximum total size of user-defined metadata items for an object is specified by the capability cdmi_metadata_maxtotalsize.
 
-Metadata Update Operations
+Metadata update operations
 **************************
 
 CDMI permits a client to replace all metadata items or to perform operations against one or more individual metadata items. 

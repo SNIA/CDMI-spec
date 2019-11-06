@@ -1,6 +1,6 @@
 .. _clause_cdmi_snapshots:
 
-CDMI Snapshots
+CDMI snapshots
 ==============
 
 Overview
@@ -14,9 +14,9 @@ A snapshot is a point-in-time copy (image) of a container and all of its content
     :align:  center
     :figwidth: 100%
    
-    Snapshot Container Structure
+    Snapshot container structure
 
-Creating a Snapshot
+Creating a snapshot
 *******************
 
 A snapshot operation is requested using the container update operation (see :numref:`%s <ref_cdmi_container_object_update>`), in which the snapshot field specifies the requested name of the snapshot.
@@ -45,7 +45,7 @@ EXAMPLE 1: PUT to an existing container to create a snapshot:
        HTTP/1.1 201 Created
 
 
-Deleting a Snapshot
+Deleting a snapshot
 *******************
 
 A snapshot can be deleted by performing a CDMI container delete operation on the corresponding child container in the ``cdmi_snapshots`` container, or by performing a CDMI container delete operation on the snapshot Object ID.
