@@ -77,10 +77,10 @@ This document is organized as follows:
       - Provides a standardized mechanism to define subsets of CDMI object contents
     * - :numref:`Clause %s <clause_cdmi_notifications>`
       - Notification Queues
-      - Describes how CDMI clients may efficiently discover what changes have occurred to the system
+      - Describes how CDMI clients can efficiently discover what changes have occurred to the system
     * - :numref:`Clause %s <clause_cdmi_query_queues>`
       - Query Queues
-      - Describes how CDMI clients may efficiently discover what content matches a given set of metadata query criteria or full-content search criteria
+      - Describes how CDMI clients can efficiently discover what content matches a given set of metadata query criteria or full-content search criteria
     * - :numref:`Clause %s <clause_cdmi_encrypted_objects>`
       - Encrypted Objects
       - Describes how to work with transparently encrypted objects
