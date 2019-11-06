@@ -32,7 +32,7 @@ Capabilities that indicate which operations are supported are shown in :numref:`
 
 .. _tbl_http_data_object_createpost_capabilities:
 
-.. list-table:: Capabilities - Create a CDMI Data Object using HTTP POST
+.. list-table:: Capabilities - Create a CDMI data object using HTTP POST
     :class: longtable
     :header-rows: 1
     :align: center 
@@ -68,7 +68,7 @@ The HTTP request header for creating a new CDMI data object using HTTP is shown 
 
 .. _tbl_http_data_object_create_request_header:
 
-.. list-table:: Request Header - Create a new data object using HTTP
+.. list-table:: Request header - Create a new data object using HTTP
     :header-rows: 1
     :align: center 
 
