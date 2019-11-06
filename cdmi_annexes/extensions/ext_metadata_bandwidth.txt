@@ -1,4 +1,4 @@
-Summary Metadata for Bandwidth
+Summary metadata for bandwidth
 ******************************
 
 Overview
@@ -6,10 +6,10 @@ Overview
 
 Domain summaries provide summary measurement information about domain usage and billing. Some systems may track additional usage and billing information related to network bandwidth. This extension proposes a set of additional, optional contents for domain summary objects.
 
-Changes to Specification
+Changes to specification
 ------------------------
 
-Add new terms to :numref:`Clause %s <clause_terms>`:
+Add new terms to :numref:`clause %s <clause_terms>`:
 
 .. raw:: latex
 
@@ -44,83 +44,83 @@ Add table entries to end of :numref:`tbl_contents_of_domain_summary_objects` in 
     :header-rows: 1
     :align: center 
 
-    * - Metadata Name
+    * - Metadata name
       - Type
       - Description
       - Requirement
     * - cdmi_summary_network_bytes
-      - JSON String
+      - JSON string
       - Total number of bytes read/written to/from public/private network segments
       - Optional
     * - cdmi_summary_reads_private
-      - JSON String
+      - JSON string
       - Total number of bytes read from private network segment
       - Optional
     * - cdmi_summary_reads_private_min
-      - JSON String
+      - JSON string
       - Minimum number of bytes read from private network segment for the given interval
       - Optional
     * - cdmi_summary_reads_private_max
-      - JSON String
+      - JSON string
       - Maximum number of bytes read from private network segment for the given interval
       - Optional
     * - cdmi_summary_reads_private_avg
-      - JSON String
+      - JSON string
       - Average number of bytes read from private network segment for the given interval
       - Optional
     * - cdmi_summary_writes_private
-      - JSON String
+      - JSON string
       - Total number of bytes written to private network segment
       - Optional
     * - cdmi_summary_writes_private_min
-      - JSON String
+      - JSON string
       - Minimum number of bytes written to private network segment for the given interval
       - Optional
     * - cdmi_summary_writes_private_max
-      - JSON String
+      - JSON string
       - Maximum number of bytes written to private network segment for the given interval
       - Optional
     * - cdmi_summary_writes_private_avg
-      - JSON String
+      - JSON string
       - Average number of bytes written to private network segment for the given interval
       - Optional
     * - cdmi_summary_reads_public
-      - JSON String
+      - JSON string
       - Total number of bytes read from public network segment
       - Optional
     * - cdmi_summary_reads_public_min
-      - JSON String
+      - JSON string
       - Minimum number of bytes read from public network segment for the given interval
       - Optional
     * - cdmi_summary_reads_public_max
-      - JSON String
+      - JSON string
       - Maximum number of bytes read from public network segment for the given interval
       - Optional
     * - cdmi_summary_reads_public_avg
-      - JSON String
+      - JSON string
       - Average number of bytes read from public network segment for the given interval
       - Optional
     * - cdmi_summary_writes_public
-      - JSON String
+      - JSON string
       - Total number of bytes written to public network segment
       - Optional
     * - cdmi_summary_writes_public_min
-      - JSON String
+      - JSON string
       - Minimum number of bytes written to public network segment for the given interval
       - Optional
     * - cdmi_summary_writes_public_max
-      - JSON String
+      - JSON string
       - Maximum number of bytes written to public network segment for the given interval
       - Optional
     * - cdmi_summary_writes_public_avg
-      - JSON String
+      - JSON string
       - Average number of bytes written to public network segment for the given interval
       - Optional
     * - cdmi_summary_reads_total
-      - JSON String
+      - JSON string
       - Total number of bytes read from both public and private network segments
       - Optional
     * - cdmi_summary_writes_total
-      - JSON String
+      - JSON string
       - Total number of bytes written to both public and private network segments
       - Optional

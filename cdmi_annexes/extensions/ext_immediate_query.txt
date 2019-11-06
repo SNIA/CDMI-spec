@@ -1,5 +1,5 @@
 
-Immediate Query
+Immediate query
 ***************
 
 Overview
@@ -13,7 +13,7 @@ To provide a simpler interface for simple queries where a small number of result
 
 In addition, functionality that permits results to be returned immediately has been added to creating asynchronous query queues.
 
-Changes to Specification
+Changes to specification
 ------------------------
 
 Modify existing ``"cdmi_query"`` entry in :numref:`tbl_system_wide_capabilities` in :numref:`%s <ref_cloud_storage_system-wide_capabilities>`:
@@ -30,11 +30,11 @@ Modify existing ``"cdmi_query"`` entry in :numref:`tbl_system_wide_capabilities`
     :header-rows: 1
     :align: center 
 
-    * - Capability Name
+    * - Capability name
       - Type
       - Definition
     * - cdmi_query
-      - JSON String
+      - JSON string
       - If present and "``true``", the CDMI server supports persistent query queues.
 
 .. raw:: latex
@@ -56,11 +56,11 @@ Add a new row at end of table :numref:`tbl_system_wide_capabilities` in :numref:
     :header-rows: 1
     :align: center 
 
-    * - Capability Name
+    * - Capability name
       - Type
       - Definition
     * - cdmi_query_immediate
-      - JSON String
+      - JSON string
       - If present and "``true``", the CDMI server supports immediate query queues.
 
 .. raw:: latex
@@ -105,20 +105,18 @@ Modify existing ``"cdmi_queue_type"`` entry in :numref:`tbl_required_metadata_fo
                     |>{\raggedright\arraybackslash}\Y{0.48}
                     |>{\raggedright\arraybackslash}\Y{0.14}|
 
-.. _tbl_required_metadata_for_a_query_queue:
-
-.. list-table:: Required Metadata for a Query Queue
+.. list-table:: Required metadata for a query queue
     :header-rows: 1
     :class: longtable
     :align: center 
 
-    * - Metadata Name
+    * - Metadata name
       - Type
       - Description
       - Requirement
     * - cdmi_queue_type
-      - JSON String
-      - The queue type indicates how the cloud storage system shall manage the queue object. The defined values are:
+      - JSON string
+      - Queue type indicates how the cloud storage system shall manage the queue object. The defined values are:
 
         * ``"cdmi_query_queue"`` – Perform an asynchronous query, which may return none, some, or all results in the request response body. A new queue object shall be created.
         * ``"cdmi_query_immediate"`` – Perform a synchronous query, returning all matching results in the request response body. The query queue object may not be accessible and shall be automatically deleted when the query completes.

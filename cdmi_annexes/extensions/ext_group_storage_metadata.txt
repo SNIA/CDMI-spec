@@ -1,5 +1,5 @@
 
-Group Storage System Metadata
+Group storage system metadata
 *****************************
 
 Overview
@@ -9,7 +9,7 @@ ACLs in CDMI can refer to the owner of an object by specifying an ACE Who of ``"
 
 This extension defines a new storage system metadata item, ``cdmi_group``, that allows an object to be associated with a group for ACL evaluation purposes.
 
-Changes to Specification
+Changes to specification
 ------------------------
 
 Add a new row at end of table :numref:`tbl_capabilities_for_data_system_metadata` in :numref:`%s <ref_data_system_metadata_capabilities>`:
@@ -26,11 +26,11 @@ Add a new row at end of table :numref:`tbl_capabilities_for_data_system_metadata
     :header-rows: 1
     :align: center 
 
-    * - Capability Name
+    * - Capability name
       - Type
       - Definition
     * - cdmi_group
-      - JSON String
+      - JSON string
       - If present and ``"true"``, this capability indicates that the cloud storage system supports group storage system metadata to indicate a group associated with the object.
 
 .. raw:: latex
@@ -53,12 +53,12 @@ Add a new row below ``"cdmi_owner"`` in :numref:`tbl_storage_system_metadata` of
     :header-rows: 1
     :align: center 
 
-    * - Metadata Name
+    * - Metadata name
       - Type
       - Description
       - Requirement
     * - cdmi_group
-      - JSON String
+      - JSON string
       - The name of the group that is associated with the object.
       - Optional
 

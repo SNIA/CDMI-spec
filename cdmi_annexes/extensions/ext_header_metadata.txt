@@ -1,5 +1,5 @@
 
-Header-based Metadata
+Header-based metadata
 *********************
 
 Overview
@@ -9,7 +9,7 @@ The CDMI protocol enables CDMI-aware clients to store and retrieve structured me
 
 Due to limitations associated with HTTP headers, certain restrictions must be placed on metadata that is accessible via headers.
 
-Changes to Specification
+Changes to specification
 ------------------------
 
 Add a new row at end of table :numref:`tbl_http_data_object_create_request_headers` in :numref:`%s <ref_http_data_object_create>`:
@@ -32,7 +32,7 @@ Add a new row at end of table :numref:`tbl_http_data_object_create_request_heade
       - Description
       - Requirement
     * - x-\*-meta-\*
-      - Header String
+      - Header string
       - If the "cdmi_header_metadata" capability is present, for each request header matching the pattern ``"x-*-meta-*"``, a new user metadata item shall be created, with the metadata name set to the header field-name, and the metadata value set to the header field-value.
       
         .. raw:: latex
@@ -105,17 +105,17 @@ The following capabilities describe the supported operations that may be perform
 
 * Support for the ability to read the metadata of an existing data object is indicated by the presence of the ``cdmi_read_metadata`` capability in the specified object.
 
-Request Headers
+Request headers
 ---------------
 
 Request headers may be provided as per RFC 2616.
 
-Request Message Body 
+Request message body 
 --------------------
 
 A request message body shall not be provided.
 
-Response Headers 
+Response headers 
 ----------------
 
 The HTTP response headers for checking for the presence of a data object using HTTP are shown in :numref:`tbl_http_data_object_inspect_response_headers`.
@@ -127,7 +127,7 @@ The HTTP response headers for checking for the presence of a data object using H
 
 .. _tbl_http_data_object_inspect_response_headers:
 
-.. list-table:: Response Headers - Inspect a Data Object using HTTP
+.. list-table:: Response headers - Inspect a data object using HTTP
     :header-rows: 1
     :align: center
 
@@ -136,15 +136,15 @@ The HTTP response headers for checking for the presence of a data object using H
       - Description
       - Requirement
     * - Content-Type
-      - Header String
+      - Header string
       - The content type returned shall be the mimetype field in the data object.
       - Mandatory
     * - Location
-      - Header String
+      - Header string
       - The server shall respond with the URI that the reference redirects to if the object is a reference.
       - Conditional
     * - x-\*-meta-\*
-      - Header String
+      - Header string
       - If the ``"cdmi_header_metadata"`` capability is present, for each user metadata item in the "metadata" field with a metadata name that is a case-insensitive match to the pattern ``"x-*-meta-*"``, a corresponding response header shall be returned to the client where the header field-name shall be the metadata item name, and the header field-value shall be the metadata item value.
       
         .. raw:: latex
@@ -154,12 +154,12 @@ The HTTP response headers for checking for the presence of a data object using H
         If a header value to be return is not conformant with RFC 2616, the server may omit the field from the response headers.
       - Conditional
 
-Response Message Body
+Response message body
 ---------------------
 
 No response body shall be provded, as per RFC 2616.
 
-Response Status
+Response status
 ---------------
 
 The HTTP status codes that occur when checking the presence of a data object using HTTP are described in :numref:`tbl_http_data_object_inspect_response_status`. 
@@ -169,11 +169,11 @@ The HTTP status codes that occur when checking the presence of a data object usi
 
 .. _tbl_http_data_object_inspect_response_status:
 
-.. list-table:: HTTP Status Codes - Inspect a Data Object using HTTP
+.. list-table:: HTTP status codes - Inspect a data object using HTTP
     :header-rows: 1
     :align: center
 
-    * - HTTP Status
+    * - HTTP status
       - Description
     * - ``200 OK``
       - The queue object content was returned in the response.
@@ -233,7 +233,7 @@ Add a new row at end of table :numref:`tbl_http_data_object_readresponse_headers
       - Description
       - Requirement
     * - x-\*-meta-\*
-      - Header String
+      - Header string
       - If the ``"cdmi_header_metadata"`` capability is present, for each user metadata item in the "metadata" field with a metadata name that is a case-insensitive match to the pattern ``"x-*-meta-*"``, a corresponding response header shall be returned to the client where the header field-name shall be the metadata item name, and the header field-value shall be the metadata item value.
       
         .. raw:: latex
@@ -298,7 +298,7 @@ Add a new row at end of table :numref:`tbl_http_data_object_updaterequest_header
       - Description
       - Requirement
     * - x-\*-meta-\*
-      - Header String
+      - Header string
       - If the ``"cdmi_header_metadata"`` capability is present, for each request header matching the pattern ``"x-*-meta-*"``, a new user metadata item shall be created, or an existing metadata item shall be updated, with the metadata name set to the header field-name, and the metadata value set to the header field- value.
 
         .. raw:: latex
@@ -365,7 +365,7 @@ Add a new table to Request Headers in :numref:`%s <ref_http_container_object_cre
                     |>{\raggedright\arraybackslash}\Y{0.55}
                     |>{\raggedright\arraybackslash}\Y{0.15}|
 
-.. list-table:: Request Headers - Create a Container Object using HTTP
+.. list-table:: Request headers - Create a container object using HTTP
     :header-rows: 1
     :align: center 
 
@@ -374,7 +374,7 @@ Add a new table to Request Headers in :numref:`%s <ref_http_container_object_cre
       - Description
       - Requirement
     * - x-\*-meta-\*
-      - Header String
+      - Header string
       - If the "cdmi_header_metadata" capability is present, for each request header matching the pattern ``"x-*-meta-*"``, a new user metadata item shall be created, with the metadata name set to the header field-name, and the metadata value set to the header field-value.
       
         .. raw:: latex
@@ -414,7 +414,7 @@ EXAMPLE 2: PUT to the URI the container object name and metadata:
   \noindent\rule[0.5ex]{\linewidth}{1pt}
   \vspace*{2ex}
 
-After :numref:`%s <ref_http_container_object_create>`, add a new sub-clause "Inspect a Container Object using HTTP":
+After :numref:`%s <ref_http_container_object_create>`, add a new sub-clause "Inspect a container object using HTTP":
 
 .. raw:: latex
 
@@ -442,17 +442,17 @@ The following capabilities describe the supported operations that may be perform
 
 * Support for the ability to read the metadata of an existing conatiner object is indicated by the presence of the ``cdmi_read_metadata`` capability in the specified container object.
 
-Request Headers
+Request headers
 ---------------
 
 Request headers may be provided as per RFC 2616.
 
-Request Message Body 
+Request message body 
 --------------------
 
 A request message body shall not be provided.
 
-Response Headers 
+Response headers 
 ----------------
 
 The HTTP response headers for checking for the presence of a CDMI container object using HTTP are shown in :numref:`tbl_http_container_object_inspect_response_headers`.
@@ -464,7 +464,7 @@ The HTTP response headers for checking for the presence of a CDMI container obje
 
 .. _tbl_http_container_object_inspect_response_headers:
 
-.. list-table:: Response Headers - Inspect a Container Object using HTTP
+.. list-table:: Response Headers - Inspect a container object using HTTP
     :header-rows: 1
     :align: center
 
@@ -473,15 +473,15 @@ The HTTP response headers for checking for the presence of a CDMI container obje
       - Description
       - Requirement
     * - Content-Type
-      - Header String
+      - Header string
       - ``"application/cdmi-container"``
       - Mandatory
     * - Location
-      - Header String
+      - Header string
       - The server shall respond with the URI that the reference redirects to if the object is a reference.
       - Conditional
     * - x-\*-meta-\*
-      - Header String
+      - Header string
       - If the ``"cdmi_header_metadata"`` capability is present, for each user metadata item in the "metadata" field with a metadata name that is a case-insensitive match to the pattern ``"x-*-meta-*"``, a corresponding response header shall be returned to the client where the header field-name shall be the metadata item name, and the header field-value shall be the metadata item value.
       
         .. raw:: latex
@@ -491,12 +491,12 @@ The HTTP response headers for checking for the presence of a CDMI container obje
         If a header value to be return is not conformant with RFC 2616, the server may omit the field from the response headers.
       - Conditional
 
-Response Message Body
+Response message body
 ---------------------
 
 No response body shall be provded, as per RFC 2616.
 
-Response Status
+Response status
 ---------------
 
 The HTTP status codes that occur when checking the presence of a container object using HTTP are described in :numref:`tbl_http_container_object_inspect_response_status`. 
@@ -506,7 +506,7 @@ The HTTP status codes that occur when checking the presence of a container objec
 
 .. _tbl_http_container_object_inspect_response_status:
 
-.. list-table:: HTTP Status Codes - Inspect a Container Object using HTTP
+.. list-table:: HTTP status codes - Inspect a container object using HTTP
     :header-rows: 1
     :align: center
 
@@ -577,7 +577,7 @@ Replace contents of :numref:`%s <ref_http_container_object_update>` with:
 Synopsis
 --------
 
-Updating a container object using HTTP is not defined by this version of this international standard. Clause :numref:`%s <ref_cdmi_container_object_update>` describes how to update a container object using CDMI.
+Updating a container object using HTTP is not defined by this version of this international standard. clause :numref:`%s <ref_cdmi_container_object_update>` describes how to update a container object using CDMI.
 
 A server implementation is free to respond to HTTP PUTs for existing Container Objects in any way that conforms with RFC 2616.
 
@@ -603,20 +603,20 @@ Add new rows to end of :numref:`tbl_system_wide_capabilities` in :numref:`%s <re
     :header-rows: 1
     :align: center 
 
-    * - Capability Name    
+    * - Capability name    
       - Type    
       - Definition
     * - cdmi_header_metadata
-      - JSON String    
+      - JSON string    
       - If present and ``"true"``, this capability indicates that the cloud storage system supports header-visible metadata.
     * - cdmi_header_metadata_maxitems
-      - JSON String    
+      - JSON string    
       - If present, this capability indicates the maximum number of user-defined header metadata items supported per object. If absent, there is no additional limit placed on the number of user-defined metadata items.
     * - cdmi_header_metadata_maxsize
-      - JSON String    
+      - JSON string    
       - If present, this capability indicates the maximum size, in bytes, of each user-defined header metadata item. If absent, there is no additional limit placed on the size of user-defined metadata items.
     * - cdmi_header_metadata_maxtotalsize
-      - JSON String    
+      - JSON string    
       - If present, this capability indicates the maximum size, in bytes, of all user-defined header metadata per object. If absent, there is no additional limit placed on the size of user-defined metadata.
 
 .. raw:: latex

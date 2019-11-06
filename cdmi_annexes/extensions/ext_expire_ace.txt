@@ -1,4 +1,4 @@
-Expiring Access Control Entries (ACEs)
+Expiring access control entries (ACEs)
 **************************************
 
 Overview
@@ -6,7 +6,7 @@ Overview
 
 A common trait of cloud storage services is the ability to share an object with other clients for a limited time. This extension adds an attribute of ACEs used in ACLs that imposes a time limit (expiration) on the ACE. Once the ACE expires, the ACE is no longer valid or included in the authorization calculation for the object.
 
-Changes to Specification
+Changes to specification
 ------------------------
 
 Insert into :numref:`%s <ref_acl_evaluation>`:
@@ -43,7 +43,7 @@ Insert into :numref:`%s <ref_acl_evaluation>` after "When ACE masks...":
 
     When ACE expiration is presented in string format, it shall be specified in ISO-8601 point-in-time format as described in :numref:`%s <ref_time_representations>`.
 
-Insert a new sub-clause after :numref:`%s <ref_acl_json_format>`:
+Insert a new sub-clause after :numref:`%s <ref_acl_json_format>`: "ACE expiration"
 
    An ACE may have an optional expiration associated with it. The expiration is a point-in-time value, in ISO-8601 point-in-time format, as described in :numref:`%s <ref_time_representations>`, which specifies that the ACE is no longer valid and shall be ignored after the time specified. 
 
