@@ -181,6 +181,8 @@ latex_elements = {
     \usepackage{scrextend}
     \changefontsizes[10pt]{9pt}
 
+    \usepackage{enumitem}
+
     ''',
 
     'preamble': r'''
