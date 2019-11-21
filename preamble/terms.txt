@@ -5,201 +5,271 @@ Terms, acronyms, and definitions
 
 For the purposes of this document, the terms and definitions given in Rec. ITU-T Y.3500 | ISO/IEC 17788:2014 and the following apply.
 
+.. raw:: latex
+
+          \setlist[description]{leftmargin=0cm}
+
 .. glossary::
 
+    3.1
     Access Control List (ACL)
-         a persistent list, commonly composed of Access Control Entries (ACEs), that enumerates the rights of principals (users and groups) to access resources
+         |br| a persistent list, commonly composed of Access Control Entries (ACEs), that enumerates the rights of principals (users and groups) to access resources |br|
 
+    3.2
     API
-         Application Programming Interface
+         |br| Application Programming Interface |br|
 
+    3.3
     CDMI™
-         Cloud Data Management Interface
+         |br| Cloud Data Management Interface |br|
 
+    3.4
     CDMI capabilities
-         an object that describes what operations are supported for a given cloud or cloud object
+         |br| an object that describes what operations are supported for a given cloud or cloud object
 
-         The mimetype for this object is ``application/cdmi-capability``.
+         The mimetype for this object is ``application/cdmi-capability``. |br|
 
+    3.5
     CDMI container
-         an object that stores zero or more children objects and associated metadata
+         |br| an object that stores zero or more children objects and associated metadata
 
-         The mimetype for this object is ``application/cdmi-container``.
+         The mimetype for this object is ``application/cdmi-container``. |br|
 
+    3.6
     CDMI data object
-         an object that stores an array of bytes (value) and associated metadata
+         |br| an object that stores an array of bytes (value) and associated metadata
 
-         The mimetype for this object is ``application/cdmi-object``.
+         The mimetype for this object is ``application/cdmi-object``. |br|
 
+    3.7
     CDMI domain
-         an object that stores zero or more children domains and associated metadata describing object administrative ownership
+         |br| an object that stores zero or more children domains and associated metadata describing object administrative ownership
 
-         The mimetype for this object is ``application/cdmi-domain``.
+         The mimetype for this object is ``application/cdmi-domain``. |br| |br| |br|
 
+    3.8
     CDMI object
-         one of CDMI capabilities, CDMI container, CDMI data object, CDMI domain, or CDMI queue
+         |br| one of CDMI capabilities, CDMI container, CDMI data object, CDMI domain, or CDMI queue |br|
 
+    3.9
     CDMI queue
-         an object that stores a first-in, first-out set of values and associated metadata
+         |br| an object that stores a first-in, first-out set of values and associated metadata
 
-         The mimetype for this object is ``application/cdmi-queue``.
+         The mimetype for this object is ``application/cdmi-queue``. |br|
 
+    3.10
     CIFS
-         Common Internet File System
+         |br| Common Internet File System |br|
 
+    3.11
     cloud storage
-         See Data storage as a Service
+         |br| See Data storage as a Service |br|
 
+    3.12
     CRC
-         cyclic redundancy check
+         |br| cyclic redundancy check |br|
 
+    3.13
     CRUD
-         create, retrieve, update, delete
+         |br| create, retrieve, update, delete |br|
 
+    3.14
     current data object version
-         the most recent version of a version-enabled data object
+         |br| the most recent version of a version-enabled data object |br|
 
+    3.15
     data object version
-         either the current data object version or an historical data object version
+         |br| either the current data object version or an historical data object version |br|
 
+    3.16
     Data Storage as a Service (DSaaS)
-         delivery of appropriately configured virtual storage and related data services over a network, based on a request for a given service level
+         |br| delivery of appropriately configured virtual storage and related data services over a network, based on a request for a given service level |br|
 
+    3.17
     delegated access control (DAC)
-         the process of delegating an access control decision to a third party
+         |br| the process of delegating an access control decision to a third party |br|
          
+    3.18
     delegated access control provider (DAC provider)
-         a third-party system that is capable of making access control decisions
+         |br| a third-party system that is capable of making access control decisions |br|
          
+    3.19
     delegated access control request (DAC request)
-         a request made to a DAC provider for an access control decision
+         |br| a request made to a DAC provider for an access control decision |br| |br| |br|
          
+    3.20
     delegated access control response (DAC response)
-         a response from a DAC provider indicating the result of a request for an access control decision
+         |br| a response from a DAC provider indicating the result of a request for an access control decision |br|
          
+    3.21
     domain
-         a shared user authorization database that contains users, groups, and their security policies and associated accounting information
+         |br| a shared user authorization database that contains users, groups, and their security policies and associated accounting information
 
-         Each CDMI object belongs to a single domain, and each domain provides user mapping and accounting information.
+         Each CDMI object belongs to a single domain, and each domain provides user mapping and accounting information. |br|
 
+    3.22
     eventual consistency
-         a behavior of transactional systems that does not provide immediate consistency guarantees to provide enhanced system availability and tolerance to network partitioning 
+         |br| a behavior of transactional systems that does not provide immediate consistency guarantees to provide enhanced system availability and tolerance to network partitioning |br|
 
+    3.23
     FC
-         Fibre Channel
+         |br| Fibre Channel |br|
 
+    3.24
     FCoE
-         Fibre Channel over Ethernet
+         |br| Fibre Channel over Ethernet |br|
 
+    3.25
     historical data object version
-         a non-current state of a version-enabled data object
+         |br| a non-current state of a version-enabled data object |br|
 
+    3.26
     HTTP
-         HyperText Transfer Protocol
+         |br| HyperText Transfer Protocol |br|
 
+    3.27
     Infrastructure as a Service (IaaS)
-         delivery over a network of an appropriately configured virtual computing environment, based on a request for a given service level
+         |br| delivery over a network of an appropriately configured virtual computing environment, based on a request for a given service level
 
-         Typically, IaaS is either self-provisioned or provisionless and is billed based on consumption.
+         Typically, IaaS is either self-provisioned or provisionless and is billed based on consumption. |br|
 
+    3.28
     intermediary CDMI server
-         a CDMI server that is capable of forwarding DAC requests and responses
+         |br| a CDMI server that is capable of forwarding DAC requests and responses |br|
          
+    3.29
     iSCSI
-         Internet Small Computer Systems Interface (see RFC 7143 :cite:`rfc7143`)
+         |br| Internet Small Computer Systems Interface (see RFC 7143 :cite:`rfc7143`) |br|
 
+    3.30
     JOSE
-         JavaScript Object Signing and Encryption
+         |br| JavaScript Object Signing and Encryption |br| |br| |br| |br| |br|
          
+    3.31
     JWA
-         JSON Web Algorithm
+         |br| JSON Web Algorithm |br|
          
+    3.32
     JWE 
-         JSON Web Encryption
+         |br| JSON Web Encryption |br|
          
+    3.33
     JWS 
-         JSON Web Signing
+         |br| JSON Web Signing |br|
 
+    3.34
     JSON
-         JavaScript Object Notation
+         |br| JavaScript Object Notation |br|
 
+    3.35
     LDAP
-         Lightweight Directory Access Protocol
+         |br| Lightweight Directory Access Protocol |br|
 
+    3.36
     LUN
-         Logical Unit Number (see `ISO/IEC 14776-414`)
+         |br| Logical Unit Number (see `ISO/IEC 14776-414`) |br|
 
+    3.37
     metadata
-         data about other data (see :cite:`iso14721`)
+         |br| data about other data (see :cite:`iso14721`) |br|
 
+    3.38
     MIME
-         Multipurpose Internet Mail Extensions (see RFC 2045 :cite:`rfc2045`)
+         |br| Multipurpose Internet Mail Extensions (see RFC 2045 :cite:`rfc2045`) |br|
 
+    3.39
     NFS
-         Network File System (see RFC 3530 :cite:`rfc3530`)
+         |br| Network File System (see RFC 3530 :cite:`rfc3530`) |br|
 
+    3.40
     object
-         an entity that has an object ID, has a unique URI, and contains state
+         |br| an entity that has an object ID, has a unique URI, and contains state
 
-         Types of CDMI objects include data objects, container objects, capability objects, domain objects, and queue objects. 
+         Types of CDMI objects include data objects, container objects, capability objects, domain objects, and queue objects. |br|
 
 
+    3.41
     object identifier
-         a globally-unique value assigned at creation time to identify an object
+         |br| a globally-unique value assigned at creation time to identify an object |br|
 
+    3.42
     OCCI
-         Open Cloud Computing Interface (see :cite:`occi`)
+         |br| Open Cloud Computing Interface (see :cite:`occi`) |br| |br| |br| |br|
 
+    3.43
     Platform as a Service (PaaS)
-         delivery over a network of a virtualized programming environment, consisting of an application deployment stack based on a virtual computing environment
+         |br| delivery over a network of a virtualized programming environment, consisting of an application deployment stack based on a virtual computing environment
 
-         Typically, PaaS is based on IaaS, is either self-provisioned or provisionless, and is billed based on consumption.
+         Typically, PaaS is based on IaaS, is either self-provisioned or provisionless, and is billed based on consumption. |br|
 
+    3.44
     POSIX
-         Portable Operating System Interface (see `IEEE Std 1003.1`)
+         |br| Portable Operating System Interface (see `IEEE Std 1003.1`) |br|
 
+    3.45
     private cloud
-         delivery of SaaS, PaaS, IaaS, and/or DaaS to a restricted set of customers, usually within a single organization
+         |br| delivery of SaaS, PaaS, IaaS, and/or DaaS to a restricted set of customers, usually within a single organization
 
-         Private clouds are created due to issues of trust.
+         Private clouds are created due to issues of trust. |br|
 
+    3.46
     public cloud
-         delivery of SaaS, PaaS, IaaS, and/or DaaS to, in principle, a relatively unrestricted set of customers
+         |br| delivery of SaaS, PaaS, IaaS, and/or DaaS to, in principle, a relatively unrestricted set of customers |br|
 
+    3.47
     Representational State Transfer (REST)
-         a specific set of principles for defining, addressing, and interacting with resources addressable by URIs (see :cite:`restthesis`)
+         |br| a specific set of principles for defining, addressing, and interacting with resources addressable by URIs (see :cite:`restthesis`) |br|
 
+    3.48
     RPO
-         recovery point objective
+         |br| recovery point objective |br|
 
+    3.49
     RTO
-         recovery time objective
+         |br| recovery time objective |br|
 
+    3.50
     service level
-         performance targets for a service
+         |br| performance targets for a service |br|
 
+    3.51
     SNMP
-         Simple Network Management Protocol
+         |br| Simple Network Management Protocol |br|
 
+    3.52
     Software as a Service (SaaS)
-         delivery over a network, on demand, of the use of an application
+         |br| delivery over a network, on demand, of the use of an application
 
-         technology that allocates the physical capacity of a volume or file system as applications write data, rather than pre-allocating all the physical capacity at the time of provisioning
+         technology that allocates the physical capacity of a volume or file system as applications write data, rather than pre-allocating all the physical capacity at the time of provisioning. |br|
 
+    3.53
     Uniform Resource Identifier (URI)
-         compact sequence of characters that identifies an abstract or physical resource (see RFC 3986 :cite:`rfc3986`)
+         |br| compact sequence of characters that identifies an abstract or physical resource (see RFC 3986 :cite:`rfc3986`) |br| |br| |br| |br|
 
+    3.54
     version-enabled data object
-         a CDMI data object with versioning enabled
+         |br| a CDMI data object with versioning enabled |br|
 
+    3.55
     VIM
-         Vendor Interface Module
+         |br| Vendor Interface Module |br|
 
+    3.56
     virtualization
-         presentation of resources as if they are physical, when in fact, they are decoupled from the underlying physical resources
+         |br| presentation of resources as if they are physical, when in fact, they are decoupled from the underlying physical resources |br|
 
+    3.57
     WebDAV
-         Web Distributed Authoring and Versioning (see RFC 4918 :cite:`rfc4918`)
+         |br| Web Distributed Authoring and Versioning (see RFC 4918 :cite:`rfc4918`) |br|
 
+    3.58
     XAM
-         eXtensible Access Method (see [INCITS 464-2010]_)
+         |br| eXtensible Access Method (see `INCITS 464-2010`) |br|
+
+.. |br| raw:: latex
+
+        \newline
+
+.. |pbr| raw:: latex
+
+        \newline
