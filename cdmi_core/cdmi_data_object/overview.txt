@@ -85,7 +85,7 @@ Because a byte range of a UTF-8 string is often not a valid UTF-8 string, the re
 
 Byte ranges are specified as single inclusive byte ranges as per Section 14.35.1 of RFC 2616 :cite:`rfc2616`.
 
-The value of a data object can also be specified and retrieved using multipart MIME, where the CDMI JSON is transferred in the first MIME part, and the raw object value is transferred in the second MIME part. Each MIME part, including any header fields, shall conform to RFC 2045 :cite:`rfc2045`, RFC 2046 :cite:`rfc2046`, and RFC 2616 :cite:`rfc2616`. The length of each part can optionally be specified by a Content-Length header in addition to the MIME boundary delimiter.
+The value of a data object can also be specified and retrieved using multipart MIME, where the CDMI JSON is transferred in the first MIME part, and the raw object value is transferred in the second MIME part. Each MIME part, including any header fields, shall conform to RFC 2045 :cite:`rfc2045`, RFC 2046 :cite:`rfc2046`, and RFC 2047 :cite:`rfc2047`. The length of each part can optionally be specified by a Content-Length header in addition to the MIME boundary delimiter.
 
 Multiple non-overlapping ranges of the value of a data object can also be accessed or updated in a multipart MIME operation by transferring one MIME part for each range of the value. The byte ranges for these operations shall be specified as per Section 14.35.1 of RFC 2616 :cite:`rfc2616`.
 
