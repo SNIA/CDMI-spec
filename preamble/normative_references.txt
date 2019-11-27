@@ -13,7 +13,7 @@ ISO 4217:2015, *Codes for the representation of currencies and funds* - see :cit
 
 ISO 8601:2019, *Data elements and interchange formats – Information interchange – Representation of dates and times* - see :cite:`iso8601-1,iso8601-2`
 
-ISO/IEC 9594-8:2017, *Information technology – Open Systems Interconnection – The Directory: Public-key and attribute certificate frameworks*
+ISO/IEC 9594-8:2017, *Information technology – Open Systems Interconnection – The Directory: Public-key and attribute certificate frameworks* - see :cite:`isoiec9594-8`
 
 ISO 14721:2012, *Space data and information transfer systems – Open archival information system (OAIS) – Reference model* - see :cite:`iso14721`
 
