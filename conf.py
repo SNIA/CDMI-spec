@@ -131,7 +131,6 @@ htmlhelp_basename = 'CDMI_v2.0.0_doc'
 latex_engine = 'xelatex'
 
 latex_contents = r'''
-    \maketitle
     \licensepage
     \tableofcontents
     \clearpage
@@ -152,6 +151,52 @@ latex_defns = Template(r'''
     }
 ''')
 
+# -- SNIA-style Title Page ---------------------------------------------
+latex_maketitle = r'''
+    \begin{titlepage}
+        \begingroup % for PDF information dictionary
+           \def\endgraf{ }\def\and{\& }%
+           \pdfstringdefDisableCommands{\def\\{, }}% overwrite hyperref setup
+           \hypersetup{pdfauthor={SNIA}, pdftitle={CDMI 2.0}}%
+        \endgroup
+
+        \begin{tikzpicture}[remember picture, overlay]
+          \draw[line width = 2pt] ($(current page.north west) + (0.5in,-0.5in)$) rectangle ($(current page.south east) + (-0.5in,0.5in)$);
+        \end{tikzpicture}
+
+        \begin{center}
+            \vspace{25pt}
+            \sphinxlogo
+            \vspace{36pt}
+            {\Huge Cloud Data Management Interface }\par
+            {\Huge (CDMI\textsuperscript{TM}) }\par
+            \vspace{10pt}
+            {\itshape\Huge Version 2.0.0 \releaseinfo}\par
+            \vspace{25pt}
+        \end{center}
+
+        \begin{flushleft}
+            {\normalsize
+                ABSTRACT: This CDMI International Standard is intended for application developers who are implementing or using cloud storage. It documents how to access cloud storage and to manage the data stored there.
+            }\par
+            {\normalsize
+               This document has been released and approved by the SNIA. The SNIA believes that the ideas, methodologies, and technologies described in this document accurately represent the SNIA goals and are appropriate for widespread distribution. Suggestion for revision should be directed to http://www.snia.org/feedback/.
+            }\par
+            \vspace{72pt}
+        \end{flushleft}
+
+        \begin{center}
+            {\Large SNIA Technical Position }\par
+            \vspace{36pt}
+            {\Large December 11, 2019 }\par
+        \end{center}
+
+        \setcounter{footnote}{0}
+        \let\thanks\relax\let\maketitle\relax
+    \end{titlepage}
+    \setcounter{page}{1}
+    \pagenumbering{roman}
+'''
 
 latex_elements = {
     # The paper size ('letterpaper' or 'a4paper').
@@ -227,6 +272,10 @@ latex_elements = {
     \usepackage{titlesec}
     \newcommand{\sectionbreak}{\clearpage}
 
+
+\usepackage{tikz}
+\usetikzlibrary{calc}
+
     % Change the page headers
     \makeatletter
     \fancypagestyle{normal}{
@@ -241,6 +290,7 @@ latex_elements = {
     % Create linenumers
     \usepackage{lineno} 
     \linenumbers
+
 ''' + latex_defns.substitute(licensetext=licensetext),   
 
     'tableofcontents': latex_contents,
@@ -251,7 +301,7 @@ latex_elements = {
     'sphinxsetup': 'verbatimhintsturnover=true',
     'extraclassoptions': 'openany',
     'releasename': 'Version',
-    
+    'maketitle': latex_maketitle,    
 }
 
 # Grouping the document tree into LaTeX files. List of tuples
