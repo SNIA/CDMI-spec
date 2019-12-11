@@ -21,6 +21,8 @@ ISO/IEC 14776-414:2009, *SCSI Architecture Model - 4 (SAM-4)* - see :cite:`isoie
 
 ISO/IEC 17788:2014, *Information technology -- Cloud computing -- Overview and vocabulary* - see :cite:`isoiec17788`
 
+ISO/IEC 20648, *TLS specification for storage systems* - see :cite:`iso20648`
+
 ISO/IEC 27040:2015, *Information technology – Security techniques – Storage security* - see :cite:`isoiec27040`
 
 ISO/IEC Directives, Part 2, Rules for the structure and drafting of International Standards, 6th edition, 2011* - see :cite:`isoiecdirectives-2`
@@ -70,5 +72,7 @@ RFC 7515, *JSON Web Signatures* - see :cite:`rfc7515`
 RFC 7516, *JSON Web Encryption* - see :cite:`rfc7516`
 
 RFC 7518, *JSON Web Algorithms* - see :cite:`rfc7518`
+
+RFC 8446, *The Transport Layer Security (TLS) Protocol Version 1.3* - see :cite:`rfc8446`
 
 SNIA TLS, *TLS Specification for Storage Systems, version 1.0.1* - see :cite:`snia-tls`
