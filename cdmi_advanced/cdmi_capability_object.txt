@@ -833,7 +833,7 @@ Domain object capabilities
         * "basic" - HTTP basic authentication supported (RFC 2617 :cite:`rfc2617`) 
         * "digest" - HTTP digest authentication supported (RFC 2617 :cite:`rfc2617`) 
         * "krb5" - Kerberos authentication supported, using the Kerberos domain specified in the CDMI domain (RFC 4559 :cite:`rfc4559`) 
-        * "x509" - certificate-based authentication via TLS (RFC 5246 :cite:`rfc5246`) 
+        * "x509" - certificate-based authentication via TLS (RFC 5246 :cite:`rfc5246`, RFC 8446 :cite:`rfc8446`) 
         * "s3" - S3 API signed header authentication supported 
         * "openstack" - OpenStack Identity API header authentication supported
       
