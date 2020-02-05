@@ -59,7 +59,7 @@ For the purposes of this document, the terms and definitions given in Rec. ITU-T
 
     3.10
     CIFS
-         |br| Common Internet File System |br|
+         |br| Common Internet File System (See SMB) |br|
 
     3.11
     cloud storage
@@ -229,28 +229,32 @@ For the purposes of this document, the terms and definitions given in Rec. ITU-T
          |br| performance targets for a service |br|
 
     3.50
+    Server Message Block
+         |br| A network file system access protocol designed primarily used by Windows clients to communicate file access requests to Windows servers. (Also see CIFS) |br|
+
+    3.51
     SNMP
          |br| Simple Network Management Protocol |br|
 
-    3.51
+    3.52
     Software as a Service (SaaS)
          |br| delivery over a network, on demand, of the use of an application
 
          technology that allocates the physical capacity of a volume or file system as applications write data, rather than pre-allocating all the physical capacity at the time of provisioning. |br|
 
-    3.52
+    3.53
     Uniform Resource Identifier (URI)
          |br| compact sequence of characters that identifies an abstract or physical resource (see RFC 3986 :cite:`rfc3986`) |br|
 
-    3.53
+    3.54
     version-enabled data object
          |br| a CDMI data object with versioning enabled |br|
 
-    3.54
-    virtualization
-         |br| presentation of resources as if they are physical, when in fact, they are decoupled from the underlying physical resources |br| |br|
-
     3.55
+    virtualization
+         |br| presentation of resources as if they are physical, when in fact, they are decoupled from the underlying physical resources |br|
+
+    3.56
     WebDAV
          |br| Web Distributed Authoring and Versioning (see RFC 4918 :cite:`rfc4918`) |br|
 
