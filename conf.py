@@ -188,7 +188,7 @@ latex_maketitle = r'''
         \begin{center}
             {\Large SNIA Technical Position }\par
             \vspace{36pt}
-            {\Large December 11, 2019 }\par
+            {\Large February 5, 2020 }\par
         \end{center}
 
         \setcounter{footnote}{0}
