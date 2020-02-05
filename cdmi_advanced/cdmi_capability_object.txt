@@ -152,9 +152,9 @@ Cloud storage system-wide capabilities
           \vspace*{1ex}
 
         If not present, the domainURI field shall not be present in response bodies and the "``cdmi_domains``" URI shall not be present.
-    * - cdmi_export_cifs    
+    * - cdmi_export_smb    
       - JSON string    
-      - If present and "``true``", the CDMI server supports CIFS exports.
+      - If present and "``true``", the CDMI server supports SMB exports.
     * - cdmi_dataobjects    
       - JSON string    
       - If present and "``true``", the CDMI server supports data objects.
@@ -727,9 +727,9 @@ Container object capabilities
     * - cdmi_create_reference     
       - JSON string    
       - If present and "``true``", this capability indicates that the CDMI server shall support the ability to create a new child reference via PUT.
-    * - cdmi_export_container_cifs    
+    * - cdmi_export_container_smb    
       - JSON string    
-      - If present and "``true``", this capability indicates that the CDMI server shall support the ability to export a container as a file system via CIFS.
+      - If present and "``true``", this capability indicates that the CDMI server shall support the ability to export a container as a file system via SMB.
     * - cdmi_export_container_nfs    
       - JSON string    
       - If present and "``true``", this capability indicates that the CDMI server shall support the ability to export a container as a file system via NFS.
