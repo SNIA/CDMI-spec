@@ -8,19 +8,19 @@ Exported protocols
 Overview
 ********
 
-Container objects can be exported via multiple storage protocols. This is specified by adding an export field to the container object. Each container object export field has a set of well-defined items that include: 
+Container objects can be exported via multiple storage protocols. This is specified by adding an ``exports`` field to the container object. The ``exports`` field contains zero or more named exports, each of which has elements corresponding to the export protocol type, such as: 
 
-* zero or more export types, which specifies the export protocol;
-* for each export type, the identity of the container as standardized by the export protocol;
-* for each export type, the domain of the protocol name server for the clients being served;
-* for each export type, the list of who may mount that container via that protocol, identified as standardized by that protocol or optionally by leveraging the name mapping protocol (see :numref:`%s <ref_mapping_names>`) and specifying CDMI user or groupnames;
-* for each export type, required protocol-specific export parameters;
-* for each export type, optional protocol-specific export parameters; and
-* for each export type, export control parameters.
+* The type of export protocol;
+* The user-facing identity of the exported container, where required by the export protocol (e.g. iSCSI target, NFS directory);
+* The domain of the protocol name server for the clients being served, where required by the export protocol;
+* The list of who may mount that container via that protocol, as standardized by that protocol or optionally by leveraging the name mapping protocol (see :numref:`%s <ref_mapping_names>`) and specifying CDMI-resolvable user or groupnames;
+* Required protocol-specific export parameters;
+* Optional protocol-specific export parameters; and
+* Export control parameters.
 
-All cloud storage systems shall support the storage of the export field. The ability to export containers via a specified protocol is determined by the presence or absence of a ``cdmi_export_<protocol>`` system wide capabilities, which are listed in :numref:`%s <ref_cloud_storage_system-wide_capabilities>`. The ability to export a specific container via a specified protocol is indicated by the ``cdmi_export_<protocol>`` capability in the specified container.
+The ability to export containers via a specific protocol is determined by the presence or absence of a ``cdmi_export_<protocol>`` system wide capabilities, which are listed in :numref:`%s <ref_cloud_storage_system-wide_capabilities>`. The ability to export a specific container via a specific protocol is indicated by the ``cdmi_export_<protocol>`` capability.
 
-Container object exports are represented as a JSON object, containing zero or more named protocol exports.
+Exports are represented as a JSON object having zero or more named protocol-specific exports.
 
 EXAMPLE 1: CDMI container exports
 
@@ -28,32 +28,34 @@ EXAMPLE 1: CDMI container exports
 
     {
         "exports" : {
-            "nfs" : {<BR>
-        "hosts" : { "*.mycollege.edu", "derf.cs.myuni.edu" },
-                "domain" : "lab.mycollege.edu",
-                "usermap" : {
-                    { <cdminame>, <map>, <nfsname> },
+            "1" : {
+                "type" : "nfs",
+                "protocol" : "NFSv4",
+                "path" : "/myexport",
+                "domain" : "lab.example.com",
+                "root_hosts" : [ "admin.lab.example.com" ],
+                "ro_hosts" : [ "*.lab.example.com" ],
+                "usermap" : [
                     { "jimsmith", "<-->", "jims" },
-                    { [ordered list of CDMIname/operator/NFSname triples] },
                     { "*", "<-->", "*" }
-                }
-                "groupmap" : {
+                ]
+                "groupmap" : [
                     { "admins", "<-", "wheel" },
                     { "everyone", "<-", "*" }
-                }
+                ]
             }
-            "cifs" : {
-                "hosts" : "*",
+            "2" : {
+                "type" : "smb",
+                "hosts" : [ "*" ],
                 "domain" : "lab.mycollege.edu",
-                "usermap" : {
-                    { "jimsmith", "<-->", "james.smith" }
-                    { [ordered list of CDMIname/operator/NFSname triples] },
+                "usermap" : [
+                    { "jimsmith", "<-->", "james.smith" },
                     { "*", "<-->", "*" }
-                }
-                "groupmap" : {
+                ]
+                "groupmap" : [
                     { "admins", "<-", "Administrators" },
                     { "everyone", "<-", "*" }
-                }
+                ]
             }
         }
     }
@@ -105,7 +107,7 @@ Administrative users
 By default, the following users shall be considered "``root``", or administrative users, and equivalent to each other: 
 
 * root (Unix/NFS/LDAP),
-* Administrator (Windows/AD/CIFS), and 
+* Administrator (Windows/AD/SMB), and 
 * the domain owner (CDMI). 
 
 Servers shall automatically map these users to the root user of the target protocol unless otherwise instructed by the usermaps. 
@@ -173,7 +175,7 @@ A BNF-style grammar for name mapping is as follows:
 .. code-block:: bnf
 
    name_mapping_list = protocol protocol mapping_list
-   protocol = "cdmi" | "nfs" | "cifs" | "ldap" 
+   protocol = "cdmi" | "nfs" | "smb" | "ldap" 
    mapping_list = name mapping_operator name
    name = pattern | utf8_name | quoted_utf8_name
    quoted_utf8_name = " utf8_name "
@@ -194,152 +196,104 @@ If no matches are found on the match list, the result is system dependent. Howev
 NFS exported protocol
 *********************
 
-To export a container via NFS, the information required is exactly what the server implementation will use to do the export. Normally, this information is contained in the ``/etc/exports`` file on a server or the equivalent. Administrators should be aware that lines may be automatically added to that file for each CDMI container that is exported.
+An NFS export specifes the information required by an NFS server to provide an NFS export. Normally, this information is contained in the ``/etc/exports`` file on a server or the equivalent.
 
-Required members of the protocol structure for NFS are described in :numref:`tbl_required_members_of_the_nfs_protocol_structure`.
+Required elements for NFS are described in :numref:`tbl_required_elements_of_the_nfs_protocol_structure`.
 
 .. tabularcolumns:: |>{\raggedright\arraybackslash}\Y{0.20}
                     |>{\raggedright\arraybackslash}\Y{0.80}|
 
-.. _tbl_required_members_of_the_nfs_protocol_structure:
+.. _tbl_required_elements_of_the_nfs_protocol_structure:
 
-.. list-table:: Required members of the NFS protocol structure
+.. list-table:: Required elements of the NFS protocol structure
     :header-rows: 1
     :align: center 
 
     * - Member
       - Description
     * - protocol
-      - The protocol being requested. This value shall be "``NFSv3``", "``NFSv4``", "``NFSv4.1``", or any subsequent NFS version enshrined in a major IETF RFC. Version 2 of NFS is not supported by CDMI.
-    * - exportpath
-      - The pathname to which the export should be surfaced. This value shall be a UTF8 string of the form ``[<server>]:/<path>``, where the <server> component is optional, (e.g., "``eeserver:/lessons/number1``"). The <server> component of the path must be obtained from an administrator of the service running the CDMI implementation.
-    * - exportdomain
-      - The internet domain of the protocol name server for the clients being served. This value is normally the name of the LDAP domain for the organization, e.g., "``iti.edu``". A value of "``.``" shall be interpreted to be the DNS name of the domain occupied by the CDMI server.
-    * - mode
-      - This value shall be "``ro``", "``rw``", "``root``" or "``rpc_gsssec``" and becomes the default export mode. Hosts requiring different access shall be specified in the optional "``rw_mode``", "``ro_mode``", and "``root_mode``" structure members. However, the "``rpc_gsssec``" mode overrides all other modes, and all other mode members and their contents shall be ignored if it is specified.
-    * - control
-      - Export control for the container. This value shall be "``immediate``", "``off``", "``on``", or <n> (a number). Servers may set the value to on, but clients shall not. A numeric value (<n>) indicates that the export should be shut down in <n> seconds, possibly after a message has been sent to clients mounting the export. If a client specifies a value for <n> but the server does not support delayed shutdown of exports, then <n> shall be interpreted to mean off.
+      - The protocol being requested. This value shall be "``NFSv3``", "``NFSv4``", "``NFSv4.1``", or any subsequent NFS version enshrined in an IETF RFC. Version 2 of NFS is not supported by CDMI.
+    * - path
+      - The pathname to which the export should be surfaced. This value shall be a UTF8 string of the form ``[<server>:]/<path>``, where the <server> component is optional, (e.g., "``myserver:/lessons/number1``"). If specified, the <server> component of the path must be obtained from an administrator of the service running the CDMI implementation.
 
-
-Optional export parameters for NFS are described in :numref:`tbl_optional_nfs_export_parameters`.
+Optional elements for NFS are described in :numref:`tbl_optional_nfs_export_parameters`.
 
 .. tabularcolumns:: |>{\raggedright\arraybackslash}\Y{0.20}
                     |>{\raggedright\arraybackslash}\Y{0.80}|
 
 .. _tbl_optional_nfs_export_parameters:
 
-.. list-table:: Optional members of the NFS protocol structure
+.. list-table:: Optional elements of the NFS protocol structure
     :header-rows: 1
     :align: center 
 
     * - Parameter
       - Description
+    * - encryption
+      - This value shall be "``rpcsec_gss``" or future TLS-based transport security.
     * - domain_servers
       - A list of server names or IP addresses that function as name servers for the domain given in "``domain``". If given, this list shall override the names obtainable by the CDMI server via other programmatic means.
     * - mount_name
-      - The name the client should use to surface the export. This name replaces the last name in the path string, (e.g., mounting "``eeserver:/lessons/number1``" with a mountname of "``1``" over the directory ``/somepath/lessons/num1`` should result in a ``/somepath/lessons/1`` directory on the client).
-    * - hosts
-      - A list of hosts that can access the container in the mode given in "``mode``". The default shall be "``*``"; other values restrict the possibilities.
+      - The name the client should use to surface the export. This name replaces the last name in the path string, (e.g., mounting "``myserver:/lessons/number1``" with a mountname of "``1``" over the directory ``/somepath/lessons/num1`` should result in a ``/somepath/lessons/1`` directory on the client).
     * - root_hosts
-      - A list of hosts that can access the container in superuser mode. The default shall be an empty list.
+      - A JSON array of JSON strings containg the names of hosts that can access the container in superuser mode. The default shall be an empty list.
     * - rw_hosts
-      - A list of hosts that can access the container in ``r/w`` mode. The default shall be an empty list.
+      - A JSON array of JSON strings containg the names of hosts that can access the container in ``rw`` mode. The default shall be an empty list.
     * - ro_hosts
-      - A list of hosts that can access the container in ``r/o`` mode only. The default shall be an empty list.
-    * - mount_type
-      - One of the two strings "``hard``" or "``soft``". Clients hang when a server serving a hard mount becomes unresponsive. Clients with soft mounts generate error messages. The default is implementation dependent.
+      - A JSON array of JSON strings containg the names of hosts that can access the container in ``ro`` mode only. The default shall be an empty list.
     * - recurse
       - This value shall be either "``true``" or "``false``". The default shall be "``true``". When true, recurse indicates that mounts within the CDMI directory structure (presumably put there by other NFS operations) shall be followed and the mounted directory exposed as though it were part of the CDMI container actually being exported. This parameter is equivalent to the Linux "``crossmnt``" parameter.
+    * - paramaters
+      - A string containing NFS server-specific paramaters to be passed to the NFS server. The format of this string is implementation specific. The default shall be an empty string.
 
-Other export parameters for NFS are not specified by the CDMI protocol but may be included in the export structure. These parameters include Linuxisms, such as "``sync``", "``no_wdelay``", "``insecure_locks``", and "``no_acl``", as well as any other parameters used by a given server operating system.  In all such cases, the parameter shall be specified as a JSON tuple in which "``true``" and "``false``" are explicitly called out for binary flags, and a JSON-formatted string or list is used for other parameters. 
+Servers shall support wildcard matching on the "``*``" and "``?``" characters in the hosts lists, so that "``*.cs.uscs.edu``" matches all servers in the ``cs.ucsc.edu`` department.
 
-EXAMPLE 3: NFS export options
+Servers may also support IP address ranges in the various lists of hosts. These IP addresses shall be augmented by the same wildcard matching as is used for ordinary host names (e.g., "``192.168.1.*``" exports to all the machines on local class C network).
 
-   .. code-block:: none
+Servers shall return an HTTP status code of ``400 Bad Request`` when an export setting does not conform to an allowable setting on the server.
 
-        "exports":
-            { "nfs":
-                {
-                    ...
-                    {"no_wdelay": "true" },
-                    {"refer": "otherserver://path/leaf"},
-                    ...
-                }
-            }
+.. _ref_smb_exported_protocol:
 
-
-.. _ref_nfs_exports_control:
-
-Export control
---------------
-
-Export control is accomplished with the use of a single member, named "``control``":
-
-* The value "``immediate``" shall indicate to the server that the export shall be made successfully before the PUT operation returns. Servers shall reset the value to "``on``" and place that in the reply.
-* The value "``off``" shall indicate to the server that the export, if new, shall not be enabled, and if existing, shall be shut down and all client connections forcibly broken.
-* A numeric value <n> shall indicate that the server shall wait <n> seconds before forcibly shutting down the export and breaking client connections. Whether the server sends a warning message to clients, giving them a chance to exit from the connection gracefully, is recommended but implementation dependent. Once the export has been shut down, the server shall also change the value of  "``control``" to "``off``" in the export structure.
-
-
-Servers shall support wildcard matching on the "``\*``" and "``?``" characters in the hosts lists (this is standard practice), so that "``\*\*.cs.uscs.edu``" matches all servers in the ``cs.ucsc.edu`` department.
-
-Servers may support netgroup names in the various hosts lists. When this functionality is supported, these names shall resolve to ordinary lists of hostnames via queries to the domain nameserver.
-
-Servers may also support IP address ranges in the various lists of hosts. These IP addresses shall beaugmented by the same wildcard matching as is used for ordinary host names (e.g., "``192.168.1.*``" exports to all the machines on a default home network). Client-side developers should note that "``exporting to``" only means making a container available for export. The client must still mount the exported container before there is a connection with the server.
-
-Users wishing to use optional and vendor-specific settings are responsible for determining from the CDMI product vendor the legal settings and their format. Servers shall return an HTTP status code of ``400 Bad Request`` when an export setting does not conform to an allowable setting on the server.
-
-.. _ref_cifs_exported_protocol:
-
-CIFS exported protocol
+SMB exported protocol
 **********************
 
-To export a container via CIFS, the information required is exactly what the server implementation will use to do the export. Where this information is contained on a server is implementation dependent. The server may add or delete lines automatically to and from that file for each CDMI container that is exported or unexported.
+An SMB export specifes the information required by an SMB server to provide an SMB export.
 
-Required members of the protocol structure for CIFS are described in :numref:`tbl_required_members_of_the_cifs_protocol_structure` 
+Required elements of the protocol structure for SMB are described in :numref:`tbl_required_elements_of_the_smb_protocol_structure` 
 
 .. tabularcolumns:: |>{\raggedright\arraybackslash}\Y{0.20}
                     |>{\raggedright\arraybackslash}\Y{0.80}|
 
-.. _tbl_required_members_of_the_cifs_protocol_structure:
+.. _tbl_required_elements_of_the_smb_protocol_structure:
 
-.. list-table:: Required members of the CIFS protocol structure
+.. list-table:: Required elements of the SMB protocol structure
     :header-rows: 1
     :align: center 
 
     * - Member
       - Description
-    * - share_name
-      - The name that CIFS shall use to discover the share.
-    * - exportdomain
-      - The domain of the protocol name server for the clients being served. This value is normally the name of the Active Directory LDAP domain for the organization, e.g. "``iti.edu``". A value of "``.``" shall be interpreted to be the domain occupied by the CDMI server.
-    * - mode
-      - This value shall be either "``ro``" or "``rw``".
-    * - control
-      - Export control for the container. This value shall be "``immediate``", "``off``", or <n> (a number). Servers may set the value to on, but clients shall not. The semantics and normative requirements are exactly the same as for NFS, as documented in the paragraph ":numref:`%s <ref_nfs_exports_control>`" in the subclause on NFS Exports (see :numref:`%s <ref_nfs_exported_protocol>`).
+    * - sharename
+      - The name that SMB shall use to discover the share.
 
-There is no protocol specification; CDMI assumes that normal SMB protocol negotiation will take place. 
+Optional elements for SMB are described in :numref:`tbl_optional_smb_export_parameters`.
 
-An optional export parameter is "``comment,``" which is often used as a user-friendly share name on the client.
+.. tabularcolumns:: |>{\raggedright\arraybackslash}\Y{0.20}
+                    |>{\raggedright\arraybackslash}\Y{0.80}|
 
-Other export parameters for CIFS are not specified by the CDMI protocol but may be included in the export structure. These parameters include vendor settings such as "``forcegroup``", "``umask``", "``caching``", and "``oplocks``", as well as any other parameters used by a given server operating system.  In all such cases, the parameter shall be specified as a JSON tuple in which "``true``" and "``false``" are explicitly called out for binary flags, and a JSON-formatted string or list is used for other parameters. 
+.. _tbl_optional_smb_export_parameters:
 
-EXAMPLE 4: CIFS export
+.. list-table:: Optional elements of the SMB protocol structure
+    :header-rows: 1
+    :align: center 
 
-   .. code-block:: none
+    * - Parameter
+      - Description
+    * - comment
+      - This value shall be JSON String containing a user-friendly share name for the client.
+    * - paramaters
+      - A string containing SMB server-specific paramaters to be passed to the SMB server. The format of this string is implementation specific. The default shall be an empty string.
 
-        "exports":
-          { "cifs":
-                {
-                    ...
-                    {"caching": { "manual", "document", "program" },
-                    {"oplocks": "true"},
-                    ...
-                }
-            }
-
-Users wishing to manipulate vendor-specific settings are responsible for determining from the CDMI product vendor the legal settings and their format. Servers shall return an HTTP status code of ``400 Bad Request`` when an export setting does not conform to an allowable setting on the server.
-
-For more detail on the use of the OCCI export protocol structure attributes, see :numref:`%s <ref_occi_exported_protocol>`  Because the actual networking and access control is under the control of a hidden, common infrastructure implementing both OCCI and CDMI, the normal permission structure shall not be provided.
+Servers shall return an HTTP status code of ``400 Bad Request`` when an export setting does not conform to an allowable setting on the server.
 
 .. _ref_occi_exported_protocol:
 
@@ -394,25 +348,43 @@ CDMI defines the export of a container using the iSCSI protocol (see RFC 7143 :c
 
 The export is described by the presence of an export field structure on the container that specifies the
 
-* export protocol ("``Network/iSCSI``");
+* export type ("``iSCSI``");
 * iSCSI target information (IP addresses or fully qualified domain names, target identifier, and LUN);
 * logical unit world-wide name; and
 * iSCSI initiators having access.
 
 The target identifier may be in ``iqn``, ``naa``, or ``eui`` format and shall have the target portal group tag appended in hexadecimal.
 
-Read container
---------------
+Create an iSCSI Export
+----------------------
 
-All of the information in the export structure is returned:
+The following export field contents, when included in a container create or update, indicates that the container shall be exported via iSCSI. Support for either of these operations is indicated by the ``cdmi_export_iscsi`` capability on the parent container of the created container or of the existing container, respectively.
 
-EXAMPLE 6: iSCSI export
+EXAMPLE 7: iSCSI export creation
 
 .. code-block:: none
 
     "exports" : 
     {
-        "Network/iSCSI": {
+        "1" : {
+            type: "iSCSI",
+            "permissions": [
+                "iqn.2010-01.com.acme:host1",
+                "iqn.2010-01.com.acme:host2"
+            ]
+        }
+    }
+
+For these export creation operations, the CDMI implementation selects the IP portals, iSCSI target, logical unit number, and logical unit name; these are not supplied. Only the list of initiator identifiers that are to have access to the container are specified.
+
+EXAMPLE 6: Reading iSCSI export information after creation
+
+.. code-block:: none
+
+    "exports" : 
+    {
+        "1" : {
+            type: "iSCSI",
             "portals": [
                 "192.168.1.101",
                 "192.168.1.102"
@@ -427,65 +399,30 @@ EXAMPLE 6: iSCSI export
         }
     } 
 
-Create and update containers
-----------------------------
 
-The following export field contents, when included in a container create or update, indicates that the container shall be exported via iSCSI. Support for either of these operations is indicated by the ``cdmi_export_iscsi`` capability on the parent container of the created container or of the existing container, respectively.
-
-EXAMPLE 7: iSCSI export creation
-
-.. code-block:: none
-
-    "exports" : 
-    {
-        "Network/iSCSI": {
-            "permissions": [
-                "iqn.2010-01.com.acme:host1",
-                "iqn.2010-01.com.acme:host2"
-            ]
-        }
-    }
-
-For these export creation operations, the CDMI implementation selects the IP portals, iSCSI target, logical unit number, and logical unit name; these are not supplied. Only the list of initiator identifiers that are to have access to the container are specified.
-
-Modify an export
-----------------
-
-The following code modifies an export on an existing container. Support for this operation is indicated by the ``cdmi_export_iscsi`` on the parent container of the existing container. For this operation, only the current list of initiator identifiers that are to have access to the container are specified.
-
-EXAMPLE 8: iSCSI export modification
-
-.. code-block:: none
-
-    "exports" : 
-    {
-        "Network/iSCSI": {
-            "permissions": [
-                "iqn.2010-01.com.acme:host2"
-            ]
-        }
-    }
 
 WebDAV exported protocol
 ************************
 
 CDMI defines an export protocol structure for the WebDAV standard as follows (see RFC 4918 :cite:`rfc4918`): 
 
-* The protocol is "``Network/WebDAV``".
+* The export type is "``WebDAV``".
 * The path of the WebDAV mount point is as presented to clients (including server host name).
-* The list of who may access the share is determined by the standard CDMI ACLs for each resource as exported via WebDAV.
+* The list of who may access the share is determined by the standard CDMI ACLs.
 
 EXAMPLE 9: WebDAV export
 
    .. code-block:: none
 
-    "Network/WebDAV" : 
+    "exports" : 
     {
-        "identifier": "/users",
-        "permissions": "domain"
-    } 
+        "1" : {
+            type: "WebDAV",
+            "permissions": "domain"
+        }
+    }
 
-In this example, the value "``domain``" in the permissions field indicates that user credentials should be mapped through the domain membership in the domain of the CDMI container being exported. 
+In this example, the value "``domain``" in the permissions field indicates that user credentials should be mapped through the domain elementship in the domain of the CDMI container being exported. 
 
 WebDAV supports locking, but it is up to implementations to support any locking of access through CDMI as a result, and the interaction between the two protocols is purposely not described in this International standard. 
 
