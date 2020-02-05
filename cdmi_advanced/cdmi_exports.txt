@@ -22,44 +22,6 @@ The ability to export containers via a specific protocol is determined by the pr
 
 Exports are represented as a JSON object having zero or more named protocol-specific exports.
 
-EXAMPLE 1: CDMI container exports
-
-  .. code-block:: none
-
-    {
-        "exports" : {
-            "1" : {
-                "type" : "nfs",
-                "protocol" : "NFSv4",
-                "path" : "/myexport",
-                "domain" : "lab.example.com",
-                "root_hosts" : [ "admin.lab.example.com" ],
-                "ro_hosts" : [ "*.lab.example.com" ],
-                "usermap" : [
-                    { "jimsmith", "<-->", "jims" },
-                    { "*", "<-->", "*" }
-                ]
-                "groupmap" : [
-                    { "admins", "<-", "wheel" },
-                    { "everyone", "<-", "*" }
-                ]
-            }
-            "2" : {
-                "type" : "smb",
-                "hosts" : [ "*" ],
-                "domain" : "lab.mycollege.edu",
-                "usermap" : [
-                    { "jimsmith", "<-->", "james.smith" },
-                    { "*", "<-->", "*" }
-                ]
-                "groupmap" : [
-                    { "admins", "<-", "Administrators" },
-                    { "everyone", "<-", "*" }
-                ]
-            }
-        }
-    }
-
 The meaning, use, and permitted values for the fields associated with each export type are described later in this clause.
 
 Container object export addressing
@@ -116,7 +78,7 @@ As an automatic mapping does not meet strict security standards, servers shall o
 
 In the following example, root gets mapped to nobody, and everyone else is mapped to a user of the same name in the NFS domain and the CDMI domain.
 
-EXAMPLE 2: NFS export user mapping
+EXAMPLE 1: NFS export user mapping
 
    .. code-block:: none
 
@@ -198,59 +160,99 @@ NFS exported protocol
 
 An NFS export specifes the information required by an NFS server to provide an NFS export. Normally, this information is contained in the ``/etc/exports`` file on a server or the equivalent.
 
-Required elements for NFS are described in :numref:`tbl_required_elements_of_the_nfs_protocol_structure`.
+Elements for an NFS export are described in :numref:`tbl_elements_of_the_nfs_protocol_structure`.
 
 .. tabularcolumns:: |>{\raggedright\arraybackslash}\Y{0.20}
-                    |>{\raggedright\arraybackslash}\Y{0.80}|
+                    |>{\raggedright\arraybackslash}\Y{0.10}
+                    |>{\raggedright\arraybackslash}\Y{0.55}
+                    |>{\raggedright\arraybackslash}\Y{0.15}|
 
-.. _tbl_required_elements_of_the_nfs_protocol_structure:
+.. _tbl_elements_of_the_nfs_protocol_structure:
 
-.. list-table:: Required elements of the NFS protocol structure
+.. list-table:: Elements of the NFS protocol export structure
+    :class: longtable
     :header-rows: 1
     :align: center 
 
-    * - Member
+    * - Element
+      - Type
       - Description
+      - Requirement
+    * - type
+      - JSON String
+      - The export type is set to "``NFS``"
+      - Mandatory
     * - protocol
-      - The protocol being requested. This value shall be "``NFSv3``", "``NFSv4``", "``NFSv4.1``", or any subsequent NFS version enshrined in an IETF RFC. Version 2 of NFS is not supported by CDMI.
+      - JSON String
+      - The protocol being requested. Values shall be "``NFSv3``", "``NFSv4``", "``NFSv4.1``", or any subsequent NFS version enshrined in an IETF RFC. Version 2 of NFS is not supported by CDMI.
+      - Mandatory
     * - path
+      - JSON String
       - The pathname to which the export should be surfaced. This value shall be a UTF8 string of the form ``[<server>:]/<path>``, where the <server> component is optional, (e.g., "``myserver:/lessons/number1``"). If specified, the <server> component of the path must be obtained from an administrator of the service running the CDMI implementation.
-
-Optional elements for NFS are described in :numref:`tbl_optional_nfs_export_parameters`.
-
-.. tabularcolumns:: |>{\raggedright\arraybackslash}\Y{0.20}
-                    |>{\raggedright\arraybackslash}\Y{0.80}|
-
-.. _tbl_optional_nfs_export_parameters:
-
-.. list-table:: Optional elements of the NFS protocol structure
-    :header-rows: 1
-    :align: center 
-
-    * - Parameter
-      - Description
+      - Mandatory
     * - encryption
+      - JSON String
       - This value shall be "``rpcsec_gss``" or future TLS-based transport security.
+      - Optional
     * - domain_servers
+      - JSON Array of JSON Strings
       - A list of server names or IP addresses that function as name servers for the domain given in "``domain``". If given, this list shall override the names obtainable by the CDMI server via other programmatic means.
+      - Optional
     * - mount_name
+      - JSON String
       - The name the client should use to surface the export. This name replaces the last name in the path string, (e.g., mounting "``myserver:/lessons/number1``" with a mountname of "``1``" over the directory ``/somepath/lessons/num1`` should result in a ``/somepath/lessons/1`` directory on the client).
+      - Optional
     * - root_hosts
-      - A JSON array of JSON strings containg the names of hosts that can access the container in superuser mode. The default shall be an empty list.
+      - JSON Array of JSON Strings
+      - A list of names of hosts that can access the container in superuser mode. The default shall be an empty list.
+      - Optional
     * - rw_hosts
-      - A JSON array of JSON strings containg the names of hosts that can access the container in ``rw`` mode. The default shall be an empty list.
+      - JSON Array of JSON Strings
+      - A list of names of hosts that can access the container in ``rw`` mode. The default shall be an empty list.
+      - Optional
     * - ro_hosts
-      - A JSON array of JSON strings containg the names of hosts that can access the container in ``ro`` mode only. The default shall be an empty list.
+      - JSON Array of JSON Strings
+      - A list of names of hosts that can access the container in ``ro`` mode only. The default shall be an empty list.
+      - Optional
     * - recurse
+      - JSON String
       - This value shall be either "``true``" or "``false``". The default shall be "``true``". When true, recurse indicates that mounts within the CDMI directory structure (presumably put there by other NFS operations) shall be followed and the mounted directory exposed as though it were part of the CDMI container actually being exported. This parameter is equivalent to the Linux "``crossmnt``" parameter.
+      - Optional
     * - paramaters
+      - JSON String
       - A string containing NFS server-specific paramaters to be passed to the NFS server. The format of this string is implementation specific. The default shall be an empty string.
+      - Optional
 
 Servers shall support wildcard matching on the "``*``" and "``?``" characters in the hosts lists, so that "``*.cs.uscs.edu``" matches all servers in the ``cs.ucsc.edu`` department.
 
 Servers may also support IP address ranges in the various lists of hosts. These IP addresses shall be augmented by the same wildcard matching as is used for ordinary host names (e.g., "``192.168.1.*``" exports to all the machines on local class C network).
 
 Servers shall return an HTTP status code of ``400 Bad Request`` when an export setting does not conform to an allowable setting on the server.
+
+EXAMPLE 2: NFS exports
+
+  .. code-block:: none
+
+    {
+        "exports" : {
+            "1" : {
+                "type" : "nfs",
+                "protocol" : "NFSv4",
+                "path" : "/myexport",
+                "domain" : "lab.example.com",
+                "root_hosts" : [ "admin.lab.example.com" ],
+                "ro_hosts" : [ "*.lab.example.com" ],
+                "usermap" : [
+                    { "jimsmith", "<-->", "jims" },
+                    { "*", "<-->", "*" }
+                ]
+                "groupmap" : [
+                    { "admins", "<-", "wheel" },
+                    { "everyone", "<-", "*" }
+                ]
+            }
+    }
+
 
 .. _ref_smb_exported_protocol:
 
@@ -259,41 +261,203 @@ SMB exported protocol
 
 An SMB export specifes the information required by an SMB server to provide an SMB export.
 
-Required elements of the protocol structure for SMB are described in :numref:`tbl_required_elements_of_the_smb_protocol_structure` 
+Elements for an SMB export are described in :numref:`tbl_elements_of_the_smb_protocol_structure` 
 
 .. tabularcolumns:: |>{\raggedright\arraybackslash}\Y{0.20}
-                    |>{\raggedright\arraybackslash}\Y{0.80}|
+                    |>{\raggedright\arraybackslash}\Y{0.10}
+                    |>{\raggedright\arraybackslash}\Y{0.55}
+                    |>{\raggedright\arraybackslash}\Y{0.15}|
 
-.. _tbl_required_elements_of_the_smb_protocol_structure:
+.. _tbl_elements_of_the_smb_protocol_structure:
 
-.. list-table:: Required elements of the SMB protocol structure
+.. list-table:: Elements of the SMB protocol export structure
+    :class: longtable
     :header-rows: 1
     :align: center 
 
-    * - Member
+    * - Element
+      - Type
       - Description
+      - Requirement
+    * - type
+      - JSON String
+      - The export type is set to "``SMB``"
+      - Mandatory
     * - sharename
+      - JSON String
       - The name that SMB shall use to discover the share.
-
-Optional elements for SMB are described in :numref:`tbl_optional_smb_export_parameters`.
-
-.. tabularcolumns:: |>{\raggedright\arraybackslash}\Y{0.20}
-                    |>{\raggedright\arraybackslash}\Y{0.80}|
-
-.. _tbl_optional_smb_export_parameters:
-
-.. list-table:: Optional elements of the SMB protocol structure
-    :header-rows: 1
-    :align: center 
-
-    * - Parameter
-      - Description
+      - Mandatory
     * - comment
+      - JSON String
       - This value shall be JSON String containing a user-friendly share name for the client.
+      - Optional
     * - paramaters
+      - JSON String
       - A string containing SMB server-specific paramaters to be passed to the SMB server. The format of this string is implementation specific. The default shall be an empty string.
+      - Optional
 
 Servers shall return an HTTP status code of ``400 Bad Request`` when an export setting does not conform to an allowable setting on the server.
+
+EXAMPLE 3: SMB exports
+
+  .. code-block:: none
+
+    {
+        "exports" : {
+            "1" : {
+                "type" : "smb",
+                "hosts" : [ "*" ],
+                "domain" : "lab.mycollege.edu",
+                "usermap" : [
+                    { "jimsmith", "<-->", "james.smith" },
+                    { "*", "<-->", "*" }
+                ]
+                "groupmap" : [
+                    { "admins", "<-", "Administrators" },
+                    { "everyone", "<-", "*" }
+                ]
+            }
+        }
+    }
+
+iSCSI exported protocol
+***********************
+
+An iSCSI export specifes the information required by an iSCSI server (see RFC 7143 :cite:`rfc7143`) to provide an iSCSI export. Each container is exported as a single SCSI Logical Unit as a Logical Unit Number (LUN). One or more iSCSI initiators import the LUN through an iSCSI target node and port using one or more iSCSI network portals (IP addresses). 
+
+Elements for an iSCSI export are described in :numref:`tbl_elements_of_the_iscsi_protocol_structure` 
+
+.. tabularcolumns:: |>{\raggedright\arraybackslash}\Y{0.20}
+                    |>{\raggedright\arraybackslash}\Y{0.10}
+                    |>{\raggedright\arraybackslash}\Y{0.55}
+                    |>{\raggedright\arraybackslash}\Y{0.15}|
+
+.. _tbl_elements_of_the_iSCSI_protocol_structure:
+
+.. list-table:: Elements of the iSCSI protocol export structure
+    :class: longtable
+    :header-rows: 1
+    :align: center 
+
+    * - Element
+      - Type
+      - Description
+      - Requirement
+    * - type
+      - JSON String
+      - The export type is set to "``iSCSI``"
+      - Mandatory
+    * - permissions
+      - JSON Array of JSON Strings
+      - One or more target identifiers for initiators that are permitted to access the iSCSI export. Target identifiers may be in ``iqn``, ``naa``, or ``eui`` format and shall have the target portal group tag appended in hexadecimal. If absent, any initiator can access the export.
+      - Optional
+    * - paramaters
+      - JSON String
+      - A string containing iSCSI server-specific paramaters to be passed to the iSCSI server. The format of this string is implementation specific. The default shall be an empty string.
+      - Optional
+    * - target_identifier
+      - JSON String
+      - iSCSI target information (IP addresses or fully qualified domain names, target identifier, and LUN)
+      - Read-Only
+    * - logical_unit_number
+      - JSON String
+      - iSCSI Logical Unit Number
+      - Read-Only
+    * - logical_unit_name
+      - JSON String
+      - iSCSI Logical Unit Name
+      - Read-Only
+    * - portals
+      - JSON Array of JSON Strings
+      - One or more IP addresses or fully qualified domains names through which the iSCSI export can be accessed. This field is server populated.
+      - Read-Only
+
+Servers shall return an HTTP status code of ``400 Bad Request`` when an export setting does not conform to an allowable setting on the server.
+
+EXAMPLE 4: iSCSI export creation
+
+.. code-block:: none
+
+    "exports" : 
+    {
+        "1" : {
+            type: "iSCSI",
+            "permissions": [
+                "iqn.2010-01.com.acme:host1",
+                "iqn.2010-01.com.acme:host2"
+            ]
+        }
+    }
+
+EXAMPLE 5: Reading iSCSI export information after creation
+
+.. code-block:: none
+
+    "exports" : 
+    {
+        "1" : {
+            type: "iSCSI",
+            "portals": [
+                "192.168.1.101",
+                "192.168.1.102"
+            ],
+            "target_identifier": "iqn.2010-01.com.cloudprovider:acmeroot.container1,t,0x0001",
+            "logical_unit_number": "3",
+            "logical_unit_name": "0x60012340000000000000000000000001",
+            "permissions": [
+                "iqn.2010-01.com.acme:host1",
+                "iqn.2010-01.com.acme:host2"
+            ]
+        }
+    } 
+
+
+WebDAV exported protocol
+************************
+
+A WebDAV export specifes the information required by an WebDAV server (see RFC 4918 :cite:`rfc4918`) to provide an WebDAV export.
+
+Elements for an WebDAV export are described in :numref:`tbl_elements_of_the_webdav_protocol_structure` 
+
+.. tabularcolumns:: |>{\raggedright\arraybackslash}\Y{0.20}
+                    |>{\raggedright\arraybackslash}\Y{0.10}
+                    |>{\raggedright\arraybackslash}\Y{0.55}
+                    |>{\raggedright\arraybackslash}\Y{0.15}|
+
+.. _tbl_elements_of_the_webdav_protocol_structure:
+
+.. list-table:: Elements of the WebDAV protocol export structure
+    :class: longtable
+    :header-rows: 1
+    :align: center 
+
+    * - Element
+      - Type
+      - Description
+      - Requirement
+    * - type
+      - JSON String
+      - The export type is set to "``WebDAV``"
+      - Mandatory
+    * - paramaters
+      - JSON String
+      - A string containing WebDAV server-specific paramaters to be passed to the WebDAV server. The format of this string is implementation specific. The default shall be an empty string.
+      - Optional
+
+Servers shall return an HTTP status code of ``400 Bad Request`` when an export setting does not conform to an allowable setting on the server.
+
+WebDAV supports locking, but it is up to implementations to support any locking of access through CDMI as a result, and the interaction between the two protocols is purposely not described in this International standard. 
+
+EXAMPLE 6: WebDAV export
+
+   .. code-block:: none
+
+    "exports" : 
+    {
+        "1" : {
+            type: "WebDAV",
+        }
+    }
 
 .. _ref_occi_exported_protocol:
 
@@ -321,8 +485,8 @@ To support exported protocols and improve their interoperability with CDMI, CDMI
 
 CDMI defines an export protocol structure for the Open Cloud Computing Interface (:numref:`%s <ref_occi_exported_protocol>`) as follows:
 
-* The protocol is "``OCCI/<protocol standard>``" (e.g., "``OCCI/NFSv4``").
-* The identifier is the CDMI object ID.
+* The type is "``OCCI/<protocol standard>``" (e.g., "``OCCI/NFSv4``").
+* The identifier is the CDMI container ID.
 * A JSON array of URIs to OCCI compute resources shall have access (permissions) to the exported container.
 
 EXAMPLE 5: OCCI export
@@ -340,90 +504,5 @@ EXAMPLE 5: OCCI export
         }
 
 For more detail on using the OCCI export protocol structure attributes, see :numref:`%s <ref_exports_overview>`. Because the actual networking and access control is under the control of a hidden, common infrastructure that implements both OCCI and CDMI, the normal permission structure shall not be provided.
-
-iSCSI exported protocol
-***********************
-
-CDMI defines the export of a container using the iSCSI protocol (see RFC 7143 :cite:`rfc7143`). Each container is exported as a single SCSI Logical Unit as a Logical Unit Number (LUN). One or more iSCSI initiators import the LUN through an iSCSI target node and port using one or more iSCSI network portals (IP addresses). 
-
-The export is described by the presence of an export field structure on the container that specifies the
-
-* export type ("``iSCSI``");
-* iSCSI target information (IP addresses or fully qualified domain names, target identifier, and LUN);
-* logical unit world-wide name; and
-* iSCSI initiators having access.
-
-The target identifier may be in ``iqn``, ``naa``, or ``eui`` format and shall have the target portal group tag appended in hexadecimal.
-
-Create an iSCSI Export
-----------------------
-
-The following export field contents, when included in a container create or update, indicates that the container shall be exported via iSCSI. Support for either of these operations is indicated by the ``cdmi_export_iscsi`` capability on the parent container of the created container or of the existing container, respectively.
-
-EXAMPLE 7: iSCSI export creation
-
-.. code-block:: none
-
-    "exports" : 
-    {
-        "1" : {
-            type: "iSCSI",
-            "permissions": [
-                "iqn.2010-01.com.acme:host1",
-                "iqn.2010-01.com.acme:host2"
-            ]
-        }
-    }
-
-For these export creation operations, the CDMI implementation selects the IP portals, iSCSI target, logical unit number, and logical unit name; these are not supplied. Only the list of initiator identifiers that are to have access to the container are specified.
-
-EXAMPLE 6: Reading iSCSI export information after creation
-
-.. code-block:: none
-
-    "exports" : 
-    {
-        "1" : {
-            type: "iSCSI",
-            "portals": [
-                "192.168.1.101",
-                "192.168.1.102"
-            ],
-            "target_identifier": "iqn.2010-01.com.cloudprovider:acmeroot.container1,t,0x0001",
-            "logical_unit_number": "3",
-            "logical_unit_name": "0x60012340000000000000000000000001",
-            "permissions": [
-                "iqn.2010-01.com.acme:host1",
-                "iqn.2010-01.com.acme:host2"
-            ]
-        }
-    } 
-
-
-
-WebDAV exported protocol
-************************
-
-CDMI defines an export protocol structure for the WebDAV standard as follows (see RFC 4918 :cite:`rfc4918`): 
-
-* The export type is "``WebDAV``".
-* The path of the WebDAV mount point is as presented to clients (including server host name).
-* The list of who may access the share is determined by the standard CDMI ACLs.
-
-EXAMPLE 9: WebDAV export
-
-   .. code-block:: none
-
-    "exports" : 
-    {
-        "1" : {
-            type: "WebDAV",
-            "permissions": "domain"
-        }
-    }
-
-In this example, the value "``domain``" in the permissions field indicates that user credentials should be mapped through the domain elementship in the domain of the CDMI container being exported. 
-
-WebDAV supports locking, but it is up to implementations to support any locking of access through CDMI as a result, and the interaction between the two protocols is purposely not described in this International standard. 
 
 
