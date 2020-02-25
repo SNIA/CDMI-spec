@@ -46,21 +46,21 @@ Encrypted objects shall be deleted using a standard HTTP or CDMI DELETE operatio
 Encrypt an unencrypted object
 -----------------------------
 
-Existing unencrypted objects shall be encrypted in-place by performing a CDMI PUT operation, as described in  :numref:`clause %s <ref_cdmi_data_object_update>`, that changes the object mimetype to "``application/cms``" or "``application/jose+json``" and specifies a ``cdmi_enc_key_id`` metadata item. The client may also specify a ``cdmi_enc_value_sign_id`` and/or ``cdmi_enc_value_verify_id`` metadata item to indicate that the object is to be signed, and to provide signature verification information.
+Existing unencrypted objects shall be encrypted in-place by performing a CDMI PATCH operation, as described in  :numref:`clause %s <ref_cdmi_data_object_update>`, that changes the object mimetype to "``application/cms``" or "``application/jose+json``" and specifies a ``cdmi_enc_key_id`` metadata item. The client may also specify a ``cdmi_enc_value_sign_id`` and/or ``cdmi_enc_value_verify_id`` metadata item to indicate that the object is to be signed, and to provide signature verification information.
 
 The CDMI Server shall use the client's credentials (which are included in HTTP headers, and are out of scope of this International Standard) to retreive the encryption and signing keys, and encryption and signing algorithm information from the KMS, and shall use the keys to encrypt and sign the value of the object. The mimetype of the encrypted value is stored in the CMS wrapper, or in a "``cty``" field of the JWE JSON.
 
 Decrypt an encrypted object
 ---------------------------
 
-Existing encrypted objects shall be decrypted in-place by performing a CDMI PUT operation, as described in  :numref:`clause %s <ref_cdmi_data_object_update>`, that changes the object mimetype from "``application/cms``" or "``application/jose+json``" to the original mimetype as specified in the CMS wrapper, or in the "``cty``" field of the JWE JSON. Specifying any other fields or metadata shall return a ````400 Bad Request```` result code.
+Existing encrypted objects shall be decrypted in-place by performing a CDMI PATCH operation, as described in  :numref:`clause %s <ref_cdmi_data_object_update>`, that changes the object mimetype from "``application/cms``" or "``application/jose+json``" to the original mimetype as specified in the CMS wrapper, or in the "``cty``" field of the JWE JSON. Specifying any other fields or metadata shall return a ````400 Bad Request```` result code.
 
 The CDMI Server shall use the client's credentials (which are included in HTTP headers, and are out of scope of this International Standard) to retreive the encryption, signing and verification keys, and encryption, signing and verification algorithm information from the KMS, and shall use the keys to decrypt and verify the encrypted value and user metadata included in the object.
 
 Re-encrypt an encrypted object
 ------------------------------
 
-Existing encrypted objects shall be re-encrypted in-place by performing a CDMI PUT operation, as described in  :numref:`clause %s <ref_cdmi_data_object_update>`, that retains the object mimetype of "``application/cms``" or "``application/jose+json``", or changes the object mimetype from "``application/cms``" to "``application/jose+json``", or vice-versa. The client shall also specify a new ``cdmi_enc_key_id``, ``cdmi_enc_value_sign_id`` and/or ``cdmi_enc_value_verify_id`` metadata item to indicate the new key(s) to be used. Specifying any other fields or metadata shall return a ``400 Bad Request`` result code.
+Existing encrypted objects shall be re-encrypted in-place by performing a CDMI PATCH operation, as described in  :numref:`clause %s <ref_cdmi_data_object_update>`, that retains the object mimetype of "``application/cms``" or "``application/jose+json``", or changes the object mimetype from "``application/cms``" to "``application/jose+json``", or vice-versa. The client shall also specify a new ``cdmi_enc_key_id``, ``cdmi_enc_value_sign_id`` and/or ``cdmi_enc_value_verify_id`` metadata item to indicate the new key(s) to be used. Specifying any other fields or metadata shall return a ``400 Bad Request`` result code.
 
 The CDMI Server shall use the client's credentials (which are included in HTTP headers, and are out of scope of this International Standard) to retreive both the original encryption and signing keys using the original metadata values, and the new encryption and signing keys using the new metadata values from the KMS, and shall use these keys to decrypt, verify, encrypt and sign the value of the object, as needed.
 
@@ -86,7 +86,7 @@ When an encrypted object is decrypted for access, the plaintext shall not be ret
 Update plaintext of an encrypted object
 ---------------------------------------
 
-The plaintext value of an encrypted object shall be modified by performing an HTTP PUT operation, as described in   :numref:`clause %s <http_data_object_update>`, with an Content-Type header value other than "``application/cms``" or "``application/jose+json``", typically "``*/*``"., depending on the mimetype of the encrypted object. Object plaintext cannot be transparently modified using a CDMI GET.
+The plaintext value of an encrypted object shall be modified by performing an HTTP PATCH operation, as described in   :numref:`clause %s <http_data_object_update>`, with an Content-Type header value other than "``application/cms``" or "``application/jose+json``", typically "``*/*``"., depending on the mimetype of the encrypted object. Object plaintext cannot be transparently modified using a CDMI GET.
 
 The CDMI Server shall use the client's credentials (which are included in HTTP headers, and are out of scope of this International Standard) to retreive the encryption, signing and verification keys, and encryption, signing and verification algorithm information from the KMS, and shall use the keys to decrypt and verify the encrypted value, update the value, and re-encrypt/re-sign the updated value.
 

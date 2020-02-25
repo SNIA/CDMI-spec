@@ -26,11 +26,11 @@ A snapshot may be accessed in the same way that any other CDMI™ object is acce
 Example
 -------
 
-EXAMPLE 1: PUT to an existing container to create a snapshot:
+EXAMPLE 1: PATCH to an existing container to create a snapshot:
 
    .. code-block:: none
 
-       PUT /MyContainer/ HTTP/1.1
+       PATCH /MyContainer/ HTTP/1.1
        Host: cloud.example.com
        Content-Type: application/cdmi-container
 
