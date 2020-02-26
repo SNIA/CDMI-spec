@@ -6,10 +6,10 @@ Update a data object using HTTP
 Synopsis
 --------
 
-The following HTTP PUT operation updates an existing data object at the specified URI:
+The following HTTP PATCH operation updates an existing data object at the specified URI:
 
-* ``PUT <root URI>/<ContainerName>/<DataObjectName>``
-* ``PUT <root URI>/cdmi_objectid/<DataObjectID>``
+* ``PATCH <root URI>/<ContainerName>/<DataObjectName>``
+* ``PATCH <root URI>/cdmi_objectid/<DataObjectID>``
 
 Where:
 
@@ -161,11 +161,11 @@ The HTTP status codes that occur when updating a data object using HTTP are desc
 Examples
 --------
 
-EXAMPLE 1: PUT to the data object URI to update the value of the data object:
+EXAMPLE 1: PATCH to the data object URI to update the value of the data object:
 
    .. code-block:: none
 
-       PUT /MyContainer/MyDataObject.txt HTTP/1.1
+       PATCH /MyContainer/MyDataObject.txt HTTP/1.1
        Host: cloud.example.com
        Content-Type: text/plain
        Content-Length: 37
@@ -179,11 +179,11 @@ EXAMPLE 1: PUT to the data object URI to update the value of the data object:
        HTTP/1.1 204 No Content
 
 
-EXAMPLE 2: PUT to the data object URI to update four bytes within the value of the data object:
+EXAMPLE 2: PATCH to the data object URI to update four bytes within the value of the data object:
 
    .. code-block:: none
 
-       PUT /MyContainer/MyDataObject.txt HTTP/1.1
+       PATCH /MyContainer/MyDataObject.txt HTTP/1.1
        Host: cloud.example.com 
        Content-Range: bytes 21-24/37
        Content-Type: text/plain
