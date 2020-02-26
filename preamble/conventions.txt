@@ -19,7 +19,7 @@ Each interface description has nine components, as described in :numref:`tbl_int
     * - Component
       - Description
     * - Synopsis
-      - The GET, PUT, POST, and DELETE semantics
+      - The GET, PUT, POST, PATCH, and DELETE semantics
     * - Delayed completion
       - For long-running operations, a description of behavior when the operation does not immediately complete
     * - Capabilities

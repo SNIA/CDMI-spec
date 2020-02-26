@@ -1035,10 +1035,10 @@ Synopsis
 
 To update some or all fields in an existing queue object (excluding the enqueueing of values), the following request shall be performed:
 
-* ``PUT <root URI>/<ContainerName>/<QueueName>``
-* ``PUT <root URI>/<ContainerName>/<QueueName>?metadata:<metadataname>;...``
-* ``PUT <root URI>/cdmi_objectid/<QueueObjectID>``
-* ``PUT <root URI>/cdmi_objectid/<QueueObjectID>?metadata:<metadataname>;...``
+* ``PATCH <root URI>/<ContainerName>/<QueueName>``
+* ``PATCH <root URI>/<ContainerName>/<QueueName>?metadata:<metadataname>;...``
+* ``PATCH <root URI>/cdmi_objectid/<QueueObjectID>``
+* ``PATCH <root URI>/cdmi_objectid/<QueueObjectID>?metadata:<metadataname>;...``
 
 Where:
 
@@ -1232,11 +1232,11 @@ Response status
 Examples
 --------
 
-EXAMPLE 1: PUT to the queue object URI to set new metadata:
+EXAMPLE 1: PATCH to the queue object URI to set new metadata:
 
     .. code-block:: none
 
-        PUT /MyContainer/MyQueue HTTP/1.1
+        PATCH /MyContainer/MyQueue HTTP/1.1
         Host: cloud.example.com
         Content-Type: application/cdmi-queue
          
@@ -1253,11 +1253,11 @@ EXAMPLE 1: PUT to the queue object URI to set new metadata:
         HTTP/1.1 204 No Content
 
 
-EXAMPLE 2: PUT to the queue object URI to move six queue values from another queue: 
+EXAMPLE 2: PATCH to the queue object URI to move six queue values from another queue: 
 
     .. code-block:: none
 
-        PUT /MyContainer/MyQueue HTTP/1.1
+        PATCH /MyContainer/MyQueue HTTP/1.1
         Host: cloud.example.com
         Content-Type: application/cdmi-queue
          

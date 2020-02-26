@@ -70,7 +70,7 @@ EXAMPLE 1: Place an existing object under retention:
 
     .. code-block:: none
 
-        PUT /MyContainer/MyDataObject.txt?metadata:cdmi_retention_id;metadata:cdmi_retention_period HTTP/1.1
+        PATCH /MyContainer/MyDataObject.txt?metadata:cdmi_retention_id;metadata:cdmi_retention_period HTTP/1.1
         Host: cloud.example.com
         Content-Type: application/cdmi-object
          
@@ -92,7 +92,7 @@ EXAMPLE 2: Increase the duration of retention on an existing object under retent
 
     .. code-block:: none
 
-        PUT /MyContainer/MyDataObject.txt?metadata:cdmi_retention_period HTTP/1.1
+        PATCH /MyContainer/MyDataObject.txt?metadata:cdmi_retention_period HTTP/1.1
         Host: cloud.example.com
         Content-Type: application/cdmi-object
          
@@ -113,7 +113,7 @@ EXAMPLE 3: Decrease the duration of retention on an existing object under retent
 
     .. code-block:: none
 
-        PUT /MyContainer/MyDataObject.txt?metadata:cdmi_retention_period HTTP/1.1
+        PATCH /MyContainer/MyDataObject.txt?metadata:cdmi_retention_period HTTP/1.1
         Host: cloud.example.com
         Content-Type: application/cdmi-object
          
@@ -193,7 +193,7 @@ EXAMPLE 1: Place an existing object under hold:
 
     .. code-block:: none
 
-        PUT /MyContainer/MyDataObject.txt?metadata:cdmi_hold_id HTTP/1.1
+        PATCH /MyContainer/MyDataObject.txt?metadata:cdmi_hold_id HTTP/1.1
         Host: cloud.example.com
         Content-Type: application/cdmi-object
          
@@ -216,7 +216,7 @@ EXAMPLE 2: Attempt to remove a hold for an object under hold:
 
     .. code-block:: none
 
-        PUT /MyContainer/MyDataObject.txt?metadata:cdmi_hold_id HTTP/1.1
+        PATCH /MyContainer/MyDataObject.txt?metadata:cdmi_hold_id HTTP/1.1
         Host: cloud.example.com
         Content-Type: application/cdmi-object
          
@@ -237,7 +237,7 @@ EXAMPLE 3: Add a second hold to an object under hold:
 
     .. code-block:: none
 
-        PUT /MyContainer/MyDataObject.txt?metadata:cdmi_hold_id HTTP/1.1
+        PATCH /MyContainer/MyDataObject.txt?metadata:cdmi_hold_id HTTP/1.1
         Host: cloud.example.com
         Content-Type: application/cdmi-object
          
@@ -271,7 +271,7 @@ EXAMPLE 1: Place an object under retention with autodelete:
 
     .. code-block:: none
 
-        PUT /MyContainer/MyDataObject.txt?metadata:cdmi_retention_period;metadata:cdmi_retention_autodelete HTTP/1.1
+        PATCH /MyContainer/MyDataObject.txt?metadata:cdmi_retention_period;metadata:cdmi_retention_autodelete HTTP/1.1
         Host: cloud.example.com
         Content-Type: application/cdmi-object
          

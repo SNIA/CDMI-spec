@@ -1102,12 +1102,12 @@ Update a domain object using CDMI
 Synopsis
 --------
 
-To update an existing domain object, the following requests shall be performed:
+To update part or all of an existing domain object, the following requests shall be performed:
 
-* ``PUT <root URI>/cdmi_domains/<DomainName>/<TheDomainName>/``
-* ``PUT <root URI>/cdmi_domains/<DomainName>/<TheDomainName>/?metadata:<metadataname>;...``
-* ``PUT <root URI>/cdmi_objectid/<DomainObjectID>``
-* ``PUT <root URI>/cdmi_objectid/<DomainObjectID>?metadata:<metadataname>;....``
+* ``PATCH <root URI>/cdmi_domains/<DomainName>/<TheDomainName>/``
+* ``PATCH <root URI>/cdmi_domains/<DomainName>/<TheDomainName>/?metadata:<metadataname>;...``
+* ``PATCH <root URI>/cdmi_objectid/<DomainObjectID>``
+* ``PATCH <root URI>/cdmi_objectid/<DomainObjectID>?metadata:<metadataname>;....``
 
 Where:
 
@@ -1310,11 +1310,11 @@ Response status
 Example
 -------
 
-EXAMPLE 1: PUT to the domain URI to set new field values:
+EXAMPLE 1: PATCH to the domain URI to set new field values:
 
     .. code-block:: none
 
-        PUT /cdmi_domains/MyDomain/ HTTP/1.1
+        PATCH /cdmi_domains/MyDomain/ HTTP/1.1
         Host: cloud.example.com
         Content-Type: application/cdmi-domain
          
