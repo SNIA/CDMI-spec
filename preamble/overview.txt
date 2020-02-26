@@ -163,16 +163,16 @@ The five types of resources defined are shown in :numref:`tbl_types_of_resources
       - Description
       - Reference
     * - Data objects
-      - Data objects are used to store values and provide functionality similar to files in a file system.
+      - Data objects are used to store data and associated metadata, and provide functionality similar to files in a file system.
       - See :numref:`clause %s <clause_cdmi_data_object>`.
     * - Container objects
-      - Container objects have zero or more children, but do not store values. They provide functionality similar to directories in a file system.
+      - Container objects have zero or more children objects, and store metadata associated with the container as a whole. Container objects do not store data directly. They provide functionality similar to directories in a file system.
       - See :numref:`clause %s <clause_cdmi_container_object>`.
     * - Domain objects
       - Domain objects represent administrative groupings for user authentication and accounting purposes.
       - See :numref:`clause %s <clause_cdmi_domain_object>`.
     * - Queue objects 
-      - Queue objects store zero or move values and are accessed in a first-in-first-out manner.
+      - Queue objects store zero or more pieces of data, and store metadata associated with the queue as a whole. Enqueued values are accessed in a first-in-first-out manner.
       - See :numref:`clause %s <clause_cdmi_queue_object>`.
     * - Capability objects
       - Capability objects describe the functionality implemented by a CDMI server and are used by a client to discover supported functionality.
