@@ -8,7 +8,7 @@ Exported protocols
 Overview
 ********
 
-Container objects can be exported via multiple storage protocols. This is specified by adding an ``exports`` field to the container object. The ``exports`` field contains zero or more named exports, each of which has elements corresponding to the export protocol type, such as: 
+Container objects can be exported via multiple storage protocols. This is specified by adding an ``exports`` field to the container object. The ``exports`` field contains zero or more named exports, each of which has elements corresponding to the export protocol type, such as:
 
 * The type of export protocol;
 * The user-facing identity of the exported container, where required by the export protocol (e.g. iSCSI target, NFS directory);
@@ -23,6 +23,9 @@ The ability to export containers via a specific protocol is determined by the pr
 Exports are represented as a JSON object having zero or more named protocol-specific exports.
 
 The meaning, use, and permitted values for the fields associated with each export type are described later in this clause.
+
+Container object export details
+*******************************
 
 Container object export addressing
 ----------------------------------
@@ -66,15 +69,15 @@ Groupname mapping for each foreign protocol shall be specified in a groupname fi
 Administrative users
 --------------------
 
-By default, the following users shall be considered "``root``", or administrative users, and equivalent to each other: 
+By default, the following users shall be considered "``root``", or administrative users, and equivalent to each other:
 
 * root (Unix/NFS/LDAP),
-* Administrator (Windows/AD/SMB), and 
-* the domain owner (CDMI). 
+* Administrator (Windows/AD/SMB), and
+* the domain owner (CDMI).
 
-Servers shall automatically map these users to the root user of the target protocol unless otherwise instructed by the usermaps. 
+Servers shall automatically map these users to the root user of the target protocol unless otherwise instructed by the usermaps.
 
-As an automatic mapping does not meet strict security standards, servers shall override these built-in entries with any usermap entries that apply to one or more root users. 
+As an automatic mapping does not meet strict security standards, servers shall override these built-in entries with any usermap entries that apply to one or more root users.
 
 In the following example, root gets mapped to nobody, and everyone else is mapped to a user of the same name in the NFS domain and the CDMI domain.
 
@@ -123,7 +126,7 @@ For authorization by group to operate via a foreign protocol, a similar mapping 
 Permissions mapping
 -------------------
 
-The permissions sets of file-serving protocols, unfortunately, do not map on a one-to-one basis to each other. NFSv4 ACLs, Windows ACLs, POSIX ACLs, NFSv3 perms and object-based capabilities all are capable of representing security conditions that the others are not, except NFSv3, which is the least expressive. The primary area of concern is in representing the possibly rich set of permissions in a CDMI ACL in a more restricted perms-based system, such as NFSv3, for display to users. 
+The permissions sets of file-serving protocols, unfortunately, do not map on a one-to-one basis to each other. NFSv4 ACLs, Windows ACLs, POSIX ACLs, NFSv3 perms and object-based capabilities all are capable of representing security conditions that the others are not, except NFSv3, which is the least expressive. The primary area of concern is in representing the possibly rich set of permissions in a CDMI ACL in a more restricted perms-based system, such as NFSv3, for display to users.
 
 As there are a number of possible ways to coordinate the permissions/ACLs and CDMI ACLs, this International specification does not mandate a particular method. However, all mappings of user and groupnames between domains shall use the name mapping mechanism specified in :numref:`%s <ref_user_and_groupname_mapping_syntax_and_evaluation_rules>`.
 
@@ -137,7 +140,7 @@ A BNF-style grammar for name mapping is as follows:
 .. code-block:: bnf
 
    name_mapping_list = protocol protocol mapping_list
-   protocol = "cdmi" | "nfs" | "smb" | "ldap" 
+   protocol = "cdmi" | "nfs" | "smb" | "ldap"
    mapping_list = name mapping_operator name
    name = pattern | utf8_name | quoted_utf8_name
    quoted_utf8_name = " utf8_name "
@@ -172,7 +175,7 @@ Elements for an NFS export are described in :numref:`tbl_elements_of_the_nfs_pro
 .. list-table:: Elements of the NFS protocol export structure
     :class: longtable
     :header-rows: 1
-    :align: center 
+    :align: center
 
     * - Element
       - Type
@@ -261,7 +264,7 @@ SMB exported protocol
 
 An SMB export specifes the information required by an SMB server to provide an SMB export.
 
-Elements for an SMB export are described in :numref:`tbl_elements_of_the_smb_protocol_structure` 
+Elements for an SMB export are described in :numref:`tbl_elements_of_the_smb_protocol_structure`
 
 .. tabularcolumns:: |>{\raggedright\arraybackslash}\Y{0.20}
                     |>{\raggedright\arraybackslash}\Y{0.10}
@@ -273,7 +276,7 @@ Elements for an SMB export are described in :numref:`tbl_elements_of_the_smb_pro
 .. list-table:: Elements of the SMB protocol export structure
     :class: longtable
     :header-rows: 1
-    :align: center 
+    :align: center
 
     * - Element
       - Type
@@ -323,9 +326,9 @@ EXAMPLE 3: SMB exports
 iSCSI exported protocol
 ***********************
 
-An iSCSI export specifes the information required by an iSCSI server (see RFC 7143 :cite:`rfc7143`) to provide an iSCSI export. Each container is exported as a single SCSI Logical Unit as a Logical Unit Number (LUN). One or more iSCSI initiators import the LUN through an iSCSI target node and port using one or more iSCSI network portals (IP addresses). 
+An iSCSI export specifes the information required by an iSCSI server (see RFC 7143 :cite:`rfc7143`) to provide an iSCSI export. Each container is exported as a single SCSI Logical Unit as a Logical Unit Number (LUN). One or more iSCSI initiators import the LUN through an iSCSI target node and port using one or more iSCSI network portals (IP addresses).
 
-Elements for an iSCSI export are described in :numref:`tbl_elements_of_the_iscsi_protocol_structure` 
+Elements for an iSCSI export are described in :numref:`tbl_elements_of_the_iscsi_protocol_structure`
 
 .. tabularcolumns:: |>{\raggedright\arraybackslash}\Y{0.20}
                     |>{\raggedright\arraybackslash}\Y{0.10}
@@ -337,7 +340,7 @@ Elements for an iSCSI export are described in :numref:`tbl_elements_of_the_iscsi
 .. list-table:: Elements of the iSCSI protocol export structure
     :class: longtable
     :header-rows: 1
-    :align: center 
+    :align: center
 
     * - Element
       - Type
@@ -378,7 +381,7 @@ EXAMPLE 4: iSCSI export creation
 
 .. code-block:: none
 
-    "exports" : 
+    "exports" :
     {
         "1" : {
             type: "iSCSI",
@@ -393,7 +396,7 @@ EXAMPLE 5: Reading iSCSI export information after creation
 
 .. code-block:: none
 
-    "exports" : 
+    "exports" :
     {
         "1" : {
             type: "iSCSI",
@@ -409,7 +412,7 @@ EXAMPLE 5: Reading iSCSI export information after creation
                 "iqn.2010-01.com.acme:host2"
             ]
         }
-    } 
+    }
 
 
 WebDAV exported protocol
@@ -417,7 +420,7 @@ WebDAV exported protocol
 
 A WebDAV export specifes the information required by an WebDAV server (see RFC 4918 :cite:`rfc4918`) to provide an WebDAV export.
 
-Elements for an WebDAV export are described in :numref:`tbl_elements_of_the_webdav_protocol_structure` 
+Elements for an WebDAV export are described in :numref:`tbl_elements_of_the_webdav_protocol_structure`
 
 .. tabularcolumns:: |>{\raggedright\arraybackslash}\Y{0.20}
                     |>{\raggedright\arraybackslash}\Y{0.10}
@@ -429,7 +432,7 @@ Elements for an WebDAV export are described in :numref:`tbl_elements_of_the_webd
 .. list-table:: Elements of the WebDAV protocol export structure
     :class: longtable
     :header-rows: 1
-    :align: center 
+    :align: center
 
     * - Element
       - Type
@@ -446,13 +449,13 @@ Elements for an WebDAV export are described in :numref:`tbl_elements_of_the_webd
 
 Servers shall return an HTTP status code of ``400 Bad Request`` when an export setting does not conform to an allowable setting on the server.
 
-WebDAV supports locking, but it is up to implementations to support any locking of access through CDMI as a result, and the interaction between the two protocols is purposely not described in this International standard. 
+WebDAV supports locking, but it is up to implementations to support any locking of access through CDMI as a result, and the interaction between the two protocols is purposely not described in this International standard.
 
 EXAMPLE 6: WebDAV export
 
    .. code-block:: none
 
-    "exports" : 
+    "exports" :
     {
         "1" : {
             type: "WebDAV",
@@ -471,10 +474,10 @@ Container objects can be exported via multiple protocols. This is especially use
 .. figure:: /images/cdmi_exports_occi.pdf
     :align:  center
     :figwidth: 100%
-   
+
     CDMI and OCCI in an integrated cloud computing environment
 
-In this example, CDMI containers may also be used as virtual disks by virtual machines in the cloud computing environemnt. The cloud computing infrastructure management is shown as implementing both an Open Cloud Computer Interface (OCCI) and CDMI interfaces. With the internal knowledge of the network and the virtual machine manager's mapping of drives, this infrastructure may associate the CDMI containers to the guests using the appropriate exported protocol. 
+In this example, CDMI containers may also be used as virtual disks by virtual machines in the cloud computing environemnt. The cloud computing infrastructure management is shown as implementing both an Open Cloud Computer Interface (OCCI) and CDMI interfaces. With the internal knowledge of the network and the virtual machine manager's mapping of drives, this infrastructure may associate the CDMI containers to the guests using the appropriate exported protocol.
 
 To support exported protocols and improve their interoperability with CDMI, CDMI provides a type of exported protocol that contains information obtained via the OCCI interface. In addition, OCCI provides a type of storage that corresponds to a CDMI container that is exported with a specific type of protocol used by OCCI. A client of both interfaces performs operations that align the architectures, including the following:
 
@@ -492,11 +495,11 @@ CDMI defines an export protocol structure for the Open Cloud Computing Interface
 EXAMPLE 5: OCCI export
 
    .. code-block:: none
-   
-    "OCCI/iSCSI": 
+
+    "OCCI/iSCSI":
         {
         "identifier": "00007E7F00104BE66AB53A9572F9F51E",
-        "permissions": 
+        "permissions":
             [
                 "https://example.com/compute/0/",
                 "https://example.com/compute/1/"
@@ -504,5 +507,3 @@ EXAMPLE 5: OCCI export
         }
 
 For more detail on using the OCCI export protocol structure attributes, see :numref:`%s <ref_exports_overview>`. Because the actual networking and access control is under the control of a hidden, common infrastructure that implements both OCCI and CDMI, the normal permission structure shall not be provided.
-
-

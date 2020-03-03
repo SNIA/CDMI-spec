@@ -17,6 +17,10 @@ CDMI objects can contain values that are encrypted. Operations against an encryp
 
 Encryption operations
 *********************
+
+State diagram
+-------------
+
 The state transition diagram for encrypted objects is shown in :numref:`fig_encrypted_object_state_transistions`:
 
 .. _fig_encrypted_object_state_transistions:
@@ -24,10 +28,8 @@ The state transition diagram for encrypted objects is shown in :numref:`fig_encr
 .. figure:: /images/cdmi_encrypted_states.pdf
     :align:  center
     :figwidth: 100%
-   
+
     Encrypted object state transistions
-    
-The following eight encryption operations are defined:
 
 Create a new encrypted object
 -----------------------------
@@ -148,16 +150,19 @@ Any valid JWE-formatted data can be stored to a CDMI server. However, encrypted 
 
 For encryption operations, the CDMI server shall support the following:
 
--	JWE with Direct Encryption (Symmetric Key from KMS)
--	JWE with Key Encryption (Public Key from KMS) 
+-	JWE with Direct Encryption (Symmetric Key from KMS),
+-	JWE with Key Encryption (Public Key from KMS).
 
 For signature operations, the CDMI server shall support the following:
 
--	JWS RSA (Private Key from KMS)
--	JWS ECDSA (Private Key from KMS)
--	JWS HMAC-SHA2 (Symmetric Key from KMS)
+-	JWS RSA (Private Key from KMS),
+-	JWS ECDSA (Private Key from KMS),
+-	JWS HMAC-SHA2 (Symmetric Key from KMS).
 
-The following JOSE-formatted data may be ignored: Multiple recipients and multiple signatures
+The following JOSE-formatted data may be ignored:
+
+- Multiple recipients,
+- multiple signatures.
 
 
 .. _ref_cdmi_encrypted_objects_signature_verification:
