@@ -29,8 +29,8 @@ Container object export addressing
 
 Container object exports are addressed in CDMI in two ways:
 
-* by name (e.g. ``https://cloud.example.com/container/?exports``); and
-* by ID (e.g. ``https://cloud.example.com/cdmi_objectid/00007ED900104E1D14771DC67C27BF8B/?exports``).
+* by name (e.g. ``https://cloud.example.com/cdmi/2.0.0/container/?exports``); and
+* by ID (e.g. ``https://cloud.example.com/cdmi/2.0.0/cdmi_objectid/00007ED900104E1D14771DC67C27BF8B/?exports``).
 
 See :numref:`%s <ref_cdmi_container_object_overview>` for more detials on container object addressing.
 
@@ -82,7 +82,7 @@ EXAMPLE 1: NFS export user mapping
 
    .. code-block:: none
 
-        PUT /MyContainer HTTP/1.1
+        PUT /cdmi/2.0.0/MyContainer HTTP/1.1
         Host: cloud.example.com
         Accept: application/vnd.org.snia.cdmi.container+json
         Content-Type: application/vnd.org.snia.cdmi.container+json
