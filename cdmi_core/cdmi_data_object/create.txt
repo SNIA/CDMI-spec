@@ -398,7 +398,7 @@ EXAMPLE 1: PUT to the container URI the data object name and contents:
 
    .. code-block:: none
 
-       PUT /MyContainer/MyDataObject.txt HTTP/1.1
+       PUT /cdmi/2.0.0/MyContainer/MyDataObject.txt HTTP/1.1
        Host: cloud.example.com
        Accept: application/cdmi-object
        Content-Type: application/cdmi-object
@@ -438,7 +438,7 @@ EXAMPLE 2: PUT to the container URI the data object name and binary contents:
 
    .. code-block:: none
 
-       PUT /MyContainer/MyDataObject.txt HTTP/1.1 
+       PUT /cdmi/2.0.0/MyContainer/MyDataObject.txt HTTP/1.1 
        Host: cloud.example.com 
        Accept: application/cdmi-object 
        Content-Type: application/cdmi-object 
@@ -476,7 +476,7 @@ EXAMPLE 3: PUT to the container URI the data object name and binary contents usi
 
    .. code-block:: none
 
-       PUT /MyContainer/MyDataObject.txt HTTP/1.1 
+       PUT /cdmi/2.0.0/MyContainer/MyDataObject.txt HTTP/1.1 
        Host: cloud.example.com 
        Accept: application/cdmi-object 
        Content-Type: multipart/mixed; boundary=gc0p4Jq0M2Yt08j34c0p
@@ -529,7 +529,7 @@ EXAMPLE 4: PUT to the container URI the data object name and binary contents usi
 
    .. code-block:: none
 
-       PUT /MyContainer/MyDataObject.txt HTTP/1.1 
+       PUT /cdmi/2.0.0/MyContainer/MyDataObject.txt HTTP/1.1 
        Host: cloud.example.com 
        Accept: application/cdmi-object 
        Content-Type: multipart/mixed; boundary=gc0p4Jq0M2Yt08j34c0p
@@ -582,7 +582,7 @@ EXAMPLE 5: PUT to the container URI the data object name and JSON contents:
 
    .. code-block:: none
 
-      PUT /MyContainer/MyDataObject.txt HTTP/1.1
+      PUT /cdmi/2.0.0/MyContainer/MyDataObject.txt HTTP/1.1
       Host: cloud.example.com
       Accept: application/cdmi-object
       Content-Type: application/cdmi-object
@@ -623,7 +623,7 @@ EXAMPLE 6: PUT to the container URI to create an encrypted object:
 
 	.. code-block:: none
 	
-		PUT /MyContainer/MyEncryptedObject.txt HTTP/1.1
+		PUT /cdmi/2.0.0/MyContainer/MyEncryptedObject.txt HTTP/1.1
 		Host: cloud.example.com
 		Content-Type: application/cdmi-object
 
@@ -646,7 +646,7 @@ EXAMPLE 7: PUT to the container URI to create an encrypted object:
 
 	.. code-block:: none
 		
-		PUT /MyContainer/MyEncryptedObject2.txt HTTP/1.1
+		PUT /cdmi/2.0.0/MyContainer/MyEncryptedObject2.txt HTTP/1.1
 		Host: cloud.example.com
 		Content-Type: application/cdmi-object
 
