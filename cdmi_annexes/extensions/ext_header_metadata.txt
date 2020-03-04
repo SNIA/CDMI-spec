@@ -57,7 +57,7 @@ EXAMPLE 4: PUT to the container URI the data object name, contents, and metadata
 
   .. code-block:: none
   
-    PUT /MyContainer/MyDataObject.txt HTTP/1.1
+    PUT /cdmi/2.0.0/MyContainer/MyDataObject.txt HTTP/1.1
     Host: cloud.example.com
     Content-Type: text/plain;charset=utf-8 
     X-CDMI-Meta-Colour: Yellow 
@@ -195,7 +195,7 @@ EXAMPLE 1: HEAD to the data object URI to check for the presence of a data objec
 
    .. code-block:: none
 
-      HEAD /MyContainer/MyDataObject.txt HTTP/1.1
+      HEAD /cdmi/2.0.0/MyContainer/MyDataObject.txt HTTP/1.1
       Host: cloud.example.com
 
    The following shows the response:
@@ -258,7 +258,7 @@ EXAMPLE 6: GET to the data object URI to read the value of the data object with 
 
   .. code-block:: none
   
-    GET /MyContainer/MyDataObject.txt HTTP/1.1
+    GET /cdmi/2.0.0/MyContainer/MyDataObject.txt HTTP/1.1
     Host: cloud.example.com
 
   The following shows the response:
@@ -335,7 +335,7 @@ EXAMPLE 3: PUT to the data object URI to update the value and metadata of the da
 
   .. code-block:: none
   
-    PUT /MyContainer/MyDataObject.txt HTTP/1.1
+    PUT /cdmi/2.0.0/MyContainer/MyDataObject.txt HTTP/1.1
     Host: cloud.example.com
     Content-Type: text/plain;charset=utf-8
     X-CDMI-Meta-Colour: Green
@@ -399,7 +399,7 @@ EXAMPLE 2: PUT to the URI the container object name and metadata:
 
   .. code-block:: none
   
-    PUT /MyContainer/ HTTP/1.1
+    PUT /cdmi/2.0.0/MyContainer/ HTTP/1.1
     Host: cloud.example.com
     X-CDMI-Meta-Colour: Yellow
 
@@ -532,7 +532,7 @@ EXAMPLE 1: HEAD to the container object URI to check for the presence of a conta
 
    .. code-block:: none
 
-      HEAD /MyContainer/ HTTP/1.1
+      HEAD /cdmi/2.0.0/MyContainer/ HTTP/1.1
       Host: cloud.example.com
 
    The following shows the response:
