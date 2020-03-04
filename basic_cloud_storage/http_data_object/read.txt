@@ -166,7 +166,7 @@ EXAMPLE 1: GET to the data object URI to read the value of the data object:
 
    .. code-block:: none
 
-       GET /MyContainer/MyDataObject.txt HTTP/1.1
+       GET /cdmi/2.0.0/MyContainer/MyDataObject.txt HTTP/1.1
        Host: cloud.example.com 
 
    The following shows the response.
@@ -183,7 +183,7 @@ EXAMPLE 2: GET to the data object URI to read the first 11 bytes of the value of
 
    .. code-block:: none
 
-       GET /MyContainer/MyDataObject.txt HTTP/1.1
+       GET /cdmi/2.0.0/MyContainer/MyDataObject.txt HTTP/1.1
        Host: cloud.example.com 
        Range: bytes=0-10
 
@@ -203,7 +203,7 @@ EXAMPLE 3: GET to the data object URI to always return the ciphertext of an encr
 
 	.. code-block:: none
 
-		GET /MyContainer/MyEncryptedObject.txt HTTP/1.1
+		GET /cdmi/2.0.0/MyContainer/MyEncryptedObject.txt HTTP/1.1
 		Host: cloud.example.com
 		Accept: application/cms, application/jose+json
 
@@ -221,7 +221,7 @@ EXAMPLE 4: GET to the data object URI to read the plaintext of an encrypted obje
 
 	.. code-block:: none
 
-		GET /MyContainer/MyEncryptedObject.txt HTTP/1.1
+		GET /cdmi/2.0.0/MyContainer/MyEncryptedObject.txt HTTP/1.1
 		Host: cloud.example.com
 		Accept: */*, application/cms, application/jose+json
 		<Header credentials used to authenticate and access the decryptionkey>
@@ -240,7 +240,7 @@ EXAMPLE 5: GET to the data object URI to read the plaintext of an encrypted obje
 
   .. code-block:: none
 
-    GET /MyContainer/MyEncryptedObject.txt HTTP/1.1
+    GET /cdmi/2.0.0/MyContainer/MyEncryptedObject.txt HTTP/1.1
     Host: cloud.example.com
     <Header credentials used to authenticate and access the decryption key>
 
