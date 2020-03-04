@@ -413,7 +413,7 @@ A client retrieving a metadata item named "@user" from a container object with t
 
 .. code-block:: none
 
-    GET /%40MyContainer/?objectName;metadata:%40user HTTP/1.1
+    GET /cdmi/2.0.0/%40MyContainer/?objectName&metadata=%40user HTTP/1.1
     Host: cloud.example.com
     Accept: application/cdmi-container
 
@@ -530,7 +530,7 @@ EXAMPLE 1: GET to a URI, where the URI is a reference:
 
   .. code-block:: none
 
-      GET /MyContainer/MyDataObject.txt HTTP/1.1 
+      GET /cdmi/2.0.0/MyContainer/MyDataObject.txt HTTP/1.1 
       Host: cloud.example.com 
       Accept: application/cdmi-object 
 
@@ -539,7 +539,7 @@ EXAMPLE 1: GET to a URI, where the URI is a reference:
   .. code-block:: none
 
       HTTP/1.1 302 Found 
-      Location: https://cloud.example.com/MyContainer/MyOtherDataObject.txt
+      Location: https://cloud.example.com/cdmi/2.0.0/MyContainer/MyOtherDataObject.txt
 
   References by object ID shall always redirect to a URI that ends with the same object ID as the request URI. 
 
@@ -547,7 +547,7 @@ EXAMPLE 2: GET to an object ID URI, where the URI is a reference:
 
   .. code-block:: none
 
-      GET /cdmi_objectid/00006FFD0010AA33D8CEF9711E0835CA HTTP/1.1 
+      GET /cdmi/2.0.0/cdmi_objectid/00006FFD0010AA33D8CEF9711E0835CA HTTP/1.1 
       Host: cloud.example.com 
       Accept: application/cdmi-object 
 
@@ -556,18 +556,18 @@ EXAMPLE 2: GET to an object ID URI, where the URI is a reference:
   .. code-block:: none
 
       HTTP/1.1 302 Found 
-      Location: https://archive.example.com/cdmi_objectid/00006FFD0010AA33D8CEF9711E0835CA
+      Location: https://archive.example.com/cdmi/2.0.0/cdmi_objectid/00006FFD0010AA33D8CEF9711E0835CA
 
 EXAMPLE 3: PUT to create a reference: 
 
   .. code-block:: none
 
-      PUT /MyContainer/MyDataObject.txt HTTP/1.1
+      PUT /cdmi/2.0.0/MyContainer/MyDataObject.txt HTTP/1.1
       Host: cloud.example.com Accept: application/cdmi-object
       Content-Type: application/cdmi-object
       
       {
-          "reference": "https://cloud.example.com/MyContainer/MyOtherDataObject.txt"
+          "reference": "https://cloud.example.com/cdmi/2.0.0/MyContainer/MyOtherDataObject.txt"
       }
 
   The following shows the response.
@@ -584,12 +584,12 @@ EXAMPLE 4: POST to create a reference:
 
   .. code-block:: none
 
-      POST /cdmi_objectid/ HTTP/1.1 
+      POST /cdmi/2.0.0/cdmi_objectid/ HTTP/1.1 
       Host: cloud.example.com Accept: application/cdmi-object 
       Content-Type: application/cdmi-object 
       
       {
-          "reference": "https://cloud.example.com/MyContainer/MyOtherDataObject.txt"</P>
+          "reference": "https://cloud.example.com/cdmi/2.0.0/MyContainer/MyOtherDataObject.txt"</P>
       }
 
   The following shows the response.
@@ -597,13 +597,13 @@ EXAMPLE 4: POST to create a reference:
   .. code-block:: none
 
       HTTP/1.1 201 Created
-      Location: https://cloud.example.com/cdmi_objectid/00007ED90010DF417BAD70A0C7F5CDDA
+      Location: https://cloud.example.com/cdmi/2.0.0/cdmi_objectid/00007ED90010DF417BAD70A0C7F5CDDA
 
 EXAMPLE 5: DELETE to delete a reference:
 
   .. code-block:: none
 
-      DELETE /MyContainer/MyDataObject.txt HTTP/1.1
+      DELETE /cdmi/2.0.0/MyContainer/MyDataObject.txt HTTP/1.1
       Host: cloud.example.com 
 
   The following shows the response.
