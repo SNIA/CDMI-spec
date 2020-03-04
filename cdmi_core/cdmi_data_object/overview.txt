@@ -79,7 +79,7 @@ Specific ranges of the value of a data object can be accessed by specifying a by
 
     EXAMPLE 4: The following URI returns the first thousand bytes in the value field:
 
-        ``https://cloud.example.com/cdmi/2.0.0/dataobject?value:0-999``
+        ``https://cloud.example.com/cdmi/2.0.0/dataobject?value=0-999``
 
 Because a byte range of a UTF-8 string is often not a valid UTF-8 string, the response to a range request shall always be transported in the value field as a base 64-encoded string. Likewise, when updating a range of bytes within the value of a data object, the contents of the value field shall be transported as a base 64-encoded string.
 
