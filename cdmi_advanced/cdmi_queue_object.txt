@@ -893,7 +893,7 @@ EXAMPLE 2: GET to the queue object URI to read the value and queue items of the 
 
     .. code-block:: none
 
-        GET /cdmi/2.0.0/MyContainer/MyQueue?value;queueValues HTTP/1.1
+        GET /cdmi/2.0.0/MyContainer/MyQueue?value&queueValues HTTP/1.1
         Host: cloud.example.com
         Accept: application/cdmi-queue
 
