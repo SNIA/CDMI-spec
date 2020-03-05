@@ -12,8 +12,6 @@ If a cloud storage system supports queues, the ``cdmi_queues`` system-wide capab
 
 A queue object writer POSTs data into a queue object, and a queue object reader GETs value(s) from the queue object and subsequently deletes the value(s) to acknowledge receipt of the value(s) that it received. Queues provides a simple mechanism for one or more writers to send data to a single reader in a reliable way. If supported by the cloud storage system, cloud clients create the queue objects by using the mechanism described in :numref:`%s <ref_cdmi_container_object_create_post_queue>` and this clause.
 
-FIXME - Add diagram (Issue #120)
-
 Each CDMI queue object is represented as a JSON object, containing one or more "fields". For example, the "``metadata``" field contains metadata items.
 
 EXAMPLE 1: CDMI queue object
@@ -52,8 +50,8 @@ Queue object addressing
 
 Queue objects are addressed in CDMI in two ways: 
 
-* by name (e.g., ``https://cloud.example.com/queueobject``); and
-* by ID (e.g., ``https://cloud.example.com/cdmi_objectid/00007ED900104F67307652BAC9A37C93/``).
+* by name (e.g., ``https://cloud.example.com/cdmi/2.0.0/queueobject``); and
+* by ID (e.g., ``https://cloud.example.com/cdmi/2.0.0/cdmi_objectid/00007ED900104F67307652BAC9A37C93/``).
 
 Every queue object has a single, globally-unique object ID that remains constant for the life of the object. Each queue object may also have one or more URI addresses that allow the queue object to be accessed.
 
@@ -64,13 +62,13 @@ Individual fields within a queue object can be accessed by specifying the field 
 
     EXAMPLE 2: The following URI returns just the number of values stored in the queue object in the response body:
 
-        ``https://cloud.example.com/queueobject?queueValues``
+        ``https://cloud.example.com/cdmi/2.0.0/queueobject?queueValues``
 
-A list of unique fields, separated by a semicolon "``;``" can be specified, allowing multiple fields to be accessed in a single request. 
+A list of unique fields, separated by an ampersand "``&``" can be specified, allowing multiple fields to be accessed in a single request. 
 
     EXAMPLE 3: The following URI returns the number of values stored and metadata fields in the response body:
 
-        ``https://cloud.example.com/queueobject?queueValues;metadata``
+        ``https://cloud.example.com/cdmi/2.0.0/queueobject?queueValues&metadata``
 
 When a client provides fields that are not defined in this International Standard or deserializes an object containing fields that are not defined in this International Standard, these fields shall be persisted, but shall not be interpreted.
 
@@ -87,7 +85,7 @@ Specific ranges of the value of a queue object can be accessed by specifying a b
 
   EXAMPLE 4: The following URI returns the first thousand bytes of the oldest value enqueued:
 
-        ``https://cloud.example.com/queueobject?value:0-999``
+        ``https://cloud.example.com/cdmi/2.0.0/queueobject?value=0-999``
 
 Because a byte range of a UTF-8 string is often not a valid UTF-8 string, the response to a range request shall always be transported in the value field as a base 64-encoded string.
 
@@ -114,7 +112,7 @@ Every queue object has a parent object from which the queue object inherits data
 
     EXAMPLE 5: The "pages" queue object stored at the following URI would inherit data system metadata from its parent container, "OCR":
 
-        ``https://cloud.example.com/OCR/pages``
+        ``https://cloud.example.com/cdmi/2.0.0/OCR/pages``
 
 Queue object access control
 ---------------------------
@@ -478,7 +476,7 @@ Example 1: PUT to the queue URI the queue object name and contents:
 
     .. code-block:: none
 
-        PUT /MyContainer/MyQueue HTTP/1.1
+        PUT /cdmi/2.0.0/MyContainer/MyQueue HTTP/1.1
         Host: cloud.example.com
         Accept: application/cdmi-queue
         Content-Type: application/cdmi-queue
@@ -516,12 +514,12 @@ EXAMPLE 2: PUT to the queue object URI to create a new queue, copying from anoth
 
     .. code-block:: none
 
-        PUT /MyContainer/MyQueue HTTP/1.1
+        PUT /cdmi/2.0.0/MyContainer/MyQueue HTTP/1.1
         Host: cloud.example.com
         Content-Type: application/cdmi-queue
          
         {
-            "copy": "/MyContainer/SourceQueue?value:0-9"
+            "copy": "/MyContainer/SourceQueue?value=0-9"
         }
 
     The following shows the response.
@@ -557,15 +555,15 @@ Synopsis
 To read all fields from an existing queue object, the following request shall be performed:
 
 * ``GET <root URI>/<ContainerName>/<QueueName>``
-* ``GET <root URI>/<ContainerName>/<QueueName>?<fieldname>;<fieldname>;...``
-* ``GET <root URI>/<ContainerName>/<QueueName>?value:<range>;...``
-* ``GET <root URI>/<ContainerName>/<QueueName>?metadata:<prefix>;...``
-* ``GET <root URI>/<ContainerName>/<QueueName>?values:<count>``
+* ``GET <root URI>/<ContainerName>/<QueueName>?<fieldname>&<fieldname>&...``
+* ``GET <root URI>/<ContainerName>/<QueueName>?value=<range>&...``
+* ``GET <root URI>/<ContainerName>/<QueueName>?metadata=<prefix>&...``
+* ``GET <root URI>/<ContainerName>/<QueueName>?values=<count>``
 * ``GET <root URI>/cdmi_objectid/<QueueObjectID>``
-* ``GET <root URI>/cdmi_objectid/<QueueObjectID>?<fieldname>;<fieldname>;...``
-* ``GET <root URI>/cdmi_objectid/<QueueObjectID>?value:<range>;...``
-* ``GET <root URI>/cdmi_objectid/<QueueObjectID>?metadata:<prefix>;...``
-* ``GET <root URI>/cdmi_objectid/<QueueObjectID>?values:<count>``
+* ``GET <root URI>/cdmi_objectid/<QueueObjectID>?<fieldname>&<fieldname>&...``
+* ``GET <root URI>/cdmi_objectid/<QueueObjectID>?value=<range>&...``
+* ``GET <root URI>/cdmi_objectid/<QueueObjectID>?metadata=<prefix>&...``
+* ``GET <root URI>/cdmi_objectid/<QueueObjectID>?values=<count>``
 
 Where:
 
@@ -854,7 +852,7 @@ EXAMPLE 1: GET to the queue object URI to read all fields of the queue object:
 
     .. code-block:: none
 
-        GET /MyContainer/MyQueue HTTP/1.1
+        GET /cdmi/2.0.0/MyContainer/MyQueue HTTP/1.1
         Host: cloud.example.com
         Accept: application/cdmi-queue
 
@@ -895,7 +893,7 @@ EXAMPLE 2: GET to the queue object URI to read the value and queue items of the 
 
     .. code-block:: none
 
-        GET /MyContainer/MyQueue?value;queueValues HTTP/1.1
+        GET /cdmi/2.0.0/MyContainer/MyQueue?value&queueValues HTTP/1.1
         Host: cloud.example.com
         Accept: application/cdmi-queue
 
@@ -918,7 +916,7 @@ EXAMPLE 3: GET to the queue object URI to read the first five bytes of the value
 
     .. code-block:: none
 
-        GET /MyContainer/MyQueue?value:0-4 HTTP/1.1
+        GET /cdmi/2.0.0/MyContainer/MyQueue?value:0-4 HTTP/1.1
         Host: cloud.example.com
         Accept: application/cdmi-queue
 
@@ -939,7 +937,7 @@ EXAMPLE 4: GET to the queue object URI to read two values of the queue object:
 
     .. code-block:: none
 
-        GET /MyContainer/MyQueue?mimetype;valuerange;values:2 HTTP/1.1 
+        GET /cdmi/2.0.0/MyContainer/MyQueue?mimetype&valuerange&values=2 HTTP/1.1 
         Host: cloud.example.com 
         Accept: application/cdmi-queue 
 
@@ -969,7 +967,7 @@ EXAMPLE 5: GET to the queue object URI to read the queue object using multi-part
 
     .. code-block:: none
 
-        GET /MyContainer/MyQueue HTTP/1.1 
+        GET /cdmi/2.0.0/MyContainer/MyQueue HTTP/1.1 
         Host: cloud.example.com 
         Accept: multipart/mixed
 
@@ -1036,9 +1034,9 @@ Synopsis
 To update some or all fields in an existing queue object (excluding the enqueueing of values), the following request shall be performed:
 
 * ``PATCH <root URI>/<ContainerName>/<QueueName>``
-* ``PATCH <root URI>/<ContainerName>/<QueueName>?metadata:<metadataname>;...``
+* ``PATCH <root URI>/<ContainerName>/<QueueName>?metadata=<metadataname>&...``
 * ``PATCH <root URI>/cdmi_objectid/<QueueObjectID>``
-* ``PATCH <root URI>/cdmi_objectid/<QueueObjectID>?metadata:<metadataname>;...``
+* ``PATCH <root URI>/cdmi_objectid/<QueueObjectID>?metadata=<metadataname>&...``
 
 Where:
 
@@ -1236,7 +1234,7 @@ EXAMPLE 1: PATCH to the queue object URI to set new metadata:
 
     .. code-block:: none
 
-        PATCH /MyContainer/MyQueue HTTP/1.1
+        PATCH /cdmi/2.0.0/MyContainer/MyQueue HTTP/1.1
         Host: cloud.example.com
         Content-Type: application/cdmi-queue
          
@@ -1257,7 +1255,7 @@ EXAMPLE 2: PATCH to the queue object URI to move six queue values from another q
 
     .. code-block:: none
 
-        PATCH /MyContainer/MyQueue HTTP/1.1
+        PATCH /cdmi/2.0.0/MyContainer/MyQueue HTTP/1.1
         Host: cloud.example.com
         Content-Type: application/cdmi-queue
          
@@ -1373,7 +1371,7 @@ EXAMPLE 1: DELETE to the queue object URI:
 
     .. code-block:: none
 
-        DELETE /MyContainer/MyQueue HTTP/1.1
+        DELETE /cdmi/2.0.0/MyContainer/MyQueue HTTP/1.1
         Host: cloud.example.com
 
     The following shows the response.
@@ -1575,7 +1573,7 @@ EXAMPLE 1: POST to the queue object URI a new value:
 
     .. code-block:: none
 
-        POST /MyContainer/MyQueue HTTP/1.1 
+        POST /cdmi/2.0.0/MyContainer/MyQueue HTTP/1.1 
         Host: cloud.example.com 
         Content-Type: application/cdmi-queue 
          
@@ -1599,7 +1597,7 @@ EXAMPLE 2: POST to the queue object URI to copy an existing value:
 
     .. code-block:: none
 
-        POST /MyContainer/MyQueue HTTP/1.1 
+        POST /cdmi/2.0.0/MyContainer/MyQueue HTTP/1.1 
         Host: cloud.example.com 
         Content-Type: application/cdmi-object 
          
@@ -1617,12 +1615,12 @@ EXAMPLE 3: POST to the queue object URI to transfer 20 values from another queue
 
     .. code-block:: none
 
-        POST /MyContainer/MyQueue HTTP/1.1 
+        POST /cdmi/2.0.0/MyContainer/MyQueue HTTP/1.1 
         Host: cloud.example.com 
         Content-Type: application/cdmi-object 
          
         {
-            "move" : "/MyContainer/FirstQueue?values:20" 
+            "move" : "/MyContainer/FirstQueue?values=20" 
         }
 
     The following shows the response.
@@ -1636,7 +1634,7 @@ EXAMPLE 4: POST to the queue object URI two new values:
 
     .. code-block:: none
 
-        POST /MyContainer/MyQueue HTTP/1.1 
+        POST /cdmi/2.0.0/MyContainer/MyQueue HTTP/1.1 
         Host: cloud.example.com 
         Content-Type: application/cdmi-object 
          
@@ -1662,7 +1660,7 @@ EXAMPLE 5: POST to the queue object URI two new values, one with base 64 transfe
 
     .. code-block:: none
 
-        POST /MyContainer/MyQueue HTTP/1.1
+        POST /cdmi/2.0.0/MyContainer/MyQueue HTTP/1.1
         Host: cloud.example.com 
         Content-Type: application/cdmi-object
         
@@ -1697,7 +1695,7 @@ EXAMPLE 6: POST to the queue object URI the binary contents of two new values us
 
     .. code-block:: none
 
-        POST /MyContainer/MyQueue HTTP/1.1 
+        POST /cdmi/2.0.0/MyContainer/MyQueue HTTP/1.1 
         Host: cloud.example.com 
         Content-Type: multipart/mixed; boundary=gc0p4Jq0M2Yt08j34c0p
         
@@ -1731,7 +1729,7 @@ EXAMPLE 7: POST to the queue object URI the mime types and binary contents of tw
 
     .. code-block:: none
 
-        POST /MyContainer/MyQueue HTTP/1.1 
+        POST /cdmi/2.0.0/MyContainer/MyQueue HTTP/1.1 
         Host: cloud.example.com 
         Content-Type: multipart/mixed; boundary=gc0p4Jq0M2Yt08j34c0p
         
@@ -1776,11 +1774,11 @@ Synopsis
 To delete one or more of the oldest enqueued values in an existing queue, the following request shall be performed:
 
 * ``DELETE <root URI>/<ContainerName>/<QueueName>?value``
-* ``DELETE <root URI>/<ContainerName>/<QueueName>?values:<count>``
-* ``DELETE <root URI>/<ContainerName>/<QueueName>?values:<range>``
+* ``DELETE <root URI>/<ContainerName>/<QueueName>?values=<count>``
+* ``DELETE <root URI>/<ContainerName>/<QueueName>?values=<range>``
 * ``DELETE <root URI>/cdmi_objectid/<QueueObjectID>?value``
-* ``DELETE <root URI>/cdmi_objectid/<QueueObjectID>?values:<count>``
-* ``DELETE <root URI>/cdmi_objectid/<QueueObjectID>?values:<range>``
+* ``DELETE <root URI>/cdmi_objectid/<QueueObjectID>?values=<count>``
+* ``DELETE <root URI>/cdmi_objectid/<QueueObjectID>?values=<range>``
 
 Where:
 
@@ -1875,7 +1873,7 @@ EXAMPLE 1: DELETE to the queue object URI value to delete the oldest enqueued va
 
     .. code-block:: none
 
-        DELETE /MyContainer/MyQueue?value HTTP/1.1
+        DELETE /cdmi/2.0.0/MyContainer/MyQueue?value HTTP/1.1
         Host: cloud.example.com
 
     The following shows the response.
@@ -1889,7 +1887,7 @@ EXAMPLE 2: DELETE to the queue object URI value to remove the ten oldest values:
 
     .. code-block:: none
 
-        DELETE /MyContainer/MyQueue?values:10 HTTP/1.1 
+        DELETE /cdmi/2.0.0/MyContainer/MyQueue?values=10 HTTP/1.1 
         Host: cloud.example.com 
 
     The following shows the response.
@@ -1902,7 +1900,7 @@ EXAMPLE 3: DELETE to the queue object URI value to remove queue values 10 throug
 
     .. code-block:: none
 
-        DELETE /MyContainer/MyQueue?values:10-19 HTTP/1.1 
+        DELETE /cdmi/2.0.0/MyContainer/MyQueue?values=10-19 HTTP/1.1 
         Host: cloud.example.com 
 
     The following shows the response.

@@ -30,7 +30,7 @@ EXAMPLE 1: PATCH to an existing container to create a snapshot:
 
    .. code-block:: none
 
-       PATCH /MyContainer/ HTTP/1.1
+       PATCH /cdmi/2.0.0/MyContainer/ HTTP/1.1
        Host: cloud.example.com
        Content-Type: application/cdmi-container
 
@@ -57,7 +57,7 @@ EXAMPLE 1: DELETE to an existing snapshot:
 
    .. code-block:: none
 
-       DELETE /MyContainer/cdmi_snapshots/MySnapshot HTTP/1.1
+       DELETE /cdmi/2.0.0/MyContainer/cdmi_snapshots/MySnapshot HTTP/1.1
        Host: cloud.example.com
 
    The following shows the response.

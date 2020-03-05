@@ -100,7 +100,7 @@ EXAMPLE 1: DELETE to the container object URI:
 
    .. code-block:: none
 
-        DELETE /MyContainer/ HTTP/1.1
+        DELETE /cdmi/2.0.0/MyContainer/ HTTP/1.1
         Host: cloud.example.com
 
    The following shows the response.
@@ -113,7 +113,7 @@ EXAMPLE 2: DELETE by container object ID:
 
    .. code-block:: none
 
-       DELETE /cdmi_objectid/00007ED900104E1D14771DC67C27BF8B/ HTTP/1.1
+       DELETE /cdmi/2.0.0/cdmi_objectid/00007ED900104E1D14771DC67C27BF8B/ HTTP/1.1
        Host: cloud.example.com
 
    The following shows the response.

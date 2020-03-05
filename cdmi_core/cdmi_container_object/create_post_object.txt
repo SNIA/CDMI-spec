@@ -425,7 +425,7 @@ EXAMPLE 1: POST to the container object URI the data object contents:
 
   .. code-block:: none
 
-      POST /MyContainer/ HTTP/1.1
+      POST /cdmi/2.0.0/MyContainer/ HTTP/1.1
       Host: cloud.example.com
       Accept: application/cdmi-object
       Content-Type: application/cdmi-object
@@ -444,7 +444,7 @@ The following shows the response.
 
       HTTP/1.1 201 Created
       Content-Type: application/cdmi-object
-      Location: https://cloud.example.com/MyContainer/00007ED900104E1D14771DC67C27BF8B 
+      Location: https://cloud.example.com/cdmi/2.0.0/MyContainer/00007ED900104E1D14771DC67C27BF8B 
        
       {
           "objectType" : "application/cdmi-object",
@@ -465,7 +465,7 @@ EXAMPLE 2: POST to the object ID URI the data object contents:
 
   .. code-block:: none
 
-      POST /cdmi_objectid/ HTTP/1.1 
+      POST /cdmi/2.0.0/cdmi_objectid/ HTTP/1.1 
       Host: cloud.example.com 
       Accept: application/cdmi-object 
       Content-Type: application/cdmi-object 
@@ -481,7 +481,7 @@ The following shows the response.
   .. code-block:: none
 
       HTTP/1.1 201 Created 
-      Location: https://cloud.example.com/cdmi_objectid/00007ED900104E1D14771DC67C27BF8B
+      Location: https://cloud.example.com/cdmi/2.0.0/cdmi_objectid/00007ED900104E1D14771DC67C27BF8B
       Content-Type: application/cdmi-object 
        
       {
@@ -508,7 +508,7 @@ EXAMPLE 3: POST to the object ID URI the data object fields and binary contents 
 
   .. code-block:: none
 
-      POST /cdmi_objectid/ HTTP/1.1 
+      POST /cdmi/2.0.0/cdmi_objectid/ HTTP/1.1 
       Host: cloud.example.com 
       Accept: application/cdmi-object 
       Content-Type: multipart/mixed; boundary=gc0p4Jq0M2Yt08j34c0p
@@ -536,7 +536,7 @@ The following shows the response.
   .. code-block:: none
 
       HTTP/1.1 201 Created
-      Location: https://cloud.example.com/cdmi_objectid/00007ED90010C2414303B5C6D4F83170
+      Location: https://cloud.example.com/cdmi/2.0.0/cdmi_objectid/00007ED90010C2414303B5C6D4F83170
       Content-Type: application/cdmi-object 
       
       {

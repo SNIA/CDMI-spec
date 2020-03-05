@@ -9,11 +9,11 @@ Synopsis
 To update part or all of an existing data object, the following requests shall be performed:
 
 * ``PATCH <root URI>/<ContainerName>/<DataObjectName>``
-* ``PATCH <root URI>/<ContainerName>/<DataObjectName>?value:<range>``
-* ``PATCH <root URI>/<ContainerName>/<DataObjectName>?metadata:<metadataname>;....``
+* ``PATCH <root URI>/<ContainerName>/<DataObjectName>?value=<range>``
+* ``PATCH <root URI>/<ContainerName>/<DataObjectName>?metadata=<metadataname>&....``
 * ``PATCH <root URI>/cdmi_objectid/<DataObjectID>``
-* ``PATCH <root URI>/cdmi_objectid/<DataObjectID>?value:<range>``
-* ``PATCH <root URI>/cdmi_objectid/<DataObjectID>?metadata:<metadataname>;....``
+* ``PATCH <root URI>/cdmi_objectid/<DataObjectID>?value=<range>``
+* ``PATCH <root URI>/cdmi_objectid/<DataObjectID>?metadata=<metadataname>&....``
 
 Where:
 
@@ -295,7 +295,7 @@ EXAMPLE 1: PATCH to the data object URI to set new field values:
 
    .. code-block:: none
 
-       PATCH /MyContainer/MyDataObject.txt HTTP/1.1
+       PATCH /cdmi/2.0.0/MyContainer/MyDataObject.txt HTTP/1.1
        Host: cloud.example.com
        Content-Type: application/cdmi-object
        
@@ -319,7 +319,7 @@ EXAMPLE 2: PATCH to the data object URI to set a new MIME type:
 
    .. code-block:: none
 
-       PATCH /MyContainer/MyDataObject.txt?mimetype HTTP/1.1
+       PATCH /cdmi/2.0.0/MyContainer/MyDataObject.txt?mimetype HTTP/1.1
        Host: cloud.example.com
        Content-Type: application/cdmi-object
        
@@ -338,7 +338,7 @@ EXAMPLE 3: PATCH to the data object URI to update a range of the value:
 
    .. code-block:: none
 
-       PATCH /MyContainer/MyDataObject.txt?value:21-24 HTTP/1.1
+       PATCH /cdmi/2.0.0/MyContainer/MyDataObject.txt?value=21-24 HTTP/1.1
        Host: cloud.example.com
        Content-Type: application/cdmi-object
        
@@ -362,7 +362,7 @@ EXAMPLE 4: PATCH to the data object URI to replace all metadata with new metadat
 
    .. code-block:: none
 
-       PATCH /MyContainer/MyDataObject.txt?metadata HTTP/1.1
+       PATCH /cdmi/2.0.0/MyContainer/MyDataObject.txt?metadata HTTP/1.1
        Host: cloud.example.com
        Content-Type: application/cdmi-object
        
@@ -384,7 +384,7 @@ EXAMPLE 5: PATCH to the data object URI to add a new metadata item while preserv
 
    .. code-block:: none
 
-       PATCH /MyContainer/MyDataObject.txt?metadata:shape HTTP/1.1
+       PATCH /cdmi/2.0.0/MyContainer/MyDataObject.txt?metadata=shape HTTP/1.1
        Host: cloud.example.com
        Content-Type: application/cdmi-object
        
@@ -405,7 +405,7 @@ EXAMPLE 6: PATCH to the data object URI to replace just one metadata item with a
 
    .. code-block:: none
 
-       PATCH /MyContainer/MyDataObject.txt?metadata:colour HTTP/1.1
+       PATCH /cdmi/2.0.0/MyContainer/MyDataObject.txt?metadata=colour HTTP/1.1
        Host: cloud.example.com
        Content-Type: application/cdmi-object
        
@@ -426,7 +426,7 @@ EXAMPLE 7: Delete a single metadata item:
 
    .. code-block:: none
 
-       PATCH /MyContainer/MyDataObject.txt?metadata:colour HTTP/1.1 
+       PATCH /cdmi/2.0.0/MyContainer/MyDataObject.txt?metadata=colour HTTP/1.1 
        Host: cloud.example.com 
        Content-Type: application/cdmi-object 
        
@@ -445,7 +445,7 @@ EXAMPLE 8: Add, update, and delete metadata items. Assume a starting condition w
 
    .. code-block:: none
 
-       PATCH /MyContainer/MyDataObject.txt?metadata:colour;metadata:shape;metadata:size HTTP/1.1
+       PATCH /cdmi/2.0.0/MyContainer/MyDataObject.txt?metadata=colour&metadata=shape&metadata=size HTTP/1.1
        
        Host: cloud.example.com
        Content-Type: application/cdmi-object
@@ -468,7 +468,7 @@ EXAMPLE 9: PATCH to the data object URI to set new field values and the binary c
 
    .. code-block:: none
 
-       PATCH /MyContainer/MyDataObject.txt HTTP/1.1 
+       PATCH /cdmi/2.0.0/MyContainer/MyDataObject.txt HTTP/1.1 
        Host: cloud.example.com 
        Content-Type: multipart/mixed; boundary=gc0p4Jq0M2Yt08j34c0p
        
@@ -502,7 +502,7 @@ EXAMPLE 10: PATCH to the data object URI to replace just one metadata item and u
 
    .. code-block:: none
 
-       PATCH /MyContainer/BinaryObject.txt?metadata:colour HTTP/1.1 
+       PATCH /cdmi/2.0.0/MyContainer/BinaryObject.txt?metadata=colour HTTP/1.1 
        Host: cloud.example.com 
        Content-Type: multipart/mixed; boundary=gc0p4Jq0M2Yt08j34c0p
        
@@ -541,7 +541,7 @@ EXAMPLE 11: PATCH to the data object URI to encrypt an existing object:
 
     .. code-block:: none
    
-        PATCH /MyContainer/MyDataObject.txt HTTP/1.1
+        PATCH /cdmi/2.0.0/MyContainer/MyDataObject.txt HTTP/1.1
         Host: cloud.example.com
         Content-Type: application/cdmi-object
 
@@ -562,7 +562,7 @@ EXAMPLE 12: PATCH to the data object URI to decrypt an existing encrypted object
 
     .. code-block: none
     
-        PATCH /MyContainer/MyEncryptedObject.txt HTTP/1.1
+        PATCH /cdmi/2.0.0/MyContainer/MyEncryptedObject.txt HTTP/1.1
         Host: cloud.example.com
         Content-Type: application/cdmi-object
 

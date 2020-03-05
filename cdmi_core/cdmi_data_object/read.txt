@@ -9,13 +9,13 @@ Synopsis
 To read an existing data object, the following requests shall be performed:
 
 * ``GET <root URI>/<ContainerName>/<DataObjectName>``
-* ``GET <root URI>/<ContainerName>/<DataObjectName>?<fieldname>;<fieldname>;...``
-* ``GET <root URI>/<ContainerName>/<DataObjectName>?value:<range>;...``
-* ``GET <root URI>/<ContainerName>/<DataObjectName>?metadata:<prefix>;...``
+* ``GET <root URI>/<ContainerName>/<DataObjectName>?<fieldname>&<fieldname>&...``
+* ``GET <root URI>/<ContainerName>/<DataObjectName>?value=<range>&...``
+* ``GET <root URI>/<ContainerName>/<DataObjectName>?metadata=<prefix>&...``
 * ``GET <root URI>/cdmi_objectid/<DataObjectID>``
-* ``GET <root URI>/cdmi_objectid/<DataObjectID>?<fieldname>;<fieldname>;...``
-* ``GET <root URI>/cdmi_objectid/<DataObjectID>?value:<range>;...``
-* ``GET <root URI>/cdmi_objectid/<DataObjectID>?metadata:<prefix>;...``
+* ``GET <root URI>/cdmi_objectid/<DataObjectID>?<fieldname>&<fieldname>&...``
+* ``GET <root URI>/cdmi_objectid/<DataObjectID>?value=<range>&...``
+* ``GET <root URI>/cdmi_objectid/<DataObjectID>?metadata=<prefix>&...``
 
 Where:
 
@@ -297,7 +297,7 @@ EXAMPLE 1: GET to the data object URI to read all fields of the data object:
 
    .. code-block:: none
 
-       GET /MyContainer/MyDataObject.txt HTTP/1.1
+       GET /cdmi/2.0.0/MyContainer/MyDataObject.txt HTTP/1.1
        Host: cloud.example.com
        Accept: application/cdmi-object
 
@@ -331,7 +331,7 @@ EXAMPLE 2: GET to the data object URI by ID to read all fields of the data objec
 
    .. code-block:: none
 
-       GET /cdmi_objectid/00007ED90010D891022876A8DE0BC0FD HTTP/1.1
+       GET /cdmi/2.0.0/cdmi_objectid/00007ED90010D891022876A8DE0BC0FD HTTP/1.1
        Host: cloud.example.com 
        Accept: application/cdmi-object
 
@@ -364,7 +364,7 @@ EXAMPLE 3: GET to the data object URI to read the value and mimetype fields of t
 
   .. code-block:: none
 
-     GET /MyContainer/MyDataObject.txt?value;mimetype HTTP/1.1
+     GET /cdmi/2.0.0/MyContainer/MyDataObject.txt?value&mimetype HTTP/1.1
      Host: cloud.example.com
      Accept: application/cdmi-object
 
@@ -385,7 +385,7 @@ EXAMPLE 4: GET to the data object URI to read the first 11 bytes of the value of
 
    .. code-block:: none
 
-       GET /MyContainer/MyDataObject.txt?valuerange;value:0-10 HTTP/1.1
+       GET /cdmi/2.0.0/MyContainer/MyDataObject.txt?valuerange&value=0-10 HTTP/1.1
        Host: cloud.example.com
        Accept: application/cdmi-object
 
@@ -406,7 +406,7 @@ EXAMPLE 5: GET to the data object URI to read the data object using multi-part M
 
    .. code-block:: none
 
-       GET /MyContainer/MyDataObject.txt HTTP/1.1 
+       GET /cdmi/2.0.0/MyContainer/MyDataObject.txt HTTP/1.1 
        Host: cloud.example.com 
        Accept: multipart/mixed
 
@@ -452,7 +452,7 @@ EXAMPLE 6: GET to the data object URI to read the data object using multi-part M
 
    .. code-block:: none
 
-       GET /MyContainer/MyDataObject.txt HTTP/1.1 
+       GET /cdmi/2.0.0/MyContainer/MyDataObject.txt HTTP/1.1 
        Host: cloud.example.com 
        Accept: multipart/mixed
 
@@ -500,7 +500,7 @@ EXAMPLE 7: GET to the data object URI to read the metadata and multiple byte ran
 
    .. code-block:: none
 
-       GET /MyContainer/MyDataObject.txt?metadata;value:0-10;value:21-24 HTTP/1.1 
+       GET /cdmi/2.0.0/MyContainer/MyDataObject.txt?metadata&value=0-10&value=21-24 HTTP/1.1 
        Host: cloud.example.com 
        Accept: multipart/mixed
 
@@ -542,7 +542,7 @@ EXAMPLE 8: GET to the data object URI to read the value and valuetransferencodin
 
    .. code-block:: none
 
-      GET /cdmi_objectid/0000706D0010374085EF1A5C7018D774?valuetransferencoding;value HTTP/1.1
+      GET /cdmi/2.0.0/cdmi_objectid/0000706D0010374085EF1A5C7018D774?valuetransferencoding&value HTTP/1.1
       Host: cloud.example.com
       Accept: application/cdmi-object
 
@@ -563,7 +563,7 @@ EXAMPLE 9: GET to the data object URI to read a newly-created data object with a
 
    .. code-block:: none
 
-      GET /MyContainer/MyVersionedDataObject.txt HTTP/1.1
+      GET /cdmi/2.0.0/MyContainer/MyVersionedDataObject.txt HTTP/1.1
       Host: cloud.example.com
       Accept: application/cdmi-object
 
@@ -603,7 +603,7 @@ EXAMPLE 10: GET to the data object URI to read a data object with two historical
 
    .. code-block:: none
 
-      GET /MyContainer/MyVersionedDataObject.txt HTTP/1.1
+      GET /cdmi/2.0.0/MyContainer/MyVersionedDataObject.txt HTTP/1.1
       Host: cloud.example.com
       Accept: application/cdmi-object
 
@@ -643,7 +643,7 @@ EXAMPLE 11: GET to the URI of a data object version:
 
    .. code-block:: none
 
-      GET /cdmi_objectid/00007ED9001005192891EEBE599D94BB HTTP/1.1
+      GET /cdmi/2.0.0/cdmi_objectid/00007ED9001005192891EEBE599D94BB HTTP/1.1
       Host: cloud.example.com
       Accept: application/cdmi-object
 
