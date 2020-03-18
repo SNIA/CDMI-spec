@@ -33,7 +33,7 @@ Capabilities that indicate which operations are supported are shown in :numref:`
 .. list-table:: Capabilities - Create a CDMI data object using HTTP
     :class: longtable
     :header-rows: 1
-    :align: center 
+    :align: center
 
     * - Capability
       - Location
@@ -67,8 +67,8 @@ The HTTP request headers for creating a CDMI data object using HTTP are shown in
       - Requirement
     * - Content-Type
       - Header string
-      - The content type of the data to be stored as a data object. The value specified in this header shall be converted to lower case and stored in the ``mimetype`` field of the CDMI data object. 
-        
+      - The content type of the data to be stored as a data object. The value specified in this header shall be converted to lower case and stored in the ``mimetype`` field of the CDMI data object.
+
         * If the ``Content-Type`` header includes the charset parameter as defined in RFC 2616 :cite:`rfc2616` of "``utf-8`` (e.g., "``;charset=utf-8``"), the ``valuetransferencoding`` field of the CDMI data object shall be set to "``utf-8``". Otherwise, the ``valuetransferencoding`` field of the CDMI data object shall be set to "``base64``".
         * If not specified, the ``mimetype`` field shall be set to "``application/octet-stream``".
       - Optional
@@ -82,19 +82,19 @@ The HTTP request headers for creating a CDMI data object using HTTP are shown in
       - Optional
 
 
-Request message body 
+Request message body
 --------------------
 
 The request message body contains the data to be stored in the value of the data object.
 
 
-Response headers 
+Response headers
 ----------------
 
 No response headers are specified.
 
 
-Response message body 
+Response message body
 ---------------------
 
 No response message body fields are specified.
@@ -103,7 +103,7 @@ No response message body fields are specified.
 Response status
 ---------------
 
-The HTTP status codes that occur when creating a data object using HTTP are described in :numref:`tbl_http_data_object_create_response_status`. 
+The HTTP status codes that occur when creating a data object using HTTP are described in :numref:`tbl_http_data_object_create_response_status`.
 
 .. tabularcolumns:: |>{\raggedright\arraybackslash}\Y{0.30}
                     |>{\raggedright\arraybackslash}\Y{0.70}|
@@ -130,10 +130,12 @@ The HTTP status codes that occur when creating a data object using HTTP are desc
       - The operation conflicts with a non-CDMI access protocol lock or has caused a state transition error on the server.
 
 
-Example
--------
+Examples
+--------
 
 EXAMPLE 1: PUT to the container URI the data object name and contents.
+
+   Request:
 
    .. code-block:: none
 
@@ -141,10 +143,10 @@ EXAMPLE 1: PUT to the container URI the data object name and contents.
       Host: cloud.example.com
       Content-Type: text/plain;charset=utf-8
       Content-Length: 37
-       
+
       This is the Value of this Data Object
 
-   The following shows the response:
+   Response:
 
    .. code-block:: none
 
@@ -152,34 +154,38 @@ EXAMPLE 1: PUT to the container URI the data object name and contents.
 
 EXAMPLE 2: Put to the container URI to create an encrypted object:
 
-	.. code-block:: none
-	
-		PUT /MyContainer/MyEncryptedObject.txt HTTP/1.1
-		Host: cloud.example.com
-		Content-Type: application/cms
-		Content-Length: 1425
+    Request:
 
-		<CMS Encrypted Object>
+   .. code-block:: none
 
-	The following shows the response:
+        PUT /MyContainer/MyEncryptedObject.txt HTTP/1.1
+        Host: cloud.example.com
+        Content-Type: application/cms
+        Content-Length: 1425
 
-	.. code-block:: none
+        <CMS Encrypted Object>
 
-		HTTP/1.1 201 Created
+    Response:
+
+      .. code-block:: none
+
+        HTTP/1.1 201 Created
 
 EXAMPLE 3: PUT to the container URI to create an encrypted object:
 
-	.. code-block: none
-	
-		PUT /MyContainer/MyEncryptedObject2.txt HTTP/1.1
-		Host: cloud.example.com
-		Content-Type: application/jose+json
-		Content-Length: 1425
-		
-		<JWE Encrypted Object JSON>
+    Request:
 
-	The following shows the response:
+   .. code-block:: none
 
-	.. code-block:: none
+        PUT /MyContainer/MyEncryptedObject2.txt HTTP/1.1
+        Host: cloud.example.com
+        Content-Type: application/jose+json
+        Content-Length: 1425
 
-		HTTP/1.1 201 Created
+        <JWE Encrypted Object JSON>
+
+    Response:
+
+     .. code-block:: none
+
+        HTTP/1.1 201 Created

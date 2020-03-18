@@ -104,12 +104,12 @@ Example uses of encrypted objects
 
 Encrypted objects can be used with CDMI systems in the following ways:
 
--	**Passthrough** – A client may store an encrypted object in any format in a CDMI server, with the ciphertext being accessible to the server and to other authorized clients. No access to the plaintext is provided. Passthrough use is compatible with all CDMI systems and is useful when the clients manage all security-related operations and want to protect against potentially untrustworthy clouds.
--	**Server-side encryption and signing** – A client may instruct a CDMI server that supports encrypted object operations to take an existing CDMI object and encrypt or encrypt and sign it in place into CMS or JWE JSON representation, where the value of the object is persistently stored from that point on in an encrypted format. Server-side encryption and signing is useful when clients trust the CDMI server and want to increase object security without having to re-upload the data.
--	**Server-side decryption** – A client may instruct a CDMI server that supports encrypted object operations to take an existing CDMI object and decrypt it in place from a CMS or JWE JSON representation, where the value of the object is persistently stored from that point on in a decrypted format. Server-side decryption is useful when a client trusts the CDMI server and wants to decrease object security without having to re-upload the data.
--	**Client access decryption** – A CDMI server may automatically attempt to decrypt an encrypted object when accessed via HTTP. Client access decryption is useful to provide transparent access to authorized HTTP clients without requiring modifications to the HTTP clients.
--	**Cloud access decryption** – A CDMI server may automatically decrypt encrypted objects when it has access to the decryption keys. Cloud access decryption is useful for cloud-resident data processing performed by the CDMI server, such as virus scanning, query, and analytics.
--	**Signature verification** – A CDMI server can automatically verify signatures that are attached to encrypted objects that include a signature. Signature verification is useful for detecting corruption or alteration before delivering data to a client.
+-  **Passthrough** – A client may store an encrypted object in any format in a CDMI server, with the ciphertext being accessible to the server and to other authorized clients. No access to the plaintext is provided. Passthrough use is compatible with all CDMI systems and is useful when the clients manage all security-related operations and want to protect against potentially untrustworthy clouds.
+-  **Server-side encryption and signing** – A client may instruct a CDMI server that supports encrypted object operations to take an existing CDMI object and encrypt or encrypt and sign it in place into CMS or JWE JSON representation, where the value of the object is persistently stored from that point on in an encrypted format. Server-side encryption and signing is useful when clients trust the CDMI server and want to increase object security without having to re-upload the data.
+-  **Server-side decryption** – A client may instruct a CDMI server that supports encrypted object operations to take an existing CDMI object and decrypt it in place from a CMS or JWE JSON representation, where the value of the object is persistently stored from that point on in a decrypted format. Server-side decryption is useful when a client trusts the CDMI server and wants to decrease object security without having to re-upload the data.
+-  **Client access decryption** – A CDMI server may automatically attempt to decrypt an encrypted object when accessed via HTTP. Client access decryption is useful to provide transparent access to authorized HTTP clients without requiring modifications to the HTTP clients.
+-  **Cloud access decryption** – A CDMI server may automatically decrypt encrypted objects when it has access to the decryption keys. Cloud access decryption is useful for cloud-resident data processing performed by the CDMI server, such as virus scanning, query, and analytics.
+-  **Signature verification** – A CDMI server can automatically verify signatures that are attached to encrypted objects that include a signature. Signature verification is useful for detecting corruption or alteration before delivering data to a client.
 
 KMS integration
 ***************
@@ -129,17 +129,17 @@ Any valid CMS-formatted data can be stored to a CDMI server. However, encrypted 
 
 For encryption operations, the CDMI server shall support the following:
 
--	``EnvelopedData``
--	``EncryptedContentInfo``
--	``contentEncryptionAlgorithm`` value listed in the ``cdmi_cms_encryption`` capability of that CDMI server
+-  ``EnvelopedData``
+-  ``EncryptedContentInfo``
+-  ``contentEncryptionAlgorithm`` value listed in the ``cdmi_cms_encryption`` capability of that CDMI server
 
 For signature operations, the CDMI server shall support the following:
 
--	``AuthenticatedData``
--	``SignedData``
--	``digestAlgorithms`` value listed in the ``cdmi_cms_digest`` capability of that CDMI server
--	``SignerInfo``
--	``signatureAlgorithm`` value listed in the ``cdmi_cms_signature`` capability of that CDMI server
+-  ``AuthenticatedData``
+-  ``SignedData``
+-  ``digestAlgorithms`` value listed in the ``cdmi_cms_digest`` capability of that CDMI server
+-  ``SignerInfo``
+-  ``signatureAlgorithm`` value listed in the ``cdmi_cms_signature`` capability of that CDMI server
 
 The following CMS-formatted data may be ignored: ``recipientInfos``
 
@@ -150,14 +150,14 @@ Any valid JWE-formatted data can be stored to a CDMI server. However, encrypted 
 
 For encryption operations, the CDMI server shall support the following:
 
--	JWE with Direct Encryption (Symmetric Key from KMS),
--	JWE with Key Encryption (Public Key from KMS).
+-  JWE with Direct Encryption (Symmetric Key from KMS),
+-  JWE with Key Encryption (Public Key from KMS).
 
 For signature operations, the CDMI server shall support the following:
 
--	JWS RSA (Private Key from KMS),
--	JWS ECDSA (Private Key from KMS),
--	JWS HMAC-SHA2 (Symmetric Key from KMS).
+-  JWS RSA (Private Key from KMS),
+-  JWS ECDSA (Private Key from KMS),
+-  JWS HMAC-SHA2 (Symmetric Key from KMS).
 
 The following JOSE-formatted data may be ignored:
 

@@ -17,25 +17,25 @@ Each CDMI data object is represented as a JSON object, containing one or more "f
 
 EXAMPLE 1: CDMI Data Object
 
-	.. code-block:: json
+  .. code-block:: json
 
-		{
-		    "objectType" : "application/cdmi-object",
-		    "objectID" : "00007ED90010D891022876A8DE0BC0FD",
-		    "objectName" : "MyDataObject.txt",
-		    "parentURI" : "/MyContainer/",
-		    "parentID" : "00007E7F00102E230ED82694DAA975D2",
-		    "domainURI" : "/cdmi_domains/MyDomain/",
-		    "capabilitiesURI" : "/cdmi_capabilities/dataobject/",
-		    "completionStatus" : "Complete",
-		    "mimetype" : "text/plain",
-		    "metadata" : {
-		        "cdmi_size" : "37"
-		    },
-		    "valuetransferencoding" : "utf-8",
-		    "valuerange" : "0-36",
-		    "value" : "This is the Value of this Data Object"
-		}
+    {
+        "objectType" : "application/cdmi-object",
+        "objectID" : "00007ED90010D891022876A8DE0BC0FD",
+        "objectName" : "MyDataObject.txt",
+        "parentURI" : "/MyContainer/",
+        "parentID" : "00007E7F00102E230ED82694DAA975D2",
+        "domainURI" : "/cdmi_domains/MyDomain/",
+        "capabilitiesURI" : "/cdmi_capabilities/dataobject/",
+        "completionStatus" : "Complete",
+        "mimetype" : "text/plain",
+        "metadata" : {
+            "cdmi_size" : "37"
+        },
+        "valuetransferencoding" : "utf-8",
+        "valuerange" : "0-36",
+        "value" : "This is the Value of this Data Object"
+    }
 
 The meaning, use, and permitted values of each field is described in each operation that creates, modifies or retreives CDMI data objects.
 
@@ -57,9 +57,9 @@ Data object fields
 
 Individual fields within a data object can be accessed by specifying the field name after a question mark "``?``" that is appended to the end of the data object URI.
 
-	EXAMPLE 2: The following URI returns the value field in the response body:
+  EXAMPLE 2: The following URI returns the value field in the response body:
 
-		``https://cloud.example.com/dataobject?value``
+    ``https://cloud.example.com/dataobject?value``
 
 A list of unique fields, separated by a semicolon "``;``" can be specified, allowing multiple fields to be accessed in a single request.
 

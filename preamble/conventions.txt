@@ -54,19 +54,26 @@ All code text and HTTP status codes are shown in a fixed-width font, as follows:
     {
       "mimetype" : "text/plain",
       "metadata" : {
-          
+
       },
       "value" : "This is the Value of this Data Object"
     }
 
 Requesting an optional field that is not present shall result in an HTTP status code of ``404 Not Found``.
 
+Similarly, precise literals are shown in a fixed-width font. For example:
+
+* The assignment of a particular value, or reference to a particular field: 'Field ``n`` shall be set to ``true``';
+* String literals: 'and user metadata names shall not begin with the prefix “``cdmi_``”.';
+* Property, attribute, or capability names: 'This requirement shall be understood in the context that access by object ID is predicated on the
+873 presence of the ``cdmi_object_access_by_ID`` capability.'.
+
 
 **************************************
 Request and response body requirements
 **************************************
 
-In request and response body tables, the Requirement column contains one of the following three values: 
+In request and response body tables, the Requirement column contains one of the following three values:
 
 * Mandatory. The value specified in this row shall be provided.
 * Conditional. If the conditions specified in the Description cell is met, the value specified in this row shall be provided. Otherwise, it can be provided unless the Description specifically prohibits it, in which case it shall not be provided.
@@ -89,7 +96,7 @@ In this International Standard, the key words in :numref:`tbl_key_word_requireme
 .. list-table:: Key word requirements
     :class: longtable
     :header-rows: 1
-    :align: center 
+    :align: center
 
     * - Key words
       - Denotes
@@ -98,7 +105,7 @@ In this International Standard, the key words in :numref:`tbl_key_word_requireme
     * - shall
       - requirement
       - An action that is unconditionally required.
-        
+
         * Do not use must as an alternative to shall.
         * To express a direct instruction, for example, when referring to steps to be taken in a test method, use the imperative mood in English.
         * EXAMPLE: Switch on the recorder.
@@ -111,7 +118,7 @@ In this International Standard, the key words in :numref:`tbl_key_word_requireme
     * - shall not
       - requirement
       - An action that is unconditionally prohibited.
-      
+
         .. raw:: latex
 
           \vspace*{1ex}
@@ -134,7 +141,7 @@ In this International Standard, the key words in :numref:`tbl_key_word_requireme
     * - may
       - permission
       - An action that indicates what is allowed within the limits of the document.
-      
+
         .. raw:: latex
 
           \vspace*{1ex}
@@ -146,7 +153,7 @@ In this International Standard, the key words in :numref:`tbl_key_word_requireme
     * - need not
       - permission
       - An action that indicates what is not required within the limits of the document.
-      
+
         .. raw:: latex
 
           \vspace*{1ex}
