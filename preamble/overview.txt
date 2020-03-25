@@ -83,8 +83,6 @@ Reference model for cloud storage interfaces
 
 The cloud storage reference model is shown in :numref:`fig_reference_model_for_cloud_storage_interfaces`.
 
-Clients acting in the role of using a data storage interface Clients can be inside the storage cloud (i.e., providing storage resources to the cloud as well as consuming them) or outside the storage cloud (i.e., only consuming resources).
-
 .. _fig_reference_model_for_cloud_storage_interfaces:
 
 .. figure:: /images/CloudStorageRefModelNoShadow.*
@@ -178,7 +176,7 @@ The five types of resources defined are shown in :numref:`tbl_types_of_resources
       - Capability objects describe the functionality implemented by a CDMI server and are used by a client to discover supported functionality.
       - See :numref:`clause %s <clause_cdmi_capability_object>`.
 
-For data storage operations, the client of the interface only needs to know about container objects and data objects. All data path implementations are required to support at least one level of containers (see :numref:`%s <ref_data_and_container_management>`). Using the CDMI object model (see :numref:`fig_cdmi_object_model`), the client can send a PUT via CDMI (see :numref:`fig_reference_model_for_cloud_storage_interfaces`) to the new container URI and create a new container with the specified name. Container metadata are optional and are expressed as a series of name-value pairs. After a container is created, a client can send a PUT to create a data object within the newly created container. A subsequent GET will fetch the data object, including the value field.
+For data storage operations, the client of the interface only needs to know about container objects and data objects. All data path implementations are required to support at least one level of containers (see :numref:`%s <ref_data_and_container_management>`). Using the CDMI object model (see :numref:`fig_cdmi_object_model`), the client can send a PUT via CDMI (see :numref:`fig_reference_model_for_cloud_storage_interfaces`) to the new container URI and create a new container with the specified name. Container metadata are optional and are expressed as a series of name-value pairs. After a container is created, a client can send a PUT to create a data object within the newly created container.
 
 Queue objects are also defined (see :numref:`fig_cdmi_object_model`) and provide in-order-first in-first-out access to enqueued objects. More information on queues can be found in :numref:`clause %s <clause_cdmi_queue_object>`. 
 
@@ -343,7 +341,7 @@ Client Authentication
 
 A CDMI client shall comply with all security requirements for HTTP that apply to clients. 
 
-CDMI clients can be responsible for initiating user authentication for each CDMI operation that is performed. The CDMI server functions as the authenticator and receives and validates authentication credentials from the client.
+CDMI clients shall be responsible for initiating user authentication for each CDMI operation that is performed. The CDMI server functions as the authenticator and receives and validates authentication credentials from the client.
 
 RFC 2616 :cite:`rfc2616` and RFC 2617 :cite:`rfc2617` define requirements for HTTP authentication, which generally starts with an HTTP client request. If the client request does not include an "Authorization" header and authentication is required, the server responds with an HTTP status code of ``401 Unauthorized`` and a WWW-Authenticate response header. The HTTP client shall then respond with the appropriate Authorization header in a subsequent request. The format of the WWW-Authenticate and Authorization headers varies depending on the type of authentication required.
 
