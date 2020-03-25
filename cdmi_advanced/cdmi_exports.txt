@@ -207,15 +207,15 @@ Elements for an NFS export are described in :numref:`tbl_elements_of_the_nfs_pro
       - Optional
     * - root_hosts
       - JSON Array of JSON Strings
-      - A list of names of hosts that can access the container in superuser mode. The default shall be an empty list.
+      - A list of names of hosts that may access the container in superuser mode. The default shall be an empty list.
       - Optional
     * - rw_hosts
       - JSON Array of JSON Strings
-      - A list of names of hosts that can access the container in ``rw`` mode. The default shall be an empty list.
+      - A list of names of hosts that may access the container in ``rw`` mode. The default shall be an empty list.
       - Optional
     * - ro_hosts
       - JSON Array of JSON Strings
-      - A list of names of hosts that can access the container in ``ro`` mode only. The default shall be an empty list.
+      - A list of names of hosts that may access the container in ``ro`` mode only. The default shall be an empty list.
       - Optional
     * - recurse
       - JSON String
@@ -300,15 +300,15 @@ Elements for an SMB export are described in :numref:`tbl_elements_of_the_smb_pro
       - Mandatory
     * - root_hosts
       - JSON Array of JSON Strings
-      - A list of names of hosts that can access the container in superuser mode. The default shall be an empty list.
+      - A list of names of hosts that may access the container in superuser mode. The default shall be an empty list.
       - Optional
     * - rw_hosts
       - JSON Array of JSON Strings
-      - A list of names of hosts that can access the container in ``rw`` mode. The default shall be an empty list.
+      - A list of names of hosts that may access the container in ``rw`` mode. The default shall be an empty list.
       - Optional
     * - ro_hosts
       - JSON Array of JSON Strings
-      - A list of names of hosts that can access the container in ``ro`` mode only. The default shall be an empty list.
+      - A list of names of hosts that may access the container in ``ro`` mode only. The default shall be an empty list.
       - Optional
     * - domain_servers
       - JSON Array of JSON Strings
@@ -376,7 +376,7 @@ Elements for an iSCSI export are described in :numref:`tbl_elements_of_the_iscsi
       - Mandatory
     * - permissions
       - JSON Array of JSON Strings
-      - One or more target identifiers for initiators that are permitted to access the iSCSI export. Target identifiers may be in ``iqn``, ``naa``, or ``eui`` format and shall have the target portal group tag appended in hexadecimal. If absent, any initiator can access the export.
+      - One or more target identifiers for initiators that are permitted to access the iSCSI export. Target identifiers may be in ``iqn``, ``naa``, or ``eui`` format and shall have the target portal group tag appended in hexadecimal. If absent, any initiator may access the export.
       - Optional
     * - parameters
       - JSON String
@@ -396,7 +396,7 @@ Elements for an iSCSI export are described in :numref:`tbl_elements_of_the_iscsi
       - Read-Only
     * - portals
       - JSON Array of JSON Strings
-      - One or more IP addresses or fully qualified domains names through which the iSCSI export can be accessed. This field is server populated.
+      - One or more IP addresses or fully qualified domains names through which the iSCSI export may be accessed. This field is server populated.
       - Read-Only
 
 Servers shall return an HTTP status code of ``400 Bad Request`` when an export setting does not conform to an allowable setting on the server.
