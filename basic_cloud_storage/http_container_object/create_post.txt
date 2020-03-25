@@ -19,7 +19,7 @@ Where:
 
 The data object shall be accessible as a child of the container with a server-assigned name and shall also be accessible at ``<root URI>/cdmi_objectid/<objectID>``.
 
-HTTP POST to a container is used to enable CDMI servers to support RFC 1867 :cite:`rfc1867` form-based file uploading. When implementing RFC 1867 :cite:`rfc1867`, the CDMI server-assigned name can be set to, or derived from, the user-provided file name.
+HTTP POST to a container is used to enable CDMI servers to support RFC 1867 :cite:`rfc1867` form-based file uploading. When implementing RFC 1867 :cite:`rfc1867`, the CDMI server-assigned name may be set to, or derived from, the user-provided file name.
 
 Capabilities
 ------------

@@ -190,7 +190,7 @@ A data object version is presented to the client as a standard CDMI data object.
 
 Moving, copying over, deserializing over, and updating a data object version shall not be permitted and shall result in an HTTP status code of ``403 Forbidden``.
 
-Copying a data object version is permitted. For example, to promote a version to become the current version of a version-enabled data object, the URI of the data object version is used in the copy field when performing an update to the URI of the version-enabled data object. Updates can also be performed as part of the copy operation.
+Copying a data object version is permitted. For example, to promote a version to become the current version of a version-enabled data object, the URI of the data object version is used in the copy field when performing an update to the URI of the version-enabled data object. Updates may also be performed as part of the copy operation.
 
 Deleting a historical data object version shall be permitted if the client has ACL permissions to delete the version-enabled data object and the version-enabled data object.
 

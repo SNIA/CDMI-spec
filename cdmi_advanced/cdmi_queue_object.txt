@@ -78,7 +78,7 @@ Queue object value
 The encoding of the data stored in the queue object value field depends on the queue object valuetransferencoding field:
 
   * If the value transfer encoding of the object is set to "``utf-8``", the data stored in the value of the queue object shall be a valid UTF-8 string, and it shall be transported as a UTF-8 string in the value field.
-  * If the value transfer encoding of the object is set to "``base64``", the data stored in the value of the queue object can contain arbitrary binary sequences, and it shall be transported as a base 64-encoded string in the value field.
+  * If the value transfer encoding of the object is set to "``base64``", the data stored in the value of the queue object may contain arbitrary binary sequences, and it shall be transported as a base 64-encoded string in the value field.
   * If the value transfer encoding of the object is set to "``json``", the data stored in the value of the queue object shall be a valid JSON object, and the value field shall contain a valid JSON object.
 
 Specific ranges of the value of a queue object can be accessed by specifying a byte range after the value field name. 
@@ -143,7 +143,7 @@ Implementations of this International Standard shall provide the atomicity featu
 Queue object representations
 ----------------------------
 
-The representations in this clause are shown using JSON notation. Both clients and servers shall support UTF-8 JSON representation. The request and response body JSON fields can be specified or returned in any order, with the exception that, if present, for queue objects, the "``valuerange``" and "``value``" fields shall appear last and in that order. 
+The representations in this clause are shown using JSON notation. Both clients and servers shall support UTF-8 JSON representation. The request and response body JSON fields may be specified or returned in any order, with the exception that, if present, for queue objects, the "``valuerange``" and "``value``" fields shall appear last and in that order. 
 
 .. _ref_cdmi_queue_create:
 

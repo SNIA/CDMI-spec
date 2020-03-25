@@ -73,7 +73,7 @@ Data system metadata is interpreted by the cloud service provider as data requir
 Data and container management
 *****************************
 
-There is no reason that managing data and managing containers should involve different interfaces. Therefore, the use of metadata is extended from applying to individual objects to applying to containers of objects as well. Thus, any data placed into a container inherits the data system metadata of the container into which it was placed. When creating a new container within an existing container, the new container would similarly inherit the metadata settings of its parent's data system metadata. After an object is created, the data system metadata can be overridden at the container or individual object level, as desired.
+There is no reason that managing data and managing containers should involve different interfaces. Therefore, the use of metadata is extended from applying to individual objects to applying to containers of objects as well. Thus, any data placed into a container inherits the data system metadata of the container into which it was placed. When creating a new container within an existing container, the new container would similarly inherit the metadata settings of its parent's data system metadata. After an object is created, the data system metadata may be overridden at the container or individual object level, as desired.
 
 Even if the provided interface does not support setting metadata on individual objects, metadata can still be applied to the containers. In such a case, the interface does not provide a mechanism to override metadata that an individual object inherits from its parent container. For file-based interfaces that support extended attributes (e.g., SMB, NFSv4), these extended attributes may be used to specify the data system metadata to override that specified for the container. 
 
@@ -109,7 +109,7 @@ This International Standard divides operations into two types: those that use a 
 
 CDMI can also be used by administrative and management applications to manage containers, domains, security access, and monitoring/billing information, even for storage that is functionally accessible by legacy or proprietary protocols. The capabilities of the underlying storage and data services are exposed so that clients can understand what services the cloud service provider provides. 
 
-Conformant cloud service providers can support a subset of the CDMI, as long as they expose the limitations in the capabilities reported via the interface.
+Conformant cloud service providers may support a subset of the CDMI, as long as they expose the limitations in the capabilities reported via the interface.
 
 This International Standard uses RESTful principles in the interface design where possible (see :cite:`restthesis`). 
 
@@ -385,9 +385,9 @@ A conformant implementation of CDMI shall also be a conformant implementation of
 Content-Type negotiation
 ************************
 
-For CDMI operations, media types for CDMI objects are used as defined in RFC 6208 :cite:`rfc6208`. All CDMI representations follow the rules established for "application/json" as defined in RFC 4627 :cite:`rfc4627`. The use of the CDMI media types with the "+json" suffix shall be supported as defined in RFC 6839 :cite:`rfc6839`. 
+For CDMI operations, media types for CDMI objects are used as defined in RFC 6208 :cite:`rfc6208`. All CDMI representations follow the rules established for ``application/json`` as defined in RFC 4627 :cite:`rfc4627`. The use of the CDMI media types with the ``json`` suffix shall be supported as defined in RFC 6839 :cite:`rfc6839`. 
 
-A client can optionally supply an HTTP Accept header, as per section 14.1 of RFC 2616 :cite:`rfc2616`. If a client is restricting the response to a specific CDMI media type, the corresponding media type shall be specified in the Accept header. Otherwise, the Accept header can contain "``*/*``" or a list of media types, or it may be omitted. 
+A client can optionally supply an HTTP ``Accept`` header, as per section 14.1 of RFC 2616 :cite:`rfc2616`. If a client is restricting the response to a specific CDMI media type, the corresponding media type shall be specified in the Accept header. Otherwise, the Accept header can contain "``*/*``" or a list of media types, or it may be omitted. 
 
 If a request body is present, the client shall include a Content-Type header, as per section 14.17 of RFC 2616 :cite:`rfc2616`. If the client does not provide a Content-Type header when required or provides a media type in the Content-Type header that does not match with the existing resource media type, the server shall return an HTTP status code of ``400 Bad Request``.
 

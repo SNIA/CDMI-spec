@@ -12,7 +12,7 @@ Encrypted object operations include the ability to encrypt, re-encrypt, and decr
 
 The CDMI International Standard does not specify the method by which keys are managed. Key management services are provided by an external key management system (KMS), and the use of the KMIP standard is given as an example of how a CDMI server interacts with an external KMS.
 
-CDMI objects can contain values that are encrypted. Operations against an encrypted CDMI object are only supported if the encrypted object value is a valid CMS or JWE JSON format. The CMS or JWE JSON object shall include an embedded mimetype of the encrypted object. For JWE, the "``cty``" header shall be used for this purpose.
+CDMI objects may contain values that are encrypted. Operations against an encrypted CDMI object are only supported if the encrypted object value is a valid CMS or JWE JSON format. The CMS or JWE JSON object shall include an embedded mimetype of the encrypted object. For JWE, the "``cty``" header shall be used for this purpose.
 
 
 Encryption operations
@@ -123,7 +123,7 @@ All keys are created and managed externally to the CDMI server, typically by the
 CMS format
 **********
 
-Any valid CMS-formatted data can be stored to a CDMI server. However, encrypted object operations are only defined for the following subset of valid CMS-formatted data.
+Any valid CMS-formatted data may be stored to a CDMI server. However, encrypted object operations are only defined for the following subset of valid CMS-formatted data.
 
 For encryption operations, the CDMI server shall support the following:
 
@@ -144,7 +144,7 @@ The following CMS-formatted data may be ignored: ``recipientInfos``
 JOSE format
 ***********
 
-Any valid JWE-formatted data can be stored to a CDMI server. However, encrypted object operations are only defined for the following subset of valid JWE-formatted data.
+Any valid JWE-formatted data may be stored to a CDMI server. However, encrypted object operations are only defined for the following subset of valid JWE-formatted data.
 
 For encryption operations, the CDMI server shall support the following:
 

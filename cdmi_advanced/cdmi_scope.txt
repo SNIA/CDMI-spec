@@ -262,7 +262,7 @@ Numeric constant strings shall be processed according to the JSON number represe
 
 All fields in objects that are not included in the scope specification shall be ignored for the purpose of matching objects.
 
-When a URI is used as the constant for the equals and not equals operators against the ``parentURI``, ``domainURI``, and ``capabilitiesURI``, either a URI by path or URI by object ID can be specified and are considered interchangeable. 
+When a URI is used as the constant for the equals and not equals operators against the ``parentURI``, ``domainURI``, and ``capabilitiesURI``, either a URI by path or URI by object ID may be specified and are considered interchangeable. 
 
 EXAMPLE 1: In a query to find all objects belonging to a specific domain, the following two query scopes are considered identical: 
 

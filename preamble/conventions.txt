@@ -69,8 +69,8 @@ Request and response body requirements
 In request and response body tables, the Requirement column contains one of the following three values: 
 
 * Mandatory. The value specified in this row shall be provided.
-* Conditional. If the conditions specified in the Description cell is met, the value specified in this row shall be provided. Otherwise, it can be provided unless the Description specifically prohibits it, in which case it shall not be provided.
-* Optional. The value specified in this row can be provided.
+* Conditional. If the conditions specified in the Description cell is met, the value specified in this row shall be provided. Otherwise, it may be provided unless the Description specifically prohibits it, in which case it shall not be provided.
+* Optional. The value specified in this row may be provided.
 
 
 *********************

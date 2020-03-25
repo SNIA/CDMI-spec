@@ -568,7 +568,7 @@ Once created, the packaged DAC response shall be returned as the response to the
 
 When the CDMI server receives a packaged DAC response message, it shall decrypt it using its private key and shall verify the signature. If the decryption and signature verification are successful, the CDMI server shall use the provided ``dac_applied_mask`` in place of the ACL computed mask.
 
-If the CDMI server supports key or DAC response caching, cache expiry values shall be honored. Cached responses and keys can only be used for identical client operations, where the client identity, objectID, operation, and "CDMI-DAC-" request headers are identical. Otherwise, the cached response shall be expired. If an audit URI is present in the cached response, audit messages shall also be generated for all operations allowed using the cached response.
+If the CDMI server supports key or DAC response caching, cache expiry values shall be honored. Cached responses and keys may only be used for identical client operations, where the client identity, objectID, operation, and "CDMI-DAC-" request headers are identical. Otherwise, the cached response shall be expired. If an audit URI is present in the cached response, audit messages shall also be generated for all operations allowed using the cached response.
 
 The CDMI server shall also implement audit logging when specified in the DAC response. If the CDMI server does not support audit logging and it is required by a DAC response, the operation shall be denied.
 

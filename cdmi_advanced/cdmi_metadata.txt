@@ -74,7 +74,7 @@ Which storage system metadata is supported by the CDMI server defined in :numref
 
           \vspace*{1ex}
 
-        This metadata value can only be updated by a client if it has the "``backup_operator``" privilege. If a client does not have the backup operator privilege, updates of this metadata item shall be ignored.
+        This metadata value may only be updated by a client if it has the "``backup_operator``" privilege. If a client does not have the backup operator privilege, updates of this metadata item shall be ignored.
       - Optional
     * - cdmi_atime
       - JSON string
@@ -90,7 +90,7 @@ Which storage system metadata is supported by the CDMI server defined in :numref
 
           \vspace*{1ex}
 
-        This metadata value can only be updated by a client if it has the "``backup_operator``" privilege. If a client does not have the backup operator privilege, updates of this metadata item shall be ignored.
+        This metadata value may only be updated by a client if it has the "``backup_operator``" privilege. If a client does not have the backup operator privilege, updates of this metadata item shall be ignored.
       - Optional
     * - cdmi_mtime
       - JSON string
@@ -106,7 +106,7 @@ Which storage system metadata is supported by the CDMI server defined in :numref
 
           \vspace*{1ex}
 
-        This metadata value can only be updated by a client if it has the "``backup_operator``" privilege. If a client does not have the backup operator privilege, updates of this metadata item shall be ignored.
+        This metadata value may only be updated by a client if it has the "``backup_operator``" privilege. If a client does not have the backup operator privilege, updates of this metadata item shall be ignored.
       - Optional
     * - cdmi_acount
       - JSON string
@@ -122,7 +122,7 @@ Which storage system metadata is supported by the CDMI server defined in :numref
 
           \vspace*{1ex}
 
-        This metadata value can only be updated by a client if it has the "``backup_operator``" privilege. If a client does not have the backup operator privilege, updates of this metadata item shall be ignored.
+        This metadata value may only be updated by a client if it has the "``backup_operator``" privilege. If a client does not have the backup operator privilege, updates of this metadata item shall be ignored.
       - Optional
     * - cdmi_mcount
       - JSON string
@@ -138,7 +138,7 @@ Which storage system metadata is supported by the CDMI server defined in :numref
 
           \vspace*{1ex}
 
-        This metadata value can only be updated by a client if it has the "``backup_operator``" privilege. If a client does not have the backup operator privilege, updates of this metadata item shall be ignored.
+        This metadata value may only be updated by a client if it has the "``backup_operator``" privilege. If a client does not have the backup operator privilege, updates of this metadata item shall be ignored.
       - Optional
     * - cdmi_hash
       - JSON string

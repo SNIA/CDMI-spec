@@ -19,7 +19,7 @@ After the notification queue is created, all subsequent matching events after th
 Required metadata
 -----------------
 
-When creating a notification queue, the metadata described in :numref:`tbl_required_metadata_for_a_notification_queue` shall be provided. Attempts to change metadata in this table shall result in an HTTP status code of ``403 Forbidden``. After a notification queue has been created, with the exception of ``cdmi_queue_type``, the metadata items in this table cannot be changed. ``cdmi_queue_type`` can only be removed, indicating to the system that the notification queue shall no longer receive notifications and shall be treated as a regular CDMI queue object. 
+When creating a notification queue, the metadata described in :numref:`tbl_required_metadata_for_a_notification_queue` shall be provided. Attempts to change metadata in this table shall result in an HTTP status code of ``403 Forbidden``. After a notification queue has been created, with the exception of ``cdmi_queue_type``, the metadata items in this table may not be changed. ``cdmi_queue_type`` may only be removed, indicating to the system that the notification queue shall no longer receive notifications and shall be treated as a regular CDMI queue object. 
 
 .. tabularcolumns:: |>{\raggedright\arraybackslash}\Y{0.29}
                     |>{\raggedright\arraybackslash}\Y{0.09}
