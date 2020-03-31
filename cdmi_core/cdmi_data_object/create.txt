@@ -398,7 +398,7 @@ EXAMPLE 1: PUT to the container URI the data object name and contents:
 
    .. code-block:: none
 
-       PUT /MyContainer/MyDataObject.txt HTTP/1.1
+       PUT /cdmi/2.0.0/MyContainer/MyDataObject.txt HTTP/1.1
        Host: cloud.example.com
        Accept: application/cdmi-object
        Content-Type: application/cdmi-object
@@ -438,7 +438,7 @@ EXAMPLE 2: PUT to the container URI the data object name and binary contents:
 
    .. code-block:: none
 
-       PUT /MyContainer/MyDataObject.txt HTTP/1.1 
+       PUT /cdmi/2.0.0/MyContainer/MyDataObject.txt HTTP/1.1 
        Host: cloud.example.com 
        Accept: application/cdmi-object 
        Content-Type: application/cdmi-object 
@@ -476,7 +476,7 @@ EXAMPLE 3: PUT to the container URI the data object name and binary contents usi
 
    .. code-block:: none
 
-       PUT /MyContainer/MyDataObject.txt HTTP/1.1 
+       PUT /cdmi/2.0.0/MyContainer/MyDataObject.txt HTTP/1.1 
        Host: cloud.example.com 
        Accept: application/cdmi-object 
        Content-Type: multipart/mixed; boundary=gc0p4Jq0M2Yt08j34c0p
@@ -529,7 +529,7 @@ EXAMPLE 4: PUT to the container URI the data object name and binary contents usi
 
    .. code-block:: none
 
-       PUT /MyContainer/MyDataObject.txt HTTP/1.1 
+       PUT /cdmi/2.0.0/MyContainer/MyDataObject.txt HTTP/1.1 
        Host: cloud.example.com 
        Accept: application/cdmi-object 
        Content-Type: multipart/mixed; boundary=gc0p4Jq0M2Yt08j34c0p
@@ -582,7 +582,7 @@ EXAMPLE 5: PUT to the container URI the data object name and JSON contents:
 
    .. code-block:: none
 
-      PUT /MyContainer/MyDataObject.txt HTTP/1.1
+      PUT /cdmi/2.0.0/MyContainer/MyDataObject.txt HTTP/1.1
       Host: cloud.example.com
       Accept: application/cdmi-object
       Content-Type: application/cdmi-object
@@ -621,11 +621,11 @@ EXAMPLE 5: PUT to the container URI the data object name and JSON contents:
      
 EXAMPLE 6: PUT to the container URI to create an encrypted object:
 
-  .. code-block:: none
-  
-    PUT /MyContainer/MyEncryptedObject.txt HTTP/1.1
-    Host: cloud.example.com
-    Content-Type: application/cdmi-object
+	.. code-block:: none
+	
+		PUT /cdmi/2.0.0/MyContainer/MyEncryptedObject.txt HTTP/1.1
+		Host: cloud.example.com
+		Content-Type: application/cdmi-object
 
     {
      "mimetype" : "application/cms",
@@ -644,41 +644,41 @@ EXAMPLE 6: PUT to the container URI to create an encrypted object:
 
 EXAMPLE 7: PUT to the container URI to create an encrypted object:
 
-  .. code-block:: none
-    
-    PUT /MyContainer/MyEncryptedObject2.txt HTTP/1.1
-    Host: cloud.example.com
-    Content-Type: application/cdmi-object
+	.. code-block:: none
+		
+		PUT /cdmi/2.0.0/MyContainer/MyEncryptedObject2.txt HTTP/1.1
+		Host: cloud.example.com
+		Content-Type: application/cdmi-object
 
-    {
-     "mimetype" : "application/jose+json",
-     "metadata" : {
-     "cdmi_enc_key_id" : "77c7e2b8-6e13-45cf-8672-617b5b45243a"
-     },
-     "valuetransferencoding" : "json",
-     "value" : {
-     "protected": "eyJhbGciOiJkaXIiLCJraWQiOiI3N2M3ZTJi
-             OC02ZTEzLTQ1Y2YtODY3Mi02MTdiNWI0NTI0
-             M2EiLCJlbmMiOiJBMTI4R0NNIn0",
-     "iv": "refa467QzzKx6QAB",
-     "ciphertext": "JW_i_f52hww_ELQPGaYyeAB6HYGcR559l9T
-            YnSovc23XJoBcW29rHP8yZOZG7YhLpT1bjF
-            uvZPjQS-m0IFtVcXkZXdH_lr_FrdYt9HRUY
-            kshtrMmIUAyGmUnd9zMDB2n0cRDIHAzFVeJ
-            UDxkUwVAE7_YGRPdcqMyiBoCO-FBdE-Nceb
-            4h3-FtBP-c_BIwCPTjb9o0SbdcdREEMJMyZ
-            BH8ySWMVi1gPD9yxi-aQpGbSv_F9N4IZAxs
-            cj5g-NJsUPbjk29-s7LJAGb15wEBtXphVCg
-            yy53CoIKLHHeJHXex45Uz9aKZSRSInZI-wj
-            sY0yu3cT4_aQ3i1o-tiE-F8Ios61EKgyIQ4
-            CWao8PFMj8TTnp",
-     "tag": "vbb32Xvllea2OtmHAdccRQ",
-     "cty": "text/plain"
-     }
-    }
+		{
+		 "mimetype" : "application/jose+json",
+		 "metadata" : {
+		 "cdmi_enc_key_id" : "77c7e2b8-6e13-45cf-8672-617b5b45243a"
+		 },
+		 "valuetransferencoding" : "json",
+		 "value" : {
+		 "protected": "eyJhbGciOiJkaXIiLCJraWQiOiI3N2M3ZTJi
+					   OC02ZTEzLTQ1Y2YtODY3Mi02MTdiNWI0NTI0
+					   M2EiLCJlbmMiOiJBMTI4R0NNIn0",
+		 "iv": "refa467QzzKx6QAB",
+		 "ciphertext": "JW_i_f52hww_ELQPGaYyeAB6HYGcR559l9T
+						YnSovc23XJoBcW29rHP8yZOZG7YhLpT1bjF
+						uvZPjQS-m0IFtVcXkZXdH_lr_FrdYt9HRUY
+						kshtrMmIUAyGmUnd9zMDB2n0cRDIHAzFVeJ
+						UDxkUwVAE7_YGRPdcqMyiBoCO-FBdE-Nceb
+						4h3-FtBP-c_BIwCPTjb9o0SbdcdREEMJMyZ
+						BH8ySWMVi1gPD9yxi-aQpGbSv_F9N4IZAxs
+						cj5g-NJsUPbjk29-s7LJAGb15wEBtXphVCg
+						yy53CoIKLHHeJHXex45Uz9aKZSRSInZI-wj
+						sY0yu3cT4_aQ3i1o-tiE-F8Ios61EKgyIQ4
+						CWao8PFMj8TTnp",
+		 "tag": "vbb32Xvllea2OtmHAdccRQ",
+		 "cty": "text/plain"
+		 }
+		}
 
-  The following shows the response:
+	The following shows the response:
 
-  .. code-block:: none
-    
-    HTTP/1.1 201 Created
+	.. code-block:: none
+		
+		HTTP/1.1 201 Created

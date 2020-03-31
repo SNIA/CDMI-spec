@@ -139,7 +139,7 @@ EXAMPLE 3: Perform an Immediate Query:
 
     .. code-block:: none
 
-        PUT /MyContainer/myQuery HTTP/1.1
+        PUT /cdmi/2.0.0/MyContainer/myQuery HTTP/1.1
         Host: cloud.example.com
         Accept: application/cdmi-queue
         Content-Type: application/cdmi-queue
@@ -171,7 +171,7 @@ The following shows the response.
 
         HTTP/1.1 201 Created
         Content-Type: application/cdmi-queue
-        Location: https://cloud.example.com/MyContainer/myQuery
+        Location: https://cloud.example.com/cdmi/2.0.0/MyContainer/myQuery
          
         {
              "objectType" : "application/cdmi-queue",

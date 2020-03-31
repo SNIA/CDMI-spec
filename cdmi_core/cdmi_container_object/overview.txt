@@ -51,8 +51,8 @@ Container object addressing
 
 Container objects are addressed in CDMI in two ways:
 
-* by name (e.g. ``https://cloud.example.com/container/``); and
-* by ID (e.g. ``https://cloud.example.com/cdmi_objectid/00007ED900104E1D14771DC67C27BF8B/``).
+* by name (e.g. ``https://cloud.example.com/cdmi/2.0.0/container/``); and
+* by ID (e.g. ``https://cloud.example.com/cdmi/2.0.0/cdmi_objectid/00007ED900104E1D14771DC67C27BF8B/``).
 
 Every container object has a single, globally-unique object ID that remains constant for the life of the object. Each container object may also have one or more URI addresses that allow the container object to be accessed.
 
@@ -83,19 +83,19 @@ Individual fields within a container object may be accessed by specifying the fi
 
     EXAMPLE 3: The following URI returns just the children field in the response body:
 
-        ``https://cloud.example.com/container/?children``
+        ``https://cloud.example.com/cdmi/2.0.0/container/?children``
 
     EXAMPLE 4: By specifying a range after the children field name, specific ranges of the children field may be accessed.
 
-        ``https://cloud.example.com/container/?children:0-2``
+        ``https://cloud.example.com/cdmi/2.0.0/container/?children=0-2``
 
 Children ranges are specified in a way that is similar to byte ranges as per Section 14.35.1 of RFC 2616 :cite:`rfc2616`. A client can determine the number of children present by requesting the childrenrange field without requesting a range of children.
 
-A list of fields, separated by a semicolon ";" may be specified, allowing multiple fields to be accessed in a single request.
+A list of fields, separated by an ampersand "``&``" may be specified, allowing multiple fields to be accessed in a single request. 
 
     EXAMPLE 5: The following URI would return the children and metadata fields in the response body:
 
-        ``https://cloud.example.com/container/?children;metadata``
+        ``https://cloud.example.com/cdmi/2.0.0/container/?children&metadata``
 
 When a client provides fields that are not defined in this International Standard or deserializes an object containing fields that are not defined in this International Standard, these fields shall be persisted, but shall not be interpreted.
 

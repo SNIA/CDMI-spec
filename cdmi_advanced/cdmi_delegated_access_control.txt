@@ -665,7 +665,7 @@ EXAMPLE 2: GET ciphertext of encrypted object with passthrough key access
 
     .. code-block:: none
 
-        GET /MyContainer/MyEncryptedObject.txt HTTP/1.1
+        GET /cdmi/2.0.0/MyContainer/MyEncryptedObject.txt HTTP/1.1
         Host: cloud.example.com
         Accept: application/cms, application/jose+json
         Authorization: Basic am9lOnBhc3N3b3Jk
@@ -738,7 +738,7 @@ EXAMPLE 3: GET plaintext of encrypted object with delegated access control
 
     .. code-block:: none
 
-        GET /MyContainer/MyEncryptedObject.txt HTTP/1.1
+        GET /cdmi/2.0.0/MyContainer/MyEncryptedObject.txt HTTP/1.1
         Host: cloud.example.com
         Accept: */*
         Authorization: Basic am9lOnBhc3N3b3Jk
@@ -895,7 +895,7 @@ EXAMPLE 4: RSA Example
     
     .. code-block:: none
 
-        GET /cdmi/MyContainer/MyEncryptedObject.txt HTTP/1.1
+        GET /cdmi/2.0.0/MyContainer/MyEncryptedObject.txt HTTP/1.1
         Host: cdmi.hos-b.us:9002
         Accept: */*
 

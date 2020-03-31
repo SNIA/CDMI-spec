@@ -241,7 +241,7 @@ latex_elements = {
     \addto\captionsenglish{\renewcommand{\partname}{Part~}}
     \addto\captionsenglish{\renewcommand{\chaptername}{Clause~}}
     \addto\captionsenglish{\renewcommand{\appendixname}{Annex~}}
-    \addto\captionsenglish{\renewcommand{\figurename}{Figure\enspace}} 
+    \addto\captionsenglish{\renewcommand{\figurename}{Fig.\enspace}} 
     \usepackage{chngcntr}
     \counterwithout{figure}{chapter}
     \counterwithout{table}{chapter}

@@ -374,7 +374,7 @@ EXAMPLE 1: Create a new container with no metadata:
 
    .. code-block:: none
 
-    PUT /MyContainer/ HTTP/1.1
+    PUT /cdmi/2.0.0/MyContainer/ HTTP/1.1
     Host: cloud.example.com
     Accept: application/cdmi-container
     Content-Type: application/cdmi-container
@@ -409,7 +409,7 @@ EXAMPLE 2: Create a container with metadata:
 
    .. code-block:: none
 
-    PUT /MyContainer/ HTTP/1.1
+    PUT /cdmi/2.0.0/MyContainer/ HTTP/1.1
     Host: cloud.example.com
     Accept: application/cdmi-container
     Content-Type: application/cdmi-container
@@ -448,7 +448,7 @@ EXAMPLE 3: Create a container that is a copy of a container:
 
    .. code-block:: none
 
-    PUT /MyContainerCopy/ HTTP/1.1
+    PUT /cdmi/2.0.0/MyContainerCopy/ HTTP/1.1
     Host: cloud.example.com
     Accept: application/cdmi-container
     Content-Type: application/cdmi-container
@@ -483,7 +483,7 @@ EXAMPLE 4: Rename a container:
 
    .. code-block:: none
 
-    PUT /MyContainerRenamed/ HTTP/1.1
+    PUT /cdmi/2.0.0/MyContainerRenamed/ HTTP/1.1
     Host: cloud.example.com
     Accept: application/cdmi-container
     Content-Type: application/cdmi-container

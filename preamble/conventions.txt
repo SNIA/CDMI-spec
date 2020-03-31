@@ -46,7 +46,7 @@ All code text and HTTP status codes are shown in a fixed-width font, as follows:
 
 .. code-block:: none
 
-    PUT /MyContainer/MyDataObject.txt HTTP/1.1
+    PUT /cdmi/2.0.0/MyContainer/MyDataObject.txt HTTP/1.1
     Host: cloud.example.com
     Accept: application/cdmi-object
     Content-Type: application/cdmi-object

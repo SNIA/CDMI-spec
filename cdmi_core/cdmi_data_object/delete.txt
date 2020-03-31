@@ -100,7 +100,7 @@ EXAMPLE 1: DELETE by data object URI:
 
    .. code-block:: none
 
-       DELETE /MyContainer/MyDataObject.txt HTTP/1.1
+       DELETE /cdmi/2.0.0/MyContainer/MyDataObject.txt HTTP/1.1
        Host: cloud.example.com
 
    The following shows the response.
@@ -113,7 +113,7 @@ EXAMPLE 2: DELETE by data object ID:
 
    .. code-block:: none
 
-       DELETE /cdmi_objectid/00007ED90010D891022876A8DE0BC0FD HTTP/1.1
+       DELETE /cdmi/2.0.0/cdmi_objectid/00007ED90010D891022876A8DE0BC0FD HTTP/1.1
        Host: cloud.example.com
 
    The following shows the response.

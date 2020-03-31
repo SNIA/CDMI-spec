@@ -9,9 +9,9 @@ Synopsis
 To update part or all of an existing container object, the following requests shall be performed:
 
 * ``PATCH <root URI>/<ContainerName>/<TheContainerName>``
-* ``PATCH <root URI>/<ContainerName>/<TheContainerName>?metadata:<metadataname>;....``
+* ``PATCH <root URI>/<ContainerName>/<TheContainerName>?metadata=<metadataname>&....``
 * ``PATCH <root URI>/cdmi_objectid/<ContainerObjectID>``
-* ``PATCH <root URI>/cdmi_objectid/<ContainerObjectID>?metadata:<metadataname>;....``
+* ``PATCH <root URI>/cdmi_objectid/<ContainerObjectID>?metadata=<metadataname>&....``
 
 Where:
 
@@ -279,7 +279,7 @@ EXAMPLE 1: PATCH to the container object URI to replace all metadata with new me
 
    .. code-block:: none
 
-        PATCH /MyContainer/ HTTP/1.1
+        PATCH /cdmi/2.0.0/MyContainer/ HTTP/1.1
         Host: cloud.example.com
         Content-Type: application/cdmi-container
          
@@ -301,7 +301,7 @@ EXAMPLE 2: PATCH to the container object URI to set a new exported protocol valu
 
    .. code-block:: none
 
-        PATCH /MyContainer/?exports HTTP/1.1
+        PATCH /cdmi/2.0.0/MyContainer/?exports HTTP/1.1
         Host: cloud.example.com
         Content-Type: application/cdmi-container
          

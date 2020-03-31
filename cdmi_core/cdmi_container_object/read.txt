@@ -9,13 +9,13 @@ Synopsis
 To read an existing container object, the following requests shall be performed:
 
 * ``GET <root URI>/<ContainerName>/<TheContainerName>/``
-* ``GET <root URI>/<ContainerName>/<TheContainerName>/?<fieldname>;<fieldname>;...``
-* ``GET <root URI>/<ContainerName>/<TheContainerName>/?children:<range>;...``
-* ``GET <root URI>/<ContainerName>/<TheContainerName>/?metadata:<prefix>;...``
+* ``GET <root URI>/<ContainerName>/<TheContainerName>/?<fieldname>&<fieldname>&...``
+* ``GET <root URI>/<ContainerName>/<TheContainerName>/?children=<range>&...``
+* ``GET <root URI>/<ContainerName>/<TheContainerName>/?metadata=<prefix>&...``
 * ``GET <root URI>/cdmi_objectid/<ContainerObjectID>/``
-* ``GET <root URI>/cdmi_objectid/<ContainerObjectID>/?<fieldname>;<fieldname>;...``
-* ``GET <root URI>/cdmi_objectid/<ContainerObjectID>/?children:<range>;...``
-* ``GET <root URI>/cdmi_objectid/<ContainerObjectID>/?metadata:<prefix>;...``
+* ``GET <root URI>/cdmi_objectid/<ContainerObjectID>/?<fieldname>&<fieldname>&...``
+* ``GET <root URI>/cdmi_objectid/<ContainerObjectID>/?children=<range>&...``
+* ``GET <root URI>/cdmi_objectid/<ContainerObjectID>/?metadata=<prefix>&...``
 
 Where:
 
@@ -264,7 +264,7 @@ EXAMPLE 1: GET to the container object URI to read all the fields of the contain
 
    .. code-block:: none
 
-        GET /MyContainer/ HTTP/1.1
+        GET /cdmi/2.0.0/MyContainer/ HTTP/1.1
         Host: cloud.example.com
         Accept: application/cdmi-container
 
@@ -314,7 +314,7 @@ EXAMPLE 2: GET to the container object URI to read parentURI and children of the
 
    .. code-block:: none
 
-        GET /MyContainer/?parentURI;children HTTP/1.1
+        GET /cdmi/2.0.0/MyContainer/?parentURI&children HTTP/1.1
         Host: cloud.example.com
         Accept: application/cdmi-container
 
@@ -340,7 +340,7 @@ EXAMPLE 3: GET to the container object URI to read children 0..2 and childrenran
 
    .. code-block:: none
 
-        GET /MyContainer/?childrenrange;children:0-2 HTTP/1.1
+        GET /cdmi/2.0.0/MyContainer/?childrenrange&children=0-2 HTTP/1.1
         Host: cloud.example.com
         Accept: application/cdmi-container
 
@@ -364,7 +364,7 @@ EXAMPLE 4: GET to the container object by ID to read children 0..2 and childrenr
 
    .. code-block:: none
 
-        GET /cdmi_objectid/0000706D0010B84FAD185C425D8B537E/?childrenrange;children:0-2 HTTP/1.1 
+        GET /cdmi/2.0.0/cdmi_objectid/0000706D0010B84FAD185C425D8B537E/?childrenrange&children=0-2 HTTP/1.1 
         Host: cloud.example.com 
         Accept: application/cdmi-container 
 
