@@ -155,7 +155,7 @@ EXAMPLE 2: Put to the container URI to create an encrypted object:
 		--> Host: cloud.example.com
 		--> Content-Type: application/cms
 		--> Content-Length: 1425
-                --> 
+		--> 
 		--> <CMS Encrypted Object>
 
 		<-- HTTP/1.1 201 Created
