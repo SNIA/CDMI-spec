@@ -126,7 +126,7 @@ Implementations of this International Standard shall provide the atomicity featu
 Data object representations
 ---------------------------
 
-The representations in this clause are shown using JSON notation. Both clients and servers shall support UTF-8 JSON representation. The request and response body JSON fields can be specified or returned in any order, with the exception that, if present, for data objects, the "``valuerange``" and "``value``" fields shall appear last and in that order. 
+The representations in this clause are shown using JSON notation. Both clients and servers shall support UTF-8 JSON representation. The request and response body JSON fields may be specified or returned in any order, with the exception that, if present, for data objects, the "``valuerange``" and "``value``" fields shall appear last and in that order. 
 
 Encrypted objects
 -----------------

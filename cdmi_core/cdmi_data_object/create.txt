@@ -23,7 +23,7 @@ After it is created, the data object shall also be accessible at ``<root URI>/cd
 Delayed completion of create
 ----------------------------
 
-In response to a create operation for a data object, the server can return an HTTP status code of ``202 Accepted`` to indicate that the object is in the process of being created. This response is useful for long-running operations (e.g., copying a large data object from a source URI). Such a response has the following implications.
+In response to a create operation for a data object, the server may return an HTTP status code of ``202 Accepted`` to indicate that the object is in the process of being created. This response is useful for long-running operations (e.g., copying a large data object from a source URI). Such a response has the following implications.
 
 * The server shall return a Location header with an absolute URI to the object to be created along with an HTTP status code of ``202 Accepted``.
 * With an HTTP status code of ``202 Accepted``, the server implies that the following checks have passed:
@@ -346,7 +346,7 @@ The response message body fields for creating a data object using CDMI are shown
 
         * When the value of ``completionStatus`` is "``Processing``", this field, if provided, shall indicate the percentage of completion as a numeric integer value from "``0``" through "``100``". 
         * When the value of ``completionStatus`` is "``Complete``", this field, if provided, shall contain the value "``100``". 
-        * When the value of ``completionStatus`` is "``Error``", this field, if provided, can contain any integer value from "``0``" through "``100``".
+        * When the value of ``completionStatus`` is "``Error``", this field, if provided, may contain any integer value from "``0``" through "``100``".
       - Optional
     * - mimetype
       - JSON string
