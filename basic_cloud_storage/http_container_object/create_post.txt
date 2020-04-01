@@ -164,16 +164,12 @@ EXAMPLE 1: POST to the container object URI the data object contents:
 
    .. code-block:: none
 
-    POST /cdmi/2.0.0/MyContainer/ HTTP/1.1
-    Host: cloud.example.com
-    Content-Type: text/plain;charset=utf-8
-    
-    <object contents>
+    --> POST /cdmi/2.0.0/MyContainer/ HTTP/1.1
+    --> Host: cloud.example.com
+    --> Content-Type: text/plain;charset=utf-8
+    -->  
+    --> <object contents>
 
-   The following shows the response.
-
-   .. code-block:: none
-   
-    HTTP/1.1 201 Created
-    Location: https://cloud.example.com/cdmi/2.0.0/MyContainer/00007ED900104E1D14771DC67C27BF8B
+    <-- HTTP/1.1 201 Created
+    <-- Location: https://cloud.example.com/cdmi/2.0.0/MyContainer/00007ED900104E1D14771DC67C27BF8B
     

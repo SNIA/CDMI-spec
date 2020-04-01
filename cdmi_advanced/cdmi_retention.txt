@@ -70,64 +70,52 @@ EXAMPLE 1: Place an existing object under retention:
 
     .. code-block:: none
 
-        PATCH /cdmi/2.0.0/MyContainer/MyDataObject.txt?metadata=cdmi_retention_id&metadata=cdmi_retention_period HTTP/1.1
-        Host: cloud.example.com
-        Content-Type: application/cdmi-object
-         
-        {
-            "metadata" : {
-                "cdmi_retention_id" : "1",
-                "cdmi_retention_period" : "2010-04-28T00:00:00.000000Z/2012-04-27T00:00:00.000000Z"
-            }
-        }
+        --> PATCH /cdmi/2.0.0/MyContainer/MyDataObject.txt?metadata=cdmi_retention_id&metadata=cdmi_retention_period HTTP/1.1
+        --> Host: cloud.example.com
+        --> Content-Type: application/cdmi-object
+        -->  
+        --> {
+        -->   "metadata" : {
+        -->     "cdmi_retention_id" : "1",
+        -->     "cdmi_retention_period" : "2010-04-28T00:00:00.000000Z/2012-04-27T00:00:00.000000Z"
+        -->   }
+        --> }
 
-    The following shows the response.
-
-    .. code-block:: none
-
-        HTTP/1.1 204 No Content
+        <-- HTTP/1.1 204 No Content
 
 
 EXAMPLE 2: Increase the duration of retention on an existing object under retention:
 
     .. code-block:: none
 
-        PATCH /cdmi/2.0.0/MyContainer/MyDataObject.txt?metadata=cdmi_retention_period HTTP/1.1
-        Host: cloud.example.com
-        Content-Type: application/cdmi-object
-         
-        {
-            "metadata" : {
-                "cdmi_retention_period" : "2011-04-28T00:00:00.000000Z/2013-04-27T00:00:00.000000Z"
-            }
-        }
+        --> PATCH /cdmi/2.0.0/MyContainer/MyDataObject.txt?metadata=cdmi_retention_period HTTP/1.1
+        --> Host: cloud.example.com
+        --> Content-Type: application/cdmi-object
+        -->  
+        --> {
+        -->   "metadata" : {
+        -->     "cdmi_retention_period" : "2011-04-28T00:00:00.000000Z/2013-04-27T00:00:00.000000Z"
+        -->   }
+        --> }
 
-    The following shows the response.
-
-    .. code-block:: none
-
-        HTTP/1.1 204 No Content
+        <-- HTTP/1.1 204 No Content
 
 
 EXAMPLE 3: Decrease the duration of retention on an existing object under retention:
 
     .. code-block:: none
 
-        PATCH /cdmi/2.0.0/MyContainer/MyDataObject.txt?metadata=cdmi_retention_period HTTP/1.1
-        Host: cloud.example.com
-        Content-Type: application/cdmi-object
-         
-        {
-            "metadata" : {
-                "cdmi_retention_period" : "2011-04-28T00:00:00.000000Z/2012-01-27T00:00:00.000000Z"
-            }
-        }
+        --> PATCH /cdmi/2.0.0/MyContainer/MyDataObject.txt?metadata=cdmi_retention_period HTTP/1.1
+        --> Host: cloud.example.com
+        --> Content-Type: application/cdmi-object
+        -->  
+        --> {
+        -->   "metadata" : {
+        -->     "cdmi_retention_period" : "2011-04-28T00:00:00.000000Z/2012-01-27T00:00:00.000000Z"
+        -->   }
+        --> }
 
-    The following shows the response.
-
-    .. code-block:: none 
-
-        HTTP/1.1 403 Forbidden
+        <-- HTTP/1.1 403 Forbidden
 
 
 .. _cdmi_hold:
@@ -193,68 +181,56 @@ EXAMPLE 1: Place an existing object under hold:
 
     .. code-block:: none
 
-        PATCH /cdmi/2.0.0/MyContainer/MyDataObject.txt?metadata=cdmi_hold_id HTTP/1.1
-        Host: cloud.example.com
-        Content-Type: application/cdmi-object
-         
-        {
-          "metadata": {
-            "cdmi_hold_id": {
-               "case_7": ""
-            }
-          }
-        }
+        --> PATCH /cdmi/2.0.0/MyContainer/MyDataObject.txt?metadata=cdmi_hold_id HTTP/1.1
+        --> Host: cloud.example.com
+        --> Content-Type: application/cdmi-object
+        -->  
+        --> {
+        -->   "metadata": {
+        -->     "cdmi_hold_id": {
+        -->       "case_7": ""
+        -->     }
+        -->   }
+        --> }
 
-    The following shows the response.
-
-    .. code-block:: none
-
-        HTTP/1.1 204 No Content
+        <-- HTTP/1.1 204 No Content
 
 
 EXAMPLE 2: Attempt to remove a hold for an object under hold: 
 
     .. code-block:: none
 
-        PATCH /cdmi/2.0.0/MyContainer/MyDataObject.txt?metadata=cdmi_hold_id HTTP/1.1
-        Host: cloud.example.com
-        Content-Type: application/cdmi-object
-         
-        {
-          "metadata": {
-            "cdmi_hold_id": {}
-          }
-        }
+        --> PATCH /cdmi/2.0.0/MyContainer/MyDataObject.txt?metadata=cdmi_hold_id HTTP/1.1
+        --> Host: cloud.example.com
+        --> Content-Type: application/cdmi-object
+        -->  
+        --> {
+        -->   "metadata": {
+        -->     "cdmi_hold_id": {}
+        -->   }
+        --> }
 
-    The following shows the response.
-
-    .. code-block:: none
-
-        HTTP/1.1 403 Forbidden
+        <-- HTTP/1.1 403 Forbidden
 
 
 EXAMPLE 3: Add a second hold to an object under hold:
 
     .. code-block:: none
 
-        PATCH /cdmi/2.0.0/MyContainer/MyDataObject.txt?metadata=cdmi_hold_id HTTP/1.1
-        Host: cloud.example.com
-        Content-Type: application/cdmi-object
-         
-        {
-          "metadata":{
-            "cdmi_hold_id": {
-               "case_7": "",
-               "case_15": ""
-           }
-            }
-        }
+        --> PATCH /cdmi/2.0.0/MyContainer/MyDataObject.txt?metadata=cdmi_hold_id HTTP/1.1
+        --> Host: cloud.example.com
+        --> Content-Type: application/cdmi-object
+        -->  
+        --> {
+        -->   "metadata":{
+        -->     "cdmi_hold_id": {
+        -->       "case_7": "",
+        -->       "case_15": ""
+        -->     }
+        -->   }
+        --> }
 
-    The following shows the response.
-
-    .. code-block:: none
-
-        HTTP/1.1 204 No Content
+        <-- HTTP/1.1 204 No Content
 
 
 CDMI auto-deletion
@@ -271,22 +247,18 @@ EXAMPLE 1: Place an object under retention with autodelete:
 
     .. code-block:: none
 
-        PATCH /cdmi/2.0.0/MyContainer/MyDataObject.txt?metadata=cdmi_retention_period&metadata=cdmi_retention_autodelete HTTP/1.1
-        Host: cloud.example.com
-        Content-Type: application/cdmi-object
-         
-        {
-            "metadata":{
-                "cdmi_retention_period": "2011-04-28T00:00:00.000000Z/2013-04-27T00:00:00.000000Z",
-                "cdmi_retention_autodelete": "true"
-            }
-        }
+        --> PATCH /cdmi/2.0.0/MyContainer/MyDataObject.txt?metadata=cdmi_retention_period&metadata=cdmi_retention_autodelete HTTP/1.1
+        --> Host: cloud.example.com
+        --> Content-Type: application/cdmi-object
+        -->  
+        --> {
+        -->   "metadata":{
+        -->     "cdmi_retention_period": "2011-04-28T00:00:00.000000Z/2013-04-27T00:00:00.000000Z",
+        -->     "cdmi_retention_autodelete": "true"
+        -->   }
+        --> }
 
-    The following shows the response.
-
-    .. code-block:: none
-
-        HTTP/1.1 204 No Content
+        <-- HTTP/1.1 204 No Content
 
   
 Retention security considerations

@@ -476,73 +476,65 @@ Example 1: PUT to the queue URI the queue object name and contents:
 
     .. code-block:: none
 
-        PUT /cdmi/2.0.0/MyContainer/MyQueue HTTP/1.1
-        Host: cloud.example.com
-        Accept: application/cdmi-queue
-        Content-Type: application/cdmi-queue
-         
-        {
-            "metadata" : {
-                
-            }
-        }
+        --> PUT /cdmi/2.0.0/MyContainer/MyQueue HTTP/1.1
+        --> Host: cloud.example.com
+        --> Accept: application/cdmi-queue
+        --> Content-Type: application/cdmi-queue
+        -->  
+        --> {
+        -->   "metadata" : {
+        -->  
+        -->   }
+        --> }
 
-    The following shows the response.
-
-    .. code-block:: none
-
-        HTTP/1.1 201 Created
-        Content-Type: application/cdmi-queue
-         
-        {
-            "objectType" : "application/cdmi-queue",
-            "objectID" : "00007E7F00104BE66AB53A9572F9F51E",
-            "objectName" : "MyQueue",
-            "parentURI " : "/MyContainer/",
-            "parentID" : "00007ED900104F67307652BAC9A37C93", 
-            "domainURI" : "/cdmi_domains/MyDomain/",
-            "capabilitiesURI" : "/cdmi_capabilities/queue/",
-            "completionStatus" : "Complete",
-            "metadata" : {
-                ...
-            },
-            "queueValues" : ""
-        }
+        <-- HTTP/1.1 201 Created
+        <-- Content-Type: application/cdmi-queue
+        <--  
+        <-- {
+        <--   "objectType" : "application/cdmi-queue",
+        <--   "objectID" : "00007E7F00104BE66AB53A9572F9F51E",
+        <--   "objectName" : "MyQueue",
+        <--   "parentURI " : "/MyContainer/",
+        <--   "parentID" : "00007ED900104F67307652BAC9A37C93", 
+        <--   "domainURI" : "/cdmi_domains/MyDomain/",
+        <--   "capabilitiesURI" : "/cdmi_capabilities/queue/",
+        <--   "completionStatus" : "Complete",
+        <--   "metadata" : {
+        <--     ...
+        <--   },
+        <--   "queueValues" : ""
+        <-- }
 
 
 EXAMPLE 2: PUT to the queue object URI to create a new queue, copying from another queue:
 
     .. code-block:: none
 
-        PUT /cdmi/2.0.0/MyContainer/MyQueue HTTP/1.1
-        Host: cloud.example.com
-        Content-Type: application/cdmi-queue
-         
-        {
-            "copy": "/MyContainer/SourceQueue?value=0-9"
-        }
+        --> PUT /cdmi/2.0.0/MyContainer/MyQueue HTTP/1.1
+        --> Host: cloud.example.com
+        --> Content-Type: application/cdmi-queue
+        -->  
+        --> {
+        -->   "copy": "/MyContainer/SourceQueue?value=0-9"
+        --> }
 
-    The following shows the response.
-
-    .. code-block:: none
-
-        HTTP/1.1 201 Created
-        Content-Type: application/cdmi-queue
-         
-        {
-            "objectType": "application/cdmi-queue",
-            "objectID": "00007E7F00104BE66AB53A9572F9F51E",
-            "objectName": "MyQueue",
-            "parentURI ": "/MyContainer/",
-            "parentID": "00007ED900104F67307652BAC9A37C93",
-            "domainURI": "/cdmi_domains/MyDomain/",
-            "capabilitiesURI": "/cdmi_capabilities/queue/",
-            "completionStatus": "Complete",
-            "metadata": {
-                        ...
-                },
-            "queueValues": "0-9"
-        }
+        <-- HTTP/1.1 201 Created
+        <-- Content-Type: application/cdmi-queue
+        <--  
+        <-- {
+        <--   "objectType": "application/cdmi-queue",
+        <--   "objectID": "00007E7F00104BE66AB53A9572F9F51E",
+        <--   "objectName": "MyQueue",
+        <--   "parentURI ": "/MyContainer/",
+        <--   "parentID": "00007ED900104F67307652BAC9A37C93",
+        <--   "domainURI": "/cdmi_domains/MyDomain/",
+        <--   "capabilitiesURI": "/cdmi_capabilities/queue/",
+        <--   "completionStatus": "Complete",
+        <--   "metadata": {
+        <--     ...
+        <--   },
+        <--   "queueValues": "0-9"
+        <-- }
 
 .. _ref_cdmi_queue_object_read:
 
@@ -852,175 +844,155 @@ EXAMPLE 1: GET to the queue object URI to read all fields of the queue object:
 
     .. code-block:: none
 
-        GET /cdmi/2.0.0/MyContainer/MyQueue HTTP/1.1
-        Host: cloud.example.com
-        Accept: application/cdmi-queue
+        --> GET /cdmi/2.0.0/MyContainer/MyQueue HTTP/1.1
+        --> Host: cloud.example.com
+        --> Accept: application/cdmi-queue
 
-    The following shows the response.
-
-    .. code-block:: none
-
-        HTTP/1.1 200 OK 
-        Content-Type: application/cdmi-queue
-         
-        {
-            "objectType": "application/cdmi-queue",
-            "objectID": "00007E7F00104BE66AB53A9572F9F51E",
-            "objectName": "MyQueue",
-            "parentURI": "/MyContainer/",
-            "parentID" : "00007ED900104F67307652BAC9A37C93", 
-            "domainURI": "/cdmi_domains/MyDomain/",
-            "capabilitiesURI": "/cdmi_capabilities/queue/",
-            "completionStatus": "Complete",
-            "metadata": {},
-            "queueValues": "1-1",
-            "mimetype": [
-                "text/plain"
-            ],
-            "valuerange": [
-                "0-19"
-            ],
-            "valuetransferencoding": [
-                "utf-8"
-            ],
-            "value": [
-                "First Enqueued Value"
-            ]
-        }
+        <-- HTTP/1.1 200 OK 
+        <-- Content-Type: application/cdmi-queue
+        <--  
+        <-- {
+        <--   "objectType": "application/cdmi-queue",
+        <--   "objectID": "00007E7F00104BE66AB53A9572F9F51E",
+        <--   "objectName": "MyQueue",
+        <--   "parentURI": "/MyContainer/",
+        <--   "parentID" : "00007ED900104F67307652BAC9A37C93", 
+        <--   "domainURI": "/cdmi_domains/MyDomain/",
+        <--   "capabilitiesURI": "/cdmi_capabilities/queue/",
+        <--   "completionStatus": "Complete",
+        <--   "metadata": {},
+        <--   "queueValues": "1-1",
+        <--   "mimetype": [
+        <--     "text/plain"
+        <--   ],
+        <--   "valuerange": [
+        <--     "0-19"
+        <--   ],
+        <--   "valuetransferencoding": [
+        <--     "utf-8"
+        <--   ],
+        <--   "value": [
+        <--     "First Enqueued Value"
+        <--   ]
+        <-- }
 
 
 EXAMPLE 2: GET to the queue object URI to read the value and queue items of the queue object:
 
     .. code-block:: none
 
-        GET /cdmi/2.0.0/MyContainer/MyQueue?value&queueValues HTTP/1.1
-        Host: cloud.example.com
-        Accept: application/cdmi-queue
+        --> GET /cdmi/2.0.0/MyContainer/MyQueue?value&queueValues HTTP/1.1
+        --> Host: cloud.example.com
+        --> Accept: application/cdmi-queue
 
-    The following shows the response.
-
-    .. code-block:: none
-
-        HTTP/1.1 200 OK 
-        Content-Type: application/cdmi-queue
-         
-        {
-            "queueValues" : "1-1",
-            "value" : [
-                "First Enqueued Value" 
-            ] 
-        }
+        <-- HTTP/1.1 200 OK 
+        <-- Content-Type: application/cdmi-queue
+        <--  
+        <-- {
+        <--   "queueValues" : "1-1",
+        <--   "value" : [
+        <--   "First Enqueued Value" 
+        <--   ] 
+        <-- }
 
 
 EXAMPLE 3: GET to the queue object URI to read the first five bytes of the value of the queue object:
 
     .. code-block:: none
 
-        GET /cdmi/2.0.0/MyContainer/MyQueue?value:0-4 HTTP/1.1
-        Host: cloud.example.com
-        Accept: application/cdmi-queue
+        --> GET /cdmi/2.0.0/MyContainer/MyQueue?value:0-4 HTTP/1.1
+        --> Host: cloud.example.com
+        --> Accept: application/cdmi-queue
 
-    The following shows the response:
-
-    .. code-block:: none
-    
-        HTTP/1.1 200 OK 
-        Content-Type: application/cdmi-queue
-         
-        {
-            "value" : [
-                "First" 
-            ] 
-        } 
+        <-- HTTP/1.1 200 OK 
+        <-- Content-Type: application/cdmi-queue
+        <--  
+        <-- {
+        <--   "value" : [
+        <--     "First" 
+        <--   ] 
+        <-- } 
 
 EXAMPLE 4: GET to the queue object URI to read two values of the queue object:
 
     .. code-block:: none
 
-        GET /cdmi/2.0.0/MyContainer/MyQueue?mimetype&valuerange&values=2 HTTP/1.1 
-        Host: cloud.example.com 
-        Accept: application/cdmi-queue 
+        --> GET /cdmi/2.0.0/MyContainer/MyQueue?mimetype&valuerange&values=2 HTTP/1.1 
+        --> Host: cloud.example.com 
+        --> Accept: application/cdmi-queue 
 
-    The following shows the response.
-
-    .. code-block:: none
-
-        HTTP/1.1 200 OK 
-        Content-Type: application/cdmi-queue
-         
-        {
-            "mimetype" : [
-                "text/plain",
-                "text/plain" 
-            ],
-            "valuerange" : [
-                "0-19",
-                "0-20" 
-            ],
-            "value" : [
-                "First Enqueued Value",
-                "Second Enqueued Value" 
-            ] 
-        }
+        <-- HTTP/1.1 200 OK 
+        <-- Content-Type: application/cdmi-queue
+        <--  
+        <-- {
+        <--   "mimetype" : [
+        <--     "text/plain",
+        <--     "text/plain" 
+        <--   ],
+        <--   "valuerange" : [
+        <--     "0-19",
+        <--     "0-20" 
+        <--   ],
+        <--   "value" : [
+        <--     "First Enqueued Value",
+        <--     "Second Enqueued Value" 
+        <--   ] 
+        <-- }
 
 EXAMPLE 5: GET to the queue object URI to read the queue object using multi-part MIME:
 
     .. code-block:: none
 
-        GET /cdmi/2.0.0/MyContainer/MyQueue HTTP/1.1 
-        Host: cloud.example.com 
-        Accept: multipart/mixed
+        --> GET /cdmi/2.0.0/MyContainer/MyQueue HTTP/1.1 
+        --> Host: cloud.example.com 
+        --> Accept: multipart/mixed
 
-    The following shows the response.
-
-    .. code-block:: none
-
-        HTTP/1.1 200 OK 
-        Content-Type: multipart/mixed; boundary=gc0p4Jq0M2Yt08j34c0p
-        
-        --gc0p4Jq0M2Yt08j34c0p
-        Content-Type: application/cdmi-queue
-        
-        {
-            "objectType": "application/cdmi-queue", 
-            "objectID": "00007ED9001035E14BD1BA70C2EE98FC", 
-            "objectName": "MyQueue", 
-            "parentURI": "/MyContainer/", 
-            "parentID" : " 00007ED90010C2414303B5C6D4F83170", 
-            "domainURI": "/cdmi_domains/MyDomain/", 
-            "capabilitiesURI": "/cdmi_capabilities/queue/", 
-            "completionStatus": "Complete", 
-            "metadata": {
-                ...
-        },
-            "queueValues": "1-2",
-            "mimetype": [
-                "application/octet-stream", 
-                "application/octet-stream"
-            ],
-            "valuerange": [
-                "0-19", 
-                "0-36"
-            ],
-            "valuetransferencoding": [
-                "base64",
-                "base64"
-            ]
-        }
-
-        --gc0p4Jq0M2Yt08j34c0p
-        Content-Type: application/octet-stream
-        Content-Transfer-Encoding: binary
-        
-        <20 bytes of binary data>
-        
-        --gc0p4Jq0M2Yt08j34c0p
-        Content-Type: application/octet-stream 
-        Content-Transfer-Encoding: binary
-        
-        <37 bytes of binary data>
-        
-        --gc0p4Jq0M2Yt08j34c0p--
+        <-- HTTP/1.1 200 OK 
+        <-- Content-Type: multipart/mixed; boundary=gc0p4Jq0M2Yt08j34c0p
+        <--  
+        <-- --gc0p4Jq0M2Yt08j34c0p
+        <-- Content-Type: application/cdmi-queue
+        <--  
+        <-- {
+        <--   "objectType": "application/cdmi-queue", 
+        <--   "objectID": "00007ED9001035E14BD1BA70C2EE98FC", 
+        <--   "objectName": "MyQueue", 
+        <--   "parentURI": "/MyContainer/", 
+        <--   "parentID" : " 00007ED90010C2414303B5C6D4F83170", 
+        <--   "domainURI": "/cdmi_domains/MyDomain/", 
+        <--   "capabilitiesURI": "/cdmi_capabilities/queue/", 
+        <--   "completionStatus": "Complete", 
+        <--   "metadata": {
+        <--     ...
+        <--   },
+        <--   "queueValues": "1-2",
+        <--   "mimetype": [
+        <--     "application/octet-stream", 
+        <--     "application/octet-stream"
+        <--   ],
+        <--   "valuerange": [
+        <--     "0-19", 
+        <--     "0-36"
+        <--   ],
+        <--   "valuetransferencoding": [
+        <--     "base64",
+        <--   "base64"
+        <--   ]
+        <-- }
+        <-- 
+        <-- --gc0p4Jq0M2Yt08j34c0p
+        <-- Content-Type: application/octet-stream
+        <-- Content-Transfer-Encoding: binary
+        <--  
+        <-- <20 bytes of binary data>
+        <--  
+        <-- --gc0p4Jq0M2Yt08j34c0p
+        <-- Content-Type: application/octet-stream 
+        <-- Content-Transfer-Encoding: binary
+        <--  
+        <-- <37 bytes of binary data>
+        <--  
+        <-- --gc0p4Jq0M2Yt08j34c0p--
 
 
 .. _ref_cdmi_queue_object_update:
@@ -1234,40 +1206,32 @@ EXAMPLE 1: PATCH to the queue object URI to set new metadata:
 
     .. code-block:: none
 
-        PATCH /cdmi/2.0.0/MyContainer/MyQueue HTTP/1.1
-        Host: cloud.example.com
-        Content-Type: application/cdmi-queue
-         
-        {
-            "metadata" : {
-                
-            }
-        }
+        --> PATCH /cdmi/2.0.0/MyContainer/MyQueue HTTP/1.1
+        --> Host: cloud.example.com
+        --> Content-Type: application/cdmi-queue
+        -->  
+        --> {
+        -->   "metadata" : {
+        -->  
+        -->   }
+        --> }
 
-    The following shows the response.
-
-    .. code-block:: none
-
-        HTTP/1.1 204 No Content
+        <-- HTTP/1.1 204 No Content
 
 
 EXAMPLE 2: PATCH to the queue object URI to move six queue values from another queue: 
 
     .. code-block:: none
 
-        PATCH /cdmi/2.0.0/MyContainer/MyQueue HTTP/1.1
-        Host: cloud.example.com
-        Content-Type: application/cdmi-queue
-         
-        {
-            "move": "/MyContainer/SourceQueue?value:10-15"
-        }
+        --> PATCH /cdmi/2.0.0/MyContainer/MyQueue HTTP/1.1
+        --> Host: cloud.example.com
+        --> Content-Type: application/cdmi-queue
+        -->  
+        --> {
+        -->   "move": "/MyContainer/SourceQueue?value:10-15"
+        --> }
 
-    The following shows the response.
-
-    .. code-block:: none
-
-        HTTP/1.1 204 No Content
+        <-- HTTP/1.1 204 No Content
 
 .. _ref_cdmi_queue_object_delete:
 
@@ -1371,14 +1335,10 @@ EXAMPLE 1: DELETE to the queue object URI:
 
     .. code-block:: none
 
-        DELETE /cdmi/2.0.0/MyContainer/MyQueue HTTP/1.1
-        Host: cloud.example.com
+        --> DELETE /cdmi/2.0.0/MyContainer/MyQueue HTTP/1.1
+        --> Host: cloud.example.com
 
-    The following shows the response.
-
-    .. code-block:: none
-
-        HTTP/1.1 204 No Content
+        <-- HTTP/1.1 204 No Content
 
 .. _ref_cdmi_queue_object_enqueue:
 
@@ -1573,195 +1533,167 @@ EXAMPLE 1: POST to the queue object URI a new value:
 
     .. code-block:: none
 
-        POST /cdmi/2.0.0/MyContainer/MyQueue HTTP/1.1 
-        Host: cloud.example.com 
-        Content-Type: application/cdmi-queue 
-         
-        {
-            "mimetype" : [
-                "text/plain" 
-            ],
-            "value" : [
-                "Value to Enqueue" 
-            ] 
-        } 
+        --> POST /cdmi/2.0.0/MyContainer/MyQueue HTTP/1.1 
+        --> Host: cloud.example.com 
+        --> Content-Type: application/cdmi-queue 
+        -->  
+        --> {
+        -->   "mimetype" : [
+        -->     "text/plain" 
+        -->   ],
+        -->   "value" : [
+        -->     "Value to Enqueue" 
+        -->   ] 
+        --> } 
 
-    The following shows the response.
-
-    .. code-block:: none
-
-        HTTP/1.1 204 No Content 
+        <-- HTTP/1.1 204 No Content 
 
 
 EXAMPLE 2: POST to the queue object URI to copy an existing value:
 
     .. code-block:: none
 
-        POST /cdmi/2.0.0/MyContainer/MyQueue HTTP/1.1 
-        Host: cloud.example.com 
-        Content-Type: application/cdmi-object 
-         
-        {
-            "copy" : "/MyContainer/MyDataObject.txt" 
-        } 
+        --> POST /cdmi/2.0.0/MyContainer/MyQueue HTTP/1.1 
+        --> Host: cloud.example.com 
+        --> Content-Type: application/cdmi-object 
+        -->  
+        --> {
+        -->   "copy" : "/MyContainer/MyDataObject.txt" 
+        --> } 
 
-    The following shows the response.
-
-    .. code-block:: none
-
-        HTTP/1.1 204 No Content
+        <-- HTTP/1.1 204 No Content
 
 EXAMPLE 3: POST to the queue object URI to transfer 20 values from another queue object:
 
     .. code-block:: none
 
-        POST /cdmi/2.0.0/MyContainer/MyQueue HTTP/1.1 
-        Host: cloud.example.com 
-        Content-Type: application/cdmi-object 
-         
-        {
-            "move" : "/MyContainer/FirstQueue?values=20" 
-        }
+        --> POST /cdmi/2.0.0/MyContainer/MyQueue HTTP/1.1 
+        --> Host: cloud.example.com 
+        --> Content-Type: application/cdmi-object 
+        -->  
+        --> {
+        -->   "move" : "/MyContainer/FirstQueue?values=20" 
+        --> }
 
-    The following shows the response.
-
-    .. code-block:: none
-
-        HTTP/1.1 204 No Content 
+        <-- HTTP/1.1 204 No Content 
 
 
 EXAMPLE 4: POST to the queue object URI two new values:
 
     .. code-block:: none
 
-        POST /cdmi/2.0.0/MyContainer/MyQueue HTTP/1.1 
-        Host: cloud.example.com 
-        Content-Type: application/cdmi-object 
-         
-        {
-            "mimetype" : [
-                "text/plain",
-                "text/plain" 
-            ],
-            "value" : [
-                "First",
-                "Second" 
-            ] 
-        } 
+        --> POST /cdmi/2.0.0/MyContainer/MyQueue HTTP/1.1 
+        --> Host: cloud.example.com 
+        --> Content-Type: application/cdmi-object 
+        -->  
+        --> {
+        -->   "mimetype" : [
+        -->     "text/plain",
+        -->     "text/plain" 
+        -->   ],
+        -->   "value" : [
+        -->     "First",
+        -->     "Second" 
+        -->   ] 
+        --> } 
 
-    The following shows the response.
-
-    .. code-block:: none
-
-        HTTP/1.1 204 No Content 
+        <-- HTTP/1.1 204 No Content 
 
 
 EXAMPLE 5: POST to the queue object URI two new values, one with base 64 transfer encoding and one with utf-8 transfer encoding:
 
     .. code-block:: none
 
-        POST /cdmi/2.0.0/MyContainer/MyQueue HTTP/1.1
-        Host: cloud.example.com 
-        Content-Type: application/cdmi-object
-        
-        {
-           "mimetype": [
-               "text/plain",
-               "text/plain",
-               "application/json"
-           ],
-           "valuetransferencoding": [
-               "utf-8",
-               "base64",
-               "json"
-           ],
-           "value": [
-               "First",
-               "U2Vjb25k",
-               {
-                  "value" : "test"
-               }
-           ]
-        }
+        --> POST /cdmi/2.0.0/MyContainer/MyQueue HTTP/1.1
+        --> Host: cloud.example.com 
+        --> Content-Type: application/cdmi-object
+        -->  
+        --> {
+        -->   "mimetype": [
+        -->     "text/plain",
+        -->     "text/plain",
+        -->     "application/json"
+        -->   ],
+        -->   "valuetransferencoding": [
+        -->     "utf-8",
+        -->     "base64",
+        -->     "json"
+        -->   ],
+        -->   "value": [
+        -->     "First",
+        -->     "U2Vjb25k",
+        -->     {
+        -->       "value" : "test"
+        -->     }
+        -->   ]
+        --> }
 
-    The following shows the response.
-
-    .. code-block:: none
-
-        HTTP/1.1 204 No Content
+        <-- HTTP/1.1 204 No Content
 
 
 EXAMPLE 6: POST to the queue object URI the binary contents of two new values using multi-part MIME:
 
     .. code-block:: none
 
-        POST /cdmi/2.0.0/MyContainer/MyQueue HTTP/1.1 
-        Host: cloud.example.com 
-        Content-Type: multipart/mixed; boundary=gc0p4Jq0M2Yt08j34c0p
-        
-        --gc0p4Jq0M2Yt08j34c0p
-        Content-Type: application/cdmi-queue 
-        
-        {}
-        
-        --gc0p4Jq0M2Yt08j34c0p
-        Content-Type: application/octet-stream 
-        Content-Transfer-Encoding: binary
-        
-        <20 bytes of binary data>
-        
-        --gc0p4Jq0M2Yt08j34c0p
-        Content-Type: application/octet-stream
-        Content-Transfer-Encoding: binary
-        
-        <37 bytes of binary data>
-        
-        --gc0p4Jq0M2Yt08j34c0p--
+        --> POST /cdmi/2.0.0/MyContainer/MyQueue HTTP/1.1 
+        --> Host: cloud.example.com 
+        --> Content-Type: multipart/mixed; boundary=gc0p4Jq0M2Yt08j34c0p
+        -->  
+        --> --gc0p4Jq0M2Yt08j34c0p
+        --> Content-Type: application/cdmi-queue 
+        -->  
+        --> {}
+        -->  
+        --> --gc0p4Jq0M2Yt08j34c0p
+        --> Content-Type: application/octet-stream 
+        --> Content-Transfer-Encoding: binary
+        -->  
+        --> <20 bytes of binary data>
+        -->  
+        --> --gc0p4Jq0M2Yt08j34c0p
+        --> Content-Type: application/octet-stream
+        --> Content-Transfer-Encoding: binary
+        -->  
+        --> <37 bytes of binary data>
+        -->  
+        --> --gc0p4Jq0M2Yt08j34c0p--
 
-    The following shows the response.
-
-    .. code-block:: none
-
-        HTTP/1.1 204 No content
+        <-- HTTP/1.1 204 No content
 
 
 EXAMPLE 7: POST to the queue object URI the mime types and binary contents of two new values using multi-part MIME:
 
     .. code-block:: none
 
-        POST /cdmi/2.0.0/MyContainer/MyQueue HTTP/1.1 
-        Host: cloud.example.com 
-        Content-Type: multipart/mixed; boundary=gc0p4Jq0M2Yt08j34c0p
-        
-        --gc0p4Jq0M2Yt08j34c0p
-        Content-Type: application/cdmi-queue 
-        
-        {
-            "mimetype" : [
-                "application/pdf",
-                "image/jpeg"
-            ]
-        }
-        
-        --gc0p4Jq0M2Yt08j34c0p
-        Content-Type: application/octet-stream 
-        Content-Transfer-Encoding: binary
-        
-        <20 bytes of binary data>
-        
-        --gc0p4Jq0M2Yt08j34c0p
-        Content-Type: application/octet-stream
-        Content-Transfer-Encoding: binary
-        
-        <37 bytes of binary data>
-        
-        --gc0p4Jq0M2Yt08j34c0p--
+        --> POST /cdmi/2.0.0/MyContainer/MyQueue HTTP/1.1 
+        --> Host: cloud.example.com 
+        --> Content-Type: multipart/mixed; boundary=gc0p4Jq0M2Yt08j34c0p
+        -->  
+        --> --gc0p4Jq0M2Yt08j34c0p
+        --> Content-Type: application/cdmi-queue 
+        -->  
+        --> {
+        -->   "mimetype" : [
+        -->     "application/pdf",
+        -->     "image/jpeg"
+        -->   ]
+        --> }
+        -->  
+        --> --gc0p4Jq0M2Yt08j34c0p
+        --> Content-Type: application/octet-stream 
+        --> Content-Transfer-Encoding: binary
+        -->  
+        --> <20 bytes of binary data>
+        -->  
+        --> --gc0p4Jq0M2Yt08j34c0p
+        --> Content-Type: application/octet-stream
+        --> Content-Transfer-Encoding: binary
+        -->  
+        --> <37 bytes of binary data>
+        -->  
+        --> --gc0p4Jq0M2Yt08j34c0p--
     
-    The following shows the response.
-       
-    .. code-block:: none
-    
-        HTTP/1.1 204 No content
+        <-- HTTP/1.1 204 No content
 
 .. _ref_cdmi_queue_object_deletevalue:
 
@@ -1873,40 +1805,28 @@ EXAMPLE 1: DELETE to the queue object URI value to delete the oldest enqueued va
 
     .. code-block:: none
 
-        DELETE /cdmi/2.0.0/MyContainer/MyQueue?value HTTP/1.1
-        Host: cloud.example.com
+        --> DELETE /cdmi/2.0.0/MyContainer/MyQueue?value HTTP/1.1
+        --> Host: cloud.example.com
 
-    The following shows the response.
-
-    .. code-block:: none
-
-        HTTP/1.1 204 No Content
+        <-- HTTP/1.1 204 No Content
 
 
 EXAMPLE 2: DELETE to the queue object URI value to remove the ten oldest values: 
 
     .. code-block:: none
 
-        DELETE /cdmi/2.0.0/MyContainer/MyQueue?values=10 HTTP/1.1 
-        Host: cloud.example.com 
+        --> DELETE /cdmi/2.0.0/MyContainer/MyQueue?values=10 HTTP/1.1 
+        --> Host: cloud.example.com 
 
-    The following shows the response.
-
-    .. code-block:: none 
-
-        HTTP/1.1 204 No Content
+        <-- HTTP/1.1 204 No Content
 
 EXAMPLE 3: DELETE to the queue object URI value to remove queue values 10 through 19: 
 
     .. code-block:: none
 
-        DELETE /cdmi/2.0.0/MyContainer/MyQueue?values=10-19 HTTP/1.1 
-        Host: cloud.example.com 
+        --> DELETE /cdmi/2.0.0/MyContainer/MyQueue?values=10-19 HTTP/1.1 
+        --> Host: cloud.example.com 
 
-    The following shows the response.
-
-    .. code-block:: none 
-
-        HTTP/1.1 204 No Content
+        <-- HTTP/1.1 204 No Content
 
 

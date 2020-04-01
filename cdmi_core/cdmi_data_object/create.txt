@@ -398,287 +398,257 @@ EXAMPLE 1: PUT to the container URI the data object name and contents:
 
    .. code-block:: none
 
-       PUT /cdmi/2.0.0/MyContainer/MyDataObject.txt HTTP/1.1
-       Host: cloud.example.com
-       Accept: application/cdmi-object
-       Content-Type: application/cdmi-object
-
-       {
-           "mimetype" : "text/plain",
-           "metadata" : {
-               
-           },
-           "value" : "This is the Value of this Data Object"
-       }
-
-   The following shows the response.
-
-   .. code-block:: none
-
-       HTTP/1.1 201 Created
-       Content-Type: application/cdmi-object
-       
-       {
-           "objectType" : "application/cdmi-object",
-           "objectID" : "00007ED90010D891022876A8DE0BC0FD",
-           "objectName" : "MyDataObject.txt",
-           "parentURI" : "/MyContainer/",
-           "parentID" : "00007E7F00102E230ED82694DAA975D2", 
-           "domainURI" : "/cdmi_domains/MyDomain/",
-           "capabilitiesURI" : "/cdmi_capabilities/dataobject/",
-           "completionStatus" : "Complete",
-           "mimetype" : "text/plain",
-           "metadata" : {
-               "cdmi_size" : "37" 
-           }
-       }
+       --> PUT /cdmi/2.0.0/MyContainer/MyDataObject.txt HTTP/1.1
+       --> Host: cloud.example.com
+       --> Accept: application/cdmi-object
+       --> Content-Type: application/cdmi-object
+       --> 
+       --> {
+       --> "mimetype" : "text/plain",
+       --> "metadata" : {
+       -->  
+       --> },
+       --> "value" : "This is the Value of this Data Object"
+       --> }
+        
+       <-- HTTP/1.1 201 Created
+       <-- Content-Type: application/cdmi-object
+       <--  
+       <-- {
+       <--   "objectType" : "application/cdmi-object",
+       <--   "objectID" : "00007ED90010D891022876A8DE0BC0FD",
+       <--   "objectName" : "MyDataObject.txt",
+       <--   "parentURI" : "/MyContainer/",
+       <--   "parentID" : "00007E7F00102E230ED82694DAA975D2", 
+       <--   "domainURI" : "/cdmi_domains/MyDomain/",
+       <--   "capabilitiesURI" : "/cdmi_capabilities/dataobject/",
+       <--   "completionStatus" : "Complete",
+       <--   "mimetype" : "text/plain",
+       <--   "metadata" : {
+       <--     "cdmi_size" : "37" 
+       <--   }
+       <-- }
 
 
 EXAMPLE 2: PUT to the container URI the data object name and binary contents:
 
    .. code-block:: none
 
-       PUT /cdmi/2.0.0/MyContainer/MyDataObject.txt HTTP/1.1 
-       Host: cloud.example.com 
-       Accept: application/cdmi-object 
-       Content-Type: application/cdmi-object 
-
-       {
-          "mimetype" : "text/plain", 
-          "metadata" : { }, 
-          "valuetransferencoding" : "base64"
-          "value" : "VGhpcyBpcyB0aGUgVmFsdWUgb2YgdGhpcyBEYXRhIE9iamVjdA=="
-       }
-
-   The following shows the response.
-
-   .. code-block:: none
-
-       HTTP/1.1 201 Created 
-       Content-Type: application/cdmi-object 
-
-       {
-          "objectType": "application/cdmi-object",
-          "objectID": "00007ED9001008C174ABCE6AC3287E5F",
-          "objectName": "MyDataObject.txt",
-          "parentURI": "/MyContainer/",
-          "parentID" : "00007E7F00102E230ED82694DAA975D2", 
-          "domainURI": "/cdmi_domains/MyDomain/",
-          "capabilitiesURI": "/cdmi_capabilities/dataobject/",
-          "completionStatus": "Complete",
-          "mimetype": "text/plain",
-          "metadata": {
-              "cdmi_size": "37"
-          }
-       }
+       --> PUT /cdmi/2.0.0/MyContainer/MyDataObject.txt HTTP/1.1 
+       --> Host: cloud.example.com 
+       --> Accept: application/cdmi-object 
+       --> Content-Type: application/cdmi-object 
+       --> 
+       --> {
+       --> "mimetype" : "text/plain", 
+       --> "metadata" : { }, 
+       --> "valuetransferencoding" : "base64"
+       --> "value" : "VGhpcyBpcyB0aGUgVmFsdWUgb2YgdGhpcyBEYXRhIE9iamVjdA=="
+       --> }
+        
+       <-- HTTP/1.1 201 Created 
+       <-- Content-Type: application/cdmi-object 
+       <-- 
+       <-- {
+       <--   "objectType": "application/cdmi-object",
+       <--   "objectID": "00007ED9001008C174ABCE6AC3287E5F",
+       <--   "objectName": "MyDataObject.txt",
+       <--   "parentURI": "/MyContainer/",
+       <--   "parentID" : "00007E7F00102E230ED82694DAA975D2", 
+       <--   "domainURI": "/cdmi_domains/MyDomain/",
+       <--   "capabilitiesURI": "/cdmi_capabilities/dataobject/",
+       <--   "completionStatus": "Complete",
+       <--   "mimetype": "text/plain",
+       <--   "metadata": {
+       <--     "cdmi_size": "37"
+       <--   }
+       <-- }
 
 EXAMPLE 3: PUT to the container URI the data object name and binary contents using multi-part MIME:
 
    .. code-block:: none
 
-       PUT /cdmi/2.0.0/MyContainer/MyDataObject.txt HTTP/1.1 
-       Host: cloud.example.com 
-       Accept: application/cdmi-object 
-       Content-Type: multipart/mixed; boundary=gc0p4Jq0M2Yt08j34c0p
-
-       --gc0p4Jq0M2Yt08j34c0p
-       Content-Type: application/cdmi-object 
-       
-       {
-           "domainURI": "/cdmi_domains/MyDomain/",
-           "metadata": {
-               "colour": "blue"
-           }
-       }
-
-       --gc0p4Jq0M2Yt08j34c0p
-       Content-Type: application/octet-stream 
-       Content-Transfer-Encoding: binary
-
-       <37 bytes of binary data>
-       
-       --gc0p4Jq0M2Yt08j34c0p--
-
-
-   The following shows the response.
-
-   .. code-block:: none
-       
-       HTTP/1.1 201 Created 
-       Content-Type: application/cdmi-object 
-
-       {
-          "objectType": "application/cdmi-object", 
-          "objectID": "00007ED900103ADE9DE3A8D1CF5436A3", 
-          "objectName": "MyDataObject.txt", 
-          "parentURI": "/MyContainer/", 
-          "parentID" : "00007E7F00102E230ED82694DAA975D2", 
-          "domainURI": "/cdmi_domains/MyDomain/", 
-          "capabilitiesURI": "/cdmi_capabilities/dataobject/", 
-          "completionStatus": "Complete", 
-          "mimetype": "application/octet-stream", 
-          "metadata": {
-             "cdmi_size": "37",
-             "colour": "blue",
-             ...
-          }
-       }
+       --> PUT /cdmi/2.0.0/MyContainer/MyDataObject.txt HTTP/1.1 
+       --> Host: cloud.example.com 
+       --> Accept: application/cdmi-object 
+       --> Content-Type: multipart/mixed; boundary=gc0p4Jq0M2Yt08j34c0p
+       --> 
+       --> --gc0p4Jq0M2Yt08j34c0p
+       --> Content-Type: application/cdmi-object 
+       -->  
+       --> {
+       -->   "domainURI": "/cdmi_domains/MyDomain/",
+       -->   "metadata": {
+       -->     "colour": "blue"
+       -->   }
+       --> }
+       --> 
+       --> --gc0p4Jq0M2Yt08j34c0p
+       --> Content-Type: application/octet-stream 
+       --> Content-Transfer-Encoding: binary
+       --> 
+       --> <37 bytes of binary data>
+       -->  
+       --> --gc0p4Jq0M2Yt08j34c0p--
+        
+       <-- HTTP/1.1 201 Created 
+       <-- Content-Type: application/cdmi-object 
+       <-- 
+       <-- {
+       <--   "objectType": "application/cdmi-object", 
+       <--   "objectID": "00007ED900103ADE9DE3A8D1CF5436A3", 
+       <--   "objectName": "MyDataObject.txt", 
+       <--   "parentURI": "/MyContainer/", 
+       <--   "parentID" : "00007E7F00102E230ED82694DAA975D2", 
+       <--   "domainURI": "/cdmi_domains/MyDomain/", 
+       <--   "capabilitiesURI": "/cdmi_capabilities/dataobject/", 
+       <--   "completionStatus": "Complete", 
+       <--   "mimetype": "application/octet-stream", 
+       <--   "metadata": {
+       <--     "cdmi_size": "37",
+       <--     "colour": "blue",
+       <--     ...
+       <--   }
+       <-- }
 
 
 EXAMPLE 4: PUT to the container URI the data object name and binary contents using multi-part MIME with optional content-lengths for the parts:
 
    .. code-block:: none
 
-       PUT /cdmi/2.0.0/MyContainer/MyDataObject.txt HTTP/1.1 
-       Host: cloud.example.com 
-       Accept: application/cdmi-object 
-       Content-Type: multipart/mixed; boundary=gc0p4Jq0M2Yt08j34c0p
-
-       --gc0p4Jq0M2Yt08j34c0p
-       Content-Type: application/cdmi-object 
-       Content-Length: 82
-
-       {
-          "domainURI": "/cdmi_domains/MyDomain/",
-          "metadata": {
-              "colour": "blue"
-          }
-       }
-       
-       --gc0p4Jq0M2Yt08j34c0p
-       Content-Type: application/octet-stream 
-       Content-Transfer-Encoding: binary
-       Content-Length: 37
-       
-       <37 bytes of binary data>
-       
-       --gc0p4Jq0M2Yt08j34c0p--
-
-
-   The following shows the response.
-
-   .. code-block:: none
-
-       HTTP/1.1 201 Created 
-       Content-Type: application/cdmi-object 
-
-       {
-          "objectType": "application/cdmi-object", 
-          "objectID": "00007ED900103ADE9DE3A8D1CF5436A3", 
-          "objectName": "MyDataObject.txt", 
-          "parentURI": "/MyContainer/", 
-          "parentID" : "00007E7F00102E230ED82694DAA975D2", 
-          "domainURI": "/cdmi_domains/MyDomain/", 
-          "capabilitiesURI": "/cdmi_capabilities/dataobject/", 
-          "completionStatus": "Complete", 
-          "mimetype": "application/octet-stream", 
-          "metadata": {
-              "cdmi_size": "37",
-              "colour": "blue",
-          }
-      }
+       --> PUT /cdmi/2.0.0/MyContainer/MyDataObject.txt HTTP/1.1 
+       --> Host: cloud.example.com 
+       --> Accept: application/cdmi-object 
+       --> Content-Type: multipart/mixed; boundary=gc0p4Jq0M2Yt08j34c0
+       --> 
+       --> --gc0p4Jq0M2Yt08j34c0p
+       --> Content-Type: application/cdmi-object 
+       --> Content-Length: 82
+       --> 
+       --> {
+       -->   "domainURI": "/cdmi_domains/MyDomain/",
+       -->   "metadata": {
+       -->     "colour": "blue"
+       -->   }
+       --> }
+       -->  
+       --> --gc0p4Jq0M2Yt08j34c0p
+       --> Content-Type: application/octet-stream 
+       --> Content-Transfer-Encoding: binary
+       --> Content-Length: 37
+       -->  
+       --> <37 bytes of binary data>
+       -->  
+       --> --gc0p4Jq0M2Yt08j34c0p--
+        
+       <-- HTTP/1.1 201 Created 
+       <-- Content-Type: application/cdmi-object 
+       <-- 
+       <-- {
+       <--   "objectType": "application/cdmi-object", 
+       <--   "objectID": "00007ED900103ADE9DE3A8D1CF5436A3", 
+       <--   "objectName": "MyDataObject.txt", 
+       <--   "parentURI": "/MyContainer/", 
+       <--   "parentID" : "00007E7F00102E230ED82694DAA975D2", 
+       <--   "domainURI": "/cdmi_domains/MyDomain/", 
+       <--   "capabilitiesURI": "/cdmi_capabilities/dataobject/", 
+       <--   "completionStatus": "Complete", 
+       <--   "mimetype": "application/octet-stream", 
+       <--   "metadata": {
+       <--     "cdmi_size": "37",
+       <--     "colour": "blue",
+       <--   }
+       <-- }
 
 EXAMPLE 5: PUT to the container URI the data object name and JSON contents:
 
    .. code-block:: none
 
-      PUT /cdmi/2.0.0/MyContainer/MyDataObject.txt HTTP/1.1
-      Host: cloud.example.com
-      Accept: application/cdmi-object
-      Content-Type: application/cdmi-object
-
-      {
-        "mimetype" : "text/plain",
-        "metadata" : { },
-        "valuetransferencoding" : "json"
-        "value" : {
-            "test" : "value"
-        }
-      }
-
-   The following shows the response.
-
-   .. code-block:: none
-
-       HTTP/1.1 201 Created 
-       Content-Type: application/cdmi-object 
-
-       {
-          "objectType": "application/cdmi-object", 
-          "objectID": "0000706D0010374085EF1A5C7018D774", 
-          "objectName": "MyDataObject.txt",
-          "parentURI": "/MyContainer/",
-          "parentID" : "00007ED90010067404EDED32860C086A",
-          "domainURI": "/cdmi_domains/MyDomain/",
-          "capabilitiesURI": "/cdmi_capabilities/dataobject/",
-          "completionStatus": "Complete",
-          "mimetype": "text/plain",
-          "metadata": {
-               "cdmi_size": "21"
-          }
-      }
+      --> PUT /cdmi/2.0.0/MyContainer/MyDataObject.txt HTTP/1.1
+      --> Host: cloud.example.com
+      --> Accept: application/cdmi-object
+      --> Content-Type: application/cdmi-object
+      --> 
+      --> {
+      -->   "mimetype" : "text/plain",
+      -->   "metadata" : { },
+      -->   "valuetransferencoding" : "json"
+      -->   "value" : {
+      -->     "test" : "value"
+      -->   }
+      --> }
+       
+      <-- HTTP/1.1 201 Created 
+      <-- Content-Type: application/cdmi-object 
+      <-- 
+      <-- {
+      <--   "objectType": "application/cdmi-object", 
+      <--   "objectID": "0000706D0010374085EF1A5C7018D774", 
+      <--   "objectName": "MyDataObject.txt",
+      <--   "parentURI": "/MyContainer/",
+      <--   "parentID" : "00007ED90010067404EDED32860C086A",
+      <--   "domainURI": "/cdmi_domains/MyDomain/",
+      <--   "capabilitiesURI": "/cdmi_capabilities/dataobject/",
+      <--   "completionStatus": "Complete",
+      <--   "mimetype": "text/plain",
+      <--   "metadata": {
+      <--     "cdmi_size": "21"
+      <--   }
+      <-- }
 
 	   
 EXAMPLE 6: PUT to the container URI to create an encrypted object:
 
 	.. code-block:: none
 	
-		PUT /cdmi/2.0.0/MyContainer/MyEncryptedObject.txt HTTP/1.1
-		Host: cloud.example.com
-		Content-Type: application/cdmi-object
-
-		{
-		 "mimetype" : "application/cms",
-		 "metadata" : {
-		 "cdmi_enc_key_id" : "testkey"
-		 },
-		 "valuetransferencoding" : "base64"
-		 "value" : "<CMS Encrypted Object in Base64>"
-		}
-
-	The following shows the response:
-
-	.. code-block:: none
-	
-		HTTP/1.1 201 Created
+		--> PUT /cdmi/2.0.0/MyContainer/MyEncryptedObject.txt HTTP/1.1
+		--> Host: cloud.example.com
+		--> Content-Type: application/cdmi-object
+                --> 
+		--> {
+		-->   "mimetype" : "application/cms",
+		-->   "metadata" : {
+		-->     "cdmi_enc_key_id" : "testkey"
+		-->   },
+		-->   "valuetransferencoding" : "base64"
+		-->   "value" : "<CMS Encrypted Object in Base64>"
+		--> }
+                 
+		<-- HTTP/1.1 201 Created
 
 EXAMPLE 7: PUT to the container URI to create an encrypted object:
 
 	.. code-block:: none
 		
-		PUT /cdmi/2.0.0/MyContainer/MyEncryptedObject2.txt HTTP/1.1
-		Host: cloud.example.com
-		Content-Type: application/cdmi-object
-
-		{
-		 "mimetype" : "application/jose+json",
-		 "metadata" : {
-		 "cdmi_enc_key_id" : "77c7e2b8-6e13-45cf-8672-617b5b45243a"
-		 },
-		 "valuetransferencoding" : "json",
-		 "value" : {
-		 "protected": "eyJhbGciOiJkaXIiLCJraWQiOiI3N2M3ZTJi
-					   OC02ZTEzLTQ1Y2YtODY3Mi02MTdiNWI0NTI0
-					   M2EiLCJlbmMiOiJBMTI4R0NNIn0",
-		 "iv": "refa467QzzKx6QAB",
-		 "ciphertext": "JW_i_f52hww_ELQPGaYyeAB6HYGcR559l9T
-						YnSovc23XJoBcW29rHP8yZOZG7YhLpT1bjF
-						uvZPjQS-m0IFtVcXkZXdH_lr_FrdYt9HRUY
-						kshtrMmIUAyGmUnd9zMDB2n0cRDIHAzFVeJ
-						UDxkUwVAE7_YGRPdcqMyiBoCO-FBdE-Nceb
-						4h3-FtBP-c_BIwCPTjb9o0SbdcdREEMJMyZ
-						BH8ySWMVi1gPD9yxi-aQpGbSv_F9N4IZAxs
-						cj5g-NJsUPbjk29-s7LJAGb15wEBtXphVCg
-						yy53CoIKLHHeJHXex45Uz9aKZSRSInZI-wj
-						sY0yu3cT4_aQ3i1o-tiE-F8Ios61EKgyIQ4
-						CWao8PFMj8TTnp",
-		 "tag": "vbb32Xvllea2OtmHAdccRQ",
-		 "cty": "text/plain"
-		 }
-		}
-
-	The following shows the response:
-
-	.. code-block:: none
-		
-		HTTP/1.1 201 Created
+		--> PUT /cdmi/2.0.0/MyContainer/MyEncryptedObject2.txt HTTP/1.1
+		--> Host: cloud.example.com
+		--> Content-Type: application/cdmi-object
+                --> 
+		--> {
+		-->   "mimetype" : "application/jose+json",
+		-->   "metadata" : {
+		-->     "cdmi_enc_key_id" : "77c7e2b8-6e13-45cf-8672-617b5b45243a"
+		-->   },
+		-->   "valuetransferencoding" : "json",
+		-->   "value" : {
+		-->     "protected": "eyJhbGciOiJkaXIiLCJraWQiOiI3N2M3ZTJi
+		-->       OC02ZTEzLTQ1Y2YtODY3Mi02MTdiNWI0NTI0
+		-->       M2EiLCJlbmMiOiJBMTI4R0NNIn0",
+		-->     "iv": "refa467QzzKx6QAB",
+		-->     "ciphertext": "JW_i_f52hww_ELQPGaYyeAB6HYGcR559l9T
+		-->       YnSovc23XJoBcW29rHP8yZOZG7YhLpT1bjF
+		-->       uvZPjQS-m0IFtVcXkZXdH_lr_FrdYt9HRUY
+		-->       kshtrMmIUAyGmUnd9zMDB2n0cRDIHAzFVeJ
+		-->       UDxkUwVAE7_YGRPdcqMyiBoCO-FBdE-Nceb
+		-->       4h3-FtBP-c_BIwCPTjb9o0SbdcdREEMJMyZ
+		-->       BH8ySWMVi1gPD9yxi-aQpGbSv_F9N4IZAxs
+		-->       cj5g-NJsUPbjk29-s7LJAGb15wEBtXphVCg
+		-->       yy53CoIKLHHeJHXex45Uz9aKZSRSInZI-wj
+		-->       sY0yu3cT4_aQ3i1o-tiE-F8Ios61EKgyIQ4
+		-->       CWao8PFMj8TTnp",
+		-->     "tag": "vbb32Xvllea2OtmHAdccRQ",
+		-->     "cty": "text/plain"
+		-->   }
+		--> }
+                 
+		--> HTTP/1.1 201 Created

@@ -137,49 +137,38 @@ EXAMPLE 1: PUT to the container URI the data object name and contents.
 
    .. code-block:: none
 
-      PUT /cdmi/2.0.0/MyContainer/MyDataObject.txt HTTP/1.1
-      Host: cloud.example.com
-      Content-Type: text/plain;charset=utf-8
-      Content-Length: 37
-       
-      This is the Value of this Data Object
+      --> PUT /cdmi/2.0.0/MyContainer/MyDataObject.txt HTTP/1.1
+      --> Host: cloud.example.com
+      --> Content-Type: text/plain;charset=utf-8
+      --> Content-Length: 37
+      -->  
+      --> This is the Value of this Data Object
 
-   The following shows the response:
 
-   .. code-block:: none
-
-       HTTP/1.1 201 Created
+       <-- HTTP/1.1 201 Created
 
 EXAMPLE 2: Put to the container URI to create an encrypted object:
 
 	.. code-block:: none
 	
-		PUT /cdmi/2.0.0/MyContainer/MyEncryptedObject.txt HTTP/1.1
-		Host: cloud.example.com
-		Content-Type: application/cms
-		Content-Length: 1425
+		--> PUT /cdmi/2.0.0/MyContainer/MyEncryptedObject.txt HTTP/1.1
+		--> Host: cloud.example.com
+		--> Content-Type: application/cms
+		--> Content-Length: 1425
+                --> 
+		--> <CMS Encrypted Object>
 
-		<CMS Encrypted Object>
-
-	The following shows the response:
-
-	.. code-block:: none
-
-		HTTP/1.1 201 Created
+		<-- HTTP/1.1 201 Created
 
 EXAMPLE 3: PUT to the container URI to create an encrypted object:
 
 	.. code-block: none
 	
-		PUT /cdmi/2.0.0/MyContainer/MyEncryptedObject2.txt HTTP/1.1
-		Host: cloud.example.com
-		Content-Type: application/jose+json
-		Content-Length: 1425
-		
-		<JWE Encrypted Object JSON>
+		--> PUT /cdmi/2.0.0/MyContainer/MyEncryptedObject2.txt HTTP/1.1
+		--> Host: cloud.example.com
+		--> Content-Type: application/jose+json
+		--> Content-Length: 1425
+	        --> 	
+		--> <JWE Encrypted Object JSON>
 
-	The following shows the response:
-
-	.. code-block:: none
-
-		HTTP/1.1 201 Created
+		<-- HTTP/1.1 201 Created

@@ -743,49 +743,45 @@ Response status
     * - ``409 Conflict``
       - The operation conflicts with a non-CDMI access protocol lock or has caused a state transition error on the server.
 
-Example
--------
+Examples
+--------
 
 EXAMPLE 1: PUT to the domain URI the domain name and metadata:
 
     .. code-block:: none
 
-      PUT /cdmi/2.0.0/cdmi_domains/MyDomain/ HTTP/1.1
-      Host: cloud.example.com
-      Accept: application/cdmi-domain
-      Content-Type: application/cdmi-domain
-       
-      "metadata":
-      {
-          "cdmi_domain_enabled": "true"
-      } 
+      --> PUT /cdmi/2.0.0/cdmi_domains/MyDomain/ HTTP/1.1
+      --> Host: cloud.example.com
+      --> Accept: application/cdmi-domain
+      --> Content-Type: application/cdmi-domain
+      -->  
+      --> "metadata":
+      --> {
+      -->   "cdmi_domain_enabled": "true"
+      --> } 
 
-   The following shows the response.
-
-    .. code-block:: none
-
-      HTTP/1.1 201 Created
-      Content-Type: application/cdmi-domain
-       
-      {
-          "objectType" : "application/cdmi-domain",
-          "objectID" : "00007E7F00104BE66AB53A9572F9F51E",
-          "objectName" : "MyDomain/",
-          "parentURI" : "/cdmi_domains/",
-          "parentID" : "00007E7F0010C058374D08B0AC7B3550", 
-          "domainURI" : "/cdmi_domains/MyDomain/",
-          "capabilitiesURI" : "/cdmi_capabilities/domain/",
-          "metadata" : {
-              "cdmi_domain_enabled": "true",
-              "cdmi_authentication_methods": "anonymous, basic",
-                      ...
-          },
-          "childrenrange" : "0-1",
-          "children" : [
-              "cdmi_domain_summary/",
-              "cdmi_domain_members/"
-          ] 
-      }
+      <-- HTTP/1.1 201 Created
+      <-- Content-Type: application/cdmi-domain
+      <--  
+      <-- {
+      <--   "objectType" : "application/cdmi-domain",
+      <--   "objectID" : "00007E7F00104BE66AB53A9572F9F51E",
+      <--   "objectName" : "MyDomain/",
+      <--   "parentURI" : "/cdmi_domains/",
+      <--   "parentID" : "00007E7F0010C058374D08B0AC7B3550", 
+      <--   "domainURI" : "/cdmi_domains/MyDomain/",
+      <--   "capabilitiesURI" : "/cdmi_capabilities/domain/",
+      <--   "metadata" : {
+      <--     "cdmi_domain_enabled": "true",
+      <--     "cdmi_authentication_methods": "anonymous, basic",
+      <--     ...
+      <--   },
+      <--   "childrenrange" : "0-1",
+      <--   "children" : [
+      <--     "cdmi_domain_summary/",
+      <--     "cdmi_domain_members/"
+      <--   ] 
+      <-- }
 
 .. _ref_cdmi_domain_object_read:
 
@@ -1017,83 +1013,71 @@ EXAMPLE 1: GET to the domain URI to read all the fields of the domain:
 
    .. code-block:: none
 
-        GET /cdmi/2.0.0/cdmi_domains/MyDomain/ HTTP/1.1
-        Host: cloud.example.com
-        Accept: application/cdmi-domain
+        --> GET /cdmi/2.0.0/cdmi_domains/MyDomain/ HTTP/1.1
+        --> Host: cloud.example.com
+        --> Accept: application/cdmi-domain
 
-   The following shows the response.
-
-   .. code-block:: none
-
-        HTTP/1.1 200 OK
-        Content-Type: application/cdmi-domain
-         
-        {
-            "objectType": "application/cdmi-domain",
-            "objectID": "00007E7F00104BE66AB53A9572F9F51E",
-            "objectName": "MyDomain/",
-            "parentURI": "/cdmi_domains/",
-            "parentID": "00007E7F0010C058374D08B0AC7B3550",
-            "domainURI": "/cdmi_domains/MyDomain/",
-            "capabilitiesURI": "/cdmi_capabilities/domain/",
-            "metadata": {
-                "cdmi_domain_enabled": "true",
-                "cdmi_authentication_methods": "anonymous, basic",
-                    ...
-            },
-            "childrenrange": "0-1",
-            "children": [
-                "cdmi_domain_summary/",
-                "cdmi_domain_members/"
-            ]
-        }
+        <-- HTTP/1.1 200 OK
+        <-- Content-Type: application/cdmi-domain
+        <--  
+        <-- {
+        <--   "objectType": "application/cdmi-domain",
+        <--   "objectID": "00007E7F00104BE66AB53A9572F9F51E",
+        <--   "objectName": "MyDomain/",
+        <--   "parentURI": "/cdmi_domains/",
+        <--   "parentID": "00007E7F0010C058374D08B0AC7B3550",
+        <--   "domainURI": "/cdmi_domains/MyDomain/",
+        <--   "capabilitiesURI": "/cdmi_capabilities/domain/",
+        <--   "metadata": {
+        <--     "cdmi_domain_enabled": "true",
+        <--     "cdmi_authentication_methods": "anonymous, basic",
+        <--     ...
+        <--   },
+        <--   "childrenrange": "0-1",
+        <--   "children": [
+        <--     "cdmi_domain_summary/",
+        <--     "cdmi_domain_members/"
+        <--   ]
+        <-- }
 
 
 EXAMPLE 2: GET to the domain URI to read the parentURI and children of the domain:
 
    .. code-block:: none
 
-        GET /cdmi/2.0.0/MyDomain/?parentURI&children HTTP/1.1
-        Host: cloud.example.com
-        Accept: application/cdmi-domain
+        --> GET /cdmi/2.0.0/MyDomain/?parentURI&children HTTP/1.1
+        --> Host: cloud.example.com
+        --> Accept: application/cdmi-domain
 
-   The following shows the response.
-
-   .. code-block:: none
-
-        HTTP/1.1 200 OK
-        Content-Type: application/cdmi-domain
-         
-        {
-            "parentURI" : "/cdmi_domains/",
-            "children" : [
-                "cdmi_domain_summary/",
-                "cdmi_domain_members/" 
-            ]
-        }
+        <-- HTTP/1.1 200 OK
+        <-- Content-Type: application/cdmi-domain
+        <--  
+        <-- {
+        <--   "parentURI" : "/cdmi_domains/",
+        <--   "children" : [
+        <--     "cdmi_domain_summary/",
+        <--     "cdmi_domain_members/" 
+        <--   ]
+        <-- }
 
 EXAMPLE 3: GET to the domain URI to read the first two children of the domain:
 
    .. code-block:: none
 
-        GET /cdmi/2.0.0/MyDomain/?childrenrange&children=0-1 HTTP/1.1
-        Host: cloud.example.com
-        Accept: application/cdmi-domain
+        --> GET /cdmi/2.0.0/MyDomain/?childrenrange&children=0-1 HTTP/1.1
+        --> Host: cloud.example.com
+        --> Accept: application/cdmi-domain
 
-   The following shows the response.
-
-   .. code-block:: none
-
-        HTTP/1.1 200 OK
-        Content-Type: application/cdmi-domain
-         
-        {
-            "childrenrange" : "0-1",
-            "children" : [
-                "cdmi_domain_summary/",
-                "cdmi_domain_members/" 
-            ]
-        }
+        <-- HTTP/1.1 200 OK
+        <-- Content-Type: application/cdmi-domain
+        <--  
+        <-- {
+        <--   "childrenrange" : "0-1",
+        <--   "children" : [
+        <--     "cdmi_domain_summary/",
+        <--     "cdmi_domain_members/" 
+        <--   ]
+        <-- }
 
 
 Update a domain object using CDMI
@@ -1314,21 +1298,17 @@ EXAMPLE 1: PATCH to the domain URI to set new field values:
 
     .. code-block:: none
 
-        PATCH /cdmi/2.0.0/cdmi_domains/MyDomain/ HTTP/1.1
-        Host: cloud.example.com
-        Content-Type: application/cdmi-domain
-         
-        {
-            "metadata" : {
-                "test" : "value" 
-            }
-        }
+        --> PATCH /cdmi/2.0.0/cdmi_domains/MyDomain/ HTTP/1.1
+        --> Host: cloud.example.com
+        --> Content-Type: application/cdmi-domain
+        -->  
+        --> {
+        -->   "metadata" : {
+        -->     "test" : "value" 
+        -->   }
+        --> }
 
-    The following shows the response.
-
-    .. code-block:: none
-
-        HTTP/1.1 204 No Content
+        <-- HTTP/1.1 204 No Content
 
 
 Delete a domain object using CDMI
@@ -1431,14 +1411,10 @@ EXAMPLE 1: DELETE to the domain object URI:
 
     .. code-block:: none
 
-        DELETE /cdmi/2.0.0/cdmi_domains/MyDomain/ HTTP/1.1
-        Host: cloud.example.com
+        --> DELETE /cdmi/2.0.0/cdmi_domains/MyDomain/ HTTP/1.1
+        --> Host: cloud.example.com
 
-    The following shows the response.
-
-    .. code-block:: none
-
-        HTTP/1.1 204 No Content
+        <-- HTTP/1.1 204 No Content
 
 
 

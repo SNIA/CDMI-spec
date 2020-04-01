@@ -1114,99 +1114,87 @@ EXAMPLE 1: GET to the root container capabilities URI to read all fields of the 
 
     .. code-block:: none
 
-        GET /cdmi/2.0.0/cdmi_capabilities/ HTTP/1.1
-        Host: cloud.example.com
-        Accept: application/cdmi-capability
+        --> GET /cdmi/2.0.0/cdmi_capabilities/ HTTP/1.1
+        --> Host: cloud.example.com
+        --> Accept: application/cdmi-capability
 
-    The following shows the response.
-
-    .. code-block:: none
-
-        HTTP/1.1 200 OK
-        Content-Type: application/cdmi-capability
-         
-        {
-            "objectType": "application/cdmi-capability",
-            "objectID": "00007E7F00104BE66AB53A9572F9F51E",
-            "objectName": "cdmi_capabilities/",
-            "parentURI": "/",
-            "parentID": "00007E7F0010128E42D87EE34F5A6560",
-            "capabilities": {
-                "cdmi_domains": "true",
-                "cdmi_export_nfs": "true",
-                "cdmi_export_iscsi": "true",
-                "cdmi_queues": "true",
-                "cdmi_notification": "true",
-                "cdmi_query": "true",
-                "cdmi_metadata_maxsize": "4096",
-                "cdmi_metadata_maxitems": "1024"
-            },
-            "childrenrange": "0-3",
-            "children": [
-                "domain/",
-                "container/",
-                "dataobject/",
-                "queue/"
-            ]
-        }
+        <-- HTTP/1.1 200 OK
+        <-- Content-Type: application/cdmi-capability
+        <--  
+        <-- {
+        <--   "objectType": "application/cdmi-capability",
+        <--   "objectID": "00007E7F00104BE66AB53A9572F9F51E",
+        <--   "objectName": "cdmi_capabilities/",
+        <--   "parentURI": "/",
+        <--   "parentID": "00007E7F0010128E42D87EE34F5A6560",
+        <--   "capabilities": {
+        <--     "cdmi_domains": "true",
+        <--     "cdmi_export_nfs": "true",
+        <--     "cdmi_export_iscsi": "true",
+        <--     "cdmi_queues": "true",
+        <--     "cdmi_notification": "true",
+        <--     "cdmi_query": "true",
+        <--     "cdmi_metadata_maxsize": "4096",
+        <--     "cdmi_metadata_maxitems": "1024"
+        <--   },
+        <--   "childrenrange": "0-3",
+        <--   "children": [
+        <--   "domain/",
+        <--   "container/",
+        <--   "dataobject/",
+        <--   "queue/"
+        <--   ]
+        <-- }
 
         
 EXAMPLE 2: GET to the root container capabilities URI to read the capabilities and children of the container:
 
     .. code-block:: none
 
-        GET /cdmi/2.0.0/cdmi_capabilities/?capabilities&children HTTP/1.1
-        Host: cloud.example.com
-        Accept: application/cdmi-capability
+        --> GET /cdmi/2.0.0/cdmi_capabilities/?capabilities&children HTTP/1.1
+        --> Host: cloud.example.com
+        --> Accept: application/cdmi-capability
 
-    The following shows the response.
-
-    .. code-block:: none
-
-        HTTP/1.1 200 OK
-        Content-Type: application/cdmi-capability
-         
-        {
-            "capabilities": {
-                "cdmi_domains": "true",
-                "cdmi_export_nfs": "true",
-                "cdmi_export_iscsi": "true",
-                "cdmi_queues": "true",
-                "cdmi_notification": "true",
-                "cdmi_query": "true",
-                "cdmi_metadata_maxsize": "4096",
-                "cdmi_metadata_maxitems": "1024"
-            },
-            "children": [
-                "domain/",
-                "container/",
-                "dataobject/",
-                "queue/"
-            ]
-        }
+        <-- HTTP/1.1 200 OK
+        <-- Content-Type: application/cdmi-capability
+        <--  
+        <-- {
+        <--   "capabilities": {
+        <--     "cdmi_domains": "true",
+        <--     "cdmi_export_nfs": "true",
+        <--     "cdmi_export_iscsi": "true",
+        <--     "cdmi_queues": "true",
+        <--     "cdmi_notification": "true",
+        <--     "cdmi_query": "true",
+        <--     "cdmi_metadata_maxsize": "4096",
+        <--     "cdmi_metadata_maxitems": "1024"
+        <--     },
+        <--     "children": [
+        <--       "domain/",
+        <--       "container/",
+        <--       "dataobject/",
+        <--       "queue/"
+        <--     ]
+        <-- }
 
 EXAMPLE 3: GET to the root container capabilities URI to read the first two children contained within a domain:
 
     .. code-block:: none
 
-        GET /cdmi/2.0.0/cdmi_capabilities/?childrenrange&children=0-1 HTTP/1.1
-        Host: cloud.example.com
-        Accept: application/cdmi-capability
+        --> GET /cdmi/2.0.0/cdmi_capabilities/?childrenrange&children=0-1 HTTP/1.1
+        --> Host: cloud.example.com
+        --> Accept: application/cdmi-capability
 
-    The following shows the response.
-
-    .. code-block:: none
-
-        HTTP/1.1 200 OK
-        Content-Type: application/cdmi-capability
-         
-        {
-            "childrenrange" : "0-1",
-            "children" : [
-                "domain/",
-                "container/" 
-            ]
-        }
+        <-- HTTP/1.1 200 OK
+        <-- Content-Type: application/cdmi-capability
+        <--  
+        <-- {
+        <--   "childrenrange" : "0-1",
+        <--   "children" : [
+        <--     "domain/",
+        <--     "container/" 
+        <--   ]
+        <-- }
      
 
 

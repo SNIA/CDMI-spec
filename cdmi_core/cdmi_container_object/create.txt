@@ -367,152 +367,136 @@ Response status
     * - ``409 Conflict``
       - The operation conflicts with a non-CDMI access protocol lock or had caused a state transition error on the server.
 
-Example
--------
+Examples
+--------
 
 EXAMPLE 1: Create a new container with no metadata:
 
    .. code-block:: none
 
-    PUT /cdmi/2.0.0/MyContainer/ HTTP/1.1
-    Host: cloud.example.com
-    Accept: application/cdmi-container
-    Content-Type: application/cdmi-container
+    --> PUT /cdmi/2.0.0/MyContainer/ HTTP/1.1
+    --> Host: cloud.example.com
+    --> Accept: application/cdmi-container
+    --> Content-Type: application/cdmi-container
+    -->  
+    --> {
+    --> }
     
-    {
-    }
-
-   The following shows the response.
-
-   .. code-block:: none 
-   
-    HTTP/1.1 201 Created
-    Content-Type: application/cdmi-container
-    
-    {
-        "objectType" : "application/cdmi-container",
-        "objectID" : "00007ED900104E1D14771DC67C27BF8B",
-        "objectName" : "MyContainer/",
-        "parentURI" : "/",
-        "parentID" : "00007E7F0010128E42D87EE34F5A6560", 
-        "domainURI" : "/cdmi_domains/MyDomain/",
-        "capabilitiesURI" : "/cdmi_capabilities/container/",
-        "completionStatus" : "Complete",
-        "metadata" : {
-            ...   
-        },
-        "childrenrange": "",
-        "children": []
-    }
+    <-- HTTP/1.1 201 Created
+    <-- Content-Type: application/cdmi-container
+    <--  
+    <-- {
+    <--   "objectType" : "application/cdmi-container",
+    <--   "objectID" : "00007ED900104E1D14771DC67C27BF8B",
+    <--   "objectName" : "MyContainer/",
+    <--   "parentURI" : "/",
+    <--   "parentID" : "00007E7F0010128E42D87EE34F5A6560", 
+    <--   "domainURI" : "/cdmi_domains/MyDomain/",
+    <--   "capabilitiesURI" : "/cdmi_capabilities/container/",
+    <--   "completionStatus" : "Complete",
+    <--   "metadata" : {
+    <--     ...   
+    <--   },
+    <--   "childrenrange": "",
+    <--   "children": []
+    <-- }
 
 EXAMPLE 2: Create a container with metadata:
 
    .. code-block:: none
 
-    PUT /cdmi/2.0.0/MyContainer/ HTTP/1.1
-    Host: cloud.example.com
-    Accept: application/cdmi-container
-    Content-Type: application/cdmi-container
-    
-    {
-        "metadata": {
-            "Colour": "Yellow"
-        }
-    }
-
-   The following shows the response.
-
-   .. code-block:: none 
-   
-    HTTP/1.1 201 Created
-    Content-Type: application/cdmi-container
-    
-    {
-        "objectType" : "application/cdmi-container",
-        "objectID" : "00007ED900104E1D14771DC67C27BF8B",
-        "objectName" : "MyContainer/",
-        "parentURI" : "/",
-        "parentID" : "00007E7F0010128E42D87EE34F5A6560", 
-        "domainURI" : "/cdmi_domains/MyDomain/",
-        "capabilitiesURI" : "/cdmi_capabilities/container/",
-        "completionStatus" : "Complete",
-        "metadata" : {
-            "Colour": "Yellow",
-            ...   
-        },
-        "childrenrange": "",
-        "children": []
-    }
+    --> PUT /cdmi/2.0.0/MyContainer/ HTTP/1.1
+    --> Host: cloud.example.com
+    --> Accept: application/cdmi-container
+    --> Content-Type: application/cdmi-container
+    -->  
+    --> {
+    -->   "metadata": {
+    -->     "Colour": "Yellow"
+    -->   }
+    --> }
+     
+    <-- HTTP/1.1 201 Created
+    <-- Content-Type: application/cdmi-container
+    <--  
+    <-- {
+    <--   "objectType" : "application/cdmi-container",
+    <--   "objectID" : "00007ED900104E1D14771DC67C27BF8B",
+    <--   "objectName" : "MyContainer/",
+    <--   "parentURI" : "/",
+    <--   "parentID" : "00007E7F0010128E42D87EE34F5A6560", 
+    <--   "domainURI" : "/cdmi_domains/MyDomain/",
+    <--   "capabilitiesURI" : "/cdmi_capabilities/container/",
+    <--   "completionStatus" : "Complete",
+    <--   "metadata" : {
+    <--     "Colour": "Yellow",
+    <--     ...   
+    <--   },
+    <--   "childrenrange": "",
+    <--   "children": []
+    <-- }
 
 EXAMPLE 3: Create a container that is a copy of a container:
 
    .. code-block:: none
 
-    PUT /cdmi/2.0.0/MyContainerCopy/ HTTP/1.1
-    Host: cloud.example.com
-    Accept: application/cdmi-container
-    Content-Type: application/cdmi-container
+    --> PUT /cdmi/2.0.0/MyContainerCopy/ HTTP/1.1
+    --> Host: cloud.example.com
+    --> Accept: application/cdmi-container
+    --> Content-Type: application/cdmi-container
+    -->  
+    --> {
+    -->   "copy": "/MyContainer/"
+    --> }
     
-    {
-        "copy": "/MyContainer/"
-    }
-
-   The following shows the response.
-
-   .. code-block:: none 
-   
-    HTTP/1.1 201 Created
-    Content-Type: application/cdmi-container
-    
-    {
-        "objectType" : "application/cdmi-container",
-        "objectID" : "00007ED900104E1D14771DC67C27BF8B",
-        "objectName" : "MyContainerCopy/",
-        "parentURI" : "/",
-        "parentID" : "00007E7F0010128E42D87EE34F5A6560", 
-        "domainURI" : "/cdmi_domains/MyDomain/",
-        "capabilitiesURI" : "/cdmi_capabilities/container/",
-        "completionStatus" : "Complete",
-        "metadata" : {
-            "Colour": "Yellow",
-            ...   
-        }
-    }
+    <-- HTTP/1.1 201 Created
+    <-- Content-Type: application/cdmi-container
+    <--  
+    <-- {
+    <--   "objectType" : "application/cdmi-container",
+    <--   "objectID" : "00007ED900104E1D14771DC67C27BF8B",
+    <--   "objectName" : "MyContainerCopy/",
+    <--   "parentURI" : "/",
+    <--   "parentID" : "00007E7F0010128E42D87EE34F5A6560", 
+    <--   "domainURI" : "/cdmi_domains/MyDomain/",
+    <--   "capabilitiesURI" : "/cdmi_capabilities/container/",
+    <--   "completionStatus" : "Complete",
+    <--   "metadata" : {
+    <--     "Colour": "Yellow",
+    <--     ...   
+    <--   }
+    <-- }
 
 EXAMPLE 4: Rename a container:
 
    .. code-block:: none
 
-    PUT /cdmi/2.0.0/MyContainerRenamed/ HTTP/1.1
-    Host: cloud.example.com
-    Accept: application/cdmi-container
-    Content-Type: application/cdmi-container
+    --> PUT /cdmi/2.0.0/MyContainerRenamed/ HTTP/1.1
+    --> Host: cloud.example.com
+    --> Accept: application/cdmi-container
+    --> Content-Type: application/cdmi-container
+    -->  
+    --> {
+    -->   "move": "/MyContainer/"
+    --> }
     
-    {
-        "move": "/MyContainer/"
-    }
-
-   The following shows the response.
-
-   .. code-block:: none 
-   
-    HTTP/1.1 201 Created
-    Content-Type: application/cdmi-container
-    
-    {
-        "objectType" : "application/cdmi-container",
-        "objectID" : "00007ED900104E1D14771DC67C27BF8B",
-        "objectName" : "MyContainerRenamed/",
-        "parentURI" : "/",
-        "parentID" : "00007E7F0010128E42D87EE34F5A6560", 
-        "domainURI" : "/cdmi_domains/MyDomain/",
-        "capabilitiesURI" : "/cdmi_capabilities/container/",
-        "completionStatus" : "Complete",
-        "metadata" : {
-            "Colour": "Yellow",
-            ...   
-        }
-    }
+    <-- HTTP/1.1 201 Created
+    <-- Content-Type: application/cdmi-container
+    <--  
+    <-- {
+    <--   "objectType" : "application/cdmi-container",
+    <--   "objectID" : "00007ED900104E1D14771DC67C27BF8B",
+    <--   "objectName" : "MyContainerRenamed/",
+    <--   "parentURI" : "/",
+    <--   "parentID" : "00007E7F0010128E42D87EE34F5A6560", 
+    <--   "domainURI" : "/cdmi_domains/MyDomain/",
+    <--   "capabilitiesURI" : "/cdmi_capabilities/container/",
+    <--   "completionStatus" : "Complete",
+    <--   "metadata" : {
+    <--     "Colour": "Yellow",
+    <--     ...   
+    <--   }
+    <-- }
 
 
 

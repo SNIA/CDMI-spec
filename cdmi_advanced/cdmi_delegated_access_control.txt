@@ -602,9 +602,9 @@ EXAMPLE 1: GET ciphertext of encrypted object with delegated access control
 
     .. code-block:: none
 
-        GET /MyContainer/MyEncryptedObject.txt HTTP/1.1
-        Host: cloud.example.com
-        Accept: application/cms, application/jose+json
+        --> GET /MyContainer/MyEncryptedObject.txt HTTP/1.1
+        --> Host: cloud.example.com
+        --> Accept: application/cms, application/jose+json
 
     The CDMI server verifies local access controls and determines that the request can proceed. The following DAC request is generated:
 
@@ -652,12 +652,12 @@ EXAMPLE 1: GET ciphertext of encrypted object with delegated access control
     
     .. code-block:: none
         
-        HTTP/1.1 200 OK
-        Content-Type: application/jose+json
-        Content-Length: 290
-        CDMI-DAC-AuthInfo: No key requested.
-        
-        <JOSE+JSON Encrypted Object>
+        <-- HTTP/1.1 200 OK
+        <-- Content-Type: application/jose+json
+        <-- Content-Length: 290
+        <-- CDMI-DAC-AuthInfo: No key requested.
+        <--  
+        <-- <JOSE+JSON Encrypted Object>
 
 EXAMPLE 2: GET ciphertext of encrypted object with passthrough key access
 
@@ -665,11 +665,11 @@ EXAMPLE 2: GET ciphertext of encrypted object with passthrough key access
 
     .. code-block:: none
 
-        GET /cdmi/2.0.0/MyContainer/MyEncryptedObject.txt HTTP/1.1
-        Host: cloud.example.com
-        Accept: application/cms, application/jose+json
-        Authorization: Basic am9lOnBhc3N3b3Jk
-        CDMI-DAC-N: <vendor-specific header that indicates key passthrough>
+        --> GET /cdmi/2.0.0/MyContainer/MyEncryptedObject.txt HTTP/1.1
+        --> Host: cloud.example.com
+        --> Accept: application/cms, application/jose+json
+        --> Authorization: Basic am9lOnBhc3N3b3Jk
+        --> CDMI-DAC-N: <vendor-specific header that indicates key passthrough>
 
     The CDMI server verifies local access controls and determines that the request can proceed. The following DAC request is generated. The ``CDMI-DAC-N`` is a custom header that indicates that the client wants to obtain the object decryption key via header pass-through. 
     
@@ -721,13 +721,13 @@ EXAMPLE 2: GET ciphertext of encrypted object with passthrough key access
 
     .. code-block:: none
 
-        HTTP/1.1 200 OK
-        Content-Type: application/jose+json
-        Content-Length: 290
-        CDMI-DAC-AuthInfo: Key successfully retrieved from keyserver.
-        CDMI-DAC-N: <vendor-specific decryption key info>
-
-        <JOSE+JSON Encrypted Object>
+        <-- HTTP/1.1 200 OK
+        <-- Content-Type: application/jose+json
+        <-- Content-Length: 290
+        <-- CDMI-DAC-AuthInfo: Key successfully retrieved from keyserver.
+        <-- CDMI-DAC-N: <vendor-specific decryption key info>
+        <-- 
+        <-- <JOSE+JSON Encrypted Object>
 
     The client can now parse the key in the ``CDMI-DAC-N`` header and use it to decrypt the ciphertext.
 
@@ -738,10 +738,10 @@ EXAMPLE 3: GET plaintext of encrypted object with delegated access control
 
     .. code-block:: none
 
-        GET /cdmi/2.0.0/MyContainer/MyEncryptedObject.txt HTTP/1.1
-        Host: cloud.example.com
-        Accept: */*
-        Authorization: Basic am9lOnBhc3N3b3Jk
+        --> GET /cdmi/2.0.0/MyContainer/MyEncryptedObject.txt HTTP/1.1
+        --> Host: cloud.example.com
+        --> Accept: */*
+        --> Authorization: Basic am9lOnBhc3N3b3Jk
 
     The CDMI server verifies local access controls and determines that the request can proceed. The following DAC request is generated:
 
@@ -796,11 +796,11 @@ EXAMPLE 3: GET plaintext of encrypted object with delegated access control
 
     .. code-block:: none
 
-        HTTP/1.1 200 OK
-        Content-Type: text/plain
-        Content-Length: 252
-
-        <Decrypted contents of Encrypted Value>
+        <-- HTTP/1.1 200 OK
+        <-- Content-Type: text/plain
+        <-- Content-Length: 252
+        <-- 
+        <-- <Decrypted contents of Encrypted Value>
 
 EXAMPLE 4: RSA Example
 
@@ -895,9 +895,9 @@ EXAMPLE 4: RSA Example
     
     .. code-block:: none
 
-        GET /cdmi/2.0.0/MyContainer/MyEncryptedObject.txt HTTP/1.1
-        Host: cdmi.hos-b.us:9002
-        Accept: */*
+        --> GET /cdmi/2.0.0/MyContainer/MyEncryptedObject.txt HTTP/1.1
+        --> Host: cdmi.hos-b.us:9002
+        --> Accept: */*
 
     The CDMI server at hospital B will look up the object and find out that it is an encrypted object with DAC information attached. As a result it will generate the following (plain) 
     DAC request:
@@ -1390,11 +1390,11 @@ EXAMPLE 4: RSA Example
 
     .. code-block:: none
 
-        HTTP/1.1 200 OK
-        Content-Type: text/plain
-        Content-Length: 33
-
-        This is an unencrypted text file.
+        <-- HTTP/1.1 200 OK
+        <-- Content-Type: text/plain
+        <-- Content-Length: 33
+        <-- 
+        <-- This is an unencrypted text file.
 
 
 

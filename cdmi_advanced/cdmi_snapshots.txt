@@ -30,19 +30,15 @@ EXAMPLE 1: PATCH to an existing container to create a snapshot:
 
    .. code-block:: none
 
-       PATCH /cdmi/2.0.0/MyContainer/ HTTP/1.1
-       Host: cloud.example.com
-       Content-Type: application/cdmi-container
-
-       {
-          "snapshot" : "MySnapshot"
-       }
-
-   The following shows the response.
-
-   .. code-block:: none
-   
-       HTTP/1.1 201 Created
+       --> PATCH /cdmi/2.0.0/MyContainer/ HTTP/1.1
+       --> Host: cloud.example.com
+       --> Content-Type: application/cdmi-container
+       --> 
+       --> {
+       -->   "snapshot" : "MySnapshot"
+       --> }
+       
+       <-- HTTP/1.1 201 Created
 
 
 Deleting a snapshot
@@ -57,13 +53,9 @@ EXAMPLE 1: DELETE to an existing snapshot:
 
    .. code-block:: none
 
-       DELETE /cdmi/2.0.0/MyContainer/cdmi_snapshots/MySnapshot HTTP/1.1
-       Host: cloud.example.com
-
-   The following shows the response.
-
-   .. code-block:: none
-   
-       HTTP/1.1 204 No Content
+       --> DELETE /cdmi/2.0.0/MyContainer/cdmi_snapshots/MySnapshot HTTP/1.1
+       --> Host: cloud.example.com
+       
+       <-- HTTP/1.1 204 No Content
 
 

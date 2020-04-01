@@ -297,386 +297,342 @@ EXAMPLE 1: GET to the data object URI to read all fields of the data object:
 
    .. code-block:: none
 
-       GET /cdmi/2.0.0/MyContainer/MyDataObject.txt HTTP/1.1
-       Host: cloud.example.com
-       Accept: application/cdmi-object
-
-   The following shows the response.
-
-   .. code-block:: none
-   
-       HTTP/1.1 200 OK
-       Content-Type: application/cdmi-object
-
-       {
-           "objectType" : "application/cdmi-object",
-           "objectID" : "00007ED90010D891022876A8DE0BC0FD",
-           "objectName" : "MyDataObject.txt",
-           "parentURI" : "/MyContainer/",
-           "parentID" : "00007E7F00102E230ED82694DAA975D2", 
-           "domainURI" : "/cdmi_domains/MyDomain/",
-           "capabilitiesURI" : "/cdmi_capabilities/dataobject/",
-           "completionStatus" : "Complete",
-           "mimetype" : "text/plain",
-           "metadata" : {
-               "cdmi_size" : "37" 
-           },
-           "valuerange" : "0-36",
-           "valuetransferencoding" : "utf-8",
-           "value" : "This is the Value of this Data Object"
-       }
+       --> GET /cdmi/2.0.0/MyContainer/MyDataObject.txt HTTP/1.1
+       --> Host: cloud.example.com
+       --> Accept: application/cdmi-object
+        
+       <-- HTTP/1.1 200 OK
+       <-- Content-Type: application/cdmi-object
+       <-- 
+       <-- {
+       <--   "objectType" : "application/cdmi-object",
+       <--   "objectID" : "00007ED90010D891022876A8DE0BC0FD",
+       <--   "objectName" : "MyDataObject.txt",
+       <--   "parentURI" : "/MyContainer/",
+       <--   "parentID" : "00007E7F00102E230ED82694DAA975D2", 
+       <--   "domainURI" : "/cdmi_domains/MyDomain/",
+       <--   "capabilitiesURI" : "/cdmi_capabilities/dataobject/",
+       <--   "completionStatus" : "Complete",
+       <--   "mimetype" : "text/plain",
+       <--   "metadata" : {
+       <--     "cdmi_size" : "37" 
+       <--   },
+       <--   "valuerange" : "0-36",
+       <--   "valuetransferencoding" : "utf-8",
+       <--   "value" : "This is the Value of this Data Object"
+       <-- }
 
 
 EXAMPLE 2: GET to the data object URI by ID to read all fields of the data object:
 
    .. code-block:: none
 
-       GET /cdmi/2.0.0/cdmi_objectid/00007ED90010D891022876A8DE0BC0FD HTTP/1.1
-       Host: cloud.example.com 
-       Accept: application/cdmi-object
-
-   The following shows the response.
-
-   .. code-block:: none
-   
-       HTTP/1.1 200 OK
-       Content-Type: application/cdmi-object
-
-       {
-           "objectType" : "application/cdmi-object",
-           "objectID" : "00007ED90010D891022876A8DE0BC0FD",
-           "objectName" : "MyDataObject.txt",
-           "parentURI" : "/MyContainer/",
-           "parentID" : "00007E7F00102E230ED82694DAA975D2", 
-           "domainURI" : "/cdmi_domains/MyDomain/",
-           "capabilitiesURI" : "/cdmi_capabilities/dataobject/",
-           "completionStatus" : "Complete",
-           "mimetype" : "text/plain",
-           "metadata" : {
-               "cdmi_size" : "37" 
-           },
-           "valuetransferencoding" : "utf-8",
-           "valuerange" : "0-36",
-           "value" : "This is the Value of this Data Object" 
-       }
+       --> GET /cdmi/2.0.0/cdmi_objectid/00007ED90010D891022876A8DE0BC0FD HTTP/1.1
+       --> Host: cloud.example.com 
+       --> Accept: application/cdmi-object
+         
+       <-- HTTP/1.1 200 OK
+       <-- Content-Type: application/cdmi-object
+       <-- 
+       <-- {
+       <--   "objectType" : "application/cdmi-object",
+       <--   "objectID" : "00007ED90010D891022876A8DE0BC0FD",
+       <--   "objectName" : "MyDataObject.txt",
+       <--   "parentURI" : "/MyContainer/",
+       <--   "parentID" : "00007E7F00102E230ED82694DAA975D2", 
+       <--   "domainURI" : "/cdmi_domains/MyDomain/",
+       <--   "capabilitiesURI" : "/cdmi_capabilities/dataobject/",
+       <--   "completionStatus" : "Complete",
+       <--   "mimetype" : "text/plain",
+       <--   "metadata" : {
+       <--     "cdmi_size" : "37" 
+       <--   },
+       <--   "valuetransferencoding" : "utf-8",
+       <--   "valuerange" : "0-36",
+       <--   "value" : "This is the Value of this Data Object" 
+       <-- }
 
 EXAMPLE 3: GET to the data object URI to read the value and mimetype fields of the data object:
 
   .. code-block:: none
 
-     GET /cdmi/2.0.0/MyContainer/MyDataObject.txt?value&mimetype HTTP/1.1
-     Host: cloud.example.com
-     Accept: application/cdmi-object
-
-  The following shows the response.
-
-  .. code-block:: none
-
-     HTTP/1.1 200 OK
-     Content-Type: application/cdmi-object
-
-     {
-         "value" : "This is the Value of this Data Object",
-         "mimetype" : "text/plain"
-     }
+     --> GET /cdmi/2.0.0/MyContainer/MyDataObject.txt?value&mimetype HTTP/1.1
+     --> Host: cloud.example.com
+     --> Accept: application/cdmi-object
+      
+     <-- HTTP/1.1 200 OK
+     <-- Content-Type: application/cdmi-object
+     <--
+     <-- {
+     <--   "value" : "This is the Value of this Data Object",
+     <--   "mimetype" : "text/plain"
+     <-- }
 
 
 EXAMPLE 4: GET to the data object URI to read the first 11 bytes of the value of the data object:
 
    .. code-block:: none
 
-       GET /cdmi/2.0.0/MyContainer/MyDataObject.txt?valuerange&value=0-10 HTTP/1.1
-       Host: cloud.example.com
-       Accept: application/cdmi-object
-
-   The following shows the response.
-
-   .. code-block:: none
-   
-       HTTP/1.1 200 OK
-       Content-Type: application/cdmi-object
-
-       {
-           "valuerange" : "0-10",
-           "value" : "VGhpcyBpcyB0aGU="
-       }
+       --> GET /cdmi/2.0.0/MyContainer/MyDataObject.txt?valuerange&value=0-10 HTTP/1.1
+       --> Host: cloud.example.com
+       --> Accept: application/cdmi-object
+        
+       <-- HTTP/1.1 200 OK
+       <-- Content-Type: application/cdmi-object
+       <-- 
+       <-- {
+       <--   "valuerange" : "0-10",
+       <--   "value" : "VGhpcyBpcyB0aGU="
+       <-- }
 
 
 EXAMPLE 5: GET to the data object URI to read the data object using multi-part MIME:
 
    .. code-block:: none
 
-       GET /cdmi/2.0.0/MyContainer/MyDataObject.txt HTTP/1.1 
-       Host: cloud.example.com 
-       Accept: multipart/mixed
-
-   The following shows the response.
-
-   .. code-block:: none
-   
-       HTTP/1.1 200 OK 
-       Content-Type: multipart/mixed; boundary=gc0p4Jq0M2Yt08j34c0p
-
-       --gc0p4Jq0M2Yt08j34c0p
-       Content-Type: application/cdmi-object
-
-       {
-        "objectType": "application/cdmi-object", 
-        "objectID": "00007ED90010C2414303B5C6D4F83170",
-        "objectName": "MyDataObject.txt", 
-        "parentURI": "/MyContainer/", 
-        "parentID" : "00007E7F00102E230ED82694DAA975D2", 
-        "domainURI": "/cdmi_domains/MyDomain/", 
-        "capabilitiesURI": "/cdmi_capabilities/dataobject/", 
-        "completionStatus": "Complete", 
-        "mimetype": "application/octet-stream", 
-        "metadata": {
-            "cdmi_size": "37",
-            "colour": "blue",
-            ...
-        },
-        "valuerange": "0-36",
-        "valuetransferencoding": "base64"
-       }
-
-       --gc0p4Jq0M2Yt08j34c0p
-       Content-Type: application/octet-stream
-       Content-Transfer-Encoding: binary
-
-       <37 bytes of binary data>
-
-       --gc0p4Jq0M2Yt08j34c0p—
+       --> GET /cdmi/2.0.0/MyContainer/MyDataObject.txt HTTP/1.1 
+       --> Host: cloud.example.com 
+       --> Accept: multipart/mixed
+        
+       <-- HTTP/1.1 200 OK 
+       <-- Content-Type: multipart/mixed; boundary=gc0p4Jq0M2Yt08j34c0p
+       <-- 
+       <-- --gc0p4Jq0M2Yt08j34c0p
+       <-- Content-Type: application/cdmi-object
+       <-- 
+       <-- {
+       <--   "objectType": "application/cdmi-object", 
+       <--   "objectID": "00007ED90010C2414303B5C6D4F83170",
+       <--   "objectName": "MyDataObject.txt", 
+       <--   "parentURI": "/MyContainer/", 
+       <--   "parentID" : "00007E7F00102E230ED82694DAA975D2", 
+       <--   "domainURI": "/cdmi_domains/MyDomain/", 
+       <--   "capabilitiesURI": "/cdmi_capabilities/dataobject/", 
+       <--   "completionStatus": "Complete", 
+       <--   "mimetype": "application/octet-stream", 
+       <--   "metadata": {
+       <--     "cdmi_size": "37",
+       <--     "colour": "blue",
+       <--       ...
+       <--   },
+       <--   "valuerange": "0-36",
+       <--   "valuetransferencoding": "base64"
+       <-- }
+       <-- 
+       <-- --gc0p4Jq0M2Yt08j34c0p
+       <-- Content-Type: application/octet-stream
+       <-- Content-Transfer-Encoding: binary
+       <-- 
+       <-- <37 bytes of binary data>
+       <-- 
+       <-- --gc0p4Jq0M2Yt08j34c0p—
 
 
 EXAMPLE 6: GET to the data object URI to read the data object using multi-part MIME, with optional content-lengths for the parts:
 
    .. code-block:: none
 
-       GET /cdmi/2.0.0/MyContainer/MyDataObject.txt HTTP/1.1 
-       Host: cloud.example.com 
-       Accept: multipart/mixed
-
-   The following shows the response.
-
-   .. code-block:: none
-   
-       HTTP/1.1 200 OK 
-       Content-Type: multipart/mixed; boundary=gc0p4Jq0M2Yt08j34c0p
-
-       --gc0p4Jq0M2Yt08j34c0p
-       Content-Type: application/cdmi-object
-       Content-Length: 505
-
-       {
-        "objectType": "application/cdmi-object", 
-        "objectID": "00007ED90010C2414303B5C6D4F83170",
-        "objectName": "MyDataObject.txt", 
-        "parentURI": "/MyContainer/", 
-        "parentID" : "00007E7F00102E230ED82694DAA975D2", 
-        "domainURI": "/cdmi_domains/MyDomain/", 
-        "capabilitiesURI": "/cdmi_capabilities/dataobject/", 
-        "completionStatus": "Complete", 
-        "mimetype": "application/octet-stream", 
-        "metadata": {
-            "cdmi_size": "37",
-            "colour": "blue",
-            ...
-        },
-        "valuerange": "0-36",
-        "valuetransferencoding": "base64"
-       }
-       
-       --gc0p4Jq0M2Yt08j34c0p
-       Content-Type: application/octet-stream
-       Content-Transfer-Encoding: binary
-       Content-Length: 37
-       
-       <37 bytes of binary data>
-       
-       --gc0p4Jq0M2Yt08j34c0p—
+       --> GET /cdmi/2.0.0/MyContainer/MyDataObject.txt HTTP/1.1 
+       --> Host: cloud.example.com 
+       --> Accept: multipart/mixed
+        
+       <-- HTTP/1.1 200 OK 
+       <-- Content-Type: multipart/mixed; boundary=gc0p4Jq0M2Yt08j34c0p
+       <-- 
+       <-- --gc0p4Jq0M2Yt08j34c0p
+       <-- Content-Type: application/cdmi-object
+       <-- Content-Length: 505
+       <-- 
+       <-- {
+       <--   "objectType": "application/cdmi-object", 
+       <--   "objectID": "00007ED90010C2414303B5C6D4F83170",
+       <--   "objectName": "MyDataObject.txt", 
+       <--   "parentURI": "/MyContainer/", 
+       <--   "parentID" : "00007E7F00102E230ED82694DAA975D2", 
+       <--   "domainURI": "/cdmi_domains/MyDomain/", 
+       <--   "capabilitiesURI": "/cdmi_capabilities/dataobject/", 
+       <--   "completionStatus": "Complete", 
+       <--   "mimetype": "application/octet-stream", 
+       <--   "metadata": {
+       <--     "cdmi_size": "37",
+       <--     "colour": "blue",
+       <--     ...
+       <--   },
+       <--   "valuerange": "0-36",
+       <--   "valuetransferencoding": "base64"
+       <-- }
+       <--  
+       <-- --gc0p4Jq0M2Yt08j34c0p
+       <-- Content-Type: application/octet-stream
+       <-- Content-Transfer-Encoding: binary
+       <-- Content-Length: 37
+       <--  
+       <-- <37 bytes of binary data>
+       <--  
+       <-- --gc0p4Jq0M2Yt08j34c0p—
 
    
 EXAMPLE 7: GET to the data object URI to read the metadata and multiple byte ranges of the binary contents using multi-part MIME:
 
    .. code-block:: none
 
-       GET /cdmi/2.0.0/MyContainer/MyDataObject.txt?metadata&value=0-10&value=21-24 HTTP/1.1 
-       Host: cloud.example.com 
-       Accept: multipart/mixed
-
-   The following shows the response.
-
-   .. code-block:: none
-   
-       HTTP/1.1 200 OK 
-       Content-Type: multipart/mixed; boundary=gc0p4Jq0M2Yt08j34c0p
+       --> GET /cdmi/2.0.0/MyContainer/MyDataObject.txt?metadata&value=0-10&value=21-24 HTTP/1.1 
+       --> Host: cloud.example.com 
+       --> Accept: multipart/mixed
        
-       --gc0p4Jq0M2Yt08j34c0p
-       Content-Type: application/cdmi-object
-       
-       {
-        "metadata": {
-            "cdmi_size": "37",
-            "colour": "blue",
-            ...
-        }
-       }
-       
-       --gc0p4Jq0M2Yt08j34c0p
-       Content-Type: application/octet-stream
-       Content-Transfer-Encoding: binary
-       Content-Range: bytes 0-10/37
-       
-       <11 bytes of binary data>
-       
-       --gc0p4Jq0M2Yt08j34c0p
-       Content-Type: application/octet-stream
-       Content-Transfer-Encoding: binary
-       Content-Range: bytes 21-24/37
-       
-       <4 bytes of binary data>
-       
-       --gc0p4Jq0M2Yt08j34c0p--
+       <-- HTTP/1.1 200 OK 
+       <-- Content-Type: multipart/mixed; boundary=gc0p4Jq0M2Yt08j34c0p
+       <--  
+       <-- --gc0p4Jq0M2Yt08j34c0p
+       <-- Content-Type: application/cdmi-object
+       <--  
+       <-- {
+       <--   "metadata": {
+       <--     "cdmi_size": "37",
+       <--     "colour": "blue",
+       <--     ...
+       <--   }
+       <-- }
+       <--  
+       <-- --gc0p4Jq0M2Yt08j34c0p
+       <-- Content-Type: application/octet-stream
+       <-- Content-Transfer-Encoding: binary
+       <-- Content-Range: bytes 0-10/37
+       <--  
+       <-- <11 bytes of binary data>
+       <--  
+       <-- --gc0p4Jq0M2Yt08j34c0p
+       <-- Content-Type: application/octet-stream
+       <-- Content-Transfer-Encoding: binary
+       <-- Content-Range: bytes 21-24/37
+       <--  
+       <-- <4 bytes of binary data>
+       <--  
+       <-- --gc0p4Jq0M2Yt08j34c0p--
 
 EXAMPLE 8: GET to the data object URI to read the value and valuetransferencoding fields of a data object storing JSON data:
 
    .. code-block:: none
 
-      GET /cdmi/2.0.0/cdmi_objectid/0000706D0010374085EF1A5C7018D774?valuetransferencoding&value HTTP/1.1
-      Host: cloud.example.com
-      Accept: application/cdmi-object
-
-   The following shows the response.
-
-   .. code-block:: none
-   
-      Content-Type: application/cdmi-object
-
-      {
-         "valuetransferencoding" : "json"
-         "value" : {
-            "test" : "value"
-            }
-      }
+      --> GET /cdmi/2.0.0/cdmi_objectid/0000706D0010374085EF1A5C7018D774?valuetransferencoding&value HTTP/1.1
+      --> Host: cloud.example.com
+      --> Accept: application/cdmi-object
+       
+      <-- Content-Type: application/cdmi-object
+      <-- 
+      <-- {
+      <--   "valuetransferencoding" : "json"
+      <--   "value" : {
+      <--     "test" : "value"
+      <--   }
+      <-- }
 
 EXAMPLE 9: GET to the data object URI to read a newly-created data object with a current version:
 
    .. code-block:: none
 
-      GET /cdmi/2.0.0/MyContainer/MyVersionedDataObject.txt HTTP/1.1
-      Host: cloud.example.com
-      Accept: application/cdmi-object
-
-   The following shows the response.
-
-   .. code-block:: none
-   
-      Content-Type: application/cdmi-object
-
-      {
-
-        "objectType" : "application/cdmi-object",
-        "objectID" : "00007ED900100DA32EC94351F8970400",
-        "objectName" : "MyVersionedDataObject.txt",
-        "parentURI" : "/MyContainer/",
-        "parentID" : "00007E7F00102E230ED82694DAA975D2", 
-        "domainURI" : "/cdmi_domains/MyDomain/", 
-        "capabilitiesURI" : "/cdmi_capabilities/dataobject/", 
-        "completionStatus" : "Complete", 
-        "mimetype" : "text/plain", 
-        "metadata" : {
-          "cdmi_size" : "33",
-          "cdmi_versioning" : "user",
-          "cdmi_version_object" : "/cdmi_objectid/00007ED900100DA32EC94351F8970400",
-          "cdmi_version_current" : "/cdmi_objectid/00007ED90010512EB55A9304EAC5D4AA",
-          "cdmi_version_oldest" : [
-            "/cdmi_objectid/00007ED90010512EB55A9304EAC5D4AA"
-          ],
-          ...
-        },
-        "valuerange" : "0-32", 
-        "valuetransferencoding" : "utf-8", 
-        "value" : "First version of this Data Object"
-      }
+      --> GET /cdmi/2.0.0/MyContainer/MyVersionedDataObject.txt HTTP/1.1
+      --> Host: cloud.example.com
+      --> Accept: application/cdmi-object
+      
+      <-- Content-Type: application/cdmi-object
+      <-- 
+      <-- {
+      <-- 
+      <--   "objectType" : "application/cdmi-object",
+      <--   "objectID" : "00007ED900100DA32EC94351F8970400",
+      <--   "objectName" : "MyVersionedDataObject.txt",
+      <--   "parentURI" : "/MyContainer/",
+      <--   "parentID" : "00007E7F00102E230ED82694DAA975D2", 
+      <--   "domainURI" : "/cdmi_domains/MyDomain/", 
+      <--   "capabilitiesURI" : "/cdmi_capabilities/dataobject/", 
+      <--   "completionStatus" : "Complete", 
+      <--   "mimetype" : "text/plain", 
+      <--   "metadata" : {
+      <--     "cdmi_size" : "33",
+      <--     "cdmi_versioning" : "user",
+      <--     "cdmi_version_object" : "/cdmi_objectid/00007ED900100DA32EC94351F8970400",
+      <--     "cdmi_version_current" : "/cdmi_objectid/00007ED90010512EB55A9304EAC5D4AA",
+      <--     "cdmi_version_oldest" : [
+      <--       "/cdmi_objectid/00007ED90010512EB55A9304EAC5D4AA"
+      <--     ],
+      <--     ...
+      <--   },
+      <--   "valuerange" : "0-32", 
+      <--   "valuetransferencoding" : "utf-8", 
+      <--   "value" : "First version of this Data Object"
+      <-- }
 
 EXAMPLE 10: GET to the data object URI to read a data object with two historical versions:
 
    .. code-block:: none
 
-      GET /cdmi/2.0.0/MyContainer/MyVersionedDataObject.txt HTTP/1.1
-      Host: cloud.example.com
-      Accept: application/cdmi-object
-
-   The following shows the response.
-
-   .. code-block:: none
-   
-      Content-Type: application/cdmi-object
-
-      {
-
-        "objectType" : "application/cdmi-object",
-        "objectID" : "00007ED900100DA32EC94351F8970400",
-        "objectName" : "MyDataObject.txt",
-        "parentURI" : "/MyContainer/",
-        "parentID" : "00007E7F00102E230ED82694DAA975D2", 
-        "domainURI" : "/cdmi_domains/MyDomain/", 
-        "capabilitiesURI" : "/cdmi_capabilities/dataobject/", 
-        "completionStatus" : "Complete", 
-        "mimetype" : "text/plain", 
-        "metadata" : {
-          "cdmi_size" : "33",
-          "cdmi_versioning" : "user",
-          "cdmi_version_object" : "/cdmi_objectid/00007ED900100DA32EC94351F8970400",
-          "cdmi_version_current" : "/cdmi_objectid/00007ED90010F077F4EB1C99C87524CC",
-          "cdmi_version_oldest" : [
-            "/cdmi_objectid/00007ED90010512EB55A9304EAC5D4AA"
-          ],
-          ...
-        },
-        "valuerange" : "0-32", 
-        "valuetransferencoding" : "utf-8", 
-        "value" : "Third version of this Data Object"
-      }
+      --> GET /cdmi/2.0.0/MyContainer/MyVersionedDataObject.txt HTTP/1.1
+      --> Host: cloud.example.com
+      --> Accept: application/cdmi-object
+        
+      <-- Content-Type: application/cdmi-object
+      <-- 
+      <-- {
+      <-- 
+      <--   "objectType" : "application/cdmi-object",
+      <--   "objectID" : "00007ED900100DA32EC94351F8970400",
+      <--   "objectName" : "MyDataObject.txt",
+      <--   "parentURI" : "/MyContainer/",
+      <--   "parentID" : "00007E7F00102E230ED82694DAA975D2", 
+      <--   "domainURI" : "/cdmi_domains/MyDomain/", 
+      <--   "capabilitiesURI" : "/cdmi_capabilities/dataobject/", 
+      <--   "completionStatus" : "Complete", 
+      <--   "mimetype" : "text/plain", 
+      <--   "metadata" : {
+      <--     "cdmi_size" : "33",
+      <--     "cdmi_versioning" : "user",
+      <--     "cdmi_version_object" : "/cdmi_objectid/00007ED900100DA32EC94351F8970400",
+      <--     "cdmi_version_current" : "/cdmi_objectid/00007ED90010F077F4EB1C99C87524CC",
+      <--     "cdmi_version_oldest" : [
+      <--       "/cdmi_objectid/00007ED90010512EB55A9304EAC5D4AA"
+      <--     ],
+      <--     ...
+      <--   },
+      <--   "valuerange" : "0-32", 
+      <--   "valuetransferencoding" : "utf-8", 
+      <--   "value" : "Third version of this Data Object"
+      <-- }
 
 EXAMPLE 11: GET to the URI of a data object version:
 
    .. code-block:: none
 
-      GET /cdmi/2.0.0/cdmi_objectid/00007ED9001005192891EEBE599D94BB HTTP/1.1
-      Host: cloud.example.com
-      Accept: application/cdmi-object
-
-   The following shows the response.
-
-   .. code-block:: none
-   
-      Content-Type: application/cdmi-object
-
-      {
-        "objectType" : "application/cdmi-object",
-        "objectID" : "00007ED9001005192891EEBE599D94BB",
-        "objectName" : "MyVersionedDataObject.txt",
-        "parentURI" : "/MyContainer/",
-        "parentID" : "00007E7F00102E230ED82694DAA975D2", 
-        "domainURI" : "/cdmi_domains/MyDomain/", 
-        "capabilitiesURI" : "/cdmi_capabilities/dataobject/dataobject_version/", 
-        "completionStatus" : "Complete", 
-        "mimetype" : "text/plain", 
-        "metadata" : {
-          "cdmi_size" : "34",
-          "cdmi_version_object" : "/cdmi_objectid/00007ED900100DA32EC94351F8970400",
-          "cdmi_version_current" : "/cdmi_objectid/00007ED90010F077F4EB1C99C87524CC",
-          "cdmi_version_oldest" : [
-            "/cdmi_objectid/00007ED90010512EB55A9304EAC5D4AA"
-          ],
-          "cdmi_version_parent" : "/cdmi_objectid/00007ED90010512EB55A9304EAC5D4AA",
-          "cdmi_version_children" : [
-            "/cdmi_objectid/00007ED90010F077F4EB1C99C87524CC"
-          ],
-          ...
-        },
-        "valuerange" : "0-33", 
-        "valuetransferencoding" : "utf-8", 
-        "value" : "Second version of this Data Object"
-      }
+      --> GET /cdmi/2.0.0/cdmi_objectid/00007ED9001005192891EEBE599D94BB HTTP/1.1
+      --> Host: cloud.example.com
+      --> Accept: application/cdmi-object
+       
+      <-- Content-Type: application/cdmi-object
+      <-- 
+      <-- {
+      <--   "objectType" : "application/cdmi-object",
+      <--   "objectID" : "00007ED9001005192891EEBE599D94BB",
+      <--   "objectName" : "MyVersionedDataObject.txt",
+      <--   "parentURI" : "/MyContainer/",
+      <--   "parentID" : "00007E7F00102E230ED82694DAA975D2", 
+      <--   "domainURI" : "/cdmi_domains/MyDomain/", 
+      <--   "capabilitiesURI" : "/cdmi_capabilities/dataobject/dataobject_version/", 
+      <--   "completionStatus" : "Complete", 
+      <--   "mimetype" : "text/plain", 
+      <--   "metadata" : {
+      <--     "cdmi_size" : "34",
+      <--     "cdmi_version_object" : "/cdmi_objectid/00007ED900100DA32EC94351F8970400",
+      <--     "cdmi_version_current" : "/cdmi_objectid/00007ED90010F077F4EB1C99C87524CC",
+      <--     "cdmi_version_oldest" : [
+      <--       "/cdmi_objectid/00007ED90010512EB55A9304EAC5D4AA"
+      <--     ],
+      <--     "cdmi_version_parent" : "/cdmi_objectid/00007ED90010512EB55A9304EAC5D4AA",
+      <--     "cdmi_version_children" : [
+      <--       "/cdmi_objectid/00007ED90010F077F4EB1C99C87524CC"
+      <--     ],
+      <--     ...
+      <--   },
+      <--   "valuerange" : "0-33", 
+      <--   "valuetransferencoding" : "utf-8", 
+      <--   "value" : "Second version of this Data Object"
+      <-- }
