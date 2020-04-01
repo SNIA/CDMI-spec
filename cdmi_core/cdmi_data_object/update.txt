@@ -295,62 +295,50 @@ EXAMPLE 1: PATCH to the data object URI to set new field values:
 
    .. code-block:: none
 
-       PATCH /cdmi/2.0.0/MyContainer/MyDataObject.txt HTTP/1.1
-       Host: cloud.example.com
-       Content-Type: application/cdmi-object
-       
-       {
-           "mimetype" : "text/plain",
-           "metadata" : {
-               "colour" : "blue",
-               "length" : "10" 
-           },
-           "value" : "This is the Value of this Data Object"
-       }
-
-   The following shows the response.
-
-   .. code-block:: none
-   
-       HTTP/1.1 204 No Content 
+       --> PATCH /cdmi/2.0.0/MyContainer/MyDataObject.txt HTTP/1.1
+       --> Host: cloud.example.com
+       --> Content-Type: application/cdmi-object
+       -->  
+       --> {
+       -->   "mimetype" : "text/plain",
+       -->   "metadata" : {
+       -->     "colour" : "blue",
+       -->     "length" : "10" 
+       -->   },
+       -->   "value" : "This is the Value of this Data Object"
+       --> }
+        
+       <-- HTTP/1.1 204 No Content 
 
 
 EXAMPLE 2: PATCH to the data object URI to set a new MIME type:
 
    .. code-block:: none
 
-       PATCH /cdmi/2.0.0/MyContainer/MyDataObject.txt?mimetype HTTP/1.1
-       Host: cloud.example.com
-       Content-Type: application/cdmi-object
-       
-       {
-           "mimetype" : "text/plain"
-       }
-
-   The following shows the response.
-
-   .. code-block:: none
-       
-       HTTP/1.1 204 No Content 
+       --> PATCH /cdmi/2.0.0/MyContainer/MyDataObject.txt?mimetype HTTP/1.1
+       --> Host: cloud.example.com
+       --> Content-Type: application/cdmi-object
+       -->  
+       --> {
+       -->   "mimetype" : "text/plain"
+       --> }
+        
+       <-- HTTP/1.1 204 No Content 
 
 
 EXAMPLE 3: PATCH to the data object URI to update a range of the value:
 
    .. code-block:: none
 
-       PATCH /cdmi/2.0.0/MyContainer/MyDataObject.txt?value=21-24 HTTP/1.1
-       Host: cloud.example.com
-       Content-Type: application/cdmi-object
-       
-       {
-           "value" : "dGhhdA=="
-       }
-
-   The following shows the response.
-
-   .. code-block:: none
-   
-       HTTP/1.1 204 No Content
+      -->  PATCH /cdmi/2.0.0/MyContainer/MyDataObject.txt?value=21-24 HTTP/1.1
+      --> Host: cloud.example.com
+      --> Content-Type: application/cdmi-object
+      -->  
+      --> {
+      -->   "value" : "dGhhdA=="
+      --> }
+        
+      <-- HTTP/1.1 204 No Content
 
 When updating a value without specifying a value transfer encoding, the client must be aware of the current value transfer encoding of the object. 
 
@@ -362,216 +350,178 @@ EXAMPLE 4: PATCH to the data object URI to replace all metadata with new metadat
 
    .. code-block:: none
 
-       PATCH /cdmi/2.0.0/MyContainer/MyDataObject.txt?metadata HTTP/1.1
-       Host: cloud.example.com
-       Content-Type: application/cdmi-object
-       
-       {
-           "metadata" : {
-               "colour" : "red",
-               "number" : "7"
-           }
-       }
-
-   The following shows the response.
-
-   .. code-block:: none
-   
-       HTTP/1.1 204 No Content
+       --> PATCH /cdmi/2.0.0/MyContainer/MyDataObject.txt?metadata HTTP/1.1
+       --> Host: cloud.example.com
+       --> Content-Type: application/cdmi-object
+       -->  
+       --> {
+       -->   "metadata" : {
+       -->     "colour" : "red",
+       -->     "number" : "7"
+       -->   }
+       --> }
+         
+       <-- HTTP/1.1 204 No Content
 
 
 EXAMPLE 5: PATCH to the data object URI to add a new metadata item while preserving existing metadata:
 
    .. code-block:: none
 
-       PATCH /cdmi/2.0.0/MyContainer/MyDataObject.txt?metadata=shape HTTP/1.1
-       Host: cloud.example.com
-       Content-Type: application/cdmi-object
-       
-       {
-           "metadata" : {
-               "shape" : "round"
-           }
-       }
-
-   The following shows the response.
-
-   .. code-block:: none
-   
-       HTTP/1.1 204 No Content
+       --> PATCH /cdmi/2.0.0/MyContainer/MyDataObject.txt?metadata=shape HTTP/1.1
+       --> Host: cloud.example.com
+       --> Content-Type: application/cdmi-object
+       -->  
+       --> {
+       -->  "metadata" : {
+       -->   "shape" : "round"
+       -->  }
+       --> }
+        
+       <-- HTTP/1.1 204 No Content
 
 
 EXAMPLE 6: PATCH to the data object URI to replace just one metadata item with a new value:
 
    .. code-block:: none
 
-       PATCH /cdmi/2.0.0/MyContainer/MyDataObject.txt?metadata=colour HTTP/1.1
-       Host: cloud.example.com
-       Content-Type: application/cdmi-object
-       
-       {
-           "metadata" : {
-               "colour" : "green"
-           }
-       }
-
-   The following shows the response.
-
-   .. code-block:: none
-
-       HTTP/1.1 204 No Content
+       --> PATCH /cdmi/2.0.0/MyContainer/MyDataObject.txt?metadata=colour HTTP/1.1
+       --> Host: cloud.example.com
+       --> Content-Type: application/cdmi-object
+       -->  
+       --> {
+       -->   "metadata" : {
+       -->     "colour" : "green"
+       -->   }
+       --> }
+         
+       <-- HTTP/1.1 204 No Content
 
 
 EXAMPLE 7: Delete a single metadata item:
 
    .. code-block:: none
 
-       PATCH /cdmi/2.0.0/MyContainer/MyDataObject.txt?metadata=colour HTTP/1.1 
-       Host: cloud.example.com 
-       Content-Type: application/cdmi-object 
-       
-       {
-           "metadata": {}
-       }
-
-   The following shows the response. 
-
-   .. code-block:: none
-   
-       HTTP/1.1 204 No Content
+       --> PATCH /cdmi/2.0.0/MyContainer/MyDataObject.txt?metadata=colour HTTP/1.1 
+       --> Host: cloud.example.com 
+       --> Content-Type: application/cdmi-object 
+       -->  
+       --> {
+       -->   "metadata": {}
+       --> }
+        
+       <-- HTTP/1.1 204 No Content
 
 
 EXAMPLE 8: Add, update, and delete metadata items. Assume a starting condition where the object has a metadata item "colour" with value "green" and a metadata item "shape" with value "round" and does not have a metadata item "size". After the update, "colour" has value "red", "shape" is deleted, and "size" has been added with value "10". 
 
    .. code-block:: none
 
-       PATCH /cdmi/2.0.0/MyContainer/MyDataObject.txt?metadata=colour&metadata=shape&metadata=size HTTP/1.1
+       --> PATCH /cdmi/2.0.0/MyContainer/MyDataObject.txt?metadata=colour&metadata=shape&metadata=size HTTP/1.1
+       -->  
+       --> Host: cloud.example.com
+       --> Content-Type: application/cdmi-object
+       -->  
+       --> {
+       -->   "metadata": {
+       -->     "colour": "red",
+       -->     "size": "10"
+       -->   }
+       --> }
        
-       Host: cloud.example.com
-       Content-Type: application/cdmi-object
-       
-       {
-           "metadata": {
-               "colour": "red",
-               "size": "10"
-           }
-       }
-
-   The following shows the response. 
-
-   .. code-block:: none
-   
-    HTTP/1.1 204 No Content
+       <-- HTTP/1.1 204 No Content
 
 
 EXAMPLE 9: PATCH to the data object URI to set new field values and the binary contents using multi-part MIME:
 
    .. code-block:: none
 
-       PATCH /cdmi/2.0.0/MyContainer/MyDataObject.txt HTTP/1.1 
-       Host: cloud.example.com 
-       Content-Type: multipart/mixed; boundary=gc0p4Jq0M2Yt08j34c0p
-       
-       --gc0p4Jq0M2Yt08j34c0p
-       Content-Type: application/cdmi-object 
-       
-       {
-        "metadata": {
-            "colour": "red",
-            "number": "7"
-        }
-       }
-       
-       --gc0p4Jq0M2Yt08j34c0p
-       Content-Type: application/octet-stream
-       Content-Transfer-Encoding: binary
-       
-       <37 bytes of binary data>
-       
-       --gc0p4Jq0M2Yt08j34c0p--
-
-
-   The following shows the response.
-   
-   .. code-block:: none
-   
-       HTTP/1.1 204 No Content 
+       --> PATCH /cdmi/2.0.0/MyContainer/MyDataObject.txt HTTP/1.1 
+       --> Host: cloud.example.com 
+       --> Content-Type: multipart/mixed; boundary=gc0p4Jq0M2Yt08j34c0p
+       -->  
+       --> --gc0p4Jq0M2Yt08j34c0p
+       --> Content-Type: application/cdmi-object 
+       -->  
+       --> {
+       --> "metadata": {
+       --> "colour": "red",
+       --> "number": "7"
+       --> }
+       --> }
+       -->  
+       --> --gc0p4Jq0M2Yt08j34c0p
+       --> Content-Type: application/octet-stream
+       --> Content-Transfer-Encoding: binary
+       -->  
+       --> <37 bytes of binary data>
+       -->  
+       --> --gc0p4Jq0M2Yt08j34c0p--
+        
+       <-- HTTP/1.1 204 No Content 
 
 
 EXAMPLE 10: PATCH to the data object URI to replace just one metadata item and update multiple byte ranges within the binary contents of the data object using multi-part MIME:
 
    .. code-block:: none
 
-       PATCH /cdmi/2.0.0/MyContainer/BinaryObject.txt?metadata=colour HTTP/1.1 
-       Host: cloud.example.com 
-       Content-Type: multipart/mixed; boundary=gc0p4Jq0M2Yt08j34c0p
-       
-       --gc0p4Jq0M2Yt08j34c0p
-       Content-Type: application/cdmi-object 
-       
-       {
-        "metadata": {
-            "colour": "green"
-        }
-       }
-       
-       --gc0p4Jq0M2Yt08j34c0p
-       Content-Type: application/octet-stream
-       Content-Range: bytes 0-10/37
-       
-       <11 bytes of binary data>
-       
-       --gc0p4Jq0M2Yt08j34c0p
-       Content-Type: application/octet-stream
-       Content-Range: bytes 21-24/37
-       
-       <4 bytes of binary data>
-       
-       --gc0p4Jq0M2Yt08j34c0p--
-
-   The following shows the response.
-
-   .. code-block:: none
-   
-       HTTP/1.1 204 No Content
-
+       --> PATCH /cdmi/2.0.0/MyContainer/BinaryObject.txt?metadata=colour HTTP/1.1 
+       --> Host: cloud.example.com 
+       --> Content-Type: multipart/mixed; boundary=gc0p4Jq0M2Yt08j34c0p
+       -->  
+       --> --gc0p4Jq0M2Yt08j34c0p
+       --> Content-Type: application/cdmi-object 
+       -->  
+       --> {
+       --> "metadata": {
+       --> "colour": "green"
+       --> }
+       --> }
+       -->  
+       --> --gc0p4Jq0M2Yt08j34c0p
+       --> Content-Type: application/octet-stream
+       --> Content-Range: bytes 0-10/37
+       -->  
+       --> <11 bytes of binary data>
+       -->  
+       --> --gc0p4Jq0M2Yt08j34c0p
+       --> Content-Type: application/octet-stream
+       --> Content-Range: bytes 21-24/37
+       -->  
+       --> <4 bytes of binary data>
+       -->  
+       --> --gc0p4Jq0M2Yt08j34c0p--
+        
+       <-- HTTP/1.1 204 No Content
        
        
 EXAMPLE 11: PATCH to the data object URI to encrypt an existing object:
 
     .. code-block:: none
    
-        PATCH /cdmi/2.0.0/MyContainer/MyDataObject.txt HTTP/1.1
-        Host: cloud.example.com
-        Content-Type: application/cdmi-object
-
-        {
-         "mimetype" : "application/cms",
-         "metadata" : {
-         "cdmi_enc_key_id" : "testkey"
-         }
-        }
-
-    The following shows the response:
-
-    .. code-block:: none
-
-        HTTP/1.1 204 No Content
+        --> PATCH /cdmi/2.0.0/MyContainer/MyDataObject.txt HTTP/1.1
+        --> Host: cloud.example.com
+        --> Content-Type: application/cdmi-object
+        --> 
+        --> {
+        --> "mimetype" : "application/cms",
+        --> "metadata" : {
+        --> "cdmi_enc_key_id" : "testkey"
+        --> }
+        --> }
+         
+        <-- HTTP/1.1 204 No Content
 
 EXAMPLE 12: PATCH to the data object URI to decrypt an existing encrypted object:
 
     .. code-block: none
     
-        PATCH /cdmi/2.0.0/MyContainer/MyEncryptedObject.txt HTTP/1.1
-        Host: cloud.example.com
-        Content-Type: application/cdmi-object
-
-        {
-         "mimetype" : "text/plain"
-        }
-        
-    The following shows the response:
-
-    .. code-block:: none
-        
-        HTTP/1.1 204 No Content
+        --> PATCH /cdmi/2.0.0/MyContainer/MyEncryptedObject.txt HTTP/1.1
+        --> Host: cloud.example.com
+        --> Content-Type: application/cdmi-object
+        --> 
+        --> {
+        --> "mimetype" : "text/plain"
+        --> }
+           
+        <-- HTTP/1.1 204 No Content
