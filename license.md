@@ -36,5 +36,5 @@ The information contained in this publication is subject to change without notic
 
 Suggestions for revisions should be directed to https://www.snia.org/feedback/.
 
-Copyright © 2018 SNIA. All rights reserved. All other trademarks or registered trademarks are the property of their respective owners.
+Copyright © 2020 SNIA. All rights reserved. All other trademarks or registered trademarks are the property of their respective owners.
 
