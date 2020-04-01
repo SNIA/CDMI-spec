@@ -51,7 +51,7 @@ master_doc = 'index'
 
 # General information about the project.
 project = 'CDMI V2.0.0a Specification'
-copyright = '2019, SNIA'
+copyright = '2020, SNIA'
 author = 'SNIA'
 
 licensetext = codecs.open('license.md', encoding='utf-8').read()
@@ -188,7 +188,7 @@ latex_maketitle = r'''
         \begin{center}
             {\Large SNIA Technical Position }\par
             \vspace{36pt}
-            {\Large February 5, 2020 }\par
+            {\Large April 1, 2020 }\par
         \end{center}
 
         \setcounter{footnote}{0}
@@ -281,7 +281,7 @@ latex_elements = {
     \fancypagestyle{normal}{
         \fancyhf{}
         \fancyhead[LE,LO]{{\py@HeaderFamily Cloud Data Management Interface \version}}
-        \fancyfoot[LE,LO]{{\py@HeaderFamily \copyright \  SNIA 2019}}
+        \fancyfoot[LE,LO]{{\py@HeaderFamily \copyright \  SNIA 2020}}
         \fancyfoot[CE,CO]{{\py@HeaderFamily SNIA Working Draft}}
         \fancyfoot[RE,RO]{{\py@HeaderFamily\thepage}}
         }
