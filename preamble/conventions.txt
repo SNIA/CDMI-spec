@@ -42,7 +42,7 @@ Each interface description has nine components, as described in :numref:`tbl_int
 Typographical conventions
 *************************
 
-All code text and HTTP status codes are shown in a fixed-width font, as follows:
+All code fragments are shown in a fixed-width font, as in the following request fragment:
 
 .. code-block:: none
 
@@ -59,7 +59,9 @@ All code text and HTTP status codes are shown in a fixed-width font, as follows:
       "value" : "This is the Value of this Data Object"
     }
 
-Requesting an optional field that is not present shall result in an HTTP status code of ``404 Not Found``.
+Similarly, HTTP status codes are shown in a fixed-width font, as in:
+
+   Requesting an optional field that is not present shall result in an HTTP status code of ``404 Not Found``.
 
 
 **************************************

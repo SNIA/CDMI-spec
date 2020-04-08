@@ -42,19 +42,19 @@ Capabilities that indicate which operations are supported are shown in :numref:`
     * - Capability
       - Location
       - Description
-    * - cdmi_modify_metadata
+    * - ``cdmi_modify_metadata``
       - Data Object
       - Ability to modify the metadata of an existing data object
-    * - cdmi_modify_value
+    * - ``cdmi_modify_value``
       - Data Object
       - Ability to modify the value of an existing data object
-    * - cdmi_modify_value_range
+    * - ``cdmi_modify_value_range``
       - Data Object
       - Ability to modify a sub-range of the value of an existing data object
-    * - cdmi_multipart_mime
+    * - ``cdmi_multipart_mime``
       - System Wide Capability
       - Ability to modify a data object using multi-part MIME
-    * - cdmi_object_access_by_ID
+    * - ``cdmi_object_access_by_ID``
       - System Wide Capability
       - Ability to access the object by ID
 
@@ -83,14 +83,14 @@ The HTTP request headers for updating a CDMI data object using CDMI are shown in
       - Type
       - Description
       - Requirement
-    * - Content-Type
+    * - ``Content-Type``
       - Header string
       - "``application/cdmi-object``" or "``multipart/mixed``"
 
           * If "``multipart/mixed``" is specified, the body shall consist of at least two MIME parts, where the first part shall contain a body of content-type "``application/cdmi-object``", and the second and subsequent parts shall contain one or more byte ranges of the value. 
           * If multiple byte ranges are included and the ``Content-Range`` header is omitted for a part, the data in the part shall be appended to the data in the preceding part, with the first part having a byte offset of zero.
       - Mandatory
-    * - X-CDMI-Partial
+    * - ``X-CDMI-Partial``
       - Header string
       - Indicates that the newly created object is part of a series of writes and has not yet been fully created. When set to "``true``", the ``completionStatus`` field shall be set to "``Processing``". ``X-CDMI-Partial`` works across CDMI and non-CDMI operations.
       
@@ -123,7 +123,7 @@ The request message body fields for updating a data object using CDMI are shown 
       - Type
       - Description
       - Requirement
-    * - mimetype
+    * - ``mimetype``
       - JSON string
       - MIME type of the data contained within the value field of the data object. If present, this value replaces the existing mimetype field value.
 
@@ -151,19 +151,19 @@ The request message body fields for updating a data object using CDMI are shown 
 
         For more details on encrypted objects, see :numref:`clause %s <clause_cdmi_encrypted_objects>`.
       - Optional
-    * - metadata
+    * - ``metadata``
       - JSON object
       - Metadata for the data object. If present, the new metadata specified replaces the existing object metadata. If individual metadata items are specified in the URI, only those items are replaced; other items are preserved.
         See :numref:`clause %s <clause_cdmi_metadata>` for a further description of metadata.
       - Optional
-    * - domainURI
+    * - ``domainURI``
       - JSON string
       - URI of the owning domain
 
         * If different from the parent domain, the user shall have the "``cross-domain``" privilege (see ``cdmi_member_privileges`` in :numref:`tbl_required_settings_for_domain_member_user_objects`).
         * If not specified, the existing domain shall be preserved.
       - Optional
-    * - deserialize
+    * - ``deserialize``
       - JSON string
       - URI of a CDMI data object with a value that contains a data object serialized as specified in :numref:`clause %s <clause_cdmi_serialization>`. The serialized data object shall be deserialized to update the existing data object.
       
@@ -173,7 +173,7 @@ The request message body fields for updating a data object using CDMI are shown 
 
         The object ID of the serialized data object shall match the object ID of the destination data object. Otherwise, the server shall return an HTTP status code of ``400 Bad Request``.
       - Optional [#b]_
-    * - copy
+    * - ``copy``
       - JSON string
       - URI of a source CDMI data object or queue object that shall be copied into an existing destination data object.
 
@@ -189,7 +189,7 @@ The request message body fields for updating a data object using CDMI are shown 
 
         If there are insufficient permissions to read the data object at the source URI, update the data object at the destination URI, or if the read operation fails, the copy shall return an HTTP status code of ``400 Bad Request``, and the destination shall be left unchanged. 
       - Optional [#b]_
-    * - deserializevalue
+    * - ``deserializevalue``
       - JSON string
       - A data object serialized as specified in :numref:`clause %s <clause_cdmi_serialization>` and encoded using base 64 encoding rules described in RFC 4648 :cite:`rfc4648`, that shall be deserialized to update the existing data object. 
       
@@ -199,7 +199,7 @@ The request message body fields for updating a data object using CDMI are shown 
 
         The object ID of the serialized data object shall match the object ID of the destination data object. Otherwise, the server shall return an HTTP status code of ``400 Bad Request``.
       - Optional [#b]_
-    * - valuetransferencoding
+    * - ``valuetransferencoding``
       - JSON string
       - The value transfer encoding used for the data object value. Three value transfer encodings are defined:
 
@@ -212,7 +212,7 @@ The request message body fields for updating a data object using CDMI are shown 
         * If this field is not included and multi-part MIME is not being used, the existing value of "``valuetransferencoding``" shall be left unchanged.
         * If this field is not included and multi-part MIME is being used, the value of "``utf-8``" shall be assigned as the field value if the "``Content-Type``" header of the second and all subsequent MIME parts includes the charset parameter as defined in RFC 2046 of "``utf-8``" (e.g., "``;charset=utf-8``"). Otherwise, the value of "``base64``" shall be assigned as the field value. This field applies only to the encoding of the value when represented in JSON; the "``Content-Transfer-Encoding``" header of the part specifies the encoding of the value within a multi-part MIME request, as defined in RFC 2045.
       - Optional
-    * - value
+    * - ``value``
       - JSON string
       - This field contains the new data for the object. If present, this value replaces the existing value.
 
@@ -247,7 +247,7 @@ The HTTP response header for updating a data object using CDMI is shown in :numr
       - Type
       - Description
       - Requirement
-    * - Location
+    * - ``Location``
       - Header string
       - The server shall respond with the URI to which the reference redirects if the object is a reference.
       - Conditional

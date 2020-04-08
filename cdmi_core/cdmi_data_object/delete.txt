@@ -37,10 +37,10 @@ Capabilities that indicate which operations are supported are shown in :numref:`
     * - Capability
       - Location
       - Description
-    * - cdmi_delete_dataobject
+    * - ``cdmi_delete_dataobject``
       - Data Object
       - Ability to delete an existing data object
-    * - cdmi_object_access_by_ID
+    * - ``cdmi_object_access_by_ID``
       - System Wide Capability
       - Ability to access the object by ID
 
