@@ -6,7 +6,16 @@ Data object versions
 Overview
 ********
 
-Version-enabled data objects allow the previous state of a data object to be retained when an update is performed. In a non-version-enabled data object, each update changes the state of the object, and the previous state is lost. This state change is shown in :numref:`fig_updates_to_a_nonversionenabled_data_object`.
+Data object versioning supports multiple client use cases:
+
+* Clients can preserve all data written to a data object over time by using versions to retain all updates made to a data object.
+* Clients can control how long and much many historical versions are retained by specifying constraints in data system metadata.
+* Clients can restore the contents of a historical version by copying it into the version-enabled data object.
+* Clients can consistently retrieve data object values using multiple parallel or sequential transactions without worring about corruption due to concurrent updates by using the current version data object.
+* Clients can detect where concurrent updates have occurred and can access any overwritten data by iterating through historical versions.
+* Distributed CDMI implementations can merge concurrent changes made on different, eventually consistent nodes without resulting in data loss.
+
+Version-enabled data objects allow the previous state of a data object to be retained when an update is performed. In a non-version-enabled data object, each update changes the state of the object and the previous state is lost. This mode of operation is shown in :numref:`fig_updates_to_a_nonversionenabled_data_object`.
 
 .. _fig_updates_to_a_nonversionenabled_data_object:
 
@@ -16,7 +25,7 @@ Version-enabled data objects allow the previous state of a data object to be ret
    
     Updates to a non-version-enabled data object
 
-When a data object has versioning enabled, each update creates a new "current version" with the same contents of the version-enabled data object, and the previous current version becomes a historical version. All versions can be accessed via separate URIs and are immutable. The version-enabled data object continues to be mutable and has the same behaviors to clients as a non-version-enabled data object. This behavior is shown in :numref:`fig_updates_to_a_versionenabled_data_object` from the perspective of a client.
+When a data object has versioning enabled, each update creates a new "current version" with the same contents of the version-enabled data object, with the previous current version becoming a historical version. The current version and all historical versions can be accessed by ID, and are immutable. The version-enabled data object continues to be mutable and has the same behaviors to clients as a non-version-enabled data object. This behavior is shown in :numref:`fig_updates_to_a_versionenabled_data_object` from the perspective of a client.
 
 .. _fig_updates_to_a_versionenabled_data_object:
 
@@ -36,31 +45,53 @@ The maximum number of versions to be retained, maximum age of versions to be ret
 
 When a data object is version enabled, it always contains at least one version, the "current version". The current version has the same contents as the version-enabled data object but has a different identifier (URI and Object Identifier) and is immutable. When a version-enabled data object is changed, a new current version is created, and the previous current version becomes a historical version.
 
-Versioning has multiple client use cases:
-
-* Clients that need to preserve all data written to a data object over time can use versions to retain all updates made to a data object.
-* Clients can restore the contents of a historical version by copying it to the version-enabled data object.
-* Clients that retrieve a large data object across multiple parallel or sequential transactions or that need to be able to resume a retrieval at a later time can retrieve the URI for the current version of the data object. Clients can then use that URI to retrieve the data object itself. As the current version is immutable and retains its identifier, even if an update occurs (where the current version becomes a historical version), the client will always receive the same results and will not receive a mixture of the older and newer data object contents.
-* Clients can iterate through historical versions to detect where concurrent updates have occurred and can access any overwritten data.
-* Distributed CDMI implementations can also use versions to merge concurrent changes made on different, eventually consistent nodes without resulting in data loss.
-
 Traversing version-enabled data objects
 ***************************************
 
-Version-enabled data objects have multiple metadata items that allow a client to traverse through the data object versions.
+Version-enabled data objects have additional metadata items that allow a client to discover and traverse historical versions.
 
-When a client enables versioning for a data object, the following metadata items shall be added to the version-enabled data object:
+Version-enabled data objects shall contain the following metadata items, as shown in :numref:`tbl_cdmi_version_metadata_items`.
 
-* a ``cdmi_version_object`` metadata item that contains the URI to the corresponding version-enabled data object. This metadata item allows a client to detect that a given object is a version-enabled data object and not a data object version.
-* a ``cdmi_version_current`` field that contains the URI to the current version of the version-enabled data object.
-* a ``cdmi_version_oldest`` field that contains the URI of one or more of the oldest versions. More than one version can exist in this metadata item as explained in :numref:`%s <clause_cdmi_versioning_concurrent_updates>`.
+.. tabularcolumns:: |>{\raggedright\arraybackslash}\Y{0.29}
+                    |>{\raggedright\arraybackslash}\Y{0.09}
+                    |>{\raggedright\arraybackslash}\Y{0.48}
+                    |>{\raggedright\arraybackslash}\Y{0.14}|
 
-Each data object version shall contain the above three fields, with the same values as found in the version-enabled data object. Each data object version shall also contain the following two fields:
+.. _tbl_cdmi_version_metadata_items:
 
-* a ``cdmi_version_parent`` field that contains the URI of the previous version. If the data object version does not have a parent, this field is omitted.
-* ``cdmi_version_children`` field that contains the URIs of the versions created by modifying this version. If the data object version does not have any children, this metadata item shall be empty.
+.. list-table:: Version-enabled data object metadata items
+    :class: longtable
+    :header-rows: 1
+    :align: center 
 
-To visualize how these fields allow a client to traverse data object versions, the linkages between the version-enabled data object and data object versions in the final state of :numref:`fig_updates_to_a_versionenabled_data_object` is shown in :numref:`fig_versioned_linkages`.
+    * - Metadata Item Name
+      - Type
+      - Description
+      - Requirement
+    * - cdmi_version_current
+      - JSON String
+      - The URI of the current version of the version-enabled data object. This metadata item shall be present in the version-enabled data object and all historical versions.
+      - Conditional
+    * - cdmi_version_oldest
+      - JSON Array of JSON Strings
+      - One or more URIs of the oldest version(s). This metadata item shall be present in the version-enabled data object, the current version and all historical versions except the oldest historical versions.
+      - Conditional
+    * - cdmi_version_object
+      - JSON String
+      - The URI of the version-enabled data object. This metadata item shall be present in the current version and all historical versions.
+      - Conditional
+    * - cdmi_version_parent
+      - JSON String
+      - The URI of the previous historical version. This metadata item shall be present in the current version and all historical versions except the oldest historical versions.
+      - Conditional
+    * - cdmi_version_children
+      - JSON Array of JSON Strings
+      - One or more URIs of historical versions (or the current version) created by updating a given historical version. This metadata item shall be present in all historical versions.
+      - Conditional
+
+Situations where a version-enabled data object or a historical data object may have multiple oldest versions or multiple children is explained in :numref:`%s <clause_cdmi_versioning_concurrent_updates>`.
+
+To visualize how these metadata items allow a client to traverse data object versions, the linkages between the version-enabled data object and data object versions in the final state of :numref:`fig_updates_to_a_versionenabled_data_object` is shown in :numref:`fig_versioned_linkages`.
 
 .. _fig_versioned_linkages:
 
@@ -101,7 +132,7 @@ Two different types of concurrent updates can occur: overlapping updates and nes
    
     Linkages for overlapping updates
 
-In the sequence shown in :numref:`fig_concurrent_updates_to_a_versionenabled_data_object`, both the "Second" and "Third" updates are performed against the "First" state. As the "Third" update completes last, it becomes the current version. In this example, historical version 501 would have two children, versions ``502`` and ``503``. Both versions ``502`` and ``503`` would have the same parent ``501``.
+In the sequence shown in :numref:`fig_concurrent_updates_to_a_versionenabled_data_object`, both the "Second" and "Third" updates are performed against the "First" state. As the "Third" update completes last, it becomes the current version. In this example, historical version ``00007ED...8EA`` would have two children, versions ``00007ED...552`` and ``00007ED...D21``. Both versions ``00007ED...552`` and ``00007ED...D21`` would have the same parent ``00007ED...8EA``.
 
 .. raw:: latex
 
@@ -125,7 +156,7 @@ In the sequence shown in :numref:`fig_concurrent_updates_to_a_versionenabled_dat
    
     Linkages for nested updates
 
-In the sequence shown in these figures, both the "Second" and "Third" updates are performed against the "First" state. As the "Second" update completes last, it becomes the current version. In this example, historical version ``501`` would have two children, versions ``502`` and ``503``. Both versions ``502`` and ``503`` would have the same parent ``501``.
+In the sequence shown in these figures, both the "Second" and "Third" updates are performed against the "First" state. As the "Second" update completes last, it becomes the current version. In this example, historical version ``00007ED...8EA`` would have two children, versions ``00007ED...552`` and ``00007ED...D21``. Both versions ``00007ED...552`` and ``00007ED...D21`` would have the same parent ``00007ED...8EA``.
 
 Both of these data structures are equivalent, with the only difference being which update completed last.
 
@@ -192,39 +223,26 @@ Moving, copying over, deserializing over, and updating a data object version sha
 
 Copying a data object version is permitted. For example, to promote a version to become the current version of a version-enabled data object, the URI of the data object version is used in the copy field when performing an update to the URI of the version-enabled data object. Updates can also be performed as part of the copy operation.
 
-Deleting a historical data object version shall be permitted if the client has ACL permissions to delete the version-enabled data object and the version-enabled data object.
+Deleting the current version or historical versions shall maintain the relationships in :numref:`tbl_cdmi_version_metadata_items`. 
 
-Deleting the current version of a version-enabled data object shall revert the current version to the current version's parent. If there is no parent version, deleting the current version shall result in an HTTP status code of ``403 Forbidden``.
+Deleting the current version shall revert the current version to the parent. If there is no parent version, deleting the current version shall result in an HTTP status code of ``403 Forbidden``.
 
-When an intermediate historical version is deleted, the parent and children metadata items of the parent and all child data object versions of the data object version being deleted must be updated. 
+Deleting a historical version shall only be permitted when the client has ACL permissions to delete the historical version and has ACL permissions to delete the version-enabled data object.
 
-In a version chain "C" -> "B" -> "A", where "C" is the newest and "A" is the oldest, deleting version "B" shall produce the following results:
+Deleting a historical version shall use the domainURI metadata of the version-enabled data object.
 
-* The ``cdmi_version_parent`` metadata item of "C" is set to the URI contained in the ``cdmi_version_parent`` metadata item of "B".
-* The URI of "B" in the ``cdmi_version_children`` metadata item of "A" is replaced with the URIs contained in the ``cdmi_version_children`` metadata item of "B".
+Reading a historical version shall update the ``cdmi_acount`` and ``cdmi_atime`` of the historical version, when present.
 
-In pseudocode, the above translates to:
+Reading a historical version shall only be permitted when the client has ACL permissions to read the historical version and has ACL permissions to read the version-enabled data object.
 
-    .. code-block:: none
+Reading a historical version shall use the domainURI metadata of the version-enabled data object.
 
-            C->cdmi_version_parent = B->cdmi_version_parent
-
-            A->cdmi_version_children[B] = B->cdmi_version_children
-
-            Delete B
-
-If the oldest version of a version-enabled data object is deleted and there are two or more children of that version, both of the children of the deleted oldest version will become the new oldest version.
-
-When accessing a data object version, the ``cdmi_acount`` and ``cdmi_atime`` of the data object version shall be updated if present.
-
-When accessing a historical version of a version-enabled data object, the ACL, owner, and domainURI of the version-enabled data object shall be in effect.
-
-Standard notification messages are sent when data object versions are accessed and deleted.
+Standard notification messages are sent when data object versions are read or deleted.
 
 Query of data object versions
 *****************************
 
-As data object versions are regular CDMI objects, they will be included in query results unless explicitly excluded.
+Data object versions are regular CDMI objects, consequently they will be included in query results unless explicitly excluded.
 
 Querying for data object versions is performed by including the scope:
 
@@ -262,9 +280,20 @@ Querying for non-versioned data objects with versions is performed by including 
 Version-enabled data object serialization
 *****************************************
 
-Serializing a version-enabled data object shall serialize the data object, the versioning-related metadata, the current version, and all historical versions. The current version and all historical versions shall be serialized as data objects contained within a JSON array. These data objects shall replace the contents of the value field of the serialized representation of the version-enabled data object.
+Version-enabled data objects are serialized by performing the following steps:
 
-EXAMPLE 1: A version-enabled data object with three versions is serialized.
+* Serialize the current version and all historical versions as described in :numref:`%s <canonical_serialization_format>`.
+* Place the serialized current version and historical versions into a JSON Array.
+* Serialize the version-enabled data object as described in :numref:`%s <canonical_serialization_format>`.
+* Replace the value field in the serialized version-enabled data object with the JSON Array containing the serialized current version and historical versions.
+
+.. raw:: latex
+
+  \vspace*{1ex}
+
+Serializing a non-version-enabled data object that has versions shall follow the same process.
+
+EXAMPLE 1: A version-enabled data object with two historical versions is serialized.
 
     .. code-block:: none
 
@@ -374,11 +403,9 @@ EXAMPLE 1: A version-enabled data object with three versions is serialized.
                 ]
             }
 
-Serializing a non-version-enabled data object that has versions shall serialize the data object, the versioning-related metadata, and all historical versions. The contents of the value field of the data object, the current version, and all historical versions serialized as data objects shall be contained within a JSON array. These data objects shall replace the contents of the value field of the serialized representation of the version-enabled data object.
+Deserializing a version-enabled data object or a non-version-enabled data object with versions shall restore the data object and all serialized versions.
 
-Deserializing either a version-enabled data object or a non-version-enabled data object with versions shall restore the data object and all serialized versions.
+Individually serializing and deserializing current versions or historical versions shall not be permitted.
 
-Serializing and deserializing a data object version shall not be permitted.
-
-Attempting to deserialize a serialized version-enabled data object or non-version-enabled data object with versions onto a system that does not support versions shall result in an HTTP status code of ``400 Bad Request``. This error code results because a CDMI system that does not support versions expects a JSON string for the value field of a serialized data object, not a JSON array.
+Deserializing a serialized any data object with versions onto a system that does not support versions shall result in an HTTP status code of ``400 Bad Request``.
 
