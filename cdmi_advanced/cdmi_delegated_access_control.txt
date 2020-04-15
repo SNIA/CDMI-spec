@@ -261,7 +261,7 @@ When a CDMI server that supports DAC needs to contact the DAC provider as specif
 
         These headers can be used for tunneling information from the client to the DAC provider.	
       - Mandatory
-    * - ``cdmi_object``ID	
+    * - ``cdmi_objectID``
       - JSON string	
       - Contains the object ID of the object the operation is performed against.	
       - Mandatory
@@ -317,7 +317,7 @@ An example of a DAC request is shown below:
 Packaged DAC request
 ********************
 
-A JSON DAC request shall be encrypted in JWE format, where the recipient is the public key of the DAC provider certificate (as specified in the DAC object ``cdmi_dac_certificate`` metadata), and is JWS signed using the private key of the CDMI server that corresponds to the server identity certificate included in the DAC request. The certificate of the DAC provider from the object is then attached as specified in :numref:`tbl_package_dac_request`.
+A JSON DAC request shall be encrypted in JWE format, where the recipient is the public key of the DAC provider certificate (as specified in the DAC object ``cdmi_dac_certificate`` metadata), and is JWS signed using the private key of the CDMI server that corresponds to the server identity certificate included in the DAC request. The certificate of the DAC provider from the object is then attached as specified in :numref:`tbl_packaged_dac_request`.
 
 .. tabularcolumns:: |>{\raggedright\arraybackslash}\Y{0.29}
                     |>{\raggedright\arraybackslash}\Y{0.09}

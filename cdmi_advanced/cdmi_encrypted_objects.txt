@@ -31,7 +31,9 @@ The state transition diagram for encrypted objects is shown in :numref:`fig_encr
    
     Encrypted object state transistions
     
-The eight encryption operations are defined in :numref:`%s <ref_create_a_new_encrytped_object>` through :numref:`%s <ref_update_plaintext_of_an_encrytped_object>`.
+The eight encryption operations are defined in :numref:`ref_create_a_new_encrypted_object` through :numref:`ref_update_plaintext_of_an_encrypted_object`.
+
+.. _ref_create_a_new_encrypted_object:
 
 Create a new encrypted object
 -----------------------------
@@ -86,6 +88,8 @@ The plaintext value of an encrypted object shall be read by performing an HTTP G
 The CDMI Server shall use the client's credentials (which are included in HTTP headers, and are out of scope of this International Standard) to retreive the encryption, signing and verification keys, and encryption, signing and verification algorithm information from the KMS, and shall use the keys to decrypt and verify the encrypted value included in the object.
 
 When an encrypted object is decrypted for access, the plaintext shall not be retained or cached by the CDMI server.
+
+.. _ref_update_plaintext_of_an_encrypted_object:
 
 Update plaintext of an encrypted object
 ---------------------------------------

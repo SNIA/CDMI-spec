@@ -143,7 +143,7 @@ Cloud storage system-wide capabilities
     * - Capability name    
       - Type    
       - Definition
-    * - ``cdmi_domains    ``
+    * - ``cdmi_domains``
       - JSON string    
       - If present and "``true``", the CDMI server supports domains.
       
@@ -152,25 +152,25 @@ Cloud storage system-wide capabilities
           \vspace*{1ex}
 
         If not present, the domainURI field shall not be present in response bodies and the "``cdmi_domains``" URI shall not be present.
-    * - ``cdmi_export_smb    ``
+    * - ``cdmi_export_smb``
       - JSON string    
       - If present and "``true``", the CDMI server supports SMB exports.
-    * - ``cdmi_dataobjects    ``
+    * - ``cdmi_dataobjects``
       - JSON string    
       - If present and "``true``", the CDMI server supports data objects.
-    * - ``cdmi_export_iscsi    ``
+    * - ``cdmi_export_iscsi``
       - JSON string    
       - If present and "``true``", the CDMI server supports iSCSI exports.
-    * - ``cdmi_export_nfs    ``
+    * - ``cdmi_export_nfs``
       - JSON string    
       - If present and "``true``", the CDMI server supports NFS protocol exports.
-    * - ``cdmi_export_occi_iscsi    ``
+    * - ``cdmi_export_occi_iscsi``
       - JSON string    
       - If present and "``true``", the CDMI server supports OCCI/iSCSI exports.
-    * - ``cdmi_export_webdav    ``
+    * - ``cdmi_export_webdav``
       - JSON string    
       - If present and "``true``", the CDMI server supports WebDAV exports.
-    * - ``cdmi_metadata_maxitems    ``
+    * - ``cdmi_metadata_maxitems``
       - JSON string    
       - If present, this capability indicates the maximum number of user-defined metadata items supported per object.
       
@@ -179,7 +179,7 @@ Cloud storage system-wide capabilities
           \vspace*{1ex}
 
         If not present, there is no limit placed on the number of user-defined metadata items.
-    * - ``cdmi_metadata_maxsize    ``
+    * - ``cdmi_metadata_maxsize``
       - JSON string    
       - If present, this capability indicates the maximum size, in bytes, of each user-defined metadata item supported per object.
       
@@ -188,7 +188,7 @@ Cloud storage system-wide capabilities
           \vspace*{1ex}
 
         If not present, there is no limit placed on the size of user-defined metadata items.
-    * - ``cdmi_metadata_maxtotalsize    ``
+    * - ``cdmi_metadata_maxtotalsize``
       - JSON string    
       - If present, this capability indicates the maximum size, in bytes, of user-defined metadata supported by the CDMI server.
       
@@ -197,115 +197,115 @@ Cloud storage system-wide capabilities
           \vspace*{1ex}
 
         If not present, there is no limit placed on the size of user-defined metadata.
-    * - ``cdmi_notification    ``
+    * - ``cdmi_notification``
       - JSON string    
       - If present and "``true``", the CDMI server supports notification queues.
-    * - ``cdmi_logging    ``
+    * - ``cdmi_logging``
       - JSON string    
       - If present and "``true``", the CDMI server supports logging queues.
-    * - ``cdmi_query    ``
+    * - ``cdmi_query``
       - JSON string    
       - If present and "``true``", the CDMI server supports query queues.
-    * - ``cdmi_query_regex    ``
+    * - ``cdmi_query_regex``
       - JSON string    
       - If present and "``true``", the CDMI server supports query with regular expressions.
-    * - ``cdmi_query_contains    ``
+    * - ``cdmi_query_contains``
       - JSON string    
       - If present and "``true``", the CDMI server supports query with "contains" expressions.
-    * - ``cdmi_query_tags    ``
+    * - ``cdmi_query_tags``
       - JSON string    
       - If present and "``true``", the CDMI server supports query with tag-matching expressions.
-    * - ``cdmi_query_value    ``
+    * - ``cdmi_query_value``
       - JSON string    
       - If present and "``true``", the CDMI server supports query of value fields.
-    * - ``cdmi_queues    ``
+    * - ``cdmi_queues``
       - JSON string    
       - If present and "``true``", the CDMI server supports queue objects.
-    * - ``cdmi_security_access_control    ``
+    * - ``cdmi_security_access_control``
       - JSON string    
       - If present and "``true``", the CDMI server supports ACLs. See :numref:`%s <ref_data_system_metadata_capabilities>` for additional information.
-    * - ``cdmi_security_data_integrity    ``
+    * - ``cdmi_security_data_integrity``
       - JSON string    
       - If present and "``true``", the CDMI server supports data integrity/authenticity. See :numref:`%s <ref_data_system_metadata_capabilities>` for additional information.
-    * - ``cdmi_security_encryption    ``
+    * - ``cdmi_security_encryption``
       - JSON string    
       - If present and "``true``", the CDMI server supports data at-rest encryption. See :numref:`%s <ref_data_system_metadata_capabilities>` for additional information.
-    * - ``cdmi_security_immutability    ``
+    * - ``cdmi_security_immutability``
       - JSON string    
       - If present and "``true``", the CDMI server supports data immutability/retentions. See :numref:`%s <ref_data_system_metadata_capabilities>` for additional information.
-    * - ``cdmi_security_sanitization    ``
+    * - ``cdmi_security_sanitization``
       - JSON string    
       - If present and "``true``", the CDMI server supports data/media sanitization. See :numref:`%s <ref_data_system_metadata_capabilities>` for additional information.
-    * - ``cdmi_serialization_json    ``
+    * - ``cdmi_serialization_json``
       - JSON string    
       - If present and "``true``", the CDMI server supports JSON as a serialization format.
-    * - ``cdmi_snapshots    ``
+    * - ``cdmi_snapshots``
       - JSON string    
       - If present and "``true``", the CDMI server supports snapshots.
-    * - ``cdmi_references    ``
+    * - ``cdmi_references``
       - JSON string    
       - If present and "``true``", the CDMI server supports references.
-    * - ``cdmi_object_move_from_local    ``
+    * - ``cdmi_object_move_from_local``
       - JSON string    
       - If present and "``true``", the CDMI server supports moving CDMI objects from URIs within the same storage system.
-    * - ``cdmi_object_move_from_remote    ``
+    * - ``cdmi_object_move_from_remote``
       - JSON string    
       - If present and "``true``", the CDMI server supports moving CDMI objects from URIs within other CDMI storage systems. 
-    * - ``cdmi_object_move_from_ID    ``
+    * - ``cdmi_object_move_from_ID``
       - JSON string    
       - If present and "``true``", the CDMI server supports moving CDMI objects without a path from a ``/cdmi_objectid/`` URI within the same storage system. This effectively adds a path, allowing the object to be accessed by ID and by path.
-    * - ``cdmi_object_move_to_ID    ``
+    * - ``cdmi_object_move_to_ID``
       - JSON string    
       - If present and "``true``", the CDMI server supports moving CDMI objects with a path to a ``/cdmi_objectid/`` URI within the same storage system. This effectively removes the path, leaving the object only accessible by ID. 
-    * - ``cdmi_object_copy_from_local    ``
+    * - ``cdmi_object_copy_from_local``
       - JSON string    
       - If present and "``true``", the CDMI server supports copying CDMI objects from URIs within the same storage system. 
-    * - ``cdmi_object_copy_from_remote    ``
+    * - ``cdmi_object_copy_from_remote``
       - JSON string    
       - If present and "``true``", the CDMI server supports copying CDMI objects from URIs within other CDMI storage systems. 
-    * - ``cdmi_object_access_by_ID    ``
+    * - ``cdmi_object_access_by_ID``
       - JSON string    
       - If present and "``true``", the CDMI server supports accessing, updating, and deleting objects through ``/cdmi_objectid/``. 
-    * - ``cdmi_post_dataobject_by_ID     ``
+    * - ``cdmi_post_dataobject_by_ID``
       - JSON string     
       - If present and "``true``", the CDMI server supports adding a new data object by ID via POST to "``/cdmi_objectid/``". 
-    * - ``cdmi_post_queue_by_ID     ``
+    * - ``cdmi_post_queue_by_ID``
       - JSON string     
       - If present and "``true``", the CDMI server supports adding a new queue object by ID via POST to "``/cdmi_objectid/``". 
-    * - ``cdmi_deserialize_dataobject_by_ID     ``
+    * - ``cdmi_deserialize_dataobject_by_ID``
       - JSON string     
       - If present and "``true``", the CDMI server supports deserializating serialized data objects when creating a new data object by ID via POST to "``/cdmi_objectid/``". 
-    * - ``cdmi_deserialize_queue_by_ID     ``
+    * - ``cdmi_deserialize_queue_by_ID``
       - JSON string     
       - If present and "``true``", the CDMI server supports deserializating serialized queue objects when creating a new queue object by ID via POST to "``/cdmi_objectid/``". 
-    * - ``cdmi_serialize_dataobject_to_ID     ``
+    * - ``cdmi_serialize_dataobject_to_ID``
       - JSON string     
       - If present and "``true``", the CDMI server supports serializing data objects when creating a new data object by ID via POST to "``/cdmi_objectid/``". 
-    * - ``cdmi_serialize_domain_to_ID     ``
+    * - ``cdmi_serialize_domain_to_ID``
       - JSON string     
       - If present and "``true``", the CDMI server supports serializing domain objects when creating a new data object by ID via POST to "``/cdmi_objectid/``". 
-    * - ``cdmi_serialize_container_to_ID     ``
+    * - ``cdmi_serialize_container_to_ID``
       - JSON string     
       - If present and "``true``", the CDMI server supports serializing container objects when creating a new data object by ID via POST to "``/cdmi_objectid/``". 
-    * - ``cdmi_serialize_queue_to_ID     ``
+    * - ``cdmi_serialize_queue_to_ID``
       - JSON string     
       - If present and "``true``", the CDMI server supports serializing queue objects when creating a new data object by ID via POST to "``/cdmi_objectid/``". 
-    * - ``cdmi_copy_dataobject_by_ID     ``
+    * - ``cdmi_copy_dataobject_by_ID``
       - JSON string     
       - If present and "``true``", the CDMI server supports copying an existing data object when creating a new data object by ID via POST to "``/cdmi_objectid/``". 
-    * - ``cdmi_copy_queue_by_ID     ``
+    * - ``cdmi_copy_queue_by_ID``
       - JSON string     
       - If present and "``true``", the CDMI server supports copying an existing queue object when creating a new queue object by ID via POST to "``/cdmi_objectid/``". 
-    * - ``cdmi_create_reference_by_ID     ``
+    * - ``cdmi_create_reference_by_ID``
       - JSON string     
       - If present and "``true``", the CDMI server supports creating a new reference via POST to "``/cdmi_objectid/``". 
-    * - ``cdmi_copy_dataobject_from_queue    ``
+    * - ``cdmi_copy_dataobject_from_queue``
       - JSON string    
       - If present and "``true``", the CDMI server supports the ability to copy to a data object from a queue object.
-    * - ``cdmi_multipart_mime    ``
+    * - ``cdmi_multipart_mime``
       - JSON string    
       - If present and "``true``", the CDMI server supports storing and retrieving the value of data and queue objects using multi-part MIME.
-    * - ``cdmi_create_value_range_by_ID    ``
+    * - ``cdmi_create_value_range_by_ID``
       - JSON string    
       - If present and "``true``", the CDMI server supports a new data object’s value to be created with byte ranges through "``/cdmi_objectid/``".
     * - ``cdmi_dac``
@@ -323,37 +323,37 @@ Cloud storage system-wide capabilities
 
             - "http" – optional for DAC implementations
             - "mailto" – optional for DAC implementations
-    * - ``cdmi_enc_cms ``
+    * - ``cdmi_enc_cms``
       - JSON string
       - If present and "``true``", the CDMI server supports operations against the contents of CMS encrypted objects.
-    * - ``cdmi_enc_jwe ``
+    * - ``cdmi_enc_jwe``
       - JSON string
       - If present and "``true``", the CDMI server supports operations against the contents of JWE encrypted objects.
-    * - ``cdmi_enc_inplace ``
+    * - ``cdmi_enc_inplace``
       - JSON string
       - If present and "``true``", the CDMI server supports operations to encrypt and decrypt objects in place, including updates.
-    * - ``cdmi_enc_access ``
+    * - ``cdmi_enc_access``
       - JSON string
       - If present and "``true``", the CDMI server supports operations to decrypt objects on access.
-    * - ``cdmi_cms_encryption ``
+    * - ``cdmi_cms_encryption``
       - JSON array of JSON strings
       - If present, this capability lists which CMS ``ContentEncryptionAlgorithmIdentifier`` encryption algorithms are supported for operations against the contents of CMS encrypted objects.
-    * - ``cdmi_cms_digest ``
+    * - ``cdmi_cms_digest``
       - JSON array of JSON strings
       - If present, this capability lists which CMS ``MessageAuthenticationCodeAlgorithm`` digest algorithms are supported for operations against the contents of CMS encrypted objects.
-    * - ``cdmi_cms_signature ``
+    * - ``cdmi_cms_signature``
       - JSON array of JSON strings
       - If present, this capability lists which CMS ``SignatureAlgorithmIdentifier`` signature algorithms are supported for operations against the contents of CMS encrypted objects.
-    * - ``cdmi_jwe_enc ``
+    * - ``cdmi_jwe_enc``
       - JSON array of JSON strings
       - If present, this capability lists which JOSE "``enc``" encryption algorithms are supported for operations against the contents of JWE encrypted objects, as defined in RFC 7518 :cite:`rfc7518`.
-    * - ``cdmi_jwe_alg ``
+    * - ``cdmi_jwe_alg``
       - JSON array of JSON strings
       - If present, this capability lists which JOSE "``alg``" encryption algorithms are supported for operations against the contents ofJWE encrypted objects, as defined in RFC 7518 :cite:`rfc7518`.
-    * - ``cdmi_jws_alg ``
+    * - ``cdmi_jws_alg``
       - JSON array of JSON strings
       - If present, this capability lists which JOSE "``alg``" encryption algorithms are supported for operations against the contents of JWS signatures, as defined in RFC 7518 :cite:`rfc7518`.
-    * - ``cdmi_valuetransferencoding_json    ``
+    * - ``cdmi_valuetransferencoding_json``
       - JSON string    
       - If present and "``true``", the CDMI server supports JSON value transfer encodings.
 
@@ -382,7 +382,7 @@ Storage system metadata capabilities
     * - Capability name    
       - Type    
       - Definition
-    * - ``cdmi_acl    ``
+    * - ``cdmi_acl``
       - JSON string    
       - If present and "``true``", the CDMI server supports ACLs. When a CDMI implementation supports ACLs for the purpose of access control, the system-wide capability of ``cdmi_security_access_control`` specified in :numref:`%s <ref_cloud_storage_system-wide_capabilities>` of :numref:`%s <ref_cloud_storage_system-wide_capabilities>` shall also be set to "``true``".
       
@@ -391,22 +391,22 @@ Storage system metadata capabilities
           \vspace*{1ex}
 
         If not present, there is no support for ACL-based access control.
-    * - ``cdmi_size     ``
+    * - ``cdmi_size``
       - JSON string    
       - If present and "``true``", the CDMI server shall generate a ``cdmi_size`` storage system metadata for each stored object.
-    * - ``cdmi_ctime     ``
+    * - ``cdmi_ctime``
       - JSON string    
       - If present and "``true``", the CDMI server shall generate a ``cdmi_ctime`` storage system metadata for each stored object.
-    * - ``cdmi_atime     ``
+    * - ``cdmi_atime``
       - JSON string    
       - If present and "``true``", the CDMI server shall generate a ``cdmi_atime`` storage system metadata for each stored object.
-    * - ``cdmi_mtime     ``
+    * - ``cdmi_mtime``
       - JSON string    
       - If present and "``true``", the CDMI server shall generate a ``cdmi_mtime`` storage system metadata for each stored object.
-    * - ``cdmi_acount     ``
+    * - ``cdmi_acount``
       - JSON string    
       - If present and "``true``", the CDMI server shall generate a ``cdmi_acount`` storage system metadata for each stored object.
-    * - ``cdmi_mcount     ``
+    * - ``cdmi_mcount``
       - JSON string    
       - If present and "``true``", the CDMI server shall generate a ``cdmi_mcount`` storage system metadata for each stored object.
     * - ``cdmi_dac_uri``
@@ -415,7 +415,7 @@ Storage system metadata capabilities
     * - ``cdmi_dac_certificate``
       - JSON string
       - If present and "``true``", the CDMI server supports delegated access control metadata.
-    * - ``cdmi_enc_signature	``
+    * - ``cdmi_enc_signature``
       - JSON string	
       - If present and "``true``", the CDMI server shall generate a ``cdmi_signature`` storage system metadata for each stored object when a corresponding ``sign_id`` data system metadata item is present.
     * - ``cdmi_version_object``
@@ -459,22 +459,22 @@ Data system metadata capabilities
     * - Capability name    
       - Type    
       - Definition
-    * - ``cdmi_assignedsize    ``
+    * - ``cdmi_assignedsize``
       - JSON string    
       - If present and "``true``", the CDMI server supports the ``cdmi_assignedsize`` data system metadata as defined in :numref:`%s <ref_support_for_data_system_metadata>`.
-    * - ``cdmi_data_redundancy     ``
+    * - ``cdmi_data_redundancy``
       - JSON string    
       - If present, the CDMI server supports the ``cdmi_data_redundancy`` data system metadata as defined in :numref:`%s <ref_support_for_data_system_metadata>`. The value of the capability shall be set to a positive numeric string representing the maximum value that the server supports.
-    * - ``cdmi_data_dispersion     ``
+    * - ``cdmi_data_dispersion``
       - JSON string    
       - If present and "``true``", the CDMI server supports the ``cdmi_data_dispersion`` data system metadata as defined in :numref:`%s <ref_support_for_data_system_metadata>`.
-    * - ``cdmi_data_retention     ``
+    * - ``cdmi_data_retention``
       - JSON string    
       - If present and "``true``", the CDMI server supports both the ``cdmi_retention_id`` and ``cdmi_retention_period`` data system metadata as defined in :numref:`%s <ref_support_for_data_system_metadata>`. 
-    * - ``cdmi_data_autodelete     ``
+    * - ``cdmi_data_autodelete``
       - JSON string
       - If present and "``true``", the CDMI server supports the ``cdmi_data_autodelete`` data system metadata as defined in :numref:`%s <ref_support_for_data_system_metadata>`. 
-    * - ``cdmi_data_holds     ``
+    * - ``cdmi_data_holds``
       - JSON string    
       - If present and "``true``", the CDMI server supports the ``cdmi_hold_id`` data system metadata as defined in :numref:`%s <ref_support_for_data_system_metadata>`.
       
@@ -483,7 +483,7 @@ Data system metadata capabilities
           \vspace*{1ex}
 
         When a cloud storage system supports holds for the purpose of making data immutable, the system-wide capability of ``cdmi_security_immutability`` specified in :numref:`tbl_system_wide_capabilities` of :numref:`%s <ref_cloud_storage_system-wide_capabilities>` shall be present and set to "``true``".
-    * - ``cdmi_encryption     ``
+    * - ``cdmi_encryption``
       - JSON array of JSON strings    
       - If present, the CDMI server supports the ``cdmi_encryption`` data system metadata as defined in :numref:`%s <ref_support_for_data_system_metadata>`.
       
@@ -498,10 +498,10 @@ Data system metadata capabilities
           \vspace*{1ex}
 
         When a cloud storage system supports at-rest encryption, the system-wide capability of ``cdmi_security_encryption`` specified in :numref:`tbl_system_wide_capabilities` of :numref:`%s <ref_cloud_storage_system-wide_capabilities>` shall be present and set to "``true``".
-    * - ``cdmi_geographic_placement    ``
+    * - ``cdmi_geographic_placement``
       - JSON string    
       - If present and "``true``", the CDMI server supports the ``cdmi_geographic_placement`` data system metadata as defined in :numref:`%s <ref_support_for_data_system_metadata>`.
-    * - ``cdmi_immediate_redundancy    ``
+    * - ``cdmi_immediate_redundancy``
       - JSON string    
       - If present, the CDMI server supports the ``cdmi_immediate_redundancy`` data system metadata as defined in :numref:`%s <ref_support_for_data_system_metadata>`.
       
@@ -510,7 +510,7 @@ Data system metadata capabilities
           \vspace*{1ex}
 
         When present, this capability shall contain a string set to a positive numeric string representing the maximum value that the server supports. 
-    * - ``cdmi_infrastructure_redundancy    ``
+    * - ``cdmi_infrastructure_redundancy``
       - JSON string    
       - If present, the CDMI server supports the ``cdmi_infrastructure_redundancy`` data system metadata as defined in :numref:`%s <ref_support_for_data_system_metadata>`. 
       
@@ -519,16 +519,16 @@ Data system metadata capabilities
           \vspace*{1ex}
 
         When present, this capability shall contain a string set to a positive numeric string representing the maximum value that the server supports.
-    * - ``cdmi_latency     ``
+    * - ``cdmi_latency``
       - JSON string    
       - If present and "``true``", the CDMI server supports the ``cdmi_latency`` data system metadata as defined in :numref:`%s <ref_support_for_data_system_metadata>`. 
-    * - ``cdmi_RPO     ``
+    * - ``cdmi_RPO``
       - JSON string    
       - If present and "``true``", the CDMI server supports the cdmi_RPO data system metadata as defined in :numref:`%s <ref_support_for_data_system_metadata>`.
-    * - ``cdmi_RTO     ``
+    * - ``cdmi_RTO``
       - JSON string    
       - If present and "``true``", the CDMI server supports the ``cdmi_RTO`` data system metadata as defined in :numref:`%s <ref_support_for_data_system_metadata>`
-    * - ``cdmi_sanitization_method     ``
+    * - ``cdmi_sanitization_method``
       - JSON array of JSON strings    
       - If present, the CDMI server supports the ``cdmi_sanitization_method`` data system metadata as defined in :numref:`%s <ref_support_for_data_system_metadata>`.
       
@@ -543,10 +543,10 @@ Data system metadata capabilities
           \vspace*{1ex}
 
         When a cloud storage system supports sanitization, the system-wide capability of ``cdmi_security_sanitization`` specified in :numref:`tbl_system_wide_capabilities` of :numref:`%s <ref_cloud_storage_system-wide_capabilities>` shall be present and set to "``true``".
-    * - ``cdmi_throughput     ``
+    * - ``cdmi_throughput``
       - JSON string    
       - If present and "``true``", the CDMI server supports the cdmi_throughput data system metadata as defined in :numref:`%s <ref_support_for_data_system_metadata>`. 
-    * - ``cdmi_value_hash     ``
+    * - ``cdmi_value_hash``
       - JSON array of JSON strings    
       - If present, the CDMI server supports the cdmi_value_hash data system metadata as defined in :numref:`%s <ref_support_for_data_system_metadata>`.
       
@@ -561,22 +561,22 @@ Data system metadata capabilities
           \vspace*{1ex}
 
         When a cloud storage system supports value hashing, the system-wide capability of ``cdmi_security_data_integrity`` specified in :numref:`tbl_system_wide_capabilities` of :numref:`%s <ref_cloud_storage_system-wide_capabilities>` shall be present and set to "``true``". 
-    * - ``cdmi_enc_key_id	``
+    * - ``cdmi_enc_key_id``
       - JSON string	
       - When the cloud storage system supports the ``cdmi_enc_key_id`` data system metadata as defined in :numref:`clause %s <ref_support_for_data_system_metadata>`, the ``cdmi_enc_key_id`` capability shall be present and set to the string value "``true``". When this capability is absent, or present and set to the string value "``false``", ``cdmi_enc_key_id`` data system metadata shall not be used.
-    * - ``cdmi_enc_value_sign_id	``
+    * - ``cdmi_enc_value_sign_id``
       - JSON string	
       - When the cloud storage system supports the ``cdmi_enc_value_sign_id`` data system metadata as defined in :numref:`clause %s <ref_support_for_data_system_metadata>`, the ``cdmi_enc_value_sign_id`` capability shall be present and set to the string value "``true``". When this capability is absent, or present and set to the string value "``false``", ``cdmi_enc_value_sign_id`` data system metadata shall not be used.
-    * - ``cdmi_enc_value_verify_id	``
+    * - ``cdmi_enc_value_verify_id``
       - JSON string	
       - When the cloud storage system supports the ``cdmi_enc_value_verify_id`` data system metadata as defined in :numref:`clause %s <ref_support_for_data_system_metadata>`, the ``cdmi_enc_value_verify_id`` capability shall be present and set to the string value "``true``". When this capability is absent, or present and set to the string value "``false``", ``cdmi_enc_value_verify_id`` data system metadata shall not be used.
-    * - ``cdmi_enc_object_sign_id	``
+    * - ``cdmi_enc_object_sign_id``
       - JSON string	
       - When the cloud storage system supports the ``cdmi_enc_object_sign_id`` data system metadata as defined in :numref:`clause %s <ref_support_for_data_system_metadata>`, the ``cdmi_enc_object_sign_id`` capability shall be present and set to the string value "``true``". When this capability is absent, or present and set to the string value "``false``", ``cdmi_enc_object_sign_id`` data system metadata shall not be used.
-    * - ``cdmi_enc_object_verify_id	``
+    * - ``cdmi_enc_object_verify_id``
       - JSON string	
       - When the cloud storage system supports the ``cdmi_enc_object_verify_id`` data system metadata as defined in :numref:`clause %s <ref_support_for_data_system_metadata>`, the ``cdmi_enc_object_verify_id`` capability shall be present and set to the string value "``true``". When this capability is absent, or present and set to the string value "``false``", ``cdmi_enc_object_verify_id`` data system metadata shall not be used.
-    * - ``cdmi_versioning ``
+    * - ``cdmi_versioning``
       - JSON array of JSON strings
       - If present, this capability indicates that the cloud storage system shall support versioning of data objects and contains a list of which versioning behaviors are supported. The following values are defined:
 
@@ -585,13 +585,13 @@ Data system metadata capabilities
         * "all" indicates that the system shall support the versioning of all updates made to a data object.
 
         When present, the system shall support the following storage system metadata: ``cdmi_version_object``, ``cdmi_version_current``, ``cdmi_version_oldest``, ``cdmi_version_parent``, and ``cdmi_version_children`` as indicated by the corresponding storage system metadata capabilities.
-    * - ``cdmi_versions_count ``
+    * - ``cdmi_versions_count``
       - JSON string
       - If present, this capability specifies the maximum number of historical versions that may be specified. If absent, restrictions on the number of historical versions specified shall be ignored.
-    * - ``cdmi_version_age ``
+    * - ``cdmi_version_age``
       - JSON string
       - If present, this capability specifies the maximum age of historical versions that may be specified. If absent, restrictions on the age of historical versions specified shall be ignored.
-    * - ``cdmi_versions_size ``
+    * - ``cdmi_versions_size``
       - JSON string
       - If present, this capability specifies the maximum total size of historical versions that may be specified. If absent, restrictions on the size of historical versions specified shall be ignored.
 
@@ -620,28 +620,28 @@ Data object capabilities
     * - Capability name    
       - Type    
       - Definition
-    * - ``cdmi_read_value     ``
+    * - ``cdmi_read_value``
       - JSON string    
       - If present and "``true``", this capability indicates that the CDMI server shall support the ability to read the object’s value.
-    * - ``cdmi_read_value_range     ``
+    * - ``cdmi_read_value_range``
       - JSON string    
       - If present and "``true``", this capability indicates that the CDMI server shall support the ability to read the object’s value with byte ranges.
-    * - ``cdmi_read_metadata     ``
+    * - ``cdmi_read_metadata``
       - JSON string    
       - If present and "``true``", this capability indicates that the CDMI server shall support the ability to read the object’s metadata.
-    * - ``cdmi_modify_value     ``
+    * - ``cdmi_modify_value``
       - JSON string    
       - If present and "``true``", this capability indicates that the CDMI server shall support the ability to modify the object’s value.
-    * - ``cdmi_modify_value_range     ``
+    * - ``cdmi_modify_value_range``
       - JSON string    
       - If present and "``true``", this capability indicates that the CDMI server shall support the ability to modify the object’s value with byte ranges.
-    * - ``cdmi_modify_metadata     ``
+    * - ``cdmi_modify_metadata``
       - JSON string    
       - If present and "``true``", this capability indicates that the CDMI server shall support the ability to modify the object’s metadata.
-    * - ``cdmi_modify_deserialize_dataobject    ``
+    * - ``cdmi_modify_deserialize_dataobject``
       - JSON string    
       - If present and "``true``", this capability indicates that the CDMI server shall support the ability of the data object to deserialize a serialized data object into the data object as an update.
-    * - ``cdmi_delete_dataobject     ``
+    * - ``cdmi_delete_dataobject``
       - JSON string    
       - If present and "``true``", this capability indicates that the CDMI server shall support the ability to delete the object. 
 
@@ -667,97 +667,97 @@ Container object capabilities
     :header-rows: 1
     :align: center 
 
-    * - ``Capability name    ``
+    * - ``Capability name``
       - Type    
       - Definition
-    * - ``cdmi_list_children     ``
+    * - ``cdmi_list_children``
       - JSON string    
       - If present and "``true``", this capability indicates that the CDMI server shall support the ability to list the container’s children.
-    * - ``cdmi_list_children_range     ``
+    * - ``cdmi_list_children_range``
       - JSON string    
       - If present and "``true``", this capability indicates that the CDMI server shall support the ability to list the container’s children with ranges.
-    * - ``cdmi_read_metadata     ``
+    * - ``cdmi_read_metadata``
       - JSON string    
       - If present and "``true``", this capability indicates that the CDMI server shall support the ability to read the container’s metadata.
-    * - ``cdmi_modify_metadata     ``
+    * - ``cdmi_modify_metadata``
       - JSON string    
       - If present and "``true``", this capability indicates that the CDMI server shall support the ability to modify the container’s metadata.
-    * - ``cdmi_modify_deserialize_container    ``
+    * - ``cdmi_modify_deserialize_container``
       - JSON string    
       - If present and "``true``", this capability indicates that the CDMI server shall support the ability of the container object to deserialize a serialized container object into the container object as an update.
-    * - ``cdmi_snapshot     ``
+    * - ``cdmi_snapshot``
       - JSON string    
       - If present and "``true``", this capability indicates that the CDMI server shall support the ability of the container object to create a new snapshot.
-    * - ``cdmi_serialize_dataobject     ``
+    * - ``cdmi_serialize_dataobject``
       - JSON string    
       - If present and "``true``", this capability indicates that the CDMI server shall support the ability to serialize a data object.
-    * - ``cdmi_serialize_container     ``
+    * - ``cdmi_serialize_container``
       - JSON string    
       - If present and "``true``", this capability indicates that the CDMI server shall support the ability to serialize the container and all children’s contents.
-    * - ``cdmi_serialize_queue     ``
+    * - ``cdmi_serialize_queue``
       - JSON string    
       - If present and "``true``", this capability indicates that the CDMI server shall support the ability to serialize a queue object.
-    * - ``cdmi_serialize_domain    ``
+    * - ``cdmi_serialize_domain``
       - JSON string    
       - If present and "``true``", this capability indicates that the CDMI server shall support the ability to serialize the domain and all child domains. 
-    * - ``cdmi_deserialize_container    ``
+    * - ``cdmi_deserialize_container``
       - JSON string    
       - If present and "``true``", this capability indicates that the CDMI server shall support the ability of the container to deserialize the serialized containers and associated serialized children into the container.
-    * - ``cdmi_deserialize_queue     ``
+    * - ``cdmi_deserialize_queue``
       - JSON string    
       - If present and "``true``", this capability indicates that the CDMI server shall support the ability of the container to deserialize the serialized queue objects into the container.
-    * - ``cdmi_deserialize_dataobject     ``
+    * - ``cdmi_deserialize_dataobject``
       - JSON string    
       - If present and "``true``", this capability indicates that the CDMI server shall support the ability of the container to deserialize the serialized data objects into the container.
-    * - ``cdmi_create_dataobject     ``
+    * - ``cdmi_create_dataobject``
       - JSON string    
       - If present and "``true``", this capability indicates that the CDMI server shall support the ability of the container to add a new data object.
-    * - ``cdmi_post_dataobject     ``
+    * - ``cdmi_post_dataobject``
       - JSON string    
       - If present and "``true``", this capability indicates that the CDMI server shall support the ability of the container to add a new data object via POST.
-    * - ``cdmi_post_queue     ``
+    * - ``cdmi_post_queue``
       - JSON string    
       - If present and "``true``", this capability indicates that the CDMI server shall support the ability of the container to add a new queue object via POST.
-    * - ``cdmi_create_container     ``
+    * - ``cdmi_create_container``
       - JSON string    
       - If present and "``true``", this capability indicates that the CDMI server shall support the ability to create a new container object via PUT.
-    * - ``cdmi_create_queue     ``
+    * - ``cdmi_create_queue``
       - JSON string    
       - If present and "``true``", this capability indicates that the CDMI server shall support the ability to create new queue objects..
-    * - ``cdmi_create_reference     ``
+    * - ``cdmi_create_reference``
       - JSON string    
       - If present and "``true``", this capability indicates that the CDMI server shall support the ability to create a new child reference via PUT.
-    * - ``cdmi_export_container_smb    ``
+    * - ``cdmi_export_container_smb``
       - JSON string    
       - If present and "``true``", this capability indicates that the CDMI server shall support the ability to export a container as a file system via SMB.
-    * - ``cdmi_export_container_nfs    ``
+    * - ``cdmi_export_container_nfs``
       - JSON string    
       - If present and "``true``", this capability indicates that the CDMI server shall support the ability to export a container as a file system via NFS.
-    * - ``cdmi_export_container_iscsi    ``
+    * - ``cdmi_export_container_iscsi``
       - JSON string    
       - If present and "``true``", this capability indicates that the CDMI server shall support the ability to export a container as a file system via iSCSI.
-    * - ``cdmi_export_container_occi    ``
+    * - ``cdmi_export_container_occi``
       - JSON string    
       - If present and "``true``", this capability indicates that the CDMI server shall support the ability to export a container as a file system via OCCI.
-    * - ``cdmi_export_container_webdav    ``
+    * - ``cdmi_export_container_webdav``
       - JSON string    
       - If present and "``true``", this capability indicates that the CDMI server shall support the ability to export a container as a file system via WebDAV.
-    * - ``cdmi_delete_container     ``
+    * - ``cdmi_delete_container``
       - JSON string    
       - If present and "``true``", this capability indicates that the CDMI server shall support the ability to delete a container.
-    * - ``cdmi_move_container     ``
+    * - ``cdmi_move_container``
       - JSON string    
       - If present and "``true``", this capability indicates that the CDMI server shall support the ability to move a container object into a container.
-    * - ``cdmi_copy_container     ``
+    * - ``cdmi_copy_container``
       - JSON string    
       - If present and "``true``", this capability indicates that the CDMI server shall support the ability to copy a container object into a container.
-    * - ``cdmi_move_dataobject    ``
+    * - ``cdmi_move_dataobject``
       - JSON string    
       - If present and "``true``", this capability indicates that the CDMI server shall support the ability to move a data object into a container.
-    * - ``cdmi_copy_dataobject    ``
+    * - ``cdmi_copy_dataobject``
       - JSON string    
       - If present and "``true``", this capability indicates that the CDMI server shall support the ability to copy a data object into a container.
-    * - ``cdmi_create_value_range    ``
+    * - ``cdmi_create_value_range``
       - JSON string    
       - If present and "``true``", this capability indicates that the container allows a new data object’s value to be created with byte ranges.
 
@@ -786,40 +786,40 @@ Domain object capabilities
     * - Capability name    
       - Type    
       - Definition
-    * - ``cdmi_create_domain    ``
+    * - ``cdmi_create_domain``
       - JSON string    
       - If present and "``true``", this capability indicates that the CDMI server shall support the ability to add a new subdomain.
-    * - ``cdmi_delete_domain    ``
+    * - ``cdmi_delete_domain``
       - JSON string    
       - If present and "``true``", this capability indicates that the CDMI server shall support the ability to delete a domain.
-    * - ``cdmi_move_domain    ``
+    * - ``cdmi_move_domain``
       - JSON string    
       - If present and "``true``", this capability indicates that the CDMI server shall support the ability to move a domain.
-    * - ``cdmi_domain_summary    ``
+    * - ``cdmi_domain_summary``
       - JSON string    
       - If present and "``true``", this capability indicates that the CDMI server shall support the ability to support domain summaries.
-    * - ``cdmi_domain_members     ``
+    * - ``cdmi_domain_members``
       - JSON string    
       - If present and "``true``", this capability indicates that the CDMI server shall support the ability to support domain user management.
-    * - ``cdmi_list_children     ``
+    * - ``cdmi_list_children``
       - JSON string    
       - If present and "``true``", this capability indicates that the CDMI server shall support the ability to list the domain's children.
-    * - ``cdmi_read_metadata     ``
+    * - ``cdmi_read_metadata``
       - JSON string    
       - If present and "``true``", this capability indicates that the CDMI server shall support the ability to read the domain's metadata.
-    * - ``cdmi_modify_metadata     ``
+    * - ``cdmi_modify_metadata``
       - JSON string    
       - If present and "``true``", this capability indicates that the CDMI server shall support the ability to modify the domain's metadata.
-    * - ``cdmi_modify_deserialize_domain    ``
+    * - ``cdmi_modify_deserialize_domain``
       - JSON string    
       - If present and "``true``", this capability indicates that the CDMI server shall support the ability to deserialize a serialized domain object into the domain object as an update.
-    * - ``cdmi_copy_domain     ``
+    * - ``cdmi_copy_domain``
       - JSON string    
       - If present and "``true``", this capability indicates that the CDMI server shall support the ability to copy the domain (via PUT) to another URI.
-    * - ``cdmi_deserialize_domain    ``
+    * - ``cdmi_deserialize_domain``
       - JSON string    
       - If present and "``true``", this capability indicates that the CDMI server shall support the ability to deserialize serialized domains and associated serialized children into the domain.
-    * - ``cdmi_authentication_methods    ``
+    * - ``cdmi_authentication_methods``
       - JSON array of JSON strings    
       - If present, the CDMI server supports authentication methods that are supported by a domain.
       
@@ -868,31 +868,31 @@ Queue object capabilities
     * - Capability name    
       - Type    
       - Definition
-    * - ``cdmi_read_value     ``
+    * - ``cdmi_read_value``
       - JSON string    
       - If present and "``true``", this capability indicates that the CDMI server shall support the ability to read a queue's value.
-    * - ``cdmi_read_metadata     ``
+    * - ``cdmi_read_metadata``
       - JSON string    
       - If present and "``true``", this capability indicates that the CDMI server shall support the ability to read the queue's metadata.
-    * - ``cdmi_modify_value     ``
+    * - ``cdmi_modify_value``
       - JSON string    
       - If present and "``true``", this capability indicates that the CDMI server shall support the ability to modify the queue's value.
-    * - ``cdmi_modify_metadata     ``
+    * - ``cdmi_modify_metadata``
       - JSON string    
       - If present and "``true``", this capability indicates that the CDMI server shall support the ability to modify the queue's metadata.
-    * - ``cdmi_modify_deserialize_queue    ``
+    * - ``cdmi_modify_deserialize_queue``
       - JSON string    
       - If present and "``true``", this capability indicates that the CDMI server shall support the ability to deserialize a serialized queue into the queue as an update.
-    * - ``cdmi_delete_queue     ``
+    * - ``cdmi_delete_queue``
       - JSON string    
       - If present and "``true``", this capability indicates that the CDMI server shall support the ability to delete a queue.
-    * - ``cdmi_move_queue     ``
+    * - ``cdmi_move_queue``
       - JSON string    
       - If present and "``true``", this capability indicates that the CDMI server shall support the ability to move a queue to another URI.
-    * - ``cdmi_copy_queue     ``
+    * - ``cdmi_copy_queue``
       - JSON string    
       - If present and "``true``", this capability indicates that the CDMI server shall support the ability to copy a queue to another URI.
-    * - ``cdmi_reference_queue     ``
+    * - ``cdmi_reference_queue``
       - JSON string    
       - If present and "``true``", this capability indicates that the CDMI server shall support the ability to reference a queue  from another queue.
 
@@ -968,7 +968,7 @@ The HTTP request headers for reading a CDMI capabilities object using CDMI are s
       - Type    
       - Description    
       - Requirement
-    * - ``Accept    ``
+    * - ``Accept``
       - Header string    
       - "``application/cdmi-capability``" or a consistent value as described in :numref:`%s <ref_content-type_negotiation>`    
       - Optional
@@ -999,7 +999,7 @@ The HTTP response headers for reading a CDMI capabilities object using CDMI are 
       - Type    
       - Description    
       - Requirement
-    * - ``Content-Type    ``
+    * - ``Content-Type``
       - Header string    
       - "``application/cdmi-capability``"    
       - Mandatory
@@ -1025,15 +1025,15 @@ The response message body fields for reading a CDMI capabilities object using CD
       - Type    
       - Description    
       - Requirement
-    * - ``objectType    ``
+    * - ``objectType``
       - JSON string    
       - "``application/cdmi-capability``"    
       - Mandatory
-    * - ``objectID    ``
+    * - ``objectID``
       - JSON string    
       - Object ID of the object    
       - Mandatory
-    * - ``objectName    ``
+    * - ``objectName``
       - JSON string    
       - Name of the object    
       - Mandatory
@@ -1047,11 +1047,11 @@ The response message body fields for reading a CDMI capabilities object using CD
 
         Appending the "``objectName``" to the "``parentURI``" shall always produce a valid URI for the object. 
       - Mandatory
-    * - ``parentID    ``
+    * - ``parentID``
       - JSON string    
       - Object ID of the parent capability object.
       - Mandatory
-    * - ``capabilities    ``
+    * - ``capabilities``
       - JSON object    
       - The capabilities supported by the corresponding object.
       
@@ -1061,11 +1061,11 @@ The response message body fields for reading a CDMI capabilities object using CD
 
         Capabilities in the "``/cdmi_capabilities/``" object are system-wide capabilities. Capabilities found in children objects under "``/cdmi_capabilities/``" correspond to the capabilities of a specific subset of objects.
       - Mandatory
-    * - ``childrenrange    ``
+    * - ``childrenrange``
       - JSON string     
       - The child capabilities of the capability expressed as a range. If a range of child capabilities is requested, this field indicates the children returned as a range.    
       - Mandatory
-    * - ``children    ``
+    * - ``children``
       - JSON array of JSON strings    
       - Names of the children capabilities objects.
       
