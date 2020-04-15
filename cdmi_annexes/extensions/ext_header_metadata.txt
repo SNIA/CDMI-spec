@@ -53,24 +53,20 @@ Add new example at end of :numref:`%s <ref_http_data_object_create>`:
 
   \noindent\rule[0.5ex]{\linewidth}{1pt}
 
-EXAMPLE 4: PUT to the container URI the data object name, contents, and metadata:
+EXAMPLE 1: PUT to the container URI the data object name, contents, and metadata:
 
   .. code-block:: none
   
-    PUT /cdmi/2.0.0/MyContainer/MyDataObject.txt HTTP/1.1
-    Host: cloud.example.com
-    Content-Type: text/plain;charset=utf-8 
-    X-CDMI-Meta-Colour: Yellow 
-    X-Object-Meta-Shape: Square 
-    Content-Length: 37
+    --> PUT /cdmi/2.0.0/MyContainer/MyDataObject.txt HTTP/1.1
+    --> Host: cloud.example.com
+    --> Content-Type: text/plain;charset=utf-8 
+    --> X-CDMI-Meta-Colour: Yellow 
+    --> X-Object-Meta-Shape: Square 
+    --> Content-Length: 37
+    -->  
+    --> This is the Value of this Data Object
     
-    This is the Value of this Data Object
-
-  The following shows the response:
-
-  .. code-block:: none
-
-    HTTP/1.1 201 Created
+    <-- HTTP/1.1 201 Created
 
 .. raw:: latex
 
@@ -195,18 +191,14 @@ EXAMPLE 1: HEAD to the data object URI to check for the presence of a data objec
 
    .. code-block:: none
 
-      HEAD /cdmi/2.0.0/MyContainer/MyDataObject.txt HTTP/1.1
-      Host: cloud.example.com
-
-   The following shows the response:
-
-   .. code-block:: none
-
-      HTTP/1.1 200 OK
-      Content-Type: text/plain
-      Content-Length: 37
-      X-CDMI-Meta-Colour: Yellow
-      X-Object-Meta-Shape: Square
+      --> HEAD /cdmi/2.0.0/MyContainer/MyDataObject.txt HTTP/1.1
+      --> Host: cloud.example.com
+      
+      <-- HTTP/1.1 200 OK
+      <-- Content-Type: text/plain
+      <-- Content-Length: 37
+      <-- X-CDMI-Meta-Colour: Yellow
+      <-- X-Object-Meta-Shape: Square
 
 .. raw:: latex
 
@@ -258,20 +250,16 @@ EXAMPLE 6: GET to the data object URI to read the value of the data object with 
 
   .. code-block:: none
   
-    GET /cdmi/2.0.0/MyContainer/MyDataObject.txt HTTP/1.1
-    Host: cloud.example.com
-
-  The following shows the response:
-
-  .. code-block:: none
-
-    HTTP/1.1 200 OK
-    Content-Type: text/plain
-    Content-Length: 37
-    X-CDMI-Meta-Colour: Yellow
-    X-Object-Meta-Shape: Square
-
-    This is the Value of this Data Object
+    --> GET /cdmi/2.0.0/MyContainer/MyDataObject.txt HTTP/1.1
+    --> Host: cloud.example.com
+    
+    <-- HTTP/1.1 200 OK
+    <-- Content-Type: text/plain
+    <-- Content-Length: 37
+    <-- X-CDMI-Meta-Colour: Yellow
+    <-- X-Object-Meta-Shape: Square
+    <-- 
+    <-- This is the Value of this Data Object
 
 .. raw:: latex
 
@@ -335,19 +323,15 @@ EXAMPLE 3: PUT to the data object URI to update the value and metadata of the da
 
   .. code-block:: none
   
-    PUT /cdmi/2.0.0/MyContainer/MyDataObject.txt HTTP/1.1
-    Host: cloud.example.com
-    Content-Type: text/plain;charset=utf-8
-    X-CDMI-Meta-Colour: Green
-    Content-Length: 41
+    --> PUT /cdmi/2.0.0/MyContainer/MyDataObject.txt HTTP/1.1
+    --> Host: cloud.example.com
+    --> Content-Type: text/plain;charset=utf-8
+    --> X-CDMI-Meta-Colour: Green
+    --> Content-Length: 41
+    -->  
+    --> This is the new Value of this Data Object
     
-    This is the new Value of this Data Object
-
-  The following shows the response:
-
-  .. code-block:: none
-
-    HTTP/1.1 204 No Content
+    <-- HTTP/1.1 204 No Content
 
 .. raw:: latex
 
@@ -399,15 +383,11 @@ EXAMPLE 2: PUT to the URI the container object name and metadata:
 
   .. code-block:: none
   
-    PUT /cdmi/2.0.0/MyContainer/ HTTP/1.1
-    Host: cloud.example.com
-    X-CDMI-Meta-Colour: Yellow
-
-  The following shows the response:
-
-  .. code-block:: none
-
-    HTTP/1.1 201 Created
+    --> PUT /cdmi/2.0.0/MyContainer/ HTTP/1.1
+    --> Host: cloud.example.com
+    --> X-CDMI-Meta-Colour: Yellow
+    
+    <-- HTTP/1.1 201 Created
 
 .. raw:: latex
 
@@ -532,16 +512,12 @@ EXAMPLE 1: HEAD to the container object URI to check for the presence of a conta
 
    .. code-block:: none
 
-      HEAD /cdmi/2.0.0/MyContainer/ HTTP/1.1
-      Host: cloud.example.com
-
-   The following shows the response:
-
-   .. code-block:: none
-
-      HTTP/1.1 200 OK
-      Content-Type: application/cdmi-container
-      X-CDMI-Meta-Colour: Yellow
+      --> HEAD /cdmi/2.0.0/MyContainer/ HTTP/1.1
+      --> Host: cloud.example.com
+      
+      <-- HTTP/1.1 200 OK
+      <-- Content-Type: application/cdmi-container
+      <-- X-CDMI-Meta-Colour: Yellow
 
 .. raw:: latex
 

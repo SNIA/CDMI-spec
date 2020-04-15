@@ -139,79 +139,75 @@ EXAMPLE 3: Perform an Immediate Query:
 
     .. code-block:: none
 
-        PUT /cdmi/2.0.0/MyContainer/myQuery HTTP/1.1
-        Host: cloud.example.com
-        Accept: application/cdmi-queue
-        Content-Type: application/cdmi-queue
-
-        {
-           "metadata" : {
-                "cdmi_queue_type" : "cdmi_query_immediate",
-                "cdmi_scope_specification" : [
-                    {
-                        "domainURI" : "== /cdmi_domains/MyDomain/",
-                        "parentURI" : "starts /sandbox",
-                        "metadata" : {
-                            "cdmi_size" : "#> 100000"
-                        }
-                    }
-                ],
-                "cdmi_results_specification" : {
-                    "objectID" : "",
-                    "metadata" : {
-                         "cdmi_size" : ""
-                    }
-                }
-            }
-        }
-
-The following shows the response.
-
-    .. code-block:: none
-
-        HTTP/1.1 201 Created
-        Content-Type: application/cdmi-queue
-        Location: https://cloud.example.com/cdmi/2.0.0/MyContainer/myQuery
-         
-        {
-             "objectType" : "application/cdmi-queue",
-             "objectID" : "00007E7F00104BE66AB53A9572F9F51E",
-             "objectName" : "myQuery",
-             "parentURI " : "/MyContainer/",
-             "parentID" : "0000706D0010B84FAD185C425D8B537E",
-             "domainURI" : "/cdmi_domains/MyDomain/",
-             "capabilitiesURI" : "/cdmi_capabilities/queue/",
-             "completionStatus" : "Complete",
-             "metadata" : {
-                  "cdmi_queue_type" : "cdmi_query_immediate",
-                  "cdmi_scope_specification" : [
-                      {
-                          "domainURI" : "== /cdmi_domains/MyDomain/",
-                          "parentURI" : "starts /sandbox",
-                          "metadata" : {
-                              "cdmi_size" : "#> 100000"
-                          }
-                      }
-                  ],
-                  "cdmi_results_specification" : {
-                        "objectID" : "",
-                        "metadata" : {
-                             "cdmi_size" : ""
-                        }
-                  }
-              },
-             "queueValues" : "0-0",
-             "mimetype": [ "application/json" ],
-             "valuerange": [ "0-111" ],
-             "valuetransferencoding": [ "base64" ],
-             "value": "ew0KCQkJIm9iamVjdElEIiA6ICIwMDAwN0U3RjAwMTBFQjkwOTJ
-                       CMjlGNkNENkFENjgyNCIsDQoJCQkibWV0YWRhdGEiIDogew0KCQ
-                       kJCSJjZG1pX3NpemUiIDogIjEwODI2MyINCgkJCX0NCgkJfQ0K"
-        }
+        --> PUT /cdmi/2.0.0/MyContainer/myQuery HTTP/1.1
+        --> Host: cloud.example.com
+        --> Accept: application/cdmi-queue
+        --> Content-Type: application/cdmi-queue
+        --> 
+        --> {
+        -->   "metadata" : {
+        -->     "cdmi_queue_type" : "cdmi_query_immediate",
+        -->     "cdmi_scope_specification" : [
+        -->       {
+        -->         "domainURI" : "== /cdmi_domains/MyDomain/",
+        -->         "parentURI" : "starts /sandbox",
+        -->         "metadata" : {
+        -->           "cdmi_size" : "#> 100000"
+        -->         }
+        -->       }
+        -->     ],
+        -->     "cdmi_results_specification" : {
+        -->       "objectID" : "",
+        -->       "metadata" : {
+        -->         "cdmi_size" : ""
+        -->       }
+        -->     }
+        -->   }
+        --> }
+        
+        <-- HTTP/1.1 201 Created
+        <-- Content-Type: application/cdmi-queue
+        <-- Location: https://cloud.example.com/cdmi/2.0.0/MyContainer/myQuery
+        <--  
+        <-- {
+        <--   "objectType" : "application/cdmi-queue",
+        <--   "objectID" : "00007E7F00104BE66AB53A9572F9F51E",
+        <--   "objectName" : "myQuery",
+        <--   "parentURI " : "/MyContainer/",
+        <--   "parentID" : "0000706D0010B84FAD185C425D8B537E",
+        <--   "domainURI" : "/cdmi_domains/MyDomain/",
+        <--   "capabilitiesURI" : "/cdmi_capabilities/queue/",
+        <--   "completionStatus" : "Complete",
+        <--   "metadata" : {
+        <--     "cdmi_queue_type" : "cdmi_query_immediate",
+        <--     "cdmi_scope_specification" : [
+        <--       {
+        <--         "domainURI" : "== /cdmi_domains/MyDomain/",
+        <--         "parentURI" : "starts /sandbox",
+        <--         "metadata" : {
+        <--           "cdmi_size" : "#> 100000"
+        <--         }
+        <--       }
+        <--     ],
+        <--     "cdmi_results_specification" : {
+        <--       "objectID" : "",
+        <--       "metadata" : {
+        <--         "cdmi_size" : ""
+        <--       }
+        <--     }
+        <--   },
+        <--   "queueValues" : "0-0",
+        <--   "mimetype": [ "application/json" ],
+        <--   "valuerange": [ "0-111" ],
+        <--   "valuetransferencoding": [ "base64" ],
+        <--   "value": "ew0KCQkJIm9iamVjdElEIiA6ICIwMDAwN0U3RjAwMTBFQjkwOTJ
+        <--     CMjlGNkNENkFENjgyNCIsDQoJCQkibWV0YWRhdGEiIDogew0KCQ
+        <--     kJCSJjZG1pX3NpemUiIDogIjEwODI2MyINCgkJCX0NCgkJfQ0K"
+        <-- }
      
 Where the value of the above base64 encoded value is:
 
-EXAMPLE 1: An example of the metadata associated with a query queue is as follows:
+EXAMPLE 4: An example of the metadata associated with a query queue is as follows:
 
     .. code-block:: none
 

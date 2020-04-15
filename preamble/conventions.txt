@@ -42,22 +42,32 @@ Each interface description has nine components, as described in :numref:`tbl_int
 Typographical conventions
 *************************
 
-All code fragments are shown in a fixed-width font, as in the following request fragment:
+All code text and HTTP status codes are shown in a fixed-width font. 
+
+API resquests also include a prefix to indicate the source of the request or reply:
+
+  * Client-initiated requests are prefixed with '-->'
+  * Server-initiated replies are prefixed with '<--'
+
+An example is included below:
 
 .. code-block:: none
 
-    PUT /cdmi/2.0.0/MyContainer/MyDataObject.txt HTTP/1.1
-    Host: cloud.example.com
-    Accept: application/cdmi-object
-    Content-Type: application/cdmi-object
-
-    {
-      "mimetype" : "text/plain",
-      "metadata" : {
-          
-      },
-      "value" : "This is the Value of this Data Object"
-    }
+    --> PUT /cdmi/2.0.0/MyContainer/MyDataObject.txt HTTP/1.1
+    --> Host: cloud.example.com
+    --> Accept: application/cdmi-object
+    --> Content-Type: application/cdmi-object
+    --> 
+    --> {
+    -->   "mimetype" : "text/plain",
+    -->   "metadata" : {
+    -->       ...
+    -->   },
+    -->  "value" : "This is the Value of this Data Object"
+    --> }
+    
+    <-- HTTP/1.1 202 Accepted
+    <-- Location: https://cloud.example.com/cdmi/2.0.0/MyContainer/MyDataObject.txt
 
 Similarly, HTTP status codes are shown in a fixed-width font, as in:
 

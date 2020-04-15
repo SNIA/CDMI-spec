@@ -279,47 +279,39 @@ EXAMPLE 1: PATCH to the container object URI to replace all metadata with new me
 
    .. code-block:: none
 
-        PATCH /cdmi/2.0.0/MyContainer/ HTTP/1.1
-        Host: cloud.example.com
-        Content-Type: application/cdmi-container
-         
-        {
-           "metadata" : {
-               "colour" : "red",
-               "number" : "7"
-           }
-        }
-
-   The following shows the response.
-
-   .. code-block:: none
-
-        HTTP/1.1 204 No Content
+        --> PATCH /cdmi/2.0.0/MyContainer/ HTTP/1.1
+        --> Host: cloud.example.com
+        --> Content-Type: application/cdmi-container
+        -->  
+        --> {
+        -->   "metadata" : {
+        -->     "colour" : "red",
+        -->     "number" : "7"
+        -->   }
+        --> }
+        
+        <-- HTTP/1.1 204 No Content
 
         
 EXAMPLE 2: PATCH to the container object URI to set a new exported protocol value:
 
    .. code-block:: none
 
-        PATCH /cdmi/2.0.0/MyContainer/?exports HTTP/1.1
-        Host: cloud.example.com
-        Content-Type: application/cdmi-container
+        --> PATCH /cdmi/2.0.0/MyContainer/?exports HTTP/1.1
+        --> Host: cloud.example.com
+        --> Content-Type: application/cdmi-container
+        -->  
+        --> {
+        -->   "exports" : {
+        -->     "OCCI/iSCSI" : {
+        -->       "identifier" : "00007ED900104E1D14771DC67C27BF8B",
+        -->       "permissions" : "00007E7F00104EB781F900791C70106C" 
+        -->     },
+        -->     "Network/NFSv4" : {
+        -->        "identifier" : "/users",
+        -->        "permissions" : "domain" 
+        -->     } 
+        -->   }
+        --> }
          
-        {
-            "exports" : {
-                "OCCI/iSCSI" : {
-                    "identifier" : "00007ED900104E1D14771DC67C27BF8B",
-                    "permissions" : "00007E7F00104EB781F900791C70106C" 
-                } ,
-                "Network/NFSv4" : {
-                    "identifier" : "/users",
-                    "permissions" : "domain" 
-                } 
-            }
-        }
-
-   The following shows the response.
-
-   .. code-block:: none
-
-        HTTP/1.1 204 No Content
+        <-- HTTP/1.1 204 No Content

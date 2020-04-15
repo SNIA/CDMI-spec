@@ -165,34 +165,26 @@ EXAMPLE 1: PATCH to the data object URI to update the value of the data object:
 
    .. code-block:: none
 
-       PATCH /cdmi/2.0.0/MyContainer/MyDataObject.txt HTTP/1.1
-       Host: cloud.example.com
-       Content-Type: text/plain
-       Content-Length: 37
-       
-       This is the value of this data object 
+       --> PATCH /cdmi/2.0.0/MyContainer/MyDataObject.txt HTTP/1.1
+       --> Host: cloud.example.com
+       --> Content-Type: text/plain
+       --> Content-Length: 37
+       -->
+       --> This is the value of this data object 
 
-   The following shows the response.
-
-   .. code-block:: none
-   
-       HTTP/1.1 204 No Content
+       <-- HTTP/1.1 204 No Content
 
 
 EXAMPLE 2: PATCH to the data object URI to update four bytes within the value of the data object:
 
    .. code-block:: none
 
-       PATCH /cdmi/2.0.0/MyContainer/MyDataObject.txt HTTP/1.1
-       Host: cloud.example.com 
-       Content-Range: bytes 21-24/37
-       Content-Type: text/plain
-       Content-Length: 4
-       
-       that
+       --> PATCH /cdmi/2.0.0/MyContainer/MyDataObject.txt HTTP/1.1
+       --> Host: cloud.example.com 
+       --> Content-Range: bytes 21-24/37
+       --> Content-Type: text/plain
+       --> Content-Length: 4
+       -->  
+       --> that
 
-   The following shows the response.
-
-   .. code-block:: none
-   
-    HTTP/1.1 204 No Content 
+       <-- HTTP/1.1 204 No Content 

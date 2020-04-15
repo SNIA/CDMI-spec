@@ -363,36 +363,32 @@ EXAMPLE 1: POST to the container object URI the queue object contents:
 
     .. code-block:: none
 
-        POST /cdmi/2.0.0/MyContainer/ HTTP/1.1
-        Host: cloud.example.com
-        ``Content-Type: application/cdmi-queue``
-        Accept: application/cdmi-queue
-         
-        {
-        }
-
-The following shows the response.
-
-    .. code-block:: none
-
-        HTTP/1.1 201 Created
-        Content-Type: application/cdmi-queue 
-        Location: https://cloud.example.com/cdmi/2.0.0/MyContainer/00007ED900104E1D14771DC67C27BF8B
-         
-        {
-            "objectType" : "application/cdmi-queue",
-            "objectID" : "00007ED900104E1D14771DC67C27BF8B",
-            "objectName" : "00007ED900104E1D14771DC67C27BF8B",
-            "parentURI" : "/MyContainer/",
-            "parentID" : "00007ED900104E1D14771DC67C27BF8B",
-            "domainURI" : "/cdmi_domains/MyDomain/",
-            "capabilitiesURI" : "/cdmi_capabilities/queue/",
-            "completionStatus" : "Complete",
-            "metadata" : {
-                        ...
-            },
-            "queueValues" : ""
-        }
+        --> POST /cdmi/2.0.0/MyContainer/ HTTP/1.1
+        --> Host: cloud.example.com
+        --> ``Content-Type: application/cdmi-queue``
+        --> Accept: application/cdmi-queue
+        -->  
+        --> {
+        --> }
+        
+        <-- HTTP/1.1 201 Created
+        <-- Content-Type: application/cdmi-queue 
+        <-- Location: https://cloud.example.com/cdmi/2.0.0/MyContainer/00007ED900104E1D14771DC67C27BF8B
+        <--  
+        <-- {
+        <--   "objectType" : "application/cdmi-queue",
+        <--   "objectID" : "00007ED900104E1D14771DC67C27BF8B",
+        <--   "objectName" : "00007ED900104E1D14771DC67C27BF8B",
+        <--   "parentURI" : "/MyContainer/",
+        <--   "parentID" : "00007ED900104E1D14771DC67C27BF8B",
+        <--   "domainURI" : "/cdmi_domains/MyDomain/",
+        <--   "capabilitiesURI" : "/cdmi_capabilities/queue/",
+        <--   "completionStatus" : "Complete",
+        <--     "metadata" : {
+        <--     ...
+        <--   },
+        <--   "queueValues" : ""
+        <-- }
      
 
 
