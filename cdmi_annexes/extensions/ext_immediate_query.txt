@@ -16,7 +16,7 @@ In addition, functionality that permits results to be returned immediately has b
 Changes to specification
 ------------------------
 
-Modify existing ``"cdmi_query"`` entry in :numref:`tbl_system_wide_capabilities` in :numref:`%s <ref_cloud_storage_system-wide_capabilities>`:
+Modify existing ``cdmi_query`` entry in :numref:`tbl_system_wide_capabilities` in :numref:`%s <ref_cloud_storage_system-wide_capabilities>`:
 
 .. raw:: latex
 
@@ -33,7 +33,7 @@ Modify existing ``"cdmi_query"`` entry in :numref:`tbl_system_wide_capabilities`
     * - Capability name
       - Type
       - Definition
-    * - cdmi_query
+    * - ``cdmi_query``
       - JSON string
       - If present and "``true``", the CDMI server supports persistent query queues.
 
@@ -59,7 +59,7 @@ Add a new row at end of table :numref:`tbl_system_wide_capabilities` in :numref:
     * - Capability name
       - Type
       - Definition
-    * - cdmi_query_immediate
+    * - ``cdmi_query_immediate``
       - JSON string
       - If present and "``true``", the CDMI server supports immediate query queues.
 
@@ -94,7 +94,7 @@ When a client wishes to perform queries, it shall first determine if the system 
   \noindent\rule[0.5ex]{\linewidth}{1pt}
   \vspace*{2ex}
 
-Modify existing ``"cdmi_queue_type"`` entry in :numref:`tbl_required_metadata_for_a_query_queue` in :numref:`%s <clause_cdmi_query_queues>`:
+Modify existing ``cdmi_queue_type`` entry in :numref:`tbl_required_metadata_for_a_query_queue` in :numref:`%s <clause_cdmi_query_queues>`:
 
 .. raw:: latex
 
@@ -114,7 +114,7 @@ Modify existing ``"cdmi_queue_type"`` entry in :numref:`tbl_required_metadata_fo
       - Type
       - Description
       - Requirement
-    * - cdmi_queue_type
+    * - ``cdmi_queue_type``
       - JSON string
       - Queue type indicates how the cloud storage system shall manage the queue object. The defined values are:
 

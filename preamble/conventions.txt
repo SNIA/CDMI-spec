@@ -53,20 +53,25 @@ An example is included below:
 
 .. code-block:: none
 
-    PUT /cdmi/2.0.0/MyContainer/MyDataObject.txt HTTP/1.1
-    Host: cloud.example.com
-    Accept: application/cdmi-object
-    Content-Type: application/cdmi-object
+    --> PUT /cdmi/2.0.0/MyContainer/MyDataObject.txt HTTP/1.1
+    --> Host: cloud.example.com
+    --> Accept: application/cdmi-object
+    --> Content-Type: application/cdmi-object
+    --> 
+    --> {
+    -->   "mimetype" : "text/plain",
+    -->   "metadata" : {
+    -->       ...
+    -->   },
+    -->  "value" : "This is the Value of this Data Object"
+    --> }
+    
+    <-- HTTP/1.1 202 Accepted
+    <-- Location: https://cloud.example.com/cdmi/2.0.0/MyContainer/MyDataObject.txt
 
-    {
-      "mimetype" : "text/plain",
-      "metadata" : {
-          
-      },
-      "value" : "This is the Value of this Data Object"
-    }
+Similarly, HTTP status codes are shown in a fixed-width font, as in:
 
-Requesting an optional field that is not present shall result in an HTTP status code of ``404 Not Found``.
+   Requesting an optional field that is not present shall result in an HTTP status code of ``404 Not Found``.
 
 
 **************************************
@@ -76,8 +81,8 @@ Request and response body requirements
 In request and response body tables, the Requirement column contains one of the following three values: 
 
 * Mandatory. The value specified in this row shall be provided.
-* Conditional. If the conditions specified in the Description cell is met, the value specified in this row shall be provided. Otherwise, it can be provided unless the Description specifically prohibits it, in which case it shall not be provided.
-* Optional. The value specified in this row can be provided.
+* Conditional. If the conditions specified in the Description cell is met, the value specified in this row shall be provided. Otherwise, it may be provided unless the Description specifically prohibits it, in which case it shall not be provided.
+* Optional. The value specified in this row may be provided.
 
 
 *********************

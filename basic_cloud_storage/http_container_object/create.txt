@@ -40,7 +40,7 @@ Capabilities that indicate which operations are supported are shown in :numref:`
     * - Capability
       - Location
       - Description
-    * - cdmi_create_container
+    * - ``cdmi_create_container``
       - Parent Container
       - Ability to create a new data object
 

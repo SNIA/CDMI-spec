@@ -19,7 +19,7 @@ After the notification queue is created, all subsequent matching events after th
 Required metadata
 -----------------
 
-When creating a notification queue, the metadata described in :numref:`tbl_required_metadata_for_a_notification_queue` shall be provided. Attempts to change metadata in this table shall result in an HTTP status code of ``403 Forbidden``. After a notification queue has been created, with the exception of ``cdmi_queue_type``, the metadata items in this table cannot be changed. ``cdmi_queue_type`` can only be removed, indicating to the system that the notification queue shall no longer receive notifications and shall be treated as a regular CDMI queue object. 
+When creating a notification queue, the metadata described in :numref:`tbl_required_metadata_for_a_notification_queue` shall be provided. Attempts to change metadata in this table shall result in an HTTP status code of ``403 Forbidden``. After a notification queue has been created, with the exception of ``cdmi_queue_type``, the metadata items in this table may not be changed. ``cdmi_queue_type`` may only be removed, indicating to the system that the notification queue shall no longer receive notifications and shall be treated as a regular CDMI queue object. 
 
 .. tabularcolumns:: |>{\raggedright\arraybackslash}\Y{0.29}
                     |>{\raggedright\arraybackslash}\Y{0.09}
@@ -37,11 +37,11 @@ When creating a notification queue, the metadata described in :numref:`tbl_requi
       - Type
       - Description
       - Requirement
-    * - cdmi_queue_type
+    * - ``cdmi_queue_type``
       - JSON string
       - Queue type indicates how the cloud storage system shall manage the queue object. The type of ``cdmi_notification_queue`` is defined for notification queues.
       - Mandatory
-    * - cdmi_notification_events
+    * - ``cdmi_notification_events``
       - JSON array of JSON strings
       - The notification events metadata contains a JSON array that indicates which events generate notifications. Defined values are:
 
@@ -70,7 +70,7 @@ When creating a notification queue, the metadata described in :numref:`tbl_requi
 
         See :numref:`clause %s <clause_cdmi_scope>` for how to construct a scope specification.
       - Mandatory
-    * - cdmi_results_specification
+    * - ``cdmi_results_specification``
       - JSON object
       - The results specification contains the JSON fields to be returned for each object that matches the notification scope specification. See :numref:`clause %s <clause_cdmi_results>` for how to construct a results specification.
       
@@ -86,6 +86,8 @@ When creating a notification queue, the metadata described in :numref:`tbl_requi
         * cdmi_event_user - Indicates the principal (ACL name) of the user that caused the event that triggered the notification. If the system triggered the event, the name will be left as an empty string. 
       - Mandatory
 
+Examples
+--------
 
 EXAMPLE 1: The metadata associated with a notification queue is as follows:
 
@@ -121,7 +123,7 @@ EXAMPLE 1: The metadata associated with a notification queue is as follows:
           } 
       }
 
-When notification results are stored in a notification queue, each enqueued value shall consist of a JSON object of MIME type "application/json". This JSON object contains the specified values requested in the cdmi_results_specification of the notification queue metadata.
+When notification results are stored in a notification queue, each enqueued value shall consist of a JSON object of MIME type ``"application/json"``. This JSON object contains the specified values requested in the ``cdmi_results_specification`` of the notification queue metadata.
 
 EXAMPLE 2: A notification result JSON object is as follows:
 
@@ -163,7 +165,7 @@ System-created metadata
       - Type
       - Description
       - Requirement
-    * - cdmi_notification_status
+    * - ``cdmi_notification_status``
       - JSON string
       - A string indicating the state of the notification queue. Defined values are: 
 

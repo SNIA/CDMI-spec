@@ -63,16 +63,16 @@ Capabilities that indicate which operations are supported are shown in :numref:`
     * - Capability
       - Location
       - Description
-    * - cdmi_modify_metadata
+    * - ``cdmi_modify_metadata``
       - Container object
       - Ability to modify the metadata of an existing container object
-    * - cdmi_snapshot
+    * - ``cdmi_snapshot``
       - Container object
       - Ability to create a new snapshot of an existing container object
-    * - cdmi_export_<protocol>
+    * - ``cdmi_export_<protocol>``
       - Container object
       - Ability to add and modify exports for an existing container object
-    * - cdmi_object_access_by_ID
+    * - ``cdmi_object_access_by_ID``
       - System wide capability
       - Ability to access the object by ID
 
@@ -97,7 +97,7 @@ The HTTP request headers for updating a CDMI container object using CDMI are sho
       - Type
       - Description
       - Requirement
-    * - Content-Type
+    * - ``Content-Type``
       - Header string
       - "``application/cdmi-container``"
       - Mandatory
@@ -124,7 +124,7 @@ The request message body fields for updating a container object using CDMI are s
       - Type
       - Description
       - Requirement
-    * - metadata
+    * - ``metadata``
       - JSON object
       - Metadata for the container object. If present, the new metadata specified replaces the existing object metadata. If individual metadata items are specified in the URI, only those items are replaced; other items are preserved. 
       
@@ -134,14 +134,14 @@ The request message body fields for updating a container object using CDMI are s
 
         See :numref:`clause %s <clause_cdmi_metadata>` for a further description of metadata.
       - Optional
-    * - domainURI
+    * - ``domainURI``
       - JSON string
       - URI of the owning domain
 
         * If different from the parent domain, the user shall have the "``cross-domain``" privilege (see ``cdmi_member_privileges`` in :numref:`tbl_required_settings_for_domain_member_user_objects`).
         * If not specified, the parent domain shall be used.
       - Optional
-    * - snapshot
+    * - ``snapshot``
       - JSON string
       - Name of the snapshot to be taken. This is not a URL, but rather, the final component of the absolute URL where the snapshot will exist when the snapshot operation successfully completes. 
 
@@ -149,7 +149,7 @@ The request message body fields for updating a container object using CDMI are s
         * After they are created, snapshots may be accessed as children container objects under the ``cdmi_snapshots`` child container object of the container object receiving a snapshot.
         * When creating a snapshot with the same name as an existing snapshot, the new snapshot will replace the existing snapshot.
       - Optional
-    * - deserialize
+    * - ``deserialize``
       - JSON string
       - URI of a CDMI data object with a value that contains a container object serialized as specified in :numref:`clause %s <clause_cdmi_serialization>`. The serialized container object shall be deserialized to update the existing container object.
       
@@ -162,7 +162,7 @@ The request message body fields for updating a container object using CDMI are s
         * If the serialized container object does not contain children, the update is applied only to the container object, and any existing children are left as is. 
         * If the serialized container object does contain children, then creates, updates, and deletes are recursively applied for each child, depending on the differences between the provided serialized state and the current state of the child.
       - Optional [#a]_
-    * - copy
+    * - ``copy``
       - JSON string
       - URI of a CDMI container object that shall be copied into the existing container object. Only the contents of the container object itself shall be copied, not any children of the container object. 
 
@@ -182,7 +182,7 @@ The request message body fields for updating a container object using CDMI are s
 
         If there are insufficient permissions to read the container object at the source URI or create the container object at the destination URI, or if the read operation fails, the copy shall return an HTTP status code of ``400 Bad Request``, and the destination container object shall not be updated. 
       - Optional [#a]_
-    * - deserializevalue
+    * - ``deserializevalue``
       - JSON sting
       - A container object serialized as specified in :numref:`clause %s <clause_cdmi_serialization>` and encoded using base 64 encoding rules described in RFC 4648 :cite:`rfc4648`, that shall be deserialized to update the existing container object.  
       
@@ -195,7 +195,7 @@ The request message body fields for updating a container object using CDMI are s
         * If the serialized container object does not contain children, the update is applied only to the container object, and any existing children are left as is. 
         * If the serialized container object does contain children, then creates, updates, and deletes are recursively applied for each child, depending on the differences between the provided serialized state and the current state of the children.
       - Optional [#a]_
-    * - exports
+    * - ``exports``
       - JSON object
       - A structure for each protocol that is enabled for this container object (see :numref:`clause %s <clause_cdmi_exports>`). If an exported protocol is added or changed, the PATCH operation only returns after the export operation has completed.
       - Optional
@@ -227,7 +227,7 @@ The HTTP response header for updating a CDMI container object using CDMI is show
       - Type
       - Description
       - Requirement
-    * - Location
+    * - ``Location``
       - Header string
       - The server shall respond with an absolute URI to which the reference redirects if the object is a reference.
       - Conditional

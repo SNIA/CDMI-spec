@@ -46,19 +46,19 @@ Capabilities that indicate which operations are supported are shown in :numref:`
     * - Capability
       - Location
       - Description
-    * - cdmi_read_metadata
+    * - ``cdmi_read_metadata``
       - Data Object
       - Ability to read the metadata of an existing data object
-    * - cdmi_read_value
+    * - ``cdmi_read_value``
       - Data Object
       - Ability to read the value of an existing data object
-    * - cdmi_read_value_range
+    * - ``cdmi_read_value_range``
       - Data Object
       - Ability to read a sub-range of the value of an existing data object
-    * - cdmi_multipart_mime
+    * - ``cdmi_multipart_mime``
       - System Wide Capability
       - Ability to read a data object using multi-part MIME
-    * - cdmi_object_access_by_ID
+    * - ``cdmi_object_access_by_ID``
       - System Wide Capability
       - Ability to access the object by ID
 
@@ -82,7 +82,7 @@ The HTTP request headers for reading a CDMI data object using CDMI are shown in 
       - Type
       - Description
       - Requirement
-    * - Accept
+    * - ``Accept``
       - Header string
       - "``application/cdmi-object``", "``multipart/mixed``", or a consistent value defined in :numref:`%s <ref_content-type_negotiation>` 
       - Optional
@@ -113,14 +113,14 @@ The HTTP response headers for reading a data object using CDMI are shown in :num
       - Type
       - Description
       - Requirement
-    * - Content-Type
+    * - ``Content-Type``
       - Header string
       - "``application/cdmi-object``" or "``multipart/mixed``"
         
           * If "``multipart/mixed``", the body shall consist of at least two MIME parts, where the first part shall contain a body of content-type "``application/cdmi-object``" and the second and subsequent parts shall contain the requested byte ranges of the value.  
           * If multiple byte ranges are included and the Content-Range header is omitted for a part, the data in the part shall be appended to the data in the preceding part, with the first part having a byte offset of zero.
       - Mandatory
-    * - Location
+    * - ``Location``
       - Header string
       - The server shall respond with the URI that the reference redirects to if the object is a reference.
       - Conditional
@@ -146,22 +146,22 @@ The response message body fields for reading a CDMI data object using CDMI are s
       - Type
       - Description
       - Requirement
-    * - objectType
+    * - ``objectType``
       - JSON string
       - "``application/cdmi-object``"
       - Mandatory
-    * - objectID
+    * - ``objectID``
       - JSON string
       - Object ID of the object
       - Mandatory
-    * - objectName
+    * - ``objectName``
       - JSON string
       - Name of the object
         
         * For objects in a container, the objectName field shall be returned. 
         * For objects not in a container (objects that are only accessible by ID), the "``objectName``" field does not exist and shall not be returned. 
       - Conditional
-    * - parentURI
+    * - ``parentURI``
       - JSON string
       - URI for the parent object
         
@@ -174,22 +174,22 @@ The response message body fields for reading a CDMI data object using CDMI are s
 
         Appending the "``objectName``" to the "``parentURI``" shall always produce a valid URI for the object. 
       - Conditional
-    * - parentID
+    * - ``parentID``
       - JSON string
       - Object ID of the parent container object
 
         * For objects in a container, the "``parentID``" field shall be returned. 
         * For objects not in a container (objects that are only accessible by ID), the "``parentID``" field does not exist and shall not be returned.
       - Conditional
-    * - domainURI
+    * - ``domainURI``
       - JSON string
       - URI of the owning domain
       - Mandatory
-    * - capabilitiesURI
+    * - ``capabilitiesURI``
       - JSON string
       - URI to the capabilities for the object
       - Mandatory
-    * - completionStatus
+    * - ``completionStatus``
       - JSON string
       - A string indicating if the object is still in the process of being created or updated by another operation, and after that operation is complete, indicates if it was successfully created or updated or if an error occurred.
       
@@ -199,7 +199,7 @@ The response message body fields for reading a CDMI data object using CDMI are s
 
         The value shall be the string "``Processing``", the string "``Complete``", or an error string starting with the value "``Error``".
       - Mandatory
-    * - percentComplete
+    * - ``percentComplete``
       - JSON string
       - A string indicating the percentage of completion if the object is still in the process of bewing created or updated by another operation.
 
@@ -207,11 +207,11 @@ The response message body fields for reading a CDMI data object using CDMI are s
         * When the value of ``completionStatus`` is "``Complete``", this field, if provided, shall contain the value "``100``". 
         * When the value of ``completionStatus`` is "``Error``", this field, if provided, may contain any integer value from "``0``" through "``100``".
       - Optional
-    * - mimetype
+    * - ``mimetype``
       - JSON string
       - MIME type of the value of the data object
       - Mandatory
-    * - metadata
+    * - ``metadata``
       - JSON object
       - Metadata for the data object. 
         This field includes any user and data system metadata specified in the request body metadata field, along with storage system metadata generated by the cloud storage system. 
@@ -222,7 +222,7 @@ The response message body fields for reading a CDMI data object using CDMI are s
 
         See :numref:`clause %s <clause_cdmi_metadata>` for a further description of metadata.
       - Mandatory
-    * - valuerange
+    * - ``valuerange``
       - JSON string
       - The range of bytes of the data object to be returned in the value field
 
@@ -230,7 +230,7 @@ The response message body fields for reading a CDMI data object using CDMI are s
         * If the object value has gaps (due to PUTs with non-contiguous value ranges), the value range will indicate the range to the first gap in the object value.
         * The cdmi_size storage system metadata of the data object shall always indicate the complete size of the object, including zero-filled gaps.
       - Mandatory
-    * - valuetransferencoding
+    * - ``valuetransferencoding``
       - JSON string
       - The value transfer encoding used for the data object value. Three value transfer encodings are defined:
 
@@ -238,7 +238,7 @@ The response message body fields for reading a CDMI data object using CDMI are s
         * "``base64``" indicates that the data object may contain arbitrary binary sequences, and it shall be transported as a base 64-encoded string in the value field.
         * "``json``" indicates that the data object contains a valid JSON object, and the value field shall contain a valid JSON object.
       - Mandatory
-    * - value
+    * - ``value``
       - JSON string
       - The data object value
 

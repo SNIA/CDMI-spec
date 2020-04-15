@@ -38,13 +38,13 @@ Capabilities that indicate which operations are supported are shown in :numref:`
     * - Capability
       - Location
       - Description
-    * - cdmi_modify_value
+    * - ``cdmi_modify_value``
       - Data Object
       - Ability to modify the value of an existing data object
-    * - cdmi_modify_value_range
+    * - ``cdmi_modify_value_range``
       - Data Object
       - Ability to modify a sub-range of the value of an existing data object
-    * - cdmi_object_access_by_ID
+    * - ``cdmi_object_access_by_ID``
       - System Wide Capability
       - Ability to access the object by ID
 
@@ -69,18 +69,18 @@ The HTTP request headers for updating a CDMI data object using HTTP are shown in
       - Type
       - Description
       - Requirement
-    * - Content-Type
+    * - ``Content-Type``
       - Header string
       - The content type of the data to be stored as a data object. The value specified in this header shall be converted to lower case and stored in the ``mimetype`` field of the CDMI data object. 
         
         * If the ``Content-Type`` header includes the charset parameter as defined in RFC 2616 :cite:`rfc2616` of "``utf-8`` (e.g., "``;charset=utf-8``"), the ``valuetransferencoding`` field of the CDMI data object shall be set to "``utf-8``". Otherwise, the ``valuetransferencoding`` field of the CDMI data object shall be set to "``base64``".
         * If not specified, the existing ``mimetype`` field value shall be preserved.
       - Optional
-    * - Content-Range
+    * - ``Content-Range``
       - Header string
       - A valid ranges-specifier (see RFC 2616 :cite:`rfc2616` Section 14.35.1)
       - Optional
-    * - X-CDMI-Partial
+    * - ``X-CDMI-Partial``
       - Header string
       - Indicates that the operation is part of a series of updates and has not yet been fully created. When set to "``true``", the ``completionStatus`` field shall be set to "``Processing``". ``X-CDMI-Partial`` works across CDMI and non-CDMI operations.
 
@@ -116,7 +116,7 @@ The HTTP response header for updating a data object using HTTP is shown in :numr
       - Type
       - Description
       - Requirement
-    * - Location
+    * - ``Location``
       - Header string
       - The server shall respond with the URI to which the reference redirects if the object is a reference.
       - Conditional

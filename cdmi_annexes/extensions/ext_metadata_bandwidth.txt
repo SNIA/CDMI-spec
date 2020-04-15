@@ -48,79 +48,79 @@ Add table entries to end of :numref:`tbl_contents_of_domain_summary_objects` in 
       - Type
       - Description
       - Requirement
-    * - cdmi_summary_network_bytes
+    * - ``cdmi_summary_network_bytes``
       - JSON string
       - Total number of bytes read/written to/from public/private network segments
       - Optional
-    * - cdmi_summary_reads_private
+    * - ``cdmi_summary_reads_private``
       - JSON string
       - Total number of bytes read from private network segment
       - Optional
-    * - cdmi_summary_reads_private_min
+    * - ``cdmi_summary_reads_private_min``
       - JSON string
       - Minimum number of bytes read from private network segment for the given interval
       - Optional
-    * - cdmi_summary_reads_private_max
+    * - ``cdmi_summary_reads_private_max``
       - JSON string
       - Maximum number of bytes read from private network segment for the given interval
       - Optional
-    * - cdmi_summary_reads_private_avg
+    * - ``cdmi_summary_reads_private_avg``
       - JSON string
       - Average number of bytes read from private network segment for the given interval
       - Optional
-    * - cdmi_summary_writes_private
+    * - ``cdmi_summary_writes_private``
       - JSON string
       - Total number of bytes written to private network segment
       - Optional
-    * - cdmi_summary_writes_private_min
+    * - ``cdmi_summary_writes_private_min``
       - JSON string
       - Minimum number of bytes written to private network segment for the given interval
       - Optional
-    * - cdmi_summary_writes_private_max
+    * - ``cdmi_summary_writes_private_max``
       - JSON string
       - Maximum number of bytes written to private network segment for the given interval
       - Optional
-    * - cdmi_summary_writes_private_avg
+    * - ``cdmi_summary_writes_private_avg``
       - JSON string
       - Average number of bytes written to private network segment for the given interval
       - Optional
-    * - cdmi_summary_reads_public
+    * - ``cdmi_summary_reads_public``
       - JSON string
       - Total number of bytes read from public network segment
       - Optional
-    * - cdmi_summary_reads_public_min
+    * - ``cdmi_summary_reads_public_min``
       - JSON string
       - Minimum number of bytes read from public network segment for the given interval
       - Optional
-    * - cdmi_summary_reads_public_max
+    * - ``cdmi_summary_reads_public_max``
       - JSON string
       - Maximum number of bytes read from public network segment for the given interval
       - Optional
-    * - cdmi_summary_reads_public_avg
+    * - ``cdmi_summary_reads_public_avg``
       - JSON string
       - Average number of bytes read from public network segment for the given interval
       - Optional
-    * - cdmi_summary_writes_public
+    * - ``cdmi_summary_writes_public``
       - JSON string
       - Total number of bytes written to public network segment
       - Optional
-    * - cdmi_summary_writes_public_min
+    * - ``cdmi_summary_writes_public_min``
       - JSON string
       - Minimum number of bytes written to public network segment for the given interval
       - Optional
-    * - cdmi_summary_writes_public_max
+    * - ``cdmi_summary_writes_public_max``
       - JSON string
       - Maximum number of bytes written to public network segment for the given interval
       - Optional
-    * - cdmi_summary_writes_public_avg
+    * - ``cdmi_summary_writes_public_avg``
       - JSON string
       - Average number of bytes written to public network segment for the given interval
       - Optional
-    * - cdmi_summary_reads_total
+    * - ``cdmi_summary_reads_total``
       - JSON string
       - Total number of bytes read from both public and private network segments
       - Optional
-    * - cdmi_summary_writes_total
+    * - ``cdmi_summary_writes_total``
       - JSON string
       - Total number of bytes written to both public and private network segments
       - Optional

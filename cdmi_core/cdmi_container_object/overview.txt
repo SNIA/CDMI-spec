@@ -57,7 +57,7 @@ When a container object is addressed via more than one unique URIs, all operatio
 
 Following the URI conventions for hierarchical paths, container URIs shall consist of one or more container names that are separated by forward slashes ("``/``") and that end with a forward slash ("``/``"). 
 
-If a request is performed against an existing container resource and the trailing slash at the end of the URI is omitted, the server shall respond with an HTTP status code of ``301 Moved Permanently``. In addition, a Location header containing the URI with the trailing slash added shall be returned. 
+If a request is performed against an existing container resource and the trailing slash at the end of the URI is omitted, the server shall respond with an HTTP status code of ``301 Moved Permanently``. In addition, a ``Location`` header containing the URI with the trailing slash added shall be returned. 
 
 If a CDMI request is performed to create a new container resource and the trailing slash at the end of the URI is omitted, the server shall respond with an HTTP status code of ``400 Bad Request``.
 
@@ -119,7 +119,7 @@ The following optional container-specific data system metadata may be provided (
       - Type
       - Description
       - Requirement
-    * - cdmi_assignedsize
+    * - ``cdmi_assignedsize``
       - JSON string
       - The number of bytes that is reported via exported protocols (e.g., the device may be thin provisioned). This number may limit ``cdmi_size``.
       - Optional

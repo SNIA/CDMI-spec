@@ -37,10 +37,10 @@ Capabilities that indicate which operations are supported are shown in :numref:`
     * - Capability
       - Location
       - Description
-    * - cdmi_delete_container
+    * - ``cdmi_delete_container``
       - Container object
       - Ability to delete an existing container object
-    * - cdmi_object_access_by_ID
+    * - ``cdmi_object_access_by_ID``
       - System wide capability
       - Ability to access the object by ID
 

@@ -63,19 +63,19 @@ Capabilities that indicate which operations are supported are shown in :numref:`
     * - Capability
       - Location
       - Description
-    * - cdmi_create_container
+    * - ``cdmi_create_container``
       - Parent container
       - Ability to create a new container object
-    * - cdmi_create_reference
+    * - ``cdmi_create_reference``
       - Parent container
       - Ability to create a new reference
-    * - cdmi_copy_container
+    * - ``cdmi_copy_container``
       - Parent container
       - Ability to create a container object that is a copy of another container object
-    * - cdmi_move_container
+    * - ``cdmi_move_container``
       - Parent container
       - Ability to move a container object from another location
-    * - cdmi_deserialize_container
+    * - ``cdmi_deserialize_container``
       - Parent container
       - Ability to create a container object that is deserialized from the contents of the PUT or the contents of a data object
 
@@ -100,11 +100,11 @@ The HTTP request headers for creating a CDMI container object using CDMI are sho
       - Type
       - Description
       - Requirement
-    * - Accept
+    * - ``Accept``
       - Header string
       - "application/cdmi-container" or a consistent value described in :numref:`%s <ref_content-type_negotiation>` 
       - Optional
-    * - Content-Type
+    * - ``Content-Type``
       - Header string
       - "application/cdmi-container"
       - Mandatory
@@ -130,7 +130,7 @@ The request message body fields for creating a container object using CDMI are s
       - Type
       - Description
       - Requirement
-    * - metadata
+    * - ``metadata``
       - JSON object
       - Metadata for the container object
 
@@ -140,18 +140,18 @@ The request message body fields for creating a container object using CDMI are s
           * If this field is not included when deserializing, serializing, copying, or moving a container object, metadata from the source URI shall be used. 
           * This field shall not be included when creating a reference to a container object.
       - Optional
-    * - domainURI
+    * - ``domainURI``
       - JSON string
       - URI of the owning domain
 
            * If different from the parent domain, the user shall have the "``cross-domain``" privilege (see ``cdmi_member_privileges`` in :numref:`tbl_required_settings_for_domain_member_user_objects` .
            * If not specified, the existing domain shall be preserved.
       - Optional
-    * - exports
+    * - ``exports``
       - JSON object
       - A structure for each protocol enabled for this container object (see :numref:`clause %s <clause_cdmi_exports>`). This field shall not be included when referencing a container object. 
       - Optional
-    * - deserialize
+    * - ``deserialize``
       - JSON string
       - URI of a CDMI data object with a value that contains a container object serialized as specified in :numref:`clause %s <clause_cdmi_serialization>`. The serialized container object shall be deserialized to create the new container object, including all child objects.
       
@@ -161,7 +161,7 @@ The request message body fields for creating a container object using CDMI are s
 
         When deserializing a container object, any exported protocols from the original serialized container object are not applied to the newly created container object(s).
       - Optional [#a]_
-    * - copy
+    * - ``copy``
       - JSON string
       - URI of a source CDMI container object that shall be copied into the new destination container object.
 
@@ -177,7 +177,7 @@ The request message body fields for creating a container object using CDMI are s
 
         If there are insufficient permissions to read the container object at the source URI or create the container object at the destination URI, or if the read operation fails, the copy shall return an HTTP status code of ``400 Bad Request,`` and the destination container object shall not be created.
       - Optional [#a]_
-    * - move
+    * - ``move``
       - JSON string
       - URI of an existing local or remote CDMI container object (source URI) that shall be relocated, along with all child objects, to the URI specified in the PUT. The contents of the container object and all children, including the object ID, shall be preserved by a move, and the container object and all children of the source URI shall be removed after the objects at the destination have been successfully created.
 
@@ -187,11 +187,11 @@ The request message body fields for creating a container object using CDMI are s
 
         If there are insufficient permissions to read the objects at the source URI, write the objects at the destination URI, or delete the objects at the source URI, or if any of these operations fail, the move shall return an HTTP status code of ``400 Bad Request``, and the source and destination are left unchanged.
       - Optional [#a]_
-    * - reference
+    * - ``reference``
       - JSON string
       - URI of a CDMI container object that shall be redirected to by a reference. If other fields are supplied when creating a reference, the server shall respond with an HTTP status code of ``400 Bad Request``.
       - Optional [#a]_
-    * - deserializevalue
+    * - ``deserializevalue``
       - JSON string
       - A container object serialized as specified in :numref:`clause %s <clause_cdmi_serialization>` and encoded using base 64 encoding rules described in RFC 4648 :cite:`rfc4648`, that shall be deserialized to create the new container object, including all child objects.
       - Optional [#a]_
@@ -219,11 +219,11 @@ The HTTP response headers for creating a CDMI container object using CDMI are sh
       - Type
       - Description
       - Requirement
-    * - Content-Type
+    * - ``Content-Type``
       - Header string
       - "application/cdmi-container"
       - Mandatory
-    * - Location
+    * - ``Location``
       - Header string
       - When an HTTP status code of ``202 Accepted`` is returned, the server shall respond with the absolute URL of the object that is in the process of being created.
       - Conditional
@@ -249,19 +249,19 @@ The response message body fields for creating a CDMI container object using CDMI
       - Type
       - Description
       - Requirement
-    * - objectType
+    * - ``objectType``
       - JSON string
       - "``application/cdmi-container``"
       - Mandatory
-    * - objectID
+    * - ``objectID``
       - JSON string
       - Object ID of the object
       - Mandatory
-    * - objectName
+    * - ``objectName``
       - JSON string
       - Name of the object
       - Mandatory
-    * - parentURI
+    * - ``parentURI``
       - JSON string
       - URI for the parent object
       
@@ -271,19 +271,19 @@ The response message body fields for creating a CDMI container object using CDMI
 
         Appending the ``objectName`` to the ``parentURI`` shall always produce a valid URI for the object. 
       - Mandatory
-    * - parentID
+    * - ``parentID``
       - JSON string
       - Object ID of the parent container object
       - Mandatory
-    * - domainURI
+    * - ``domainURI``
       - JSON string
       - URI of the owning domain
       - Mandatory
-    * - capabilitiesURI
+    * - ``capabilitiesURI``
       - JSON string
       - URI to the capabilities for the object
       - Mandatory
-    * - completionStatus
+    * - ``completionStatus``
       - JSON string
       - A string indicating if the object is still in the process of being created or updated by another operation, and after that operation is complete, indicates if it was successfully created or updated or if an error occurred.
       
@@ -293,7 +293,7 @@ The response message body fields for creating a CDMI container object using CDMI
 
         The value shall be the string "``Processing``", the string "``Complete``", or an error string starting with the value "``Error``".
       - Mandatory
-    * - percentComplete
+    * - ``percentComplete``
       - JSON string
       - A string indicating the percentage of completion if the object is still in the process of bewing created or updated by another operation.
 
@@ -301,19 +301,19 @@ The response message body fields for creating a CDMI container object using CDMI
         * When the value of ``completionStatus`` is "``Complete``", this field, if provided, shall contain the value "``100``". 
         * When the value of ``completionStatus`` is "``Error``", this field, if provided, may contain any integer value from "``0``" through "``100``".
       - Optional
-    * - metadata
+    * - ``metadata``
       - JSON object
       - Metadata for the container object. This field includes any user and data system metadata specified in the request body metadata field, along with storage system metadata generated by the cloud storage system. See :numref:`clause %s <clause_cdmi_metadata>` for a further description of metadata.
       - Mandatory
-    * - exports
+    * - ``exports``
       - JSON object
       - A structure for each protocol that is enabled for this container object. See :numref:`clause %s <clause_cdmi_exports>`.
       - Optional [#b]_
-    * - snapshots
+    * - ``snapshots``
       - JSON array of JSON strings
       - URI(s) of the snapshot container objects. See :numref:`clause %s <clause_cdmi_snapshots>`.
       - Optional [#b]_
-    * - childrenrange
+    * - ``childrenrange``
       - JSON string 
       - The children of the container expressed as a range. If a range of children is requested, this field indicates the children returned as a range.
       
@@ -323,7 +323,7 @@ The response message body fields for creating a CDMI container object using CDMI
 
         This field should not be returned in the response message body that is associated with a copy, move, deserialize, or deserialize value operation.
       - Optional
-    * - children
+    * - ``children``
       - JSON array of JSON strings
       - Names of the children objects in the container object. Child container objects end with "``/``".
       

@@ -38,10 +38,10 @@ Capabilities that indicate which operations are supported are shown in :numref:`
     * - Capability
       - Location
       - Description
-    * - cdmi_create_dataobject
+    * - ``cdmi_create_dataobject``
       - Parent Container
       - Ability to create a new data object
-    * - cdmi_create_value_range
+    * - ``cdmi_create_value_range``
       - System Wide Capability
       - Ability to create a data object using a specified byte range
 
@@ -65,18 +65,18 @@ The HTTP request headers for creating a CDMI data object using HTTP are shown in
       - Type
       - Description
       - Requirement
-    * - Content-Type
+    * - ``Content-Type``
       - Header string
       - The content type of the data to be stored as a data object. The value specified in this header shall be converted to lower case and stored in the ``mimetype`` field of the CDMI data object. 
         
         * If the ``Content-Type`` header includes the charset parameter as defined in RFC 2616 :cite:`rfc2616` of "``utf-8`` (e.g., "``;charset=utf-8``"), the ``valuetransferencoding`` field of the CDMI data object shall be set to "``utf-8``". Otherwise, the ``valuetransferencoding`` field of the CDMI data object shall be set to "``base64``".
         * If not specified, the ``mimetype`` field shall be set to "``application/octet-stream``".
       - Optional
-    * - X-CDMI-Partial
+    * - ``X-CDMI-Partial``
       - Header String
       - Indicates that the newly created object is part of a series of writes and has not yet been fully created. When set to "``true``", the ``completionStatus`` field shall be set to "``Processing``". ``X-CDMI-Partial`` works across CDMI and non-CDMI operations.
       - Optional
-    * - Content-Range
+    * - ``Content-Range``
       - Header String
       - A valid ranges-specifier (see RFC 2616 :cite:`rfc2616` Section 14.35.1)
       - Optional
@@ -130,8 +130,8 @@ The HTTP status codes that occur when creating a data object using HTTP are desc
       - The operation conflicts with a non-CDMI access protocol lock or has caused a state transition error on the server.
 
 
-Example
--------
+Examples
+--------
 
 EXAMPLE 1: PUT to the container URI the data object name and contents.
 
@@ -147,6 +147,7 @@ EXAMPLE 1: PUT to the container URI the data object name and contents.
 
        <-- HTTP/1.1 201 Created
 
+
 EXAMPLE 2: Put to the container URI to create an encrypted object:
 
 	.. code-block:: none
@@ -160,6 +161,7 @@ EXAMPLE 2: Put to the container URI to create an encrypted object:
 
 		<-- HTTP/1.1 201 Created
 
+
 EXAMPLE 3: PUT to the container URI to create an encrypted object:
 
 	.. code-block: none
@@ -170,5 +172,5 @@ EXAMPLE 3: PUT to the container URI to create an encrypted object:
 		--> Content-Length: 1425
 	        --> 	
 		--> <JWE Encrypted Object JSON>
-
+                 
 		<-- HTTP/1.1 201 Created

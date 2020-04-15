@@ -30,18 +30,21 @@ When creating a query queue, the metadata described in :numref:`tbl_required_met
       - Type
       - Description
       - Requirement
-    * - cdmi_queue_type
+    * - ``cdmi_queue_type``
       - JSON string
       - The queue type indicates how the cloud storage system shall manage the queue object. The type of "``cdmi_query_queue``" is defined for query queues.
       - Mandatory
-    * - cdmi_scope_specification
+    * - ``cdmi_scope_specification``
       - JSON array of JSON objects
       - The scope specification determines which objects are included in the query results. This scope specification is similar to a "``WHERE``" clause in SQL-like languages. To query all objects, specify an empty JSON array. See :numref:`Clause %s <clause_cdmi_scope>`  for how to construct a scope specification.
       - Mandatory
-    * - cdmi_results_specification
+    * - ``cdmi_results_specification``
       - JSON object
       - The results specification contains the JSON fields to be returned for each object that matches the query. This results specification is similar to a "``SELECT``" clause in SQL-like languages. See :numref:`Clause %s <clause_cdmi_results>` for how to construct a results specification.
       - Mandatory
+
+Examples
+--------
 
 EXAMPLE 1: An example of the metadata associated with a query queue is as follows:
 
@@ -99,7 +102,7 @@ EXAMPLE 2: An example of a query result JSON object is as follows:
       - Type
       - Description
       - Requirement
-    * - cdmi_query_status
+    * - ``cdmi_query_status``
       - JSON string
       - When present, this metadata item indicates the state of the query queue. Defined values are: 
 

@@ -58,12 +58,15 @@ Clients wishing to restrict exports via foreign protocols to mounting only by ce
 
 #. When a CDMI container is exported, the server should use the appropriate mechanism, e.g., Powershell ``WmiClass.Create( )`` on the Windows platform or ``/etc/exports`` on Unix, to limit permitted mounts of the share from other servers, as specified in the "``root_hosts``", "``rw_hosts``" and "``ro_hosts``" lines of the "``exports``" property. The syntax of each hosts line follows the syntax of ``/etc/exports`` in the Linux operating system, as encoded in a JSON string. If the CDMI server is unable to limit mounts as specified by each hosts line, an error shall result, but the success or failure of the operation depends on the implementation.
 #. When possible, authentication credential resolution should be consistant across both CDMI and all exported protocols.
-#. Authentication credential resolution shall be performed in the following order: 1. CDMI Domain membership mapping (See :numref:`%s <cdmi_domain_object_membership>`), 2. Delegated domain mapping (See :numref:`%s <cdmi_domain_object_membership>`), 3. Export name mapping.
+#. Authentication credential resolution shall be performed in the following order: 
+   #. CDMI Domain membership mapping (See :numref:`%s <cdmi_domain_object_membership>`), 
+   #. Delegated domain mapping (See :numref:`%s <cdmi_domain_object_membership>`), 
+   #. Export name mapping.
 #. Implementations may ignore or override export name mapping as requried to enforce implementation-specific security policies.
 #. The usermap list for that protocol shall be searched, in order, for an entry matching the username obtained from the authentication credential resolution process (see :numref:`%s <ref_user_and_groupname_mapping_syntax_and_evaluation_rules>` for details on the search).
 #. The CDMI principal name obtained from the first matching usermap entry during this search is then used to authorize the user request via the security mechanism of the protocol whose security governs access to the object.
 
-Groupname mapping for each foreign protocol shall be specified in a groupname field of the foreign protocol export specification. Its syntax is identical to the syntax for the username field.
+Groupname mapping for each foreign protocol shall be specified in a ``groupname`` field of the foreign protocol export specification. Its syntax is identical to the syntax for the ``username`` field.
 
 Administrative users
 --------------------
@@ -173,55 +176,55 @@ Elements for an NFS export are described in :numref:`tbl_elements_of_the_nfs_pro
       - Type
       - Description
       - Requirement
-    * - type
+    * - ``type``
       - JSON String
       - The export type is set to "``NFS``"
       - Mandatory
-    * - protocol
+    * - ``protocol``
       - JSON String
       - The protocol being requested. Values shall be "``NFSv3``", "``NFSv4``", "``NFSv4.1``", or any subsequent NFS version enshrined in an IETF RFC. Version 2 of NFS is not supported by CDMI.
       - Mandatory
-    * - path
+    * - ``path``
       - JSON String
       - The pathname to which the export should be surfaced. This value shall be a UTF8 string of the form ``[<server>:]/<path>``, where the <server> component is optional, (e.g., "``myserver:/lessons/number1``"). If specified, the <server> component of the path must be obtained from an administrator of the service running the CDMI implementation.
       - Mandatory
-    * - usermap
+    * - ``usermap``
       - JSON Array of JSON Arrays
       - Authentication credential mapping of user names, as specified in :numref:`%s <ref_mapping_names>`.
       - Mandatory
-    * - groupmap
+    * - ``groupmap``
       - JSON Array of JSON Arrays
       - Authentication credential mapping of group names, as specified in :numref:`%s <ref_mapping_names>`.
       - Mandatory
-    * - encryption
+    * - ``encryption``
       - JSON String
       - This value shall be "``rpcsec_gss``" or future TLS-based transport security.
       - Optional
-    * - domain_servers
+    * - ``domain_servers``
       - JSON Array of JSON Strings
       - A list of server names or IP addresses that function as name servers for the domain given in "``domain``". If given, this list shall override the names obtainable by the CDMI server via other programmatic means.
       - Optional
-    * - mount_name
+    * - ``mount_name``
       - JSON String
       - The name the client should use to surface the export. This name replaces the last name in the path string, (e.g., mounting "``myserver:/lessons/number1``" with a mountname of "``1``" over the directory ``/somepath/lessons/num1`` should result in a ``/somepath/lessons/1`` directory on the client).
       - Optional
-    * - root_hosts
+    * - ``root_hosts``
       - JSON Array of JSON Strings
       - A list of names of hosts that may access the container in superuser mode. The default shall be an empty list.
       - Optional
-    * - rw_hosts
+    * - ``rw_hosts``
       - JSON Array of JSON Strings
       - A list of names of hosts that may access the container in ``rw`` mode. The default shall be an empty list.
       - Optional
-    * - ro_hosts
+    * - ``ro_hosts``
       - JSON Array of JSON Strings
       - A list of names of hosts that may access the container in ``ro`` mode only. The default shall be an empty list.
       - Optional
-    * - recurse
+    * - ``recurse``
       - JSON String
       - This value shall be either "``true``" or "``false``". The default shall be "``true``". When true, recurse indicates that mounts within the CDMI directory structure (presumably put there by other NFS operations) shall be followed and the mounted directory exposed as though it were part of the CDMI container actually being exported. This parameter is equivalent to the Linux "``crossmnt``" parameter.
       - Optional
-    * - parameters
+    * - ``parameters``
       - JSON String
       - A string containing NFS server-specific parameters to be passed to the NFS server. The format of this string is implementation specific. The default shall be an empty string.
       - Optional
@@ -282,43 +285,43 @@ Elements for an SMB export are described in :numref:`tbl_elements_of_the_smb_pro
       - Type
       - Description
       - Requirement
-    * - type
+    * - ``type``
       - JSON String
       - The export type is set to "``SMB``"
       - Mandatory
-    * - sharename
+    * - ``sharename``
       - JSON String
       - The name that SMB shall use to discover the share.
       - Mandatory
-    * - usermap
+    * - ``usermap``
       - JSON Array of JSON Arrays
       - Authentication credential mapping of user names, as specified in :numref:`%s <ref_mapping_names>`.
       - Mandatory
-    * - groupmap
+    * - ``groupmap``
       - JSON Array of JSON Arrays
       - Authentication credential mapping of group names, as specified in :numref:`%s <ref_mapping_names>`.
       - Mandatory
-    * - root_hosts
+    * - ``root_hosts``
       - JSON Array of JSON Strings
       - A list of names of hosts that may access the container in superuser mode. The default shall be an empty list.
       - Optional
-    * - rw_hosts
+    * - ``rw_hosts``
       - JSON Array of JSON Strings
       - A list of names of hosts that may access the container in ``rw`` mode. The default shall be an empty list.
       - Optional
-    * - ro_hosts
+    * - ``ro_hosts``
       - JSON Array of JSON Strings
       - A list of names of hosts that may access the container in ``ro`` mode only. The default shall be an empty list.
       - Optional
-    * - domain_servers
+    * - ``domain_servers``
       - JSON Array of JSON Strings
       - A list of server names or IP addresses that function as name servers for the domain given in "``domain``". If given, this list shall override the names obtainable by the CDMI server via other programmatic means.
       - Optional
-    * - comment
+    * - ``comment``
       - JSON String
       - This value shall be JSON String containing a user-friendly share name for the client.
       - Optional
-    * - parameters
+    * - ``parameters``
       - JSON String
       - A string containing SMB server-specific parameters to be passed to the SMB server. The format of this string is implementation specific. The default shall be an empty string.
       - Optional
@@ -370,31 +373,31 @@ Elements for an iSCSI export are described in :numref:`tbl_elements_of_the_iscsi
       - Type
       - Description
       - Requirement
-    * - type
+    * - ``type``
       - JSON String
       - The export type is set to "``iSCSI``"
       - Mandatory
-    * - permissions
+    * - ``permissions``
       - JSON Array of JSON Strings
       - One or more target identifiers for initiators that are permitted to access the iSCSI export. Target identifiers may be in ``iqn``, ``naa``, or ``eui`` format and shall have the target portal group tag appended in hexadecimal. If absent, any initiator may access the export.
       - Optional
-    * - parameters
+    * - ``parameters``
       - JSON String
       - A string containing iSCSI server-specific parameters to be passed to the iSCSI server. The format of this string is implementation specific. The default shall be an empty string.
       - Optional
-    * - target_identifier
+    * - ``target_identifier``
       - JSON String
       - iSCSI target information (IP addresses or fully qualified domain names, target identifier, and LUN)
       - Read-Only
-    * - logical_unit_number
+    * - ``logical_unit_number``
       - JSON String
       - iSCSI Logical Unit Number
       - Read-Only
-    * - logical_unit_name
+    * - ``logical_unit_name``
       - JSON String
       - iSCSI Logical Unit Name
       - Read-Only
-    * - portals
+    * - ``portals``
       - JSON Array of JSON Strings
       - One or more IP addresses or fully qualified domains names through which the iSCSI export may be accessed. This field is server populated.
       - Read-Only
@@ -462,19 +465,19 @@ Elements for an WebDAV export are described in :numref:`tbl_elements_of_the_webd
       - Type
       - Description
       - Requirement
-    * - type
+    * - ``type``
       - JSON String
       - The export type is set to "``WebDAV``"
       - Mandatory
-    * - usermap
+    * - ``usermap``
       - JSON Array of JSON Arrays
       - Authentication credential mapping of user names, as specified in :numref:`%s <ref_mapping_names>`.
       - Mandatory
-    * - groupmap
+    * - ``groupmap``
       - JSON Array of JSON Arrays
       - Authentication credential mapping of group names, as specified in :numref:`%s <ref_mapping_names>`.
       - Mandatory
-    * - parameters
+    * - ``parameters``
       - JSON String
       - A string containing WebDAV server-specific parameters to be passed to the WebDAV server. The format of this string is implementation specific. The default shall be an empty string.
       - Optional

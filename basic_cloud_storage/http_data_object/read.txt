@@ -38,13 +38,13 @@ Capabilities that indicate which operations are supported are shown in :numref:`
     * - Capability
       - Location
       - Description
-    * - cdmi_read_value
+    * - ``cdmi_read_value``
       - Data Object
       - Ability to read the value of an existing data object
-    * - cdmi_read_value_range
+    * - ``cdmi_read_value_range``
       - Data Object
       - Ability to read a sub-range of the value of an existing data object
-    * - cdmi_object_access_by_ID
+    * - ``cdmi_object_access_by_ID``
       - System Wide Capability
       - Ability to access the object by ID
 
@@ -68,11 +68,11 @@ The HTTP request header for reading a CDMI data object using HTTP is shown in :n
       - Type
       - Description
       - Requirement
-    * - Range
+    * - ``Range``
       - Header string
       - A valid ranges-specifier (see RFC 2616 :cite:`rfc2616` Section 14.35.1)
       - Optional
-    * - Accept
+    * - ``Accept``
       - Header string
       - "\*/\*" or a value as described in: :numref:`%s <ref_content-type_negotiation>`.
       
@@ -108,11 +108,11 @@ The HTTP response headers for reading a data object using HTTP are shown in :num
       - Type
       - Description
       - Requirement
-    * - Content-Type
+    * - ``Content-Type``
       - Header string
       - The content type returned shall be the mimetype field in the data object.
       - Mandatory
-    * - Location
+    * - ``Location``
       - Header string
       - The server shall respond with the URI that the reference redirects to if the object is a reference.
       - Conditional
@@ -175,6 +175,7 @@ EXAMPLE 1: GET to the data object URI to read the value of the data object:
        <--  
        <-- This is the value of this data object
 
+
 EXAMPLE 2: GET to the data object URI to read the first 11 bytes of the value of the data object:
 
    .. code-block:: none
@@ -205,6 +206,7 @@ EXAMPLE 3: GET to the data object URI to always return the ciphertext of an encr
                 <-- 
 		<-- <CMS Encrypted Object>
 
+
 EXAMPLE 4: GET to the data object URI to read the plaintext of an encrypted object, if possible; otherwise, get the ciphertext:
 
 	.. code-block:: none
@@ -219,6 +221,7 @@ EXAMPLE 4: GET to the data object URI to read the plaintext of an encrypted obje
 		<-- Content-Length: 252
                 <-- 
 		<-- <Decrypted contents of Encrypted Value>
+
 
 EXAMPLE 5: GET to the data object URI to read the plaintext of an encrypted object:
 
