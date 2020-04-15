@@ -385,7 +385,7 @@ A conformant implementation of CDMI shall also be a conformant implementation of
 Content-Type negotiation
 ************************
 
-For CDMI operations, media types for CDMI objects are used as defined in RFC 6208 :cite:`rfc6208`. All CDMI representations follow the rules established for ``application/json`` as defined in RFC 4627 :cite:`rfc4627`. The use of the CDMI media types with the ``json`` suffix shall be supported as defined in RFC 6839 :cite:`rfc6839`. 
+For CDMI operations, media types for CDMI objects are used as defined in RFC 6208 :cite:`rfc6208`. All CDMI representations follow the rules established for ``application/json`` as defined in RFC 4627 :cite:`rfc4627`. The use of the CDMI media types with the ``+json`` suffix shall be supported as defined in RFC 6839 :cite:`rfc6839`. 
 
 A client can optionally supply an HTTP ``Accept`` header, as per section 14.1 of RFC 2616 :cite:`rfc2616`. If a client is restricting the response to a specific CDMI media type, the corresponding media type shall be specified in the ``Accept`` header. Otherwise, the ``Accept`` header can contain "``*/*``" or a list of media types, or it may be omitted. 
 
