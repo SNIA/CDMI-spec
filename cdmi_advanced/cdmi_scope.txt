@@ -10,7 +10,7 @@ CDMI™ provides a standardized mechanism to define sets of objects that match c
 
 Each JSON object within the scope specification represents a set of conditions that shall all be true in order for an object to be considered to match against the scope (a logical AND relationship). For queries, a matching object would be returned in the query results. An empty scope specification is considered to evaluate to true. Multiple JSON objects are used to express logical OR relationships, where if any JSON object in the scope evaluates to true, then the object shall be considered to have matched against the scope.
 
-Each JSON object is constructed using the same structure that CDMI objects use. To show this structure, assume the following result from a HTTP GET for a data object:
+Each JSON object is constructed using the same structure that CDMI objects use. To show this structure, assume the following result from a GET for a data object:
 
 .. code-block:: none
 
