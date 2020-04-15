@@ -191,7 +191,7 @@ Which storage system metadata is supported by the CDMI server defined in :numref
         Both ``cdmi_dac_certificate`` and ``cdmi_dac_uri`` shall be included for delegated access control to be enabled for a given object.	
       - Optional
       
-    * - ``cdmi_dac_certificate	``
+    * - ``cdmi_dac_certificate``
       - JSON object	
       - A JSON object, containing a JWE JWK which shall include a public key that is used to submit a DAC request for the data object, and should contains a X.509 certificate or certificate chain used to verify the identity of the DAC provider.
       
@@ -375,7 +375,7 @@ Which data system metadata is supported by the CDMI server defined in :numref:`%
         * "``AES_XTS_256``" for the AES algorithm, the XTS mode of operation, and a key size of 256 bits.
 
       - Optional
-    * - ``cdmi_value_hash ``
+    * - ``cdmi_value_hash``
       - JSON string
       - If this data system metadata item is present and not an empty string, it indicates that the client is requesting that the system hash the object value using the hashing algorithm and length requested. The result of the hash shall be provided in the ``cdmi_hash`` storage system metadata item. Supported algorithm/length values are provided by the ``cdmi_value_hash`` storage system capability. 
       
@@ -590,7 +590,7 @@ For each metadata item in a data system, there is an actual value that the cloud
       - JSON string
       - Contains the provided maximum time to first byte
       - Optional
-    * - ``cdmi_throughput_provided ``
+    * - ``cdmi_throughput_provided``
       - JSON string
       - Contains the provided maximum data rate on retrieve
       - Optional
