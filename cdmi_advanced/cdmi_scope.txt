@@ -10,7 +10,7 @@ CDMI™ provides a standardized mechanism to define sets of objects that match c
 
 Each JSON object within the scope specification represents a set of conditions that shall all be true in order for an object to be considered to match against the scope (a logical AND relationship). For queries, a matching object would be returned in the query results. An empty scope specification is considered to evaluate to true. Multiple JSON objects are used to express logical OR relationships, where if any JSON object in the scope evaluates to true, then the object shall be considered to have matched against the scope.
 
-Each JSON object is constructed using the same structure that CDMI objects use. To show this structure, assume the following result from a CDMI GET for a data object:
+Each JSON object is constructed using the same structure that CDMI objects use. To show this structure, assume the following result from a HTTP GET for a data object:
 
 .. code-block:: none
 
@@ -138,7 +138,7 @@ EXAMPLE 7: To query the value of objects, the value field is included within the
            ]
         }
 
-Query against the value of objects is optional and is indicated by the presence of the "``cdmi_query_value``" capability.
+Query against the value of objects is optional and is indicated by the presence of the ``cdmi_query_value`` capability.
 
 Query matching expressions
 **************************
@@ -194,9 +194,9 @@ Query matching expressions are structured as "<operator>" or "<operator><sp><con
     * - "``field``" : "``!ends constant``" 
       - The not ends with matching expression tests if the field value does not end with a specified constant value. If the constant value is not equal to the end of the value of the field, the condition shall be considered to be met. 
     * - "``field``" : "``contains constant``" 
-      - The contains matching expression tests if the field value contains a specified constant value. If the constant value is found as a substring within the value of the field, the condition shall be considered to be met. The contains operator is only supported if the "``cdmi_query_contains``" capability is present. 
+      - The contains matching expression tests if the field value contains a specified constant value. If the constant value is found as a substring within the value of the field, the condition shall be considered to be met. The contains operator is only supported if the ``cdmi_query_contains`` capability is present. 
     * - "``field``" : "``!contains constant``"
-      - The not contains matching expression tests if the field value does not contain a specified constant value. If the constant value is not found as a substring within the value of the field, the condition shall be considered to be met. The not contains operator is only supported if the "``cdmi_query_contains``" capability is present. 
+      - The not contains matching expression tests if the field value does not contain a specified constant value. If the constant value is not found as a substring within the value of the field, the condition shall be considered to be met. The not contains operator is only supported if the ``cdmi_query_contains`` capability is present. 
     * - "``field``" : "``tag constant``"
       - The tag matching expression tests if the field value contains a specified constant tag value. 
       
@@ -212,7 +212,7 @@ Query matching expressions are structured as "<operator>" or "<operator><sp><con
 
         If the constant value is found as a tag substring within the value of the field, the condition shall be considered to be met. Tag substrings start at the beginning of the value or a "``,``", and end at the next "``,``" or the end of the string. Whitespace before and after "``,``" characters shall be stripped for the purpose of comparisons. 
 
-        Tag matching expressions are only supported if the "``cdmi_query_tags``" capability is present.
+        Tag matching expressions are only supported if the ``cdmi_query_tags`` capability is present.
     * - "``field``" : "``!tag constant``" 
       - The not tag matching expression tests if the field value does not contain a specified constant tag value. 
       
@@ -228,7 +228,7 @@ Query matching expressions are structured as "<operator>" or "<operator><sp><con
 
         If the constant value is not found as a tag substring within the value of the field, the condition shall be considered to be met. Tag substrings start at the beginning of the value or a "``,``", and end at the next "``,``" or the end of the string. Whitespace before and after "``,``" characters shall be stripped for the purpose of comparisons. 
 
-        Tag matching expressions are only supported if the "``cdmi_query_tags``" capability is present. 
+        Tag matching expressions are only supported if the ``cdmi_query_tags`` capability is present. 
     * - "``field``" : "``=~ constant``"
       - The regular expression matching expression tests if the field value matches a specified constant regular expression value. If the regular expression evaluates to true against the value, the condition shall be considered to be met. 
       
@@ -242,7 +242,7 @@ Query matching expressions are structured as "<operator>" or "<operator><sp><con
 
           \vspace*{1ex}
 
-        Regex matching expressions are only supported if the "``cdmi_query_regex``" capability is present.
+        Regex matching expressions are only supported if the ``cdmi_query_regex`` capability is present.
     * - "``field``" : "``!~ constant``"
       - The not regular expression matching expression tests if the field value does not match a specified constant regular expression value. If the regular expression evaluates to false against the value, the condition shall be considered to be met. 
       
@@ -263,6 +263,9 @@ Numeric constant strings shall be processed according to the JSON number represe
 All fields in objects that are not included in the scope specification shall be ignored for the purpose of matching objects.
 
 When a URI is used as the constant for the equals and not equals operators against the ``parentURI``, ``domainURI``, and ``capabilitiesURI``, either a URI by path or URI by object ID may be specified and are considered interchangeable. 
+
+Examples
+--------
 
 EXAMPLE 1: In a query to find all objects belonging to a specific domain, the following two query scopes are considered identical: 
 

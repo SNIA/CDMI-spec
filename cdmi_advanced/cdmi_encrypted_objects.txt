@@ -17,6 +17,10 @@ CDMI objects may contain values that are encrypted. Operations against an encryp
 
 Encryption operations
 *********************
+
+Overview
+--------
+
 The state transition diagram for encrypted objects is shown in :numref:`fig_encrypted_object_state_transistions`:
 
 .. _fig_encrypted_object_state_transistions:
@@ -27,7 +31,7 @@ The state transition diagram for encrypted objects is shown in :numref:`fig_encr
    
     Encrypted object state transistions
     
-The following eight encryption operations are defined:
+The eight encryption operations are defined in :numref:`%s <ref_create_a_new_encrytped_object>` through :numref:`%s <ref_update_plaintext_of_an_encrytped_object>`.
 
 Create a new encrypted object
 -----------------------------
@@ -95,7 +99,7 @@ When an encrypted object is decrypted for update, the plaintext shall not be ret
 Other CDMI operations
 ---------------------
 
-Other operations specifed by this International Standard (such as copying, serializing, querying, etc) treat an encrypted value the same way as a non-encrypted value.
+Other operations specifed by this International Standard (such as copying, serializing, querying, etc.) treat an encrypted value the same way as a non-encrypted value.
 
 Example uses of encrypted objects
 *********************************
@@ -144,7 +148,7 @@ The following CMS-formatted data may be ignored: ``recipientInfos``
 JOSE format
 ***********
 
-Any valid JWE-formatted data may be stored to a CDMI server. However, encrypted object operations are only defined for the following subset of valid JWE-formatted data.
+Any valid JWE-formatted data may be stored to a CDMI server. However, encrypted object operations are only defined for a small subset of valid JWE-formatted data.
 
 For encryption operations, the CDMI server shall support the following:
 
@@ -157,7 +161,10 @@ For signature operations, the CDMI server shall support the following:
 -	JWS ECDSA (Private Key from KMS)
 -	JWS HMAC-SHA2 (Symmetric Key from KMS)
 
-The following JOSE-formatted data may be ignored: Multiple recipients and multiple signatures
+The following JOSE-formatted data may be ignored: 
+
+-   Multiple recipients, and 
+-   Multiple signatures.
 
 
 .. _ref_cdmi_encrypted_objects_signature_verification:
@@ -169,7 +176,7 @@ If a signature is present as part of the CMS or JWE JSON value, the CDMI server 
 
 If a whole-object signature is present, the CDMI server shall verify that the signature contained in the ``cdmi_enc_signature`` metadata item is valid before allowing any read operations for the object. Write operations are permitted for an object with an invalid or unverifiable whole-object signature.
 
-When present, a whole-object signature shall be attached as a "``cdmi_enc_signature``" metadata item in JWS compact format, with the second field (the JWS payload field) replaced with an empty string as described in Appendix F of RFC 7515.
+When present, a whole-object signature shall be attached as a "``cdmi_enc_signature``" metadata item in JWS compact format, with the second field (the JWS payload field) replaced with an empty string as described in Appendix F of RFC 7515 :cite:`rfc7515`.
 
 For signature creation and verification, payload field shall be computed using the following process:
 

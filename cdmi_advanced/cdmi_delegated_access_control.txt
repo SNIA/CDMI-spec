@@ -90,7 +90,7 @@ Clients often have different degrees to which they trust the CDMI server with wh
         5.	Client verifies correct object
         6.	Client decrypts object
 
-        This mode of access does not use any functionality indicated by the ``cdmi_dac capability`` and is supported by all CDMI servers.
+        This mode of access does not use any functionality indicated by the ``cdmi_dac`` capability and is supported by all CDMI servers.
 
     * - Client-side decryption with DAC
       - CDMI server is not trusted with keys and is used to establish an opaque channel of communication between the client and the DAC provider for key delivery.
@@ -102,7 +102,7 @@ Clients often have different degrees to which they trust the CDMI server with wh
         5.	Client verifies correct object
         6.	Client decrypts object
         
-        This mode of access requires the cdmi_dac capability but does not require encrypted object support.
+        This mode of access requires the ``cdmi_dac`` capability but does not require encrypted object support.
         
         In this mode, data is exchanged between the client and the DAC provider using one or more "CDMI-DAC-" headers, as described in :numref:`clause %s <ref_client_header_passthrough>`.
     * - Direct Client DAC
@@ -116,7 +116,7 @@ Clients often have different degrees to which they trust the CDMI server with wh
         6.	Client verifies correct object
         7.	Client decrypts object
  
-        This mode of access requires the cdmi_dac capability but does not require encrypted object support.
+        This mode of access requires the ``cdmi_dac`` capability but does not require encrypted object support.
     * - Server-side decryption with DAC
       - CDMI server is trusted with keys and to delegate access control decisions. DAC message exchange is used to get the decryption keys to decrypt the contents of the object, and keys are not revealed to the client.
 
@@ -210,7 +210,7 @@ For example, when an operation is allowed by a DAC provider, the object key may 
 DAC request
 ***********
 
-When a CDMI server that supports DAC needs to contact the DAC provider as specified in the DAC metadata, it shall construct a DAC request, as specified below:
+When a CDMI server that supports DAC needs to contact the DAC provider as specified in the DAC metadata, it shall construct a DAC request, as specified in :numref:`tbl_dac_request`.
 
 .. tabularcolumns:: |>{\raggedright\arraybackslash}\Y{0.29}
                     |>{\raggedright\arraybackslash}\Y{0.09}
@@ -229,7 +229,7 @@ When a CDMI server that supports DAC needs to contact the DAC provider as specif
       - Description	
       - Requirement
 
-    * - dac_request_version	
+    * - ``dac_request_version``	
       - JSON string	
       - Indicates the version of the DAC request. This field shall be set to the value "``1``".
       - Mandatory
@@ -237,13 +237,13 @@ When a CDMI server that supports DAC needs to contact the DAC provider as specif
       - JSON string	
       - Contains a system-specified identifier that is used to match up the corresponding DAC response. This identifier shall be unique within the window that multiple DAC responses may be received.	
       - Mandatory
-    * - server_identity	
+    * - ``server_identity``	
       - JSON object	
       - A JSON object, containing a JWE JWK which shall include a public key that is used to submit a DAC response, and should contains a X.509 certificate or certificate chain used to verify the identity of the CDMI server that is generating the DAC request.
 
         This ensures that only the CDMI Server that generated the DAC request can read the DAC response.	
       - Mandatory
-    * - client_identity	
+    * - ``client_identity``	
       - JSON object	
       - A JSON object containing the following JSON entities:
 
@@ -251,25 +251,25 @@ When a CDMI server that supports DAC needs to contact the DAC provider as specif
 
         JSON Array, "``acl_group``", containing the ACL group(s) of the client requesting the operation. 	
       - Optional
-    * - acl_effective_mask	
+    * - ``acl_effective_mask``	
       - JSON string	
       - A text or hexadecimal string representation of the ACE mask determined by ACL evaluation for the requested operation, as defined in :numref:`%s <ref_ace_mask_bits>`.	      
       - Mandatory
-    * - client_headers	
+    * - ``client_headers``	
       - JSON object	
       - A JSON object containing a JSON string for each HTTP header in the operation request that starts with "``CDMI-DAC-``", where the JSON string name is the header name, and the JSON string value is the header value.
 
         These headers can be used for tunneling information from the client to the DAC provider.	
       - Mandatory
-    * - cdmi_objectID	
+    * - ``cdmi_object``ID	
       - JSON string	
       - Contains the object ID of the object the operation is performed against.	
       - Mandatory
-    * - cdmi_enc_key_id	
+    * - ``cdmi_enc_key_id``	
       - JSON string	
       - Contains the encryption key identifier (for example, a KMIP identifier) for the symmetric key that is used to encrypt and decrypt the object, which is used to indicate that the CDMI server is requesting the encryption key. 
       - Optional
-    * - cdmi_operation	
+    * - ``cdmi_operation``	
       - JSON string	
       - Contains a string indicating which operation is being requested to be performed against the object.
 
@@ -279,7 +279,7 @@ When a CDMI server that supports DAC needs to contact the DAC provider as specif
         - "``cdmi_modify``"
         - "``cdmi_delete``"	
       - Mandatory
-    * - dac_response_uri	
+    * - ``dac_response_uri``	
       - JSON string	
       - An optional URI that specifies where to send the DAC response. This URI is required for asynchronous DAC requests, such as when sent via email URIs.
 
@@ -317,7 +317,7 @@ An example of a DAC request is shown below:
 Packaged DAC request
 ********************
 
-The above JSON (DAC request) shall be encrypted in JWE format, where the recipient is the public key of the DAC provider certificate (as specified in the DAC object ``cdmi_dac_certificate`` metadata), and is JWS signed using the private key of the CDMI server that corresponds to the server identity certificate included in the DAC request. The certificate of the DAC provider from the object is then attached:
+A JSON DAC request shall be encrypted in JWE format, where the recipient is the public key of the DAC provider certificate (as specified in the DAC object ``cdmi_dac_certificate`` metadata), and is JWS signed using the private key of the CDMI server that corresponds to the server identity certificate included in the DAC request. The certificate of the DAC provider from the object is then attached as specified in :numref:`tbl_package_dac_request`.
 
 .. tabularcolumns:: |>{\raggedright\arraybackslash}\Y{0.29}
                     |>{\raggedright\arraybackslash}\Y{0.09}
@@ -335,15 +335,15 @@ The above JSON (DAC request) shall be encrypted in JWE format, where the recipie
       - Type	
       - Description	
       - Requirement
-    * - dac_request	
+    * - ``dac_request``	
       - JSON object	
       - JOSE encrypted and signed request	
       - Mandatory
-    * - dac_request_dest_certificate	
+    * - ``dac_request_dest_certificate``	
       - JSON object	
       - The cdmi_dac_certificate metadata value, which is used to indicate where the DAC request is being sent via indirect routing.
       - Mandatory
-    * - dac_request_dest_uri	
+    * - ``dac_request_dest_uri``	
       - JSON string	
       - The ``cdmi_dac_uri`` metadata value, which is used to indicate where the DAC request is being sent via direct routing, or used to indicate the first location when being sent via indirect routing.	
       - Mandatory
@@ -408,7 +408,7 @@ DAC response
 
 When a DAC provider receives a DAC request, it shall decrypt the request using its private key, verify the signature of the CDMI server, and shall evaluate the request. Based on the information provided, the DAC provider shall allow or deny operations by modifying or replacing the ACL mask that was initially determined by the CDMI server.
 
-To indicate the result of the DAC request to the requesting CDMI server, the DAC provider shall construct a DAC response, as specified below:
+To indicate the result of the DAC request to the requesting CDMI server, the DAC provider shall construct a DAC response, as specified in :numref:`tbl_dac_response`.
 
 .. tabularcolumns:: |>{\raggedright\arraybackslash}\Y{0.29}
                     |>{\raggedright\arraybackslash}\Y{0.09}
@@ -426,45 +426,45 @@ To indicate the result of the DAC request to the requesting CDMI server, the DAC
       - Type	
       - Description	
       - Requirement
-    * - dac_response_version	
+    * - ``dac_response_version``	
       - JSON string	
       - Indicates the version of the DAC response. This field shall be set to the value "``1``".
       - Mandatory
-    * - dac_response_id	
+    * - ``dac_response_id``	
       - JSON string	
       - Contains the system-specified identifier specified in the corresponding ``dac_request_id``.	
       - Mandatory
-    * - dac_applied_mask	
+    * - ``dac_applied_mask``	
       - JSON string	
       - A text or hexadecimal string representation of the ACE mask that shall be used, as defined in :numref:`%s <ref_ace_mask_bits>`.	
       - Mandatory
-    * - dac_object_key	
+    * - ``dac_object_key``	
       - JSON object	
       - The key for the object in JWK format (See RFC 7517 :cite:`rfc7517`). This key is only disclosed when ``cdmi_enc_key_id`` is included in the DAC request and the DAC provider allows access. 	
       - Optional
-    * - dac_response_headers	
+    * - ``dac_response_headers``	
       - JSON object	
       - A series of headers that start with "``CDMI-DAC-``" to be returned to the client.
 
         These headers can be used to pass information from the DAC provider back to the client.	
       - Optional
-    * - dac_key_cache_expiry	
+    * - ``dac_key_cache_expiry``	
       - JSON string	
       - The complete date/time when the object key is no longer to be cached, specified in ISO 8601 date/time format.
       
         If this field is not included, the key shall not be cached.	
       - Optional
-    * - dac_response_cache_expiry	
+    * - ``dac_response_cache_expiry``	
       - JSON string	
       - The complete date/time when the DAC response is no longer to be cached, specified in ISO 8601 date/time format.
 
         If this field is not included, the response shall not be cached.	
       - Optional
-    * - dac_redirect_objectID	
+    * - ``dac_redirect_objectID``	
       - JSON string	
       - Indicates an alternate CDMI Object ID used to access the requested object. If present, the CDMI server shall send an HTTP Redirect to the client.	
       - Optional
-    * - dac_audit_uri	
+    * - ``dac_audit_uri``	
       - JSON string	
       - Indicates a URI to a CDMI queue where audit logging messages associated with the operations shall be submitted.
 
@@ -492,7 +492,7 @@ Packaged DAC response
 *********************
 The above JSON (DAC response) shall be encrypted in JWE format where the recipient is the public key of the CDMI server certificate (as specified in the DAC request), and is JWS-signed using the private key of the DAC provider that corresponds to the DAC provider identity certificate associated with the object (``cdmi_dac_certificate``), or with a different signing, included in a jku/jwk/x5u or x5c JOSE header to allow retrieval of the public signing verification key.
 
-The certificate of the CDMI server is then attached:
+The certificate of the CDMI server is then attached as specified in :numref:`tbl_packaged_dac_response`.
 
 .. tabularcolumns:: |>{\raggedright\arraybackslash}\Y{0.29}
                     |>{\raggedright\arraybackslash}\Y{0.09}
@@ -510,15 +510,15 @@ The certificate of the CDMI server is then attached:
       - Type	
       - Description	
       - Requirement
-    * - dac_response	
+    * - ``dac_response``	
       - JSON object	
       - JOSE encrypted and signed response	
       - Mandatory
-    * - dac_response_dest_certificate	
+    * - ``dac_response_dest_certificate``	
       - JSON object	
       - The contents of the DAC request ``server_identity`` field.	
       - Mandatory
-    * - dac_response_dest_uri	
+    * - ``dac_response_dest_uri``	
       - JSON string	
       - The contents of the DAC request ``dac_response_uri`` field, if present
       - Optional

@@ -8,7 +8,7 @@ Overview
 
 A cloud storage system may optionally implement retention management disciplines into the system management functionality of the cloud-based storage system. The implementation of retention and hold capabilities is indicated by the presence of the cloud storage system-wide capabilities for retention and hold capabilities.
 
-Retention management includes implementing a retention policy, defining a hold policy to enable objects to be held for specific purposes (e.g., litigation), and defining how the rules for deleting objects are affected by placing either a retention policy and/or a hold on an object. CDMI™ object deletion is not a capability of retention management, per se, but rather is a general system capability. However, this clause describes what happens when placing either a retention policy and/or a hold on an object.
+Retention management includes implementing a retention policy, defining a hold policy to enable objects to be held for specific purposes (e.g., litigation), and defining how the rules for deleting objects are affected by placing either a retention policy and/or a hold on an object. CDMI™ object deletion is not a capability of retention management, *per se*, but rather is a general system capability. However, this clause describes what happens when placing either a retention policy and/or a hold on an object.
 
 Retention management may be applied to the following object types:
 
@@ -296,7 +296,7 @@ The accuracy and integrity of the retention start and elapsed times depend on th
 
 It is important to have a reliable source from which the system clock is set. A stratum 1 time is directly connected to a reference clock and is at the top of the time server hierarchy. Relative time differences between the system clock and the reference clock may lead to undesirable retention timestamps and difficulties with time action events. 
 
-EXAMPLE 1: An object is created in a cloud storage system at time 0 with a period of 8 years and autodelete of TRUE. At time 1 year, the system clock is adjusted forward to 9 years. Now, because the system time is 9 years, the retention time criterion is satisfied, even though only 1 year has actually elapsed. And, since autodelete is TRUE, the system automatically deletes the object.
+EXAMPLE 1: An object is created in a cloud storage system at time 0 with a period of 8 years and ``autodelete`` of ``true``. At time 1 year, the system clock is adjusted forward to 9 years. Now, because the system time is 9 years, the retention time criterion is satisfied, even though only 1 year has actually elapsed. And, since ``autodelete`` is ``true``, the system automatically deletes the object.
 
 The specification for accuracy and integrity of timekeeping is not within the scope of CDMI. However, to prevent undesirable retention and deletion management consequences, systems should maintain accurate clock time, with zero or minimal deviation to clock integrity.
 

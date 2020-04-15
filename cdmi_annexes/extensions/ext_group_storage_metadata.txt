@@ -29,7 +29,7 @@ Add a new row at end of table :numref:`tbl_capabilities_for_data_system_metadata
     * - Capability name
       - Type
       - Definition
-    * - cdmi_group
+    * - ``cdmi_group``
       - JSON string
       - If present and ``"true"``, this capability indicates that the cloud storage system supports group storage system metadata to indicate a group associated with the object.
 
@@ -57,7 +57,7 @@ Add a new row below ``"cdmi_owner"`` in :numref:`tbl_storage_system_metadata` of
       - Type
       - Description
       - Requirement
-    * - cdmi_group
+    * - ``cdmi_group``
       - JSON string
       - The name of the group that is associated with the object.
       - Optional
