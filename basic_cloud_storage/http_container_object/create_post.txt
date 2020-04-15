@@ -19,7 +19,7 @@ Where:
 
 The data object shall be accessible as a child of the container with a server-assigned name and shall also be accessible at ``<root URI>/cdmi_objectid/<objectID>``.
 
-HTTP POST to a container is used to enable CDMI servers to support RFC 1867 :cite:`rfc1867` form-based file uploading. When implementing RFC 1867 :cite:`rfc1867`, the CDMI server-assigned name can be set to, or derived from, the user-provided file name.
+HTTP POST to a container is used to enable CDMI servers to support RFC 1867 :cite:`rfc1867` form-based file uploading. When implementing RFC 1867 :cite:`rfc1867`, the CDMI server-assigned name may be set to, or derived from, the user-provided file name.
 
 Capabilities
 ------------
@@ -40,19 +40,19 @@ Capabilities that indicate which operations are supported are shown in :numref:`
     * - Capability
       - Location
       - Description
-    * - cdmi_create_dataobject cdmi_post_dataobject
+    * - ``cdmi_create_dataobject cdmi_post_dataobject``
       - Parent Container
       - Ability to create a new data object
-    * - cdmi_post_dataobject_by_ID
+    * - ``cdmi_post_dataobject_by_ID``
       - System Wide Capability
       - Ability to create a data object in ``"/cdmi_objectid/"``
-    * - cdmi_create_value_range
+    * - ``cdmi_create_value_range``
       - System Wide Capability
       - Ability to create a data object using a specified byte range
-    * - cdmi_create_value_range_by_ID
+    * - ``cdmi_create_value_range_by_ID``
       - System Wide Capability
       - Ability to create a data object in ``"/cdmi_objectid/"`` using a specified byte range
-    * - cdmi_multipart_mime
+    * - ``cdmi_multipart_mime``
       - System Wide Capability
       - Ability to create a data object using multi-part MIME
 
@@ -76,14 +76,14 @@ The HTTP request header for creating a new CDMI data object using HTTP is shown 
       - Type
       - Description
       - Requirement
-    * - Content-Type
+    * - ``Content-Type``
       - Header String
       - The content type of the data to be stored as a data object. The value specified here shall be converted to lower case and stored in the mimetype field of the CDMI data object.
 
         * If the content type includes the charset parameter as defined in RFC 2616 :cite:`rfc2616` of "``utf-8`` (e.g., "``;charset=utf-8``"), the valuetransferencoding field of the CDMI data object shall be set to "``utf-8``". Otherwise, the valuetransferencoding field of the CDMI data object shall be set to "``base64``".
         * If not specified, the mimetype field shall be set to "``application/octet-stream``".
       - Optional
-    * - X-CDMI-Partial
+    * - ``X-CDMI-Partial``
       - Header String
       - Indicates that the newly created object is part of a series of writes and has not yet been fully created. When set to "``true``", the ``completionStatus`` field shall be set to "``Processing``". ``X-CDMI-Partial`` works across CDMI and non-CDMI operations.
       - Optional
@@ -114,7 +114,7 @@ The HTTP response header for creating a new CDMI data object using HTTP is shown
       - Type
       - Description
       - Requirement
-    * - Location
+    * - ``Location``
       - Header string 
       - The unique absolute URI for the new data object as assigned by the system.
 

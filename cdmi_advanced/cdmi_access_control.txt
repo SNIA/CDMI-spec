@@ -20,7 +20,7 @@ Access control defines the mechanisms by which access to objects are permitted o
 Access control flow
 -------------------
 
-:numref:`fig_access_control_flow` (see next page) illustrates the control flow for access control in an example CDMI implementation. As every aspect of access control is optional within a CDMI server, each different implementations will typically implement appropriate subsets of the below illustrated access control flow, in a manner approprate to the internal architecture of their implementation. 
+:numref:`fig_access_control_flow` illustrates the control flow for access control in an example CDMI implementation. As every aspect of access control is optional within a CDMI server, each different implementations will typically implement appropriate subsets of the illustrated access control flow, in a manner approprate to the internal architecture of their implementation. 
 
 .. _fig_access_control_flow:
 
@@ -29,6 +29,8 @@ Access control flow
     :figwidth: 100%
    
     Access control flow
+
+The full contol flow can include 24 steps:
 
 1. The CDMI client initiates a CDMI operation by sending a CDMI request to a CDMI server. As part of the request, the CDMI client includes information about its identity and information to prove this identity (credentials). The method by which these credentials are presented and formatted is not specified in this International Standard, however, some guidance is provided in :numref:`%s <ref_overview_authentication>`.
 2. If the CDMI server supports Domains (see clause :numref:`%s <clause_cdmi_domain_object>`), the CDMI server obtains the domain associated with the object the CDMI operation is being performed against. If the CDMI system does not support domains, steps 2 - 8 are skipped.
@@ -210,7 +212,7 @@ CDMI allows for nested containers and mandates that objects and subcontainers be
 ACE mask bits
 -------------
 
-The mask field of an ACE contains a 32 bit mask, as specified in section 5.11.2 of RFC 3530 :cite:`rfc3530`. 
+The mask field of an ACE contains a 32 bit mask, as specified in section 5.11.2 of RFC 3530 :cite:`rfc3530`.  :numref:`tbl_ace_flags`  defines the impact of each bit in an ACE mask field.
 
 .. tabularcolumns:: |>{\raggedright\arraybackslash}\Y{0.23}
                     |>{\raggedright\arraybackslash}\Y{0.32}
@@ -481,7 +483,7 @@ Implementations shall use the correct string form to display permissions, if the
 ACL evaluation
 --------------
 
-When evaluating whether access to a particular object O by a principal P is to be granted, the server shall traverse the object's logical ACL (its ACL after processing inheritance from parent containers) in list order, using a temporary permissions bitmask m, initially empty (all zeroes).
+When evaluating whether access to a particular object O by a principal P is to be granted, the server shall traverse the object's logical ACL (its ACL after processing inheritance from parent containers) in list order, using a temporary permissions bitmask m, initially empty (all zeroes), and apply the following algorithm:
 
 
 * If the object still does not contain an ACL, the algorithm terminates and access is denied for all users and groups. This condition is not expected, as CDMI implementations should require an inheritable default ACL on all root containers.

@@ -10,7 +10,7 @@ CDMI™ provides a standardized mechanism to define subsets of object contents. 
 
 Each JSON object within the results specification represents a set of fields that are returned for each matching object.
 
-The results JSON object shall be constructed using the same structure as is used for CDMI objects. To show this, assume the following result from a CDMI GET for a data object:
+The results JSON object shall be constructed using the same structure as is used for CDMI objects. To show this, assume the following result from a GET for a data object:
 
 .. code-block:: none
 
