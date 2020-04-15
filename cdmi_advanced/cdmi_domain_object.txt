@@ -62,7 +62,7 @@ Domain objects are addressed in CDMI in two ways:
 
 Every domain object has a single, globally-unique object ID that remains constant for the life of the object. Each domain object shall also have at least one URI address that allows the domain object to be accessed. Following the URI conventions for hierarchical paths, domain URIs shall start with "``<root URI>/cdmi_domains/``" and consist of one or more domain names that are separated by forward slashes ("``/``") and that end with a forward slash ("``/``"). 
 
-If a request is performed against an existing domain resource and the trailing slash at the end of the URI is omitted, the server shall respond with an HTTP status code of ``301 Moved Permanently``, and a Location header containing the URI with the trailing slash will be added. 
+If a request is performed against an existing domain resource and the trailing slash at the end of the URI is omitted, the server shall respond with an HTTP status code of ``301 Moved Permanently``, and a ''Location'' header containing the URI with the trailing slash will be added. 
 
 If a CDMI request is performed to create a new domain resource and the trailing slash at the end of the URI is omitted, the server shall respond with an HTTP status code of ``400 Bad Request``. 
 
@@ -118,7 +118,7 @@ The following domain-specific field shall be present for each domain (see :numre
       - Type
       - Description
       - Requirement
-    * - cdmi_domain_enabled
+    * - ``cdmi_domain_enabled``
       - JSON string
       - Indicates if the domain is enabled and specified at the time of creation. Values shall be "``true``" or "``false``".
 
@@ -126,14 +126,14 @@ The following domain-specific field shall be present for each domain (see :numre
           * If a domain is disabled, the cloud storage system shall not permit any operations to be performed against any URI managed by that domain.
           * When a domain is disabled, all operations that are performed against URIs that are managed by a disabled domain shall return an HTTP status code of 403 Forbidden.
       - Mandatory
-    * - cdmi_domain_delete_reassign
+    * - ``cdmi_domain_delete_reassign``
       - JSON string
       - If the domain is deleted, indicates to which domain the objects that belong to the domain shall be reassigned. 
 
           * To delete a domain that contains objects, this metadata item shall be present. 
           * If this metadata item is not present or does not contain the URI of a valid domain that is different from the URI of the domain being deleted, an attempt to delete a domain that has objects shall result in an HTTP status code of ``400 Bad Request``.
       - Conditional
-    * - cdmi_authentication_methods
+    * - ``cdmi_authentication_methods``
       - JSON array of JSON strings
       - Indicates a list of which authentication methods are enabled for the domain.
       
@@ -238,83 +238,83 @@ The information in :numref:`tbl_contents_of_domain_summary_objects` shall be pre
       - Type
       - Description
       - Requirement
-    * - cdmi_domainURI
+    * - ``cdmi_domainURI``
       - JSON string
       - Domain name corresponding to the domain that is summarized
       - Mandatory
-    * - cdmi_summary_start
+    * - ``cdmi_summary_start``
       - JSON string
       - An ISO-8601 time indicating the start of the time range that the summary information is presenting
       - Mandatory
-    * - cdmi_summary_end
+    * - ``cdmi_summary_end``
       - JSON string
       - An ISO-8601 time indicating the end of the time range that the summary information is presenting
       - Mandatory
-    * - cdmi_summary_objecthours
+    * - ``cdmi_summary_objecthours``
       - JSON string
       - The sum of the time each object belonging to the domain existed during the summary time period
       - Optional
-    * - cdmi_summary_objectsmin
+    * - ``cdmi_summary_objectsmin``
       - JSON string
       - The minimum number of objects belonging to the domain during the summary time period
       - Optional
-    * - cdmi_summary_objectsmax
+    * - ``cdmi_summary_objectsmax``
       - JSON string
       - The maximum number of objects belonging to the domain during the summary time period
       - Optional
-    * - cdmi_summary_objectsaverage
+    * - ``cdmi_summary_objectsaverage``
       - JSON string
       - The average number of objects belonging to the domain during the summary time period
       - Optional
-    * - cdmi_summary_puts
+    * - ``cdmi_summary_puts``
       - JSON string
       - The number of objects written to the domain
       - Optional
-    * - cdmi_summary_gets
+    * - ``cdmi_summary_gets``
       - JSON string
       - The number of objects read from the domain
       - Optional
-    * - cdmi_summary_bytehours
+    * - ``cdmi_summary_bytehours``
       - JSON string
       - The sum of the time each byte belonging to the domain existed during the summary time period
       - Optional
-    * - cdmi_summary_bytesmin
+    * - ``cdmi_summary_bytesmin``
       - JSON string
       - The minimum number of bytes belonging to the domain during the summary time period
       - Optional
-    * - cdmi_summary_bytesmax
+    * - ``cdmi_summary_bytesmax``
       - JSON string
       - The maximum number of bytes belonging to the domain during the summary time period
       - Optional
-    * - cdmi_summary_bytesaverage
+    * - ``cdmi_summary_bytesaverage``
       - JSON string
       - The average number of bytes belonging to the domain during the summary time period
       - Optional
-    * - cdmi_summary_writes
+    * - ``cdmi_summary_writes``
       - JSON string
       - The number of bytes written to the domain
       - Optional
-    * - cdmi_summary_reads
+    * - ``cdmi_summary_reads``
       - JSON string
       - The number of bytes read from the domain
       - Optional
-    * - cdmi_summary_charge
+    * - ``cdmi_summary_charge``
       - JSON string
       - An ISO 4217 currency code (see :cite:`iso4217`) that is followed or preceded by a numeric value and separated by a space, where the numeric value represents the closing charge in the indicated currency for the use of the service associated with the domain over the summary time period
       - Optional
-    * - cdmi_summary_kwhours
+    * - ``cdmi_summary_kwhours``
       - JSON string
       - The sum of energy consumed (in kilowatt hours) by the domain during the summary time period
       - Optional
-    * - cdmi_summary_kwmin
+    * - ``cdmi_summary_kwmin``
       - JSON string
       - The minimum rate at which energy is consumed (in kilowatt hours per hour) by the domain during the summary time period
       - Optional
-    * - cdmi_summary_kwmax
+    * - ``cdmi_summary_kwmax``
       - JSON string
       - The maximum rate at which energy is consumed (in kilowatt hours per hour) by the domain during the summary time period
       - Optional
-    * - cdmi_summary_kwaverage
+    * - ``cdmi_summary_kwaverage``
       - JSON string
       - The average rate at which energy is consumed (in kilowatt hours per hour) by the domain during the summary time period
       - Optional
@@ -381,27 +381,27 @@ The domain membership container may also contain subcontainers with data objects
       - Type
       - Description
       - Requirement
-    * - cdmi_member_enabled
+    * - ``cdmi_member_enabled``
       - JSON string
       - If true, this field indicates that requests associated with this domain member are allowed. If false, all requests performed by this domain member shall result in an HTTP status code of ``403 Forbidden``.
       - Mandatory
-    * - cdmi_member_type
+    * - ``cdmi_member_type``
       - JSON string
       - This field indicates the type of member record. Values include "``user``", "``group``", and "``delegation``".
       - Mandatory
-    * - cdmi_member_name
+    * - ``cdmi_member_name``
       - JSON string
       - This field contains the user or group name as presented by the client. This will normally be the standard full name of the principal.
       - Mandatory
-    * - cdmi_member_credentials
+    * - ``cdmi_member_credentials``
       - JSON string
       - This field contains credentials to be matched against the credentials as presented by the client. If this field is not present, one or more delegations shall be present and shall be used to resolve user credentials. As one cannot log in as a group but only as a member of a group, the "``group``" type member records shall not have credentials.
       - Optional
-    * - cdmi_member_principal
+    * - ``cdmi_member_principal``
       - JSON string
       - This field indicates to which principal name (used in ACLs) the user or group is mapped. If this field is not present, one or more delegations shall be present and shall be used to resolve the principal.
       - Optional
-    * - cdmi_member_privileges
+    * - ``cdmi_member_privileges``
       - JSON array of JSON strings
       - This field explicitly confers zero or more special privileges to a user or group. When delegated, privileges are conferred based on the information returned from the external system to which the delegation points. The following privileges are defined:
 
@@ -409,7 +409,7 @@ The domain membership container may also contain subcontainers with data objects
         * "``backup_operator``". Bypass regular ACL checks to allow backup and restore of objects and containers, including all associated attributes, metadata, ACLs and ownership.
         * "``cross_domain``". Operations specifying a domain other than the domain of the parent object are permitted. Unless this privilege is conferred by the user record or a group (possibly nested) to which the user or group belongs, all attempts to change the domain of objects to a domain other than the parent domain shall fail.
       - Mandatory
-    * - cdmi_member_groups
+    * - ``cdmi_member_groups``
       - JSON array of JSON strings
       - This field contains a JSON array of group names to which the user or group belongs.
       - Optional
@@ -432,15 +432,15 @@ The domain membership container may also contain subcontainers with data objects
       - Type
       - Description
       - Requirement
-    * - cdmi_member_enabled
+    * - ``cdmi_member_enabled``
       - JSON string
       - If true, this field indicates that requests associated with this domain member are allowed. If false, all requests performed by this domain member shall result in an HTTP status code of ``403 Forbidden``.
       - Mandatory
-    * - cdmi_member_type
+    * - ``cdmi_member_type``
       - JSON string
       - This field indicates the type of member record. Values include "``user``" and "``delegation``".
       - Mandatory
-    * - cdmi_delegation_URI
+    * - ``cdmi_delegation_URI``
       - JSON string
       - This field contains the URI of an external identity resolution provider (such as LDAP or Active Directory) or the URI of a domain membership container object.
       
@@ -524,13 +524,13 @@ Capabilities that indicate which operations are supported are shown in :numref:`
     * - Capability
       - Location
       - Description
-    * - cdmi_create_domain
+    * - ``cdmi_create_domain``
       - Parent container
       - Ability to create a new domain object
-    * - cdmi_copy_domain
+    * - ``cdmi_copy_domain``
       - Parent container
       - Ability to create a domain object that is a copy of another domain object
-    * - cdmi_deserialize_domain
+    * - ``cdmi_deserialize_domain``
       - Parent container
       - Ability to create a domain object that is deserialized from the contents of the PUT or the contents of another data object
 
@@ -555,11 +555,11 @@ The HTTP request headers for creating a CDMI domain object using CDMI are shown 
       - Type
       - Description
       - Requirement
-    * - Accept
+    * - ``Accept``
       - Header string
       - "``application/cdmi-domain``" or a consistent value as described in :numref:`%s <ref_content-type_negotiation>`
       - Optional
-    * - Content-Type
+    * - ``Content-Type``
       - Header string
       - "``application/cdmi-domain``"
       - Mandatory
@@ -585,7 +585,7 @@ The request message body fields for creating a domain object using CDMI are show
       - Type
       - Description
       - Requirement
-    * - metadata
+    * - ``metadata``
       - JSON object
       - Metadata for the domain object
 
@@ -594,11 +594,11 @@ The request message body fields for creating a domain object using CDMI are show
         * If this field is not included, no user-specified metadata shall be added to the object. 
         * If this field is not included when deserializing, serializing, copying, or moving a domain object, metadata from the source URI shall be used. 
       - Optional
-    * - copy
+    * - ``copy``
       - JSON string
       - URI of a CDMI domain that shall be copied into the new domain, including all child domains and membership from the source domain
       - Optional [#a]_
-    * - move
+    * - ``move``
       - JSON string
       - URI of an existing local CDMI domain object (source URI) that shall be relocated, along with all child domains, to the URI specified in the PUT. The contents of the domain and all sub-domains, including the object ID, shall be preserved by a move, and the domain and sub-domains of the source URI shall be removed after the objects at the destination have been successfully created. 
       
@@ -608,11 +608,11 @@ The request message body fields for creating a domain object using CDMI are show
 
         If there are insufficient permissions to read the objects at the source URI, write the objects at the destination URI, or delete the objects at the source URI, or if any of these operations fail, the move shall return an HTTP status code of ``400 Bad Request``, and the source and destination are left unchanged.
       - Optional [#a]_
-    * - deserialize
+    * - ``deserialize``
       - JSON string
       - URI of a CDMI data object with a value that contains a domain object serialized as specified in :numref:`clause %s <clause_cdmi_serialization>`. The serialized domain object shall be deserialized to create the new domain object, including all child objects.
       - Optional [#a]_
-    * - deserializevalue
+    * - ``deserializevalue``
       - JSON string
       - A domain object serialized as specified in :numref:`clause %s <clause_cdmi_serialization>` and encoded using base 64 encoding rules described in RFC 4648 :cite:`rfc4648`, that shall be deserialized to create the new domain object, including all child objects.
       - Optional [#a]_
@@ -640,7 +640,7 @@ The HTTP response headers for creating a domain object using CDMI are shown in :
       - Type
       - Description
       - Requirement
-    * - Content-Type
+    * - ``Content-Type``
       - Header string
       - "``application/cdmi-domain``"
       - Mandatory
@@ -666,19 +666,19 @@ The response message body fields for creating a domain object using CDMI are sho
       - Type
       - Description
       - Requirement
-    * - objectType
+    * - ``objectType``
       - JSON string
       - "``application/cdmi-domain``"
       - Mandatory
-    * - objectID
+    * - ``objectID``
       - JSON string
       - Object ID of the domain
       - Mandatory
-    * - objectName
+    * - ``objectName``
       - JSON string
       - Name of the object
       - Mandatory
-    * - parentURI
+    * - ``parentURI``
       - JSON string
       - URI for the parent object
       
@@ -688,27 +688,27 @@ The response message body fields for creating a domain object using CDMI are sho
 
         Appending the objectName to the parentURI shall always produce a valid URI for the object. 
       - Mandatory
-    * - parentID
+    * - ``parentID``
       - JSON string
       - Object ID of the parent container object
       - Mandatory
-    * - domainURI
+    * - ``domainURI``
       - JSON string
       - URI of the owning domain. A domain object is always owned by itself.
       - Mandatory
-    * - capabilitiesURI
+    * - ``capabilitiesURI``
       - JSON string
       - URI to the capabilities for the object
       - Mandatory
-    * - metadata
+    * - ``metadata``
       - JSON object
       - Metadata for the domain object. This field includes any user and data system metadata specified in the request body metadata field, along with storage system metadata generated by the cloud storage system. See :numref:`clause %s <clause_cdmi_metadata>` for a further description of metadata. 
       - Mandatory
-    * - childrenrange
+    * - ``childrenrange``
       - JSON string 
       - The sub-domains of the domain expressed as a range. If a range of sub-domains is requested, this field indicates the children returned as a range.
       - Mandatory
-    * - children
+    * - ``children``
       - JSON array of JSON strings
       - Names of the children domains in the domain. Child containers end with "``/``".
       - Mandatory
@@ -835,13 +835,13 @@ Capabilities that indicate which operations are supported are shown in :numref:`
     * - Capability
       - Location
       - Description
-    * - cdmi_read_metadata
+    * - ``cdmi_read_metadata``
       - Domain object
       - Ability to read the metadata of an existing domain object
-    * - cdmi_list_children
+    * - ``cdmi_list_children``
       - Domain object
       - Ability to list the children of an existing domain object
-    * - cdmi_object_access_by_ID
+    * - ``cdmi_object_access_by_ID``
       - System wide capability
       - Ability to access the object by ID
 
@@ -866,7 +866,7 @@ The HTTP request headers for reading a CDMI domain object using CDMI are shown i
       - Type
       - Description
       - Requirement
-    * - Accept
+    * - ``Accept``
       - Header string
       - "``application/cdmi-domain``" or a consistent value as described in :numref:`%s <ref_content-type_negotiation>`
       - Optional
@@ -897,11 +897,11 @@ The HTTP response headers for reading a CDMI domain object using CDMI are shown 
       - Type
       - Description
       - Requirement
-    * - Content-Type
+    * - ``Content-Type``
       - Header string
       - "``application/cdmi-domain``"
       - Mandatory
-    * - Location
+    * - ``Location``
       - Header string
       - The server shall respond with an absolute URI to which the reference redirects if the object is a reference.
       - Conditional
@@ -927,19 +927,19 @@ The response message body fields for reading a CDMI domain object using CDMI are
       - Type
       - Description
       - Requirement
-    * - objectType
+    * - ``objectType``
       - JSON string
       - "``application/cdmi-domain``"
       - Mandatory
-    * - objectID
+    * - ``objectID``
       - JSON string
       - Object ID of the domain
       - Mandatory
-    * - objectName
+    * - ``objectName``
       - JSON string
       - Name of the object
       - Mandatory
-    * - parentURI
+    * - ``parentURI``
       - JSON string
       - URI for the parent object
       
@@ -949,30 +949,30 @@ The response message body fields for reading a CDMI domain object using CDMI are
 
         Appending the "``objectName``" to the "``parentURI``" shall always produce a valid URI for the object. 
       - Mandatory
-    * - parentID
+    * - ``parentID``
       - JSON string
       - Object ID of the parent domain object
 
         * For domain objects directly under "``cdmi_domains``", the object ID of "``cdmi_domains``" container shall be returned. 
         * For domain objects under another domain, the object ID of the parent domain shall be returned.
       - Mandatory
-    * - domainURI
+    * - ``domainURI``
       - JSON string
       - URI of the owning domain. A domain object shall always be owned by itself.
       - Mandatory
-    * - capabilitiesURI
+    * - ``capabilitiesURI``
       - JSON string
       - URI to the capabilities for the object
       - Mandatory
-    * - metadata
+    * - ``metadata``
       - JSON object
       - Metadata for the domain object. This field includes any user and data system metadata specified in the request body metadata field, along with storage system metadata generated by the cloud storage system. See :numref:`clause %s <clause_cdmi_metadata>` for a further description of metadata.
       - Mandatory
-    * - childrenrange
+    * - ``childrenrange``
       - JSON string 
       - The sub-domains of the domain expressed as a range. If a range of sub-domains is requested, this field indicates the children returned as a range.
       - Mandatory
-    * - children
+    * - ``children``
       - JSON array of JSON strings
       - The children of the domain. Sub-domains end with "``/``".
       - Mandatory
@@ -1140,10 +1140,10 @@ Capabilities that indicate which operations are supported are shown in :numref:`
     * - Capability
       - Location
       - Description
-    * - cdmi_modify_metadata
+    * - ``cdmi_modify_metadata``
       - Domain object
       - Ability to modify the metadata of an existing domain object
-    * - cdmi_object_access_by_ID
+    * - ``cdmi_object_access_by_ID``
       - System wide capability
       - Ability to access the object by ID
 
@@ -1167,7 +1167,7 @@ The HTTP request headers for updating a CDMI domain object using CDMI are shown 
       - Type
       - Description
       - Requirement
-    * - Content-Type
+    * - ``Content-Type``
       - Header string
       - "``application/cdmi-domain``"
       - Mandatory
@@ -1193,7 +1193,7 @@ The request message body fields for updating a domain object using CDMI are show
       - Type
       - Description
       - Requirement
-    * - metadata
+    * - ``metadata``
       - JSON object
       - Metadata for the domain object. If present, the new metadata specified replaces the existing object metadata. If individual metadata items are specified in the URI, only those items are replaced; other items are preserved. 
       
@@ -1203,7 +1203,7 @@ The request message body fields for updating a domain object using CDMI are show
 
         See :numref:`clause %s <clause_cdmi_metadata>` for a further description of metadata.
       - Optional
-    * - copy
+    * - ``copy``
       - JSON string
       - URI of a CDMI domain object that shall be copied into the existing domain object. Only the metadata and membership of the domain object itself shall be copied, not any sub-domains of the domain object. 
 
@@ -1217,7 +1217,7 @@ The request message body fields for updating a domain object using CDMI are show
 
         If there are insufficient permissions to read the domain object at the source URI or create the domain object at the destination URI, or if the read operation fails, the copy shall return an HTTP status code of ``400 Bad Request``, and the destination domain object shall not be updated. 
       - Optional [#b]_
-    * - deserialize
+    * - ``deserialize``
       - JSON string
       - URI of a CDMI data object with a value that contains a domain object serialized as specified in :numref:`clause %s <clause_cdmi_serialization>`. The serialized domain object shall be deserialized to update the existing domain object.
       
@@ -1230,7 +1230,7 @@ The request message body fields for updating a domain object using CDMI are show
         * If the serialized domain object does not contain sub-domains, the update is applied only to the domain object, and any existing sub-domains are left as is. 
         * If the serialized domain object does contain sub-domains, then creates, updates, and deletes are recursively applied for each sub-domain, depending on the differences between the provided serialized state and the current state of the sub-domains.
       - Optional [#b]_
-    * - deserializevalue
+    * - ``deserializevalue``
       - JSON string
       - A domain object serialized as specified in :numref:`clause %s <clause_cdmi_serialization>` and encoded using base 64 encoding rules described in RFC 4648 :cite:`rfc4648`, that shall be deserialized to update the existing domain object.
       
@@ -1266,7 +1266,7 @@ The HTTP response header for updating a CDMI domain object using CDMI is shown i
       - Type
       - Description
       - Requirement
-    * - Location
+    * - ``Location``
       - Header string
       - The server shall respond with an absolute URI to which the reference redirects if the object is a reference.
       - Conditional
@@ -1368,10 +1368,10 @@ Capabilities that indicate which operations are supported are shown in :numref:`
     * - Capability
       - Location
       - Description
-    * - cdmi_delete_domain
+    * - ``cdmi_delete_domain``
       - Domain object
       - Ability to delete an existing domain object
-    * - cdmi_object_access_by_ID
+    * - ``cdmi_object_access_by_ID``
       - System wide capability
       - Ability to access the object by ID
 
