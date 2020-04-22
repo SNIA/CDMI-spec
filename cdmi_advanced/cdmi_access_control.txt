@@ -18,7 +18,7 @@ Access control defines the mechanisms by which access to objects are permitted o
 * Combinations of the above
 
 Access control flow
--------------------
+*******************
 
 :numref:`fig_access_control_flow` illustrates the control flow for access control in an example CDMI implementation. As every aspect of access control is optional within a CDMI server, each different implementations will typically implement appropriate subsets of the illustrated access control flow, in a manner approprate to the internal architecture of their implementation. 
 
@@ -65,8 +65,8 @@ Steps 2 - 8, 9 - 15, and 16 - 18 may be performed in parallel.
 
 .. _ref_access_control_lists:
 
-Access control lists
-********************
+General mechanisms
+------------------
 
 CDMI uses the well-known mechanism of an Access Control List (ACL) as defined in the NFSv4 standard (see RFC 3530 :cite:`rfc3530`). ACLs are lists of permissions-granting or permissions-denying entries called Access Control Entries (ACEs). 
 

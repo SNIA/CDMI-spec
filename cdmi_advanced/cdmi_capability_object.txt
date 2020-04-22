@@ -47,6 +47,9 @@ The meaning, use, and permitted values of each field is described in :numref:`%s
 
   \newpage
 
+Capability object details
+*************************
+
 Capability object addressing
 ----------------------------
 

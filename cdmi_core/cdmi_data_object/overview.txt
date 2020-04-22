@@ -39,6 +39,9 @@ EXAMPLE 1: CDMI Data Object
 
 The meaning, use, and permitted values of each field is described in each operation that creates, modifies or retreives CDMI data objects.
 
+Data object details
+*******************
+
 Data object addressing
 ----------------------
 

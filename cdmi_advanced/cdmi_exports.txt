@@ -24,6 +24,9 @@ Exports are represented as a JSON object having zero or more named protocol-spec
 
 The meaning, use, and permitted values for the fields associated with each export type are described later in this clause.
 
+Container object export details
+*******************************
+
 Container object export addressing
 ----------------------------------
 

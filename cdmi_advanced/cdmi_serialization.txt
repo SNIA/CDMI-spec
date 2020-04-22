@@ -19,6 +19,9 @@ The canonical format of serialized data describes how the data is to be represen
 Canonical format
 ****************
 
+General requirements
+--------------------
+
 Support for CDMI serialization using JSON as the canonical format requires the presence of the ``cdmi_serialization_json`` capability.
  
 The canonical format shall represent specified data objects and container objects as they exist within the storage system. Each object shall be represented by the metadata for the object, identifiers, and the data stream contents of the data object. Because data and storage system metadata is inherited from enclosing container objects, all parent metadata shall be represented in the top-level of the canonical format. To preserve the actual metadata values that apply to the data object that is being serialized, the non-overridden metadata is included from both the immediate parent container object of the specified object and from the parent of each higher-level container object.

@@ -7,6 +7,9 @@ Overview of Cloud Storage
 Overview
 ********
 
+General Context
+***************
+
 When discussing cloud storage and standards, it is important to distinguish the various resources that are being offered as services. These resources are exposed to clients as functional interfaces (i.e., data paths) and are managed by management interfaces (i.e., control paths). This International Standard explores the various types of interfaces that are part of cloud services today and shows how they are related. This International Standard defines a model for the interfaces that can be mapped to the various cloud services and a model that forms the basis for cloud storage interfaces into the future.
 
 Another important concept in this International Standard is that of metadata. When managing large amounts of data with differing requirements, metadata is a convenient mechanism to express those requirements in such a way that underlying data services can differentiate their treatment of the data to meet those requirements.
@@ -517,7 +520,7 @@ Backwards compatibility
 
 CDMI client and server implementations shall implement the following measures to ensure backwards compability with earlier versions of this Interational Standard.
 
-See the CDMI 1.1.1 Specification for details on backwards compatiblity specific to the 1.x versions of CDMI.
+See the CDMI 1.1.1 Specification for details on backwards compatibility specific to the 1.x versions of CDMI.
 
 Specification version detection
 *******************************
