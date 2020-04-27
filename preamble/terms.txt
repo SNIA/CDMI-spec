@@ -11,9 +11,21 @@ For the purposes of this document, the terms and definitions given in Rec. ITU-T
 
 .. glossary::
 
-    3.1
-    Access Control List (ACL)
-         |br| a persistent list, commonly composed of Access Control Entries (ACEs), that enumerates the rights of principals (users and groups) to access resources |br|
+    3.1 (CONSIDER DROPPING)
+    access control list (ACL)
+         |br| a persistent list, commonly composed of access control entries (ACEs), that enumerates the rights of principals (users and groups) to access resources |br|
+
+    NEW
+    administrative ownership
+         |br| assignment of management for a given object to a partiular user or entity |br|
+
+    NEW
+    authentication credentials
+         |br| closely-held, user-supplied information sufficient to confirm a user's identity |br|
+
+    NEW
+    authentication service
+         |br| automated systems for assessing the validity of authentication credentials |br|
 
     3.2
     API

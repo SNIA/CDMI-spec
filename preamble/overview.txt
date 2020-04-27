@@ -309,7 +309,7 @@ Security measures within CDMI are summarized as:
 
 * transport security, 
 * user and entity authentication, 
-* authorization and access controls, 
+* access control, 
 * data integrity, 
 * data and media sanitization, 
 * data retention, 
