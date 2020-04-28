@@ -31,6 +31,14 @@ For the purposes of this document, the terms and definitions given in Rec. ITU-T
     API
          |br| Application Programming Interface |br|
 
+    NEW
+   base64
+         |br| an encoding, defined in rfc 4648 :cite: `rfc4648`, that arbitrary binary data to be represent using a 65-character subset of ASCII |br|
+
+    NEW
+    capability object
+         |br| an object that indicate what specific functionality and operations are supported by a given implemenation, and allow clients to discover what subset of this International Standard is implemented.  |br|
+
     3.3
     CDMI™
          |br| Cloud Data Management Interface |br|
@@ -76,6 +84,12 @@ For the purposes of this document, the terms and definitions given in Rec. ITU-T
     3.11
     cloud storage
          |br| See Data storage as a Service |br|
+
+    NEW
+    CMS
+         |br| Cryptographic Message Syntac - see :cite:`rfc5652`
+|br|
+
 
     3.12
     CRC

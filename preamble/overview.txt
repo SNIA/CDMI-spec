@@ -360,7 +360,7 @@ Use of TLS and HTTP
 
 Recommendations for using HTTP and TLS are as follows:
 
-* 	A client connecting to a CMDI server using TLS should use TCP port 443, and a client connecting without TLS should use TCP port 80.
+* 	A client connecting to a CDMI server using TLS should use TCP port 443, and a client connecting without TLS should use TCP port 80.
 * 	A client that fails to connect to a CDMI server on port 443 should retry without TLS on TCP port 80 if their security policy allows it.
 * 	Servers may respond to HTTP requests on port 80 with an HTTP REDIRECT to the appropriate TLS URI (using port 443). Clients should honor such redirects in this situation.
 
@@ -391,7 +391,7 @@ If a request body is present, the client shall include a Content-Type header, as
 
 If a response body is present, the server shall provide a ``Content-Type`` header. 
 
-This International Standard may further qualify content negotiation (e.g., in :numref:`%s <ref_cdmi_container_object_read>`, the absence of a ``Content-Type`` header has a specific meaning).
+This International Standard may further qualify content-type constraints (e.g., in :numref:`%s <ref_cdmi_container_object_read>`, the absence of a ``Content-Type`` header has a specific meaning).
 
 Range support
 *************

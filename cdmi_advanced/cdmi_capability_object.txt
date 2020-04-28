@@ -59,7 +59,7 @@ Every capability object has a single, globally-unique object ID that remains con
 
 When a capability object is addressed via more than one unique URIs, all operations may be performed through any of these URIs. For example, a capability object may be accessible via multiple virtual hosting paths, where ``https://cloud.example.com/cdmi/2.0.0/users/snia/cdmi/cdmi_capabilities/`` is also accessible through ``https://snia.example.com/cdmi/2.0.0/cdmi_cabilities/``.
 
-Following the URI conventions for hierarchical paths, capability URIs shall consist of one or more capability names that are separated by forward slashes ("``/``") and that end with a forward slash ("``/``"). 
+Following the URI conventions for hierarchical paths, URIs for capability objects shall consist of one or more names that are separated by forward slashes ("``/``") and that end with a forward slash ("``/``"). 
 
 If a request is performed against an existing capability resource and the trailing slash at the end of the URI is omitted, the server shall respond with an HTTP status code of ``301 Moved Permanently``. In addition, a ``Location`` header containing the URI with the trailing slash added shall be returned. 
 
