@@ -361,7 +361,7 @@ Within each domain membership container are a series of user objects that are sp
 
    ``https://example.com/cdmi/2.0.0/cdmi_domains/domain/cdmi_domain_members/john_smith``
 
-The domain membership container may also contain subcontainers with data objects. Data objects in these subcontainers are treated the same as data objects in the domain membership container, and no meaning is inferred from the subcontainer name. This organization is used to create different access security relationships for groups of user objects and to allow delegation to a common set of members.
+The domain membership container may also contain subcontainers with data objects. Data objects in these subcontainers are treated the same as data objects in the domain membership container, and no meaning is implied by the subcontainer name. This organization is used to create different access controls for groups of user objects and to allow delegation to a common set of members.
 
 :numref:`tbl_required_settings_for_domain_member_user_objects` lists the domain settings that shall be present within each domain member user object.
 
