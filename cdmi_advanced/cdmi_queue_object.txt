@@ -45,6 +45,9 @@ EXAMPLE 1: CDMI queue object
 
 The meaning, use, and permitted values of each field are described in each operation that creates, modifies or retreives CDMI queue objects.
 
+Queue object details
+********************
+
 Queue object addressing
 -----------------------
 
@@ -1798,8 +1801,8 @@ Response status
     * - ``409 Conflict``
       - The operation conflicts with a non-CDMI access protocol lock or has caused a state transition error on the server.
 
-Example 
--------
+Examples
+--------
 
 EXAMPLE 1: DELETE to the queue object URI value to delete the oldest enqueued value:
 

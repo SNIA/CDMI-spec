@@ -16,6 +16,9 @@ To create a notification queue, the client creates a regular CDMI queue and adds
 
 After the notification queue is created, all subsequent matching events after the queue creation time shall result in notification results being enqueued into the queue. CDMI does not mandate any specific ordering of events, and clients must be able to handle events that arrive out of order.
 
+Metadata
+********
+
 Required metadata
 -----------------
 

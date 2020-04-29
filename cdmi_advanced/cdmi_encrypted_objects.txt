@@ -18,8 +18,8 @@ CDMI objects may contain values that are encrypted. Operations against an encryp
 Encryption operations
 *********************
 
-Overview
---------
+State diagram
+-------------
 
 The state transition diagram for encrypted objects is shown in :numref:`fig_encrypted_object_state_transistions`:
 

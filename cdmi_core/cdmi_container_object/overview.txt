@@ -43,6 +43,9 @@ EXAMPLE 1: CDMI Container Object
 
 The meaning, use, and permitted values of each field is described in each operation that creates, modifies or retreives CDMI container objects.
 
+Container object details
+************************
+
 Container object addressing
 ---------------------------
 

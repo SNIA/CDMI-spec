@@ -50,6 +50,9 @@ EXAMPLE 1: CDMI domain object
 
 The meaning, use, and permitted values of each field is described in each operation that creates, modifies or retreives CDMI domain objects.
 
+Domain object details
+*********************
+
 Domain object addressing
 ------------------------
 
