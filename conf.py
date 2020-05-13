@@ -273,8 +273,8 @@ latex_elements = {
     \newcommand{\sectionbreak}{\clearpage}
 
 
-\usepackage{tikz}
-\usetikzlibrary{calc}
+    \usepackage{tikz}
+    \usetikzlibrary{calc}
 
     % Change the page headers
     \makeatletter
@@ -284,6 +284,18 @@ latex_elements = {
         \fancyfoot[LE,LO]{{\py@HeaderFamily \copyright \  SNIA 2020}}
         \fancyfoot[CE,CO]{{\py@HeaderFamily SNIA Working Draft}}
         \fancyfoot[RE,RO]{{\py@HeaderFamily\thepage}}
+        \renewcommand{\headrulewidth}{0.4pt}
+        \renewcommand{\footrulewidth}{0.4pt}
+        }
+
+    \fancypagestyle{plain}{
+        \fancyhf{}
+        \fancyhead[LE,LO]{{\py@HeaderFamily Cloud Data Management Interface \version}}
+        \fancyfoot[LE,LO]{{\py@HeaderFamily \copyright \  SNIA 2020}}
+        \fancyfoot[CE,CO]{{\py@HeaderFamily SNIA Working Draft}}
+        \fancyfoot[RE,RO]{{\py@HeaderFamily\thepage}}
+        \renewcommand{\headrulewidth}{0.4pt}
+        \renewcommand{\footrulewidth}{0.4pt}
         }
     \makeatother
 
