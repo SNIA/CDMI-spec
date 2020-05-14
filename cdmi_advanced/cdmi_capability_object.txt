@@ -1180,6 +1180,10 @@ EXAMPLE 2: GET to the root container capabilities URI to read the capabilities a
         <--     ]
         <-- }
 
+.. raw:: latex
+
+          \newpage
+
 EXAMPLE 3: GET to the root container capabilities URI to read the first two children contained within a domain:
 
     .. code-block:: none
