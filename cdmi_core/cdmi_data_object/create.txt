@@ -404,11 +404,11 @@ EXAMPLE 1: PUT to the container URI the data object name and contents:
        --> Content-Type: application/cdmi-object
        --> 
        --> {
-       --> "mimetype" : "text/plain",
-       --> "metadata" : {
+       -->   "mimetype" : "text/plain",
+       -->   "metadata" : {
        -->  
        --> },
-       --> "value" : "This is the Value of this Data Object"
+       -->   "value" : "This is the Value of this Data Object"
        --> }
         
        <-- HTTP/1.1 201 Created
@@ -443,10 +443,10 @@ EXAMPLE 2: PUT to the container URI the data object name and binary contents:
        --> Content-Type: application/cdmi-object 
        --> 
        --> {
-       --> "mimetype" : "text/plain", 
-       --> "metadata" : { }, 
-       --> "valuetransferencoding" : "base64"
-       --> "value" : "VGhpcyBpcyB0aGUgVmFsdWUgb2YgdGhpcyBEYXRhIE9iamVjdA=="
+       -->   "mimetype" : "text/plain", 
+       -->   "metadata" : { }, 
+       -->   "valuetransferencoding" : "base64"
+       -->   "value" : "VGhpcyBpcyB0aGUgVmFsdWUgb2YgdGhpcyBEYXRhIE9iamVjdA=="
        --> }
         
        <-- HTTP/1.1 201 Created 
