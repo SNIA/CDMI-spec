@@ -68,23 +68,23 @@ Version-enabled data objects shall contain the following metadata items, as show
       - Type
       - Description
       - Requirement
-    * - cdmi_version_current
+    * - ``cdmi_version_current``
       - JSON String
       - The URI of the current version of the version-enabled data object. This metadata item shall be present in the version-enabled data object and all historical versions.
       - Conditional
-    * - cdmi_version_oldest
+    * - ``cdmi_version_oldest``
       - JSON Array of JSON Strings
       - One or more URIs of the oldest version(s). This metadata item shall be present in the version-enabled data object, the current version and all historical versions except the oldest historical versions.
       - Conditional
-    * - cdmi_version_object
+    * - ``cdmi_version_object``
       - JSON String
       - The URI of the version-enabled data object. This metadata item shall be present in the current version and all historical versions.
       - Conditional
-    * - cdmi_version_parent
+    * - ``cdmi_version_parent``
       - JSON String
       - The URI of the previous historical version. This metadata item shall be present in the current version and all historical versions except the oldest historical versions.
       - Conditional
-    * - cdmi_version_children
+    * - ``cdmi_version_children``
       - JSON Array of JSON Strings
       - One or more URIs of historical versions (or the current version) created by updating a given historical version. This metadata item shall be present in all historical versions.
       - Conditional
