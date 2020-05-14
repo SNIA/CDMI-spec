@@ -292,6 +292,9 @@ EXAMPLE 1: PATCH to the container object URI to replace all metadata with new me
         
         <-- HTTP/1.1 204 No Content
 
+.. raw:: latex
+
+          \newpage
         
 EXAMPLE 2: PATCH to the container object URI to set a new exported protocol value:
 

@@ -436,6 +436,10 @@ EXAMPLE 2: Create a container with metadata:
     <--   "children": []
     <-- }
 
+.. raw:: latex
+
+          \newpage
+
 EXAMPLE 3: Create a container that is a copy of a container:
 
    .. code-block:: none

@@ -306,6 +306,10 @@ EXAMPLE 1: GET to the container object URI to read all the fields of the contain
         <--   }
         <-- }
 
+.. raw:: latex
+
+          \newpage
+
 EXAMPLE 2: GET to the container object URI to read parentURI and children of the container object:
 
    .. code-block:: none

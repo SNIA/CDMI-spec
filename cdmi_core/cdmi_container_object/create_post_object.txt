@@ -114,6 +114,10 @@ Capabilities that indicate which operations are supported are shown in :numref:`
       - System wide capability
       - Ability to create a data object using multi-part MIME
 
+.. raw:: latex
+
+          \newpage
+
 Request headers
 ---------------
 
@@ -495,6 +499,10 @@ EXAMPLE 2: POST to the object ID URI the data object contents:
       <--     ...
       <--   }
       <-- }
+
+.. raw:: latex
+
+          \newpage
 
 EXAMPLE 3: POST to the object ID URI the data object fields and binary contents using multi-part MIME:
 

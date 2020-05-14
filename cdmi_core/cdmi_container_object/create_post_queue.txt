@@ -134,6 +134,10 @@ The HTTP request headers for creating a new CDMI queue object using CDMI are sho
       - A valid ranges-specifier (see RFC 2616 :cite:`rfc2616` Section 14.35.1)
       - Optional
 
+.. raw:: latex
+
+          \newpage
+
 Request message body
 --------------------
 
