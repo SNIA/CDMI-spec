@@ -431,11 +431,11 @@ EXAMPLE 1: POST to the container object URI the data object contents:
       --> Content-Type: application/cdmi-object
       -->  
       --> {
-      --> "mimetype" : "text/plain",
-      --> "metadata" : {
-      -->  
-      --> },
-      --> "value" : "This is the Value of this Data Object"
+      -->   "mimetype" : "text/plain",
+      -->   "metadata" : {
+      -->   
+      -->   },
+      -->   "value" : "This is the Value of this Data Object"
       --> }
       
       <-- HTTP/1.1 201 Created
@@ -467,9 +467,9 @@ EXAMPLE 2: POST to the object ID URI the data object contents:
       --> Content-Type: application/cdmi-object 
       -->  
       --> {
-      --> "mimetype": "text/plain",
-      --> "domainURI": "/cdmi_domains/MyDomain/",
-      --> "value": "This is the Value of this Data Object"
+      -->   "mimetype": "text/plain",
+      -->   "domainURI": "/cdmi_domains/MyDomain/",
+      -->   "value": "This is the Value of this Data Object"
       --> } 
       
       <-- HTTP/1.1 201 Created 
@@ -509,10 +509,10 @@ EXAMPLE 3: POST to the object ID URI the data object fields and binary contents 
       --> Content-Type: application/cdmi-object
       -->  
       --> {
-      --> "domainURI": "/cdmi_domains/MyDomain/",
-      --> "metadata": {
-      --> "colour": "blue"
-      --> }
+      -->   "domainURI": "/cdmi_domains/MyDomain/",
+      -->   "metadata": {
+      -->     "colour": "blue"
+      -->   }
       --> }
       -->  
       --> --gc0p4Jq0M2Yt08j34c0p
