@@ -199,7 +199,7 @@ The request message body fields for updating a data object using CDMI are shown 
 
         The object ID of the serialized data object shall match the object ID of the destination data object. Otherwise, the server shall return an HTTP status code of ``400 Bad Request``.
       - Optional [#b]_
-    * - ``valuetransferencoding``
+    * - ``valuetransfer`` :math:`\newline\color{red}\hookrightarrow` ``encoding``
       - JSON string
       - The value transfer encoding used for the data object value. Three value transfer encodings are defined:
 
