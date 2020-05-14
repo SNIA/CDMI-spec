@@ -230,7 +230,7 @@ The response message body fields for reading a CDMI data object using CDMI are s
         * If the object value has gaps (due to PUTs with non-contiguous value ranges), the value range will indicate the range to the first gap in the object value.
         * The cdmi_size storage system metadata of the data object shall always indicate the complete size of the object, including zero-filled gaps.
       - Mandatory
-    * - ``valuetransferencoding``
+    * - ``valuetransfer`` :math:`\newline\color{red}\hookrightarrow` ``encoding``
       - JSON string
       - The value transfer encoding used for the data object value. Three value transfer encodings are defined:
 
@@ -509,6 +509,10 @@ EXAMPLE 7: GET to the data object URI to read the metadata and multiple byte ran
        <-- <4 bytes of binary data>
        <--  
        <-- --gc0p4Jq0M2Yt08j34c0p--
+
+.. raw:: latex
+
+          \newpage
 
 EXAMPLE 8: GET to the data object URI to read the value and valuetransferencoding fields of a data object storing JSON data:
 
