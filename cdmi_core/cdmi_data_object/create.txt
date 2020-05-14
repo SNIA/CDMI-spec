@@ -217,7 +217,7 @@ The request message body fields for creating a data object using CDMI are shown 
           * If multi-part MIME is being used and this field contains the value of the MIME boundary parameter, the contents of the second MIME part shall be assigned as the field value. 
           * If the serialized data object in the second MIME part does not include a value field, the contents of the third MIME part shall be assigned as the field value of the value field.
       - Optional [#a]_
-    * - ``valuetransferencoding``
+    * - ``valuetransfer`` :math:`\newline\color{red}\hookrightarrow` ``encoding``
       - JSON string
       - The value transfer encoding used for the data object value. Three value transfer encodings are defined.
         
