@@ -233,10 +233,10 @@ Request headers
 
 The HTTP request headers for creating a CDMI queue object using CDMI are shown in :numref:`tbl_cdmi_queue_object_create_request_headers`
 
-.. tabularcolumns:: |>{\raggedright\arraybackslash}\Y{0.29}
-                    |>{\raggedright\arraybackslash}\Y{0.09}
-                    |>{\raggedright\arraybackslash}\Y{0.48}
-                    |>{\raggedright\arraybackslash}\Y{0.14}|
+.. tabularcolumns:: |>{\raggedright\arraybackslash}\Y{0.20}
+                    |>{\raggedright\arraybackslash}\Y{0.10}
+                    |>{\raggedright\arraybackslash}\Y{0.55}
+                    |>{\raggedright\arraybackslash}\Y{0.15}|
 
 .. _tbl_cdmi_queue_object_create_request_headers:
 
@@ -262,10 +262,10 @@ Request message body
 
 The request message body fields for creating a queue object using CDMI are shown in :numref:`tbl_cdmi_queue_object_create_request_message_body`.
 
-.. tabularcolumns:: |>{\raggedright\arraybackslash}\Y{0.29}
-                    |>{\raggedright\arraybackslash}\Y{0.09}
-                    |>{\raggedright\arraybackslash}\Y{0.48}
-                    |>{\raggedright\arraybackslash}\Y{0.14}|
+.. tabularcolumns:: |>{\raggedright\arraybackslash}\Y{0.20}
+                    |>{\raggedright\arraybackslash}\Y{0.10}
+                    |>{\raggedright\arraybackslash}\Y{0.55}
+                    |>{\raggedright\arraybackslash}\Y{0.15}|
 
 .. _tbl_cdmi_queue_object_create_request_message_body:
 
@@ -335,10 +335,10 @@ Response status
 
 The HTTP response headers for creating a CDMI queue object using CDMI are shown in :numref:`tbl_cdmi_queue_object_create_response_headers`
 
-.. tabularcolumns:: |>{\raggedright\arraybackslash}\Y{0.29}
-                    |>{\raggedright\arraybackslash}\Y{0.09}
-                    |>{\raggedright\arraybackslash}\Y{0.48}
-                    |>{\raggedright\arraybackslash}\Y{0.14}|
+.. tabularcolumns:: |>{\raggedright\arraybackslash}\Y{0.20}
+                    |>{\raggedright\arraybackslash}\Y{0.10}
+                    |>{\raggedright\arraybackslash}\Y{0.55}
+                    |>{\raggedright\arraybackslash}\Y{0.15}|
 
 .. _tbl_cdmi_queue_object_create_response_headers:
 
@@ -364,10 +364,10 @@ Response message body
 
 The response message body fields for creating a CDMI queue object using CDMI are shown in :numref:`tbl_cdmi_queue_object_create_response_message_body`
 
-.. tabularcolumns:: |>{\raggedright\arraybackslash}\Y{0.29}
-                    |>{\raggedright\arraybackslash}\Y{0.09}
-                    |>{\raggedright\arraybackslash}\Y{0.48}
-                    |>{\raggedright\arraybackslash}\Y{0.14}|
+.. tabularcolumns:: |>{\raggedright\arraybackslash}\Y{0.20}
+                    |>{\raggedright\arraybackslash}\Y{0.10}
+                    |>{\raggedright\arraybackslash}\Y{0.55}
+                    |>{\raggedright\arraybackslash}\Y{0.15}|
 
 .. _tbl_cdmi_queue_object_create_response_message_body:
 
@@ -610,10 +610,10 @@ Request headers
 
 The HTTP request headers for reading a CDMI queue object using CDMI are shown in :numref:`tbl_cdmi_queue_object_read_request_headers`
 
-.. tabularcolumns:: |>{\raggedright\arraybackslash}\Y{0.29}
-                    |>{\raggedright\arraybackslash}\Y{0.09}
-                    |>{\raggedright\arraybackslash}\Y{0.48}
-                    |>{\raggedright\arraybackslash}\Y{0.14}|
+.. tabularcolumns:: |>{\raggedright\arraybackslash}\Y{0.20}
+                    |>{\raggedright\arraybackslash}\Y{0.10}
+                    |>{\raggedright\arraybackslash}\Y{0.55}
+                    |>{\raggedright\arraybackslash}\Y{0.15}|
 
 .. _tbl_cdmi_queue_object_read_request_headers:
 
@@ -646,10 +646,10 @@ Response status
 
 The HTTP response headers for reading a CDMI queue object using CDMI are shown in :numref:`tbl_cdmi_queue_object_read_response_headers`. 
 
-.. tabularcolumns:: |>{\raggedright\arraybackslash}\Y{0.29}
-                    |>{\raggedright\arraybackslash}\Y{0.09}
-                    |>{\raggedright\arraybackslash}\Y{0.48}
-                    |>{\raggedright\arraybackslash}\Y{0.14}|
+.. tabularcolumns:: |>{\raggedright\arraybackslash}\Y{0.20}
+                    |>{\raggedright\arraybackslash}\Y{0.10}
+                    |>{\raggedright\arraybackslash}\Y{0.55}
+                    |>{\raggedright\arraybackslash}\Y{0.15}|
 
 .. _tbl_cdmi_queue_object_read_response_headers:
 
@@ -675,10 +675,10 @@ Response message body
 
 The response message body fields for reading a CDMI queue object using CDMI are shown in :numref:`tbl_cdmi_queue_object_read_response_message_body`
 
-.. tabularcolumns:: |>{\raggedright\arraybackslash}\Y{0.29}
-                    |>{\raggedright\arraybackslash}\Y{0.09}
-                    |>{\raggedright\arraybackslash}\Y{0.48}
-                    |>{\raggedright\arraybackslash}\Y{0.14}|
+.. tabularcolumns:: |>{\raggedright\arraybackslash}\Y{0.20}
+                    |>{\raggedright\arraybackslash}\Y{0.10}
+                    |>{\raggedright\arraybackslash}\Y{0.55}
+                    |>{\raggedright\arraybackslash}\Y{0.15}|
 
 .. _tbl_cdmi_queue_object_read_response_message_body:
 
@@ -783,7 +783,7 @@ The response message body fields for reading a CDMI queue object using CDMI are 
         * If a specific value range has been requested, the entry in the valuerange field shall correspond to the bytes requested. If the request extends beyond the end of the value, the valuerange field shall indicate the smaller byte range returned.
         * This field shall only be provided when ``completionStatus`` is "``Complete``" and when one or more values are enqueued.
       - Optional
-    * - ``valuetransferencoding``
+    * - ``valuetransfer`` :math:`\newline\color{red}\hookrightarrow` ``encoding``
       - JSON array of JSON strings
       - The value transfer encoding used for each queue object value. Two value transfer encodings are defined:
 
@@ -1051,10 +1051,10 @@ Request headers
 
 The HTTP request headers for updating a CDMI queue object using CDMI are shown in :numref:`tbl_cdmi_queue_object_update_request_headers`
 
-.. tabularcolumns:: |>{\raggedright\arraybackslash}\Y{0.29}
-                    |>{\raggedright\arraybackslash}\Y{0.09}
-                    |>{\raggedright\arraybackslash}\Y{0.48}
-                    |>{\raggedright\arraybackslash}\Y{0.14}|
+.. tabularcolumns:: |>{\raggedright\arraybackslash}\Y{0.20}
+                    |>{\raggedright\arraybackslash}\Y{0.10}
+                    |>{\raggedright\arraybackslash}\Y{0.55}
+                    |>{\raggedright\arraybackslash}\Y{0.15}|
 
 .. _tbl_cdmi_queue_object_update_request_headers:
 
@@ -1076,10 +1076,10 @@ Request message body
 
 The request message body fields for updating a queue object using CDMI are shown in :numref:`tbl_cdmi_queue_object_update_request_message_body`.
 
-.. tabularcolumns:: |>{\raggedright\arraybackslash}\Y{0.29}
-                    |>{\raggedright\arraybackslash}\Y{0.09}
-                    |>{\raggedright\arraybackslash}\Y{0.48}
-                    |>{\raggedright\arraybackslash}\Y{0.14}|
+.. tabularcolumns:: |>{\raggedright\arraybackslash}\Y{0.20}
+                    |>{\raggedright\arraybackslash}\Y{0.10}
+                    |>{\raggedright\arraybackslash}\Y{0.55}
+                    |>{\raggedright\arraybackslash}\Y{0.15}|
 
 .. _tbl_cdmi_queue_object_update_request_message_body:
 
@@ -1146,10 +1146,10 @@ Response header
 
 The HTTP response header for updating a CDMI queue object using CDMI is shown in :numref:`tbl_cdmi_queue_object_update_response_headers`  
 
-.. tabularcolumns:: |>{\raggedright\arraybackslash}\Y{0.29}
-                    |>{\raggedright\arraybackslash}\Y{0.09}
-                    |>{\raggedright\arraybackslash}\Y{0.48}
-                    |>{\raggedright\arraybackslash}\Y{0.14}|
+.. tabularcolumns:: |>{\raggedright\arraybackslash}\Y{0.20}
+                    |>{\raggedright\arraybackslash}\Y{0.10}
+                    |>{\raggedright\arraybackslash}\Y{0.55}
+                    |>{\raggedright\arraybackslash}\Y{0.15}|
 
 .. _tbl_cdmi_queue_object_update_response_headers:
 
@@ -1397,10 +1397,10 @@ Request headers
 
 The HTTP request headers for enqueuing a new CDMI queue object value using CDMI are shown in :numref:`tbl_a_new_queue_object_value_using_cdmi_enqueue_request_headers`
 
-.. tabularcolumns:: |>{\raggedright\arraybackslash}\Y{0.29}
-                    |>{\raggedright\arraybackslash}\Y{0.09}
-                    |>{\raggedright\arraybackslash}\Y{0.48}
-                    |>{\raggedright\arraybackslash}\Y{0.14}|
+.. tabularcolumns:: |>{\raggedright\arraybackslash}\Y{0.20}
+                    |>{\raggedright\arraybackslash}\Y{0.10}
+                    |>{\raggedright\arraybackslash}\Y{0.55}
+                    |>{\raggedright\arraybackslash}\Y{0.15}|
 
 .. _tbl_a_new_queue_object_value_using_cdmi_enqueue_request_headers:
 
@@ -1428,10 +1428,10 @@ Request message body
 
 The request message body fields for enqueuing a new queue object value using CDMI are shown in :numref:`tbl_cdmi_queue_object_enqueue_request_message_body`.
 
-.. tabularcolumns:: |>{\raggedright\arraybackslash}\Y{0.29}
-                    |>{\raggedright\arraybackslash}\Y{0.09}
-                    |>{\raggedright\arraybackslash}\Y{0.48}
-                    |>{\raggedright\arraybackslash}\Y{0.14}|
+.. tabularcolumns:: |>{\raggedright\arraybackslash}\Y{0.20}
+                    |>{\raggedright\arraybackslash}\Y{0.10}
+                    |>{\raggedright\arraybackslash}\Y{0.55}
+                    |>{\raggedright\arraybackslash}\Y{0.15}|
 
 .. _tbl_cdmi_queue_object_enqueue_request_message_body:
 
@@ -1467,7 +1467,7 @@ The request message body fields for enqueuing a new queue object value using CDM
           * If a move source object URI to a data object is provided, the value, mimetype, and valuetransferencoding field values from the source data object are used to enqueue the new item into the destination queue object, and the source data object is atomically deleted. 
           * If a move source object URI to a queue object is provided, the corresponding value, mimetype, and valuetransferencoding field values of the specified number of enqueued items in the source queue object are transferred to the destination queue object and atomically removed from the source queue object.
       - Optional [#c]_
-    * - ``valuetransferencoding``
+    * - ``valuetransfer`` :math:`\newline\color{red}\hookrightarrow` ``encoding``
       - JSON array of JSON strings
       - The value transfer encoding used for the queue object value. Two value transfer encodings are defined:
 
