@@ -61,7 +61,7 @@ Domain objects are created as children of a special ``cdmi_domains`` container o
 Domain objects are addressed in CDMI in two ways: 
 
 * by name (e.g., ``https://cloud.example.com/cdmi/2.0.0/cdmi_domains/myDomain/``); and 
-* by ID (e.g., ``https://cloud.example.com/cdmi/2.0.0/cdmi_objectid/00007ED90010329E642EBFBC8B57E9AD/``).
+* by ID (e.g., ``https://cloud.example.com/cdmi/2.0.0/cdmi_objectid/`` :math:`\newline\color{red}\hookrightarrow` ``00007ED90010329E642EBFBC8B57E9AD/``).
 
 Every domain object has a single, globally-unique object ID that remains constant for the life of the object. Each domain object shall also have at least one URI address that allows the domain object to be accessed. Following the URI conventions for hierarchical paths, domain URIs shall start with "``<root URI>/cdmi_domains/``" and consist of one or more domain names that are separated by forward slashes ("``/``") and that end with a forward slash ("``/``"). 
 
@@ -129,14 +129,14 @@ The following domain-specific field shall be present for each domain (see :numre
           * If a domain is disabled, the cloud storage system shall not permit any operations to be performed against any URI managed by that domain.
           * When a domain is disabled, all operations that are performed against URIs that are managed by a disabled domain shall return an HTTP status code of 403 Forbidden.
       - Mandatory
-    * - ``cdmi_domain_delete_reassign``
+    * - ``cdmi_domain_delete_`` :math:`\newline\color{red}\hookrightarrow` ``reassign``
       - JSON string
       - If the domain is deleted, indicates to which domain the objects that belong to the domain shall be reassigned. 
 
           * To delete a domain that contains objects, this metadata item shall be present. 
           * If this metadata item is not present or does not contain the URI of a valid domain that is different from the URI of the domain being deleted, an attempt to delete a domain that has objects shall result in an HTTP status code of ``400 Bad Request``.
       - Conditional
-    * - ``cdmi_authentication_methods``
+    * - ``cdmi_authentication_`` :math:`\newline\color{red}\hookrightarrow` ``methods``
       - JSON array of JSON strings
       - Indicates a list of which authentication methods are enabled for the domain.
       
