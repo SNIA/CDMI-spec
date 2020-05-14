@@ -106,10 +106,10 @@ Container object metadata
 
 The following optional container-specific data system metadata may be provided (see :numref:`tbl_container_metadata`).
 
-.. tabularcolumns:: |>{\raggedright\arraybackslash}\Y{0.20}
-                    |>{\raggedright\arraybackslash}\Y{0.10}
-                    |>{\raggedright\arraybackslash}\Y{0.55}
-                    |>{\raggedright\arraybackslash}\Y{0.15}|
+.. tabularcolumns:: |>{\raggedright\arraybackslash}\Y{0.29}
+                    |>{\raggedright\arraybackslash}\Y{0.09}
+                    |>{\raggedright\arraybackslash}\Y{0.48}
+                    |>{\raggedright\arraybackslash}\Y{0.14}|
 
 .. _tbl_container_metadata:
 
