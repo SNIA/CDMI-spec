@@ -17,7 +17,7 @@ Each CDMI data object is represented as a JSON object, containing one or more "f
 
 EXAMPLE 1: CDMI Data Object
 
-	.. code-block:: json
+	.. code-block:: none
 
 		{
 		    "objectType" : "application/cdmi-object",
@@ -48,7 +48,7 @@ Data object addressing
 Data objects are addressed in CDMI in two ways: 
 
 * by name (e.g. ``https://cloud.example.com/cdmi/2.0.0/dataobject``); and
-* by ID (e.g. ``https://cloud.example.com/cdmi/2.0.0/cdmi_objectid/00007ED90010D891022876A8DE0BC0FD``).
+* by ID (e.g. ``https://cloud.example.com/cdmi/2.0.0/cdmi_objectid/`` :math:`\newline\color{red}\hookrightarrow` ``00007ED90010D891022876A8DE0BC0FD``).
 
 Every data object has a single, globally-unique object identifier (ID) that remains constant for the life of the object. Each data object shall have one or more URI addresses that allow the object to be accessed. 
 
