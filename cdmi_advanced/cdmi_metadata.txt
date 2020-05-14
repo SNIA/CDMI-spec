@@ -239,7 +239,7 @@ Which data system metadata is supported by the CDMI server defined in :numref:`%
 
         Additional copies may be made to satisfy demand for the value. When this data system metadata item is absent, or is present and is not set to a positive numeric string, this data system metadata item shall not be used.
       - Optional
-    * - ``cdmi_immediate_redundancy``
+    * - ``cdmi_immediate_`` :math:`\newline\color{red}\hookrightarrow` ``redundancy``
       - JSON string
       - If this data system metadata item is present and set to "``true``", it indicates that the client is requesting that at least the number of copies indicated in ``cdmi_data_redundancy`` contain the newly written value before the operation completes. This metadata is used to make sure that multiple copies of the data are written to permanent storage to prevent possible data loss. When this data system metadata item is absent, or is present and is not set to "``true``", this data system metadata item shall not be used. 
       
@@ -259,7 +259,7 @@ Which data system metadata is supported by the CDMI server defined in :numref:`%
 
         This data system metadata item is only applied against container objects and is not inherited by child objects.
       - Optional
-    * - ``cdmi_infrastructure_redundancy``
+    * - ``cdmi_infrastructure_`` :math:`\newline\color{red}\hookrightarrow` ``redundancy``
       - JSON string
       - If this data system metadata item is present and set to a positive numeric string, it indicates that the client is requesting a desired number of independent storage infrastructures supporting the multiple copies of data. This metadata is used to convey that, of the copies specified in ``cdmi_data_redundancy``, these copies shall be stored on this many separate infrastructures.
       
@@ -279,7 +279,7 @@ Which data system metadata is supported by the CDMI server defined in :numref:`%
 
         When this data system metadata item is absent, or is present and is not set to a positive numeric string, this data system metadata item shall not be used.
       - Optional
-    * - ``cdmi_geographic_placement``
+    * - ``cdmi_geographic_`` :math:`\newline\color{red}\hookrightarrow` ``placement``
       - JSON array of JSON strings
       - If this data system metadata item is present and set to zero or more geopolitical identifiers, it indicates that the client is requesting restrictions on the geographic regions where the object is permitted to be stored. Each geopolitical identifier shall be in the form of either a string containing a valid ISO 3166 country/country-subdivision code, which indicates that storage is permitted within that geopolitical region, or in the form of a string starting with the "``!``" character in front of a valid ISO 3166 country/country-subdivision code, which excludes that country/country-subdivision from the previous list of geopolitical regions. 
       
@@ -313,7 +313,7 @@ Which data system metadata is supported by the CDMI server defined in :numref:`%
 
         If this data system metadata item is updated and the new end date is before the current end date, the update operation shall fail with an HTTP status code of ``403 Forbidden``. 
       - Optional
-    * - ``cdmi_retention_autodelete``
+    * - ``cdmi_retention_`` :math:`\newline\color{red}\hookrightarrow` ``autodelete``
       - JSON string
       - If this data system metadata item is present and set to "``true``", it indicates that the client is requesting that an object under retention be automatically deleted when retention expires.
       
@@ -425,7 +425,7 @@ Which data system metadata is supported by the CDMI server defined in :numref:`%
 
         When this data system metadata item is absent, or is present and is not set to a positive numeric string, this data system metadata item shall not be used. 
       - Optional
-    * - ``cdmi_sanitization_method``
+    * - ``cdmi_sanitization_`` :math:`\newline\color{red}\hookrightarrow` ``method``
       - JSON string
       - If this data system metadata item is present and not an empty string, it indicates that the client is requesting that the system use a specific sanitization method to delete data such that the data is unrecoverable after an update or delete operation. Supported sanitization method values are provided by the ``cdmi_sanitization_method`` capability. 
       
@@ -475,15 +475,15 @@ Which data system metadata is supported by the CDMI server defined in :numref:`%
       - JSON string
       - If this data system metadata item is present and not an empty string, it indicates that the client is requesting that the system associate with the object a key identifier (e.g. KMIP Identifier) for the private key used for signing the value of the object.
       - Optional
-    * - ``cdmi_enc_value_verify_id``
+    * - ``cdmi_enc_value_verify`` :math:`\newline\color{red}\hookrightarrow` ``_id``
       - JSON string
       - If this data system metadata item is present and not an empty string, it indicates that the client is requesting that the system associate with the object a key identifier (e.g. KMIP Identifier) for the public key or certificate chain used for verifying the signature of the value of the object.
       - Optional
-    * - ``cdmi_enc_object_sign_id``
+    * - ``cdmi_enc_object_sign`` :math:`\newline\color{red}\hookrightarrow` ``_id``
       - JSON string
       - If this data system metadata item is present and not an empty string, it indicates that the client is requesting that the system associate with the object a key identifier (e.g. KMIP Identifier) for the private key used for signing the entire object.
       - Optional
-    * - ``cdmi_enc_object_verify_id``
+    * - ``cdmi_enc_object_verify`` :math:`\newline\color{red}\hookrightarrow` ``_id``
       - JSON string
       - If this data system metadata item is present and not an empty string, it indicates that the client is requesting that the system associate with the object a key identifier (.e.g. KMIP Identifier) for the public key or certificate chain used for verifying the signature of the entire object.
       - Optional
@@ -550,11 +550,11 @@ For each metadata item in a data system, there is an actual value that the cloud
       - JSON string
       - Contains the current number of complete copies of the data object at this time
       - Optional
-    * - ``cdmi_immediate_redundancy_provided``
+    * - ``cdmi_immediate_redundancy_`` :math:`\newline\color{red}\hookrightarrow` ``provided``
       - JSON string
       - If present and set to "``true``", indicates if immediate redundancy is provided for the object
       - Optional
-    * - ``cdmi_infrastructure_redundancy_provided``
+    * - ``cdmi_infrastructure_`` :math:`\newline\color{red}\hookrightarrow` ``redundancy_provided``
       - JSON string
       - Contains the current number of independent storage infrastructures supporting the data currently operating
       - Optional
@@ -562,7 +562,7 @@ For each metadata item in a data system, there is an actual value that the cloud
       - JSON string
       - Contains the current lowest distance (km) between any two infrastructures hosting the data
       - Optional
-    * - ``cdmi_geographic_placement_provided``
+    * - ``cdmi_geographic_placement_`` :math:`\newline\color{red}\hookrightarrow` ``provided``
       - JSON array of JSON strings
       - Contains an ISO-3166 identifier that corresponds to a geopolitical region where the object is stored
       - Optional
@@ -570,7 +570,7 @@ For each metadata item in a data system, there is an actual value that the cloud
       - JSON string
       - Contains an ISO-8601 time interval (as described in :numref:`%s <ref_time_representations>`) specifying the period the object is protected by retention
       - Optional
-    * - ``cdmi_retention_autodelete_provided``
+    * - ``cdmi_retention_autodelete_`` :math:`\newline\color{red}\hookrightarrow` ``provided``
       - JSON string
       - Contains "``true``" if the object will automatically be deleted when retention expires
       - Optional
@@ -594,7 +594,7 @@ For each metadata item in a data system, there is an actual value that the cloud
       - JSON string
       - Contains the provided maximum data rate on retrieve
       - Optional
-    * - ``cdmi_sanitization_method_provided``
+    * - ``cdmi_sanitization_method_`` :math:`\newline\color{red}\hookrightarrow` ``provided``
       - JSON string
       - Contains the sanitization method used. See ``cdmi_sanitization_method`` in :numref:`%s <ref_support_for_data_system_metadata>` for the format.
       - Optional
@@ -606,7 +606,7 @@ For each metadata item in a data system, there is an actual value that the cloud
       - JSON string
       - Contains the provided duration, in seconds, to restore data
       - Optional
-    * - ``cdmi_authentication_methods_provided``
+    * - ``cdmi_authentication_methods_`` :math:`\newline\color{red}\hookrightarrow` ``provided``
       - JSON array of JSON strings
       - Contains a list of authentication methods enabled for the domain. See ``cdmi_authentication_methods`` in :numref:`%s <ref_support_for_data_system_metadata>` for the format.
       - Optional
