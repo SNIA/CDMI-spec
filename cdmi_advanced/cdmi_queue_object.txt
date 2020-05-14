@@ -330,6 +330,10 @@ The request message body fields for creating a queue object using CDMI are shown
 
 .. [#a] Only one of these fields shall be specified in any given operation. Except for value, these fields shall not be stored. If more than one of these fields is supplied, the server shall respond with an HTTP status code of ``400 Bad Request``.
 
+.. raw:: latex
+
+          \newpage
+
 Response status
 ---------------
 
@@ -604,6 +608,10 @@ Capabilities that indicate which operations are supported are shown in :numref:`
     * - ``cdmi_object_access_by_ID``
       - System wide capability
       - Ability to access the object by ID
+
+.. raw:: latex
+
+          \newpage
 
 Request headers
 ---------------
@@ -1302,6 +1310,10 @@ Response message body
 
 A response body can be provided as per RFC 2616 :cite:`rfc2616`.
 
+.. raw:: latex
+
+          \newpage
+
 Response status
 ---------------
 
@@ -1423,6 +1435,10 @@ The HTTP request headers for enqueuing a new CDMI queue object value using CDMI 
         If "``multipart/mixed``", the first part shall contain a body of content-type "``application/cdmi-queue``", and the subsequent parts shall contain the queue values as described in :numref:`%s <ref_cdmi_data_object_read>`.
       - Mandatory
 
+.. raw:: latex
+
+          \newpage
+
 Request message body
 --------------------
 
@@ -1488,6 +1504,10 @@ The request message body fields for enqueuing a new queue object value using CDM
       - Optional [#c]_
 
 .. [#c] Only one of these fields shall be specified in any given operation. Except for value, these fields shall not be stored. If more than one of these fields is supplied, the server shall respond with an HTTP status code of ``400 Bad Request``.
+
+.. raw:: latex
+
+          \newpage
 
 Response headers 
 ----------------
@@ -1566,6 +1586,10 @@ EXAMPLE 2: POST to the queue object URI to copy an existing value:
 
         <-- HTTP/1.1 204 No Content
 
+.. raw:: latex
+
+          \newpage
+
 EXAMPLE 3: POST to the queue object URI to transfer 20 values from another queue object:
 
     .. code-block:: none
@@ -1633,6 +1657,9 @@ EXAMPLE 5: POST to the queue object URI two new values, one with base 64 transfe
 
         <-- HTTP/1.1 204 No Content
 
+.. raw:: latex
+
+          \newpage
 
 EXAMPLE 6: POST to the queue object URI the binary contents of two new values using multi-part MIME:
 
