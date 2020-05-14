@@ -54,7 +54,7 @@ Queue object addressing
 Queue objects are addressed in CDMI in two ways: 
 
 * by name (e.g., ``https://cloud.example.com/cdmi/2.0.0/queueobject``); and
-* by ID (e.g., ``https://cloud.example.com/cdmi/2.0.0/cdmi_objectid/00007ED900104F67307652BAC9A37C93/``).
+* by ID (e.g., ``https://cloud.example.com/cdmi/2.0.0/cdmi_objectid/`` :math:`\newline\color{red}\hookrightarrow` ``00007ED900104F67307652BAC9A37C93/``).
 
 Every queue object has a single, globally-unique object ID that remains constant for the life of the object. Each queue object may also have one or more URI addresses that allow the queue object to be accessed.
 
