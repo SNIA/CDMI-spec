@@ -69,6 +69,9 @@ Response status
 
 :numref:`tbl_http_container_object_delete_response_status` describes the HTTP status codes that occur when deleting a container object using HTTP.
 
+.. tabularcolumns:: |>{\raggedright\arraybackslash}\Y{0.30}
+                    |>{\raggedright\arraybackslash}\Y{0.70}|
+
 .. _tbl_http_container_object_delete_response_status:
 
 .. list-table:: HTTP status codes - Delete a CDMI container object using HTTP
@@ -100,7 +103,6 @@ EXAMPLE 1: DELETE to the container object URI:
 
        --> DELETE /cdmi/2.0.0/MyContainer/ HTTP/1.1
        --> Host: cloud.example.com
-
 
        <-- HTTP/1.1 204 No Content
 
