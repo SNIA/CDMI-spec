@@ -52,7 +52,7 @@ Container object addressing
 Container objects are addressed in CDMI in two ways:
 
 * by name (e.g. ``https://cloud.example.com/cdmi/2.0.0/container/``); and
-* by ID (e.g. ``https://cloud.example.com/cdmi/2.0.0/cdmi_objectid/00007ED900104E1D14771DC67C27BF8B/``).
+* by ID (e.g. ``https://cloud.example.com/cdmi/2.0.0/cdmi_objectid/`` :math:`\newline\color{red}\hookrightarrow` ``00007ED900104E1D14771DC67C27BF8B/``).
 
 Every container object has a single, globally-unique object ID that remains constant for the life of the object. Each container object may also have one or more URI addresses that allow the container object to be accessed.
 
