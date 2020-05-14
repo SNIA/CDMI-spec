@@ -56,7 +56,7 @@ Capability object addressing
 Capability objects are addressed in CDMI in two ways:
 
 * by name (e.g. ``https://cloud.example.com/cdmi/2.0.0/cdmi_capabilities/``); and
-* by ID (e.g. ``https://cloud.example.com/cdmi/2.0.0/cdmi_objectid/00007E7F00104BE66AB53A9572F9F51E/``).
+* by ID (e.g. ``https://cloud.example.com/cdmi/2.0.0/cdmi_objectid/`` :math:`\newline\color{red}\hookrightarrow` ``00007E7F00104BE66AB53A9572F9F51E/``).
 
 Every capability object has a single, globally-unique object ID that remains constant for the life of the object. Each capability object may also have one or more URI addresses that allow the capability object to be accessed.
 
@@ -119,7 +119,7 @@ Capabilitiy objects are read-only.
 Capability object representations
 ---------------------------------
 
-The representations in this clause are shown using JSON notation. Both clients and servers shall support UTF-8 JSON representation. The request and response body JSON fields may be specified or returned in any order, with the exception that, if present, for capability objects, the "``childrenrange`` and "``children fields`` shall appear last and in that order. 
+The representations in this clause are shown using JSON notation. Both clients and servers shall support UTF-8 JSON representation. The request and response body JSON fields may be specified or returned in any order, with the exception that, if present, for capability objects, the "``childrenrange``" and "``children fields``" shall appear last and in that order. 
 
 .. raw:: latex
 
@@ -275,19 +275,19 @@ Cloud storage system-wide capabilities
     * - ``cdmi_post_queue_by_ID``
       - JSON string     
       - If present and "``true``", the CDMI server supports adding a new queue object by ID via POST to "``/cdmi_objectid/``". 
-    * - ``cdmi_deserialize_dataobject_by_ID``
+    * - ``cdmi_deserialize_dataobject_`` :math:`\color{red}\hookrightarrow` ``by_ID``
       - JSON string     
       - If present and "``true``", the CDMI server supports deserializating serialized data objects when creating a new data object by ID via POST to "``/cdmi_objectid/``". 
     * - ``cdmi_deserialize_queue_by_ID``
       - JSON string     
       - If present and "``true``", the CDMI server supports deserializating serialized queue objects when creating a new queue object by ID via POST to "``/cdmi_objectid/``". 
-    * - ``cdmi_serialize_dataobject_to_ID``
+    * - ``cdmi_serialize_dataobject_`` :math:`\newline\color{red}\hookrightarrow` ``to_ID``
       - JSON string     
       - If present and "``true``", the CDMI server supports serializing data objects when creating a new data object by ID via POST to "``/cdmi_objectid/``". 
     * - ``cdmi_serialize_domain_to_ID``
       - JSON string     
       - If present and "``true``", the CDMI server supports serializing domain objects when creating a new data object by ID via POST to "``/cdmi_objectid/``". 
-    * - ``cdmi_serialize_container_to_ID``
+    * - ``cdmi_serialize_container_`` :math:`\newline\color{red}\hookrightarrow` ``to_ID``
       - JSON string     
       - If present and "``true``", the CDMI server supports serializing container objects when creating a new data object by ID via POST to "``/cdmi_objectid/``". 
     * - ``cdmi_serialize_queue_to_ID``
@@ -302,13 +302,13 @@ Cloud storage system-wide capabilities
     * - ``cdmi_create_reference_by_ID``
       - JSON string     
       - If present and "``true``", the CDMI server supports creating a new reference via POST to "``/cdmi_objectid/``". 
-    * - ``cdmi_copy_dataobject_from_queue``
+    * - ``cdmi_copy_dataobject_`` :math:`\newline\color{red}\hookrightarrow` ``from_queue``
       - JSON string    
       - If present and "``true``", the CDMI server supports the ability to copy to a data object from a queue object.
     * - ``cdmi_multipart_mime``
       - JSON string    
       - If present and "``true``", the CDMI server supports storing and retrieving the value of data and queue objects using multi-part MIME.
-    * - ``cdmi_create_value_range_by_ID``
+    * - ``cdmi_create_value_range_`` :math:`\newline\color{red}\hookrightarrow` ``by_ID``
       - JSON string    
       - If present and "``true``", the CDMI server supports a new data object’s value to be created with byte ranges through "``/cdmi_objectid/``".
     * - ``cdmi_dac``
@@ -356,7 +356,7 @@ Cloud storage system-wide capabilities
     * - ``cdmi_jws_alg``
       - JSON array of JSON strings
       - If present, this capability lists which JOSE "``alg``" encryption algorithms are supported for operations against the contents of JWS signatures, as defined in RFC 7518 :cite:`rfc7518`.
-    * - ``cdmi_valuetransferencoding_json``
+    * - ``cdmi_valuetransferencoding_`` :math:`\newline\color{red}\hookrightarrow` ``json``
       - JSON string    
       - If present and "``true``", the CDMI server supports JSON value transfer encodings.
 
@@ -513,7 +513,7 @@ Data system metadata capabilities
           \vspace*{1ex}
 
         When present, this capability shall contain a string set to a positive numeric string representing the maximum value that the server supports. 
-    * - ``cdmi_infrastructure_redundancy``
+    * - ``cdmi_infrastructure_`` :math:`\newline\color{red}\hookrightarrow` ``redundancy``
       - JSON string    
       - If present, the CDMI server supports the ``cdmi_infrastructure_redundancy`` data system metadata as defined in :numref:`%s <ref_support_for_data_system_metadata>`. 
       
@@ -641,7 +641,7 @@ Data object capabilities
     * - ``cdmi_modify_metadata``
       - JSON string    
       - If present and "``true``", this capability indicates that the CDMI server shall support the ability to modify the object’s metadata.
-    * - ``cdmi_modify_deserialize_dataobject``
+    * - ``cdmi_modify_deserialize_`` :math:`\newline\color{red}\hookrightarrow` ``dataobject``
       - JSON string    
       - If present and "``true``", this capability indicates that the CDMI server shall support the ability of the data object to deserialize a serialized data object into the data object as an update.
     * - ``cdmi_delete_dataobject``
@@ -685,7 +685,7 @@ Container object capabilities
     * - ``cdmi_modify_metadata``
       - JSON string    
       - If present and "``true``", this capability indicates that the CDMI server shall support the ability to modify the container’s metadata.
-    * - ``cdmi_modify_deserialize_container``
+    * - ``cdmi_modify_deserialize_`` :math:`\newline\color{red}\hookrightarrow` ``container``
       - JSON string    
       - If present and "``true``", this capability indicates that the CDMI server shall support the ability of the container object to deserialize a serialized container object into the container object as an update.
     * - ``cdmi_snapshot``
@@ -813,7 +813,7 @@ Domain object capabilities
     * - ``cdmi_modify_metadata``
       - JSON string    
       - If present and "``true``", this capability indicates that the CDMI server shall support the ability to modify the domain's metadata.
-    * - ``cdmi_modify_deserialize_domain``
+    * - ``cdmi_modify_deserialize_`` :math:`\newline\color{red}\hookrightarrow` ``domain``
       - JSON string    
       - If present and "``true``", this capability indicates that the CDMI server shall support the ability to deserialize a serialized domain object into the domain object as an update.
     * - ``cdmi_copy_domain``
@@ -883,7 +883,7 @@ Queue object capabilities
     * - ``cdmi_modify_metadata``
       - JSON string    
       - If present and "``true``", this capability indicates that the CDMI server shall support the ability to modify the queue's metadata.
-    * - ``cdmi_modify_deserialize_queue``
+    * - ``cdmi_modify_deserialize_`` :math:`\newline\color{red}\hookrightarrow` ``queue``
       - JSON string    
       - If present and "``true``", this capability indicates that the CDMI server shall support the ability to deserialize a serialized queue into the queue as an update.
     * - ``cdmi_delete_queue``
