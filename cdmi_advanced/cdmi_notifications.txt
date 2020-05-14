@@ -63,7 +63,7 @@ When creating a notification queue, the metadata described in :numref:`tbl_requi
 
         Clients may include the desired notification event types in the ``cdmi_notification_events`` JSON array. If all notifications events are desired, an empty JSON array shall be used.
       - Mandatory
-    * - cdmi_scope_specification
+    * - ``cdmi_scope_specification``
       - JSON array of JSON objects
       - The scope specification determines the set of objects on which operations trigger the generation of notifications. If notifications are desired for all objects, include an empty JSON array.
       
