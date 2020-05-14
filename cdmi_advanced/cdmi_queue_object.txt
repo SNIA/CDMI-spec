@@ -323,7 +323,7 @@ The request message body fields for creating a queue object using CDMI are shown
       - JSON string
       - URI of a CDMI queue object that shall be redirected to by a reference. If other fields are supplied when creating a reference, the server shall respond with an HTTP status code of ``400 Bad Request``.
       - Optional [#a]_
-    * - deserializevalue
+    * - ``deserializevalue``
       - JSON string
       - A queue object serialized as specified in :numref:`clause %s <clause_cdmi_serialization>` and encoded using base 64 encoding rules described in RFC 4648 :cite:`rfc4648`, that shall be deserialized to create the new queue object.
       - Optional [#a]_
