@@ -22,7 +22,7 @@ The results JSON object shall be constructed using the same structure as is used
             "objectID" : "00007E7F0010EB9092B29F6CD6AD6824",
             "objectName" : "MyDataObject.txt",
             "parentURI" : "/MyContainer/",
-             "parentID" : "00007E7F00102E230ED82694DAA975D2",
+            "parentID" : "00007E7F00102E230ED82694DAA975D2",
             "domainURI" : "/cdmi_domains/MyDomain/",
             "capabilitiesURI" : "/cdmi_capabilities/dataobject/",
             "completionStatus" : "Complete",
