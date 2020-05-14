@@ -454,6 +454,10 @@ The domain membership container may also contain subcontainers with data objects
         External delegations are expressed in the form of ``ldap://<uri>`` or ``ad://<uri>``.
       - Mandatory
 
+.. raw:: latex
+
+          \newpage
+
 EXAMPLE 1: An example of a domain membership object for a user is as follows:
 
     .. code-block:: none
@@ -567,6 +571,10 @@ The HTTP request headers for creating a CDMI domain object using CDMI are shown 
       - "``application/cdmi-domain``"
       - Mandatory
 
+.. raw:: latex
+
+          \newpage
+
 Request message body
 --------------------
 
@@ -621,6 +629,10 @@ The request message body fields for creating a domain object using CDMI are show
       - Optional [#a]_
 
 .. [#a] Only one of these fields shall be specified in any given operation. Except for value, these fields shall not be stored. If more than one of these fields is supplied, the server shall respond with an HTTP status code of ``400 Bad Request``.
+
+.. raw:: latex
+
+          \newpage
 
 Response headers
 ----------------
@@ -715,6 +727,10 @@ The response message body fields for creating a domain object using CDMI are sho
       - JSON array of JSON strings
       - Names of the children domains in the domain. Child containers end with "``/``".
       - Mandatory
+
+.. raw:: latex
+
+          \newpage
 
 Response status
 ---------------
@@ -978,6 +994,10 @@ The response message body fields for reading a CDMI domain object using CDMI are
 
 If individual fields are specified in the GET request, only these fields are returned in the result body. Optional fields that are requested but do not exist are omitted from the result body.
 
+.. raw:: latex
+
+          \newpage
+
 Response status
 ---------------
 
@@ -1062,6 +1082,10 @@ EXAMPLE 2: GET to the domain URI to read the parentURI and children of the domai
         <--     "cdmi_domain_members/" 
         <--   ]
         <-- }
+
+.. raw:: latex
+
+          \newpage
 
 EXAMPLE 3: GET to the domain URI to read the first two children of the domain:
 
@@ -1158,6 +1182,10 @@ The HTTP request headers for updating a CDMI domain object using CDMI are shown 
       - Header string
       - "``application/cdmi-domain``"
       - Mandatory
+
+.. raw:: latex
+
+          \newpage
 
 Request message body
 --------------------
@@ -1294,6 +1322,10 @@ Response status
     * - ``409 Conflict``
       - The operation conflicts with a non-CDMI access protocol lock or has caused a state transition error on the server.
 
+.. raw:: latex
+
+          \newpage
+
 Example
 -------
 
@@ -1377,6 +1409,10 @@ Response message body
 ---------------------
 
 A response body may be provided as per RFC 2616 :cite:`rfc2616`.
+
+.. raw:: latex
+
+          \newpage
 
 Response status
 ---------------
