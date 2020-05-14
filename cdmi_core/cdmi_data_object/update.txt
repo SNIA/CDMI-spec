@@ -345,6 +345,9 @@ When updating a value without specifying a value transfer encoding, the client m
 * If a client sends a value containing a UTF-8 string that is not a valid base 64 string to update an existing object with a value transfer encoding of "``base64``", the server shall return an error. 
 * If a client sends a value containing a base 64 string to update an existing object with a value transfer encoding of "``utf-8``", the server shall not return an error. Instead, the server shall store the literal base 64 character sequence in the data object instead of the data encoded in the base 64 string.
 
+.. raw:: latex
+
+          \newpage
 
 EXAMPLE 4: PATCH to the data object URI to replace all metadata with new metadata:
 
@@ -412,6 +415,9 @@ EXAMPLE 7: Delete a single metadata item:
         
        <-- HTTP/1.1 204 No Content
 
+.. raw:: latex
+
+          \newpage
 
 EXAMPLE 8: Add, update, and delete metadata items. Assume a starting condition where the object has a metadata item "colour" with value "green" and a metadata item "shape" with value "round" and does not have a metadata item "size". After the update, "colour" has value "red", "shape" is deleted, and "size" has been added with value "10". 
 
@@ -444,10 +450,10 @@ EXAMPLE 9: PATCH to the data object URI to set new field values and the binary c
        --> Content-Type: application/cdmi-object 
        -->  
        --> {
-       --> "metadata": {
-       --> "colour": "red",
-       --> "number": "7"
-       --> }
+       -->   "metadata": {
+       -->     "colour": "red",
+       -->     "number": "7"
+       -->   }
        --> }
        -->  
        --> --gc0p4Jq0M2Yt08j34c0p
@@ -473,9 +479,9 @@ EXAMPLE 10: PATCH to the data object URI to replace just one metadata item and u
        --> Content-Type: application/cdmi-object 
        -->  
        --> {
-       --> "metadata": {
-       --> "colour": "green"
-       --> }
+       -->   "metadata": {
+       -->     "colour": "green"
+       -->   }
        --> }
        -->  
        --> --gc0p4Jq0M2Yt08j34c0p
@@ -504,24 +510,24 @@ EXAMPLE 11: PATCH to the data object URI to encrypt an existing object:
         --> Content-Type: application/cdmi-object
         --> 
         --> {
-        --> "mimetype" : "application/cms",
-        --> "metadata" : {
-        --> "cdmi_enc_key_id" : "testkey"
-        --> }
+        -->   "mimetype" : "application/cms",
+        -->   "metadata" : {
+        -->     "cdmi_enc_key_id" : "testkey"
+        -->   }
         --> }
          
         <-- HTTP/1.1 204 No Content
 
 EXAMPLE 12: PATCH to the data object URI to decrypt an existing encrypted object:
 
-    .. code-block: none
-    
+    .. code-block:: none
+   
         --> PATCH /cdmi/2.0.0/MyContainer/MyEncryptedObject.txt HTTP/1.1
         --> Host: cloud.example.com
         --> Content-Type: application/cdmi-object
         --> 
         --> {
-        --> "mimetype" : "text/plain"
+        -->   "mimetype" : "text/plain"
         --> }
-           
+         
         <-- HTTP/1.1 204 No Content
