@@ -429,6 +429,9 @@ EXAMPLE 1: PUT to the container URI the data object name and contents:
        <--   }
        <-- }
 
+.. raw:: latex
+
+          \newpage
 
 EXAMPLE 2: PUT to the container URI the data object name and binary contents:
 
@@ -616,6 +619,10 @@ EXAMPLE 6: PUT to the container URI to create an encrypted object:
                  
 		<-- HTTP/1.1 201 Created
 
+.. raw:: latex
+
+          \newpage
+
 EXAMPLE 7: PUT to the container URI to create an encrypted object:
 
 	.. code-block:: none
@@ -651,4 +658,4 @@ EXAMPLE 7: PUT to the container URI to create an encrypted object:
 		-->   }
 		--> }
                  
-		--> HTTP/1.1 201 Created
+		<-- HTTP/1.1 201 Created
