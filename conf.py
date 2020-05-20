@@ -171,7 +171,7 @@ latex_maketitle = r'''
             {\Huge Cloud Data Management Interface }\par
             {\Huge (CDMI\textsuperscript{TM}) }\par
             \vspace{10pt}
-            {\itshape\Huge Version 2.0.0 \releaseinfo}\par
+            {\itshape\Huge Version 2.0.0a \releaseinfo}\par
             \vspace{25pt}
         \end{center}
 
