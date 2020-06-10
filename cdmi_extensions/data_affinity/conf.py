@@ -134,10 +134,6 @@ latex_contents = r'''
     \licensepage
     \tableofcontents
     \clearpage
-    \listoffigures
-    \clearpage
-    \listoftables
-    \clearpage
     \pagenumbering{arabic}
 '''
 
@@ -167,14 +163,14 @@ latex_maketitle = r'''
             \sphinxlogo
             \vspace{36pt}
             {\Huge Data Affinity CDMI Extension }\par
-            {\Huge (CDMI\textsuperscript{TM}) }\par
+            {\Huge  }\par
             \vspace{10pt}
             {\itshape\Huge Version 2.0 \releaseinfo}\par
             \vspace{25pt}
         \end{center}
         \begin{flushleft}
             {\normalsize
-                ABSTRACT: This CDMI Extension is intended for application developers who are considering a standardized way to extend the CDMI standard. When multiple compatible implementations have demonstrated, this extension will be incorporated into the CDMI standard.
+                ABSTRACT: This CDMI Extension is intended for developers who are considering a standardized way to add functionality to CDMI. When multiple compatible implementations are demonstrated and approved by the Technical Working Group, this extension will be incorporated into the CDMI standard.
             }\par
             {\normalsize
                This document has been released and approved by the SNIA. The SNIA believes that the ideas, methodologies, and technologies described in this document accurately represent the SNIA goals and are appropriate for widespread distribution. Suggestion for revision should be directed to http://www.snia.org/feedback/.
@@ -305,7 +301,7 @@ latex_documents = [
      'SNIA Working Draft', 'manual'),
 ]
 
-latex_logo = 'images/SNIA_R_logo.png'
+latex_logo = '../../images/SNIA_R_logo.png'
 
 latex_toplevel_sectioning = 'part'
 
