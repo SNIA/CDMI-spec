@@ -1,4 +1,105 @@
-Data Affinity CDMI Extension
+CDMI Extension
 ==============================================
 
-Test
+Location Affinity CDMI Extension
+********************************
+
+Overview
+--------
+
+Cloud storage systems may be distributed over more than a single location. Clients of the system need to explicitly specify that an object exists in a particular location due to proximity to other resources (compute resources, people, etc.). This extension proposes a new capability that allows metadata on an object that dictates the locations where the object should exist.
+
+Affinity is similar to the ``cdmi_geographic_placement`` capability in that it suggests to the system where an object can or cannot be located. However, affinity is a much stronger attribute, as it directs an object or copies of an object to exist in specific locations that may be more finely grained than geopolitical borders (data center, physical building location, etc.).
+
+The affinity of an object may have implications to the ``cdmi_data_redundancy_provided`` data systems metadata value of an object. If more than one location is specified in the value for ``cdmi_data_affinity``, additional copies of the object may be implied by the system, which would adjust the ``cdmi_data_redundancy_provided`` value.
+
+Instructions to the Editor
+--------------------------
+
+To merge this extension into the CDMI 2.0.0 specification, make the following changes:
+
+1. Add an entry to the end of the table starting on line 451 of cdmi_capability_object.txt, as follows:
+
+.. tabularcolumns:: |>{\raggedright\arraybackslash}\Y{0.35}
+                    |>{\raggedright\arraybackslash}\Y{0.15}
+                    |>{\raggedright\arraybackslash}\Y{0.50}|
+
+.. _tbl_capabilities_for_data_system_metadata:
+
+.. list-table:: Capabilities for data system metadata
+    :class: longtable
+    :header-rows: 1
+    :align: center 
+
+    * - Capability name    
+      - Type    
+      - Definition
+    * - ``cdmi_data_affinity``
+      - JSON array of JSON strings
+      - When the cloud storage system supports the cdmi_data_affinity data system metadata as defined in 16.3 Support for data system metadata, the ``cdmi_data_affinity`` capability shall be present and shall list the data locations available to objects using the capabilities set. If absent, the system shall determine the data location.
+      
+        .. raw:: latex
+
+          \vspace*{1ex}
+
+        The JSON array items used as identifiers for locations shall be arbitrary JSON strings.
+
+2. Add an entry to the end of the table starting on line 216 of cdmi_metadata.txt, as follows:
+
+.. tabularcolumns:: |>{\raggedright\arraybackslash}\Y{0.29}
+                    |>{\raggedright\arraybackslash}\Y{0.09}
+                    |>{\raggedright\arraybackslash}\Y{0.48}
+                    |>{\raggedright\arraybackslash}\Y{0.14}|
+
+.. _tbl_data_system_metadata:
+
+.. list-table:: Data system metadata
+    :class: longtable
+    :header-rows: 1
+    :align: center 
+
+    * - Metadata name
+      - Type
+      - Description
+      - Requirement
+    * - ``cdmi_data_affinity``
+      - JSON array of JSON strings
+      - If this data system metadata item is present and not an empty array, it indicates that the client is requesting that an object be stored in a specific location. Each string in the array shall contain a unique user-specified location identifier.
+      
+        .. raw:: latex
+
+          \vspace*{1ex}
+
+        When this data system metadata item is absent or is present and is an empty JSON array, the system shall determine the data location.
+      
+        .. raw:: latex
+
+          \vspace*{1ex}
+
+        The list of location identifiers available to the object is specified by the ``cdmi_data_affinity`` capability (as described in 12.2.9 Data system metadata capabilities).
+      - Optional
+
+3. Add an entry to the end of the table starting on line 533 of cdmi_metadata.txt, as follows:
+
+.. tabularcolumns:: |>{\raggedright\arraybackslash}\Y{0.38}
+                    |>{\raggedright\arraybackslash}\Y{0.09}
+                    |>{\raggedright\arraybackslash}\Y{0.39}
+                    |>{\raggedright\arraybackslash}\Y{0.14}|
+
+.. _tbl_provided_values_of_data_systems_metadata_items:
+
+.. list-table:: Provided values of data system metadata
+    :class: longtable
+    :header-rows: 1
+    :align: center 
+
+    * - Metadata name
+      - Type
+      - Description
+      - Requirement
+    * - ``cdmi_data_affinity_provided``
+      - JSON array of JSON strings
+      - Contains one or more identifiers that corresponds to locations where the object is stored.
+      - Optional
+
+

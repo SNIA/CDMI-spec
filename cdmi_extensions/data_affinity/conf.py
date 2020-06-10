@@ -253,7 +253,6 @@ latex_elements = {
       \addtolength{\cftchapnumwidth}{\mychaplen}
     % Clear pages before new Part
     \usepackage{titlesec}
-    \newcommand{\sectionbreak}{\clearpage}
     \usepackage{tikz}
     \usetikzlibrary{calc}
     % Change the page headers
@@ -303,7 +302,7 @@ latex_documents = [
 
 latex_logo = '../../images/SNIA_R_logo.png'
 
-latex_toplevel_sectioning = 'part'
+latex_toplevel_sectioning = 'chapter'
 
 # -- Options for manual page output ---------------------------------------
 
@@ -322,7 +321,7 @@ man_pages = [
 #  dir menu entry, description, category)
 texinfo_documents = [
     (master_doc, 'data_affinity_2.0', 'Data Affinity CDMI Extension',
-     author, 'data_affinity_2.0', 'CDMI Extension.',
+     author, 'data_affinity_2.0', 'CDMI Extension',
      'Miscellaneous'),
 ]
 
