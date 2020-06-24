@@ -1,0 +1,390 @@
+CDMI Extension
+==============================================
+
+Jobs CDMI Extension
+*******************
+
+Overview
+--------
+
+Some CDMI systems allow jobs (such as deletion, changing metadata, scanning for viruses, etc.) to be performed against CDMI objects. In such a system, multiple jobs may be performed simultaneously against the same or multiple objects. In these systems, the client needs be able to track the status of a job separately from the objects on which the jobs act. Jobs can also be batched, and a method is needed to track the status for the batch job independently of individual jobs that comprise the batch job.
+
+This extension proposes a new type of data object to handle these requirements. The job data object (extended in a similar manner as a query queue object) can be used to define, perform, and track job status independently from the objects on which the job is acting.
+
+Instructions to the Editor
+--------------------------
+
+To merge this extension into the CDMI 2.0.0 specification, make the following changes:
+
+1. Insert into preamble/terms.txt, as follows:
+
+.. glossary::
+
+    x.x
+    job
+         |br| a data object that defines and manages one or more job actions that can be performed against one or more CDMI objects (job targets) |br|
+
+    x.x
+    job action
+         |br| a specific change in state performed on a per CDMI object basis as a consequence of a job being run against a CDMI object
+
+         Note: Examples include deletion, metadata changes, thumbnail creation, etc. |br|
+         
+    x.x
+    job container
+         |br| a CDMI container object that is capable of storing CDMI job objects |br|
+         
+    x.x
+    job state
+         |br| a value used to control the runtime state of a job
+
+         Note: Examples include start, stop, and cancel. |br|
+         
+    x.x
+    job target
+         |br| the set of CDMI objects against which a job performs actions |br|
+
+
+2. Add an entry to the end of the table starting on line 135 of cdmi_advanced/cdmi_capability_object.txt, as follows:
+
+.. tabularcolumns:: |>{\raggedright\arraybackslash}\Y{0.35}
+                    |>{\raggedright\arraybackslash}\Y{0.15}
+                    |>{\raggedright\arraybackslash}\Y{0.50}|
+
+.. _tbl_system_wide_capabilities:
+
+.. list-table:: System-wide capabilities
+    :class: longtable
+    :header-rows: 1
+    :align: center 
+
+    * - Capability name    
+      - Type    
+      - Definition
+    * - ``cdmi_jobs``
+      - JSON string    
+      - If present and "``true``", the CDMI server supports job data objects.
+    * - ``cdmi_jobs_global_container``
+      - JSON string    
+      - If present and "``true``", contains the URI for the container for all job data objects in the CDMI server.
+
+3. Add an entry to the end of the table starting on line 451 of cdmi_advanced/cdmi_capability_object.txt, as follows:
+
+.. tabularcolumns:: |>{\raggedright\arraybackslash}\Y{0.35}
+                    |>{\raggedright\arraybackslash}\Y{0.15}
+                    |>{\raggedright\arraybackslash}\Y{0.50}|
+
+.. _tbl_capabilities_for_data_system_metadata:
+
+.. list-table:: Capabilities for data system metadata
+    :class: longtable
+    :header-rows: 1
+    :align: center 
+
+    * - Capability name    
+      - Type    
+      - Definition
+    * - ``cdmi_job_states``
+      - JSON array of JSON strings    
+      - If present, lists the job state strings that can be specified by a client.
+
+4. Add an entry to the end of the table starting on line 662 of cdmi_advanced/cdmi_capability_object.txt, as follows:
+
+.. tabularcolumns:: |>{\raggedright\arraybackslash}\Y{0.35}
+                    |>{\raggedright\arraybackslash}\Y{0.15}
+                    |>{\raggedright\arraybackslash}\Y{0.50}|
+
+.. _tbl_capabilities_for_containers:
+
+.. list-table:: Capabilities for container objects
+    :class: longtable
+    :header-rows: 1
+    :align: center 
+
+    * - Capability name    
+      - Type    
+      - Definition
+    * - ``cdmi_create_job_container``
+      - JSON array of JSON strings    
+      - If present, indicates that the container allows the creation of job container objects and shall list the job action strings supported for child job containers.
+    * - ``cdmi_create_job_dataobject``
+      - JSON string    
+      - If present and "``true``", indicates that the container allows the creation of job data objects.
+
+5. Add an entry to the end of the table starting on line 216 of cdmi_advanced/cdmi_metadata.txt, as follows:
+
+.. tabularcolumns:: |>{\raggedright\arraybackslash}\Y{0.29}
+                    |>{\raggedright\arraybackslash}\Y{0.09}
+                    |>{\raggedright\arraybackslash}\Y{0.48}
+                    |>{\raggedright\arraybackslash}\Y{0.14}|
+
+.. _tbl_data_system_metadata:
+
+.. list-table:: Data system metadata
+    :class: longtable
+    :header-rows: 1
+    :align: center 
+
+    * - Metadata name
+      - Type
+      - Description
+      - Requirement
+    * - ``cdmi_job_container_`` :math:`\newline\color{red}\hookrightarrow` ``actions``
+      - JSON array of JSON strings
+      - Contains a list of requested job actions to be permitted for job data objects created in the container. The job action strings that can be requested are indicated in the “cdmi_job_container_actions” capability of the parent container.
+      
+        .. raw:: latex
+
+          \vspace*{1ex}
+
+        If all supported actions are to be requested, the string “ALL” shall be used.
+      - Optional
+
+6. Add an entry to the end of the table starting on line 533 of cdmi_advanced/cdmi_metadata.txt, as follows:
+
+.. tabularcolumns:: |>{\raggedright\arraybackslash}\Y{0.29}
+                    |>{\raggedright\arraybackslash}\Y{0.09}
+                    |>{\raggedright\arraybackslash}\Y{0.48}
+                    |>{\raggedright\arraybackslash}\Y{0.14}|
+
+.. _tbl_provided_values_of_data_systems_metadata_items:
+
+.. list-table:: Provided values of data system metadata
+    :class: longtable
+    :header-rows: 1
+    :align: center 
+
+    * - Metadata name
+      - Type
+      - Description
+      - Requirement
+    * - ``cdmi_job_container_`` :math:`\newline\color{red}\hookrightarrow` ``actions_provided``
+      - JSON array of JSON strings
+      - Contains a list of job actions that are permitted for job data objects created in the container.
+      - Optional
+
+7. Create new clause, "cdmi_jobs.txt" after existing clause 25 "Data Object Versions", as follows.
+
+Jobs
+****
+
+Job Management
+--------------
+
+A cloud storage system may optionally implement job management functionality. Job implementation is indicated by the presence of the cloud storage system-wide capabilities for jobs and requires support for CDMI data objects.
+
+Jobs allow arbitrary system-defined actions (such as deletion, metadata changes, thumbnail creation, virus scanning, etc.) to be performed against one or more stored CDMI objects. In addition, multiple jobs may perform actions against a single CDMI object. By creating a well-defined "job" object, clients can define jobs, specify which action is to be performed, specify which objects the action is to be performed against, monitor the status, and control the operation of the job in an interoperable and extensible manner.
+
+In addition, multiple jobs may be batched together to apply actions sequentially for each target CDMI object. Such a batch job may affect multiple objects, and each job may progress at a different rate. The client cares about the overall status of its job, not the status on each object that the job affects. Tracking the job completion status in the ``completionStatus`` and ``percentComplete`` fields of the data object as described in Section 8.2 is not adequate for such systems.
+
+These problems are solved by tracking the job status in a separate CDMI job data object. The job data object provides access to the completion status and percent complete of the job itself, along with other information required to define, monitor, and control the job.
+
+Jobs may be stored in container objects or may exist as standalone data objects with no parent container.
+
+Cloud storage systems should consider implementing support for job data objects when the system supports the following types of client-controlled activities:
+
+* Server-side transformative operations: If the system allows a client to request that an operation be performed against a CDMI data object, the user should initiate and manage the operation through the jobs interface.
+* Batch jobs: When running batch jobs that include multiple individual actions, the user needs to track the status for the jobs as the aggregate of the independent tasks.
+* Multi-threading: If multiple jobs can be performed on the same object simultaneously, the user needs to track the status of each job independently.
+* Long-running jobs: If jobs are run continuously, the user needs to be able to monitor and control the job.
+
+Job Creation
+------------
+
+When a client wishes to create a job data object, it may first check if the system is capable of providing job functionality by checking for the presence of the ``cdmi_jobs`` capability in the root container capabilities. If this capability is not present, creating a job data object shall be successful, but no job action shall be performed.
+
+Jobs may be created by CDMI clients and from CDMI internal processes. Examples of jobs created by CDMI clients may include:
+
+* deleting data,
+* updating metadata, and
+* serialization.
+
+CDMI clients may create jobs through a variety of methods. The user may perform an HTTP operation such as a PUT or POST on a specific object in the cloud. The management framework may intercept and process the requests as an asynchronous job. The system shall create a job in a job container and return an HTTP response code of 202 Accepted. The URI for the job shall be included in an HTTP response header field named “X-CDMI-Job”. <FIXME>
+
+A client may directly create a job through a POST or a PUT of a new job data object. The semantics for this are the same as other data objects. The container that accepts the job must have the ``cdmi_job_dataobject`` capability. The job-specific metadata shall be included in the request and response messages.
+
+Examples of jobs created from internal system processes may include:
+
+* data migration,
+* virus scans,
+* search indexing, and
+* periodic backups.
+
+Although a user does not directly initiate these jobs, they can be exposed to the user since these jobs affect data in the system and consume system resources. Jobs that the system creates are created in a job container. To get a list of system-created jobs, clients can query the children of the container.
+
+Job Object Metadata
+-------------------
+
+When a client creates a job data object, the presence of the metadata item ``cdmi_job_state`` indicates that the data object represents a job.
+
+Metadata, including the ``cdmi_job_state`` metadata item may be changed by a client. If the ``cdmi_job_state`` metadata item is removed, that indicates that the job data object shall no longer manage jobs; instead, it shall be treated as a regular CDMI data object by the CDMI server.
+
+The metadata items for a job data object are shown in :numref:`tbl_cdmi_job_data_object_metadata`. 
+
+.. tabularcolumns:: |>{\raggedright\arraybackslash}\Y{0.29}
+                    |>{\raggedright\arraybackslash}\Y{0.09}
+                    |>{\raggedright\arraybackslash}\Y{0.48}
+                    |>{\raggedright\arraybackslash}\Y{0.14}|
+
+.. _tbl_cdmi_job_data_object_metadata:
+
+.. list-table:: Job data object metadata
+    :class: longtable
+    :header-rows: 1
+    :align: center 
+
+    * - Job Metadata Item
+      - Type
+      - Description
+      - Requirement
+    * - ``cdmi_job_state``
+      - JSON string
+      - Controls the desired runtime state of the job. Defined values are one of the following:
+
+          * ``Start`` indicates that the job shall be transitioned to the ``Processing`` state.
+          * ``Pause`` indicates that the job shall be transitioned to the ``Idle`` state.
+          * ``Cancel`` indicates that the job shall be transitioned to the ``Canceled`` state.
+
+        Only values specified in the ``cdmi_job_states`` capability shall be accepted by the CDMI server.
+      - Mandatory
+    * - ``cdmi_job_status``
+      - JSON string
+      - A string that indicates the status of the job using one of the following values.
+
+          * ``Pending`` indicates that the job object has been created but has not yet started running.
+          * ``Processing`` indicates that the job is acting against the specified targets.
+          * ``Idle`` indicates that the job has completed acting against the specified targets and will resume if additional targets are specified.
+          * ``Complete`` indicates that the job has completed acting against the specified targets and will not resume.
+          * ``Canceled`` indicates that the job was canceled before it acted against all of the specified targets.
+          * A string that begins with "Error" indicates that an error prevented the job from acting against one or more of the specified targets.
+      - Mandatory
+    * - ``cdmi_job_`` :math:`\newline\color{red}\hookrightarrow` ``detailedStatus``
+      - JSON string
+      - A message indicating what the job is currently doing or indicating the details about the error if it failed.
+      - Optional
+    * - ``cdmi_job_`` :math:`\newline\color{red}\hookrightarrow` ``percentComplete``
+      - JSON string
+      - The value shall be an integer numeric value from 0 through 100.
+      - Optional
+    * - ``cdmi_job_startTime``
+      - JSON string
+      - When present, this metadata item indicates the time when the job started in ISO-8601 format (see :numref:`%s <ref_time_representations>`).
+      - Optional
+    * - ``cdmi_job_endTime``
+      - JSON string
+      - When present, this metadata item indicates the time when the job completed, was halted, or went into an error status in ISO-8601 format (see :numref:`%s <ref_time_representations>`).
+      - Optional
+
+Job Object Value
+----------------
+
+When a client creates a job data object, the JSON fields described in Table 127 shall be provided as the value of the data object.
+
+The value of a job data object shall be immutable once created.
+
+
+The value of a job data object are shown in :numref:`tbl_cdmi_job_data_object_value`. 
+
+.. tabularcolumns:: |>{\raggedright\arraybackslash}\Y{0.29}
+                    |>{\raggedright\arraybackslash}\Y{0.09}
+                    |>{\raggedright\arraybackslash}\Y{0.48}
+                    |>{\raggedright\arraybackslash}\Y{0.14}|
+
+.. _tbl_cdmi_job_data_object_value:
+
+.. list-table:: Job data object value
+    :class: longtable
+    :header-rows: 1
+    :align: center 
+
+    * - Job Value JSON item
+      - Type
+      - Description
+      - Requirement
+    * - ``cdmi_job_action``
+      - JSON string
+      - A system-defined identifier that indicates what action should be performed against each CDMI object that the job targets.
+      
+        .. raw:: latex
+
+          \vspace*{1ex}
+
+        Job actions defined as part of the CDMI specification (see FIXME) begin with the prefix ``cdmi_job_action_``. Job actions defined by vendors should begin with a reverse DNS notation such as ``org.snia.`` to prevent namespace conflicts.
+      
+        .. raw:: latex
+
+          \vspace*{1ex}
+
+        Only job actions specified in the data system metadata items listed in ``cdmi_job_container_actions_provided`` of the parent container of the job data object shall be supported.
+      - Mandatory
+    * - ``cdmi_job_target``
+      - JSON array of JSON strings
+      - Indicates against which CDMI objects the job action is performed.
+        .. raw:: latex
+
+          \vspace*{1ex}
+
+        Contains either an array of URIs to CDMI objects against which the job action shall be performed or a single URI to a CDMI queue. Each value enqueued in the queue is a URI to a CDMI object against which the job action shall be performed.
+      
+        .. raw:: latex
+
+          \vspace*{1ex}
+
+        For details on how queues are used with jobs, see FIXME.
+      - Mandatory
+    * - ``cdmi_job_results``
+      - JSON string
+      - Contains the URI to a CDMI queue that is used to indicate the results of performing a job.
+      
+        .. raw:: latex
+
+          \vspace*{1ex}
+
+        If present, the job shall enqueue a job-defined result value of performing the action against each job target.
+      - Optional
+    * - ``cdmi_job_autodelete``
+      - JSON string
+      - Contains the length of time in seconds the job data object shall be retained after the job status transitions to "Complete" or "Canceled".
+      
+        .. raw:: latex
+
+          \vspace*{1ex}
+
+        If this field is not present, the job shall not be automatically deleted.
+      - Optional
+    * - ``cdmi_job_scheduleTime``
+      - JSON string
+      - The earliest time that the job shall run, specified in ISO-8601 format (see :numref:`%s <ref_time_representations>`). The job shall be scheduled to run as soon as possible if this field is omitted or if the time specified is earlier than the current system time.
+      - Optional
+
+Examples
+--------
+
+EXAMPLE 1: A CDMI job value that deletes three CDMI objects, then immediately deletes itself:
+
+    .. code-block:: none
+
+      {
+        "cdmi_job_action" : "cdmi_job_action_delete",
+        "cdmi_job_target" : [
+            "/cdmi_objectid/00007ED900100DA32EC94351F8970400",
+            "/cdmi_objectid/00007ED90010F077F4EB1C99C87524CC",
+            "/cdmi_objectid/00007ED90010512EB55A9304EAC5D4AA"
+        ],
+        "cdmi_job_autodelete" : "0"
+      }
+
+EXAMPLE 2: A CDMI job value that deletes every object enqueued into a notification queue:
+
+    .. code-block:: none
+
+      {
+        "cdmi_job_action" : "cdmi_job_action_delete",
+        "cdmi_job_target" : "/container/jobs/created_mp3_files_queue"
+      }
+
+Jobs can be used in combination with query and notification queues to perform an action against each query result or notification result.
+
+
+
+
