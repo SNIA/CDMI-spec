@@ -165,6 +165,8 @@ To merge this extension into the CDMI 2.0.0 specification, make the following ch
 
 7. Create new clause, "cdmi_jobs.txt" after existing clause 25 "Data Object Versions", as follows.
 
+.. _ref_jobs:
+
 Jobs
 ****
 
@@ -282,7 +284,6 @@ When a client creates a job data object, the JSON fields described in Table 127 
 
 The value of a job data object shall be immutable once created.
 
-
 The value of a job data object are shown in :numref:`tbl_cdmi_job_data_object_value`. 
 
 .. tabularcolumns:: |>{\raggedright\arraybackslash}\Y{0.29}
@@ -309,7 +310,7 @@ The value of a job data object are shown in :numref:`tbl_cdmi_job_data_object_va
 
           \vspace*{1ex}
 
-        Job actions defined as part of the CDMI specification (see FIXME) begin with the prefix ``cdmi_job_action_``. Job actions defined by vendors should begin with a reverse DNS notation such as ``org.snia.`` to prevent namespace conflicts.
+        Job actions defined as part of the CDMI specification (see :numref:`%s <ref_job_actions>`) begin with the prefix ``cdmi_job_action_``. Job actions defined by vendors should begin with a reverse DNS notation such as ``org.snia.`` to prevent namespace conflicts.
       
         .. raw:: latex
 
@@ -317,6 +318,15 @@ The value of a job data object are shown in :numref:`tbl_cdmi_job_data_object_va
 
         Only job actions specified in the data system metadata items listed in ``cdmi_job_container_actions_provided`` of the parent container of the job data object shall be supported.
       - Mandatory
+    * - ``cdmi_job_action_params``
+      - JSON object or JSON array
+      - Contains job action-specific parameters that control how a job action behaves.
+        .. raw:: latex
+
+          \vspace*{1ex}
+
+        For example, a thumbnail action may take parameters that indicate the height and width and/or desired size, output format, etc.
+      - Optional
     * - ``cdmi_job_target``
       - JSON array of JSON strings
       - Indicates against which CDMI objects the job action is performed.
@@ -385,6 +395,114 @@ EXAMPLE 2: A CDMI job value that deletes every object enqueued into a notificati
 
 Jobs can be used in combination with query and notification queues to perform an action against each query result or notification result.
 
+Job Lifecycle
+-------------
 
+The defined job status and transitions between status is shown in :numref:`fig_JobLifecycle`.
 
+.. _fig_JobLifecycle:
+
+.. figure:: /images/cdmi_job_lifecycle.pdf
+    :align:  center
+    :figwidth: 100%
+   
+    Job Lifecycle
+
+The following status values will be reflected in the ``cdmi_job_status`` field of the job data object:
+
+``Pending``, ``Active``, ``Idle``, ``Completed``, ``Error``, and ``Canceled``.
+
+The job is created in the ``Pending`` state. If it is started, it moves to the ``Active`` state. The job may optionally move between the ``Active`` and ``Idle`` states; however, all systems may not support the ``Idle`` state. The job moves to ``Completed``, ``Error``, or ``Canceled`` once it is finished. The ``Canceled`` state is optional, as it may not make sense in some systems. After completion, the job is retained until the client deletes the job or until the ``cdmi_job_autodelete`` period elapses.
+The system shall permit the client to start, pause, restart, or cancel a job using the ``cdmi_job_state`` metadata item. This functionality is optional, as the ability to directly control a job depends on the system.
+
+.. _ref_job_actions:
+
+Job Actions
+-----------
+
+A client shall use the ``cdmi_jobs_actions`` system-wide capability to discover which job actions are supported.
+
+Job actions defined in this international standard are shown in :numref:`tbl_cdmi_job_actions`. 
+
+.. tabularcolumns:: |>{\raggedright\arraybackslash}\Y{0.40}
+                    |>{\raggedright\arraybackslash}\Y{0.60}|
+
+.. _tbl_cdmi_job_actions:
+
+.. list-table:: Job actions
+    :class: longtable
+    :header-rows: 1
+    :align: center 
+
+    * - Job Action
+      - Description
+    * - ``cdmi_job_action_sequential_batch``
+      - Sequential batch jobs perform two or more jobs one after another against each targeted CDMI object in a specified order.
+
+          * Sequential batch jobs have the job action identifier of ``cdmi_job_action_batch_sequential``.
+          * The action parameters are an ordered JSON array of URIs to other job data objects that define the individual operations to be performed.
+
+        Each of these component jobs shall not have a ``job_target`` or ``job_state``, as the ``job_target`` and ``job_state`` of the sequential batch job shall be used instead.
+    * - ``cdmi_job_action_parallel_batch``
+      - Parallel batch jobs perform two or more individual jobs in any order or at the same time against each targeted CDMI object. Parallel batch jobs should only perform job actions that do not alter the target data objects, or unspecified results may occur.
+
+          * Parallel batch jobs have the job action identifier of ``cdmi_job_action_batch_parallel``.
+          * The action parameters are a JSON array of URIs to other job data objects that define the individual operations to be performed.
+
+        Each of these component jobs shall not have a ``job_target`` or ``job_state``, as the ``job_target`` and ``job_state`` of the parallel batch job shall be used instead.
+    * - ``cdmi_job_action_delete``
+      - Deletion jobs delete the target CDMI objects.
+
+          * Delete jobs have the job action identifier of ``cdmi_job_action_delete``.
+          * No job action parameters are required.
+
+    * - ``cdmi_job_action_update_metadata``
+      - Update metadata jobs manipulate the metadata of target CDMI objects.
+
+          * Update metadata jobs have the job action identifier of ``cdmi_job_action_update_metadata``.
+          * The action parameters are an JSON object that contain or or more of the below three JSON containers:
+          * 1. The ``update_add`` contains metadata items to be added to the data object if they don't already exist;
+          * 2. The ``update_modify`` contains metadata items to be overwritten if they already exist; and
+          * 3. The ``update_delete`` contains metadata items to be removed from the data object.
+
+Job Containers
+--------------
+
+CDMI job container objects store job data objects. Use of job containers is optional in CDMI systems but is mandatory if clients are permitted to create job data objects.
+
+Job containers may be dedicated to storing only job data objects, or they may store other containers and data objects, including job data objects. CDMI systems may automatically create job containers, and in such systems, CDMI clients may not have the ability to create or delete job containers. Other systems may allow CDMI clients to create or delete job containers that support storing job data objects that the system or CDMI clients create.
+
+A CDMI system may create and implement a single, global jobs container that CDMI clients cannot change. If present, clients can locate this global jobs container by the URI specified by the ``cdmi_jobs_global_container`` capability described in :numref:`%s <ref_cloud_storage_system>`.
+
+Systems may allow multiple job containers. Jobs may be grouped in containers along with non-job data objects. One use of multiple containers is to group jobs by type. Systems may allow CDMI clients to create their own job containers.
+
+When job containers are supported, a CDMI client shall identify job containers using the ``cdmi_job_container_actions`` data system metadata capability described in :numref:`%s <ref_data_system_metadata_capabilities>`.
+
+The ability of a CDMI client to create a job container object within a container is indicated by the ``cdmi_create_job_container`` container capability described in :numref:`%s <ref_container_capabilities>`. This capability also indicates any restrictions on job actions for a created child job container.
+
+Once a job container has been created, the data system metadata of the ``cdmi_job_container_actions_provided`` contains an array of JSON strings that indicate the allowable actions that can be requested for job data objects that are created within that job container (see :numref:`%s <ref_support_for_provided_data_system_metadata>`). The system generates this list depending on which actions are supported and which actions are requested in the data system metadata of the ``cdmi_job_container_actions`` described in :numref:`%s <ref_support_for_data_system_metadata>`.
+
+A system may allow jobs to be created or deleted within a job container. This function is indicated by the capabilities associated with the job container.
+
+* The ability of a CDMI client to create a job data object within a job container is indicated by the ``cdmi_create_job_dataobject`` container capability described in :numref:`%s <ref_container_capabilities>`.
+* The ability of a CDMI client to delete a job data object within a job container is indicated by the ``cdmi_delete_dataobject`` data object capability described in :numref:`%s <ref_cdata_object_capabilities>`.
+
+Using capabilities and data system metadata, the client follows these steps to create a new job container that allows jobs for deleting CDMI objects:
+
+1. Examine the presence and value of the ``cdmi_create_job_container`` capability of the parent container to see if child job containers can be created and if the cdmi_job_action_delete action is supported.
+2. If job container creation is supported and the ``cdmi_job_action_delete`` action is supported, create a new child container with the ``cdmi_job_container_actions`` data system metadata set to ``ALL`` (or include the value ``cdmi_job_action_delete``) to indicate to the server that job data objects with delete job actions will be created in this newly created container.
+3. Examine the ``cdmi_job_container_actions_provided`` data system metadata of the newly created container to ensure that ``cdmi_job_action_delete`` is included in the list.
+4. Examine the ``cdmi_create_job_dataobject`` capability of the newly created container to ensure that job creation is supported.
+5. If job data object creation is supported and the desired action is supported, create a new child data object with ``cdmi_jobs_action`` metadata supporting the cdmi_job_action_delete job action.
+
+EXAMPLE 3: An example of the job metadata associated with a job container that indicates that only delete action jobs can be created is as follows:
+
+    .. code-block:: none
+
+      {
+        "metadata" : {
+          "cdmi_job_container_actions" : [ "ALL" ],
+          "cdmi_job_container_actions_provided" : [ "cdmi_job_action_delete" ]
+        ]
+      }
 
