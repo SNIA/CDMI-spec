@@ -84,11 +84,33 @@ To merge this extension into the CDMI 2.0.0 specification, make the following ch
     * - Capability name    
       - Type    
       - Definition
+    * - ``cdmi_job_container_actions``
+      - JSON array of JSON strings    
+      - If present, lists the job action strings that can be requested for child job data objects created within a given container.
+
+
+4. Add an entry to the end of the table starting on line 612 of cdmi_advanced/cdmi_capability_object.txt, as follows:
+
+.. tabularcolumns:: |>{\raggedright\arraybackslash}\Y{0.35}
+                    |>{\raggedright\arraybackslash}\Y{0.15}
+                    |>{\raggedright\arraybackslash}\Y{0.50}|
+
+.. _tbl_capabilities_for_data_objects:
+
+.. list-table:: Capabilities for data objects
+    :class: longtable
+    :header-rows: 1
+    :align: center 
+
+    * - Capability name    
+      - Type    
+      - Definition
     * - ``cdmi_job_states``
       - JSON array of JSON strings    
       - If present, lists the job state strings that can be specified by a client.
 
-4. Add an entry to the end of the table starting on line 662 of cdmi_advanced/cdmi_capability_object.txt, as follows:
+
+5. Add an entry to the end of the table starting on line 662 of cdmi_advanced/cdmi_capability_object.txt, as follows:
 
 .. tabularcolumns:: |>{\raggedright\arraybackslash}\Y{0.35}
                     |>{\raggedright\arraybackslash}\Y{0.15}
@@ -111,7 +133,7 @@ To merge this extension into the CDMI 2.0.0 specification, make the following ch
       - JSON string    
       - If present and "``true``", indicates that the container allows the creation of job data objects.
 
-5. Add an entry to the end of the table starting on line 216 of cdmi_advanced/cdmi_metadata.txt, as follows:
+6. Add an entry to the end of the table starting on line 216 of cdmi_advanced/cdmi_metadata.txt, as follows:
 
 .. tabularcolumns:: |>{\raggedright\arraybackslash}\Y{0.29}
                     |>{\raggedright\arraybackslash}\Y{0.09}
@@ -140,7 +162,7 @@ To merge this extension into the CDMI 2.0.0 specification, make the following ch
         If all supported actions are to be requested, the string “ALL” shall be used.
       - Optional
 
-6. Add an entry to the end of the table starting on line 533 of cdmi_advanced/cdmi_metadata.txt, as follows:
+7. Add an entry to the end of the table starting on line 533 of cdmi_advanced/cdmi_metadata.txt, as follows:
 
 .. tabularcolumns:: |>{\raggedright\arraybackslash}\Y{0.29}
                     |>{\raggedright\arraybackslash}\Y{0.09}
@@ -163,7 +185,7 @@ To merge this extension into the CDMI 2.0.0 specification, make the following ch
       - Contains a list of job actions that are permitted for job data objects created in the container.
       - Optional
 
-7. Create new clause, "cdmi_jobs.txt" after existing clause 25 "Data Object Versions", as follows.
+8. Create new clause, "cdmi_jobs.txt" after existing clause 25 "Data Object Versions", as follows.
 
 .. _ref_jobs:
 
@@ -177,7 +199,7 @@ A cloud storage system may optionally implement job management functionality. Jo
 
 Jobs allow arbitrary system-defined actions (such as deletion, metadata changes, thumbnail creation, virus scanning, etc.) to be performed against one or more stored CDMI objects. In addition, multiple jobs may perform actions against a single CDMI object. By creating a well-defined "job" object, clients can define jobs, specify which action is to be performed, specify which objects the action is to be performed against, monitor the status, and control the operation of the job in an interoperable and extensible manner.
 
-In addition, multiple jobs may be batched together to apply actions sequentially for each target CDMI object. Such a batch job may affect multiple objects, and each job may progress at a different rate. The client cares about the overall status of its job, not the status on each object that the job affects. Tracking the job completion status in the ``completionStatus`` and ``percentComplete`` fields of the data object as described in Section 8.2 is not adequate for such systems.
+In addition, multiple jobs may be batched together to apply actions sequentially for each target CDMI object. Such a batch job may affect multiple objects, and each job may progress at a different rate. The client cares about the overall status of its job, not the status on each object that the job affects. Tracking the job completion status in the ``completionStatus`` and ``percentComplete`` fields of the data object as described in :numref:`clause %s <ref_cdmi_data_object_overview>` is not adequate for such systems.
 
 These problems are solved by tracking the job status in a separate CDMI job data object. The job data object provides access to the completion status and percent complete of the job itself, along with other information required to define, monitor, and control the job.
 
@@ -195,24 +217,28 @@ Job Creation
 
 When a client wishes to create a job data object, it may first check if the system is capable of providing job functionality by checking for the presence of the ``cdmi_jobs`` capability in the root container capabilities. If this capability is not present, creating a job data object shall be successful, but no job action shall be performed.
 
-Jobs may be created by CDMI clients and from CDMI internal processes. Examples of jobs created by CDMI clients may include:
+Jobs may be created by CDMI clients and CDMI server internal processes.
+
+Examples of jobs created by CDMI clients may include:
 
 * deleting data,
 * updating metadata, and
 * serialization.
 
-CDMI clients may create jobs through a variety of methods. The user may perform an HTTP operation such as a PUT or POST on a specific object in the cloud. The management framework may intercept and process the requests as an asynchronous job. The system shall create a job in a job container and return an HTTP response code of 202 Accepted. The URI for the job shall be included in an HTTP response header field named “X-CDMI-Job”. <FIXME>
-
-A client may directly create a job through a POST or a PUT of a new job data object. The semantics for this are the same as other data objects. The container that accepts the job must have the ``cdmi_job_dataobject`` capability. The job-specific metadata shall be included in the request and response messages.
-
-Examples of jobs created from internal system processes may include:
+Examples of jobs created by internal system processes may include:
 
 * data migration,
 * virus scans,
 * search indexing, and
 * periodic backups.
 
-Although a user does not directly initiate these jobs, they can be exposed to the user since these jobs affect data in the system and consume system resources. Jobs that the system creates are created in a job container. To get a list of system-created jobs, clients can query the children of the container.
+CDMI clients may create jobs through a variety of methods:
+
+A client may create a job data object without specifying a location by performing a POST operation. In this case, the system shall create the job in a job container and return an HTTP response code of ``202 Accepted``. The URI for newly created job object shall be returned in an HTTP ``Location`` response header.
+
+A client may create a job data object at a specific location by performing a PUT operation. Only containers with a ``cdmi_job_dataobject`` capability shall allow job data objects to be created. The semantics for this are the same as other data objects.
+
+A client may view and access jobs created by internal system processes through the job container. To get a list of system-created jobs, clients can list the children of the container.
 
 Job Object Metadata
 -------------------
