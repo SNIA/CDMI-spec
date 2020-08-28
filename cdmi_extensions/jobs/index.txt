@@ -7,9 +7,9 @@ Jobs CDMI Extension
 Overview
 --------
 
-Some CDMI systems allow jobs (such as deletion, changing metadata, scanning for viruses, etc.) to be performed against CDMI objects. In such a system, multiple jobs may be performed simultaneously against the same or multiple objects. In these systems, the client needs be able to track the status of a job separately from the objects on which the jobs act. Jobs can also be batched, and a method is needed to track the status for the batch job independently of individual jobs that comprise the batch job.
+Some CDMI systems allow jobs (such as deletion, changing metadata, scanning for viruses, etc.) to be performed against CDMI objects. In such a system, multiple jobs may be performed simultaneously against the same or multiple objects. In these systems, the client needs be able to track the status of a job separately from the objects on which the jobs act. Jobs may also be batched, and a method is needed to track the status for the batch job independently of individual jobs that comprise the batch job.
 
-This extension proposes a new type of data object to handle these requirements. The job data object (extended in a similar manner as a query queue object) can be used to define, perform, and track job status independently from the objects on which the job is acting.
+This extension proposes a new type of data object to handle these requirements. The job data object (extended in a similar manner as a query queue object) may be used to define, perform, and track job status independently from the objects on which the job is acting.
 
 Instructions to the Editor
 --------------------------
@@ -22,7 +22,7 @@ To merge this extension into the CDMI 2.0.0 specification, make the following ch
 
     x.x
     job
-         |br| a data object that defines and manages one or more job actions that can be performed against one or more CDMI objects (job targets) |br|
+         |br| a data object that defines and manages one or more job actions that may be performed against one or more CDMI objects (job targets) |br|
 
     x.x
     job action
@@ -86,7 +86,7 @@ To merge this extension into the CDMI 2.0.0 specification, make the following ch
       - Definition
     * - ``cdmi_job_container_actions``
       - JSON array of JSON strings    
-      - If present, lists the job action strings that can be requested for child job data objects created within a given container.
+      - If present, lists the job action strings that may be requested for child job data objects created within a given container.
 
 
 4. Add an entry to the end of the table starting on line 612 of cdmi_advanced/cdmi_capability_object.txt, as follows:
@@ -107,7 +107,7 @@ To merge this extension into the CDMI 2.0.0 specification, make the following ch
       - Definition
     * - ``cdmi_job_states``
       - JSON array of JSON strings    
-      - If present, lists the job state strings that can be specified by a client.
+      - If present, lists the job state strings that may be specified by a client.
 
 
 5. Add an entry to the end of the table starting on line 662 of cdmi_advanced/cdmi_capability_object.txt, as follows:
@@ -153,7 +153,7 @@ To merge this extension into the CDMI 2.0.0 specification, make the following ch
       - Requirement
     * - ``cdmi_job_container_`` :math:`\newline\color{red}\hookrightarrow` ``actions``
       - JSON array of JSON strings
-      - Contains a list of requested job actions to be permitted for job data objects created in the container. The job action strings that can be requested are indicated in the “cdmi_job_container_actions” capability of the parent container.
+      - Contains a list of requested job actions to be permitted for job data objects created in the container. The job action strings that may be requested are indicated in the “cdmi_job_container_actions” capability of the parent container.
       
         .. raw:: latex
 
@@ -197,7 +197,7 @@ Job Management
 
 A cloud storage system may optionally implement job management functionality. Job implementation is indicated by the presence of the cloud storage system-wide capabilities for jobs and requires support for CDMI data objects.
 
-Jobs allow arbitrary system-defined actions (such as deletion, metadata changes, thumbnail creation, virus scanning, etc.) to be performed against one or more stored CDMI objects. In addition, multiple jobs may perform actions against a single CDMI object. By creating a well-defined "job" object, clients can define jobs, specify which action is to be performed, specify which objects the action is to be performed against, monitor the status, and control the operation of the job in an interoperable and extensible manner.
+Jobs allow arbitrary system-defined actions (such as deletion, metadata changes, thumbnail creation, virus scanning, etc.) to be performed against one or more stored CDMI objects. In addition, multiple jobs may perform actions against a single CDMI object. By creating a well-defined "job" object, clients may define jobs, specify which action is to be performed, specify which objects the action is to be performed against, monitor the status, and control the operation of the job in an interoperable and extensible manner.
 
 In addition, multiple jobs may be batched together to apply actions sequentially for each target CDMI object. Such a batch job may affect multiple objects, and each job may progress at a different rate. The client cares about the overall status of its job, not the status on each object that the job affects. Tracking the job completion status in the ``completionStatus`` and ``percentComplete`` fields of the data object as described in :numref:`clause %s <ref_cdmi_data_object_overview>` is not adequate for such systems.
 
@@ -209,7 +209,7 @@ Cloud storage systems should consider implementing support for job data objects 
 
 * Server-side transformative operations: If the system allows a client to request that an operation be performed against a CDMI data object, the user should initiate and manage the operation through the jobs interface.
 * Batch jobs: When running batch jobs that include multiple individual actions, the user needs to track the status for the jobs as the aggregate of the independent tasks.
-* Multi-threading: If multiple jobs can be performed on the same object simultaneously, the user needs to track the status of each job independently.
+* Multi-threading: If it is possible for multiple jobs to be performed on the same object simultaneously, the user needs to track the status of each job independently.
 * Long-running jobs: If jobs are run continuously, the user needs to be able to monitor and control the job.
 
 Job Creation
@@ -238,7 +238,7 @@ A client may create a job data object without specifying a location by performin
 
 A client may create a job data object at a specific location by performing a PUT operation. Only containers with a ``cdmi_job_dataobject`` capability shall allow job data objects to be created. The semantics for this are the same as other data objects.
 
-A client may view and access jobs created by internal system processes through the job container. To get a list of system-created jobs, clients can list the children of the container.
+A client may view and access jobs created by internal system processes through the job container. To get a list of system-created jobs, clients may list the children of the container.
 
 Job Object Metadata
 -------------------
@@ -347,6 +347,7 @@ The value of a job data object are shown in :numref:`tbl_cdmi_job_data_object_va
     * - ``cdmi_job_action_params``
       - JSON object or JSON array
       - Contains job action-specific parameters that control how a job action behaves.
+
         .. raw:: latex
 
           \vspace*{1ex}
@@ -356,17 +357,12 @@ The value of a job data object are shown in :numref:`tbl_cdmi_job_data_object_va
     * - ``cdmi_job_target``
       - JSON array of JSON strings
       - Indicates against which CDMI objects the job action is performed.
+
         .. raw:: latex
 
           \vspace*{1ex}
 
         Contains either an array of URIs to CDMI objects against which the job action shall be performed or a single URI to a CDMI queue. Each value enqueued in the queue is a URI to a CDMI object against which the job action shall be performed.
-      
-        .. raw:: latex
-
-          \vspace*{1ex}
-
-        For details on how queues are used with jobs, see FIXME.
       - Mandatory
     * - ``cdmi_job_results``
       - JSON string
@@ -419,7 +415,7 @@ EXAMPLE 2: A CDMI job value that deletes every object enqueued into a notificati
         "cdmi_job_target" : "/container/jobs/created_mp3_files_queue"
       }
 
-Jobs can be used in combination with query and notification queues to perform an action against each query result or notification result.
+Jobs may be used in combination with query and notification queues to perform an action against each query result or notification result.
 
 Job Lifecycle
 -------------
@@ -498,7 +494,7 @@ CDMI job container objects store job data objects. Use of job containers is opti
 
 Job containers may be dedicated to storing only job data objects, or they may store other containers and data objects, including job data objects. CDMI systems may automatically create job containers, and in such systems, CDMI clients may not have the ability to create or delete job containers. Other systems may allow CDMI clients to create or delete job containers that support storing job data objects that the system or CDMI clients create.
 
-A CDMI system may create and implement a single, global jobs container that CDMI clients cannot change. If present, clients can locate this global jobs container by the URI specified by the ``cdmi_jobs_global_container`` capability described in :numref:`%s <ref_cloud_storage_system>`.
+A CDMI system may create and implement a single, global jobs container that CDMI clients may not change. If present, clients locate this global jobs container by the URI specified by the ``cdmi_jobs_global_container`` capability described in :numref:`%s <ref_cloud_storage_system>`.
 
 Systems may allow multiple job containers. Jobs may be grouped in containers along with non-job data objects. One use of multiple containers is to group jobs by type. Systems may allow CDMI clients to create their own job containers.
 
@@ -506,7 +502,7 @@ When job containers are supported, a CDMI client shall identify job containers u
 
 The ability of a CDMI client to create a job container object within a container is indicated by the ``cdmi_create_job_container`` container capability described in :numref:`%s <ref_container_capabilities>`. This capability also indicates any restrictions on job actions for a created child job container.
 
-Once a job container has been created, the data system metadata of the ``cdmi_job_container_actions_provided`` contains an array of JSON strings that indicate the allowable actions that can be requested for job data objects that are created within that job container (see :numref:`%s <ref_support_for_provided_data_system_metadata>`). The system generates this list depending on which actions are supported and which actions are requested in the data system metadata of the ``cdmi_job_container_actions`` described in :numref:`%s <ref_support_for_data_system_metadata>`.
+Once a job container has been created, the data system metadata of the ``cdmi_job_container_actions_provided`` contains an array of JSON strings that indicate the allowable actions that may be requested for job data objects that are created within that job container (see :numref:`%s <ref_support_for_provided_data_system_metadata>`). The system generates this list depending on which actions are supported and which actions are requested in the data system metadata of the ``cdmi_job_container_actions`` described in :numref:`%s <ref_support_for_data_system_metadata>`.
 
 A system may allow jobs to be created or deleted within a job container. This function is indicated by the capabilities associated with the job container.
 
@@ -515,13 +511,13 @@ A system may allow jobs to be created or deleted within a job container. This fu
 
 Using capabilities and data system metadata, the client follows these steps to create a new job container that allows jobs for deleting CDMI objects:
 
-1. Examine the presence and value of the ``cdmi_create_job_container`` capability of the parent container to see if child job containers can be created and if the cdmi_job_action_delete action is supported.
+1. Examine the presence and value of the ``cdmi_create_job_container`` capability of the parent container to see if child job containers may be created and if the cdmi_job_action_delete action is supported.
 2. If job container creation is supported and the ``cdmi_job_action_delete`` action is supported, create a new child container with the ``cdmi_job_container_actions`` data system metadata set to ``ALL`` (or include the value ``cdmi_job_action_delete``) to indicate to the server that job data objects with delete job actions will be created in this newly created container.
 3. Examine the ``cdmi_job_container_actions_provided`` data system metadata of the newly created container to ensure that ``cdmi_job_action_delete`` is included in the list.
 4. Examine the ``cdmi_create_job_dataobject`` capability of the newly created container to ensure that job creation is supported.
 5. If job data object creation is supported and the desired action is supported, create a new child data object with ``cdmi_jobs_action`` metadata supporting the cdmi_job_action_delete job action.
 
-EXAMPLE 3: An example of the job metadata associated with a job container that indicates that only delete action jobs can be created is as follows:
+EXAMPLE 3: An example of the job metadata associated with a job container that indicates that only delete action jobs may be created is as follows:
 
     .. code-block:: none
 
