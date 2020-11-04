@@ -180,7 +180,7 @@ latex_maketitle = r'''
         \begin{center}
             {\Large SNIA Working Draft }\par
             \vspace{36pt}
-            {\Large June 17, 2020 }\par
+            {\Large November 4, 2020 }\par
         \end{center}
         \setcounter{footnote}{0}
         \let\thanks\relax\let\maketitle\relax

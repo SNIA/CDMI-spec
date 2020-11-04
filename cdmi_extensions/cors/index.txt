@@ -7,7 +7,7 @@ CORS CDMI Extension
 Overview
 --------
 
-HTTP user agents, including http proxies, web browsers, and secure web applications, commonly apply same-origin restrictions to network requests. These restrictions prevent a client-side web application loaded from one origin from obtaining or modifying data retrieved from another origin. These restrictions also limit unsafe HTTP requests that can be performed against destinations that differ from the running application's origin. Many web browsers also treat requests with custom headers as unsafe HTTP requests.
+HTTP user agents, including HTTP proxies, web browsers, and secure web applications, commonly apply same-origin restrictions to network requests. These restrictions prevent a client-side web application loaded from one origin from obtaining or modifying data retrieved from another origin. These restrictions also limit unsafe HTTP requests that can be performed against destinations that differ from the running application's origin. Many web browsers also treat requests with custom headers as unsafe HTTP requests.
 To operate in a multi-origin environment, CDMI servers must comply with the W3C Cross-Origin Resource Sharing (CORS) Specification.
 
 This extension specifies how CDMI works with the CORS Specification. 
@@ -195,7 +195,7 @@ Overview
 
 HTTP clients that conform to the W3C Cross-Origin Resource Sharing (CORS) Specification, such as web browsers and web applications, apply restrictions on network requests sent to a different domain (origin) then the initiating resource is hosted from. These network requests require additional headers (and sometimes additional "preflight" requests) to ensure that the server will permit a cross-domain operation to be performed.
 
-As CDMI is based on HTTP, in order to operate in a multi-origin environment, CDMI servers must provide these headers, as defined in the W3C Cross-Origin Resource Sharing Specification, in order to permit cross-origin HTTP operations.
+As CDMI is based on HTTP, in order to operate in a multi-origin environment, CDMI servers shall provide these headers, as defined in the W3C Cross-Origin Resource Sharing Specification, in order to permit cross-origin HTTP operations.
 
 Non-Preflight Operations
 ------------------------
@@ -221,9 +221,9 @@ EXAMPLE 1: Non-preflight request
 Preflight Operations
 --------------------
 
-Preflight operations (PUT, DELETE and OPTIONS, as well as when custom headers are used) require the HTTP client to perform a "preflight" operation. This preflight operation is a OPTIONS operation with "``Access-Control-Request-Method``" and "``Access-Control-Request-Headers``" headers, and is responded to with "``Access-Control-Allow-Origin``", "Access-Control-Allow-Methods", and "Access-Control-Allow-Headers" headers.
+Preflight operations (PUT, DELETE and OPTIONS, as well as when custom headers are used) require the HTTP client to perform a "preflight" operation. This preflight operation is a OPTIONS operation with "``Access-Control-Request-Method``" and "``Access-Control-Request-Headers``" headers, and is responded to with "``Access-Control-Allow-Origin``", "``Access-Control-Allow-Methods``", and "``Access-Control-Allow-Headers``" headers.
 
-If the preflight operation is successful, and the returned headers indicate that the CORS request is permitted, the HTTP client will then perform the original operation, and shall exchange "``Origin``" and "``Access-Control-Allow-Origin``" headers, as with non-preflight operations.
+If the preflight operation is successful, and the returned headers indicate that the CORS request is permitted, the HTTP client will then perform the original operation, and shall include an "``Origin``" header, and requires the server to return an "``Access-Control-Allow-Origin``" header, as with non-preflight operations.
 
 EXAMPLE 2: Preflight request
 
@@ -263,11 +263,11 @@ Cross-Origin Rules
 ------------------
 
 #. A request shall be considered a CORS request if the "``Origin``" header is present
-#. A request shall be considered a CORS preflight request if the request type is OPTIONS and the "``Origin``" header is present
-#. For all CORS requests, if the "``cdmi_cors_methods``" metadata contains the request method, and the "``cdmi_cors_origins``" metadata matches against the "``Origin``" request header value (or the metadata item contains "``*``"), permit the operation and include a "``Access-Control-Allow-Origin``" response header with the contents of the request "``Origin``" request header value (or "``*``" if matched against "``*``" in the metadata item).
+#. A request shall be considered a CORS preflight request if the request type is "``OPTIONS``" and the "``Origin``" header is present
+#. For all CORS requests, if the "``cdmi_cors_methods``" metadata contains the request method, and the "``cdmi_cors_origins``" metadata matches against the "``Origin``" request header value (or the metadata item contains "``*``"), permit the operation and include an "``Access-Control-Allow-Origin``" response header with the contents of the request "``Origin``" request header value (or "``*``" if matched against "``*``" in the metadata item).
 #. For all CORS preflight requests, if the "``cdmi_cors_methods``" metadata matches against the "``Access-Control-Request-Method``" request header value, and the "``cdmi_cors_origins``" metadata matches against the "``Origin``" request header value (or the metadata item contains "``*``"), respond to the request with:
 
     * An "``Access-Control-Allow-Origin``" response header with the contents of the request "``Origin``" request header value (or "``*``" if matched against "``*``" in the metadata item)
     * An "``Access-Control-Allow-Methods``" response header with the intersection of the methods specified in the "``Access-Control-Request-Method``" request header and the methods in the "``cdmi_cors_methods``" metadata item
-    * An "``Access-Control-Allow-Headers``" response header with the intersection of the methods specified in the "``Access-Control-Request-Headers``" request header and the headers in the "``cdmi_cors_headers``" metadata item
+    * An "``Access-Control-Allow-Headers``" response header with the intersection of the headers specified in the "``Access-Control-Request-Headers``" request header and the headers in the "``cdmi_cors_headers``" metadata item
     * An "``Access-Control-Max-Age``" response header with a value sufficiently high enough to permit the HTTP Client to perform the corresponding HTTP operation.
