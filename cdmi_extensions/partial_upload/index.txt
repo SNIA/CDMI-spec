@@ -2,7 +2,7 @@ CDMI Extension
 ==============================================
 
 Partial Upload CDMI Extension
-*******************
+*****************************
 
 Overview
 --------
@@ -40,13 +40,11 @@ Overview
 
 CDMI defines a custom "``X-CDMI-Partial``" header that indicates when a partial upload is being performed. The value of this header is formatted according to the following BNF:
 
-``X-CDMI-Partial: [ true | false ] | [ upload-id=<upload-id> [ ; [ count=<integer> | range=<byte-range> ] ] [ ; replace={ true | false } ] ]``
-
-<FIXME - Verify BNF>
-
-* "``true``" – Indicates that the newly created object is part of a series of uploads and the value has not yet been fully populated. These uploads are considered to have a null upload ID.
+``X-CDMI-Partial: false | true | upload-id=<upload-id> [ [ ;count=<integer> ] | [ ;range=<byte-range> ] ] [ ;replace=( true | false ) ]``
 
 * "``false``" (or header not present) – Indicates that the set of uploads associated with a null upload ID shall be considered complete, and the object shall be updated.
+
+* "``true``" – Indicates that the newly created object is part of a series of uploads and the value has not yet been fully populated. These uploads are considered to have a null upload ID.
 
 * "``upload-id``" – Indicates that requests with the same upload ID are part of the set of partial uploads.
 
@@ -54,7 +52,7 @@ CDMI defines a custom "``X-CDMI-Partial``" header that indicates when a partial 
 
 * "``range``" – A byte range as specified in section 14.35.1 of :cite:`rfc2616` that indicates that when a given byte range of partial uploads with the same upload ID are received, the set of uploads is considered complete, and the object shall be updated.
 
-* "``replace``" – When multiple ranges are sent as part of a partial upload, if this flag has the value "``true``", this indicates that the entire object shall be replaced by the set of ranged uploads (with any range gaps zero-filled). If it has the value "``false``" or not present, the set of uploads shall be used to update the object, not replace it.
+* "``replace``" – When multiple ranges are sent as part of a partial upload, if this flag has the value "``true``", this indicates that the entire object shall be replaced by the set of ranged uploads (with any range gaps zero-filled). If it has the value "``false``", the set of uploads shall be used to update the object, not replace it.
 
 For a given upload ID, if a condition or replace flag is received that is different from a previously received condition or replace flag, an HTTP status code of 400 Bad Request shall be returned.
 
