@@ -1,0 +1,196 @@
+CDMI Extension
+==============================================
+
+Partial Upload CDMI Extension
+*******************
+
+Overview
+--------
+
+CDMI 2.0.0 provides limited support for partial uploads. The following extension to the ``X-CDMI-Partial`` header is proposed to support managing conflicting uploads and specifying completion conditions for parallel uploads:
+
+``X-CDMI-Partial: [ true | false ] | [ upload-id=<upload-id> [ ; [ count=<integer> | range=<byte-range> ] ] [ ; replace= { true | false } ] ]``
+
+Partial uploads by multiple concurrent clients are accomodated by specifying a unique "``upload-id``" for each set of partial uploads.
+
+A condition is associated with an upload id to indicate when the partial upload will be considered complete. The condition may be associated with an upload id at any time. Once a condition is associated with an upload id, specifying a different condition is considered an error.
+
+A count condition handles the scenario when a partial upload is to be completed when a specific number of partial uploads are received by the server.
+
+A range condition handles the scenario when a partial upload is to be completed when the server receives a specific byte range.
+
+Replace indicates if the partial uploads replace the entire object or just the specified byte ranges.
+
+When partial uploads associated with an upload id have not completed within a given time, the upload id will time out, and the partial uploads associated with that upload id will be discarded by the server.
+
+
+Instructions to the Editor
+--------------------------
+
+To merge this extension into the CDMI 2.0.0 specification, make the following changes:
+
+<FIXME - Check to make sure this shouldn't go under a subsection in clause 5>
+
+1. Add a new section 5.9 titled "CDMI Partial Header"
+
+.. _ref_partial_update:
+
+Overview
+--------
+
+CDMI defines a custom "``X-CDMI-Partial``" header that indicates when a partial upload is being performed. The value of this header is formatted according to the following BNF:
+
+``X-CDMI-Partial: [ true | false ] | [ upload-id=<upload-id> [ ; [ count=<integer> | range=<byte-range> ] ] [ ; replace={ true | false } ] ]``
+
+<FIXME - Verify BNF>
+
+* "``true``" – Indicates that the newly created object is part of a series of uploads and the value has not yet been fully populated. These uploads are considered to have a null upload ID.
+
+* "``false``" (or header not present) – Indicates that the set of uploads associated with a null upload ID shall be considered complete, and the object shall be updated.
+
+* "``upload-id``" – Indicates that requests with the same upload ID are part of the set of partial uploads.
+
+* "``count``" – An integer value greater than zero that indicates that when exactly this many partial uploads with the same upload ID are received, the set of uploads is considered complete, and the object shall be updated. If the number of received uploads is larger than the specified count, an HTTP status code of 400 Bad Request shall be returned.
+
+* "``range``" – A byte range as specified in section 14.35.1 of :cite:`rfc2616` that indicates that when a given byte range of partial uploads with the same upload ID are received, the set of uploads is considered complete, and the object shall be updated.
+
+* "``replace``" – When multiple ranges are sent as part of a partial upload, if this flag has the value "``true``", this indicates that the entire object shall be replaced by the set of ranged uploads (with any range gaps zero-filled). If it has the value "``false``" or not present, the set of uploads shall be used to update the object, not replace it.
+
+For a given upload ID, if a condition or replace flag is received that is different from a previously received condition or replace flag, an HTTP status code of 400 Bad Request shall be returned.
+
+For a given upload ID, if a partial upload is received with an ``content-range`` exactly the same as a previously received ``content-range``, the value associated with that range shall be replaced with the newer value. This allows partial uploads to be retried without error. In this case, the count shall not change.
+
+For a given upload ID, if a partial upload is received with a ``content-range`` that overlaps a previously received ``content-range`` and is not exactly the same as a previously received contentrange, an HTTP status code of ``400 Bad Request`` shall be returned.
+
+If a set of uploads for a particular upload ID is not complete and no messages for that upload ID are received before the timeout value specified in the ``cdmi_partial_timeout`` expires, then the server shall terminate the set and discard all previously received partial ranges for that upload ID.
+
+If a new object is being created using the ``X-CDMI-Partial`` header, the ``completionStatus`` field in the response body shall be set to "``Processing``" and the value of the object shall not be returned to clients until the partial upload is considered complete
+
+If an existing object is being updated or replaced using the ``X-CDMI-Partial`` header, the object shall not be updated until the partial upload is considered complete.
+
+Examples
+--------
+
+EXAMPLE 1: No-op Partial Upload (same as if ``X-CDMI-Partial`` not included):
+
+   .. code-block:: none
+
+      --> PUT /cdmi/2.0.0/MyContainer/MyDataObject.txt HTTP/1.1
+      --> Host: cloud.example.com
+      --> Content-Type: text/plain;charset=utf-8
+      --> Content-Length: 37
+      --> X-CDMI-Partial: false
+      -->  
+      --> This is the Value of this Data Object
+
+       <-- HTTP/1.1 201 Created
+
+EXAMPLE 2: Basic Partial Upload (Single client sending subsequent PUTs after receiving indication of prior successful PUT to append data):
+
+   .. code-block:: none
+
+      --> PUT /cdmi/2.0.0/MyContainer/MyDataObject.txt HTTP/1.1
+      --> Host: cloud.example.com
+      --> Content-Type: text/plain;charset=utf-8
+      --> Content-Length: 37
+      --> X-CDMI-Partial: true
+      -->  
+      --> This is the Value of this Data Object
+
+       <-- HTTP/1.1 202 Accepted
+
+   .. code-block:: none
+
+      --> PUT /cdmi/2.0.0/MyContainer/MyDataObject.txt HTTP/1.1
+      --> Host: cloud.example.com
+      --> Content-Type: text/plain;charset=utf-8
+      --> Content-Length: 13
+      --> X-CDMI-Partial: false
+      -->  
+      --> in two parts.
+
+       <-- HTTP/1.1 201 Created
+
+EXAMPLE 3: Range-based Partial Upload (Single client sending concurrent / un-ordered PUTs, with final PUT when all ranges succesfully stored):
+
+   .. code-block:: none
+
+      --> PUT /cdmi/2.0.0/MyContainer/MyDataObject.txt HTTP/1.1
+      --> Host: cloud.example.com
+      --> Content-Type: text/plain;charset=utf-8
+      --> Content-Length: 37
+      --> Content-Range: 0-36
+      --> X-CDMI-Partial: true
+      -->  
+      --> This is the Value of this Data Object
+
+       <-- HTTP/1.1 202 Accepted
+
+   .. code-block:: none
+
+      --> PUT /cdmi/2.0.0/MyContainer/MyDataObject.txt HTTP/1.1
+      --> Host: cloud.example.com
+      --> Content-Type: text/plain;charset=utf-8
+      --> Content-Length: 13
+      --> Content-Range: 37-49
+      --> X-CDMI-Partial: true
+      -->  
+      --> in two parts.
+
+       <-- HTTP/1.1 202 Accepted
+
+   .. code-block:: none
+
+      --> PUT /cdmi/2.0.0/MyContainer/MyDataObject.txt HTTP/1.1
+      --> Host: cloud.example.com
+      --> Content-Type: text/plain;charset=utf-8
+      --> Content-Length: 0
+      --> X-CDMI-Partial: false
+      -->  
+      --> 
+
+       <-- HTTP/1.1 201 Created
+
+<FIXME - Add more examples>
+
+
+2. Add the following entries to the end of the table starting on line 135 of cdmi_advanced/cdmi_capability_object.txt, as follows:
+
+.. tabularcolumns:: |>{\raggedright\arraybackslash}\Y{0.35}
+                    |>{\raggedright\arraybackslash}\Y{0.15}
+                    |>{\raggedright\arraybackslash}\Y{0.50}|
+
+.. _tbl_system_wide_capabilities:
+
+.. list-table:: System-wide capabilities
+    :class: longtable
+    :header-rows: 1
+    :align: center 
+
+    * - Capability name    
+      - Type    
+      - Definition
+    * - ``cdmi_partial``
+      - JSON string    
+      - If present and "``true``", indicates that the cloud storage system shall support the ``X-CDMI-Partial`` header "``true``" and "``false``" values.
+    * - ``cdmi_partial_uploadid``
+      - JSON string    
+      - If present and "``true``", indicates that the cloud storage system shall support the ``X-CDMI-Partial`` header ``upload-id`` values.
+    * - ``cdmi_partial_count``
+      - JSON string    
+      - If present and "``true``", indicates that the cloud storage system shall support the ``X-CDMI-Partial`` header count completion condition.
+    * - ``cdmi_partial_range``
+      - JSON string    
+      - If present and "``true``", indicates that the cloud storage system shall support the ``X-CDMI-Partial`` header range completion condition.
+    * - ``cdmi_partial_replace``
+      - JSON string    
+      - If present and "``true``", indicates that the cloud storage system shall support the ``X-CDMI-Partial`` header replace flag.
+    * - ``cdmi_partial_timeout``
+      - JSON string    
+      - If present, this capability indicates the ``upload-id`` timeout duration in seconds.
+
+8. Replace the description for the "``X-CDMI-Partial``" table row in tables 9, 16, 26, 30, 41 and 67 as follows.
+
+Indicates that a partial upload is being performed. See :numref:`ref_partial_update`.
+
+
