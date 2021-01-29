@@ -29,9 +29,7 @@ Instructions to the Editor
 
 To merge this extension into the CDMI 2.0.0 specification, make the following changes:
 
-<FIXME - Check to make sure this shouldn't go under a subsection in clause 5>
-
-1. Add a new section 5.9 titled "CDMI Partial Header"
+1. Add a new section 5.9 titled "Partial Uploads"
 
 .. _ref_partial_update:
 
@@ -81,7 +79,7 @@ EXAMPLE 1: No-op Partial Upload (same as if ``X-CDMI-Partial`` not included):
       -->  
       --> This is the Value of this Data Object
 
-       <-- HTTP/1.1 201 Created
+      <-- HTTP/1.1 201 Created
 
 EXAMPLE 2: Basic Partial Upload (Single client sending subsequent PUTs after receiving indication of prior successful PUT to append data):
 
@@ -95,7 +93,7 @@ EXAMPLE 2: Basic Partial Upload (Single client sending subsequent PUTs after rec
       -->  
       --> This is the Value of this Data Object
 
-       <-- HTTP/1.1 202 Accepted
+      <-- HTTP/1.1 202 Accepted
 
    .. code-block:: none
 
@@ -107,7 +105,7 @@ EXAMPLE 2: Basic Partial Upload (Single client sending subsequent PUTs after rec
       -->  
       --> in two parts.
 
-       <-- HTTP/1.1 201 Created
+      <-- HTTP/1.1 201 Created
 
 EXAMPLE 3: Range-based Partial Upload (Single client sending concurrent / un-ordered PUTs, with final PUT when all ranges succesfully stored):
 
@@ -122,7 +120,7 @@ EXAMPLE 3: Range-based Partial Upload (Single client sending concurrent / un-ord
       -->  
       --> This is the Value of this Data Object
 
-       <-- HTTP/1.1 202 Accepted
+      <-- HTTP/1.1 202 Accepted
 
    .. code-block:: none
 
@@ -135,7 +133,7 @@ EXAMPLE 3: Range-based Partial Upload (Single client sending concurrent / un-ord
       -->  
       --> in two parts.
 
-       <-- HTTP/1.1 202 Accepted
+      <-- HTTP/1.1 202 Accepted
 
    .. code-block:: none
 
@@ -147,9 +145,117 @@ EXAMPLE 3: Range-based Partial Upload (Single client sending concurrent / un-ord
       -->  
       --> 
 
-       <-- HTTP/1.1 201 Created
+      <-- HTTP/1.1 201 Created
 
-<FIXME - Add more examples>
+EXAMPLE 4: Range-based Partial Upload (Multiple client sending concurrent / un-ordered PUTs, with final PUT when all ranges succesfully stored):
+
+Client 1:
+
+   .. code-block:: none
+
+      --> PUT /cdmi/2.0.0/MyContainer/MyDataObject.txt HTTP/1.1
+      --> Host: cloud.example.com
+      --> Content-Type: text/plain;charset=utf-8
+      --> Content-Length: 37
+      --> Content-Range: 0-36
+      --> X-CDMI-Partial: upload-id=8723648734
+      -->  
+      --> This is the Value of this Data Object
+
+      <-- HTTP/1.1 202 Accepted
+
+Client 2:
+
+   .. code-block:: none
+
+      --> PUT /cdmi/2.0.0/MyContainer/MyDataObject.txt HTTP/1.1
+      --> Host: cloud.example.com
+      --> Content-Type: text/plain;charset=utf-8
+      --> Content-Length: 13
+      --> Content-Range: 37-49
+      --> X-CDMI-Partial: upload-id=8723648734
+      -->  
+      --> in two parts.
+
+      <-- HTTP/1.1 202 Accepted
+
+Client 3:
+
+   .. code-block:: none
+
+      --> PUT /cdmi/2.0.0/MyContainer/MyDataObject.txt HTTP/1.1
+      --> Host: cloud.example.com
+      --> Content-Type: text/plain;charset=utf-8
+      --> Content-Length: 0
+      --> X-CDMI-Partial: upload-id=8723648734
+      -->  
+      --> 
+
+      <-- HTTP/1.1 201 Created
+
+EXAMPLE 5: Range-based Partial Upload (Multiple client sending concurrent / un-ordered PUTs, with object finalized when a count is reached):
+
+Client 1:
+
+   .. code-block:: none
+
+      --> PUT /cdmi/2.0.0/MyContainer/MyDataObject.txt HTTP/1.1
+      --> Host: cloud.example.com
+      --> Content-Type: text/plain;charset=utf-8
+      --> Content-Length: 37
+      --> Content-Range: 0-36
+      --> X-CDMI-Partial: upload-id=8723648734; count=2
+      -->  
+      --> This is the Value of this Data Object
+
+      <-- HTTP/1.1 202 Accepted
+
+Client 2:
+
+   .. code-block:: none
+
+      --> PUT /cdmi/2.0.0/MyContainer/MyDataObject.txt HTTP/1.1
+      --> Host: cloud.example.com
+      --> Content-Type: text/plain;charset=utf-8
+      --> Content-Length: 13
+      --> Content-Range: 37-49
+      --> X-CDMI-Partial: upload-id=8723648734; count=2
+      -->  
+      --> in two parts.
+
+      <-- HTTP/1.1 201 Created
+
+EXAMPLE 6: Range-based Partial Upload (Multiple client sending concurrent / un-ordered PUTs, with object finalized when a range is received):
+
+Client 1:
+
+   .. code-block:: none
+
+      --> PUT /cdmi/2.0.0/MyContainer/MyDataObject.txt HTTP/1.1
+      --> Host: cloud.example.com
+      --> Content-Type: text/plain;charset=utf-8
+      --> Content-Length: 37
+      --> Content-Range: 0-36
+      --> X-CDMI-Partial: upload-id=8723648734; range=0-49
+      -->  
+      --> This is the Value of this Data Object
+
+      <-- HTTP/1.1 202 Accepted
+
+Client 2:
+
+   .. code-block:: none
+
+      --> PUT /cdmi/2.0.0/MyContainer/MyDataObject.txt HTTP/1.1
+      --> Host: cloud.example.com
+      --> Content-Type: text/plain;charset=utf-8
+      --> Content-Length: 13
+      --> Content-Range: 37-49
+      --> X-CDMI-Partial: upload-id=8723648734; ; range=0-49
+      -->  
+      --> in two parts.
+
+      <-- HTTP/1.1 201 Created
 
 
 2. Add the following entries to the end of the table starting on line 135 of cdmi_advanced/cdmi_capability_object.txt, as follows:

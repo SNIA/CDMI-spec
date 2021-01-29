@@ -51,7 +51,7 @@ master_doc = 'index'
 
 # General information about the project.
 project = 'Partial Upload CDMI Extension'
-copyright = '2020, SNIA'
+copyright = '2021, SNIA'
 author = 'SNIA'
 
 licensetext = codecs.open('license.md', encoding='utf-8').read()
@@ -180,7 +180,7 @@ latex_maketitle = r'''
         \begin{center}
             {\Large SNIA Working Draft }\par
             \vspace{36pt}
-            {\Large November 4, 2020 }\par
+            {\Large January 29, 2021 }\par
         \end{center}
         \setcounter{footnote}{0}
         \let\thanks\relax\let\maketitle\relax
@@ -260,7 +260,7 @@ latex_elements = {
     \fancypagestyle{normal}{
         \fancyhf{}
         \fancyhead[LE,LO]{{\py@HeaderFamily Partial Upload CDMI Extension \version}}
-        \fancyfoot[LE,LO]{{\py@HeaderFamily \copyright \  SNIA 2020}}
+        \fancyfoot[LE,LO]{{\py@HeaderFamily \copyright \  SNIA 2021}}
         \fancyfoot[CE,CO]{{\py@HeaderFamily SNIA Working Draft}}
         \fancyfoot[RE,RO]{{\py@HeaderFamily\thepage}}
         \renewcommand{\headrulewidth}{0.4pt}
@@ -269,7 +269,7 @@ latex_elements = {
     \fancypagestyle{plain}{
         \fancyhf{}
         \fancyhead[LE,LO]{{\py@HeaderFamily Partial Upload CDMI Extension \version}}
-        \fancyfoot[LE,LO]{{\py@HeaderFamily \copyright \  SNIA 2020}}
+        \fancyfoot[LE,LO]{{\py@HeaderFamily \copyright \  SNIA 2021}}
         \fancyfoot[CE,CO]{{\py@HeaderFamily SNIA Working Draft}}
         \fancyfoot[RE,RO]{{\py@HeaderFamily\thepage}}
         \renewcommand{\headrulewidth}{0.4pt}
