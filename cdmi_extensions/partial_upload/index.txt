@@ -7,9 +7,7 @@ Partial Upload CDMI Extension
 Overview
 --------
 
-CDMI 2.0.0 provides limited support for partial uploads. The following extension to the ``X-CDMI-Partial`` header is proposed to support managing conflicting uploads and specifying completion conditions for parallel uploads:
-
-``X-CDMI-Partial: [ true | false ] | [ upload-id=<upload-id> [ ; [ count=<integer> | range=<byte-range> ] ] [ ; replace= { true | false } ] ]``
+CDMI 2.0.0 provides limited support for partial uploads. The following extension to the ``X-CDMI-Partial`` header is proposed to support managing conflicting uploads and specifying completion conditions for parallel uploads.
 
 Partial uploads by multiple concurrent clients are accomodated by specifying a unique "``upload-id``" for each set of partial uploads.
 
@@ -44,7 +42,7 @@ CDMI defines a custom "``X-CDMI-Partial``" header that indicates when a partial 
 
 * "``true``" – Indicates that the newly created object is part of a series of uploads and the value has not yet been fully populated. These uploads are considered to have a null upload ID.
 
-* "``upload-id``" – Indicates that requests with the same upload ID are part of the set of partial uploads.
+* "``upload-id``" – Indicates that requests with the same upload ID are part of the set of partial uploads. This allows a CDMI server to distinguish between different concurrent partial uploads.
 
 * "``count``" – An integer value greater than zero that indicates that when exactly this many partial uploads with the same upload ID are received, the set of uploads is considered complete, and the object shall be updated. If the number of received uploads is larger than the specified count, an HTTP status code of 400 Bad Request shall be returned.
 
@@ -147,7 +145,7 @@ EXAMPLE 3: Range-based Partial Upload (Single client sending concurrent / un-ord
 
       <-- HTTP/1.1 201 Created
 
-EXAMPLE 4: Range-based Partial Upload (Multiple client sending concurrent / un-ordered PUTs, with final PUT when all ranges succesfully stored):
+EXAMPLE 4: Range-based Partial Upload (Multiple clients sending concurrent / un-ordered PUTs, with final PUT when all ranges succesfully stored):
 
 Client 1:
 
@@ -193,7 +191,7 @@ Client 3:
 
       <-- HTTP/1.1 201 Created
 
-EXAMPLE 5: Range-based Partial Upload (Multiple client sending concurrent / un-ordered PUTs, with object finalized when a count is reached):
+EXAMPLE 5: Range-based Partial Upload (Multiple clients sending concurrent / un-ordered PUTs, with object finalized when a count is reached):
 
 Client 1:
 
@@ -225,7 +223,22 @@ Client 2:
 
       <-- HTTP/1.1 201 Created
 
-EXAMPLE 6: Range-based Partial Upload (Multiple client sending concurrent / un-ordered PUTs, with object finalized when a range is received):
+EXAMPLE 6: Range-based Partial Upload (Multiple clients sending concurrent / un-ordered PUTs, with object finalized when a range is received):
+
+Client 2:
+
+   .. code-block:: none
+
+      --> PUT /cdmi/2.0.0/MyContainer/MyDataObject.txt HTTP/1.1
+      --> Host: cloud.example.com
+      --> Content-Type: text/plain;charset=utf-8
+      --> Content-Length: 17
+      --> Content-Range: 22-36
+      --> X-CDMI-Partial: upload-id=8723648734; range=0-49
+      -->  
+      -->  this Data Object
+
+      <-- HTTP/1.1 202 Accepted
 
 Client 1:
 
@@ -234,11 +247,11 @@ Client 1:
       --> PUT /cdmi/2.0.0/MyContainer/MyDataObject.txt HTTP/1.1
       --> Host: cloud.example.com
       --> Content-Type: text/plain;charset=utf-8
-      --> Content-Length: 37
-      --> Content-Range: 0-36
+      --> Content-Length: 20
+      --> Content-Range: 0-21
       --> X-CDMI-Partial: upload-id=8723648734; range=0-49
       -->  
-      --> This is the Value of this Data Object
+      --> This is the Value of 
 
       <-- HTTP/1.1 202 Accepted
 
@@ -251,7 +264,7 @@ Client 2:
       --> Content-Type: text/plain;charset=utf-8
       --> Content-Length: 13
       --> Content-Range: 37-49
-      --> X-CDMI-Partial: upload-id=8723648734; ; range=0-49
+      --> X-CDMI-Partial: upload-id=8723648734; range=0-49
       -->  
       --> in two parts.
 
