@@ -1,0 +1,54 @@
+CDMI Extension
+==============================================
+
+Extended Child Listing CDMI Extension
+*************************************
+
+Overview
+--------
+
+CDMI clients often list the contents of a container for display or analysis purposes (e.g. computing the total space consumed). These operations often require metadata about each object within a container, thus the CDMI client must obtain this metadata for each child object. CDMI currently offers two ways to do this: a) perform a GET for each CDMI Object within the container, and b) use CDMI queries to perform a query for all objects within the container, and specifying which metadata should be returned for each result of the query.
+
+There are two downsides for these approaches: Performing a GET for each object introduces high aggegate latencies and consumes significant resources, and support for CDMI queries is a high development effort and is not implemented by all CDMI servers. Introducing an extension to CDMI Child Listing addresses the resource inefficiencies and is much simpler to implement.
+
+This extension adds the following functionality:
+
+* A new query parameter format is added that allows a CDMI client to specify which fields and metadata they would like to be returned for each child object. These requested fields are returned in the children array in the response body.
+* A new query paramater is added to indicate if child listing is recursive. Recursive listings are returned in the children array in the response body.
+
+Instructions to the Editor
+--------------------------
+
+To merge this extension into the CDMI 2.0.0 specification, make the following changes:
+
+1. Add an entry after the "cdmi_list_children_range" entry in the table starting on line 668 of cdmi_advanced/cdmi_capability_object.txt, as follows:
+
+.. tabularcolumns:: |>{\raggedright\arraybackslash}\Y{0.35}
+                    |>{\raggedright\arraybackslash}\Y{0.15}
+                    |>{\raggedright\arraybackslash}\Y{0.50}|
+
+.. _tbl_system_wide_capabilities:
+
+.. list-table:: Capabilities for container objects
+    :class: longtable
+    :header-rows: 1
+    :align: center 
+
+    * - Capability name    
+      - Type    
+      - Definition
+    * - ``cdmi_list_children_extended``
+      - JSON string    
+      - If present and "``true``", indicates that the cloud storage system supports requesting specific fields and metadata for children.
+    * - ``cdmi_list_children_recursive``
+      - JSON string    
+      - If present and "``true``", indicates that the cloud storage system supports requesting children be listed recursively.
+
+1. Add entries to the synopsis section starting on line 6 of cdmi_core/cdmi_container_object/read.txt, as follows:
+
+* ``GET <root URI>/<ContainerName>/<TheContainerName>/?children=[name, name, ...]&...``
+* ``GET <root URI>/cdmi_objectid/<ContainerObjectID>/?children=[name, name, ...]&...``
+
+
+
+
