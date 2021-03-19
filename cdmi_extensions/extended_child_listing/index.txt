@@ -44,10 +44,181 @@ To merge this extension into the CDMI 2.0.0 specification, make the following ch
       - JSON string    
       - If present and "``true``", indicates that the cloud storage system supports requesting children be listed recursively.
 
-1. Add entries to the synopsis section starting on line 6 of cdmi_core/cdmi_container_object/read.txt, as follows:
+2. Add entries to the synopsis section starting on line 6 of cdmi_core/cdmi_container_object/read.txt, as follows:
 
-* ``GET <root URI>/<ContainerName>/<TheContainerName>/?children=[name, name, ...]&...``
-* ``GET <root URI>/cdmi_objectid/<ContainerObjectID>/?children=[name, name, ...]&...``
+* ``GET <root URI>/<ContainerName>/<TheContainerName>/?children=!&...``
+* ``GET <root URI>/cdmi_objectid/<ContainerObjectID>/?children=!&...``
+* ``GET <root URI>/<ContainerName>/<TheContainerName>/?children=!<range>&...``
+* ``GET <root URI>/cdmi_objectid/<ContainerObjectID>/?children=!<range>&...``
+* ``GET <root URI>/<ContainerName>/<TheContainerName>/?children=[<fieldname>, <fieldname>, ...]&...``
+* ``GET <root URI>/cdmi_objectid/<ContainerObjectID>/?children=[<fieldname>, <fieldname>, ...]&...``
+* ``GET <root URI>/<ContainerName>/<TheContainerName>/?children=![<fieldname>, <fieldname>, ...]&...``
+* ``GET <root URI>/cdmi_objectid/<ContainerObjectID>/?children=![<fieldname>, <fieldname>, ...]&...``
+
+Where:
+
+* "``!``" is a indicator that recursive listing shall be performed.
+
+3. Add an entry after the "cdmi_list_children_range" entry in the table starting on line 35 of cdmi_core/cdmi_container_object/read.txt, as follows:
+
+.. tabularcolumns:: |>{\raggedright\arraybackslash}\Y{0.35}
+                    |>{\raggedright\arraybackslash}\Y{0.20}
+                    |>{\raggedright\arraybackslash}\Y{0.45}|
+
+.. _tbl_cdmi_container_object_read_capabilities:
+
+.. list-table:: Capabilities - Read a CDMI Container Object using CDMI
+    :class: longtable
+    :header-rows: 1
+    :align: center 
+
+    * - Capability
+      - Location
+      - Description
+    * - ``cdmi_list_children_extended``
+      - Container object
+      - Ability to list requested specific fields and metadata for children
+    * - ``cdmi_list_children_recursive``
+      - Container object
+      - Ability to list the children of an existing container object recursively
+
+3. Update "children" entry in the table starting on line 128 of cdmi_core/cdmi_container_object/read.txt, as follows:
+
+.. tabularcolumns:: |>{\raggedright\arraybackslash}\Y{0.20}
+                    |>{\raggedright\arraybackslash}\Y{0.10}
+                    |>{\raggedright\arraybackslash}\Y{0.55}
+                    |>{\raggedright\arraybackslash}\Y{0.15}|
+
+.. _tbl_cdmi_container_object_read_response_message_body:
+
+.. list-table:: Response message body - Read a container object using CDMI 
+    :class: longtable
+    :header-rows: 1
+    :align: center 
+
+    * - Field Name
+      - Type
+      - Description
+      - Requirement
+    * - ``children``
+      - JSON array of JSON strings
+        
+        .. raw:: latex
+        
+          \vspace*{1ex}
+        
+        or
+        
+        .. raw:: latex
+        
+          \vspace*{1ex}
+        
+        JSON array of JSON strings and JSON Arrays
+        
+        .. raw:: latex
+        
+          \vspace*{1ex}
+        
+        or
+        
+        .. raw:: latex
+        
+          \vspace*{1ex}
+        
+        JSON array of JSON arrays of JSON Strings
+        
+        .. raw:: latex
+        
+          \vspace*{1ex}
+        
+        or
+        
+        .. raw:: latex
+        
+          \vspace*{1ex}
+        
+        JSON array of JSON arrays of JSON Strings and JSON Arrays
+      - Names of the children objects in the container object. When a client uses a child name in a request URI or a header URI, the client shall escape reserved characters  according to RFC 3986 :cite:`rfc3986`, e.g., a "``%``" character in a child name shall be replaced with "``%25``".
+
+        * Children that are container objects shall have "``/``" appended to the child name.
+        * Children that are references shall have "``?``" appended to the child name.
+      
+        .. raw:: latex
+
+          \vspace*{1ex}
+
+        When extended children listing is requested by specifying an array of field names to return for each child, a JSON array shall be returned for each child, with the contents of the array being JSON Strings for each requested field name, in the order requested.
+      
+        .. raw:: latex
+
+          \vspace*{1ex}
+
+        When recursive children listing is requested by specifying an "!", a JSON array shall be returned after each container, with the contents of the array being JSON Strings and JSON arrays for each child of each container.
+      - Mandatory
+
+4. Add the following examples to the end of the examples section in cdmi_core/cdmi_container_object/read.txt, as follows:
+
+EXAMPLE 5: GET to the container object URI to read the name, size, and creation date of each child:
+
+   .. code-block:: none
+
+        --> GET /cdmi/2.0.0/MyContainer/?parentURI&children=[objectName, metadata/cdmi_size, metadata/cdmi_ctime] HTTP/1.1
+        --> Host: cloud.example.com
+        --> Accept: application/cdmi-container
+        
+        <-- HTTP/1.1 200 OK
+        <-- Content-Type: application/cdmi-container
+        <--  
+        <-- {
+        <--   "parentURI" : "/",
+        <--   "children" : [
+        <--     ["red", "7823683", "2021-02-02T12:42:31.237849Z"],
+        <--     ["green", "23834", "2021-02-02T12:42:32.185734Z"],
+        <--     ["yellow", "15", "2021-02-02T12:42:33.178433Z"],
+        <--     ["orange/", null, "2021-02-02T12:42:35.746234Z"],
+        <--     ["purple/", "null, "2021-02-02T12:42:35.927473Z"]
+        <--   ]
+        <-- }
+
+EXAMPLE 6: GET to the container object URI to read the parentURI and recursively read the children of the container object:
+
+   .. code-block:: none
+
+        --> GET /cdmi/2.0.0/MyContainer/?parentURI&children=! HTTP/1.1
+        --> Host: cloud.example.com
+        --> Accept: application/cdmi-container
+        
+        <-- HTTP/1.1 200 OK
+        <-- Content-Type: application/cdmi-container
+        <--  
+        <-- {
+        <--   "parentURI" : "/",
+        <--   "children" : [
+        <--     "red",
+        <--     "green",
+        <--     "yellow",
+        <--     "orange/",
+        <--     [
+        <--       "purple",
+        <--       "brown"
+        <--     ],
+        <--     "purple/",
+        <--     [
+        <--       "blue"
+        <--     ]
+        <--   ]
+        <-- }
+
+
+
+
+
+
+
+
+
+
+
 
 
 
