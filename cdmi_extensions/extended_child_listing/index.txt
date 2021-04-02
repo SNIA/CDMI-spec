@@ -50,14 +50,15 @@ To merge this extension into the CDMI 2.0.0 specification, make the following ch
 * ``GET <root URI>/cdmi_objectid/<ContainerObjectID>/?children=!&...``
 * ``GET <root URI>/<ContainerName>/<TheContainerName>/?children=!<range>&...``
 * ``GET <root URI>/cdmi_objectid/<ContainerObjectID>/?children=!<range>&...``
-* ``GET <root URI>/<ContainerName>/<TheContainerName>/?children=[<fieldname>, <fieldname>, ...]&...``
-* ``GET <root URI>/cdmi_objectid/<ContainerObjectID>/?children=[<fieldname>, <fieldname>, ...]&...``
-* ``GET <root URI>/<ContainerName>/<TheContainerName>/?children=![<fieldname>, <fieldname>, ...]&...``
-* ``GET <root URI>/cdmi_objectid/<ContainerObjectID>/?children=![<fieldname>, <fieldname>, ...]&...``
+* ``GET <root URI>/<ContainerName>/<TheContainerName>/?children=[<fieldname>,<fieldname>,...]&...``
+* ``GET <root URI>/cdmi_objectid/<ContainerObjectID>/?children=[<fieldname>,<fieldname>,...]&...``
+* ``GET <root URI>/<ContainerName>/<TheContainerName>/?children=![<fieldname>,<fieldname>,...]&...``
+* ``GET <root URI>/cdmi_objectid/<ContainerObjectID>/?children=![<fieldname>,<fieldname>,...]&...``
 
 Where:
 
 * "``!``" is a indicator that recursive listing shall be performed.
+* <fieldname> can contain "/" characters, which indicate a sub-field within a JSON Object. For example "metadata/cdmi_size" indicates the "cdmi_size" sub-field within the "metadata" field. If a field name includes a "/" character, it must be escaped with a "\".
 
 3. Add an entry after the "cdmi_list_children_range" entry in the table starting on line 35 of cdmi_core/cdmi_container_object/read.txt, as follows:
 
@@ -162,7 +163,7 @@ EXAMPLE 5: GET to the container object URI to read the name, size, and creation 
 
    .. code-block:: none
 
-        --> GET /cdmi/2.0.0/MyContainer/?parentURI&children=[objectName, metadata/cdmi_size, metadata/cdmi_ctime] HTTP/1.1
+        --> GET /cdmi/2.0.0/MyContainer/?parentURI&children=[objectName,metadata/cdmi_size,metadata/cdmi_ctime] HTTP/1.1
         --> Host: cloud.example.com
         --> Accept: application/cdmi-container
         
@@ -205,6 +206,35 @@ EXAMPLE 6: GET to the container object URI to read the parentURI and recursively
         <--     "purple/",
         <--     [
         <--       "blue"
+        <--     ]
+        <--   ]
+        <-- }
+
+EXAMPLE 7: GET to the container object URI to read the parentURI and recursively read the name, size, and creation date of each child:
+
+   .. code-block:: none
+
+        --> GET /cdmi/2.0.0/MyContainer/?parentURI&children=![objectName,metadata/cdmi_size,metadata/cdmi_ctime] HTTP/1.1
+        --> Host: cloud.example.com
+        --> Accept: application/cdmi-container
+        
+        <-- HTTP/1.1 200 OK
+        <-- Content-Type: application/cdmi-container
+        <--  
+        <-- {
+        <--   "parentURI" : "/",
+        <--   "children" : [
+        <--     ["red", "7823683", "2021-02-02T12:42:31.237849Z"],
+        <--     ["green", "23834", "2021-02-02T12:42:32.185734Z"],
+        <--     ["yellow", "15", "2021-02-02T12:42:33.178433Z"],
+        <--     ["orange/", null, "2021-02-02T12:42:35.746234Z"],
+        <--     [
+        <--       ["purple", "9237394", "2021-02-02T12:42:36.847563Z"],
+        <--       ["brown", "1253", "2021-02-02T12:42:37.827643Z"]
+        <--     ],
+        <--     ["purple/", null, "2021-02-02T12:42:35.927473Z"],
+        <--     [
+        <--       ["blue", "48733", "2021-02-02T12:42:36.783632Z"]
         <--     ]
         <--   ]
         <-- }
