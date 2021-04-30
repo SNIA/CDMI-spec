@@ -582,16 +582,16 @@ Add new rows to end of :numref:`tbl_system_wide_capabilities` in :numref:`%s <re
     * - Capability name    
       - Type    
       - Definition
-    * - cdmi_header_metadata
+    * - ``cdmi_header_metadata``
       - JSON string    
       - If present and ``"true"``, this capability indicates that the cloud storage system supports header-visible metadata.
-    * - ``cdmi_header_metadata_maxitems``
+    * - ``cdmi_header_metadata_`` :math:`\newline\color{red}\hookrightarrow` ``maxitems``
       - JSON string    
       - If present, this capability indicates the maximum number of user-defined header metadata items supported per object. If absent, there is no additional limit placed on the number of user-defined metadata items.
-    * - ``cdmi_header_metadata_maxsize``
+    * - ``cdmi_header_metadata_`` :math:`\newline\color{red}\hookrightarrow` ``maxsize``
       - JSON string    
       - If present, this capability indicates the maximum size, in bytes, of each user-defined header metadata item. If absent, there is no additional limit placed on the size of user-defined metadata items.
-    * - ``cdmi_header_metadata_maxtotalsize``
+    * - ``cdmi_header_metadata_`` :math:`\newline\color{red}\hookrightarrow` ``maxtotalsize``
       - JSON string    
       - If present, this capability indicates the maximum size, in bytes, of all user-defined header metadata per object. If absent, there is no additional limit placed on the size of user-defined metadata.
 
