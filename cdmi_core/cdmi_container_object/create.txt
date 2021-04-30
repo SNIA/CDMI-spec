@@ -191,7 +191,7 @@ The request message body fields for creating a container object using CDMI are s
       - JSON string
       - URI of a CDMI container object that shall be redirected to by a reference. If other fields are supplied when creating a reference, the server shall respond with an HTTP status code of ``400 Bad Request``.
       - Optional [#a]_
-    * - ``deserializevalue``
+    * - ``deserialize`` :math:`\newline\color{red}\hookrightarrow` ``value``
       - JSON string
       - A container object serialized as specified in :numref:`clause %s <clause_cdmi_serialization>` and encoded using base 64 encoding rules described in RFC 4648 :cite:`rfc4648`, that shall be deserialized to create the new container object, including all child objects.
       - Optional [#a]_
@@ -283,7 +283,7 @@ The response message body fields for creating a CDMI container object using CDMI
       - JSON string
       - URI to the capabilities for the object
       - Mandatory
-    * - ``completionStatus``
+    * - ``completion`` :math:`\newline\color{red}\hookrightarrow` ``Status``
       - JSON string
       - A string indicating if the object is still in the process of being created or updated by another operation, and after that operation is complete, indicates if it was successfully created or updated or if an error occurred.
       

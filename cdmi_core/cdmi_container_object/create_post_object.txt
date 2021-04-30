@@ -101,13 +101,13 @@ Capabilities that indicate which operations are supported are shown in :numref:`
     * - ``cdmi_object_move_to_ID``
       - System wide capability
       - Ability to move a data object to "``/cdmi_objectid/``" from another container
-    * - ``cdmi_deserialize_dataobject_by_ID``
+    * - ``cdmi_deserialize_dataobject_`` :math:`\color{red}\hookrightarrow` ``by_ID``
       - System wide capability
       - Ability to create a data object in "``/cdmi_objectid/``" that is deserialized from the contents of the PUT or the contents of another data object
-    * - ``cdmi_serialize_dataobject_to_ID cdmi_serialize_container_to_ID cdmi_serialize_domain_to_ID cdmi_serialize_queue_to_ID``
+    * - ``cdmi_serialize_dataobject_`` :math:`\color{red}\hookrightarrow` ``to_ID cdmi_serialize_container_`` :math:`\color{red}\hookrightarrow` ``to_ID cdmi_serialize_domain_to_ID cdmi_serialize_queue_to_ID``
       - System wide capability
       - Ability to create a data object in "``/cdmi_objectid/``" that contains a serialized representation of an existing data object, container, domain or queue
-    * - ``cdmi_create_value_range_by_ID``
+    * - ``cdmi_create_value_range_by_`` :math:`\color{red}\hookrightarrow` ``ID``
       - System wide capability
       - Ability to create a data object in "``/cdmi_objectid/``" using a specified byte range
     * - ``cdmi_multipart_mime``
@@ -235,7 +235,7 @@ The request message body fields for creating a new data object using CDMI are sh
       - JSON string
       - URI of a CDMI data object that shall be redirected to by a reference. If any other fields are supplied when creating a reference, the server shall respond with an HTTP status code of ``400 Bad Request``.
       - Optional [#a]_
-    * - ``deserializevalue``
+    * - ``deserialize`` :math:`\newline\color{red}\hookrightarrow` ``value``
       - JSON string
       - A data object serialized as specified in :numref:`clause %s <clause_cdmi_serialization>` and encoded using base 64 encoding rules described in RFC 4648 :cite:`rfc4648`, that shall be deserialized to create the new data object.
 
@@ -363,7 +363,7 @@ The response message body fields for creating a new CDMI data object using CDMI 
       - JSON string
       - URI to the capabilities for the object
       - Mandatory
-    * - ``completionStatus``
+    * - ``completion`` :math:`\newline\color{red}\hookrightarrow` ``Status``
       - JSON string
       - A string indicating if the object is still in the process of being created or updated by another operation, and after that operation is complete, indicates if it was successfully created or updated or if an error occurred.
       

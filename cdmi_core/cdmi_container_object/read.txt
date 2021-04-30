@@ -180,7 +180,7 @@ The response message body fields for reading a CDMI container object using CDMI 
       - JSON string
       - URI to the capabilities for the object
       - Mandatory
-    * - ``completionStatus``
+    * - ``completion`` :math:`\newline\color{red}\hookrightarrow` ``Status``
       - JSON string
       - A string indicating if the object is still in the process of being created or updated by another operation, and after that operation is complete, indicates if it was successfully created or updated or if an error occurred.
       
