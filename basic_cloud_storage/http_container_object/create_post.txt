@@ -49,7 +49,7 @@ Capabilities that indicate which operations are supported are shown in :numref:`
     * - ``cdmi_create_value_range``
       - System Wide Capability
       - Ability to create a data object using a specified byte range
-    * - ``cdmi_create_value_range_by_ID``
+    * - ``cdmi_create_value_range_`` :math:`\newline\color{red}\hookrightarrow` ``by_ID``
       - System Wide Capability
       - Ability to create a data object in ``"/cdmi_objectid/"`` using a specified byte range
     * - ``cdmi_multipart_mime``
