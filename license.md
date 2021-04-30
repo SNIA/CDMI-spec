@@ -1,6 +1,6 @@
 USAGE
 
-Copyright © 2020 SNIA. All rights reserved. All other trademarks or registered trademarks are the property of their respective owners.
+Copyright © 2021 SNIA. All rights reserved. All other trademarks or registered trademarks are the property of their respective owners.
 
 The SNIA hereby grants permission for individuals to use this document for personal use only, and for corporations and other business entities to use this document for internal use only (including internal copying, distribution, and display) provided that:
 
@@ -16,7 +16,7 @@ All code fragments, scripts, data tables, and sample code in this SNIA document 
 
 BSD 3-Clause Software License
 
-Copyright (c) 2020, The Storage Networking Industry Association.
+Copyright (c) 2021, The Storage Networking Industry Association.
 
 Redistribution and use in source and binary forms, with or without modification, are permitted provided that the following conditions are met:
 
@@ -36,5 +36,5 @@ The information contained in this publication is subject to change without notic
 
 Suggestions for revisions should be directed to https://www.snia.org/feedback/.
 
-Copyright © 2020 SNIA. All rights reserved. All other trademarks or registered trademarks are the property of their respective owners.
+Copyright © 2021 SNIA. All rights reserved. All other trademarks or registered trademarks are the property of their respective owners.
 
