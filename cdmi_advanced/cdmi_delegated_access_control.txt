@@ -339,7 +339,7 @@ A JSON DAC request shall be encrypted in JWE format, where the recipient is the 
       - JSON object	
       - JOSE encrypted and signed request	
       - Mandatory
-    * - ``dac_request_dest_certificate``	
+    * - ``dac_request_dest_`` :math:`\newline\color{red}\hookrightarrow` ``certificate``	
       - JSON object	
       - The cdmi_dac_certificate metadata value, which is used to indicate where the DAC request is being sent via indirect routing.
       - Mandatory
@@ -448,7 +448,7 @@ To indicate the result of the DAC request to the requesting CDMI server, the DAC
 
         These headers can be used to pass information from the DAC provider back to the client.	
       - Optional
-    * - ``dac_key_cache_expiry``	
+    * - ``dac_key_cache_`` :math:`\newline\color{red}\hookrightarrow` ``expiry``	
       - JSON string	
       - The complete date/time when the object key is no longer to be cached, specified in ISO 8601 date/time format.
       
@@ -514,7 +514,7 @@ The certificate of the CDMI server is then attached as specified in :numref:`tbl
       - JSON object	
       - JOSE encrypted and signed response	
       - Mandatory
-    * - ``dac_response_dest_certificate``	
+    * - ``dac_response_dest_`` :math:`\newline\color{red}\hookrightarrow` ``certificate``	
       - JSON object	
       - The contents of the DAC request ``server_identity`` field.	
       - Mandatory

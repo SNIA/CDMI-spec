@@ -483,7 +483,7 @@ Which data system metadata is supported by the CDMI server defined in :numref:`%
       - JSON string
       - If this data system metadata item is present and not an empty string, it indicates that the client is requesting that the system associate with the object a key identifier (e.g. KMIP Identifier) for the private key used for signing the entire object.
       - Optional
-    * - ``cdmi_enc_object_verify`` :math:`\newline\color{red}\hookrightarrow` ``_id``
+    * - ``cdmi_enc_object_verify`` :math:`\color{red}\hookrightarrow` ``_id``
       - JSON string
       - If this data system metadata item is present and not an empty string, it indicates that the client is requesting that the system associate with the object a key identifier (.e.g. KMIP Identifier) for the public key or certificate chain used for verifying the signature of the entire object.
       - Optional

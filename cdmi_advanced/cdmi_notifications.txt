@@ -44,7 +44,7 @@ When creating a notification queue, the metadata described in :numref:`tbl_requi
       - JSON string
       - Queue type indicates how the cloud storage system shall manage the queue object. The type of ``cdmi_notification_queue`` is defined for notification queues.
       - Mandatory
-    * - ``cdmi_notification_events``
+    * - ``cdmi_notification_`` :math:`\newline\color{red}\hookrightarrow` ``events``
       - JSON array of JSON strings
       - The notification events metadata contains a JSON array that indicates which events generate notifications. Defined values are:
 
@@ -63,7 +63,7 @@ When creating a notification queue, the metadata described in :numref:`tbl_requi
 
         Clients may include the desired notification event types in the ``cdmi_notification_events`` JSON array. If all notifications events are desired, an empty JSON array shall be used.
       - Mandatory
-    * - ``cdmi_scope_specification``
+    * - ``cdmi_scope_`` :math:`\newline\color{red}\hookrightarrow` ``specification``
       - JSON array of JSON objects
       - The scope specification determines the set of objects on which operations trigger the generation of notifications. If notifications are desired for all objects, include an empty JSON array.
       
@@ -73,7 +73,7 @@ When creating a notification queue, the metadata described in :numref:`tbl_requi
 
         See :numref:`clause %s <clause_cdmi_scope>` for how to construct a scope specification.
       - Mandatory
-    * - ``cdmi_results_specification``
+    * - ``cdmi_results_`` :math:`\newline\color{red}\hookrightarrow` ``specification``
       - JSON object
       - The results specification contains the JSON fields to be returned for each object that matches the notification scope specification. See :numref:`clause %s <clause_cdmi_results>` for how to construct a results specification.
       
@@ -168,7 +168,7 @@ System-created metadata
       - Type
       - Description
       - Requirement
-    * - ``cdmi_notification_status``
+    * - ``cdmi_notification_`` :math:`\newline\color{red}\hookrightarrow` ``status``
       - JSON string
       - A string indicating the state of the notification queue. Defined values are: 
 

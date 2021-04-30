@@ -356,7 +356,7 @@ Cloud storage system-wide capabilities
     * - ``cdmi_jws_alg``
       - JSON array of JSON strings
       - If present, this capability lists which JOSE "``alg``" encryption algorithms are supported for operations against the contents of JWS signatures, as defined in RFC 7518 :cite:`rfc7518`.
-    * - ``cdmi_valuetransferencoding_`` :math:`\newline\color{red}\hookrightarrow` ``json``
+    * - ``cdmi_valuetransferencoding_`` :math:`\color{red}\hookrightarrow` ``json``
       - JSON string    
       - If present and "``true``", the CDMI server supports JSON value transfer encodings.
 
@@ -911,8 +911,8 @@ Synopsis
 To read an existing capability object, the following requests shall be performed:
 
 * ``GET <root URI>/cdmi_capabilities/<Capability>/<TheCapability>/``
-* ``GET <root URI>/cdmi_capabilities/<Capability>/<TheCapability>/?<fieldname>&<fieldname>&...``
-* ``GET <root URI>/cdmi_capabilities/<Capability>/<TheCapability>/?children=<range>&...``
+* ``GET <root URI>/cdmi_capabilities/<Capability>/<TheCapability>/?<fieldname>`` :math:`\newline\color{red}\hookrightarrow` ``&<fieldname>&...``
+* ``GET <root URI>/cdmi_capabilities/<Capability>/<TheCapability>/?children=`` :math:`\newline\color{red}\hookrightarrow` ``<range>&...``
 * ``GET <root URI>/cdmi_objectid/<CapabilityObjectID>/``
 * ``GET <root URI>/cdmi_objectid/<CapabilityObjectID>/?<fieldname>&<fieldname>&...``
 * ``GET <root URI>/cdmi_objectid/<CapabilityObjectID>/?children=<range>&...``
