@@ -51,7 +51,7 @@ master_doc = 'index'
 
 # General information about the project.
 project = 'CDMI V2.0.0 Specification'
-copyright = '2021, SNIA'
+copyright = '2020, SNIA'
 author = 'SNIA'
 
 licensetext = codecs.open('license.md', encoding='utf-8').read()
@@ -188,7 +188,7 @@ latex_maketitle = r'''
         \begin{center}
             {\Large SNIA Technical Position }\par
             \vspace{36pt}
-            {\Large April 30, 2021 }\par
+            {\Large Sep 11, 2020 }\par
         \end{center}
 
         \setcounter{footnote}{0}
@@ -281,7 +281,7 @@ latex_elements = {
     \fancypagestyle{normal}{
         \fancyhf{}
         \fancyhead[LE,LO]{{\py@HeaderFamily Cloud Data Management Interface \version}}
-        \fancyfoot[LE,LO]{{\py@HeaderFamily \copyright \  SNIA 2021}}
+        \fancyfoot[LE,LO]{{\py@HeaderFamily \copyright \  SNIA 2020}}
         \fancyfoot[CE,CO]{{\py@HeaderFamily SNIA Technical Position}}
         \fancyfoot[RE,RO]{{\py@HeaderFamily\thepage}}
         \renewcommand{\headrulewidth}{0.4pt}
@@ -291,7 +291,7 @@ latex_elements = {
     \fancypagestyle{plain}{
         \fancyhf{}
         \fancyhead[LE,LO]{{\py@HeaderFamily Cloud Data Management Interface \version}}
-        \fancyfoot[LE,LO]{{\py@HeaderFamily \copyright \  SNIA 2021}}
+        \fancyfoot[LE,LO]{{\py@HeaderFamily \copyright \  SNIA 2020}}
         \fancyfoot[CE,CO]{{\py@HeaderFamily SNIA Technical Position}}
         \fancyfoot[RE,RO]{{\py@HeaderFamily\thepage}}
         \renewcommand{\headrulewidth}{0.4pt}
