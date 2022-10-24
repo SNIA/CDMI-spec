@@ -61,10 +61,10 @@ Sphinx
 3. From the Mac Finder, run the xcode application to accept the license
 4. Download macports from https://www.macports.org/install.php
 5. From the Mac Finder, run the macports Installer application
-6. From the Mac Terminal, run `sudo port install py36-sphinx` to install sphinx
-7. From the Mac Terminal, run `sudo port select --set python python36` to set python 3.6 as default
-8. From the Mac Terminal, run `sudo port select --set sphinx py36-sphinx` to set python 3.6 as the default for Sphinx
-9. From the Mac Terminal, run `sudo port install py36-sphinxcontrib-bibtex` to install the bibtex bibliography extension to sphinx
+6. From the Mac Terminal, run `sudo port install py38-sphinx` to install sphinx
+7. From the Mac Terminal, run `sudo port select --set python python38` to set python 3.6 as default
+8. From the Mac Terminal, run `sudo port select --set sphinx py38-sphinx` to set python 3.6 as the default for Sphinx
+9. From the Mac Terminal, run `sudo port install py38-sphinxcontrib-bibtex` to install the bibtex bibliography extension to sphinx
 
 The following additional pacakges may be required:
 
@@ -90,10 +90,3 @@ Build
 14. Download the .zip archive of the CDMI-spec repository from the snia-spec github repository (https://github.com/SNIA/CDMI-spec)
 15. From the Mac Terminal, in the CDMI-spec-master directory, run `make latexpdf` to build the document
 16. From the Mac Terminal, in the CDMI-spec-master directory, run `open _build/latex/CDMI_v2.0.0.pdf` to open the newly built PDF
-
-
-
-
-
-
-
