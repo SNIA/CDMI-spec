@@ -34,8 +34,7 @@ from string import Template
 # ones.
 extensions = ['sphinx.ext.autodoc',
     'sphinx.ext.todo',
-    'sphinx.ext.coverage',
-    'sphinxcontrib.bibtex']
+    'sphinx.ext.coverage']
 
 # Add any paths that contain templates here, relative to this directory.
 templates_path = ['_templates']

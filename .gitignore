@@ -1,1 +1,5 @@
-/_build
+# Exclude documentation build directories
+**/_build
+
+# Exclude MacOS nuisance files
+.DS_Store
