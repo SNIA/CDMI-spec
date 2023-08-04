@@ -36,6 +36,9 @@ extensions = ['sphinx.ext.autodoc',
     'sphinx.ext.todo',
     'sphinx.ext.coverage']
 
+# Turn off fancy tables
+latex_table_style = []
+
 # Add any paths that contain templates here, relative to this directory.
 templates_path = ['_templates']
 
@@ -179,7 +182,7 @@ latex_maketitle = r'''
         \begin{center}
             {\Large SNIA Working Draft }\par
             \vspace{36pt}
-            {\Large July 28, 2023 }\par
+            {\Large August 4, 2023 }\par
         \end{center}
         \setcounter{footnote}{0}
         \let\thanks\relax\let\maketitle\relax
@@ -276,8 +279,8 @@ latex_elements = {
         }
     \makeatother
     % Create linenumers
-    \usepackage{lineno} 
-    \linenumbers
+    %\usepackage{lineno} 
+    %\linenumbers
 ''' + latex_defns.substitute(licensetext=licensetext),   
 
     'tableofcontents': latex_contents,
@@ -285,7 +288,7 @@ latex_elements = {
     #
     # 'figure_align': 'htbp',
     
-    'sphinxsetup': 'verbatimhintsturnover=true',
+    'sphinxsetup': 'verbatimhintsturnover=true, VerbatimColor={rgb}{1,1,1}',
     'extraclassoptions': 'openany',
     'releasename': 'Version',
     'maketitle': latex_maketitle,    

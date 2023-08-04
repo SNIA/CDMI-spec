@@ -103,8 +103,7 @@ Add an entry to the end of the table starting on line 612 of cdmi_advanced/cdmi_
 
           \vspace*{1ex}
 
-        Currently defined schema formats include:
-           - ``application/schema+json``
+        Currently defined schema formats include: ``application/schema+json``
 
 Add an entry to the end of the table starting on line 662 of cdmi_advanced/cdmi_capability_object.txt, as follows:
 
@@ -158,15 +157,16 @@ Add an entry to the end of the table starting on line 533 of cdmi_advanced/cdmi_
     * - ``cdmi_validation_result_`` :math:`\newline\color{red}\hookrightarrow` ``provided``
       - JSON array of JSON strings
       - When an object is validated by one or more validator object, contains the validation result for each matching validator object.
-    * - ``cdmi_validation_time_`` :math:`\newline\color{red}\hookrightarrow` ``provided``
-      - JSON array of JSON strings
-      - When an object is validated by one or more validator object, contains the validation time in ISO 8601 format for the last validation performed.
       
         .. raw:: latex
 
           \vspace*{1ex}
 
         Supported values are ``passed``, ``failed``, ``skipped`` and ``unsupported``.
+      - Optional
+    * - ``cdmi_validation_time_`` :math:`\newline\color{red}\hookrightarrow` ``provided``
+      - JSON array of JSON strings
+      - When an object is validated by one or more validator object, contains the validation time in ISO 8601 format for the last validation performed.
       - Optional
 
 validators.txt
@@ -277,66 +277,114 @@ Metadata items for a validator data object are shown in Table 6:
       - Optional
     * - ``cdmi_validation_deny``
       - JSON string
-      - If this data system metadata item is present and "``true``", it indicates that object creation or update that matches against the validation scope and fails validation shall be denied by the CDMI server.
+      - If this data system metadata item is present and "``true``", it indicates that object creation or update that matches against the validation scope and fails validation shall result in a ``400 Bad Reqeust`` HTTP status code response.
       - Optional
 
 
 Examples
 --------
 
-EXAMPLE 1: Create a validator with a JSON schema for all JSON objects in the "sandbox" container:
+EXAMPLE 1: Create a validator that denies the creation of objects in the "sandbox" container if they do not validate against the specified JSON schema:
 
-   .. code-block:: none
+.. code-block:: none
 
-      This is a test
-      This is also a test
+  --> PUT /validators/myValidator.json HTTP/1.1
+  --> Host: cloud.example.com
+  --> Accept: application/cdmi-object
+  --> Content-Type: application/cdmi-object
+  --> 
+  --> {
+  -->   "valuetransferencoding" : "json",
+  -->   "mimetype" : "application/schema+json",
+  -->   "metadata" : {
+  -->     "cdmi_validation_scope" : [
+  -->       {
+  -->         "parentURI": "starts /sandbox/"
+  -->       }
+  -->     ],
+  -->     "cdmi_validation_deny" : "true"
+  -->   },
+  -->   "value" : {
+  -->     "type": "object",
+  -->     "properties": {
+  -->       "name": {
+  -->         "type": "string"
+  -->       }
+  -->     },
+  -->     "additionalProperties": "false"
+  -->   }
+  --> }
 
+  <-- HTTP/1.1 201 Created
+  <-- Content-Type: application/cdmi-object
+  <--  
+  <-- {
+  <--   "objectType" : "application/cdmi-object",
+  <--   "objectID" : "00007ED90010D891022876A8DE0BC0FD",
+  <--   "objectName" : "myValidator.json",
+  <--   "parentURI" : "/validators/",
+  <--   "parentID" : "00007E7F00102E230ED82694DAA975D2", 
+  <--   "domainURI" : "/cdmi_domains/MyDomain/",
+  <--   "capabilitiesURI" : "/cdmi_capabilities/dataobject/",
+  <--   "completionStatus" : "Complete",
+  <--   "mimetype" : "application/schema+json",
+  <--   "metadata" : {
+  <--     "cdmi_size" : "366",
+  <--     ...
+  <--   }
+  <-- }
 
+EXAMPLE 2: Create a object in the sandbox container that successfully validates against the schema:
 
-   .. code-block:: none
+.. code-block:: none
 
-       --> PUT /validators/myValidator.json HTTP/1.1
-       --> Host: cloud.example.com
-       --> Accept: application/cdmi-object
-       --> Content-Type: application/cdmi-object
-       --> 
-       --> {
-       -->   "valuetransferencoding" : "json",
-       -->   "mimetype" : "application/schema+json",
-       -->   "metadata" : {
-       -->     "cdmi_validation_scope" : [
-       -->       {
-       -->         "parentURI": "starts /sandbox/"
-       -->       }
-       -->     ],
-       -->     "cdmi_validation_deny" : "true"
-       -->   },
-       -->   "value" : {
-       -->     "type": "object",
-       -->     "properties": {
-       -->       "name": {
-       -->         "type": "string"
-       -->       }
-       -->     },
-       -->     "additionalProperties": "false"
-       -->   }
-       --> }
-        
-       <-- HTTP/1.1 201 Created
-       <-- Content-Type: application/cdmi-object
-       <--  
-       <-- {
-       <--   "objectType" : "application/cdmi-object",
-       <--   "objectID" : "00007ED90010D891022876A8DE0BC0FD",
-       <--   "objectName" : "myValidator.json",
-       <--   "parentURI" : "/validators/",
-       <--   "parentID" : "00007E7F00102E230ED82694DAA975D2", 
-       <--   "domainURI" : "/cdmi_domains/MyDomain/",
-       <--   "capabilitiesURI" : "/cdmi_capabilities/dataobject/",
-       <--   "completionStatus" : "Complete",
-       <--   "mimetype" : "application/schema+json",
-       <--   "metadata" : {
-       <--     "cdmi_size" : "366",
-       <--     ...
-       <--   }
-       <-- }
+  --> PUT /sandbox/test1.json HTTP/1.1
+  --> Host: cloud.example.com
+  --> Accept: application/cdmi-object
+  --> Content-Type: application/cdmi-object
+  --> 
+  --> {
+  -->   "valuetransferencoding" : "json",
+  -->   "mimetype" : "application/json",
+  -->   "value" : {
+  -->     "name": "John Smith"
+  -->   }
+  --> }
+
+  <-- HTTP/1.1 201 Created
+  <-- Content-Type: application/cdmi-object
+  <--  
+  <-- {
+  <--   "objectType" : "application/cdmi-object",
+  <--   "objectID" : "00007ED90010D891022876A8DE0BC0FD",
+  <--   "objectName" : "test1.json",
+  <--   "parentURI" : "/sandbox/",
+  <--   "parentID" : "00007E7F00102E230ED82694DAA975D2", 
+  <--   "domainURI" : "/cdmi_domains/MyDomain/",
+  <--   "capabilitiesURI" : "/cdmi_capabilities/dataobject/",
+  <--   "completionStatus" : "Complete",
+  <--   "mimetype" : "application/json",
+  <--   "metadata" : {
+  <--     "cdmi_size" : "24",
+  <--     ...
+  <--   }
+  <-- }
+
+EXAMPLE 3: Create a object in the sandbox container that does not validates against the schema:
+
+.. code-block:: none
+
+  --> PUT /sandbox/test1.json HTTP/1.1
+  --> Host: cloud.example.com
+  --> Accept: application/cdmi-object
+  --> Content-Type: application/cdmi-object
+  --> 
+  --> {
+  -->   "valuetransferencoding" : "json",
+  -->   "mimetype" : "application/json",
+  -->   "value" : {
+  -->     "firstName": "John"
+  -->   }
+  --> }
+
+  <-- HTTP/1.1 400 Bad Reqeust
