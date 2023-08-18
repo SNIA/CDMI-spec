@@ -182,7 +182,7 @@ latex_maketitle = r'''
         \begin{center}
             {\Large SNIA Working Draft }\par
             \vspace{36pt}
-            {\Large August 4, 2023 }\par
+            {\Large August 18, 2023 }\par
         \end{center}
         \setcounter{footnote}{0}
         \let\thanks\relax\let\maketitle\relax

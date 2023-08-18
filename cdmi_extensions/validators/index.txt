@@ -164,10 +164,6 @@ Add an entry to the end of the table starting on line 533 of cdmi_advanced/cdmi_
 
         Supported values are ``passed``, ``failed``, ``skipped`` and ``unsupported``.
       - Optional
-    * - ``cdmi_validation_time_`` :math:`\newline\color{red}\hookrightarrow` ``provided``
-      - JSON array of JSON strings
-      - When an object is validated by one or more validator object, contains the validation time in ISO 8601 format for the last validation performed.
-      - Optional
 
 validators.txt
 ^^^^^^^^^^^^^^
@@ -273,7 +269,7 @@ Metadata items for a validator data object are shown in Table 6:
       - Optional
     * - ``cdmi_validation_mark``
       - JSON string
-      - If this data system metadata item is present and "``true``", it indicates that all objects validated shall have ``cdmi_validation_schema_provided``, ``cdmi_validation_result_provided`` and ``cdmi_validation_time_provided`` data system metadata added to each object when a validation is performed.
+      - If this data system metadata item is present and "``true``", it indicates that all objects validated shall have ``cdmi_validation_schema_provided`` and ``cdmi_validation_result_provided`` data system metadata added to each object when a validation is performed.
       - Optional
     * - ``cdmi_validation_deny``
       - JSON string
