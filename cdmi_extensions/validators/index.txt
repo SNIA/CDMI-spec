@@ -275,7 +275,7 @@ Metadata items for a validator data object are shown in Table 6:
       - Optional
     * - ``cdmi_validation_deny``
       - JSON string
-      - If this data system metadata item is present and "``true``", it indicates that object creation or update that matches against the validation scope and fails validation shall result in a ``400 Bad Reqeust`` HTTP status code response.
+      - If this data system metadata item is present and "``true``", it indicates that object creation or update that matches against the validation scope and fails validation shall result in a ``400 Bad Request`` HTTP status code response.
       - Optional
 
 
@@ -287,7 +287,7 @@ Metadata items for a validator data object are shown in Table 6:
 Examples
 --------
 
-EXAMPLE 1: Allow/Deny - Create a validator that denies the creation or update of objects in the "sandbox" container if they do not validate against the specified JSON schema:
+EXAMPLE 1: Allow/Deny - Create a validator that denies the creation or update of objects in the "myContainer" container if they do not validate against the specified JSON schema:
 
 .. code-block:: none
 
@@ -302,7 +302,7 @@ EXAMPLE 1: Allow/Deny - Create a validator that denies the creation or update of
   -->   "metadata" : {
   -->     "cdmi_validation_scope" : [
   -->       {
-  -->         "parentURI": "starts /sandbox/"
+  -->         "parentURI": "starts /myContainer/"
   -->       }
   -->     ],
   -->     "cdmi_validation_deny" : "true"
@@ -351,11 +351,11 @@ EXAMPLE 1: Allow/Deny - Create a validator that denies the creation or update of
           \newpage
 
 
-EXAMPLE 2: Allow/Deny - Create a object in the sandbox container that successfully validates against the schema:
+EXAMPLE 2: Allow/Deny - Create a object in the myContainer container that successfully validates against the schema:
 
 .. code-block:: none
 
-  --> PUT /sandbox/test1.json HTTP/1.1
+  --> PUT /myContainer/test1.json HTTP/1.1
   --> Host: cloud.example.com
   --> Accept: application/cdmi-object
   --> Content-Type: application/cdmi-object
@@ -375,7 +375,7 @@ EXAMPLE 2: Allow/Deny - Create a object in the sandbox container that successful
   <--   "objectType" : "application/cdmi-object",
   <--   "objectID" : "00007ED90010D891022876A8DE0BC0FD",
   <--   "objectName" : "test1.json",
-  <--   "parentURI" : "/sandbox/",
+  <--   "parentURI" : "/myContainer/",
   <--   "parentID" : "00007E7F00102E230ED82694DAA975D2", 
   <--   "domainURI" : "/cdmi_domains/MyDomain/",
   <--   "capabilitiesURI" : "/cdmi_capabilities/dataobject/",
@@ -387,11 +387,11 @@ EXAMPLE 2: Allow/Deny - Create a object in the sandbox container that successful
   <--   }
   <-- }
 
-EXAMPLE 3: Allow/Deny - Create a object in the sandbox container that does not successfully validate against the schema:
+EXAMPLE 3: Allow/Deny - Create a object in the myContainer container that does not successfully validate against the schema:
 
 .. code-block:: none
 
-  --> PUT /sandbox/test1.json HTTP/1.1
+  --> PUT /myContainer/test1.json HTTP/1.1
   --> Host: cloud.example.com
   --> Accept: application/cdmi-object
   --> Content-Type: application/cdmi-object
@@ -404,7 +404,7 @@ EXAMPLE 3: Allow/Deny - Create a object in the sandbox container that does not s
   -->   }
   --> }
 
-  <-- HTTP/1.1 400 Bad Reqeust
+  <-- HTTP/1.1 400 Bad Request
 
 
 .. raw:: latex
@@ -412,7 +412,7 @@ EXAMPLE 3: Allow/Deny - Create a object in the sandbox container that does not s
           \newpage
 
 
-EXAMPLE 4: Mark - Create a validator that marks newly created or updated objects in the "sandbox" container with the results of a validation against the specified JSON schema:
+EXAMPLE 4: Mark - Create a validator that marks newly created or updated objects in the "myContainer" container with the results of a validation against the specified JSON schema:
 
 .. code-block:: none
 
@@ -427,7 +427,7 @@ EXAMPLE 4: Mark - Create a validator that marks newly created or updated objects
   -->   "metadata" : {
   -->     "cdmi_validation_scope" : [
   -->       {
-  -->         "parentURI": "starts /sandbox/"
+  -->         "parentURI": "starts /myContainer/"
   -->       }
   -->     ],
   -->     "cdmi_validation_mark" : "true"
@@ -476,11 +476,11 @@ EXAMPLE 4: Mark - Create a validator that marks newly created or updated objects
           \newpage
 
 
-EXAMPLE 5: Mark - Create a object in the sandbox container that successfully validates against the schema:
+EXAMPLE 5: Mark - Create a object in the myContainer container that successfully validates against the schema:
 
 .. code-block:: none
 
-  --> PUT /sandbox/test1.json HTTP/1.1
+  --> PUT /myContainer/test1.json HTTP/1.1
   --> Host: cloud.example.com
   --> Accept: application/cdmi-object
   --> Content-Type: application/cdmi-object
@@ -500,7 +500,7 @@ EXAMPLE 5: Mark - Create a object in the sandbox container that successfully val
   <--   "objectType" : "application/cdmi-object",
   <--   "objectID" : "00007ED90010D891022876A8DE0BC0FD",
   <--   "objectName" : "test1.json",
-  <--   "parentURI" : "/sandbox/",
+  <--   "parentURI" : "/myContainer/",
   <--   "parentID" : "00007E7F00102E230ED82694DAA975D2", 
   <--   "domainURI" : "/cdmi_domains/MyDomain/",
   <--   "capabilitiesURI" : "/cdmi_capabilities/dataobject/",
@@ -524,11 +524,11 @@ EXAMPLE 5: Mark - Create a object in the sandbox container that successfully val
           \newpage
 
 
-EXAMPLE 6: Mark - Create a object in the sandbox container that does not successfully validate against the schema:
+EXAMPLE 6: Mark - Create a object in the myContainer container that does not successfully validate against the schema:
 
 .. code-block:: none
 
-  --> PUT /sandbox/test1.json HTTP/1.1
+  --> PUT /myContainer/test1.json HTTP/1.1
   --> Host: cloud.example.com
   --> Accept: application/cdmi-object
   --> Content-Type: application/cdmi-object
@@ -548,7 +548,7 @@ EXAMPLE 6: Mark - Create a object in the sandbox container that does not success
   <--   "objectType" : "application/cdmi-object",
   <--   "objectID" : "00007ED90010D891022876A8DE0BC0FD",
   <--   "objectName" : "test1.json",
-  <--   "parentURI" : "/sandbox/",
+  <--   "parentURI" : "/myContainer/",
   <--   "parentID" : "00007E7F00102E230ED82694DAA975D2", 
   <--   "domainURI" : "/cdmi_domains/MyDomain/",
   <--   "capabilitiesURI" : "/cdmi_capabilities/dataobject/",
