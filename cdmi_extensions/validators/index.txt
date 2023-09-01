@@ -150,11 +150,11 @@ Add an entry to the end of the table starting on line 533 of cdmi_advanced/cdmi_
       - Type
       - Description
       - Requirement
-    * - ``cdmi_validation_schema_`` :math:`\newline\color{red}\hookrightarrow` ``provided``
+    * - ``cdmi_validation_schema_`` :math:`\color{red}\hookrightarrow` ``provided``
       - JSON array of JSON strings
       - When an object is validated by one or more validator object, contains the URI(s) for each matching validator object. When CDMI data object versions are supported, the URI to the version of the validator data object used for validation shall be provided.
       - Optional
-    * - ``cdmi_validation_result_`` :math:`\newline\color{red}\hookrightarrow` ``provided``
+    * - ``cdmi_validation_result_`` :math:`\color{red}\hookrightarrow` ``provided``
       - JSON array of JSON strings
       - When an object is validated by one or more validator object, contains the validation result for each matching validator object.
       
@@ -162,7 +162,10 @@ Add an entry to the end of the table starting on line 533 of cdmi_advanced/cdmi_
 
           \vspace*{1ex}
 
-        Supported values are ``passed``, ``failed``, ``skipped`` and ``unsupported``.
+        Supported values are ``passed`` and ``failed``:
+
+        * ``passed`` - The object was validated against the schema and validation succeeded
+        * ``failed`` - The object was validated against the schema and validation failed
       - Optional
 
 validators.txt
@@ -216,7 +219,7 @@ Validators are created as CDMI data objects with additional metadata:
 
 * ``cdmi_validation_scope`` - Indicates which objects are to be validated.
 * ``cdmi_validation_mark`` - Indicates that all validated objects are to be marked with the result of the validation process. (optional)
-* ``cdmi_validation_deny`` - Indicates that create and update objects that cannot be validated shall be denied. (optional)
+* ``cdmi_validation_deny`` - Indicates that object creation and update requests that fail validation shall be denied. (optional)
 
 CDMI clients may create validators through a variety of methods:
 
@@ -229,10 +232,9 @@ A client may view and access validators created by internal system processes thr
 Validator Object Value
 ----------------------
 
-A validator object shall contain the schema used to perform validation. If the schema is not listed in the ``cdmi_validator_schema_formats`` data object capability, the validator shall not be used.
+A validator object shall contain the schema used to perform validation. If the schema format for the data in the object value does not match against one of the schema formats listed in the ``cdmi_validator_schema_formats`` data object capability, the validator shall not be used.
 
 The value of a validator object may be changed. If valid, the updated value shall be used for all subsequent validations.
-
 
 Validator Object Metadata
 -------------------------
@@ -277,6 +279,11 @@ Metadata items for a validator data object are shown in Table 6:
       - Optional
 
 
+.. raw:: latex
+
+          \newpage
+
+
 Examples
 --------
 
@@ -301,13 +308,21 @@ EXAMPLE 1: Allow/Deny - Create a validator that denies the creation or update of
   -->     "cdmi_validation_deny" : "true"
   -->   },
   -->   "value" : {
+  -->     "$schema": "https://json-schema.org/draft/2019-09/schema",
   -->     "type": "object",
+  -->     "required": [ "value" ],
   -->     "properties": {
-  -->       "name": {
-  -->         "type": "string"
+  -->       "value": {
+  -->         "type": "object",
+  -->         "required": [ "name" ],
+  -->         "properties": {
+  -->           "name": {
+  -->             "type": "string"
+  -->           }
+  -->         },
+  -->         "additionalProperties": false
   -->       }
-  -->     },
-  -->     "additionalProperties": "false"
+  -->     }
   -->   }
   --> }
 
@@ -325,10 +340,16 @@ EXAMPLE 1: Allow/Deny - Create a validator that denies the creation or update of
   <--   "completionStatus" : "Complete",
   <--   "mimetype" : "application/schema+json",
   <--   "metadata" : {
-  <--     "cdmi_size" : "366",
+  <--     "cdmi_size" : "314",
   <--     ...
   <--   }
   <-- }
+
+
+.. raw:: latex
+
+          \newpage
+
 
 EXAMPLE 2: Allow/Deny - Create a object in the sandbox container that successfully validates against the schema:
 
@@ -366,7 +387,7 @@ EXAMPLE 2: Allow/Deny - Create a object in the sandbox container that successful
   <--   }
   <-- }
 
-EXAMPLE 3: Allow/Deny - Create a object in the sandbox container that does not validates against the schema:
+EXAMPLE 3: Allow/Deny - Create a object in the sandbox container that does not successfully validate against the schema:
 
 .. code-block:: none
 
@@ -384,6 +405,12 @@ EXAMPLE 3: Allow/Deny - Create a object in the sandbox container that does not v
   --> }
 
   <-- HTTP/1.1 400 Bad Reqeust
+
+
+.. raw:: latex
+
+          \newpage
+
 
 EXAMPLE 4: Mark - Create a validator that marks newly created or updated objects in the "sandbox" container with the results of a validation against the specified JSON schema:
 
@@ -406,13 +433,21 @@ EXAMPLE 4: Mark - Create a validator that marks newly created or updated objects
   -->     "cdmi_validation_mark" : "true"
   -->   },
   -->   "value" : {
+  -->     "$schema": "https://json-schema.org/draft/2019-09/schema",
   -->     "type": "object",
+  -->     "required": [ "value" ],
   -->     "properties": {
-  -->       "name": {
-  -->         "type": "string"
+  -->       "value": {
+  -->         "type": "object",
+  -->         "required": [ "name" ],
+  -->         "properties": {
+  -->           "name": {
+  -->             "type": "string"
+  -->           }
+  -->         },
+  -->         "additionalProperties": false
   -->       }
-  -->     },
-  -->     "additionalProperties": "false"
+  -->     }
   -->   }
   --> }
 
@@ -430,10 +465,16 @@ EXAMPLE 4: Mark - Create a validator that marks newly created or updated objects
   <--   "completionStatus" : "Complete",
   <--   "mimetype" : "application/schema+json",
   <--   "metadata" : {
-  <--     "cdmi_size" : "366",
+  <--     "cdmi_size" : "314",
   <--     ...
   <--   }
   <-- }
+
+
+.. raw:: latex
+
+          \newpage
+
 
 EXAMPLE 5: Mark - Create a object in the sandbox container that successfully validates against the schema:
 
@@ -477,7 +518,13 @@ EXAMPLE 5: Mark - Create a object in the sandbox container that successfully val
   <--   }
   <-- }
 
-EXAMPLE 6: Mark - Create a object in the sandbox container that does not validates against the schema:
+
+.. raw:: latex
+
+          \newpage
+
+
+EXAMPLE 6: Mark - Create a object in the sandbox container that does not successfully validate against the schema:
 
 .. code-block:: none
 
