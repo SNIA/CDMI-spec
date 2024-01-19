@@ -7,7 +7,7 @@ Validators CDMI Extension
 Overview
 --------
 
-Some CDMI systems allow validation to be performed against CDMI objects. In such a system, multiple validations may be performed simultaneously against the same or multiple objects. In these systems, the client receives an indication of validation failure on object creation or modification, with validation success either resulting in normal HTTP responses being returned, or an indication of validation failure annotated as object metadata.
+Some CDMI systems allow validation to be performed against CDMI objects. Multiple validations may be performed simultaneously against the same or multiple objects. CDMI clients receive an indication of validation failure on object creation or modification, with validation success either resulting in normal HTTP responses being returned, or an indication of validation failure annotated as object metadata.
 
 This extension proposes a new type of data object to define validations on object creation and modification. The validation data object (extended in a similar manner as a query queue object) may be used to define validations independently from the objects on which the validator is acting.
 
@@ -31,15 +31,15 @@ Insert into preamble/terms.txt, as follows:
 
     x.2
     validation operation
-         |br| the process of evaluating a validation schema against a validation target |br|
+         |br| the process of evaluating a validation target against a validation schema |br|
 
     x.3
     validation schema
-         |br| metadata that describes the organization and format of CDMI objects |br|
+         |br| metadata that describes the expected organization and format of validation targets |br|
 
     x.4
     validation scope
-         |br| metadata that defines which validation targets validation operations are performed against. |br|
+         |br| metadata that defines which CDMI objects are in the set of validation targets |br|
 
     x.5
     validation targets
@@ -152,11 +152,11 @@ Add an entry to the end of the table starting on line 533 of cdmi_advanced/cdmi_
       - Requirement
     * - ``cdmi_validation_schema_`` :math:`\color{red}\hookrightarrow` ``provided``
       - JSON array of JSON strings
-      - When an object is validated by one or more validator object, contains the URI(s) for each matching validator object. When CDMI data object versions are supported, the URI to the version of the validator data object used for validation shall be provided.
+      - When an object is validated by one or more validator objects, contains the URI(s) for each matching validator object. When CDMI data object versions are supported, these URIs may point to a validator data object or to a specific version of a validator data object.
       - Optional
     * - ``cdmi_validation_result_`` :math:`\color{red}\hookrightarrow` ``provided``
       - JSON array of JSON strings
-      - When an object is validated by one or more validator object, contains the validation result for each matching validator object.
+      - When an object is validated by one or more validator objects, contains the validation result for each matching validator object.
       
         .. raw:: latex
 

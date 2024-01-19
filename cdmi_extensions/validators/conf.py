@@ -53,7 +53,7 @@ master_doc = 'index'
 
 # General information about the project.
 project = 'Validators CDMI Extension'
-copyright = '2023, SNIA'
+copyright = '2024, SNIA'
 author = 'SNIA'
 
 licensetext = codecs.open('license.md', encoding='utf-8').read()
@@ -167,7 +167,7 @@ latex_maketitle = r'''
             {\Huge Validators CDMI Extension }\par
             {\Huge  }\par
             \vspace{10pt}
-            {\itshape\Huge Version 2.0a \releaseinfo}\par
+            {\itshape\Huge Version 2.0.2 \releaseinfo}\par
             \vspace{25pt}
         \end{center}
         \begin{flushleft}
@@ -175,14 +175,14 @@ latex_maketitle = r'''
                 ABSTRACT: This CDMI Extension is intended for developers who are considering a standardized way to add functionality to CDMI. When multiple compatible implementations are demonstrated and approved by the Technical Working Group, this extension will be incorporated into the CDMI standard.
             }\par
             {\normalsize
-               This document has been released and approved by the SNIA. The SNIA believes that the ideas, methodologies, and technologies described in this document accurately represent the SNIA goals and are appropriate for widespread distribution. Suggestion for revision should be directed to http://www.snia.org/feedback/.
+               This document has been released and approved by SNIA. SNIA believes that the ideas, methodologies, and technologies described in this document accurately represents SNIA's goals and are appropriate for widespread distribution. Suggestion for revision should be directed to http://www.snia.org/feedback/.
             }\par
             \vspace{72pt}
         \end{flushleft}
         \begin{center}
             {\Large SNIA Working Draft }\par
             \vspace{36pt}
-            {\Large September 1, 2023 }\par
+            {\Large January 19, 2024 }\par
         \end{center}
         \setcounter{footnote}{0}
         \let\thanks\relax\let\maketitle\relax
@@ -262,7 +262,7 @@ latex_elements = {
     \fancypagestyle{normal}{
         \fancyhf{}
         \fancyhead[LE,LO]{{\py@HeaderFamily Validators CDMI Extension \version}}
-        \fancyfoot[LE,LO]{{\py@HeaderFamily \copyright \  SNIA 2023}}
+        \fancyfoot[LE,LO]{{\py@HeaderFamily \copyright \  SNIA 2024}}
         \fancyfoot[CE,CO]{{\py@HeaderFamily SNIA Working Draft}}
         \fancyfoot[RE,RO]{{\py@HeaderFamily\thepage}}
         \renewcommand{\headrulewidth}{0.4pt}
@@ -271,7 +271,7 @@ latex_elements = {
     \fancypagestyle{plain}{
         \fancyhf{}
         \fancyhead[LE,LO]{{\py@HeaderFamily Validators CDMI Extension \version}}
-        \fancyfoot[LE,LO]{{\py@HeaderFamily \copyright \  SNIA 2023}}
+        \fancyfoot[LE,LO]{{\py@HeaderFamily \copyright \  SNIA 2024}}
         \fancyfoot[CE,CO]{{\py@HeaderFamily SNIA Working Draft}}
         \fancyfoot[RE,RO]{{\py@HeaderFamily\thepage}}
         \renewcommand{\headrulewidth}{0.4pt}
@@ -298,7 +298,7 @@ latex_elements = {
 # (source start file, target name, title,
 #  author, documentclass [howto, manual, or own class]).
 latex_documents = [
-    (master_doc, 'validators_2.0a.tex', 'Validators CDMI Extension 2.0a',
+    (master_doc, 'validators_2.0.2.tex', 'Validators CDMI Extension 2.0.2',
      'SNIA Working Draft', 'manual'),
 ]
 
@@ -312,8 +312,8 @@ latex_toplevel_sectioning = 'chapter'
 # (source start file, target name, title, author,
 #  dir menu entry, description, category)
 texinfo_documents = [
-    (master_doc, 'validators_2.0a', 'Validators CDMI Extension',
-     author, 'validators_2.0a', 'CDMI Extension',
+    (master_doc, 'validators_2.0.2', 'Validators CDMI Extension',
+     author, 'validators_2.0.2', 'CDMI Extension',
      'Miscellaneous'),
 ]
 
