@@ -1,0 +1,137 @@
+CDMI Extension
+==============
+
+S3 Exports CDMI Extension
+*************************
+
+Overview
+--------
+
+The existing CDMI specification permits CDMI containers to be declaratively exported via network protocols such as NFS, CIFS and iSCSI. As S3 protocol access to objects has become widely used, the same "exports" facility can be extended to support exporting a CDMI container as an S3 bucket to allow S3 clients to transparently access data stored on a storage system managed using CDMI.
+
+This extension proposes a new export protocol type of "s3", along with export parameters necessary for specifying how the contents of a container are mapped to an S3 bucket. This extension also includes required changes to permit mapping of allowable names, and handing for directories that contain a value, and values that contain a directory.
+
+Instructions to the Editor
+--------------------------
+
+To merge this extension into the CDMI 2.0.0 specification, make the following changes:
+
+terms.txt
+^^^^^^^^^
+
+Insert into preamble/terms.txt, as follows:
+
+.. glossary::
+
+    x.1
+    Bucket
+         |br| A container for objects in the S3 protocol |br|
+
+    x.2
+    S3 Protocol
+         |br| a widely used propritary object storage protocol developed by Amazon and used by the S3 "Simple Storage Service" |br|
+
+
+
+cdmi_capability_object.txt
+^^^^^^^^^^^^^^^^^^^^^^^^^^
+
+Add an entry to the end of the table starting on line 135 of cdmi_advanced/cdmi_capability_object.txt, as follows:
+
+.. tabularcolumns:: |>{\raggedright\arraybackslash}\Y{0.35}
+                    |>{\raggedright\arraybackslash}\Y{0.15}
+                    |>{\raggedright\arraybackslash}\Y{0.50}|
+
+.. _tbl_system_wide_capabilities:
+
+.. list-table:: System-wide capabilities
+    :class: longtable
+    :header-rows: 1
+    :align: center 
+
+    * - Capability name    
+      - Type    
+      - Definition
+    * - ``cdmi_export_s3``
+      - JSON string    
+      - If present and "``true``", the CDMI server supports S3 exports.
+    * - ``cdmi_container_values``
+      - JSON string    
+      - If present and ``true``", the CDMI server supports value storage and access for containers.
+    * - ``cdmi_dataobject_children``
+      - JSON string    
+      - If present and ``true``", the CDMI server supports children storage and access for data objects.
+
+
+
+cdmi_exports.txt
+^^^^^^^^^^^^^^^^
+
+13.1 Overview
+-------------
+
+Add "S3 Bucket" to the end of the example list at the end of the second bullet.
+
+
+13.2.2 Container object export fields
+-------------------------------------
+
+Replace "ACL" with "CDMI ACL" at the end of the third bullet.
+
+.. _ref_s3_exported_protocol:
+
+13.8 S3 exported protocol
+-------------------------
+
+Add new section, with the following text:
+
+An S3 export specifies the information required by an S3 server to provide S3 protocol access to a bucket.
+
+Elements for an S3 export are described in :numref:`tbl_elements_of_the_s3_protocol_structure`.
+
+.. tabularcolumns:: |>{\raggedright\arraybackslash}\Y{0.20}
+                    |>{\raggedright\arraybackslash}\Y{0.10}
+                    |>{\raggedright\arraybackslash}\Y{0.55}
+                    |>{\raggedright\arraybackslash}\Y{0.15}|
+
+.. _tbl_elements_of_the_s3_protocol_structure:
+
+.. list-table:: Elements of the S3 protocol export structure
+    :class: longtable
+    :header-rows: 1
+    :align: center 
+
+    * - Element
+      - Type
+      - Description
+      - Requirement
+    * - ``type``
+      - JSON String
+      - The export type is set to "``S3``"
+      - Mandatory
+    * - ``bucket``
+      - JSON String
+      - The name of the bucket that the container should be exported in. This value must be between 3 and 63 characters in length, and shall only include lowercase letters, numbers, non-repeating dots ("``.``") and non-repeating hyphens ("``-``").
+      - Mandatory
+    * - ``read_only``
+      - JSON String
+      - This value shall be either "``true``" or "``false``". The default shall be "``false``". When true, no modifications will be permitted to be made through the S3 protocol. If not present, the default value shall be used.
+      - Optional
+    * - ``public``
+      - JSON String
+      - This value shall be either "``true``" or "``false``". The default shall be "``false``". When true, no access control checks will be performed for operations performed using the S3 protocol. If not present, the default value shall be used.
+      - Optional
+
+EXAMPLE 6: S3 exports
+
+  .. code-block:: none
+
+    {
+        "exports" : {
+            "1" : {
+                "type" : "s3",
+                "bucket" : "mybucket",
+                "read_only" : "true"
+            }
+        }
+    }
