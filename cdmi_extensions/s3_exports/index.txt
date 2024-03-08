@@ -9,7 +9,7 @@ Overview
 
 The existing CDMI specification permits CDMI containers to be declaratively exported via network protocols such as NFS, CIFS and iSCSI. As S3 protocol access to objects has become widely used, the same "exports" facility can be extended to support exporting a CDMI container as an S3 bucket to allow S3 clients to transparently access data stored on a storage system managed using CDMI.
 
-This extension proposes a new export protocol type of "s3", along with export parameters necessary for specifying how the contents of a container are mapped to an S3 bucket. This extension also includes required changes to permit mapping of allowable names, and handing for directories that contain a value, and values that contain a directory.
+This extension proposes a new export protocol type of "s3", along with export parameters necessary for specifying how the contents of a container are mapped to an S3 bucket. This extension also includes required changes to permit mapping of allowable names, handing for directories that contain a value, and values that contain a directory.
 
 Instructions to the Editor
 --------------------------
@@ -24,12 +24,16 @@ Insert into preamble/terms.txt, as follows:
 .. glossary::
 
     x.1
-    Bucket
-         |br| A container for objects in the S3 protocol |br|
+    S3 bucket
+         |br| a distinctly named logical grouping of objects made available using the S3 protocol |br|
 
     x.2
-    S3 Protocol
-         |br| a widely used propritary object storage protocol developed by Amazon and used by the S3 "Simple Storage Service" |br|
+    S3 bucket properties
+         |br| behavioural settings associated with an S3 bucket. |br|
+
+    x.3
+    S3 protocol
+         |br| a widely used proprietary object storage protocol developed by Amazon and used by the S3 "Simple Storage Service" |br|
 
 
 
@@ -107,11 +111,11 @@ Elements for an S3 export are described in :numref:`tbl_elements_of_the_s3_proto
       - Requirement
     * - ``type``
       - JSON String
-      - The export type is set to "``S3``"
+      - The export type is set to "``s3``"
       - Mandatory
-    * - ``bucket``
+    * - ``bucketname``
       - JSON String
-      - The name of the bucket that the container should be exported in. This value must be between 3 and 63 characters in length, and shall only include lowercase letters, numbers, non-repeating dots ("``.``") and non-repeating hyphens ("``-``").
+      - The name of the bucket into which the container should be exported. This value shall be between 3 and 63 characters in length, and shall only include lowercase ASCII letters [a-z], ASCII numbers [0-9], non-consecutive repeating periods ("``.``") and non-consecutive repeating hyphens ("``-``").
       - Mandatory
     * - ``read_only``
       - JSON String
