@@ -59,12 +59,91 @@ Add an entry to the end of the table starting on line 135 of cdmi_advanced/cdmi_
     * - ``cdmi_export_s3``
       - JSON string    
       - If present and "``true``", the CDMI server supports S3 exports.
-    * - ``cdmi_container_values``
+    * - ``cdmi_containers``
       - JSON string    
-      - If present and ``true``", the CDMI server supports value storage and access for containers.
-    * - ``cdmi_dataobject_children``
+      - If present and ``true``", the CDMI server supports container objects.
+    * - ``cdmi_dataobjects_as_`` :math:`\newline\color{red}\hookrightarrow` ``containers``
       - JSON string    
-      - If present and ``true``", the CDMI server supports children storage and access for data objects.
+      - If present and ``true``", the CDMI server supports accessing data objects as container objects.
+    * - ``cdmi_containers_as_`` :math:`\newline\color{red}\hookrightarrow` ``dataobjects``
+      - JSON string    
+      - If present and ``true``", the CDMI server supports accessing container objects as data objects.
+
+
+Add an entry to the end of the table starting on line 612 of cdmi_advanced/cdmi_capability_object.txt, as follows:
+
+.. tabularcolumns:: |>{\raggedright\arraybackslash}\Y{0.35}
+                    |>{\raggedright\arraybackslash}\Y{0.15}
+                    |>{\raggedright\arraybackslash}\Y{0.50}|
+
+.. _tbl_capabilities_for_data_objects:
+
+.. list-table:: Capabilities for data objects
+    :class: longtable
+    :header-rows: 1
+    :align: center 
+
+    * - Capability name    
+      - Type    
+      - Definition
+    * - ``cdmi_as_container``
+      - JSON string    
+      - If present and "``true``", this capability indicates that the CDMI server shall support the ability to access the data object as a container.
+
+
+Add an entry to the end of the table starting on line 668 of cdmi_advanced/cdmi_capability_object.txt, as follows:
+
+.. tabularcolumns:: |>{\raggedright\arraybackslash}\Y{0.35}
+                    |>{\raggedright\arraybackslash}\Y{0.15}
+                    |>{\raggedright\arraybackslash}\Y{0.50}|
+
+.. _tbl_capabilities_for_containers:
+
+.. list-table:: Capabilities for container objects
+    :class: longtable
+    :header-rows: 1
+    :align: center 
+
+    * - Capability name    
+      - Type    
+      - Definition
+    * - ``cdmi_as_dataobject``
+      - JSON string    
+      - If present and "``true``", this capability indicates that the CDMI server shall support the ability to access the container as a data object.
+
+
+
+http_container_object/read.txt
+^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+
+7.3 Read a container object using HTTP
+--------------------------------------
+
+Replace the first paragraph with:
+
+Reading a container object using HTTP is only defined if a data object representation exists for that container. If this is the case, the process described in clause 6.3. If a data object representation does not exist for the container, a server is allowed to return an error response, or to implement custom responses such as an Apache directory listing or an S3-style bucket listing.
+
+
+cdmi_data_object/overview.txt
+^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+
+8.2.7 Data object representations
+---------------------------------
+
+Add new paragraph to end of section:
+
+If the ``cdmi_dataobjects_as_containers`` capability is supported by the CDMI server and the ``cdmi_as_container`` capability is present for the data object, CDMI servers shall return a container object representations of a data object when created updated or requested by specifying a ``Content-Type`` and/or ``Accept`` header the vaue of ``application/cdmi-container``. The CDMI server shall also support the creation, modification and access to child objects by URI under any data object.
+
+
+cdmi_container_object/overview.txt
+^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+
+9.2.6 Container object representations
+---------------------------------
+
+Add new paragraph to end of section:
+
+If the ``cdmi_containers_as_dataobjects`` capability is supported by the CDMI server and the ``cdmi_as_dataobject`` capability is present for the container object, CDMI servers shall return a data object representations of a container object when created updated or requested by specifying a ``Content-Type`` and/or ``Accept`` header the vaue of ``application/cdmi-container``. The CDMI server shall also support storing and accessing a value associated with a container object.
 
 
 

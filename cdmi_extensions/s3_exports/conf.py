@@ -182,7 +182,7 @@ latex_maketitle = r'''
         \begin{center}
             {\Large SNIA Working Draft }\par
             \vspace{36pt}
-            {\Large March 8, 2024 }\par
+            {\Large March 29, 2024 }\par
         \end{center}
         \setcounter{footnote}{0}
         \let\thanks\relax\let\maketitle\relax
@@ -312,8 +312,8 @@ latex_toplevel_sectioning = 'chapter'
 # (source start file, target name, title, author,
 #  dir menu entry, description, category)
 texinfo_documents = [
-    (master_doc, 's3_exports_2.0.2', 'S3 Exports CDMI Extension',
-     author, 's3_exports_2.0.2', 'CDMI Extension',
+    (master_doc, 's3_exports_2.0.0', 'S3 Exports CDMI Extension',
+     author, 's3_exports_2.0.0', 'CDMI Extension',
      'Miscellaneous'),
 ]
 
