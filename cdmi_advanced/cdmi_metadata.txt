@@ -203,7 +203,9 @@ Which storage system metadata is supported by the CDMI server defined in :numref
       - Optional
     * - ``cdmi_representations``
       - JSON object
-      - Contains a list of supported representations for the object, container or queue. The format of the list is a comma-seperated list of media-range values as specified in RFC 9110.
+      - Contains one or more JSON objects, one for each supported representation for the object, container or queue. The format for the name of each contained representation JSON object shall be an RFC 9110 media-range. Each contained representation JSON object in turn contains CDMI storage system metadata for the representation that overrides the object, container or queue storage system metadata. Other contained metadata items shall be ignored by CDMI clients and CDMI servers.
+
+        An empty object indicates that representations exist, but no representations are available to the user.
       - Optional
 
 .. _ref_support_for_data_system_metadata:
@@ -526,12 +528,12 @@ Which data system metadata is supported by the CDMI server defined in :numref:`%
         * If ``cdmi_versions_size`` is present, historic versions should be retained until the total storage consumption in bytes of the historical versions exceeds the value contained in ``cdmi_versions_size``.
         * If the total size consumed by historical versions exceeds the value specified, historical versions should be deleted from the oldest to the newest until the total storage consumption of historical versions is equal or less than the value contained in ``cdmi_versions_size``.
       - Optional
-    * - ``cdmi_representation``
+    * - ``cdmi_representation_default``
       - JSON string
-      - If this data system metadata item is present and not an empty string, it indicates that the client is requesting a specific representation be provided for the CDMI object, container or queue. The representation shall be specified as a media-range as specified in RFC 9110.
+      - If this data system metadata item is present and not an empty string, it indicates that the client is requesting a specific representation be provided when a representation is not specifically requested for the CDMI object, container or queue. The default representation shall be specified as an RFC 9110 media-range.
 
-        * If ``cdmi_representation`` is not present, the default representation shall be the stored representation.
-        * If ``cdmi_representation`` is present and if the CDMI server supports the specified representation, the specified representation shall be provided as the data object value, container children or queue values, and the ``cdmi_representation_provided`` shall be set to the specified value.
+        * If ``cdmi_representation_default`` is not present, the default representation provided shall be determined by the CDMI server.
+        * If ``cdmi_representation_default`` is present, and the requested default representation is both supported by the CDMI server and is authorized for the user, the default representation provided shall be the representation specified in this metadata item.
       - Optional
 
 .. _ref_support_for_provided_data_system_metadata:
@@ -637,9 +639,9 @@ For each metadata item in a data system, there is an actual value that the cloud
       - JSON string
       - Contains the maximum amount of space that can be used to retain historical versions, in bytes.
       - Optional
-    * - ``cdmi_representation_provided``
+    * - ``cdmi_representation_default_provided``
       - JSON string
-      - Indicates the object, container or queue representation being provided.
+      - Indicates the default representation being provided for the object, container or queue.
       - Optional
 
 .. _ref_support_for_user_metadata:
