@@ -36,7 +36,7 @@ extensions = ['sphinx.ext.autodoc',
     'sphinx.ext.todo',
     'sphinx.ext.coverage',
     'sphinxcontrib.bibtex']
-
+latex_table_style = []
 bibtex_bibfiles = ['references/refs.bib']
 
 # Add any paths that contain templates here, relative to this directory.
@@ -234,6 +234,10 @@ latex_elements = {
 
     'preamble': r'''
 
+    \usepackage{array}
+    \setlength\extrarowheight{4pt}
+
+    \usepackage{graphbox}
 
     % Make table headers lightgray
     \usepackage{colortbl}
