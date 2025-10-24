@@ -203,7 +203,7 @@ Which storage system metadata is supported by the CDMI server defined in :numref
       - Optional
     * - ``cdmi_representations``
       - JSON object
-      - Contains one or more JSON objects, one for each supported representation for the object, container or queue. The format for the name of each contained representation JSON object shall be an RFC 9110 media-range. Each contained representation JSON object in turn contains CDMI storage system metadata for the representation that overrides the object, container or queue storage system metadata. Other contained metadata items shall be ignored by CDMI clients and CDMI servers.
+      - Contains zero or more JSON objects, one for each supported representation for the object, container or queue. The format for the name of each contained representation JSON object shall be an RFC 9110 media-range. Each contained representation JSON object in turn contains CDMI storage system metadata for the representation that overrides the object, container or queue storage system metadata. Other contained metadata items shall be ignored by CDMI clients and CDMI servers.
       
         .. raw:: latex
 
@@ -229,6 +229,13 @@ Which storage system metadata is supported by the CDMI server defined in :numref
              /metadata/cdmi_representations/image%2Fjpeg/cdmi_size
              /metadata/cdmi_representations/image%2Fpng/
              /metadata/cdmi_representations/image%2Fpng/cdmi_size
+
+      
+        .. raw:: latex
+
+          \vspace*{1ex}
+
+        Representation JSON objects shall only be returned to a client if the client has ``CDMI_ACE_READ_METADATA`` access permission for the corresponding representation.
 
       - Optional
 
