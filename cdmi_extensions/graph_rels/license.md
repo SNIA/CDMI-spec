@@ -1,6 +1,6 @@
 USAGE
 
-Copyright © 2025 SNIA. All rights reserved. All other trademarks or registered trademarks are the property of their respective owners.
+Copyright © 2026 SNIA. All rights reserved. All other trademarks or registered trademarks are the property of their respective owners.
 
 SNIA hereby grants permission for individuals to use this document for personal use only, and for corporations and other business entities to use this document for internal use only (including internal copying, distribution, and display) provided that:
 
@@ -16,7 +16,7 @@ All code fragments, scripts, data tables, and sample code in this SNIA document 
 
 BSD 3-Clause Software License
 
-Copyright (c) 2025, The Storage Networking Industry Association.
+Copyright (c) 2026, The Storage Networking Industry Association.
 
 Redistribution and use in source and binary forms, with or without modification, are permitted provided that the following conditions are met:
 
@@ -28,12 +28,9 @@ Redistribution and use in source and binary forms, with or without modification,
 
 THIS SOFTWARE IS PROVIDED BY THE COPYRIGHT HOLDERS AND CONTRIBUTORS "AS IS" AND ANY EXPRESS OR IMPLIED WARRANTIES, INCLUDING, BUT NOT LIMITED TO, THE IMPLIED WARRANTIES OF MERCHANTABILITY AND FITNESS FOR A PARTICULAR PURPOSE ARE DISCLAIMED. IN NO EVENT SHALL THE COPYRIGHT OWNER OR CONTRIBUTORS BE LIABLE FOR ANY DIRECT, INDIRECT, INCIDENTAL, SPECIAL, EXEMPLARY, OR CONSEQUENTIAL DAMAGES (INCLUDING, BUT NOT LIMITED TO, PROCUREMENT OF SUBSTITUTE GOODS OR SERVICES; LOSS OF USE, DATA, OR PROFITS; OR BUSINESS INTERRUPTION) HOWEVER CAUSED AND ON ANY THEORY OF LIABILITY, WHETHER IN CONTRACT, STRICT LIABILITY, OR TORT (INCLUDING NEGLIGENCE OR OTHERWISE) ARISING IN ANY WAY OUT OF THE USE OF THIS SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
 
-\clearpage
 
 DISCLAIMER
 
 The information contained in this publication is subject to change without notice. SNIA makes no warranty of any kind with regard to this specification, including, but not limited to, the implied warranties of merchantability and fitness for a particular purpose. SNIA shall not be liable for errors contained herein or for incidental or consequential damages in connection with the furnishing, performance, or use of this specification.
 
 Suggestions for revisions should be directed to https://www.snia.org/feedback/.
-
-Copyright © 2025 SNIA. All rights reserved. All other trademarks or registered trademarks are the property of their respective owners.

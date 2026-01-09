@@ -1,23 +1,410 @@
-CDMI Extension
+CDMI extension
 ==============
 
-Graph Relationships CDMI Extension
-**********************************
+Graph relationships
+*******************
 
 Overview
 --------
 
-CDMI defines a standardized mechanism to associate system-defined and user-defined metadata with container objects, data objects and queue objects. The format of user-defined metadata is left to the user, and is not specified by the CDMI standard. Structured metadata that defines relationships between entities can be specified in multiple different ways, and is often included as user metadata. However, the lack of a standard representation inhibits interoperability.
+Support for graph relationships allows CDMI clients to store structured graph relationship metadata as part of each object's CDMI representation. Graph relationship metadata provides an interoperable way to store and exchange graph relationships, and provides a standardized way to specify graph relationships within CDMI objects, between CDMI objects, and between CDMI objects and external resources.
 
-This extension proposes a new type of metadata, "relationship" metadata, which can store typed graph relationships between different entities, including any URI-specified resource, any field within a CDMI object, and any literal value. This metadata builds on top of the W3C RDF and RDF* standards, and is intended to act as a superset representation of graph relationships commonly found in real-world datasets.
+A CDMI-enabled storage system may optionally implement support for graph relationships. Support for graph relationships is indicated to CDMI-enabled clients by the presence of the ``"cdmi_graph_rels"`` system-wide capability.
 
-Instructions to the Editor
---------------------------
+Supporting graph relationships enables following client value:
 
-To merge this extension into the CDMI 2.0.0 specification, make the following changes:
+* Graph relationship metadata consistency: By providing a standard way to represent graph relationships, clients no longer need to develop their own custom formats, which reduces design time.
 
-terms.txt
-^^^^^^^^^
+* Graph relationship metadata richness: By using an open and time-tested standard for representing graph relationships, clients are able to obtain the expressiveness that does not limit their required use cases.
+
+* Graph relationship metadata interoperability: By using a standard way to represent graph relationships, applications can discover, access and manipulate graph relationships in a consistent and constrained way, reducing implementation complexity and improving cross-application compatibility.
+
+Graph relationship ``rel`` field format
+---------------------------------------
+
+Top-level ``rel`` field format
+^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+
+Graph relationship metadata is stored in a ``rel`` JSON object at the top level of each CDMI object.
+
+.. code-block:: none
+
+  {
+      "rel": { }
+  }
+
+The ``rel`` field contains zero or one context objects, zero or more RDF triples and zero or more named graphs. 
+
+.. raw:: latex
+
+          \enlargethispage{1cm}
+
+Context object
+^^^^^^^^^^^^^^
+
+To reduce the length of predicate strings in RDF triples, an optional ``@context`` object can specify short name prefixes that are substituted when the corresponding long name is found at the beginning of predicate string values.
+
+.. code-block:: none
+
+  "@context": {
+    "short name": "long name"
+  }
+
+RDF triples
+^^^^^^^^^^^
+
+Each RDF triple JSON object shall contain a W3C RDF 1.2 Triple (See https://www.w3.org/TR/rdf12-primer/) specifying a metadata relationships as specified in the W3C RDF 1.1 JSON Alternate Serialization (see https://www.w3.org/TR/rdf-json/).
+
+RDF triples are defined as follows:
+
+.. code-block:: none
+  
+  "S": {"P": [{"value": "O"}, {"type": "T"}, {"datatype": "D"}, {"lang": "L"}]}
+
+In each RDF triple, S (subject), P (predicate) and O (object) are mandatory, and T (type), D (datatype) and L (language) are optional.
+
+Subjects, predicates and objects shall support absolute and relative URIs. When using a relative URI with a fragment identifier that refers to the contents of a JSON resource, RFC 6901 JSON pointer URI fragment identifier representations shall be used. For example, ``"#/value"`` refers to the value of a CDMI object, ``"#/metadata/cdmi_size"`` refers to the ``"cdmi_size"`` storage system metadata, and ``"#/rel/graph_name"`` refers to a named graph with the name ``"graph_name"``.
+
+**Example RDF triples**
+
+An example of a ``rel`` field with two RDF triples is shown below:
+
+.. code-block:: none
+  
+  {
+    "rel": {
+      "S": {"P": [{"value": "O"}]},
+      "S": {"P": [{"value": "O"}]}
+    }
+  }
+
+
+Named graphs
+^^^^^^^^^^^^
+
+Each named graph JSON array shall contain zero or more JSON objects, each of which contains zero or one context objects, zero or more RDF triples, and zero or more named graphs.
+
+Named graphs are defined as follows:
+
+.. code-block:: none
+  
+  "graph_name": [{ }]
+
+Context objects in named graphs override context objects in the ``rel`` field.
+
+**Example named graph**
+
+An example of a ``rel`` field with two named graphs is shown below:
+
+.. code-block:: none
+  
+  {
+    "rel": {
+      "graph_name_1": [
+        {
+          "S": {"P": [{"value": "O"}]}
+        }, {
+          "S": {"P": [{"value": "O"}]}
+        }
+      ],
+      "graph_name_2": [
+        {
+          "S": {"P": [{"value": "O"}]}
+        }, {
+          "sub_graph": [
+            {
+              "S": {"P": [{"value": "O"}]}
+            }
+          ]
+        }
+      ]
+    }
+  }
+
+.. raw:: latex
+
+          \newpage
+
+
+Examples
+--------
+
+**EXAMPLE 1:** Create a data object that contains a "publisher" graph relationship between the object's value and SNIA.
+
+HTTP request:
+
+.. code-block:: none
+
+  PUT /myContainer/document HTTP/1.1
+  Host: cloud.example.com
+  Accept: application/cdmi-object
+  Content-Type: application/cdmi-object
+  
+  {
+    "valuetransferencoding" : "json",
+    "mimetype" : "application/json",
+    "rel" : {
+      "#/value": { "http://purl.org/dc/elements/1.1/publisher": [ {
+        "value": "https://www.snia.org/",
+        "type": "uri" } ]
+      }
+    },
+    "value" : {
+    }
+  }
+
+HTTP response:
+
+.. code-block:: none
+
+  HTTP/1.1 201 Created
+  Content-Type: application/cdmi-object
+   
+  {
+    "objectType" : "application/cdmi-object",
+    "objectID" : "00007ED90010D891022876A8DE0BC0FD",
+    "objectName" : "document",
+    "parentURI" : "/myContainer/",
+    "parentID" : "00007E7F00102E230ED82694DAA975D2", 
+    "domainURI" : "/cdmi_domains/MyDomain/",
+    "capabilitiesURI" : "/cdmi_capabilities/dataobject/",
+    "completionStatus" : "Complete",
+    "mimetype" : "application/json",
+    "metadata" : {
+      "cdmi_size" : "314",
+      ...
+    },
+    "rel" : {
+      "#/value": { "http://purl.org/dc/elements/1.1/publisher": [ {
+        "value": "https://www.snia.org/",
+        "type": "uri" } ]
+        }
+      }
+    }
+  }
+
+
+.. raw:: latex
+
+          \newpage
+
+**EXAMPLE 2:** Read a container object that has descriptions of subdirectories.
+
+HTTP request:
+
+.. code-block:: none
+
+  GET /myContainer/?rel&children HTTP/1.1
+  Host: cloud.example.com
+  Accept: application/cdmi-container
+
+HTTP response:
+
+.. code-block:: none
+
+  HTTP/1.1 200 OK
+  Content-Type: application/cdmi-container
+   
+  {
+    "rel" : {
+      "@context": {
+        "dc": "http://purl.org/dc/terms/"
+      },
+      "#/children/red": { "dc:description": [ {
+        "value": "Images that are red",
+        "type": "literal" } ]
+        }
+      },
+      "#/children/green": { "dc:description": [ {
+        "value": "Images that are green",
+        "type": "literal" } ]
+        }
+      }
+    },
+    "children" : [
+      "red",
+      "green",
+      "yellow" 
+    ]
+  }
+
+
+.. raw:: latex
+
+          \newpage
+
+Graph relationship ``rel`` field validation
+-------------------------------------------
+
+A CDMI server that supports graph relationships shall enforce the above-described format, and return a ``400 Bad Request`` HTTP status code error on object creation or update if non-conforming ``rel`` field contents are provided. 
+
+The following schema shall be used to validate the contents of the ``rel`` field:
+
+.. code-block:: none
+  
+  {
+    "$schema": "http://json-schema.org/draft-04/schema#",
+    "id": "http://snia.org/cdmi/3.0/rel-schema.json#",
+    "definitions": {
+      "context": {
+          "type": "object",
+          "patternProperties": { ".*": { "type": "string" } },
+          "additionalProperties": false
+      },
+      "rdf_triple": {
+        "type": "object",
+        "patternProperties": {
+          ".*": {
+            "type": "array",
+            "items": {
+              "type": "object",
+              "properties": {
+                "value":    { "type": "string" },
+                "type":     { "type": "string" },
+                "datatype": { "type": "string" },
+                "lang":     { "type": "string" }
+              },
+              "required": ["value"],
+              "additionalProperties": false
+            }
+          }
+        },
+        "minProperties": 1,
+        "additionalProperties": false
+      },
+      "named_graph": {
+        "type": "array",
+        "items": {
+          "anyOf": [ { "$ref": "#/definitions/rdf_triple" },
+                     { "$ref": "#/definitions/rel",
+                       "minProperties": 1 }
+                   ]
+        },
+        "additionalProperties": false
+      },
+      "rel": {
+        "type": "object",
+        "properties": { "@context": { "$ref": "#/definitions/context" } },
+        "patternProperties": {
+          "^((?!@context).)*$": {
+            "anyOf": [ { "$ref": "#/definitions/rdf_triple" },
+                       { "$ref": "#/definitions/named_graph" }
+                     ]
+          }
+        },
+        "additionalProperties": false
+      }
+    },
+    "type": "object",
+    "properties": { "rel": { "$ref": "#/definitions/rel" } }
+  }
+
+CDMI implementations that do not support graph relationships shall preserve unsupported fields.
+
+.. raw:: latex
+
+          \newpage
+
+Backwards compatiblity
+----------------------
+
+Support for graph relationships adds a new top-level ``rel`` field. This field is ignored by CDMI clients that do not support graph relationships. Only CDMI clients that support graph relationships shall generate and process ``rel`` fields.
+
+CDMI servers that do not support graph relationships shall preserve ``rel`` fields without validation.
+
+.. tabularcolumns:: |>{\raggedright\arraybackslash}\Y{0.15}
+                    |>{\raggedright\arraybackslash}\Y{0.25}
+                    |>{\raggedright\arraybackslash}\Y{0.30}
+                    |>{\raggedright\arraybackslash}\Y{0.30}|
+
+.. _tbl_rel_backwards_compatiblity:
+
+.. list-table:: Graph Relationships Backwards Compatibility
+    :class: longtable
+    :header-rows: 1
+    :align: center 
+
+    * - Client Version    
+      - CDMI 1.X Server Mode   
+      - CDMI 2.0 Server Mode
+      - CDMI 3.0 Server Mode
+    * - CDMI 1.X Client Mode
+      - Default Behavour:
+        
+         - Client support not permitted
+         - Server support not permitted
+         - Server shall preserve ``rel`` fields when encountered
+         - Client shall ignore ``rel`` fields when encountered
+
+      - Not Supported
+      - Not Supported
+    * - CDMI 2.0 Client Mode
+      - N/A
+      - If CDMI Server supports graph relationships extension:
+
+         - Client may attach ``rel`` fields to CDMI objects
+         - Client may process ``rel`` fields attached to CDMI objects
+         - Server shall process ``rel`` fields attached to CDMI objects
+
+        If CDMI Server does not support graph relationships extension:
+
+         - Client shall not attach ``rel`` fields to CDMI objects
+         - Client may process ``rel`` fields attached to CDMI objects
+         - Server shall preserve ``rel`` fields when encountered
+
+      - If CDMI Server supports graph relationships:
+
+         - Client may attach ``rel`` fields to CDMI objects
+         - Client may process ``rel`` fields attached to CDMI objects
+         - Server shall process ``rel`` fields attached to CDMI objects
+
+        If CDMI Server does not support graph relationships:
+
+         - Client shall not attach ``rel`` fields to CDMI objects
+         - Client may process ``rel`` fields attached to CDMI objects
+         - Server shall preserve ``rel`` fields when encountered
+
+    * - CDMI 3.0 Client Mode
+      - N/A
+      - N/A
+      - If CDMI Server supports graph relationships:
+
+         - Client may attach ``rel`` fields to CDMI objects.
+         - Client may process ``rel`` fields attached to CDMI objects.
+
+        If CDMI Server does not support graph relationships:
+
+         - Client shall not attach ``rel`` fields to CDMI objects.
+         - Client may process ``rel`` fields attached to CDMI objects.
+
+
+.. raw:: latex
+
+          \newpage
+
+
+
+
+Instructions to the editor
+**************************
+
+Overview
+--------
+
+In addition to adding the preceding clause, incorporating this extension into the CDMI 2.0 specification requires the following changes to be made to the specification document.
+
+Normative references
+--------------------
+
+Insert into preamble/normative_refences.txt, as follows:
+
+RFC 6901, *JavaScript Object Notation (JSON) Pointer* - see :cite:`rfc6901`
+
+W3C RDF/JSON, *RDF 1.1 JSON Alternate Serialization (RDF/JSON)* - see :cite:`rdfjson`
+
+
+Terms, acronyms, and definitions
+--------------------------------
 
 Insert into preamble/terms.txt, as follows:
 
@@ -39,10 +426,22 @@ Insert into preamble/terms.txt, as follows:
     graph predicate
          |br| the type of relationship between a graph subject and a graph object |br|
 
+    x.5
+    named graph
+         |br| a graph that has an associated name |br|
+
+    x.6
+    RDF
+         |br| Resource Description Framework |br|
+
+    x.7
+    RDF triple
+         |br| three components: a graph subject, a graph predicate, and a graph object |br|
 
 
-cdmi_capability_object.txt
-^^^^^^^^^^^^^^^^^^^^^^^^^^
+
+Cloud storage system-wide capabilities
+--------------------------------------
 
 Add an entry to the end of the table starting on line 135 of cdmi_advanced/cdmi_capability_object.txt, as follows:
 
@@ -63,126 +462,4 @@ Add an entry to the end of the table starting on line 135 of cdmi_advanced/cdmi_
     * - ``cdmi_graph_rels``
       - JSON string    
       - If present and "``true``", indicates that the CDMI server supports graph relationships.
-
-
-graph_relationships.txt
-^^^^^^^^^^^^^^^^^^^^^^^
-
-Create new clause, "cdmi_graph_relationships.txt" after existing clause 25 "Data Object Versions", as follows.
-
-.. _ref_graphrels:
-
-Graph Relationships
-*******************
-
-Overview
---------
-
-A cloud storage system may optionally implement the storage of graph relationships. Graph relationship implementation is indicated by the presence of the cloud storage system-wide capability for graph relationships.
-
-Graph relationships allow CDMI clients to add graph relationships as structured metadata included with each object. This provides a standard and interoperable way to store and exchange graph relationships associated with a given object, and provides a standardized way to specify graph relationships within, between and externally from CDMI objects.
-
-CDMI implementations that preserve unsupported fields are compatible with this extension without modification. A capability is provided to allow clients to ensure that this field will be preserved and that the format defined will be enforced.
-
-Supporting graph relationships enables following client value:
-
-* Metadata format consistency: By providing a standard way to represent graph relationships, clients no longer need to develop their own custom formats, which reduces design time.
-
-* Metadata format richness: By using an open and time-tested standard for representing graph relationships, clients are able to obtain the expressiveness that will not limit their required use cases.
-
-* Metadata interoperability: By using a standard way to represent graph relationships, applications can discover, access and manipulate graph relationships in a consistent and constrained way, reducing implementation complexity and improving cross-application compatibility.
-
-Graph Relationship Format
--------------------------
-
-Graph relationship metadata is stored in a ``rel`` JSON object field within each CDMI object. These relationships are specified as RDF 1.2 Triplets (See https://www.w3.org/TR/rdf12-primer/). The ``rel`` JSON object contains zero or more RDF triplets in as described in the RDF 1.1 JSON Alternate Serialization (see https://www.w3.org/TR/rdf-json/) and zero or more named graphs, which are arrays containing one or more JSON objects that contain zero or more RDF triplets and zero or more named graphs.
-
-RDF triplets are defined as follows:
-
-.. code-block:: none
-  
-  "S": {"P": [{"value": "O"}, {"type": "T"}, {"datatype": "D"}, {"lang": "L"}]}
-
-Where S, P and O are mandatory, and T, D and L are optional.
-
-Named graphs are defined as follows:
-
-.. code-block:: none
-  
-  "graph_name": [{ }]
-
-An example of a rel field with two RDF triplets and a named graph with one RDF triplet is shown below:
-
-.. code-block:: none
-  
-  {
-    "rel": {
-      "S": {"P": [{"value": "O"}]},
-      "S": {"P": [{"value": "O"}]},
-      "graph_name": [{
-        "S": {"P": [{"value": "O"}]}
-      }]
-    }
-  }
-
-Subjects, predicates and objects shall support relative URIs. For example, ``".#/value"`` refers to the value of the object, and ``".#/rel/graph_name/"`` refers to the named graph ``"graph_name"``. This permits the inclusion of graphs without requiring updating the object fields of RDF triplets that refer to them.
-
-A CDMI server must enforce the above format and return an error on object creation or update if a non-conforming contents of the ``rel`` field is provided. 
-
-.. raw:: latex
-
-          \newpage
-
-
-Examples
---------
-
-EXAMPLE 1: Create a data object that contains a "publisher" graph relationship between the object's value and SNIA.
-
-.. code-block:: none
-
-  --> PUT /myContainer/document HTTP/1.1
-  --> Host: cloud.example.com
-  --> Accept: application/cdmi-object
-  --> Content-Type: application/cdmi-object
-  --> 
-  --> {
-  -->   "valuetransferencoding" : "json",
-  -->   "mimetype" : "application/schema+json",
-  -->   "rel" : {
-  -->     ".#/value": { "http://purl.org/dc/elements/1.1/publisher": [ {
-  -->       "value": "https://www.snia.org/",
-  -->       "type": "uri" } ]
-  -->     }
-  -->   },
-  -->   "value" : {
-  -->   }
-  --> }
-
-  <-- HTTP/1.1 201 Created
-  <-- Content-Type: application/cdmi-object
-  <--  
-  <-- {
-  <--   "objectType" : "application/cdmi-object",
-  <--   "objectID" : "00007ED90010D891022876A8DE0BC0FD",
-  <--   "objectName" : "document",
-  <--   "parentURI" : "/myContainer/",
-  <--   "parentID" : "00007E7F00102E230ED82694DAA975D2", 
-  <--   "domainURI" : "/cdmi_domains/MyDomain/",
-  <--   "capabilitiesURI" : "/cdmi_capabilities/dataobject/",
-  <--   "completionStatus" : "Complete",
-  <--   "mimetype" : "application/schema+json",
-  <--   "metadata" : {
-  <--     "cdmi_size" : "314",
-  <--     ...
-  <--   },
-  <--   "rel" : {
-  <--     ".#/value": { "http://purl.org/dc/elements/1.1/publisher": [ {
-  <--       "value": "https://www.snia.org/",
-  <--       "type": "uri" } ]
-  <--       }
-  <--     }
-  <--   }
-  <-- }
-
 
